@@ -1287,11 +1287,11 @@
     
     
     <entry>
-      <title>015_Java_ES</title>
-      <link href="/2020/05/06/elasticsearch/015-java-es/"/>
-      <url>/2020/05/06/elasticsearch/015-java-es/</url>
+      <title>014_Elastic解决方案</title>
+      <link href="/2020/05/06/elasticsearch/014-elastic-jie-jue-fang-an/"/>
+      <url>/2020/05/06/elasticsearch/014-elastic-jie-jue-fang-an/</url>
       
-        <content type="html"><![CDATA[<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z /]# vim /etc/my.cnf[root@izwz920kp0myp15p982vp4z /]# systemctl restart mysqld[root@izwz920kp0myp15p982vp4z /]# mysql -uroot -pEnter password:Welcome to the MySQL monitor.  Commands end with ; or \g.Your MySQL connection id is 3Server version: 5.7.30-log MySQL Community Server (GPL)Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.Oracle is a registered trademark of Oracle Corporation and/or itsaffiliates. Other names may be trademarks of their respectiveowners.Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.mysql> CREATE USER canal IDENTIFIED BY 'canal';Query OK, 0 rows affected (0.00 sec)mysql> GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';Query OK, 0 rows affected (0.00 sec)mysql> FLUSH PRIVILEGES;Query OK, 0 rows affected (0.00 sec)mysql>exitBye[root@izwz920kp0myp15p982vp4z /]#[root@izwz920kp0myp15p982vp4z /]# cd /usr/local/software/[root@izwz920kp0myp15p982vp4z software]# mkdir canal[root@izwz920kp0myp15p982vp4z software]# cd canal/[root@izwz920kp0myp15p982vp4z canal]# wget https://github.com/alibaba/canal/releases/download/canal-1.1.4/canal.deployer-1.1.4.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="待处理"><a href="#待处理" class="headerlink" title="待处理"></a>待处理</h1><p><a href="https://gitee.com/zxporz/ESClientRHL" target="_blank" rel="noopener">适配7.xES 基于 high level HTTP REST ful 客户端开发的</a></p><p><a href="https://note.youdao.com/ynoteshare1/index.html?id=b05bc822ea1afd4f2451fda3d8029862&type=note" target="_blank" rel="noopener">springboot 整合 es</a></p><p><a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" target="_blank" rel="noopener">官网的 API，包含 HTTP 和 TCP</a></p><p><a href="https://mp.weixin.qq.com/s/mmzeJd7jR32P8Y0GAEnXVA" target="_blank" rel="noopener">Jest 入门</a></p><p><a href="https://mp.weixin.qq.com/s/7Qc5hs1Pm76WyAFQEQgz3Q" target="_blank" rel="noopener">Canal 同步数据库</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Elastic-各类工具"><a href="#Elastic-各类工具" class="headerlink" title="Elastic 各类工具"></a>Elastic 各类工具</h1><ol><li><p>ELasticsearch 作为搜索引擎提高搜索速度</p></li><li><p>Kibana 作为一个 common 的 UI 管理界面，包含了很多模块的管理</p></li><li><p>Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出到其他目的地），相对于 Elastic 的其他数据抓取工具，它更专业，更全面，它提供了大量的插件可以进行更灵活的 ETL 工作。</p></li><li><p>Ingest Node 是 Elasticsearch 中的一种节点类型，或者一个节点可以扮演的角色，对通过 ES 的 REST api 的方式进入 ES 的数据进行预处理后再输入到 ES，相对 Logstash 来说能做的事情不多，但是也更方便</p></li><li><p>beats 是一类专门抓取<strong>特定数据</strong>的轻量ETL 工具的集合，例如 metric beat 用来抓取服务器硬件、操作系统、应用程序（规范、知名的）的指标数据；packetbeat 用来抓取网络流量数据；filebeat 用来抓取文件中的数据（通常可以用来抓取日志数据）等等。</p><p>它的轻量是相对于 Logstash 来说的，对于用户来说，beats 都是开箱即用的，只需要 enable 指定 beat 中的一些特定模块即可，但是 logstash 需要进行一些脚本配置的工作。但是相对于 logstash 来说，它只能完成对于特定数据的抓取工作。</p></li><li><p>APM 是 Elastic 公司开发的一款用来监控用户自己的程序的软件，实现原理是通过讲一个 APM agent 内嵌到用户的程序中，定时向 APM server 发送监控数据，然后APM server 将数据写入到 ES，最后在 Kibana 进行相关可视化操作。</p></li><li><p>Monitering 是 X-pack 中的一个免费模块，可以进行对 Elasticsearch 和 Kibana 的专业监控，它在 KIbana 中拥有一个独立的面板”堆栈检测”。</p></li><li><p>Alerting 也是 X-pack 中的一个收费模块，可以针对一定条件进行告警。</p></li><li><p>Machine Learning 也是 X-Pack 中的一个收费模块，可以对数据进行异常检测、预测。</p></li><li><p>Canvas 也是 X-Pack 中的一个免费模块，它在 Kibana 中也拥有一个独立的面板，可以用于创建”数据大屏”（例如机场大屏、秒杀流量大屏、用户数据大屏等等）</p></li></ol><h1 id="场景问题分类"><a href="#场景问题分类" class="headerlink" title="场景问题分类"></a>场景问题分类</h1><ol><li><p>针对异常检测的方案</p><p>对于 Elasticsearch、Kibana 本身的异常检测，我们通过 X-pack 的 monitering 即可解决。</p><p>对于一些通用软件的异常检测我们可以通过 metricbeat 实现。</p><p>对于应用程序的调用链路和性能检测通过 APM 实现（skywalking 待看）。</p><p>对于业务数据或者一些具体的业务异常，我们通过 filebeat、logstash、mq 等将具体的日志导入到 ES 中通过构建可视化组件、Dashboard、机器学习等进行异常检测。</p></li></ol>]]></content>
       
       
       <categories>
@@ -1312,11 +1312,11 @@
     
     
     <entry>
-      <title>014_Elastic解决方案</title>
-      <link href="/2020/05/06/elasticsearch/014-elastic-jie-jue-fang-an/"/>
-      <url>/2020/05/06/elasticsearch/014-elastic-jie-jue-fang-an/</url>
+      <title>015_Java_ES</title>
+      <link href="/2020/05/06/elasticsearch/015-java-es/"/>
+      <url>/2020/05/06/elasticsearch/015-java-es/</url>
       
-        <content type="html"><![CDATA[<h1 id="Elastic-各类工具"><a href="#Elastic-各类工具" class="headerlink" title="Elastic 各类工具"></a>Elastic 各类工具</h1><ol><li><p>ELasticsearch 作为搜索引擎提高搜索速度</p></li><li><p>Kibana 作为一个 common 的 UI 管理界面，包含了很多模块的管理</p></li><li><p>Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出到其他目的地），相对于 Elastic 的其他数据抓取工具，它更专业，更全面，它提供了大量的插件可以进行更灵活的 ETL 工作。</p></li><li><p>Ingest Node 是 Elasticsearch 中的一种节点类型，或者一个节点可以扮演的角色，对通过 ES 的 REST api 的方式进入 ES 的数据进行预处理后再输入到 ES，相对 Logstash 来说能做的事情不多，但是也更方便</p></li><li><p>beats 是一类专门抓取<strong>特定数据</strong>的轻量ETL 工具的集合，例如 metric beat 用来抓取服务器硬件、操作系统、应用程序（规范、知名的）的指标数据；packetbeat 用来抓取网络流量数据；filebeat 用来抓取文件中的数据（通常可以用来抓取日志数据）等等。</p><p>它的轻量是相对于 Logstash 来说的，对于用户来说，beats 都是开箱即用的，只需要 enable 指定 beat 中的一些特定模块即可，但是 logstash 需要进行一些脚本配置的工作。但是相对于 logstash 来说，它只能完成对于特定数据的抓取工作。</p></li><li><p>APM 是 Elastic 公司开发的一款用来监控用户自己的程序的软件，实现原理是通过讲一个 APM agent 内嵌到用户的程序中，定时向 APM server 发送监控数据，然后APM server 将数据写入到 ES，最后在 Kibana 进行相关可视化操作。</p></li><li><p>Monitering 是 X-pack 中的一个免费模块，可以进行对 Elasticsearch 和 Kibana 的专业监控，它在 KIbana 中拥有一个独立的面板”堆栈检测”。</p></li><li><p>Alerting 也是 X-pack 中的一个收费模块，可以针对一定条件进行告警。</p></li><li><p>Machine Learning 也是 X-Pack 中的一个收费模块，可以对数据进行异常检测、预测。</p></li><li><p>Canvas 也是 X-Pack 中的一个免费模块，它在 Kibana 中也拥有一个独立的面板，可以用于创建”数据大屏”（例如机场大屏、秒杀流量大屏、用户数据大屏等等）</p></li></ol><h1 id="场景问题分类"><a href="#场景问题分类" class="headerlink" title="场景问题分类"></a>场景问题分类</h1><ol><li><p>针对异常检测的方案</p><p>对于 Elasticsearch、Kibana 本身的异常检测，我们通过 X-pack 的 monitering 即可解决。</p><p>对于一些通用软件的异常检测我们可以通过 metricbeat 实现。</p><p>对于应用程序的调用链路和性能检测通过 APM 实现（skywalking 待看）。</p><p>对于业务数据或者一些具体的业务异常，我们通过 filebeat、logstash、mq 等将具体的日志导入到 ES 中通过构建可视化组件、Dashboard、机器学习等进行异常检测。</p></li></ol>]]></content>
+        <content type="html"><![CDATA[<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z /]# vim /etc/my.cnf[root@izwz920kp0myp15p982vp4z /]# systemctl restart mysqld[root@izwz920kp0myp15p982vp4z /]# mysql -uroot -pEnter password:Welcome to the MySQL monitor.  Commands end with ; or \g.Your MySQL connection id is 3Server version: 5.7.30-log MySQL Community Server (GPL)Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.Oracle is a registered trademark of Oracle Corporation and/or itsaffiliates. Other names may be trademarks of their respectiveowners.Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.mysql> CREATE USER canal IDENTIFIED BY 'canal';Query OK, 0 rows affected (0.00 sec)mysql> GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';Query OK, 0 rows affected (0.00 sec)mysql> FLUSH PRIVILEGES;Query OK, 0 rows affected (0.00 sec)mysql>exitBye[root@izwz920kp0myp15p982vp4z /]#[root@izwz920kp0myp15p982vp4z /]# cd /usr/local/software/[root@izwz920kp0myp15p982vp4z software]# mkdir canal[root@izwz920kp0myp15p982vp4z software]# cd canal/[root@izwz920kp0myp15p982vp4z canal]# wget https://github.com/alibaba/canal/releases/download/canal-1.1.4/canal.deployer-1.1.4.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="待处理"><a href="#待处理" class="headerlink" title="待处理"></a>待处理</h1><p><a href="https://gitee.com/zxporz/ESClientRHL" target="_blank" rel="noopener">适配7.xES 基于 high level HTTP REST ful 客户端开发的</a></p><p><a href="https://note.youdao.com/ynoteshare1/index.html?id=b05bc822ea1afd4f2451fda3d8029862&type=note" target="_blank" rel="noopener">springboot 整合 es</a></p><p><a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html" target="_blank" rel="noopener">官网的 API，包含 HTTP 和 TCP</a></p><p><a href="https://mp.weixin.qq.com/s/mmzeJd7jR32P8Y0GAEnXVA" target="_blank" rel="noopener">Jest 入门</a></p><p><a href="https://mp.weixin.qq.com/s/7Qc5hs1Pm76WyAFQEQgz3Q" target="_blank" rel="noopener">Canal 同步数据库</a></p>]]></content>
       
       
       <categories>
@@ -1752,6 +1752,31 @@
     
     
     <entry>
+      <title>测试文章</title>
+      <link href="/2020/02/16/untitled/"/>
+      <url>/2020/02/16/untitled/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试分类 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试标签 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>mysql随机</title>
       <link href="/2020/02/16/mysql/sui-ji/"/>
       <url>/2020/02/16/mysql/sui-ji/</url>
@@ -1804,6 +1829,33 @@
     
     
     <entry>
+      <title>rabbit mq 学习记录</title>
+      <link href="/2020/02/16/mq/rabbitmq/untitled/"/>
+      <url>/2020/02/16/mq/rabbitmq/untitled/</url>
+      
+        <content type="html"><![CDATA[<ol><li>多个 process 可以复用一个连接建立多信道进行多路复用发布消息</li><li>rabbit mq 背压基于 TCP 拥塞控制窗口通知实现，所以一个背压将会对一个 socket 即一个连接上所有信道产生影响</li></ol><blockquote><p>背压(Backpressurre)：</p><p><a href="https://www.zhihu.com/question/49618581" target="_blank" rel="noopener">https://www.zhihu.com/question/49618581</a></p><p><a href="https://lotabout.me/2020/Back-Pressure/#fnref1" target="_blank" rel="noopener">https://lotabout.me/2020/Back-Pressure/#fnref1</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> rabbit mq </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mq </tag>
+            
+            <tag> rabbit mq </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Redis Sentinel(哨兵) 文档</title>
       <link href="/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/"/>
       <url>/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/</url>
@@ -1846,33 +1898,6 @@
         <tags>
             
             <tag> redis实战 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>rabbit mq 学习记录</title>
-      <link href="/2020/02/16/mq/rabbitmq/untitled/"/>
-      <url>/2020/02/16/mq/rabbitmq/untitled/</url>
-      
-        <content type="html"><![CDATA[<ol><li>多个 process 可以复用一个连接建立多信道进行多路复用发布消息</li><li>rabbit mq 背压基于 TCP 拥塞控制窗口通知实现，所以一个背压将会对一个 socket 即一个连接上所有信道产生影响</li></ol><blockquote><p>背压(Backpressurre)：</p><p><a href="https://www.zhihu.com/question/49618581" target="_blank" rel="noopener">https://www.zhihu.com/question/49618581</a></p><p><a href="https://lotabout.me/2020/Back-Pressure/#fnref1" target="_blank" rel="noopener">https://lotabout.me/2020/Back-Pressure/#fnref1</a></p></blockquote>]]></content>
-      
-      
-      <categories>
-          
-          <category> rabbit mq </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> mq </tag>
-            
-            <tag> rabbit mq </tag>
             
         </tags>
       
