@@ -160,10 +160,10 @@
     <loc>https://honphanjohn.top/2020/02/16/web-qian-duan/jsonp-yuan-li/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/12/22/redis/redis-she-ji-yu-shi-jian/gai-lan/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/</loc>
+    <loc>https://honphanjohn.top/2020/12/22/redis/redis-she-ji-yu-shi-jian/gai-lan/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/</loc>
@@ -196,10 +196,10 @@
     <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-tuntap/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/namespace/7-user-namespace-clone-newuser-di-yi-bu-fen/</loc>
@@ -223,22 +223,22 @@
     <loc>https://honphanjohn.top/2020/02/16/linux/namespace/4-mount-namespaces-clone-newns/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/</loc>
-    <lastmod>2020-12-21</lastmod>
-  </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/container/rong-qi-gai-shu/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/namespace/1-namespace-gai-shu/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
+    <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/</loc>
+    <lastmod>2020-12-21</lastmod>
+  </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/2-chuang-jian-bing-guan-li-cgroup/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/4-xian-zhi-cgroup-de-nei-cun-shi-yong-subsystem-zhi-memory/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/3-xian-zhi-cgroup-de-jin-cheng-shu-subsystem-zhi-pids/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/3-xian-zhi-cgroup-de-jin-cheng-shu-subsystem-zhi-pids/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/cgroup/4-xian-zhi-cgroup-de-nei-cun-shi-yong-subsystem-zhi-memory/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/linux-jin-cheng-de-nei-cun-shi-yong-qing-kuang/</loc>
@@ -259,10 +259,10 @@
     <loc>https://honphanjohn.top/2020/02/16/linux/linux-xu-ni-wen-jian-xi-tong-jian-jie/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/linux-session-he-jin-cheng-zu-gai-shu/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/linux-session-he-jin-cheng-zu-gai-shu/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/linux-jiao-huan-kong-jian-swap-space/</loc>
