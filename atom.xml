@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-12-20T11:51:52.753Z</updated>
+  <updated>2020-12-21T04:41:50.765Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -17,49 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/12/20/mq/rabbitmq/untitled/"/>
-    <id>https://honphanjohn.top/2020/12/20/mq/rabbitmq/untitled/</id>
-    <published>2020-12-20T11:35:33.583Z</published>
-    <updated>2020-12-20T11:51:52.753Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;ol&gt;
-&lt;li&gt;多个 process 可以复用一个连接建立多信道进行多路复用发布消息&lt;/li&gt;
-&lt;li&gt;rabbit mq 背压基于 TCP 拥塞控制窗口通知实现，所以一个背压将会对一个 socket
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/12/14/django/untitled/"/>
-    <id>https://honphanjohn.top/2020/12/14/django/untitled/</id>
-    <published>2020-12-14T08:29:48.646Z</published>
-    <updated>2020-12-14T08:29:48.646Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
+    <title>nodejs 入门</title>
     <link href="https://honphanjohn.top/2020/12/11/web-qian-duan/nodejs/nodejs-ru-men/"/>
     <id>https://honphanjohn.top/2020/12/11/web-qian-duan/nodejs/nodejs-ru-men/</id>
     <published>2020-12-11T10:09:03.998Z</published>
-    <updated>2020-12-13T03:35:56.885Z</updated>
+    <updated>2020-12-21T04:41:50.765Z</updated>
     
     <summary type="html">
     
@@ -73,15 +35,19 @@
     
     </summary>
     
+      <category term="web前端" scheme="https://honphanjohn.top/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="nodejs" scheme="https://honphanjohn.top/tags/nodejs/"/>
     
   </entry>
   
   <entry>
-    <title></title>
+    <title>HTML简述序言</title>
     <link href="https://honphanjohn.top/2020/11/27/web-qian-duan/h5/html/"/>
     <id>https://honphanjohn.top/2020/11/27/web-qian-duan/h5/html/</id>
     <published>2020-11-27T03:25:32.151Z</published>
-    <updated>2020-11-27T05:52:07.774Z</updated>
+    <updated>2020-12-21T04:44:58.056Z</updated>
     
     <summary type="html">
     
@@ -96,20 +62,10 @@
     
     </summary>
     
+      <category term="web前端" scheme="https://honphanjohn.top/categories/web%E5%89%8D%E7%AB%AF/"/>
     
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/11/23/nginx/keepalived/"/>
-    <id>https://honphanjohn.top/2020/11/23/nginx/keepalived/</id>
-    <published>2020-11-23T06:56:31.127Z</published>
-    <updated>2020-11-23T06:56:49.130Z</updated>
     
-    <summary type="html">
-    
-    </summary>
-    
+      <category term="html" scheme="https://honphanjohn.top/tags/html/"/>
     
   </entry>
   
@@ -145,11 +101,11 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>《redis设计与实践》读书笔记</title>
     <link href="https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/"/>
     <id>https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/</id>
     <published>2020-11-01T00:58:28.597Z</published>
-    <updated>2020-11-01T01:45:42.589Z</updated>
+    <updated>2020-12-21T04:48:11.235Z</updated>
     
     <summary type="html">
     
@@ -163,6 +119,10 @@
     
     </summary>
     
+      <category term="redis" scheme="https://honphanjohn.top/categories/redis/"/>
+    
+    
+      <category term="redis设计与实践" scheme="https://honphanjohn.top/tags/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
     
   </entry>
   
@@ -190,11 +150,11 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>k8s概述</title>
     <link href="https://honphanjohn.top/2020/10/22/docker/k8s/"/>
     <id>https://honphanjohn.top/2020/10/22/docker/k8s/</id>
     <published>2020-10-22T07:15:53.404Z</published>
-    <updated>2020-12-21T02:50:25.160Z</updated>
+    <updated>2020-12-21T05:06:38.162Z</updated>
     
     <summary type="html">
     
@@ -209,6 +169,10 @@
     
     </summary>
     
+      <category term="k8s" scheme="https://honphanjohn.top/categories/k8s/"/>
+    
+    
+      <category term="k8s" scheme="https://honphanjohn.top/tags/k8s/"/>
     
   </entry>
   
@@ -453,6 +417,79 @@
         
         
           &lt;p&gt;aufs的全称是advanced multi-layered unification
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/</id>
+    <published>2020-10-19T07:12:50.139Z</published>
+    <updated>2020-10-19T07:13:01.316Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本文将对Linux下常见的几种文件系统进行对比，包括ext2、ext3、ext4、XFS和Btrfs，希望能帮助大家更好的选择合适的文件系统。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;内容来自于网上找的资料以及自己的一些经验，能力有限，错误在所难免，仅供参考&lt;/p&gt;
+&lt;/b
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/linux-xu-ni-wen-jian-xi-tong-jian-jie/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/linux-xu-ni-wen-jian-xi-tong-jian-jie/</id>
+    <published>2020-10-19T07:11:57.225Z</published>
+    <updated>2020-10-19T07:12:29.675Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本文将对Linux下的VFS做一个简单介绍，主要包括VFS里面的一些概念，以及文件系统是如何与VFS交互的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文所涉及的代码摘自Linux-4.4.0-59&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;什么是VFS&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/</id>
+    <published>2020-10-19T07:11:07.202Z</published>
+    <updated>2020-10-19T07:12:26.105Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在cgroup里面，跟CPU相关的子系统有&lt;a href=&quot;https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt&quot; target=&quot;_blank&quot;
         
       
     
