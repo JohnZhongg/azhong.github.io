@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-12-21T04:41:50.765Z</updated>
+  <updated>2020-12-21T06:56:57.656Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -15,6 +15,88 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue 学习资料</title>
+    <link href="https://honphanjohn.top/2020/12/21/web-qian-duan/vue-xue-xi-zi-liao/"/>
+    <id>https://honphanjohn.top/2020/12/21/web-qian-duan/vue-xue-xi-zi-liao/</id>
+    <published>2020-12-21T06:56:08.701Z</published>
+    <updated>2020-12-21T06:56:57.656Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;a href=&quot;https://cn.vuejs.org/v2/guide/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;基本功能&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://cli.vuejs.org/zh/&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="web前端" scheme="https://honphanjohn.top/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="vue" scheme="https://honphanjohn.top/tags/vue/"/>
+    
+      <category term="学习资料" scheme="https://honphanjohn.top/tags/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Eureka的自我保护机制</title>
+    <link href="https://honphanjohn.top/2020/12/21/springcloud/eureka-de-zi-wo-bao-hu-ji-zhi/"/>
+    <id>https://honphanjohn.top/2020/12/21/springcloud/eureka-de-zi-wo-bao-hu-ji-zhi/</id>
+    <published>2020-12-21T06:53:15.510Z</published>
+    <updated>2020-12-21T06:54:38.858Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;自我保护机制介绍&quot;&gt;&lt;a href=&quot;#自我保护机制介绍&quot; class=&quot;headerlink&quot; title=&quot;自我保护机制介绍&quot;&gt;&lt;/a&gt;自我保护机制介绍&lt;/h1&gt;&lt;p&gt;当检测到同时有大量已注册客户端因为非正常断开连接然后准备从注册列表剔除，Eureka
+        
+      
+    
+    </summary>
+    
+      <category term="springcloud" scheme="https://honphanjohn.top/categories/springcloud/"/>
+    
+    
+      <category term="eureka" scheme="https://honphanjohn.top/tags/eureka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux的fork()和exec()</title>
+    <link href="https://honphanjohn.top/2020/12/21/linux/personal/linux-de-fork-he-exec/"/>
+    <id>https://honphanjohn.top/2020/12/21/linux/personal/linux-de-fork-he-exec/</id>
+    <published>2020-12-21T06:51:50.316Z</published>
+    <updated>2020-12-21T06:52:42.330Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;fork 会基于现有的进程复制一个子进程出来，该子进程代码空间和数据空间都指向父进程的物理空间。只要两个进程的任一个对数据进行修改，此时会产生一个系统中断，中断处理函数对该数据所在内存单元进行拷贝副本到子进程，然后再进行后续操作。即为写时复制。&lt;/p&gt;
+&lt;p&gt;fork
+        
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://honphanjohn.top/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://honphanjohn.top/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>nodejs 入门</title>
@@ -455,85 +537,6 @@
         
         
           &lt;h1 id=&quot;String的基本特性&quot;&gt;&lt;a href=&quot;#String的基本特性&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>08_执行引擎</title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/</id>
-    <published>2020-09-17T02:12:08.209Z</published>
-    <updated>2020-12-21T04:58:56.691Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;一、编译原理&quot;&gt;&lt;a href=&quot;#一、编译原理&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>07_直接内存</title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/</id>
-    <published>2020-09-17T01:32:51.984Z</published>
-    <updated>2020-12-21T04:58:53.931Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;直接内存概述&quot;&gt;&lt;a href=&quot;#直接内存概述&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>09_对象</title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/</id>
-    <published>2020-09-16T23:26:53.577Z</published>
-    <updated>2020-12-21T04:59:00.277Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;一、对象的实例化&quot;&gt;&lt;a href=&quot;#一、对象的实例化&quot; class=&quot;headerlink&quot; title=&quot;一、对象的实例化&quot;&gt;&lt;/a&gt;一、对象的实例化&lt;/h1&gt;&lt;h2 id=&quot;思维导图&quot;&gt;&lt;a href=&quot;#思维导图&quot;
         
       
     
