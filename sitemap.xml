@@ -373,7 +373,7 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/</loc>
     
     <lastmod>2020-12-21T16:40:23.422Z</lastmod>
     
@@ -387,7 +387,7 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/</loc>
     
     <lastmod>2020-12-21T16:40:23.422Z</lastmod>
     
@@ -429,13 +429,6 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/</loc>
-    
-    <lastmod>2020-12-21T16:40:23.415Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/network/netfilteriptables-jian-jie/</loc>
     
     <lastmod>2020-12-21T16:40:23.415Z</lastmod>
@@ -443,14 +436,21 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-tuntap/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/</loc>
+    
+    <lastmod>2020-12-21T16:40:23.415Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/</loc>
     
     <lastmod>2020-12-21T16:40:23.414Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-tuntap/</loc>
     
     <lastmod>2020-12-21T16:40:23.414Z</lastmod>
     
@@ -471,13 +471,6 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/7-user-namespace-clone-newuser-di-yi-bu-fen/</loc>
-    
-    <lastmod>2020-12-21T16:40:23.412Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/namespace/8-user-namespace-clone-newuser-di-er-bu-fen/</loc>
     
     <lastmod>2020-12-21T16:40:23.412Z</lastmod>
@@ -485,14 +478,21 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/7-user-namespace-clone-newuser-di-yi-bu-fen/</loc>
+    
+    <lastmod>2020-12-21T16:40:23.412Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/6-network-namespace-clone-newnet/</loc>
     
     <lastmod>2020-12-21T16:40:23.411Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/6-network-namespace-clone-newnet/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/</loc>
     
     <lastmod>2020-12-21T16:40:23.411Z</lastmod>
     
@@ -527,14 +527,14 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/1-namespace-gai-shu/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/container/rong-qi-gai-shu/</loc>
     
     <lastmod>2020-12-21T16:40:23.409Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/container/rong-qi-gai-shu/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/namespace/1-namespace-gai-shu/</loc>
     
     <lastmod>2020-12-21T16:40:23.409Z</lastmod>
     
@@ -611,13 +611,6 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/</loc>
-    
-    <lastmod>2020-12-21T16:40:23.405Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://honphanjohn.top/2020/02/16/linux/linux-jiao-huan-kong-jian-swap-space/</loc>
     
     <lastmod>2020-12-21T16:40:23.405Z</lastmod>
@@ -625,14 +618,21 @@
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/linux-ttypts-gai-shu/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/</loc>
+    
+    <lastmod>2020-12-21T16:40:23.405Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://honphanjohn.top/2020/02/16/linux/linux-mount-di-yi-bu-fen/</loc>
     
     <lastmod>2020-12-21T16:40:23.404Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://honphanjohn.top/2020/02/16/linux/linux-mount-di-yi-bu-fen/</loc>
+    <loc>https://honphanjohn.top/2020/02/16/linux/linux-ttypts-gai-shu/</loc>
     
     <lastmod>2020-12-21T16:40:23.404Z</lastmod>
     
