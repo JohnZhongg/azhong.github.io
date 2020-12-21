@@ -94,5 +94,5 @@ https://honphanjohn.top/2020/02/16/untitled/
 https://honphanjohn.top/2020/02/16/mysql/sui-ji/
 https://honphanjohn.top/2020/02/16/mysql/gao-ke-yong/
 https://honphanjohn.top/2020/02/16/mq/rabbitmq/untitled/
-https://honphanjohn.top/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/
 https://honphanjohn.top/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/
+https://honphanjohn.top/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/
