@@ -1163,13 +1163,13 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/3-ipc-namespace-clone-newipc/">
+                <a href="/2020/02/16/linux/namespace/6-network-namespace-clone-newnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="3、IPC namespace (CLONE_NEWIPC)">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="6、network namespace (CLONE_NEWNET)">
                         
-                        <span class="card-title">3、IPC namespace (CLONE_NEWIPC)</span>
+                        <span class="card-title">6、network namespace (CLONE_NEWNET)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1212,13 +1212,13 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/">
+                <a href="/2020/02/16/linux/namespace/7-user-namespace-clone-newuser-di-yi-bu-fen/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="5、pid namespace (CLONE_NEWPID)">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="7、user namespace (CLONE_NEWUSER) (第一部分)">
                         
-                        <span class="card-title">5、pid namespace (CLONE_NEWPID)</span>
+                        <span class="card-title">7、user namespace (CLONE_NEWUSER) (第一部分)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1259,43 +1259,6 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .
 </article>
 </div>
 
-
-<script>
-    $('#articleContent').on('copy', function (e) {
-        // IE8 or earlier browser is 'undefined'
-        if (typeof window.getSelection === 'undefined') return;
-
-        var selection = window.getSelection();
-        // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('120')) {
-            return;
-        }
-
-        // create a div outside of the visible area and fill it with the selected text.
-        var bodyElement = document.getElementsByTagName('body')[0];
-        var newdiv = document.createElement('div');
-        newdiv.style.position = 'absolute';
-        newdiv.style.left = '-99999px';
-        bodyElement.appendChild(newdiv);
-        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
-
-        // we need a <pre> tag workaround.
-        // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
-            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
-
-        var url = document.location.href;
-        newdiv.innerHTML += '<br />'
-            + '来源: 阿钟的博客<br />'
-            + '作者: 阿钟<br />'
-            + '链接: <a href="' + url + '">' + url + '</a><br />'
-            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
-
-        selection.selectAllChildren(newdiv);
-        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
-    });
-</script>
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
