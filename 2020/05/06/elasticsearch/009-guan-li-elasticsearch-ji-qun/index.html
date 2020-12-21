@@ -1,0 +1,3416 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content="[toc]
+安全集群身份认证与用户鉴权Elasticsearch 在默认安装后，不提供任何形式的安全防护。如果有些管理员为了配置方便，在 elasticsearch.yml 中配置 server.host 为0.0.0.0，此时如果该台 E">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>阿钟的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">阿钟的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">阿钟的博客</div>
+        <div class="logo-desc">
+            
+            广东工业大学 | 计算机科学与技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/JohnZhongg" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/JohnZhongg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        <span class="chip bg-color">无标签</span>
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-06
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    阿钟
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    28.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    113 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>[toc]</p>
+<h1 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h1><h3 id="集群身份认证与用户鉴权"><a href="#集群身份认证与用户鉴权" class="headerlink" title="集群身份认证与用户鉴权"></a>集群身份认证与用户鉴权</h3><p>Elasticsearch 在默认安装后，不提供任何形式的安全防护。如果有些管理员为了配置方便，在 elasticsearch.yml 中配置 server.host 为0.0.0.0，此时如果该台 ES 服务器是拥有一个公网 ip 的网络的接口的，那么外部就可以直接通过这个接口访问的 ES，而此时 ES 又是默认状态下没有任何的安全防护，此时外部就可以直接使用 ES api 随意获取数据。这种情况我们从两个角度讨论：</p>
+<ul>
+<li>在 ES 服务器拥有一个公网 ip 的情况下避免配置 server.host 为0.0.0.0；避免 ES 服务器拥有公网 ip，将其部署在内网环境中，并只分配内网 ip；nignx 反向代理。</li>
+<li>为 ES 开启它的 security 功能。在本节中我们重点讨论这一项。</li>
+</ul>
+<h4 id="数据安全性的基本要求"><a href="#数据安全性的基本要求" class="headerlink" title="数据安全性的基本要求"></a>数据安全性的基本要求</h4><ol>
+<li>身份认证，鉴定用户是否合法</li>
+<li>用户鉴权：指定哪个用户可以访问哪个索引并可以做哪些操作</li>
+<li>传输信息的加密</li>
+<li>需要拥有日志审计的机制，帮助我们了解过去 ES 集群中发生了什么 </li>
+</ol>
+<p>以下时解决数据安全性的一些免费方案：</p>
+<ul>
+<li><p>设置 Nignx 反向代理，避免前面讨论的安全问题1，隔绝外部其他未知访问。</p>
+</li>
+<li><p>安装免费的 Security 插件：</p>
+<p>Search Guard(有商业版和免费版)：<a href="https://search-guard.com/" target="_blank" rel="noopener">https://search-guard.com/</a></p>
+<p>ReadOnly REST：<a href="https://github.com/sscarduzio/elasticsearch-readonlyrest-plugin" target="_blank" rel="noopener">https://github.com/sscarduzio/elasticsearch-readonlyrest-plugin</a></p>
+</li>
+<li><p>X-Pack 的 Basic 版本：</p>
+<p>从 ES 6.8 &amp; ES 7.0开始，Security 纳入 x-pack 的 Basic 版本中，可以免费使用一些基本的功能：<a href="https://www.elastic.co/what-is/elastic-stack-security" target="_blank" rel="noopener">https://www.elastic.co/what-is/elastic-stack-security</a></p>
+</li>
+</ul>
+<h4 id="Authentication：身份认证"><a href="#Authentication：身份认证" class="headerlink" title="Authentication：身份认证"></a>Authentication：身份认证</h4><p>Authentication 主要分为两个体系：</p>
+<ol>
+<li>提供用户名和密码</li>
+<li>提供密钥或者 Kerberos</li>
+</ol>
+<p>在 ES 中，X-Pack 的认证服务功能称为 Realms。ES 中的 Realms 分为两种形式：</p>
+<ul>
+<li>一种是免费的，这种是 native（内置 Realms）的， 用户名和密码保存在 Elasticsearch 的索引当中的。</li>
+<li>另一种是通过和 LDAP、Active Directory、PKI、SAML、Kerberos 进行集成的外部(认证信息存储在外部) Realms，这种是收费的。</li>
+</ul>
+<h4 id="RBAC：用户鉴权"><a href="#RBAC：用户鉴权" class="headerlink" title="RBAC：用户鉴权"></a>RBAC：用户鉴权</h4><p>Role Based Access Control：定义一个角色，并分配一组权限。权限包括索引级、字段级、集群级的不同操作。然后通过将角色分配给用户，使得用户拥有这些权限。</p>
+<ul>
+<li>User：The authenticated user</li>
+<li>Role：A named set of permissions</li>
+<li>Permission：A set of ne or more privileges against a secured resouce</li>
+<li>Privilege：A named group of 1 or more actions that user may execute against a secured resource</li>
+</ul>
+<p>在 ES 中创建了以下 Privileges：</p>
+<ol>
+<li>Cluster Privileges：all、monitor、manager、manage_index、manage_index_template、manage_rollup</li>
+<li>Indices Privileges：all、create、create_index、delete、delete_index、index、manage、read、write、view_index_metadata</li>
+</ol>
+<p>另外 Elastic X-Pack 内置了一些用户和角色：</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220095202.png" alt="image-20200430135926838"></p>
+<p>当 ES 打开了 security 的功能之后，还可以使用 security 的功能去创建用户创建不同的角色：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220095420.png" alt="image-20200430140139471"></p>
+<h4 id="开启并配置-X-Pack-的认证与鉴权"><a href="#开启并配置-X-Pack-的认证与鉴权" class="headerlink" title="开启并配置 X-Pack 的认证与鉴权"></a>开启并配置 X-Pack 的认证与鉴权</h4><ol>
+<li><p>通过设置配置项<code>xpack.security.enabled</code>为 true即可启动 X-Pack 的认证与鉴权功能，可以在命令启动的时候通过<code>-E xpack.security.enbaled=true</code>选项来设置；也可以通过修改 elasticsearch.yml 中设置<code>xpack.security.enabled: true</code>，在本例中，我们对 elasticsearch.yml 中进行如下配置：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">network.host: 0.0.0.0
+http.port: 9800
+transport.port: 9900
+discovery.seed_hosts: ["0.0.0.0", "[::1]"]
+cluster.initial_master_nodes: ["node0"]
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后启动 ES：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch -E node.name=node0 -E cluster.name=john -E path.data=node0_data<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>此时我们直接访问 ES 可以看到需要输入用户名：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220095431.png" alt="image-20200430143013548"></p>
+</li>
+<li><p>通过<code>bin/elasticsearch-setup-passwords interactive</code>设置在前面提到的 Xpack 中默认内置的用户密码，这里全部设置为<code>.ABCD45.</code>。（原来好像的命令是是<code>bin/elasticsearch-password interactive</code>）</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# ./bin/elasticsearch-setup-passwords interactive
+future versions of Elasticsearch will require Java 11; your Java version from [/usr/local/software/java/jdk1.8.0_231/jre] does not meet this requirement
+
+Failed to determine the health of the cluster running at http://172.18.93.184:9800
+Unexpected response code [503] from calling GET http://172.18.93.184:9800/_cluster/health?pretty
+Cause: master_not_discovered_exception
+
+It is recommended that you resolve the issues with your cluster before running elasticsearch-setup-passwords.
+It is very likely that the password changes will fail when run against an unhealthy cluster.
+
+Do you want to continue with the password setup process [y/N]y
+
+Initiating the setup of passwords for reserved users elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.
+You will be prompted to enter passwords as the process progresses.
+Please confirm that you would like to continue [y/N]y
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>   Enter password for [elastic]:<br>   Reenter password for [elastic]:<br>   Enter password for [apm_system]:<br>   Reenter password for [apm_system]:<br>   Enter password for [kibana]:<br>   Reenter password for [kibana]:<br>   Enter password for [logstash_system]:<br>   Reenter password for [logstash_system]:<br>   Enter password for [beats_system]:<br>   Reenter password for [beats_system]:<br>   Enter password for [remote_monitoring_user]:<br>   Reenter password for [remote_monitoring_user]:</p>
+<pre><code>
+3. 此时直接连接 elasticsearch 并输入账号名密码即可：
+
+   ![image-20200501093848208](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103520.png)
+
+   或者
+</code></pre><p>   curl -u elastic ‘myecs.com:9800/_cat/nodes?pretty’</p>
+<pre><code>
+4. 然后我们进行 Kibana 的设置
+
+   ```shell
+   server.port: 5602
+   server.host: &quot;0.0.0.0&quot;
+   elasticsearch.hosts: [&quot;http://localhost:9800&quot;]
+   elasticsearch.preserveHost: true
+   elasticsearch.username: &quot;kibana&quot;
+   elasticsearch.password: &quot;.ABCD45.&quot;</code></pre><p>   启动 Kibana</p>
+<pre class="line-numbers language-shell"><code class="language-shell">   [elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ ./bin/kibana<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>   此时我们再来尝试访问 Kibana 的时候，发现需要登录了。因为我们在上面配置了 kibana 读取的 elasticsearch 的信息，而 elasticsearch 启动了 X-pack 的安全功能。所以这里 kibana 应该也是跟着一起启动了 X-pack 的安全功能，并且之前 elasticsearch 配置的 X-pack 的一些信息也是通用的，包括我们配置的内置用户密码，所以这里要输入的也是 X-pack 中的提供的一些内置用户。而我们上面在 kibana 中配置的 elasticsearch.username 则是 kibana 在访问 elasticsearch 的时候需要提供的用户名密码。</p>
+<p>   <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103553.png" alt="image-20200501094744680"></p>
+<ol start="5">
+<li><p>下面我们用这个”elastic”超级用户（拥有所有权限）来创建一些需要被保护的数据，以下是一些信用卡信息：</p>
+<pre><code>POST orders/_bulk
+{&quot;index&quot;:{}}
+{&quot;product&quot; : &quot;1&quot;,&quot;price&quot; : 18,&quot;payment&quot; : &quot;master&quot;,&quot;card&quot; : &quot;9876543210123456&quot;,&quot;name&quot; : &quot;jack&quot;}
+{&quot;index&quot;:{}}
+{&quot;product&quot; : &quot;2&quot;,&quot;price&quot; : 99,&quot;payment&quot; : &quot;visa&quot;,&quot;card&quot; : &quot;1234567890123456&quot;,&quot;name&quot; : &quot;bob&quot;}</code></pre></li>
+<li><p>创建数据之后，我们为这个索引创建一些角色</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103603.png" alt="image-20200501101341679"></p>
+<p>然后我们进入了创建角色的界面，分别有关于 elasticsearch 和 kibana 的设置界面，我们下面先看 elasticsearch 的设置界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103634.png" alt="image-20200501104004169"></p>
+<p>下面是 Kibana 的设置界面，我们需要给这个用户拥有读取 Kibana 数据的权限，点击”Add space privilege”，然后选择相关权限</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103651.png" alt="image-20200501102455240"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103707.png" alt="image-20200501102821056"></p>
+<p>点击创建角色，完成角色创建。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103716.png" alt="image-20200501102920006"></p>
+</li>
+<li><p>创建角色之后，我们创建一个用户</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103722.png" alt="image-20200501104353218"></p>
+<p>填写相关信息，并选择我们创建的”read_orders”角色，然后创建用户</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103729.png" alt="image-20200501104536497"></p>
+</li>
+<li><p>然后我们登出 elstic 用户并登入新建的 demo 用户</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103736.png" alt="image-20200501104742250"></p>
+<p>对前面创建的orders 索引进行以下操作，发现读数据是没问题的，但是写权限就会报错：</p>
+<pre><code>#验证读权限,可以执行
+POST orders/_search
+{}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103743.png" alt="image-20200501104906811"></p>
+<pre><code>#验证写权限,报错
+POST orders/_bulk
+{&quot;index&quot;:{}}
+{&quot;product&quot; : &quot;1&quot;,&quot;price&quot; : 18,&quot;payment&quot; : &quot;master&quot;,&quot;card&quot; : &quot;9876543210123456&quot;,&quot;name&quot; : &quot;jack&quot;}
+{&quot;index&quot;:{}}
+{&quot;product&quot; : &quot;2&quot;,&quot;price&quot; : 99,&quot;payment&quot; : &quot;visa&quot;,&quot;card&quot; : &quot;1234567890123456&quot;,&quot;name&quot; : &quot;bob&quot;}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103749.png" alt="image-20200501104929598"></p>
+</li>
+</ol>
+<h4 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h4><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/configuring-security.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/configuring-security.html</a></p>
+</blockquote>
+<h3 id="基于TCP协议通信的安全"><a href="#基于TCP协议通信的安全" class="headerlink" title="基于TCP协议通信的安全"></a>基于TCP协议通信的安全</h3><p> 上面讲了如何给对于 Elasticsearch 的访问操作加上权限控制，下面我们要讲的是更深层次一点的安全，通讯安全。ES 的通信有两种：TCP 和 HTTP 协议。集群内部通信都是使用 TCP 通信；集群与外部的通信可以使用 TCP，也可以使用 HTTP（推荐是 HTTP 的 RESTful API）。 在本节我们主要介绍 ES 默认提供的保障 TCP 通信安全的方式。</p>
+<p>在本节我们介绍集群内部安全通信，Elasticsearch 默认提供了两种通讯方式，一种是 HTTP，默认在9200端口，另一种是 TCP，默认在9300端口。集群的内部通信是基于9300端口进行的，默认情况下，集群的内部通信是没有任何加密的，另外，集群对于一个新节点的加入也没有做任何校验。那么一些非法之徒在可以访问得到我们的集群的情况下就有可能通过以下两张方式获取我们的数据：</p>
+<ul>
+<li>对数据进行抓包，获取敏感信息</li>
+<li>自己起一个 ES 节点加入我们的集群</li>
+</ul>
+<p>针对以上两点，我们就需要对我们集群的内部通信启用通讯加密并且对新加入的节点进行身份验证。X-pack 中就为我们提供这样的方案，使用 TLS 协议进行通信，TLS 协议中通信双方是需要一个 CA（Certification Authority，在 ES 叫做 Trusted Certificate Authority） 签发的证书的，ES 中需要一个 X.509 的证书。我们可以使用ES 提供的以下工具来为集群节点分别创建证书：</p>
+<pre><code># 为您的Elasticearch集群创建一个证书颁发机构。例如，使用elasticsearch-certutil ca命令：
+bin/elasticsearch-certutil ca
+
+#为群集中的每个节点生成证书和私钥。例如，使用elasticsearch-certutil cert 命令：
+bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12
+
+#将证书拷贝到节点的 config/certs目录下
+elastic-certificates.p12</code></pre><p>然后在配置文件中或者在启动集群节点的时候指定以下参数：</p>
+<pre><code># 启动 ssl 协议通信
+xpack.security.transport.ssl.enabled: true
+# 指定 ssl 通信的级别
+xpack.security.transport.ssl.verification_mode: certificate
+# 指定证书位置
+xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: certs/elastic-certificates.p12</code></pre><p>上面提到通过<code>xpack.security.transport.ssl.verification_mode</code>来指定 ES 对于证书的校验级别，一共有三个级别可配置，默认情况是 none：</p>
+<ul>
+<li><p>full：节点加入集群需要相同 CA 签发的证书，还需要验证 Host name 或者 IP 地址</p>
+</li>
+<li><p>certificate：节点加入需要使用相同 CA 签发的证书即可</p>
+</li>
+<li><p>none：任何节点都可以加入，开发环境中用于诊断目的</p>
+<p>下面我们来演示一下：</p>
+</li>
+</ul>
+<ol>
+<li><p>在其中一个节点中创建 CA（ TLS 中 CA 签发的证书是用来识别一个网络上的一个终端的，所以对于这个终端里面的所有 ES 节点来说使用的都是同一个证书。真实情况中应该是在多台服务器中包含多个 ES 程序，选择其中一个作为创建 CA 作为证书签发机构进行证书签发然后拷贝证书到其他服务器上其他节点的指定目录即可。我们的演示就是在一个程序下启动多个节点，所以就在当前ES 下创建 CA 并只签发一个证书就行拉）。</p>
+<p>然后下面需要我们输入 CA 文件的名称，直接回车使用默认名称”elastic-stack-ca.p12”。然后需要我们输入这个 CA 的密码，直接回车使用空密码。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch-certutil ca
+future versions of Elasticsearch will require Java 11; your Java version from [/usr/local/software/java/jdk1.8.0_231/jre] does not meet this requirement
+This tool assists you in the generation of X.509 certificates and certificate
+signing requests for use with SSL/TLS in the Elastic stack.
+
+The 'ca' mode generates a new 'certificate authority'
+This will create a new X.509 certificate and private key that can be used
+to sign certificate when running in 'cert' mode.
+
+Use the 'ca-dn' option if you wish to configure the 'distinguished name'
+of the certificate authority
+
+By default the 'ca' mode produces a single PKCS#12 output file which holds:
+    * The CA certificate
+    * The CA's private key
+
+If you elect to generate PEM format certificates (the -pem option), then the output will
+be a zip file containing individual files for the CA certificate and private key
+
+Please enter the desired output file [elastic-stack-ca.p12]:
+Enter password for elastic-stack-ca.p12 :<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>为节点签发证书。下面会需要我们输入 CA的密码，直接回车输入空密码；然后是需要我们输入证书的名称，直接回车使用默认名称”elastic-certificates.p12”；最后会让我们输入证书的密码，直接回车使用空密码。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12
+future versions of Elasticsearch will require Java 11; your Java version from [/usr/local/software/java/jdk1.8.0_231/jre] does not meet this requirement
+This tool assists you in the generation of X.509 certificates and certificate
+signing requests for use with SSL/TLS in the Elastic stack.
+
+The 'cert' mode generates X.509 certificate and private keys.
+    * By default, this generates a single certificate and key for use
+       on a single instance.
+    * The '-multiple' option will prompt you to enter details for multiple
+       instances and will generate a certificate and key for each one
+    * The '-in' option allows for the certificate generation to be automated by describing
+       the details of each instance in a YAML file
+
+    * An instance is any piece of the Elastic Stack that requires an SSL certificate.
+      Depending on your configuration, Elasticsearch, Logstash, Kibana, and Beats
+      may all require a certificate and private key.
+    * The minimum required value for each instance is a name. This can simply be the
+      hostname, which will be used as the Common Name of the certificate. A full
+      distinguished name may also be used.
+    * A filename value may be required for each instance. This is necessary when the
+      name would result in an invalid file or directory name. The name provided here
+      is used as the directory name (within the zip) and the prefix for the key and
+      certificate files. The filename is required if you are prompted and the name
+      is not displayed in the prompt.
+    * IP addresses and DNS names are optional. Multiple values can be specified as a
+      comma separated string. If no IP addresses or DNS names are provided, you may
+      disable hostname verification in your SSL configuration.
+
+    * All certificates generated by this tool will be signed by a certificate authority (CA).
+    * The tool can automatically generate a new CA for you, or you can provide your own with the
+         -ca or -ca-cert command line options.
+
+By default the 'cert' mode produces a single PKCS#12 output file which holds:
+    * The instance certificate
+    * The private key for the instance certificate
+    * The CA certificate
+
+If you specify any of the following options:
+    * -pem (PEM formatted output)
+    * -keep-ca-key (retain generated CA key)
+    * -multiple (generate multiple certificates)
+    * -in (generate certificates from an input file)
+then the output will be be a zip file containing individual certificate/key files
+
+Enter password for CA (elastic-stack-ca.p12) :
+Please enter the desired output file [elastic-certificates.p12]:
+Enter password for elastic-certificates.p12 :
+
+Certificates written to /usr/local/software/elasticsearch/elasticsearch-7.6.2/elastic-certificates.p12
+
+This file should be properly secured as it contains the private key for
+your instance.
+
+This file is a self contained file and can be copied and used 'as is'
+For each Elastic product that you wish to configure, you should copy
+this '.p12' file to the relevant configuration directory
+and then follow the SSL configuration instructions in the product guide.
+
+For client applications, you may only need to copy the CA certificate and
+configure the client to trust this certificate.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>此时可以看到当前目录下证书已经签发了，我们为证书创建一个 certs 目录来专门存放证书，然后将刚刚创建的证书移动到该目录下。<strong>需要注意的是，ES 强制证书只能存放在 config 目录下面，不然会报错，而配置的值如果指定的是相对路径，也就是相对于 config 的路径</strong></p>
+<pre><code>[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ll
+总用量 580
+drwxrwxrwx  2 elasticsearch root            4096 3月  26 14:36 bin
+drwxrwxrwx  2 elasticsearch root            4096 5月   1 09:34 config
+drwxrwxrwx  3 elasticsearch elasticsearch   4096 4月  23 17:53 data
+-rw-------  1 elasticsearch elasticsearch   3443 5月   1 11:48 elastic-certificates.p12
+-rw-------  1 elasticsearch elasticsearch   2527 5月   1 11:45 elastic-stack-ca.p12
+drwxrwxrwx  9 elasticsearch root            4096 3月  26 14:36 jdk
+drwxrwxrwx  3 elasticsearch root            4096 3月  26 14:36 lib
+-rwxrwxrwx  1 elasticsearch root           13675 3月  26 14:28 LICENSE.txt
+drwxrwxrwx  2 elasticsearch root            4096 5月   1 09:27 logs
+drwxrwxrwx 38 elasticsearch root            4096 3月  26 14:37 modules
+drwxrwxr-x  3 elasticsearch elasticsearch   4096 5月   1 09:27 node0_data
+-rwxrwxrwx  1 elasticsearch root          523209 3月  26 14:36 NOTICE.txt
+drwxrwxrwx  3 elasticsearch root            4096 4月  23 19:21 plugins
+-rwxrwxrwx  1 elasticsearch root            8164 3月  26 14:28 README.asciidoc
+[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ mkdir ./config/certs
+[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ mv elastic-certificates.p12 ./config/certs/</code></pre></li>
+<li><p>配置节点使用该证书进行 tls 通信，可以在 elasticsearch.yml 中进行配置，也可以在启动的时候通过<code>-E</code>配置，这里我们通过后者配置：</p>
+<p>elasticsearch.yml：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">network.host: 0.0.0.0
+discovery.seed_hosts: ["0.0.0.0:9900"]
+cluster.initial_master_nodes: ["node0"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>通过在启动的时候设置参数，以下两个节点是可以启动成功并形成以 node0 为 master 的集群的</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#提供证书的节点
+bin/elasticsearch -E node.name=node0 -E cluster.name=john -E path.data=node0_data -E http.port=9800 -E transport.port=9900 -E xpack.security.transport.ssl.enabled=true -E xpack.security.transport.ssl.verification_mode=certificate -E xpack.security.transport.ssl.keystore.path=certs/elastic-certificates.p12 -E xpack.security.transport.ssl.truststore.path=certs/elastic-certificates.p12
+
+bin/elasticsearch -E node.name=node1 -E cluster.name=john -E path.data=node1_data -E http.port=9801 -E transport.port=9901 -E xpack.security.transport.ssl.enabled=true -E xpack.security.transport.ssl.verification_mode=certificate -E xpack.security.transport.ssl.keystore.path=certs/elastic-certificates.p12 -E xpack.security.transport.ssl.truststore.path=certs/elastic-certificates.p12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103758.png" alt="image-20200501132144591"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110157.png" alt="image-20200501132200368"></p>
+<p>此后一个没有启用 ssl 协议通信的节点企图加入集群，一直在尝试寻找 master 节点，但是根本就建立不了通信。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#不使用 TSL 的节点，无法加入（注意配置文件中也要把相关 ssl 参数关闭）
+bin/elasticsearch -E node.name=node2 -E cluster.name=john -E path.data=node2_data -E http.port=9802 -E transport.port=9902<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103805.png" alt="image-20200501131550736"></p>
+<p>然后是一个启用了 ssl 协议通信，但是没有提供 CA 签发证书的节点妄图加入集群，也能启动，并且可以 i 访问，但是在尝试寻找 master 节点的时候一直在报没有证书的错误。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">#或者不提供证书的节点，无法加入
+bin/elasticsearch -E node.name=node2 -E cluster.name=john -E path.data=node2_data -E http.port=9802 -E transport.port=9902 -E xpack.security.transport.ssl.enabled=true -E xpack.security.transport.ssl.verification_mode=certificate<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103813.png" alt="image-20200501132825243"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103819.png" alt="image-20200501131837571"></p>
+</li>
+</ol>
+<h4 id="相关阅读-1"><a href="#相关阅读-1" class="headerlink" title="相关阅读"></a>相关阅读</h4><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/configuring-tls.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/configuring-tls.html</a></p>
+</blockquote>
+<h3 id="基于HTTP协议通信的安全-外部"><a href="#基于HTTP协议通信的安全-外部" class="headerlink" title="基于HTTP协议通信的安全(外部)"></a>基于HTTP协议通信的安全(外部)</h3><p>在前面的内容中我们介绍了如何通过设置让 ES 基于 TCP 的通信使用 TLS 通信。在本节中我们将介绍如何让 ES 启用基于 SSL 的 HTTP 通信（HTTPS）。</p>
+<p>Elasticsearch 推荐大家都是用 RESTful 的方式与其进行外部通信，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103826.png" alt="image-20200501154540265"></p>
+<p>我们看到，从浏览器到 Kibana 的访问、Kibana 到 Elasticsearch 的访问、Logstash 到 Elasticsearch 的访问，我们的 java 应用程序到 Elasticsearch 的访问都是经过 http 协议进行通信的，所以为了我们的一些重要数据更加安全，所以我们需要让它们变成 HTTPS 的通信协议。</p>
+<h4 id="启用-Elasticsearch-的-HTTPS"><a href="#启用-Elasticsearch-的-HTTPS" class="headerlink" title="启用 Elasticsearch 的 HTTPS"></a>启用 Elasticsearch 的 HTTPS</h4><p>那么我们怎样才能让 ES 启用 HTTPS 通信呢？我们需要进行以下的配置即可：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># http 启用 ssl 通信
+xpack.security.http.ssl.enabled: true
+# ssl 需要的证书
+xpack.security.http.ssl.keystore.path: certs/elastic-certificates.p12
+xpack.security.http.ssl.truststore.path: certs/elastic-certificates.p12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 下面我们演示一下：</p>
+<ol>
+<li><p>重启 ES，并且启动 HTTPS 通信</p>
+<pre><code>bin/elasticsearch -E node.name=node0 -E cluster.name=john -E path.data=node0_data -E http.port=9800 -E transport.port=9900 -E xpack.security.http.ssl.enabled=true -E xpack.security.http.ssl.keystore.path=certs/elastic-certificates.p12 -E xpack.security.http.ssl.truststore.path=certs/elastic-certificates.p12</code></pre></li>
+<li><p>此时在通过<code>http://myecs.com:9800</code>的 http 协议进行通信，无法访问</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103834.png" alt="image-20200501155641320"></p>
+</li>
+<li><p>换成<code>https://myecs.com:9800</code>，可以访问到服务器，但是显示如下。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103840.png" alt="image-20200501155759849"></p>
+<p>为什么会这样呢？我们来看下 HTTPS 通信的过程：</p>
+<ul>
+<li><p>用户在浏览器输入 URL 并按下回车</p>
+</li>
+<li><p>浏览器从 DNS (在本例中是本地 DNS)解析得到域名对应的 ip</p>
+</li>
+<li><p>浏览器作为本地 PC 中的一个应用程序向其所在的本地 PC 的网络接口发出一个 HTTP 请求报文</p>
+</li>
+<li><p>本地 PC 的网络接口将 HTTP 请求报文拆开后发现是一个 HTTPS 请求，便在建立 TCP 通道的时候使用 SSL 协议建立连接。</p>
+<p>所谓 SSL 通信就是基于 TCP 协议通信的双方对于每个 TCP 数据报文的传输都要使用 RSA 算法进行加密。而 RSA 算法中的公私钥当然的就是来自于服务方，服务方基于 RSA 算法生成公钥和私钥，私钥自己保存在服务器，公钥在 TCP 通道建立的初始下发到客户端(这里就是浏览器所在PC)。</p>
+<p>从此服务方向客户端发送信息的时候使用私钥进行 RSA 算法对数据报文进行加密，客户端接收到之后使用公钥进行解密。客户端向服务方发送数据的时候使用公钥进行加密，服务方使用私钥进行解密。这个过程使得数据的安全性得到保障。<strong>（RSA 算法的特性是关键，不熟悉的需要自己再了解下）</strong></p>
+</li>
+<li><p>上面提到 SSL 通信在 TCP 通道建立的时候由服务方下发 RSA 公钥，但是这个过程有可能是有风险的。因为这个公钥是可能伪造的。假设一个用户在第一次向一个银行服务器发起存款的请求，但是在他使用正确的银行服务器的URL 发出 HTTPS 请求之后，在建立 SSL 通信的时候，服务方返回给客户端的报文被截取到了，非法之徒篡改了其中下发给客户端的 RSA 公钥，换成自己的然后保存真正服务方的公钥到本地，然后将报文返回给客户端，客户端收到响应之后将被替换了的公钥保存在本地，从此一直使用该公钥和服务端进行通信，而非法之徒一直截取客户端的报文，用自己的私钥解密出报文然后修改之后再用真正的服务方公钥进行对修改后的报文进行加密返回到服务方，这样客户端和服务方之间的通信就是不安全的了。</p>
+<p>所以这时候就需要一个具有权威的机构(Certificated Authority)来作为一个证书颁发机构，它将所有服务方的<strong>唯一标识(可以直接使用ip)</strong>和公钥生成一个标准(规范)的格式保存到自己的档案中，然后将这个证书颁发给服务方。服务方在和客户端建立 SSL 通信的时候将 RSA 公钥和证书的一些相关信息封装起来一起响应给客户端(包含证书的唯一标识)，客户端在收到响应之后会将证书中的服务方的唯一标识和服务方的公钥（或者证书的唯一标识）对 CA 发起请求，CA 校验证书的有效性（在自己的档案中看是否存在这个证书，公钥是否一致）。浏览器收到 CA 的校验通过的响应之后就会正常保存该证书到本地然后和服务方建立通信。<strong>但是很明显，我们这里的证书是在上一节内容中自己使用 ES 的一个工具生成(签发)的，Safari 浏览器向 CA 发出校验后当然校验不通过</strong>。所以此时就发出了这样的提示，（因为像我们现在这样的开发场景确实有自己生成证书的需求）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103853.png" alt="image-20200501163532027"></p>
+<p> 我们点击访问此网站即可：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103902.png" alt="image-20200501163626248"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103909.png" alt="image-20200501163644515"></p>
+</li>
+</ul>
+</li>
+<li><p>上面演示了启用 ES 的 HTTPS 通信的方式以及简单介绍了 HTTPS 的原理。因为我们的 ES 服务器通常都是自己的内部使用的，不会开发给第三方用户，当我们有新的客户端要连接到 ES 服务器的时候，我们再使用一些通用工具(openssl)按照 CA 证书规范解析出证书中的公钥然后复制到客户端的指定目录即可，不需要向去像 CA 申请证书。</p>
+</li>
+</ol>
+<h4 id="配置-Kibana-和-ES-建立-HTTPS-通信"><a href="#配置-Kibana-和-ES-建立-HTTPS-通信" class="headerlink" title="配置 Kibana 和 ES 建立 HTTPS 通信"></a>配置 Kibana 和 ES 建立 HTTPS 通信</h4><p>我们在上面配置了 ES 的 HTTPS 通信，现在我们要用 Kibana来访问它，所以也要配置 Kibana 来和它进行 HTTPS 通信。</p>
+<p>首先我们需要使用<code>openssl</code>这个工具来解析我们之前使用 ES 签发的那个证书并生成一个 Kibana 需要的公钥格式然后保存到一个专门保存安全信息相关的目录（和 ES 一样我们在${Kibana_Home}/config 下面创建一个 certs 目录）。（我们前面提到，对于浏览器来说，它是向服务端发起建立 SSL 的请求后，服务端按照标准的规范在数据报文中填写自己的公钥和证书相关信息，浏览器也按照规范来取出这些信息，之后可以按照自己的格式存放这些信息到自己本地，也可以按照规范来存储，而这里对于 Kibana 来说，它应该也是按照某种规范来的，毕竟 openssl 是一个通用标准工具，它输出的信息也应该是标准的，但是是不是和浏览器的一样就不清楚了）</p>
+<p>过程中可能要我们输入<code>elastic-certificates.p12</code>的密码，我们前面设置了是空密码，回车即可。</p>
+<pre><code>[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ mkdir ./config/certs
+[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ openssl pkcs12 -in ../elasticsearch-7.6.2/config/certs/elastic-certificates.p12 -cacerts -nokeys -out ./config/certs/elastic-ca.pem
+Enter Import Password:
+MAC verified OK</code></pre><p> 然后我们来修改 Kibana 的配置文件：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 配置使用 https 协议通信
+elasticsearch.hosts: ["https://localhost:9800"]
+# 配置公钥文件目录，这里使用绝对路径，kibana 好像不支持相对路径
+elasticsearch.ssl.certificateAuthorities: [ "/usr/local/software/elasticsearch/kibana-7.6.2-linux-x86_64/config/certs/elastic-ca.pem" ]
+# 配置 ssl 校验等级
+elasticsearch.ssl.verificationMode: certificate<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>启动 kibana</p>
+<pre><code>[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ ./bin/kibana</code></pre><p>可以看到是可以正常访问 ES 的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103915.png" alt="image-20200501171621353"></p>
+<h4 id="配置-Kibana-使用-HTTPS"><a href="#配置-Kibana-使用-HTTPS" class="headerlink" title="配置 Kibana 使用 HTTPS"></a>配置 Kibana 使用 HTTPS</h4><p>前面我们介绍了 ES 使用 HTTPS，现在我们介绍开启 KIbana 的 HTTPS 通信。 我们再使用 ES 的证书工具<code>elsaticsearch-certutil</code>生成一个压缩包<code>elastic-stack-ca.zip</code>，里面包含了一个证书实体<code>ca.crt</code>和一个私钥<code>ca.key</code>，我们将它解压之后将证书实体和私钥拷贝到 Kibana 的 config/certs 目录下</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ bin/elasticsearch-certutil ca --pem
+future versions of Elasticsearch will require Java 11; your Java version from [/usr/local/software/java/jdk1.8.0_231/jre] does not meet this requirement
+This tool assists you in the generation of X.509 certificates and certificate
+signing requests for use with SSL/TLS in the Elastic stack.
+
+The 'ca' mode generates a new 'certificate authority'
+This will create a new X.509 certificate and private key that can be used
+to sign certificate when running in 'cert' mode.
+
+Use the 'ca-dn' option if you wish to configure the 'distinguished name'
+of the certificate authority
+
+By default the 'ca' mode produces a single PKCS#12 output file which holds:
+    * The CA certificate
+    * The CA's private key
+
+If you elect to generate PEM format certificates (the -pem option), then the output will
+be a zip file containing individual files for the CA certificate and private key
+
+Please enter the desired output file [elastic-stack-ca.zip]:
+[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ mv ./elastic-stack-ca.zip ../kibana-7.6.2-linux-x86_64/config/certs/
+[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ cd ../kibana-7.6.2-linux-x86_64
+[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ unzip ./config/certs/elastic-stack-ca.zip
+Archive:  ./config/certs/elastic-stack-ca.zip
+   creating: ca/
+  inflating: ca/ca.crt
+  inflating: ca/ca.key
+[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ mv -f ./ca/* ./config/certs/
+[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ ll ./config/certs/
+总用量 16
+-rw-rw-r-- 1 elasticsearch elasticsearch 1200 5月   1 17:19 ca.crt
+-rw-rw-r-- 1 elasticsearch elasticsearch 1679 5月   1 17:19 ca.key
+-rw-rw-r-- 1 elasticsearch elasticsearch 1397 5月   1 17:02 elastic-ca.pem
+-rw------- 1 elasticsearch elasticsearch 2514 5月   1 17:19 elastic-stack-ca.zip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后修改 kibana 配置文件</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 启用 https
+server.ssl.enabled: true
+# 设置证书实体
+server.ssl.certificate: /usr/local/software/elasticsearch/kibana-7.6.2-linux-x86_64/config/certs/ca.crt
+# 设置私钥
+server.ssl.key: /usr/local/software/elasticsearch/kibana-7.6.2-linux-x86_64/config/certs/ca.key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后启动 kibana</p>
+<pre><code>[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ ./bin/kibana</code></pre><p> 此时使用 HTTP 已经无法访问了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103924.png" alt="image-20200501173722220"></p>
+<p>使用 https</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103931.png" alt="image-20200501173807997"></p>
+<p>成功</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103939.png" alt="image-20200501173846340"></p>
+<h4 id="相关阅读-2"><a href="#相关阅读-2" class="headerlink" title="相关阅读"></a>相关阅读</h4><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-tls.html#tls-http" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-tls.html#tls-http</a></p>
+</blockquote>
+<h1 id="水平扩展-Elasticsearch-集群"><a href="#水平扩展-Elasticsearch-集群" class="headerlink" title="水平扩展 Elasticsearch 集群"></a>水平扩展 Elasticsearch 集群</h1><p>在 ES 中根据不同功能聚合成了不同的节点类型：Master eligible、data、ingest、coordinating、machine learning。</p>
+<p>在开发环境中，通常是一个 ES 实例承担多种角色。而在生产环境中，我们往往需要根据数据量，写入和查询的吞吐量，选择合适的部署方式，建议设置ES 实例为一个单一角色的节点（dedicated node）。这样做我们可以使得分配硬件资源的时候粒度更细，充分提高资源利用率 ：</p>
+<ul>
+<li><p>Dedicated master eligible node：负责集群状态(cluster state)的管理</p>
+<p>使用低配置的 CPU、RAM 和磁盘</p>
+</li>
+<li><p>Dedicated data nodes：负责数据存储及处理客户端请求</p>
+<p>使用高配置的 CPU、RAM 和磁盘啊</p>
+</li>
+<li><p>Dedicated ingest nodes：负责数据处理</p>
+<p>使用高配置 CPU、中等配置的 RAM、低配置的磁盘</p>
+</li>
+<li><p>Dedicated coordinating nodes：负责请求转发以及结果汇总（聚合）</p>
+<p>使用中\高配 CPU、中\高配 RAM、低配置的磁盘</p>
+</li>
+</ul>
+<h3 id="节点参数配置"><a href="#节点参数配置" class="headerlink" title="节点参数配置"></a>节点参数配置</h3><p>一个节点在默认情况下会同时扮演：mastetr eligible、data node 和 ingest node</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103949.png" alt="image-20200501180720169"></p>
+<p>我们可以通过以下配置实现让节点职责单一化</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220103956.png" alt="image-20200501180758254"></p>
+<h3 id="Dedicated-Coordinating-Only-Node-Client-Node"><a href="#Dedicated-Coordinating-Only-Node-Client-Node" class="headerlink" title="Dedicated Coordinating Only Node(Client Node)"></a>Dedicated Coordinating Only Node(Client Node)</h3><p>将 master、data、ingest 都配置成 false。</p>
+<p>在生产环境中，建议为一些大的集群配置 coordinating only nodes</p>
+<ul>
+<li>扮演 Load Balancers；同时降低 Master 和 Data Ndoes 的负载。</li>
+<li>负责搜索结果的 Gather 和 Reduce。</li>
+<li>有时候无法阈值客户端会发送怎样的请求，例如大量占用内存的聚合操作，一个深度聚合可能会引发 OOM，导致 data node 或者 master node 这样的重要节点宕机。</li>
+</ul>
+<h3 id="Dedicated-Master-Eligible-Node"><a href="#Dedicated-Master-Eligible-Node" class="headerlink" title="Dedicated Master (Eligible) Node"></a>Dedicated Master (Eligible) Node</h3><p>从高可用以及避免脑裂的角度出发</p>
+<ul>
+<li>一般在生产环境中配置3台，当 master 节点丢失的时候，其他 eligible 节点顶上，保证集群高可用</li>
+<li>一个集群只有1台活跃的主节点，负责分片管理、索引创建、集群管理等操作</li>
+</ul>
+<p>如果和数据节点或者 Coordinating 节点混合部署，可能会有以下问题：</p>
+<ul>
+<li>数据节点相对有比较大的内存占用</li>
+<li>coordinating 节点有时候可能会有开销很高的查询，导致 OOM</li>
+<li>这些都有可能影响 Master 节点，导致集群的不稳定</li>
+</ul>
+<h3 id="几种集群部署方式"><a href="#几种集群部署方式" class="headerlink" title="几种集群部署方式"></a>几种集群部署方式</h3><p>下面我们将介绍几种 ES 集群的部署方式</p>
+<h4 id="1、基本部署：增加节点，水平扩展"><a href="#1、基本部署：增加节点，水平扩展" class="headerlink" title="1、基本部署：增加节点，水平扩展"></a>1、基本部署：增加节点，水平扩展</h4><p>当磁盘容量无法满足需求的时候，可以增加数据节点；磁盘读写压力大的时候，增加数据节点。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104005.png" alt="image-20200501182108857"></p>
+<h4 id="2、水平扩展：Coordinating-Only-Node"><a href="#2、水平扩展：Coordinating-Only-Node" class="headerlink" title="2、水平扩展：Coordinating Only Node"></a>2、水平扩展：Coordinating Only Node</h4><p>当系统中有大量的复杂查询及聚合查询的时候，增加 Coordinating 节点，增加查询的性能。另外我们可以在 coordinating nodes 前面部署一个 Load Balancer，这个 Load Balancer 可以由硬件或者软件来实现。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104010.png" alt="image-20200501182157034"></p>
+<h4 id="3、读写分离"><a href="#3、读写分离" class="headerlink" title="3、读写分离"></a>3、读写分离</h4><p> 有一些场景下，需要对写入 ES 的数据做一些比较频繁或者比较复杂的预处理工作，我们需要单独设置一些 Ingest 节点来做这样的工作，将读和写分离开来，根据各自的流量的情况来配置不同的硬件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104016.png" alt="image-20200501182436402"></p>
+<h4 id="4、在集群中部署-Kibana"><a href="#4、在集群中部署-Kibana" class="headerlink" title="4、在集群中部署 Kibana"></a>4、在集群中部署 Kibana</h4><p>当我们需要部署 Kibana 来访问 ES ，官方建议我们将 Kibana 直接部署在 Coordinating Nodes 上，在 Coordinating nodes 前面不是一个 LB，即可实现 Kibana集群的高可用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104022.png" alt="image-20200501182451714"></p>
+<p>5、异地多活的部署</p>
+<p>在某些情况下，我们拥有多个数据中心，有多个 ES 集群分别分散在这些数据中心上，为了保障更高层面（影响面更大）可能出现的问题（例如交换机、路由器出问题）下，当一个数据中心发生不可用的时候，其他数据中心还能正常的工作。</p>
+<ul>
+<li>一方面，我们可以通过数据多写（即写入数据的时候同时写入到多个中心集群中）实现各中心数据一致性。（这种一般是各中心无法通信的情况）</li>
+<li>另一方面，可以使用 ES 提供的 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.6/xpack-ccr.html#" target="_blank" rel="noopener">Cross-cluster replication</a>来实现数据一致性，不过它是 X-Pack 中的内容，不知道是否需要收费。</li>
+</ul>
+<p>对于应用层的读取操作，可以部署一个负载均衡设备到应用层和各数据中心的 ES 之间进行读取操作的 Load Balance。</p>
+<blockquote>
+<p>GTM(Global Traffic Manager)：一种负载均衡</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104028.png" alt="image-20200501182509269"></p>
+<h1 id="Hot-amp-Warm-架构与-Shard-Filtering"><a href="#Hot-amp-Warm-架构与-Shard-Filtering" class="headerlink" title="Hot &amp; Warm 架构与 Shard Filtering"></a>Hot &amp; Warm 架构与 Shard Filtering</h1><p>上一节介绍到，我们通常可以对 ES 实例设置为单一职责的节点来降低部署的成本。一般情况下，我们对于数据节点的配置都是一样的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104036.png" alt="image-20200501185422635"></p>
+<h3 id="Hot-amp-Warm-Architecture"><a href="#Hot-amp-Warm-Architecture" class="headerlink" title="Hot &amp; Warm Architecture"></a>Hot &amp; Warm Architecture</h3><p>有一些索引数据是 Time based（生命周期管理：随着时间的流逝，旧索引一般不会有更新操作，查询也会变少），同时整体的数据量比较大的场景。这时候我们就会引入 Hot &amp; Warm 架构。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104043.png" alt="image-20200501185708786"></p>
+<blockquote>
+<p>注意，我们本节讨论的 Hot &amp; Warm 架构方案仅仅基于 Time based 类型的索引的场景，即索引的访问流量<strong>随时间的流逝而越来越少</strong>，它是有一个变化过程的。以下两种情况不适合使用本节讨论的方案：</p>
+<ol>
+<li><p>如果索引一直都是高负载或者一直是低负载是不需要这种架构的，直接一直使用高配置机器或者一直使用低配置机器即可。</p>
+</li>
+<li><p>Hot &amp; Warm 架构的使用场景其实可以抽象成数据的访问和操作流量会呈现出一些<strong>比较有特征的差异</strong>，这时候我们可以根据这些特征来配置不同的硬件来部署不同流量程度的数据节点以存放不同的数据，从而进一步提高资源的利用率。这里的有特征的差异主要分两种：</p>
+<ul>
+<li>非 time based：这些差异是一直存在的，例如订单数据是肯定访问流量很大的，而一些配置项数据访问流量肯定是很少的，那么我们可以肯定的对订单数据节点使用高配置的(Hot)节点，对配置项数据使用低配置的(Warm)节点，并且这样的配置是不会变的。</li>
+<li>time based：随着时间流逝才会显示出差异，即我们在一开始的时候需要对这些数据用 Hot 节点，随着时间的流逝使用 Warm 节点。例如最近3个月内的订单访问量肯定很大，所以我们对这3个月内的订单数据在一开始使用配置很高的节点存储，到了3个月之后，这些订单的访问量慢慢下来了，此时我们需要将这些订单数据<strong>转移到</strong>低配置的节点上进行存储，并将之后的对于这些订单数据的操作都路由到该低配节点上。本节主要讨论的是这种情况下的 Hot &amp; Warm 架构。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>这种架构将数据节点分为两类，分别使用不同的硬件配置：</p>
+<ul>
+<li>Hot 节点（通常使用 SSD）：索引有不断的新文档写入和读取</li>
+<li>Warm 节点（通常使用大容量的 HDD）：索引不存在新数据的写入，同时也不存在大量的数据查询</li>
+</ul>
+<h4 id="Hot-Nodes"><a href="#Hot-Nodes" class="headerlink" title="Hot Nodes"></a>Hot Nodes</h4><p>主要用于处于 Time based 索引数据的早期阶段存在大量文档写入（以及读取）的场景，对 CPU 和 IO 都有很高的要求，所以需要使用高配置的机器（SSD）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104050.png" alt="image-20200501192633355"></p>
+<h4 id="Warm-Nodes"><a href="#Warm-Nodes" class="headerlink" title="Warm Nodes"></a>Warm Nodes</h4><p>主要用于处于 Time based 索引数据的晚期阶段有很少的数据更新(或者仅仅只读)的情况（俗称比较旧/老的数据），通常使用大容量的磁盘（通常是 Spinning Disks）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104055.png" alt="image-20200501192959006"></p>
+<h4 id="Hot-amp-Warm-Architecture-示例"><a href="#Hot-amp-Warm-Architecture-示例" class="headerlink" title="Hot &amp; Warm Architecture 示例"></a>Hot &amp; Warm Architecture 示例</h4><p>ES 对于 Hot &amp; Warm 架构的实现主要依赖于它的”shard filtering”，步骤分为以下几步：</p>
+<ol>
+<li><p>预先分别为 Hot &amp; Warm 节点分配好硬件资源，部署 ES 节点的时候根据其是 Hot节点还是 Warm 节点进行标记（Tagging）</p>
+</li>
+<li><p>在 Time based 索引的早期阶段，我们配置该索引的访问操作都路由到 Hot 节点</p>
+</li>
+<li><p>到了 Time based 索引的晚期阶段，我们配置该索引搬迁到 Warm 节点上，并配置转移对于该索引的访问操作到 Warm 节点上</p>
+<p>下面我们来看一个演示。</p>
+</li>
+</ol>
+<h5 id="1、标记-Hot-amp-Warm-节点"><a href="#1、标记-Hot-amp-Warm-节点" class="headerlink" title="1、标记 Hot &amp; Warm 节点"></a>1、标记 Hot &amp; Warm 节点</h5><p>ES 对于节点的配置提供了一个”node.attr”来允许我们灵活地为一个 ES 节点配置attributes，可以是一个任意的 key/value。可以通过 elasticsearch.yml 配置或者通过<code>-E</code>命令选项来指定。在这里我们就利用这个特性来对节点进行 Hot 和 Warm 的标记，如以下命令所示，我们指定了一个”my_node_type”的属性来标记一个节点是 Hot 还是 Warm 节点：</p>
+<pre><code># 标记一个 Hot 节点
+bin/elasticsearch  -E node.name=hotnode -E cluster.name=geektime -E path.data=hot_data -E node.attr.my_node_type=hot -E http.port=9800 -E transport.port=9900
+
+# 标记一个 warm 节点
+bin/elasticsearch  -E node.name=warmnode -E cluster.name=geektime -E path.data=warm_data -E node.attr.my_node_type=warm -E http.port=9801 -E transport.port=9901</code></pre><p>elasticsearch.yml 配置</p>
+<pre class="line-numbers language-shell"><code class="language-shell">network.host: 0.0.0.0
+#  config discovery for master node
+discovery.seed_hosts: ["0.0.0.0:9900"]
+cluster.initial_master_nodes: ["hotnode"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在启动 Hot &amp; Warm 节点之后，我们可以通过以下命令查询所有节点上的属性键值</p>
+<pre><code># 查看节点
+GET /_cat/nodeattrs?v</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104101.png" alt="image-20200501200950243"></p>
+<h5 id="2、Time-based-索引的早期将其路由到-Hot-节点"><a href="#2、Time-based-索引的早期将其路由到-Hot-节点" class="headerlink" title="2、Time based 索引的早期将其路由到 Hot 节点"></a>2、Time based 索引的早期将其路由到 Hot 节点</h5><p>我们通过设置索引settings 中的<code>index.routing.allocation.require</code>指向我们配置的属性和属性值，那么 ES 在为该索引分配分片的时候，会根据当前分片的所属节点是否拥有”my_node_type”的属性并且值为”hot”对待路由的节点进行过滤，<strong>如果没有找到拥有属性对”my_node_type=hot”的节点，那么分配分片失败，集群状态为”red”</strong>。</p>
+<pre><code># 配置到 Hot节点
+PUT logs-2019-06-27
+{
+  &quot;settings&quot;:{
+    &quot;number_of_shards&quot;:2,
+    &quot;number_of_replicas&quot;:0,
+    &quot;index.routing.allocation.require.my_node_type&quot;:&quot;hot&quot;
+  }
+}</code></pre><p>往索引中写入数据</p>
+<pre><code>PUT logs-2019-06-27/_doc/1
+{
+  &quot;key&quot;:&quot;value&quot;
+}</code></pre><p>查看分片情况：可以看到索引<code>logs-2019-06-27</code>虽然在 settings 中被我们设置了主分片数量是2，并且在集群中存在两个节点的情况下，依然都分配到了 hotnode 这个节点上，而我们刚刚写入的文档数据被路由到了hotnode 节点的分片0上</p>
+<pre><code>GET _cat/shards?v</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104107.png" alt="image-20200501203448182"></p>
+<h5 id="3、Time-based-索引晚期将其转移到-Warm-节点"><a href="#3、Time-based-索引晚期将其转移到-Warm-节点" class="headerlink" title="3、Time based 索引晚期将其转移到 Warm 节点"></a>3、Time based 索引晚期将其转移到 Warm 节点</h5><p>随着时间的推移，现在索引<code>logs-2019-06-27</code>的访问量慢慢下来了（日志当然也不会有更新操作），我们将它转移到 warm 节点上。 </p>
+<p>可以看到，我们再次对<code>index.routing.allocation.require.my_node_type</code>设置为”warm”，ES 就会为我们在”标签”为 warm 的节点上为索引<code>logs-2019-06-27</code>创建两个分片并将索引中的现有数据进行迁移到 warmnode 上，然后删除 hotnode 上的相关分片信息</p>
+<pre><code># 配置到 warm 节点
+PUT logs-2019-06-27/_settings
+{  
+  &quot;index.routing.allocation.require.my_node_type&quot;:&quot;warm&quot;
+}
+# 查看转移后的分片信息
+GET _cat/shards?v</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104115.png" alt="image-20200501204427674"></p>
+<blockquote>
+<p>可以看到，上面的 index routing reallocate 其实分为在其他节点上创建分片、迁移索引、删除当前节点上分片等过程，那么这个过程如果会持续比较久会不会影响用户对于该索引的访问呢？这个待研究。</p>
+<p>另外，以上提到的 Hot &amp; Warm 架构是对基于 TIme based 数据的方案，一般需要对这些数据按照不同时间段建立索引（如果所有数据都建立在一个索引上，以上的方案就不适合了，需要自己通过reIndex API把”老”的数据进行迁移然后通过deleteByQuery进行当前节点上的数据删除。会比较繁琐，同时不高效），然后在当前时间到达索引的期限后对索引进行迁移到 warm 节点上，并灵活结合 alias (一个 alias 映射到所有时间区间的索引即可让外部访问不受影响)一起使用。</p>
+</blockquote>
+<h3 id="Rack-Awareness"><a href="#Rack-Awareness" class="headerlink" title="Rack Awareness"></a>Rack Awareness</h3><p>ES 的节点在默认情况是可能分配在不同的机架上，也可能分配在同一个机架上的，没有限制。如果ES 的一个主分片及其所有的副本分片都被分配到了同一个机架上的时候，一旦这个机架断电，就会可能导致整个分片数据丢失。（例如下面的P0和 R0主副分片都在同一个机架 Rack1上）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104121.png" alt="image-20200501210235020"></p>
+<p>我们可以通过 Rack Awareness 的机器，可以尽可能避免将同一个索引的主副分片同时分配在一个机架上。其实现和前面的 Hot &amp; Warm 的实现有异曲同工的地方。</p>
+<ol>
+<li><p>我们在启动 ES 节点的时候通过给它自定义一个属性为机架编号，并给它设置相应的机架编号值进行打标。</p>
+<pre><code># 标记在 rack1 机架
+bin/elasticsearch  -E node.name=hotnode -E cluster.name=geektime -E path.data=hot_data -E node.attr.my_rack_id=rack1 -E http.port=9800 -E transport.port=9900
+
+# 标记在 rack2 机架
+bin/elasticsearch  -E node.name=warmnode -E cluster.name=geektime -E path.data=warm_data -E node.attr.my_rack_id=rack2 -E http.port=9801 -E transport.port=9901</code></pre></li>
+<li><p>然后通过设置 _cluster 层级的 settings 中的<code>persistent.cluster.routing.allocation.awaerness.attributes</code>为我们前面设置的”机架属性”，那么 ES 在后面对索引进行分片分配的时候就会避免将同一个索引的主副分片都分配到属性”my_rack_id”是同一个值的节点上（即同一个机架上）</p>
+<pre><code># 设置 ES 在给索引分配分片的时候要将主副分片按照节点的&quot;my_rack_id&quot;的值进行隔离
+PUT _cluster/settings
+{
+  &quot;persistent&quot;: {
+    &quot;cluster.routing.allocation.awareness.attributes&quot;: &quot;my_rack_id&quot;
+  }
+}
+# 设置索引为两个主分片，一个副本分片
+PUT my_index1
+{
+  &quot;settings&quot;:{
+    &quot;number_of_shards&quot;:2,
+    &quot;number_of_replicas&quot;:1
+  }
+}
+# 查看分片信息，可以看到同一个索引的主副本分片被分配到了位于不同 rack 的节点上
+get _cat/shards?v</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104127.png" alt="image-20200501212831365"></p>
+</li>
+<li><p>以上的设置和配置项中的字面(awaerness)意思一样，它不是强制的，仅仅是让 ES 留意到这一点，如果集群中存在有不同”my_rack_id”属性值的节点，ES 会<strong>尽量</strong>将主副分片散步到不同 rack 上。所以当我们只启动两个”my_rack_id”为”rack1”的节点的时候，其实分片还是可以分配成功的（当然，如果我们只启动一个节点，副本分片就根本无法分配了，因为没有其他节点可备份了，集群显黄色），都分配到了机架 rack1的节点上。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104132.png" alt="image-20200501214501354"></p>
+<p>如果我们实在是想强制 ES 不能将主副分片都分配到同一个机架上来对管理员起到一个警告作用，那么可以通过增加一个<code>cluster.routing.allocation.awareness.force.my_rack_id.values</code>设定来实现：</p>
+<pre><code># 覆盖新设置
+PUT _cluster/settings
+{
+ &quot;persistent&quot;: {
+   &quot;cluster.routing.allocation.awareness.attributes&quot;: &quot;my_rack_id&quot;,
+   &quot;cluster.routing.allocation.awareness.force.my_rack_id.values&quot;: &quot;rack1,rack2&quot;
+ }
+}
+# 删除索引
+DELETE my_index1
+# 重新建立索引
+PUT my_index1
+{
+ &quot;settings&quot;:{
+   &quot;number_of_shards&quot;:2,
+   &quot;number_of_replicas&quot;:1
+ }
+}
+# 查看分片情况
+get _cat/shards?v</code></pre><p>可以看到下面的截图中虽然集群中存在两个节点，但是因为都是”rack1”中的节点，所以副本分片都是无法分配的状态，集群显黄色</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104140.png" alt="image-20200501214926484"></p>
+<pre><code>#  查看集群状态颜色
+GET _cluster/health</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104145.png" alt="image-20200501213701284"></p>
+<p>通过以下命令可以看到详细的信息</p>
+<pre><code>GET _cluster/allocation/explain?pretty</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104151.png" alt="image-20200501215007128"></p>
+</li>
+</ol>
+<h3 id="Shard-Filtering"><a href="#Shard-Filtering" class="headerlink" title="Shard Filtering"></a>Shard Filtering</h3><p>可以看到我们通过 ES 提供的 Shard Filtering 可以实现对索引进行节点分配以及对分片进行节点分配的前置筛选动作。下面是 Shard Filtering 的一些总结：</p>
+<ul>
+<li>通过”node.attr”来标记节点</li>
+<li>通过”index.routing.allocation”指定索引分配到哪些节点</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104200.png" alt="image-20200501215420918"></p>
+<h3 id="相关阅读-3"><a href="#相关阅读-3" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/cn/blog/sizing-hot-warm-architectures-for-logging-and-metrics-in-the-elasticsearch-service-on-elastic-cloud" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/sizing-hot-warm-architectures-for-logging-and-metrics-in-the-elasticsearch-service-on-elastic-cloud</a></p>
+<p><a href="https://www.elastic.co/cn/blog/deploying-a-hot-warm-logging-cluster-on-the-elasticsearch-service" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/deploying-a-hot-warm-logging-cluster-on-the-elasticsearch-service</a></p>
+</blockquote>
+<h1 id="分片设定及管理"><a href="#分片设定及管理" class="headerlink" title="分片设定及管理"></a>分片设定及管理</h1><h3 id="单个分片"><a href="#单个分片" class="headerlink" title="单个分片"></a>单个分片</h3><p>在7.0开始，ES 在新创建一个索引的时候，默认只有一个主分片，单个分片对于查询算分，聚合不准的问题都可以得以避免。但是如果随着索引中的数据量越来越大的时候，节点压力就会越来越大，这时候即使我们加入一个新的节点，也不能分担压力，因为只有一个分片，此时我们可能需要创建新的索引重新设置分片数进行 reindex。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104207.png" alt="image-20200501220732045"></p>
+<h3 id="两个分片"><a href="#两个分片" class="headerlink" title="两个分片"></a>两个分片</h3><p>但是如果我们在新建索引的时候，指定了两个及以上的分片，那么在索引数据越来越大之后，我们加入一个新的节点，那么 Elasticsearch 会自动进行分片的移动，也叫 Shard Rebalancing。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104213.png" alt="image-20200501220840158"></p>
+<h3 id="如何设计分片数"><a href="#如何设计分片数" class="headerlink" title="如何设计分片数"></a>如何设计分片数</h3><p>当分片数大于节点数的时候，一旦集群中有新的数据节点加入，分片就可以自动进行分配。分片在重新分配的时候，系统也不会有 downtime。同时，及时是在数据量不是很大的情况，也给索引设置不同的分片并且分片分布在不同的机器节点上就可以使得查询可以并行执行，数据写入也可以分布到多个机器上。下面是一些设计分片的例子：</p>
+<ul>
+<li>案例1：每天1GB 的数据，一个索引一个主分片，一个副本分片，需要保留半年的数据，接近360GB 的数据量。</li>
+<li>案例2：5个不同的日志，每天创建一个日志索引，每个日志索引创建10个主分片，保留半年的数据，5 * 10 * 30 * 6 = 9000 个分片。</li>
+</ul>
+<h3 id="分片过多所带来的副作用"><a href="#分片过多所带来的副作用" class="headerlink" title="分片过多所带来的副作用"></a>分片过多所带来的副作用</h3><p>每个分片是一个 Lucene 的索引，会使用机器的资源。过多的分片会大致额外的性能开销。</p>
+<ul>
+<li>Lucene Indices、File descriptors、RAM、CPU</li>
+<li>每次搜索的请求，需要从每个分片上获取数据</li>
+<li>分片的 Meta 信息由Master 节点维护。过多的分片会增加管理的负担。<strong>经验值是空值分片总数在10W 内。</strong></li>
+</ul>
+<h3 id="如何确定主分片数"><a href="#如何确定主分片数" class="headerlink" title="如何确定主分片数"></a>如何确定主分片数</h3><p>从存储的物理角度看</p>
+<ul>
+<li>日志类应用，单个分片不要大于50GB</li>
+<li>搜索类应用，单个分片不要超过20GB</li>
+</ul>
+<p>为什么要控制分片存储大小</p>
+<ul>
+<li>提高update 的性能</li>
+<li>merge 时，减少所需的资源</li>
+<li>丢失节点后，具备更快的恢复速度，便于分片在集群内 rebalancing</li>
+</ul>
+<h3 id="如何确定副本分片数"><a href="#如何确定副本分片数" class="headerlink" title="如何确定副本分片数"></a>如何确定副本分片数</h3><p>副本时主分片的拷贝，它能提高系统可用性，防止数据丢失，但是需要占用和主分片一样的资源。</p>
+<p>对性能的影响：</p>
+<ul>
+<li>副本会降低数据的索引速度，有几份副本就会有几倍的 CPU 资源消耗在索引上</li>
+<li>会减缓对主分片的查询压力，但是会消耗同样的内存资源。</li>
+</ul>
+<p>如果机器资源充分，提高副本数，可以提高整体的 QPS。</p>
+<h3 id="调整分片总数设定避免分配不均衡"><a href="#调整分片总数设定避免分配不均衡" class="headerlink" title="调整分片总数设定避免分配不均衡"></a>调整分片总数设定避免分配不均衡</h3><p>ES 的分片策略会尽量保证节点上的分片数量大致相同，举个例子，某些情况下，现有的所有节点的负载几乎都满了，当我们加入一个新的节点之后，ES 开始 rebalancing，但是有有可能都是基于各个节点上的分片数来进行 rebalancing 的，不考虑分片上的数据量，如果有几个分片的数据量特别大，刚好都分布在同一个节点上，那么虽然 rebalancing 之后分片数量是均匀的，但是实际上某些节点上的数据量是很大的；或者说有些分片上存储的是热点数据，即使是 rebalancing 之后，如果 ES 继续按照节点上的分片数进行 rebalancing，后续还是可能会出现热点数据集中在某些节点上的问题。此时我们可以通过以下一些设定来进行干预：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104221.png" alt="image-20200501222848669"></p>
+<h3 id="相关阅读-4"><a href="#相关阅读-4" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/cluster-reroute.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/cluster-reroute.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-forcemerge.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-forcemerge.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/allocation-total-shards.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/allocation-total-shards.html</a></p>
+</blockquote>
+<h1 id="如何对集群进行容量规划"><a href="#如何对集群进行容量规划" class="headerlink" title="如何对集群进行容量规划"></a>如何对集群进行容量规划</h1><h3 id="容量规划"><a href="#容量规划" class="headerlink" title="容量规划"></a>容量规划</h3><p>首先需要考虑保持一定的余量，当负载出现波动，节点出现丢失的时候，还能正常运行。在做容量规划的时候，一些需要考虑的因素：</p>
+<ul>
+<li>机器的软硬件配置</li>
+<li>单条文档的尺寸、文档的总数据量、索引的总数据量(Time based 数据保留的时间)、副本分片数</li>
+<li>文档是如何写入的(build 的尺寸)</li>
+<li>文档的复杂度、文档是如何进行读取的(查询和聚合的复杂度)</li>
+</ul>
+<h3 id="评估业务的性能需求"><a href="#评估业务的性能需求" class="headerlink" title="评估业务的性能需求"></a>评估业务的性能需求</h3><p>数据吞吐及性能需求</p>
+<ul>
+<li>数据写入的吞吐量，每秒要求写入多少数据</li>
+<li>查询的吞吐量</li>
+<li>单条查询可接收的最大返回时间</li>
+</ul>
+<p>了解你的数据</p>
+<ul>
+<li>数据的格式和数据的 Mapping</li>
+<li>实际的查询和聚合长的是什么样的</li>
+</ul>
+<h3 id="常见用例"><a href="#常见用例" class="headerlink" title="常见用例"></a>常见用例</h3><p>简单的来说我们可以将 ES 的应用分为两大类：</p>
+<ul>
+<li>搜索类应用：固定大小的数据集，搜索的数据集增长相对比较缓慢</li>
+<li>日志类应用：基于时间序列的数据。使用 ES 存放日志与性能指标。数据每天不断写入，增长数据较快。结合 Warm Node 做数据的老化处理</li>
+</ul>
+<h3 id="硬件配置"><a href="#硬件配置" class="headerlink" title="硬件配置"></a>硬件配置</h3><p>所有的数据节点尽可能使用 SSD：</p>
+<ul>
+<li>在搜索类应用或者性能要求高的场景，使用 SSD，按照1:10的比例配置内存和硬盘</li>
+<li>日志类和查询并发低的场景，可以考虑使用机械硬盘存储，按照1:50的比例配置内存和硬盘</li>
+</ul>
+<p>单节点数据建议控制在2TB 以内，最大不建议超过5TB</p>
+<p>JVM 只占机器内存的一般，JVM 内存配置不建议超过32G</p>
+<h3 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h3><p>前面章节提到了多种部署方式，我们需要根据实际场景进行部署方式的选择：</p>
+<ul>
+<li>如果对于写入的数据进行一些大量的 pipeline 处理，可以配置一些 dedicated 的 ingest node，并为其配置相应的写操作 LB。</li>
+<li>如果数据节点超过了3台，一般建议配置 dedicated 的 master 节点</li>
+<li>如果需要考虑高可用，在使用了 dedicated 的 Master 节点的情况下一般部署3台 dedicated mater nodes（防止脑裂）</li>
+<li>如果有复杂的查询和聚合，建议设置 coordinating 节点</li>
+</ul>
+<h3 id="容量规划案例1：固定大小的数据集"><a href="#容量规划案例1：固定大小的数据集" class="headerlink" title="容量规划案例1：固定大小的数据集"></a>容量规划案例1：固定大小的数据集</h3><p>一些案例：唱片信息库/产品信息</p>
+<p>一些特性：</p>
+<ul>
+<li>被搜索的数据集很大，但是增长相对比较慢（不会有突然大量的写入）。更关心搜索和聚合的读取性能</li>
+<li>数据的重要性和时间范围无关，关注的是搜索相关度</li>
+</ul>
+<p>估算索引的数据量，然后确定分片的大小</p>
+<ul>
+<li>前面提到，搜索类应用单个分片的数据不要超过20GB</li>
+<li>可以通过增加副本分片，提高查询的吞吐量</li>
+</ul>
+<p>拆分索引</p>
+<p>如果业务上有大量的查询是基于一个字段进行 filter，该字段又是一个数据有限的枚举值，存在大量的数据在该字段有着重复的枚举值，例如订单所在的地区，可以考虑将索引按照该字段的枚举值拆分成多个索引，使得这些数据可以分配在更多的分片上，这样查询性能可以得到提高；如果要对多个索引进行查询，可以在查询中指定多个索引来实现。</p>
+<p>如果业务上大量的查询是基于一个字段进行 filter，该字段数值并不固定，可以启用 routing 功能，按照 filter 字段的值分布到集群不同的 shard，降低查询时相关的 shard，提高 CPU 利用率。</p>
+<h3 id="容量规划案例2：基于时间序列的数据"><a href="#容量规划案例2：基于时间序列的数据" class="headerlink" title="容量规划案例2：基于时间序列的数据"></a>容量规划案例2：基于时间序列的数据</h3><p>相关的案例：日志、指标、安全相关的 Events；舆情分析</p>
+<p>一些特性：</p>
+<ul>
+<li>每条数据都有时间戳，文档基本不会被更新（日志和指标数据）</li>
+<li>用户更多的会查询近期的数据，对旧数据查询比较少</li>
+<li>对数据的写入性能要求比较高</li>
+</ul>
+<p>创建基于时间序列的索引</p>
+<ul>
+<li>在索引的名字中增加时间信息</li>
+<li>按照每天、每周、每月的方式进行划分</li>
+</ul>
+<p>这使得更加合理的组织索引，例如随着时间的推移，便于利用 Hot &amp; Warm Architecture 对索引做老化处理，备份和删除的效率高。（因为在 ES 中如果想删除整个索引速度时较快的，而Delete By Query 执行速度慢，底层的 lucene 的 segment 也不会立即释放空间，而 Merge 时又很消耗资源）</p>
+<ol>
+<li><p>基于ES 提供的 Date Math 的方式写入时间序列的数据：Date Math 是 ES 提供的日期运算表达式，容易使用，但是如果时间的规则发生变化，就要重新部署代码。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104240.png" alt="image-20200501231625802"></p>
+<p>我们使用的时候记得对里面的特殊符号进行 URI 编码：</p>
+<p>下面是获取当前日期</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104249.png" alt="image-20200501232252328"></p>
+<p>下面是获取本周第一天</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104254.png" alt="image-20200501232300143"></p>
+<p> 详情可以参考官方文档。</p>
+</li>
+<li><p>基于 Index Alias 写入时间序列的数据：每当有新的时间索引创建的时候，将它加入到对应的 alias 映射列表中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104259.png" alt="image-20200501232010939"></p>
+</li>
+</ol>
+<h3 id="集群监控和扩容"><a href="#集群监控和扩容" class="headerlink" title="集群监控和扩容"></a>集群监控和扩容</h3><p>即使我们做了容量规划，但是还是需要在上线之后监控集群的使用状况。</p>
+<p>对于 Coordinating 和 Ingest nodes，主要监控 CPU 和内存开销的问题。</p>
+<p>对于 Data nodes，都需要监控，硬盘比较主要。需要及时解决发现的存储容量问题，为避免分片不均的问题，要提前监控磁盘空间，提前清理数据或者增加节点。(70%)</p>
+<h3 id="相关阅读-5"><a href="#相关阅读-5" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/capacity-planning.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/guide/current/capacity-planning.html</a></p>
+<p><a href="https://yq.aliyun.com/articles/670118" target="_blank" rel="noopener">https://yq.aliyun.com/articles/670118</a></p>
+</blockquote>
+<h1 id="在私有云上管理-Elasticsearch-集群"><a href="#在私有云上管理-Elasticsearch-集群" class="headerlink" title="在私有云上管理 Elasticsearch 集群"></a>在私有云上管理 Elasticsearch 集群</h1><p>Elasticsearch 的安装是很方便的，但是如果在生产环境中管理一个集群，其实还是要做很多事情的。首先我们要对集群进行监控，当集群发现集群容量不够的时候，需要手工增加节点。在云环境中，节点的丢失很常见的，如果有节点丢失时，手工修复或者更换节点。同时我们可能还要留意 Rack Awareness 或者其他的 Shard Filtering，那么就需要为我们的节点分别打上不同的标签。Elasticsearch 的更新也比较频繁，对于集群版本的升级、数据备份、滚动升级，如果都手工操作，管理成本高，无法实现统一管理，例如整合变更管理等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104306.png" alt="image-20200502080339509"></p>
+<h3 id="ECE，帮助你管理多个-ELasticsearch-集群"><a href="#ECE，帮助你管理多个-ELasticsearch-集群" class="headerlink" title="ECE，帮助你管理多个 ELasticsearch 集群"></a>ECE，帮助你管理多个 ELasticsearch 集群</h3><p>Elasticsearch 其实有一款产品，叫做 <a href="https://www.elastic.co/cn/products/ece" target="_blank" rel="noopener">ECE</a>（Elastic Cloud Enterprise）。提供了一个 UI 界面，实现单个控制台，管理多个集群：</p>
+<ul>
+<li>支持不同方式的集群部署(支持各类部署)、跨数据中心、部署 Anti Affinity</li>
+<li>统一监控所有集群的状态</li>
+<li>图形化操作：<ul>
+<li>增加删除节点</li>
+<li>集群升级、滚动更新、自动数据备份</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104313.png" alt="image-20200502080934782"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104320.png" alt="image-20200502080949174"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104329.png" alt="image-20200502081007384"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104336.png" alt="image-20200502081019722"></p>
+<h3 id="基于Kubernetes-的方案"><a href="#基于Kubernetes-的方案" class="headerlink" title="基于Kubernetes 的方案"></a>基于Kubernetes 的方案</h3><p>近些年容器化的技术越来越热门了，很多公司也将自己的基础设施往容器上迁移。ELasticsearch 也在今年退出了基于 K8S 管理的方案。它同时提供了基础级和企业级，前者是免费下载的。</p>
+<ul>
+<li>基于容器技术，使用 Operator 模式进行编排管理</li>
+<li>配置，管理，监控多个集群</li>
+<li>支持Hot &amp; Warm</li>
+<li>数据快照和恢复</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104349.png" alt="image-20200502081137159"></p>
+<h4 id="Kubernertes-CRD"><a href="#Kubernertes-CRD" class="headerlink" title="Kubernertes CRD"></a>Kubernertes CRD</h4><p>其实基于 K8S 的部署，简单来说，就是为ES 定义一个K8S 的配置文件，只需要在这个 yml 文件里面定义所需 ES 的版本，所需 Nodes 的总数，ES Operator 就会帮助你把集群部署起来了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104358.png" alt="image-20200502081653827"></p>
+<h3 id="构建自己的管理系统"><a href="#构建自己的管理系统" class="headerlink" title="构建自己的管理系统"></a>构建自己的管理系统</h3><p>上面是 ELastic公司提供的容器管理方案，如果自己在公司中开发一套实现容器编排的系统，大概的实现思路：</p>
+<ol>
+<li>基于虚拟机的编排管理方式：Elasticsearch 还开源了一个 Puppet mdule，利用这个 Puppert module 可以基于 Puppert Infrastructure (Puppet / Elasticsearch Puppert Module / Foreman) 构建一个 Wrokflow based Provision &amp; Management。</li>
+<li>基于 Kubernetes 的容器化编排管理方式：K8S 提供了一种 Operator 的模式，帮助对 K8S 实现一些扩展。我们可以基于 Operator 模式，通过Kubernetes - Customer Resource Definition来实现容器化编排管理。</li>
+</ol>
+<p>以下是一个将 Elasticsearch 部署在 Kubernetes 上的一个示意图：</p>
+<p>首先看一下我们需要在 Kubernetes 上做一个 Elasticsearch 做一个部署，应该怎么做呢？首先我们需要为 master 节点创建一个 Statefulset，为什么需要创建一个 Statefulset 呢？因为在7.0开始我们需要指定节点的个数，所以我们需要利用Statefulset 中的 pod 是有序的特性，来实现 Provision 的一个功能。同时我们会创建一个 Headless Service，实现集群内部的通信，同时对于 data 节点，我们会为他创建一个 Statefulset 的 Deployment。对于 Coordinating nodes，可以为他们创建 Stateless 的 Deployment。同时我们哈可以使用 K8S 的Service 为集群创建 Read 和 Write 的 LB。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104409.png" alt="image-20200502082800507"></p>
+<h4 id="什么是-Kubernetes-Operator"><a href="#什么是-Kubernetes-Operator" class="headerlink" title="什么是 Kubernetes Operator"></a>什么是 Kubernetes Operator</h4><p>我们看一下怎么利用 K8S 的 Operator 管理一个集群，简单来说，我们需要先创建一个”spec”，在这个 spec 里面描述了我们需要节点的数量，以及我们需要对集群进行怎样的部署。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104419.png" alt="image-20200502083332535"></p>
+<h4 id="社区上的-Operator-SDK"><a href="#社区上的-Operator-SDK" class="headerlink" title="社区上的 Operator SDK"></a>社区上的 Operator SDK</h4><p>社区上也提供了很多的 Operator SDK，方便我们编写自己的 operator，实现在 K8S上对集群的管理：<a href="https://github.com/operator-framework/operator-sdk" target="_blank" rel="noopener">https://github.com/operator-framework/operator-sdk</a>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104427.png" alt="image-20200502083611096"></p>
+<h3 id="相关阅读-6"><a href="#相关阅读-6" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/cn/blog/introducing-elastic-cloud-on-kubernetes-the-elasticsearch-operator-and-beyond?elektra=products&storm=sub1" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/introducing-elastic-cloud-on-kubernetes-the-elasticsearch-operator-and-beyond?elektra=products&amp;storm=sub1</a></p>
+<p><a href="https://www.elastic.co/blog/introducing-elastic-cloud-on-kubernetes-the-elasticsearch-operator-and-beyond" target="_blank" rel="noopener">https://www.elastic.co/blog/introducing-elastic-cloud-on-kubernetes-the-elasticsearch-operator-and-beyond</a></p>
+<p><a href="https://github.com/operator-framework" target="_blank" rel="noopener">https://github.com/operator-framework</a></p>
+<p><a href="https://github.com/upmc-enterprises/elasticsearch-operator" target="_blank" rel="noopener">https://github.com/upmc-enterprises/elasticsearch-operator</a></p>
+</blockquote>
+<h1 id="在公有云上管理与部署-Elasticsearch"><a href="#在公有云上管理与部署-Elasticsearch" class="headerlink" title="在公有云上管理与部署 Elasticsearch"></a>在公有云上管理与部署 Elasticsearch</h1><p>Elastic 本身就有一个云服务 Elastic Cloud，另外它在国内和阿里云、腾讯云都有合作，我们可以有需要可以尝试在这些云上部署我们的 Elasticsearch 集群。</p>
+<h3 id="Elastic-Cloud"><a href="#Elastic-Cloud" class="headerlink" title="Elastic Cloud"></a><a href="https://www.elastic.co/cloud/" target="_blank" rel="noopener">Elastic Cloud</a></h3><p>只要提供一个邮箱，在验证并登录之后即可进行一个免费的试用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104435.png" alt="image-20200502084627149"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104443.png" alt="image-20200502084750561"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104450.png" alt="image-20200502084951100"></p>
+<p>点击 quick deployment</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104500.png" alt="image-20200502085106456"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104509.png" alt="image-20200502085206492"></p>
+<p>编辑集群</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104517.png" alt="image-20200502085326546"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104524.png" alt="image-20200502085404205"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104536.png" alt="image-20200502085519162"></p>
+<p>点击 Activity 查看集群的所有变更</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104543.png" alt="image-20200502085607888"></p>
+<p>还可以通过 performance 监控集群的一些指标</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104549.png" alt="image-20200502085823159"></p>
+<h3 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h3><p><a href="https://www.aliyun.com/product/bigdata/product/elasticsearch" target="_blank" rel="noopener">https://www.aliyun.com/product/bigdata/product/elasticsearch</a></p>
+<p><a href="https://www.elastic.co/cn/blog/elasticsearch-service-on-elastic-cloud-introduces-new-pricing-with-reduced-costs" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/elasticsearch-service-on-elastic-cloud-introduces-new-pricing-with-reduced-costs</a></p>
+<h3 id="腾讯云"><a href="#腾讯云" class="headerlink" title="腾讯云"></a>腾讯云</h3><p>略</p>
+<blockquote>
+<p>根据客户是国外还是国内选择不同的云</p>
+</blockquote>
+<h1 id="生产环境常用配置与上线清单"><a href="#生产环境常用配置与上线清单" class="headerlink" title="生产环境常用配置与上线清单"></a>生产环境常用配置与上线清单</h1><p>从 ES5.0开始，支持 Development 和 Production 两种运行模式。ES 是通过 http.port 和 transport.bind_host (这个现在好像是 transport.host？反正就是检测 ES 绑定的地址是否是本地回环地址)两个参数来判断是什么模式：</p>
+<ul>
+<li><p>开发模式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104556.png" alt="image-20200502091542377"></p>
+</li>
+<li><p>生产模式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104602.png" alt="image-20200502091602629"></p>
+</li>
+</ul>
+<h3 id="Bootstrap-Checks"><a href="#Bootstrap-Checks" class="headerlink" title="Bootstrap Checks"></a>Bootstrap Checks</h3><p>一个集群在 Production Mode 的时候，启动时必须通过所有的 Boostrap 检测，否则会启动失败。Bootstrap checks 可以分为两类：JVM &amp; Linux Checks(前提是在 linux 系统上运行)。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104609.png" alt="image-20200502091741488"></p>
+<blockquote>
+<p>boostrap 检查清单：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/bootstrap-checks.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/bootstrap-checks.html</a></p>
+</blockquote>
+<h3 id="JVM-设定"><a href="#JVM-设定" class="headerlink" title="JVM 设定"></a>JVM 设定</h3><p>从 ES 6 开始，只支持64位的 JVM，通过配置<code>${ES_HOME}/config/jvm.options</code>实现 JVM 参数配置。避免修改默认配置：</p>
+<ul>
+<li>将内存 Xms 和 Xmx 设置成一样，避免 heap resize 时引发停顿。</li>
+<li>Xmx 设置不要超过物理内存的50%(剩下的50%交给 lucene 实现全文检索)；单个节点上，最大内存建议不要超过32G内存(因为 JVM 在小于32G 的时候，会使用指针压缩提高性能)（<a href="https://www.elastic.co/blog/a-heap-of-trouble" target="_blank" rel="noopener">https://www.elastic.co/blog/a-heap-of-trouble</a>）</li>
+<li>生产环境，JVM 必须使用 Server 模式</li>
+<li>关闭 JVM Swapping</li>
+</ul>
+<h3 id="集群的-API"><a href="#集群的-API" class="headerlink" title="集群的 API"></a>集群的 API</h3><p>静态设置和动态设定：</p>
+<ul>
+<li>静态配置文件elasticsearch.yml 尽量简洁：按照文档设置所有相关系统参数，配置文件中尽量只写必备参数。</li>
+<li>其他的设置项可以通过 API 动态进行设定。动态设定分transient 和 persistent 两种，都会覆盖 elasticsearch.yml 中的设置。前者在集群重启后会丢失，后者不会。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104618.png" alt="image-20200502092804094"></p>
+<h3 id="系统设定"><a href="#系统设定" class="headerlink" title="系统设定"></a>系统设定</h3><p>前面提到，ES 在生产环境的 boostraps 的时候除了对 JVM 进行一些检查，如果是在 linux 上启动还会对 linux 系统做一些检查。（如：disable swapping、increase file descrriptor、虚拟内存、number of thread 等等的设定）</p>
+<blockquote>
+<p>系统设置参考文档：”<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/system-config.html" target="_blank" rel="noopener">Setup Elasticsearch &gt; Important System Configuration</a>“</p>
+<p>boostrap 检查清单：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/bootstrap-checks.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/bootstrap-checks.html</a></p>
+</blockquote>
+<h3 id="最佳实践：网络"><a href="#最佳实践：网络" class="headerlink" title="最佳实践：网络"></a>最佳实践：网络</h3><ul>
+<li><p>单个集群不要跨数据中心进行部署（不要使用 WAN）</p>
+</li>
+<li><p>节点之间的 hops (时延)越少越好</p>
+</li>
+<li><p>如果有多块网卡，最好将 transport 和 http 绑定到不同的网卡，并设置不同的防火墙 rules</p>
+</li>
+<li><p>按需为 coordinating node 或 ingest node 配置负载均衡</p>
+</li>
+</ul>
+<h3 id="最佳实践：内存设定计算实例"><a href="#最佳实践：内存设定计算实例" class="headerlink" title="最佳实践：内存设定计算实例"></a>最佳实践：内存设定计算实例</h3><p>内存大小除了首先要预留50%之外，还要根据 Node 需要存储的数据(和磁盘的比例)来进行估算</p>
+<ul>
+<li>搜索类的比例建议：1:16</li>
+<li>日志类：1:48-1:96之间</li>
+</ul>
+<p>假设现有总数据量1T，设置一个副本=2T 总数据量</p>
+<ul>
+<li>如果是搜索类的项目，一个节点设置31G 内存，那么每个节点的磁盘存储就是31 * 16 = 496 G，(加上预留给 lucene 的31G空间 )，即每个节点最多400G 数据，至少需要5个数据节点才能使得磁盘达到2T 存储量。这时单节点内存总共需要是每个节点62G，5个数据节点为310G。</li>
+<li>如果是日志类项目，每个节点31 * 50 = 1550GB，2个数据节点即可达到磁盘容量。所以单节点内存为62G，整个集群2个节点为124G。</li>
+</ul>
+<h3 id="最佳实践：存储"><a href="#最佳实践：存储" class="headerlink" title="最佳实践：存储"></a>最佳实践：存储</h3><ul>
+<li><p>推荐使用 SSD，使用本地存储(Local Disk)，避免使用 SAN NFS、AWS、Azure filesystem等网络存储。</p>
+</li>
+<li><p>可以在本地指定多个”path.data”，以支持使用多块磁盘</p>
+</li>
+<li><p>ES 本身提供了很好的 HA 机制，无需使用 RAID 1/5/10</p>
+</li>
+<li><p>可以在 Warm 节点上使用 Spinning DIsk（机械硬盘），但是需要关闭 Concurent Mergs（<code>Index.merge.scheduler.max_thread_count:1</code>）</p>
+</li>
+<li><p>Trem 你的 SSD(对于 SSD 的优化)：<a href="https://www.elastic.co/blog/is-your-elasticsearch-trimmed" target="_blank" rel="noopener">https://www.elastic.co/blog/is-your-elasticsearch-trimmed</a></p>
+</li>
+</ul>
+<h3 id="最佳实践：服务器硬件"><a href="#最佳实践：服务器硬件" class="headerlink" title="最佳实践：服务器硬件"></a>最佳实践：服务器硬件</h3><ul>
+<li><p>建议使用中等配置的机器，不建议使用过于强劲的硬件配置：Medium machine over large machine</p>
+</li>
+<li><p>不建议在一台服务器上运行多个节点</p>
+</li>
+</ul>
+<h3 id="最佳实践：Throttles-限流"><a href="#最佳实践：Throttles-限流" class="headerlink" title="最佳实践：Throttles 限流"></a>最佳实践：Throttles 限流</h3><p>为 Relocation 和 Recovery 设置限流，避免过多任务对集群产生的影响</p>
+<ul>
+<li>Recovery：<code>Cluster.routing.allocation.node_concurrent_recoveries:2</code></li>
+<li>Relocation：<code>Cluster.routing.allocation.cluster.cluster_concurrent_rebalance:2</code></li>
+</ul>
+<h3 id="集群设置：关闭-Dynamic-Indexes"><a href="#集群设置：关闭-Dynamic-Indexes" class="headerlink" title="集群设置：关闭 Dynamic Indexes"></a>集群设置：关闭 Dynamic Indexes</h3><p>考虑关闭动态索引创建的功能，避免无意或者非法的跳过 mapping 建模进行过多索引创建</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104627.png" alt="image-20200502095244011"></p>
+<p>或者通过模板设置白名单</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104632.png" alt="image-20200502095301146"></p>
+<h3 id="集群安全设定"><a href="#集群安全设定" class="headerlink" title="集群安全设定"></a>集群安全设定</h3><ul>
+<li><p>为 Elasticsearch 和 Kibana 配置安全功能</p>
+<ul>
+<li>打开 Authentication 和 Authorazatin</li>
+<li>实现索引和字段级的安全控制</li>
+</ul>
+</li>
+<li><p>节点间通信加密</p>
+</li>
+<li><p>Enable HTTPS</p>
+</li>
+<li><p>Audit logs（日志审计）</p>
+</li>
+</ul>
+<h3 id="相关阅读-7"><a href="#相关阅读-7" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/bootstrap-checks.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/master/bootstrap-checks.html</a></p>
+<p><a href="https://www.elastic.co/blog/a-heap-of-trouble" target="_blank" rel="noopener">https://www.elastic.co/blog/a-heap-of-trouble</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/system-config.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/system-config.html</a></p>
+<p><a href="https://www.elastic.co/blog/is-your-elasticsearch-trimmed" target="_blank" rel="noopener">https://www.elastic.co/blog/is-your-elasticsearch-trimmed</a></p>
+</blockquote>
+<h1 id="监控-Elasticsearch-集群"><a href="#监控-Elasticsearch-集群" class="headerlink" title="监控 Elasticsearch 集群"></a>监控 Elasticsearch 集群</h1><p>Elasticsearch 提供了多个监控相关的 api，可以通过这些 api 来查看节点级别、集群级别、索引级别的一些指标：</p>
+<ul>
+<li>node stat：_node/stats</li>
+<li>cluster stat：_cluster/stats</li>
+<li>index stats：index_name/stats</li>
+</ul>
+<p>同时还提供了相关的 Task API：</p>
+<ol>
+<li>查看 Task 相关的 API：<ul>
+<li>Pending Cluster Tasks API：GET _cluster/pending_tasks</li>
+<li>Task Management API：GET _tasks（可以用来 Cancel 一个 Task）</li>
+</ul>
+</li>
+<li>监控 Thread Pools<ul>
+<li>GET _nodes/thread_pool</li>
+<li>GET _node/stats/thread_pool</li>
+<li>GET _cat/threaad_pool?v</li>
+<li>GET _nodes/hot_threads</li>
+</ul>
+</li>
+</ol>
+<p>The Index &amp; Query Slow Log（慢查询日志）：</p>
+<ul>
+<li>支持将分片上，search 和 fetch 阶段的慢查询写入文件</li>
+<li>支持为 Query 和 Fetch 分别定义阈值（超过阈值的查询会写入日志文件）</li>
+<li>索引级的动态设置，可以按需设置，或者通过 iindex template 统一设定</li>
+<li>Slow log 文件通过 log4j2.properties 配置</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104644.png" alt="image-20200502100436437"></p>
+<h3 id="如何创建监控-Dashboard"><a href="#如何创建监控-Dashboard" class="headerlink" title="如何创建监控 Dashboard"></a>如何创建监控 Dashboard</h3><ul>
+<li>开发 Elasticsearch plugin，通过读取相关的监控 API，将数据发送到 ES，或者 TSDB。</li>
+<li>使用 Metricbeats 搜索相关指标</li>
+<li>使用 Kibana 或者 Grafana 创建 Dashboard</li>
+<li>可以开发 Elasticsearch Exproter，通过 Prometheus 监控 Elasticsearch 集群</li>
+</ul>
+<h3 id="Kibana-相关请求"><a href="#Kibana-相关请求" class="headerlink" title="Kibana 相关请求"></a>Kibana 相关请求</h3><pre><code># Node Stats：
+GET _nodes/stats
+
+#Cluster Stats:
+GET _cluster/stats
+
+#Index Stats:
+GET kibana_sample_data_ecommerce/_stats
+
+#Pending Cluster Tasks API:
+GET _cluster/pending_tasks
+
+# 查看所有的 tasks，也支持 cancel task
+GET _tasks
+
+
+GET _nodes/thread_pool
+GET _nodes/stats/thread_pool
+GET _cat/thread_pool?v
+GET _nodes/hot_threads
+GET _nodes/stats/thread_pool
+
+
+# 设置 Index Slowlogs
+# the first 1000 characters of the doc&#39;s source will be logged
+PUT my_index/_settings
+{
+  &quot;index.indexing.slowlog&quot;:{
+    &quot;threshold.index&quot;:{
+      &quot;warn&quot;:&quot;10s&quot;,
+      &quot;info&quot;: &quot;4s&quot;,
+      &quot;debug&quot;:&quot;2s&quot;,
+      &quot;trace&quot;:&quot;0s&quot;
+    },
+    &quot;level&quot;:&quot;trace&quot;,
+    &quot;source&quot;:1000  
+  }
+}
+
+# 设置查询
+DELETE my_index
+//&quot;0&quot; logs all queries
+PUT my_index/
+{
+  &quot;settings&quot;: {
+    &quot;index.search.slowlog.threshold&quot;: {
+      &quot;query.warn&quot;: &quot;10s&quot;,
+      &quot;query.info&quot;: &quot;3s&quot;,
+      &quot;query.debug&quot;: &quot;2s&quot;,
+      &quot;query.trace&quot;: &quot;0s&quot;,
+      &quot;fetch.warn&quot;: &quot;1s&quot;,
+      &quot;fetch.info&quot;: &quot;600ms&quot;,
+      &quot;fetch.debug&quot;: &quot;400ms&quot;,
+      &quot;fetch.trace&quot;: &quot;0s&quot;
+    }
+  }
+}
+
+GET my_index</code></pre><h1 id="诊断集群的潜在问题"><a href="#诊断集群的潜在问题" class="headerlink" title="诊断集群的潜在问题"></a>诊断集群的潜在问题</h1><h3 id="集群运维所面临的挑战"><a href="#集群运维所面临的挑战" class="headerlink" title="集群运维所面临的挑战"></a>集群运维所面临的挑战</h3><ul>
+<li><p>用户集群数量多，业务场景差异大</p>
+</li>
+<li><p>存在使用与配置不当，优化不够的问题</p>
+<ul>
+<li>如何让用户更加高效和正确的使用 ES</li>
+<li>如何让用户更全面的了解自己的集群的使用状况</li>
+</ul>
+</li>
+<li><p>发现问题之后，需要防患于未然</p>
+<ul>
+<li>需要”有迹可循”，做到”有则改之，无则加勉”</li>
+<li>Elastic 有提供 Support Diaagnostics Tool：<a href="https://github.com/elastic/support-diagnostics" target="_blank" rel="noopener">https://github.com/elastic/support-diagnostics</a>。完全基于 Java 语言开发的工具，当集群出现问题的时候，可以运行这个工具，收集集群的一些指标，帮助 ES 公司对一些问题作出诊断。</li>
+</ul>
+</li>
+<li><p>监控指标多并且分散，指标啊的含义不够明确直观（集群的绿色状态只是其中一项指标，并意味着集群足够好了，其仅表示分片是否都已经正常分配）</p>
+</li>
+<li><p>问题分析定位的门槛较高，需要具备非常多的专业知识</p>
+</li>
+</ul>
+<h3 id="为什么要诊断集群的潜在问题"><a href="#为什么要诊断集群的潜在问题" class="headerlink" title="为什么要诊断集群的潜在问题"></a>为什么要诊断集群的潜在问题</h3><p>即便 ES 是在绿色状态，但是我们依然要经常对 ES 做一些指标的分析，防患于未然，避免集群奔溃</p>
+<ul>
+<li>Master 节点或者数据节点宕机；负载过高，导致节点失联，都需要提前介入</li>
+<li>副本丢失，导致数据可靠性受损</li>
+<li>集群压力过大，数据写入失败</li>
+</ul>
+<p>提升集群性能</p>
+<ul>
+<li>数据节点负载不均衡（避免单节点瓶颈）的时候需要优化分片（例如segments数量过多了，手动出发合并）</li>
+<li>规范操作方式（利用别名、避免 Dynamic Mapping 引发过多字段，对索引的合理性进行管控）</li>
+</ul>
+<h3 id="eBay-Diagnostic-Tools"><a href="#eBay-Diagnostic-Tools" class="headerlink" title="eBay Diagnostic Tools"></a>eBay Diagnostic Tools</h3><ul>
+<li>集群健康状态，是否有节点丢失</li>
+<li>索引合理性：索引总数不能过大、副本分片尽量不要设置为0、主分片尺寸检测、索引的字段总数（Dynamic Mapping 关闭）、索引是否分配不均衡、索引 Segment 大小诊断分析、数据节点之间的负载偏差是否过大、冷热数据分配是否正确（例如，Cold 节点上的索引是否设置成只读）</li>
+<li>资源使用合理性：CPU 内存和磁盘的使用状况分析、是否存在节点负载不平衡、是否需要增加节点</li>
+<li>业务操作合理性：集群状态变更频率，是否在业务高峰期有频繁操作；慢查询监控与分析</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104658.png" alt="image-20200502102215609"></p>
+<h3 id="阿里云：EYOU-智能运维工具"><a href="#阿里云：EYOU-智能运维工具" class="headerlink" title="阿里云：EYOU 智能运维工具"></a>阿里云：EYOU 智能运维工具</h3><p>每天凌晨定时诊断，也可以自主诊断。每次诊断耗时3分钟。（<a href="https://help.aliyun.com/document_detail/90391.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/90391.html</a>）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104705.png" alt="image-20200502102632163"></p>
+<p>诊断 Shard 数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104716.png" alt="image-20200502102738786"></p>
+<p>磁盘容量估算</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104725.png" alt="image-20200502102754737"></p>
+<h3 id="多维度检测，构建自己的诊断工具"><a href="#多维度检测，构建自己的诊断工具" class="headerlink" title="多维度检测，构建自己的诊断工具"></a>多维度检测，构建自己的诊断工具</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104736.png" alt="image-20200502102814615"></p>
+<h3 id="相关阅读-8"><a href="#相关阅读-8" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://elasticsearch.cn/slides/162" target="_blank" rel="noopener">https://elasticsearch.cn/slides/162</a></p>
+<p><a href="https://yq.aliyun.com/articles/657712" target="_blank" rel="noopener">https://yq.aliyun.com/articles/657712</a></p>
+<p><a href="https://yq.aliyun.com/articles/657108" target="_blank" rel="noopener">https://yq.aliyun.com/articles/657108</a></p>
+<p><a href="https://help.aliyun.com/document_detail/90391.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/90391.html</a></p>
+</blockquote>
+<h1 id="解决集群-Yellow-与-Red-的问题"><a href="#解决集群-Yellow-与-Red-的问题" class="headerlink" title="解决集群 Yellow 与 Red 的问题"></a>解决集群 Yellow 与 Red 的问题</h1><p>分片健康：</p>
+<ul>
+<li>红：至少有一个主分片没有分配</li>
+<li>黄：至少有一个副本分片没有分配</li>
+<li>绿：主副本分片全部正常分配</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104754.png" alt="image-20200502103351675"></p>
+<h3 id="Health-相关的-API"><a href="#Health-相关的-API" class="headerlink" title="Health 相关的 API"></a>Health 相关的 API</h3><table>
+<thead>
+<tr>
+<th>API</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET _cluster/health</td>
+<td>集群的状态（检查节点数量）</td>
+</tr>
+<tr>
+<td>GET _cluster/health?level=indices</td>
+<td>所有索引的健康状态（查看有问题的索引）</td>
+</tr>
+<tr>
+<td>GET _cluster/health/my_index</td>
+<td>单个索引的健康状态（查看具体的索引）</td>
+</tr>
+<tr>
+<td>GET _cluster/heaalth?level=shards</td>
+<td>分片级的索引</td>
+</tr>
+<tr>
+<td>GET _cluster/allocation/explain</td>
+<td>返回第一个未分配 shard 的原因</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104801.png" alt="image-20200502103808261"></p>
+<h3 id="案例1：集群变红"><a href="#案例1：集群变红" class="headerlink" title="案例1：集群变红"></a>案例1：集群变红</h3><p>我们在索引的创建初期可能因为一些错误的设置，导致集群无法进行分片分配。这个时候可以通过explain api 找到真正的原因，然后将刚创建的索引进行简单的删除，重新正确设置之后再创建即可。</p>
+<ol>
+<li><p>集群初始状态为绿色</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104814.png" alt="image-20200502192747153"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104808.png" alt="image-20200502192806534"></p>
+<p>集群上一共有3个节点</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104820.png" alt="image-20200502192857735"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104826.png" alt="image-20200502192904871"></p>
+<p>查看节点属性，可以看到我们自定义了属性未 box_type，三个节点的值分别为：hot、warm、cold</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104832.png" alt="image-20200502192940381"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104836.png" alt="image-20200502193029343"></p>
+</li>
+<li><p>我们现在来创建一个 index，创建之后好像 index 没有得到任何的返回</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104844.png" alt="image-20200502193209472"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104849.png" alt="image-20200502193247086"></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>这时候再次尝试去查看集群状态，发现集群为红色</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104902.png" alt="image-20200502193320202"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104854.png" alt="image-20200502193332717"></p>
+</li>
+<li><p>查看是哪一个索引导致集群变红。可以看到，就是刚刚创建的”mytest”索引</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104915.png" alt="image-20200502193421517"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104909.png" alt="image-20200502193444128"></p>
+</li>
+<li><p>尝试使用 explain api 看一下为什么集群会变红，可以看到是因为没有节点是匹配”index.routing.allocation.require”一项的，因为 box_type 的值是”hott”，设置索引 settings 的时候拼写错误了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104925.png" alt="image-20200502193546327"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104930.png" alt="image-20200502193657352"></p>
+</li>
+<li><p>我们先删除索引</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104942.png" alt="image-20200502193809038"></p>
+<p>再查看集群状况，可以看到变回绿色了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104953.png" alt="image-20200502193834375"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220104947.png" alt="image-20200502193842477"></p>
+</li>
+<li><p>重新创建索引，并设置正确的属性值”hot”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105000.png" alt="image-20200502193937703"></p>
+<p>再次查询集群状况，可以看到是绿色的了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105007.png" alt="image-20200502194000876"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105013.png" alt="image-20200502194019636"></p>
+</li>
+</ol>
+<h3 id="案例2：集群变黄"><a href="#案例2：集群变黄" class="headerlink" title="案例2：集群变黄"></a>案例2：集群变黄</h3><ol>
+<li><p>先将前面创建的 mytest 索引删除，然后再重新设定</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105019.png" alt="image-20200502194255230"></p>
+</li>
+<li><p>查看集群状态，发现返回的是 yellow</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105030.png" alt="image-20200502194323886"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105025.png" alt="image-20200502194342547"></p>
+</li>
+<li><p>再通过 explain api 查看具体的原因，可以看到是 mytest 的索引存在一个未分配的情况，通过查看具体的原因发现还是因为没有节点匹配 box_type 为 hot 的问题。但是这一次我们的配置是对的了。然后我们再查看集群的节点属性发现”hot”节点其实只有一个，但是我们设置索引 settings 的时候是为索引指定了一个副本分片的，而我们又设置了”require”box_type 为 hot 才能分配，那么这时候副本分片就找不到其他 hot 节点做备份了。所以处于无法分配的状态。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105037.png" alt="image-20200502194430079"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105042.png" alt="image-20200502194510603"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105048.png" alt="image-20200502194858284"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105053.png" alt="image-20200502194536979"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105100.png" alt="image-20200502194947659"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105105.png" alt="image-20200502195002218"></p>
+</li>
+<li><p>那么此时我们有两个解决方案：一个是增加一个 hot 节点使得可以正确分配一个副本分片；另外一个是重新设置索引的 settings 文件使得副本分片数量为0。</p>
+</li>
+</ol>
+<h3 id="分片没有被分配的一些原因"><a href="#分片没有被分配的一些原因" class="headerlink" title="分片没有被分配的一些原因"></a>分片没有被分配的一些原因</h3><ul>
+<li>index_create：在创建索引的时候，在索引的全部分片分配完成之前，会有短暂的 red，不一定代表有问题</li>
+<li>cluster_recover：集群重启阶段，会有这个问题</li>
+<li>index_reopen：open 一个之前 close 的索引</li>
+<li>dangling_index_imported：一个节点离开集群期间，有索引被删除。这个节点重新返回时，会导致 Dangling 的问题，此时我们再对这个索引进行删除操作，就可以解决了。</li>
+</ul>
+<h3 id="常见问题与解决方法"><a href="#常见问题与解决方法" class="headerlink" title="常见问题与解决方法"></a>常见问题与解决方法</h3><ul>
+<li><p>集群变红，需要检查是否有节点离线。如果有，通常通过重启离线的节点可以解决问题。</p>
+</li>
+<li><p>由于配置导致的问题，需要修复相关的配置。如果是测试的索引，可以直接删除</p>
+</li>
+<li><p>因为磁盘空间限制，分片规则（Shard Filtering）引发的，需要调整规则或者增加节点</p>
+</li>
+<li><p>对于节点返回集群，导致的 dangling 变红，可以直接删除 dangling 索引</p>
+</li>
+</ul>
+<h3 id="集群-Red-amp-Yellow-问题的总结"><a href="#集群-Red-amp-Yellow-问题的总结" class="headerlink" title="集群 Red &amp; Yellow 问题的总结"></a>集群 Red &amp; Yellow 问题的总结</h3><p>Red &amp; Yellow 是集群运维中常见的问题。除了集群故障，一些创建，增加副本等操作，都会导致集群短暂的 red 和 yellow，所以监控和报警时需要设置一定的时延。通过检查节点数，使用 ES 提供的相关 API，找到真正的原因。</p>
+<p><strong>同时根据情况也可以指定 Move 或者 Reallocate 分片：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105113.png" alt="image-20200502200149661"></p>
+<h3 id="相关阅读-9"><a href="#相关阅读-9" class="headerlink" title="相关阅读"></a>相关阅读</h3><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/cat-shards.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/cat-shards.html</a></p>
+<h3 id="Kibana-请求测试"><a href="#Kibana-请求测试" class="headerlink" title="Kibana 请求测试"></a>Kibana 请求测试</h3><pre><code>#案例1
+DELETE mytest
+PUT mytest
+{
+  &quot;settings&quot;:{
+    &quot;number_of_shards&quot;:3,
+    &quot;number_of_replicas&quot;:0,
+    &quot;index.routing.allocation.require.box_type&quot;:&quot;hott&quot;
+  }
+}
+
+# 检查集群状态，查看是否有节点丢失，有多少分片无法分配
+GET /_cluster/health/
+
+# 查看索引级别,找到红色的索引
+GET /_cluster/health?level=indices
+
+
+#查看索引的分片
+GET _cluster/health?level=shards
+
+# Explain 变红的原因
+GET /_cluster/allocation/explain
+
+GET /_cat/shards/mytest
+GET _cat/nodeattrs
+
+DELETE mytest
+GET /_cluster/health/
+
+PUT mytest
+{
+  &quot;settings&quot;:{
+    &quot;number_of_shards&quot;:3,
+    &quot;number_of_replicas&quot;:0,
+    &quot;index.routing.allocation.require.box_type&quot;:&quot;hot&quot;
+  }
+}
+
+GET /_cluster/health/
+
+#案例2, Explain 看 hot 上的 explain
+DELETE mytest
+PUT mytest
+{
+  &quot;settings&quot;:{
+    &quot;number_of_shards&quot;:2,
+    &quot;number_of_replicas&quot;:1,
+    &quot;index.routing.allocation.require.box_type&quot;:&quot;hot&quot;
+  }
+}
+
+GET _cluster/health
+GET _cat/shards/mytest
+GET /_cluster/allocation/explain
+
+PUT mytest/_settings
+{
+    &quot;number_of_replicas&quot;: 0
+}</code></pre><h1 id="集群写性能优化"><a href="#集群写性能优化" class="headerlink" title="集群写性能优化"></a>集群写性能优化</h1><p>写性能的优化目标是增大写吞吐量（Events Per Second），越高越好。性能优化主要分为两个方向，客户端和服务端：</p>
+<ul>
+<li>客户端：使用多线程，buik API 批量写<ul>
+<li>可以通过性能测试，确定一个 bulk api 的最佳文档数量是多少</li>
+<li>多线程写入的情况下，需要观察是否有 HTTP 429的返回，如果有，说明服务端已经无法处理目前的请求量了，这时候客户端需要对返回429的请求有一个重试并自动调节线程数的机制</li>
+</ul>
+</li>
+<li>服务器端：单个性能问题，往往是多个因素造成的。需要先分解问题，在单个节点上进行调整并结合测试，尽可能压榨硬件资源，以达到最高吞吐量<ul>
+<li>使用更好的硬件，观察 CPU、IO Block</li>
+<li>观察线程切换、堆栈情况</li>
+</ul>
+</li>
+</ul>
+<h3 id="服务端优化写入性能的一些手段"><a href="#服务端优化写入性能的一些手段" class="headerlink" title="服务端优化写入性能的一些手段"></a>服务端优化写入性能的一些手段</h3><ol>
+<li>降低 IO 操作。例如使用 ES 自动生成的文档 id，如果我们自己生成 id，ES会有一个 GET操作，对性能有一定开销。还有其他一些相关的 ES 配置，例如 Refresh Interval</li>
+<li>降低 CPU 和存储开销：减少不必要的分词、避免不需要的 doc_value 文档、文档的字段尽量保证相同的顺序，可以提供文档的压缩率</li>
+<li>尽可能做到<strong>文档写入请求</strong>(Write Load Balancer)和<strong>分片</strong>(Shard Filtering)的负载均衡，实现水平扩展</li>
+<li>调整 Build 线程池和队列</li>
+</ol>
+<h3 id="高质量数据建模"><a href="#高质量数据建模" class="headerlink" title="高质量数据建模"></a>高质量数据建模</h3><p>ES 的默认配置已经总和考虑了数据可靠性，搜索的实时性质，写入速度，一般不要盲目修改。一切优化，都要基于当前的数据建模是高质量的。以下是建模的一些建议：</p>
+<ul>
+<li><p>只需要聚合不需要搜索，index 设置成 false</p>
+</li>
+<li><p>不需要算分，norms 设置成 false</p>
+</li>
+<li><p>不要对字符串使用默认的 dynamic mapping，因为默认的 mapping 会对 text 类型数据自动生成一个 keyword 子字段，我们按需自己手动设置。另外一般也不建议是有那个 dynamic mapping，因为可能会导致字段数量过多，会对性能产生较大的影响</p>
+</li>
+<li><p>Index_optiions 控制在创建倒排索引的时，哪些内容会被添加到倒排索引中。优化这些设置，一定程度可以节约 CPU</p>
+</li>
+<li><p>关闭 _source，减少 IO 操作（适合指标型数据）</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105123.png" alt="image-20200502202412916"></p>
+<h3 id="牺牲一定可靠性和实时性增加写入性能"><a href="#牺牲一定可靠性和实时性增加写入性能" class="headerlink" title="牺牲一定可靠性和实时性增加写入性能"></a>牺牲一定可靠性和实时性增加写入性能</h3><p>如果需要追求极致的写入速度，可以牺牲数据可靠性及搜索实时性以换取性能。</p>
+<ul>
+<li>牺牲可靠性：将副本分片设置为0，写入完毕再调整回去</li>
+<li>牺牲搜索实时性：增加 Refresh Interval 的时间</li>
+<li>牺牲可靠性：修改 Translog 的配置</li>
+</ul>
+<p>下面我们来回顾一下数据写入的过程，来看一下有哪些点可以优化提高写入性能：</p>
+<ol>
+<li>refresh：将文档先保存在 Index Buffer 中，以refresh_interval 为间隔时间，定期清空 buffer，生成 segments，借助文件系统缓存的特性，先将 segments 刷到文件系统缓存中，并开放查询，以提升搜索的实时性</li>
+<li>Translog：Segments 没有写入磁盘，即便发生了宕机，重启后，数据也能恢复，默认配置是每次请求都会落盘</li>
+<li>Flush：请求一次 refresh 生成 Segments cache 并连着 cache 中之前生成的 segments 一起写入磁盘，更新 commit point 并写入磁盘，删除旧的 translog 文件。ES 自动完成，可优化点不多。</li>
+</ol>
+<h4 id="Refresh-Interval的优化"><a href="#Refresh-Interval的优化" class="headerlink" title="Refresh Interval的优化"></a>Refresh Interval的优化</h4><p>我们可以通过降低 Refresh 的频率，减少生成 segments cache 的动作以及生成过多的 segment 文件，空出更多的单位时间系统资源以供写入操作的使用（但是会降低搜索的实时性）：</p>
+<ul>
+<li>增加 refresh_interval 的数值。默认值是1s，如果设置成-1，会禁止自动 refresh</li>
+<li>增大静态配置参数<code>indices.memory.index_buffer_size</code>，默认是10%，不然即使我们设置了 refresh_interval，但是在 index_buffer 满了情况下还是会导致自动出发 refresh</li>
+</ul>
+<h4 id="Translog-的优化"><a href="#Translog-的优化" class="headerlink" title="Translog 的优化"></a>Translog 的优化</h4><p>另外我们还可以通过以下方式降低 ES 写入 Translog 的频率和实时性，但是会降低容灾能力：</p>
+<ul>
+<li><code>index.translog.durability</code>：默认是 request，每个请求都会同步地进行 translog 落盘操作之后才会返回客户端，设置为 async，异步写入</li>
+<li><code>index.translog.sync_interval</code>：设置为60s，每分钟执行一次 translog 的磁盘写入而不是每一次请求都会导致落盘（配合上面参数使用）</li>
+<li><code>index.translog.flush_threshod_size</code>：默认512mb，可以适当调大。当 translog 超过该值，会触发 flush</li>
+</ul>
+<h4 id="分片设定"><a href="#分片设定" class="headerlink" title="分片设定"></a>分片设定</h4><ul>
+<li><p>副本在写入的时候设定为0，完成后再增加。</p>
+</li>
+<li><p>合理设置主分片数，确保均匀分配在所有数据节点上：</p>
+<p><code>index.routing.allocation.total_share_per_node</code>：限定每个索引在每个节点上可以分配的<strong>主副本分片数</strong>（这样可以避免一些热点索引数据集中在一个节点上）</p>
+<p>一个例子：5个节点的集群。索引有5个主分片，1个副本分片，应该如何设置？</p>
+<ul>
+<li>(5+5) / 5 = 2 （ 设置以上参数值）</li>
+<li>生产环境中要适当调大这个数字，避免有节点下线，分片无法正常迁移</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bulk-线程池和队列大小"><a href="#Bulk-线程池和队列大小" class="headerlink" title="Bulk 线程池和队列大小"></a>Bulk 线程池和队列大小</h3><p>客户端：</p>
+<ul>
+<li>单个 bulk 请求体的数据量不要太大，官方建议5-15mb</li>
+<li>写入端的 bulk 请求超时需要足够长，需要60s 以上</li>
+<li>写入端尽量将数据轮询打到不同节点（LB）</li>
+</ul>
+<p>服务器端：</p>
+<ul>
+<li>索引创建属于计算密集型任务，应该使用固定大小的线程池来配置。来不及处理的放入队列，线程数应该配置成 CPU 核心数+1，避免过多的上下文切换</li>
+<li>队列大小可以适当增加，不要过大，否则占用的内存会成为 GC 的负担</li>
+</ul>
+<h3 id="一个索引设定的例子"><a href="#一个索引设定的例子" class="headerlink" title="一个索引设定的例子"></a>一个索引设定的例子</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105131.png" alt="image-20200502205658949"></p>
+<pre><code>{
+    &quot;template&quot;:&quot;logs-*&quot;,
+    &quot;settings&quot;:{
+        &quot;index.indexing.slowlog.threshold.index.debug&quot;:&quot;2s&quot;,
+        &quot;index.indexing.slowlog.threshold.index.info&quot;:&quot;5s&quot;,
+        &quot;index.indexing.slowlog.threshold.index.trace&quot;:&quot;500ms&quot;,
+        &quot;index.indexing.slowlog.threshold.index.warn&quot;:&quot;10s&quot;,
+        &quot;index.merge.policy.max_merged_segment&quot;:&quot;2gb&quot;,
+        &quot;index.merge.policy.segments_per_tier&quot;:&quot;24&quot;,
+        &quot;index.number_of_replicas&quot;:&quot;1&quot;,
+        &quot;index.number_of_shards&quot;:&quot;12&quot;,
+        &quot;index.optimize_auto_generated_id&quot;:&quot;true&quot;,
+        &quot;index.refresh_interval&quot;:&quot;600s&quot;,
+        &quot;index.routing.allocation.total_shards_per_node&quot;:&quot;-1&quot;,
+        &quot;index.search.slowlog.threshold.fetch.debug&quot;:&quot;500ms&quot;,
+        &quot;index.search.slowlog.threshold.fetch.info&quot;:&quot;800ms&quot;,
+        &quot;index.search.slowlog.threshold.fetch.trace&quot;:&quot;200ms&quot;,
+        &quot;index.search.slowlog.threshold.fetch.warn&quot;:&quot;1s&quot;,
+        &quot;index.search.slowlog.threshold.query.debug&quot;:&quot;2s&quot;,
+        &quot;index.search.slowlog.threshold.query.info&quot;:&quot;5s&quot;,
+        &quot;index.search.slowlog.threshold.query.trace&quot;:&quot;500ms&quot;,
+        &quot;index.search.slowlog.threshold.query.warn&quot;:&quot;10s&quot;,
+        &quot;index.translog.durability&quot;:&quot;async&quot;,
+        &quot;index.translog.flush_threshold_size&quot;:&quot;5000mb&quot;,
+        &quot;index.translog.sync_interval&quot;:&quot;120s&quot;,
+        &quot;index.unassigned.node_left.delayed_timeout&quot;:&quot;7200m&quot;
+    },
+    &quot;mappings&quot;:{
+        &quot;_default_&quot;:{
+            &quot;_all&quot;:{
+                &quot;store&quot;:&quot;false&quot;
+            }
+        },
+        &quot;typename&quot;:{
+            &quot;dynamic&quot;:false,
+            &quot;properties&quot;:{
+                &quot;full_name&quot;:{
+                    &quot;type&quot;:&quot;text&quot;
+                }
+            }
+        }
+    }
+}</code></pre><h3 id="相关阅读-10"><a href="#相关阅读-10" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html</a></p>
+</blockquote>
+<h1 id="集群读性能优化"><a href="#集群读性能优化" class="headerlink" title="集群读性能优化"></a>集群读性能优化</h1><ol>
+<li><p>首先我们不能将 ES 当做一个普通的关系型数据库来对待，我们要尽量对数据做Denomalization。从而获取最佳的性能：</p>
+<ul>
+<li>使用 nested 类型的数据。查询速度会慢几倍</li>
+<li>使用 Parent / Child 关系。查询速度会慢几百倍</li>
+</ul>
+<p>所以可以避免使用以上数据类型就尽量避免。</p>
+</li>
+<li><p>对于需要进行Script 计算的数据，可以在 index 文档的时候，使用 ingest pipeline 计算然后写入ES。尽量避免查询时使用 Script 计算。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105139.png" alt="image-20200502210602653"></p>
+</li>
+<li><p>尽量使用 Filter Context，利用缓存机制，减少不必要的算分</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105146.png" alt="image-20200502210650530"></p>
+</li>
+<li><p>结合 profile，expalin API 分析慢查询的问题，持续优化数据模型</p>
+</li>
+<li><p>严禁使用 * 开头通配符 Terms 查询</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105154.png" alt="image-20200502210932397"></p>
+</li>
+<li><p>聚合文档消耗内存，特别时针对很大的数据集进行聚合运算，如果可以控制聚合的数量，就能减少内存的开销；当需要使用不同的 Query Scope，可以使用 Filter Bucket（和上面提到的一样，使用 Filter 替代 Query）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105159.png" alt="image-20200502210818880"></p>
+</li>
+<li><p>尽量提高 filesystem cache的大小，前面我们提到过，内存一半空间分给 JVM 一半空间留给lucene 的 segments。ES 检索索引的时候底层都是查询的 lucene 的一个个 segments，会先查os cache 后查 file system，如果在缓存能命中，会大大提高效率。</p>
+</li>
+<li><p>分页能用 scoll api 的方式就经量使用，尽量避免深度分页。</p>
+</li>
+</ol>
+<h3 id="优化分片"><a href="#优化分片" class="headerlink" title="优化分片"></a>优化分片</h3><ul>
+<li>避免 Over Sharing（过多分片），它会导致一个查询需要访问每一个分片，分片过多，会导致不必要的查询开销。</li>
+<li>结合应用场景，控制单个分片的尺寸：<ul>
+<li>search：20GB</li>
+<li>Logging：40GB</li>
+</ul>
+</li>
+<li>基于时间序列的索引，我们要及时地对这些数据做老化处理，将它们设置为 read-only 然后对它们做一个 force merge 操作，减少 segments 数量</li>
+</ul>
+<h3 id="相关阅读-11"><a href="#相关阅读-11" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html</a></p>
+</blockquote>
+<h1 id="集群压力测试"><a href="#集群压力测试" class="headerlink" title="集群压力测试"></a>集群压力测试</h1><p>在我们在做一些容量规划和性能调优的时候，都需要进行一些实际的测试，看一下实际的效果。</p>
+<h3 id="压力测试的方法与步骤"><a href="#压力测试的方法与步骤" class="headerlink" title="压力测试的方法与步骤"></a>压力测试的方法与步骤</h3><ul>
+<li>测试计划（确定测试场景和测试数据集）</li>
+<li>脚本开发</li>
+<li>测试环境搭建（不同的软硬件配置）&amp; 运行测试</li>
+<li>分析比较结果</li>
+</ul>
+<h3 id="测试目标和测试数据"><a href="#测试目标和测试数据" class="headerlink" title="测试目标和测试数据"></a>测试目标和测试数据</h3><ul>
+<li>测试目标<ul>
+<li>测试集群的读写性能、做集群容量规划</li>
+<li>性能问题诊断及优化：<ul>
+<li>对 ES 配置参数进行修改，评估优化效果</li>
+<li>修改 Mapping 和 Setting，对数据建模进行优化，并测试评估性能改进</li>
+</ul>
+</li>
+<li>测试 ES 新版本，结合实际场景和老版本进行比较，评估是否进行升级</li>
+<li>确定系统稳定性，考察系统功能极限和隐患</li>
+</ul>
+</li>
+<li>测试数据集对于压测结果的影响也非常大，我们主要从数据量和数据分布两个方面进行考虑</li>
+</ul>
+<h3 id="测试脚本"><a href="#测试脚本" class="headerlink" title="测试脚本"></a>测试脚本</h3><p>ES 本身提供了 REST API，所以，可以通过很多传统的性能测试工具：</p>
+<ul>
+<li>Load Runner（商业软件，支持录制+重放+DSL）</li>
+<li>JMeter（Apache 开源，Record &amp; Play）</li>
+<li>Gatling（开源，支持写 Scala 代码+DSL）</li>
+</ul>
+<p>另外，还有一些专门为 Elasticsearch 设计的工具</p>
+<ul>
+<li>ES Pref &amp; Elasticsearch-stress-test</li>
+<li>Elastic Rally</li>
+</ul>
+<h3 id="ES-Rally"><a href="#ES-Rally" class="headerlink" title="ES Rally"></a><a href="https://github.com/elastic/rally" target="_blank" rel="noopener">ES Rally</a></h3><p>Elastic 官方开源，基于 Python3的压力测试工具：</p>
+<ul>
+<li>github 地址：<a href="https://github.com/elastic/rally" target="_blank" rel="noopener">https://github.com/elastic/rally</a></li>
+<li>官方 ES 性能测试结果比较(通过 Rally 得到的)：<a href="https://elasticsearch-benchmarks.elastic.co" target="_blank" rel="noopener">https://elasticsearch-benchmarks.elastic.co</a></li>
+</ul>
+<p>功能介绍：</p>
+<ul>
+<li>自动创建、配置、运行测试、并且销毁 ES 集群</li>
+<li>支持不同的测试数据（自带一些数据集）的比较，也支持将数据导入 ES集群，进行二次分析</li>
+<li>支持测试时指标数据的搜索，方便对测试结果进行深度的分析</li>
+</ul>
+<h4 id="安装以及入门"><a href="#安装以及入门" class="headerlink" title="安装以及入门"></a>安装以及入门</h4><ol>
+<li>安装<ul>
+<li>Python3.4+和 pip3、JDK 8、git 1.9+</li>
+<li>运行 pip3 install esrally</li>
+<li>运行 esrally configure</li>
+</ul>
+</li>
+<li>运行<ul>
+<li>运行 esrally -distribution-version=7.1.0（会使用默认的数据集进行测试，数据量很大）</li>
+<li>运行1000条测试数据：esrally -distribution-version=7.1.0 –test-mdoe（使用 test mode 默认使用前1000条数据进行测试）</li>
+</ul>
+</li>
+</ol>
+<h4 id="Rally-基本概念讲解"><a href="#Rally-基本概念讲解" class="headerlink" title="Rally 基本概念讲解"></a>Rally 基本概念讲解</h4><p>Rally 使用了汽车拉力赛中的概念对压力测试进行类比以及引用了相关的术语进行相关模块的命名：</p>
+<ul>
+<li><p><a href="https://esrally.readthedocs.io/en/stable/tournament.html" target="_blank" rel="noopener">Tournament</a>（锦标赛）：定义测试目标，由多个 race 组成</p>
+</li>
+<li><p>Race（锦标赛中的一次比赛）：其实就是一次压力测试操作（esrally list race）</p>
+</li>
+<li><p>[Track](<a href="https://github.com/elastic/rally-" target="_blank" rel="noopener">https://github.com/elastic/rally-</a> tracks)（赛道）：测试数据和测试场景与策略（esrally list tracks）</p>
+</li>
+<li><p>Car（赛车）：代表不同的 ES 实例（来执行测试方案）</p>
+</li>
+<li><p>Award（颁奖）：测试结果和报告</p>
+</li>
+</ul>
+<h4 id="压测流程"><a href="#压测流程" class="headerlink" title="压测流程"></a>压测流程</h4><p>Rally 中pipeline 指的是压测的一个流程（通过 <code>esrally list pipelines</code>命令查看有什么 pipeline），表示Rally 默认有以下流程供使用：</p>
+<ul>
+<li>From-source-complete：从源码编译构建出一个 ES并搭建集群，然后在这个集群上运行一个基准(benchmark)测试并报告结果。</li>
+<li>From-source-skip-build：使用已经构建好的一个 ES 搭建集群，然后在这个集群上运行一个基准(benchmark)测试并报告结果。</li>
+<li>From-distribution：下载一个已经发布的 ES，搭建集群，然后在这个集群上运行一个基准(benchmark)测试并报告结果。</li>
+<li>Benchmark-only：在一个已经在运行的 ES 实例上执行一个基准测试并报告结果。</li>
+</ul>
+<h4 id="自定义测试-amp-分布式测试"><a href="#自定义测试-amp-分布式测试" class="headerlink" title="自定义测试&amp;分布式测试"></a>自定义测试&amp;分布式测试</h4><p>使用不同的 car（不同配置的 ES 集群）：</p>
+<ul>
+<li><p><a href="https://esrally.readthedocs.io/en/latest/car.html" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/latest/car.html</a></p>
+</li>
+<li><p>使用自建的集群</p>
+</li>
+</ul>
+<p>使用不同的 Track（不同测试数据）：</p>
+<ul>
+<li>Rally自带的测试数据集：Nyc_taxis(4.5G)、logging(1.2G)</li>
+<li>更多的测试数据集：<a href="https://github.com/elastic/rally-tracks" target="_blank" rel="noopener"> https://github.com/elastic/rally-tracks</a></li>
+</ul>
+<p>当需要对一个特别大的 ES 集群进行测试的时候，Rally 还支持分布式测试的模式，可以在不同的机器上分别搭建 Rally，进行一个分布式测试：[<a href="https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-</a> driver](<a href="https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-</a> driver)</p>
+<h3 id="实例：比较不同版本的性能"><a href="#实例：比较不同版本的性能" class="headerlink" title="实例：比较不同版本的性能"></a>实例：比较不同版本的性能</h3><p>对 ES6.0和7.1进行测试，使用相同的测试数据集 nyc_taxis：</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 6.0
+esrally race --distribution-version=6.0.0 --track=nyc_taxis --challenge=append-no-conflicts --user-tag="version:6.0.0”
+# 7.0
+esrally race --distribution-version=7.1.0 --track=nyc_taxis --challenge=append-no-conflicts --user-tag="version:7.1.0"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>比较结果</p>
+<pre class="line-numbers language-shell"><code class="language-shell">esrally list races
+esrally compare --baseline=[6.0.0 race] --contender=[7.1.0 race]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="实例：比较不同-Mapping-的性能"><a href="#实例：比较不同-Mapping-的性能" class="headerlink" title="实例：比较不同 Mapping 的性能"></a>实例：比较不同 Mapping 的性能</h3><p>测试 mapping 文件中 _source 是否 enabled 的性能差异</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 优化前测试
+esrally race --distribution-version=7.1.0 --track=nyc_taxis --challenge=append-no-conflicts --user-tag="enableSource:true" --include-tasks="type:index”
+
+# 修改优化：benchmarks/tracks/default/nyc_taxis/mappings.json，修改 _source.enabled 为 false
+
+# 修改后在测试
+esrally race --distribution-version=7.1.0 --track=nyc_taxis --challenge=append-no-conflicts --user-tag="enableSource:false" --include-tasks="type:index<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 比较</p>
+<pre class="line-numbers language-shell"><code class="language-shell">esrally compare --baseline=[enableAll race] --contender=[disableAll race]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="实例：测试现有集群的性能"><a href="#实例：测试现有集群的性能" class="headerlink" title="实例：测试现有集群的性能"></a>实例：测试现有集群的性能</h3><pre class="line-numbers language-shell"><code class="language-shell"># 指定 pipeline 为 benchmark-only 并指定现有集群的连接信息
+esrally race --pipeline=benchmark-only --target-hosts=127.0.0.1:9200 --track=geonames --challenge=append-no-conflicts<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="相关阅读-12"><a href="#相关阅读-12" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://github.com/elastic/rally" target="_blank" rel="noopener">https://github.com/elastic/rally</a></p>
+<p><a href="https://github.com/elastic/rally-tracks" target="_blank" rel="noopener">https://github.com/elastic/rally-tracks</a></p>
+<p><a href="https://logz.io/blog/rally/" target="_blank" rel="noopener">https://logz.io/blog/rally/</a></p>
+<p><a href="https://elasticsearch-benchmarks.elastic.co" target="_blank" rel="noopener">https://elasticsearch-benchmarks.elastic.co</a></p>
+<p><a href="https://esrally.readthedocs.io/en/stable/tournament.html" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/stable/tournament.html</a></p>
+<p><a href="https://esrally.readthedocs.io/en/latest/car.html" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/latest/car.html</a></p>
+<p><a href="https://github.com/elastic/rally-tracks" target="_blank" rel="noopener"> https://github.com/elastic/rally-tracks</a></p>
+<p>[<a href="https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-</a> driver](<a href="https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-" target="_blank" rel="noopener">https://esrally.readthedocs.io/en/latest/recipes.html#recipe-distributed-load-</a> driver)</p>
+</blockquote>
+<h1 id="段合并优化及注意事项"><a href="#段合并优化及注意事项" class="headerlink" title="段合并优化及注意事项"></a>段合并优化及注意事项</h1><h3 id="Lucene-Index-原理回顾"><a href="#Lucene-Index-原理回顾" class="headerlink" title="Lucene Index 原理回顾"></a>Lucene Index 原理回顾</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105210.png" alt="image-20200502222356402"></p>
+<h3 id="Merge-优化"><a href="#Merge-优化" class="headerlink" title="Merge 优化"></a>Merge 优化</h3><p>ES 和 Lucene 默认情况会自动进行 merge 操作，但是 merge 操作相对比较重，需要优化，降低对系统的影响。</p>
+<ol>
+<li><p>优化点1：降低分段产生的数量/频率</p>
+<p>可以将 Refresh Interval 调整到分钟级别、<code>indices.memory.index_buffer_size</code>调大（默认10%）、尽量避免文档的更新操作</p>
+</li>
+<li><p>优化点2：降低最大分段大小，避免较大的分段继续参与 merge，节省系统资源。（这时候一个 ES 分片一个 Lucene 索引下面会一直存在多个分段，检索文档数据就需要分别从各个分段进行检索）</p>
+<ul>
+<li><code>index.merge.policy.segments_per_tier</code>参数修改，默认为10，越小需要越多的合并操作。（ES会定时检查分片中segments 的个数发现超过阈值就立马进行 merge？）</li>
+<li><code>index.merge.policy.max_merged_segment</code>参数修改，默认5GB，经过不断的 segments 合并，当合并后的 segment 到达这个大小的时候，后续即使有新的 segments 生成，该 segment 也不再参与合并</li>
+</ul>
+</li>
+<li><p>优化点3：force marge</p>
+<p>当 index 中不再有写入操作的时候，建议将其改成 read-only，并对其进行 force merge，merged 之后提升查询速度，较少内存开销</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105216.png" alt="image-20200502223311927"></p>
+<p>最终分成几个 segments 比较合适？越少越好，最好可以 force merge 成1个，但是 force merge 会占用大量的网络IO、磁盘IO和 CPU。如果不能在业务高峰期之前做完，就需要考虑增大最终的分段数或者通过一些配置来优化提高 force merge 的效率。（也可以降低一个分片的大小）</p>
+</li>
+</ol>
+<h1 id="缓存及使用-Breaker-限制内存使用"><a href="#缓存及使用-Breaker-限制内存使用" class="headerlink" title="缓存及使用 Breaker 限制内存使用"></a>缓存及使用 Breaker 限制内存使用</h1><p> 本节来讨论 ES 的缓存结构及一些缓存相关的问题。ES 的缓存主要分为三大类：</p>
+<ul>
+<li>Node Query Cache（Filter Context）</li>
+<li>Shard Query Cache（Cache Query的结果）</li>
+<li>Fielddata Cache</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105223.png" alt="image-20200502225126155"></p>
+<h3 id="Node-Query-Cache"><a href="#Node-Query-Cache" class="headerlink" title="Node Query Cache"></a>Node Query Cache</h3><p>每一个节点都有一个 Node Query 缓存</p>
+<ul>
+<li>由该节点的所有 Shard 共享，只缓存 Filter Context 相关内容。</li>
+<li>采用 LRU 算法</li>
+</ul>
+<p>通过在每个 Data Node 的静态文件中进行全局配置以下参数：</p>
+<ul>
+<li>Node Level：<code>indices.queries.cache.size</code>: “10%”(默认值10%)</li>
+<li>Index Level：<code>index.queries.cache.enabled</code>: true</li>
+</ul>
+<h3 id="Shard-Request-cache"><a href="#Shard-Request-cache" class="headerlink" title="Shard Request cache"></a>Shard Request cache</h3><p>缓存每个分片上的查询结果，只会缓存设置了 “size=0” 的查询对应的结果，不会缓存 hits。但是会缓存 Aggregations 和 Suggestions。</p>
+<p>这个 Cache 也是使用 LRU 算法，将整个 JSON 查询字符串作为 Key，所以我们需要保证查询的 JSON 字符串中的 JSON 属性顺序是一致的了保证缓存命中。</p>
+<p>通过在数据节点上配置参数：</p>
+<ul>
+<li><p><code>indices.requests.cache.size</code>：”1%”</p>
+</li>
+<li><p><code>index.requests.cache.enable</code>: false</p>
+</li>
+</ul>
+<p>一般来说，第一个参数可以在静态文件中进行全局配置，第二个参数可以通过以下 API 进行索引级别或者请求级别的动态设置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105230.png" alt="image-20200502225950623"></p>
+<h3 id="Fielddata-Cache"><a href="#Fielddata-Cache" class="headerlink" title="Fielddata Cache"></a>Fielddata Cache</h3><p>除了 Text 类型，其他类型默认都采用 doc_values（排序、聚合），它和 Aggregation 的 Global Ordinals 都保存在 Fielddata cache 中。</p>
+<p>Text 类型的字段需要打开 fielddata 才能对其进行聚合和排序。text 经过分词，排序和聚合效果不佳，建议不要轻易使用。</p>
+<p>可以通过持续监控 fielddata cache，然后根据情况调整<code>indices.fielddata.cache.size</code>参数来控制 fielddata cache 的大小，避免占用内存过大而产生 GC（默认无限制）</p>
+<h3 id="缓存失效"><a href="#缓存失效" class="headerlink" title="缓存失效"></a>缓存失效</h3><p>Node Query Cache：保存的是 Segment 级缓存命中的结果，Segments 被合并后，缓存会失效。</p>
+<p>Shard Request Cache：分片 Refresh 的时候，Shard Request Cache 会失效。如果 Shard 对应的数据频繁发生变化，该缓存的效率会很差。</p>
+<p>Fielddata Cache：Segment 被合并后，会失效</p>
+<h3 id="管理内存的重要性"><a href="#管理内存的重要性" class="headerlink" title="管理内存的重要性"></a>管理内存的重要性</h3><p>Elasticsearch 高效运维依赖于内存的合理分配，服务器的用内存一半分配给 JVM，另一半留给操作系统，缓存索引文件。</p>
+<p>内存相关的一些问题：</p>
+<ul>
+<li>JVM 内存不足，频繁或者长时间的 GC，影响节点，导致集群响应缓慢</li>
+<li>OOM，导致节点宕机丢失</li>
+</ul>
+<p>我们可以通过以下 API 来查看各个节点的内存状况：</p>
+<pre><code>GET _cat/nodes?v
+GET _nodes/stats/indices?pretty
+GET _cat/nodes?v&amp;h=name,queryCacheMemory,queryCacheEvictions,requestCacheMemory,reques tCacheHitCount,request_cache.miss_count
+GET _cat/nodes?h=name,port,segments.memory,segments.index_writer_memory,fielddata.memo ry_size,query_cache.memory_size,request_cache.memory_size&amp;v</code></pre><h3 id="一些常见的内存问题举例"><a href="#一些常见的内存问题举例" class="headerlink" title="一些常见的内存问题举例"></a>一些常见的内存问题举例</h3><ol>
+<li>Segments 个数过多，导致 full GC<ul>
+<li>现象：集群整体响应缓慢，也没有特别多的数据读写。但是发现节点在持续进行 full gc。</li>
+<li>分析：查看 Elasticsearch 的内存使用，发现 segments.memory 占用很大空间</li>
+<li>解决：通过 force merge，把 segments 合并成一个</li>
+<li>建议：对于不在写入和更新的索引，可以将其设置成只读。同时，进行 force merge 操作。如果问题依然存在，则需要考虑扩容。此外，对索引进行 force merge，还可以减少 global_ordinals 数据结构的构建，减少对 fielddata cache 的开销</li>
+</ul>
+</li>
+<li>fielddata cache过大，导致 full gc<ul>
+<li>现象：集群整体响应缓慢，也没有特别多的数据读写。但是发现节点在持续进行 full gc</li>
+<li>分析：查看 Elasticsearch 的内存使用，发现 fielddata.memory.size 占用很大空间。同时，数据不存在写入和更新，也执行过 segments merge。</li>
+<li>解决：将 indices.fielddata.cache.size 设小，重启节点，堆内存恢复正常</li>
+<li>建议：Field data cache 的构建比较重，Elasticsearch 不会主动释放，所以这个值应该设置得保守一些。如果业务上确实有所需要，可以通过增加节点，扩容解决</li>
+</ul>
+</li>
+<li>复杂的嵌套聚合，导致集群 full gc<ul>
+<li>现象：节点响应缓慢，持续进行 full gc</li>
+<li>分析：导出 Dump 分析，发现内存中有大量 bucket 对象，查看日志，发现复杂的嵌套聚合</li>
+<li>解决：优化聚合</li>
+<li>建议：在大量数据集上进行嵌套聚合查询，需要很大的堆内存来完成。如果业务场景确实需要。则需要增加硬件进行扩展。同时，为了避免这类查询影响整个集群，需要设置 Circuit Breaker 和<code>search.max_buckets</code>的数值</li>
+</ul>
+</li>
+</ol>
+<h3 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a><a href="https://www.elastic.co/blog/improving-node-resiliency-with-the-real-memory-circuit-breaker" target="_blank" rel="noopener">Circuit Breaker</a></h3><p>ES 提供了多种断路器(熔断)，避免不合理操作引发的 OOM，每个断路器可以指定内存使用的限制（熔断的阈值）。</p>
+<ul>
+<li>Parent circuit breaker：设置所有的熔断器可以使用的内存的总量</li>
+<li>Fielddata circuit breaker：加载 fielddata 所需要的内存</li>
+<li>Request circuit breaker：防止每个请求级数据结构超过一定的内存（例如聚合计算的内存一般会比较大）</li>
+<li>In fight circuit breaker：Request 中的断路器</li>
+<li>Accounting request circuit breaker：请求结束后不能释放的对象所占用的内存</li>
+</ul>
+<p>通过 <code>GET /_nodes/stats/breaker?</code>查询当前熔断器的工作状态：</p>
+<ul>
+<li>Tripped 大于0，说明有过熔断</li>
+<li>Limit size 与 estimated size 越接近，越可能引发熔断</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105241.png" alt="image-20200502232458039"></p>
+<p>千万不要触发了熔断，就盲目调大参数，有可能会导致集群出现问题，也不应该盲目调小，需要进行评估（通过压测等）。建议将集群升级到7.x，更好的 Circuit Breaker 实现机制，增加了<code>indices.breaker.total.use_real_memory</code>配置项，可以更加精准的分析内存状况，避免 OOM。</p>
+<h3 id="相关阅读-13"><a href="#相关阅读-13" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/blog/improving-node-resiliency-with-the-real-memory-circuit-breaker" target="_blank" rel="noopener">https://www.elastic.co/blog/improving-node-resiliency-with-the-real-memory-circuit-breaker</a></p>
+</blockquote>
+<h1 id="一些运维的建议"><a href="#一些运维的建议" class="headerlink" title="一些运维的建议"></a>一些运维的建议</h1><p>需要引入集群的生命周期管理的概念：</p>
+<ol>
+<li><p>预上线</p>
+<p>评估用户的需求及使用场景：数据建模、容量规划、选择适合的部署架构、性能测试</p>
+</li>
+<li><p>上线</p>
+<ul>
+<li>监控流量、定期检查潜在问题（防患于未然，发现错误的使用方式，及时增加机器）</li>
+<li>对索引进行优化(index lifecycle management)，检测是否存在不均衡而导致有部分节点过热</li>
+<li>定期数据备份、滚动升级</li>
+</ul>
+</li>
+<li><p>下架前监控流量，实现 Stage Decommission</p>
+</li>
+</ol>
+<h3 id="部署的建议"><a href="#部署的建议" class="headerlink" title="部署的建议"></a>部署的建议</h3><p>根据实际场景，选择合适的部署方式，选择合理的硬件配置</p>
+<ul>
+<li>搜索类</li>
+<li>日志/指标</li>
+</ul>
+<p>部署要考虑反亲和性（Anti-Affinity）</p>
+<ul>
+<li>尽量将机器分散在不同的机架。</li>
+<li>善用 Shard Filtering 进行配置</li>
+</ul>
+<h3 id="使用要遵循一定的规范"><a href="#使用要遵循一定的规范" class="headerlink" title="使用要遵循一定的规范"></a>使用要遵循一定的规范</h3><ul>
+<li><p>生产环境中索引应考虑禁用 Dynamic Index Mapping，避免过多字段导致 Cluster State 占用过多</p>
+</li>
+<li><p>禁止索引自动创建的功能，创建时必须提供 Mapping 或者通过 Index Template 进行设定</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105253.png" alt="image-20200502235305598"></p>
+</li>
+<li><p>开启慢查询日志，发现一些性能不好，甚至是错误的使用。例如：错误的将网址映射成 keyword，然后用通配符查询，应该使用 Text，结合 URL 分词器；严禁一切”*”开头的通配符查询</p>
+</li>
+</ul>
+<h3 id="对重要的数据进行备份"><a href="#对重要的数据进行备份" class="headerlink" title="对重要的数据进行备份"></a>对重要的数据进行备份</h3><p>如果是在公有云上使用云厂商提供的服务，一般会有数据备份的服务包。如果是在自己公司的服务器上搭建的集群，参考如何ES 提供的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/modules-snapshots.html" target="_blank" rel="noopener">快照管理功能</a>或者<a href="https://time.geekbang.org/course/detail/100030501-142590" target="_blank" rel="noopener">极客时间阮一鸣老师的课程介绍</a></p>
+<h3 id="定期更新到新版本"><a href="#定期更新到新版本" class="headerlink" title="定期更新到新版本"></a>定期更新到新版本</h3><p>ES 在新版本中会持续对性能作出优化，提供更多的新功能，例如最近的 Circuit breaker 有大量的改进；并且也会修复一些已知的 bug 和安全隐患。</p>
+<ol>
+<li><p>ES 的版本：</p>
+<p>Elasticsearch 的版本格式是：x.y.z。x 是 Major 版本；y 是 Minor；z 是 Patch。ES 可以使用上一个主版本的索引，例如 7.x 可以使用 6.x；7.x 不支持使用 5.x；5.x 的上一个版本是2.x，所以可以使用2.x 的索引。</p>
+</li>
+<li><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/rolling-upgrades.html" target="_blank" rel="noopener">Rolling Upgrade</a> v.s. Full Cluster Restart</p>
+<ul>
+<li><p>Rolling Upgrade：没有 downtime。详细可以参考：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/rolling-upgrades.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/rolling-upgrades.html</a></p>
+</li>
+<li><p>Full Cluster Restart：集群在更新期间不可用，但是升级更快。</p>
+<p>步骤：</p>
+<ol>
+<li><p>停止索引数据，同时备份集群</p>
+</li>
+<li><p>Disable Shard Allocationo（Persistent）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105259.png" alt="image-20200503001306358"></p>
+</li>
+<li><p>执行 Synced Flush</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105305.png" alt="image-20200503001317514"></p>
+</li>
+<li><p>关闭所有节点，然后进行节点更新</p>
+</li>
+<li><p>先运行所有 master 节点、在运行其他节点</p>
+</li>
+<li><p>等集群变黄后打开 Shard Allocation</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="运维-Cheat-Sheet"><a href="#运维-Cheat-Sheet" class="headerlink" title="运维 Cheat Sheet"></a>运维 Cheat Sheet</h3><ol>
+<li><p>移动分片：从一个节点移动分片到另外一个节点，使用场景是当一个数据节点上过多 Hot Shards，可以通过手动分配分片到特定的节点解决</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105310.png" alt="image-20200503001454447"></p>
+</li>
+<li><p>从集群中移除一个节点：当你想移除一个节点，或者对一个机器进行维护。同时你又不希望导致集群的颜色变黄或者变红。执行以下操作，ES 会将指定 ip 的节点上的数据进行转移，在转移完毕之后，直接移除该节点即可。<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105320.png" alt="image-20200503001546359"></p>
+</li>
+<li><p>控制 Allocation 和 Recovery</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105326.png" alt="image-20200503001810882"></p>
+</li>
+<li><p>Synced Flush：当需要重启一个节点的时候，我们要先将 cache 中的 segments 进行一次 flush 到磁盘，保证数据不丢失。（通过 synced flush，可以在索引上防止一个 sync id，这样可以提高这些分片的 recovery 的时间？）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105335.png" alt="image-20200503001956169"></p>
+</li>
+<li><p>清空节点上的缓存：使用场景是节点上出现了高内存占用。可以执行清除缓存的操作，这样是会影响集群的性能的，但是会避免集群出现 OOM 的问题</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105342.png" alt="image-20200503002140844"></p>
+</li>
+<li><p>控制搜索的队列：使用场景是当搜索的响应时间过长，看到有”reject”指标的增加，都可以适当增加该数值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105348.png" alt="image-20200503002247557"></p>
+</li>
+<li><p>根据场景设置各类的 Circuit Breaker：避免 OOM 的发生</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105355.png" alt="image-20200503002309835"></p>
+</li>
+</ol>
+<h3 id="相关阅读-14"><a href="#相关阅读-14" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/rolling-upgrades.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/rolling-upgrades.html</a></p>
+</blockquote>
+<h1 id="close、shrink、split、rollover、rollup-API"><a href="#close、shrink、split、rollover、rollup-API" class="headerlink" title="close、shrink、split、rollover、rollup API"></a>close、shrink、split、rollover、rollup API</h1><p>本节我们主要介绍一些相关的索引管理的 API。</p>
+<h3 id="open-close-index"><a href="#open-close-index" class="headerlink" title="open / close index"></a>open / close index</h3><p>索引关闭后无法进行读写搜索，对集群的相关开销基本降低为0。但是索引数据不会被删除，所以如果有一些索引我们是暂时不需要进行读取的，可以先将它们关闭，当需要的时候再打开。</p>
+<pre><code># 删除索引的话，用 HEAD RESTful 方法是查询不到这个索引的
+DELETE test
+#查看索引是否存在
+HEAD test</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105417.png" alt="image-20200503092210451"></p>
+<pre><code>PUT test/_doc/1
+{
+  &quot;key&quot;:&quot;value&quot;
+}
+
+#关闭索引，用 HEAD 方法是可以检测得到索引的存在的
+POST /test/_close
+#索引存在
+HEAD test</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105422.png" alt="image-20200503092310404"></p>
+<pre><code># 但是无法查询，会报索引已经关闭的异常
+POST test/_count</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105426.png" alt="image-20200503092355083"></p>
+<h3 id="Shrink-Index"><a href="#Shrink-Index" class="headerlink" title="Shrink Index"></a>Shrink Index</h3><p>这是 ES 5.x 后推出的一个新功能，可以将索引的主分片数搜索到较小的值。其使用场景是有以下</p>
+<ul>
+<li>索引保存的数据量比较小，需要重新设定主分片数。</li>
+<li>索引从 Hot 移动到 Warm 后，需要降低主分片数</li>
+</ul>
+<p>这个 API 会使用和源索引相同的配置创建一个新索引，仅仅降低主分片数：</p>
+<ul>
+<li>源分片数必须是目标分片数的倍数。如果源分片数是素数，目标分片数只能为1。</li>
+<li>如果文件系统支持硬链接，会将 Segments 硬链接到目标索引，所以(和 reindex 相比)性能好。</li>
+<li>新索引创建完成后，可以删除源索引。</li>
+</ul>
+<p>在使用 Shrink API 的时候，ES 会做以下校验：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105433.png" alt="image-20200503093926617"></p>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><ol>
+<li>在一个节点拥有热、温、冷三个节点的集群上进行测试</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105439.png" alt="image-20200503094600253"></p>
+<p>​        <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105444.png" alt="image-20200503094643119"></p>
+<ol start="2">
+<li><p>查看节点属性</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105451.png" alt="image-20200503094657587"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105455.png" alt="image-20200503094723133"></p>
+</li>
+<li><p>源索引初始化，一共有4个主分片，然后写入一个文档，再查看文档的分片情况。可以看到文档落到了位于 es7_cold 的分片0上了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105503.png" alt="image-20200503094858455"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105509.png" alt="image-20200503094922446"></p>
+</li>
+<li><p>尝试执行 Shrink API，设置分片数为3，会报出一个错误：源索引的分片数必须是目标索引3的的倍数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105514.png" alt="image-20200503095042980"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105520.png" alt="image-20200503095051271"></p>
+</li>
+<li><p>尝试将分片数设置成2，看是否能执行成功。可以看到，又报出一个源索引必须是只读的错误。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105526.png" alt="image-20200503095302081"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105532.png" alt="image-20200503095326463"></p>
+</li>
+<li><p>将源索引设置为只读，再尝试 Shrink。可以看到，再次报错：所有分片必须都在一个节点上，前面看到示例中的源索引的4个分片是分布在3个节点上的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105539.png" alt="image-20200503095516344"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105545.png" alt="image-20200503095545810"></p>
+</li>
+<li><p>现在我们将源索引删除，并设置选项<code>index.routing.all.allocation.include.box_type</code>为 hot，让索引分片数据只会分到 hot 节点上，而我们当前集群中只有一个 hot 节点。然后重新写入文档，查看分片情况，可以看到4个分片都在 es7_hot 节点上，刚刚写入的文档存在了分片0上。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105552.png" alt="image-20200503095834837"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105600.png" alt="image-20200503095812884"></p>
+</li>
+<li><p>然后设置为只读并再次执行 Shrink，这次就可以成功了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105608.png" alt="image-20200503100129305"></p>
+<p> 查看新索引的分片情况，被收缩成了两个分片，因为是通过硬链接的方式，所以也都存在于原来的同一个节点上：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105615.png" alt="image-20200503100225608"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105621.png" alt="image-20200503100231713"></p>
+</li>
+<li><p>现在我们对新索引尝试写入数据，发现它也是只读的，因为也拷贝了源索引的配置。我们需要重新设置为可写。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105625.png" alt="image-20200503100401539"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105628.png" alt="image-20200503100406518"></p>
+</li>
+</ol>
+<h3 id="Split-API"><a href="#Split-API" class="headerlink" title="Split API"></a>Split API</h3><p>可以扩大主分片个数。它和 Shrink API 是一个相反的操作：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105636.png" alt="image-20200503100602106"></p>
+<p> 同样的，它也需要满足一定的规则才能执行：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105643.png" alt="image-20200503100631605"></p>
+<h4 id="Demo-1"><a href="#Demo-1" class="headerlink" title="Demo"></a>Demo</h4><ol>
+<li><p>源索引初始化，设置主分片为4，可以看到分片分布在4个节点上。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105649.png" alt="image-20200503100733597"></p>
+</li>
+</ol>
+<p>   <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105656.png" alt="image-20200503100756398"></p>
+<ol start="2">
+<li><p>尝试 Split API 将新的索引的分片数设置成10。会报一个目标索引分片数必须是源索引的倍数的错误</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105701.png" alt="image-20200503100908503"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105717.png" alt="image-20200503100915494"></p>
+</li>
+<li><p>设置成8之后又提示源索引必须是只读</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105724.png" alt="image-20200503100954473"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105730.png" alt="image-20200503101000980"></p>
+</li>
+<li><p>设置只读再执行 Split API，就成功了。Split API 不要求所有分片都在一个节点上。基于源索引的各个分片原本所在的节点上进行 Split。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105737.png" alt="image-20200503101104379"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105743.png" alt="image-20200503101128821"></p>
+</li>
+<li><p>尝试写入数据，和 Shrink 一样，都是拷贝源索引配置，无法写入</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105750.png" alt="image-20200503101249777"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105756.png" alt="image-20200503101255482"></p>
+</li>
+</ol>
+<h3 id="Rollover-Index"><a href="#Rollover-Index" class="headerlink" title="Rollover Index"></a>Rollover Index</h3><p>类似 Log4J 记录日志的方式，索引尺寸或者当前时间超过一定值后，创建新的索引。 </p>
+<p>下面我们来看一个场景：我们有一个基于时间序列的索引，我们是按照每天进行新索引的创建并对前一天的索引做老化的，如左图所示，在第一天的时候写入的索引的数据是90GB，但是到了第二天的时候，写入索引暴增到520GB，而第3天的数据暴增到230GB，这种情况下我们应该将这些数据分隔成多个索引存储而不是只存储在一个索引上，从而缓解 ES 服务器压力。如右图所示，我们可以设定一定的规则（按照索引中文档的数量、某个时间阈值、索引大小）来自动创建新的索引，在图中是按照索引大小到达200GB 之后就创建新索引的规则进行的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105802.png" alt="image-20200503102035890"></p>
+<p>而 Rollover API 就是这样一个 API，当我们调用它的时候， 给它设定一定的条件，它会检测这些条件，如果这些条件都满足了，会按照规则创建一个新索引并Alias指向它。Rollover APi 一般和Index Lifecycle Manament Policies 一起使用，它单独作为一个 API 的时候，只有调用它，它才会去做相应的检测，并不会自动监控这些索引。</p>
+<h5 id="Demo1：默认情况下-rollover-之后通过别名只能查询到最新索引"><a href="#Demo1：默认情况下-rollover-之后通过别名只能查询到最新索引" class="headerlink" title="Demo1：默认情况下 rollover 之后通过别名只能查询到最新索引"></a>Demo1：默认情况下 rollover 之后通过别名只能查询到最新索引</h5><ol>
+<li><p>首先我们初始化一个 ngnix-logs-000001的索引，并通过索引属性<code>aliases</code>为其指向了一个别名”nginx_logs_write”，然后写入6个文档。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105809.png" alt="image-20200503102901500"></p>
+</li>
+<li><p>现在我们来调用 rollover api 做一个 rollover 的操作。rollover api 是基于一个别名进行操作的，这里我们指定前面设置 nginx-logs-000001索引的时候设置的别名 nginx_logs_write。并设置 rollover 的条件是：当前索引存在时间已经达到了一天、文档数量已经超过了5个、索引大小已经超过了5GB。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105817.png" alt="image-20200503103209779"></p>
+<p>rollover 成功。返回了 rollover 之前当前别名指向的索引名称”nginx-logs-000001”以及自动新创建的索引名称”nginx-logs-000002”，并通过”rolled_over=true”告诉我们是否触发了 rollover 并执行 成功了，以及通过 conditions 告诉我们是哪些条件触发了 rollover。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105823.png" alt="image-20200503103352536"></p>
+</li>
+<li><p>尝试通过 alias 查看索引文档个数。发现只有一个文档：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105829.png" alt="image-20200503103803045"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105834.png" alt="image-20200503103817404"></p>
+<p>查看 Alias 信息， 其实这个 alias 现在就是指向了一个索引，就是我们刚刚创建的索引，老索引没有包含，所以老索引中的数据通过别名是访问不到的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105840.png" alt="image-20200503103842746"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105845.png" alt="image-20200503103850138"></p>
+<p>直接通过老索引的名称进行访问，可以访问到老索引中存在6个文档</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105852.png" alt="image-20200503104130892"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105857.png" alt="image-20200503104136054"></p>
+</li>
+</ol>
+<h5 id="Demo2：通过is-write-index设定使得-rollover-之后通过别名可以访问所有-index"><a href="#Demo2：通过is-write-index设定使得-rollover-之后通过别名可以访问所有-index" class="headerlink" title="Demo2：通过is_write_index设定使得 rollover 之后通过别名可以访问所有 index"></a>Demo2：通过<code>is_write_index</code>设定使得 rollover 之后通过别名可以访问所有 index</h5><ol>
+<li><p>针对上面的情况我们再重新做一个案例，别名会映射到所有经过 rollover 的索引，包含全部的新旧索引。我们先再初始化一个索引 apache-logs1。<strong>此时设置别名中的一个属性<code>is_write_index</code>为 true。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105904.png" alt="image-20200503104605854"></p>
+</li>
+<li><p>多次写入文档</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105923.png" alt="image-20200503104619848"></p>
+</li>
+<li><p>此时我们再做一个 rollover 的操作，这一次我们为这个 rollover 指定了新索引的名称”apache-logs2”，因为 ES 默认情况下如果用户不指定新索引的名称，要求别名现在指向的老索引的名称必须是横杠加数字结尾(“xxxx-00001”)才会基于横杠后面的数字加1自动创建新索引并命名该索引。我们前面的例子就是”nginx-logs-000001”，而这里的例子是”apache_logs1”，没有横杠，所以需要自己指定新索引名称</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105928.png" alt="image-20200503104726817"></p>
+<p>可以看到，再次 rollover 成功。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105935.png" alt="image-20200503105019974"></p>
+</li>
+<li><p>再写入一个文档</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105942.png" alt="image-20200503105058813"></p>
+<p>再做一次 rollover</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105948.png" alt="image-20200503105118574"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220105955.png" alt="image-20200503105127370"></p>
+</li>
+<li><p>这一次同样对别名”apache_logs”做一次 count 操作，发现和一开始的 demo 不一样，返回的数量不是1而是9。似乎包含了所有索引的文档数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110002.png" alt="image-20200503105235050"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110008.png" alt="image-20200503105240397"></p>
+</li>
+<li><p>再次查看 alias 信息可以发现这个索引确实是包含了之前的所有索引”apache-logs1”、”apache-logs2”和”apache-logs3”。另外我们还看到只有”apache-logs3”的”apache_logs”属性中的”is_write_index”是 true。所以可以看到如果我们在为一个需要 rollover 的索引对其别名属性”is_write_index”设置为 true的时候，是可以使得在 rollover 操作的时候会将别名包含所有的索引，使得我们可以访问到所有的索引，但是只会写入数据到最新的索引中。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110013.png" alt="image-20200503105530743"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110019.png" alt="image-20200503105546717"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110025.png" alt="image-20200503105510258"></p>
+</li>
+</ol>
+<h3 id="Rollup-Index"><a href="#Rollup-Index" class="headerlink" title="Rollup Index"></a>Rollup Index</h3><p>对数据进行处理后，重新写入到新的索引，减少单个索引的数据量。</p>
+<h3 id="相关阅读-15"><a href="#相关阅读-15" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-shrink-index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-shrink-index.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-rollover-index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-rollover-index.html</a></p>
+</blockquote>
+<h1 id="索引全生命周期管理及工具介绍"><a href="#索引全生命周期管理及工具介绍" class="headerlink" title="索引全生命周期管理及工具介绍"></a>索引全生命周期管理及工具介绍</h1><p>对于 Time based 的索引，它们的特点是索引中的数据随着时间的增长，访问流量越来越低。前面提到我们可以按照时间序列对这种类型的数据进行索引划分：</p>
+<ul>
+<li>好处：按照时间进行索引划分，会使得管理更加简单。例如，完整删除一个索引，性能比 delete by query 好。</li>
+<li>挑战：如何实现自动化管理，减少人工操作，例如我们需要定期将 Hot 索引迁移为 Warm、定期关闭或者删除索引等。</li>
+</ul>
+<h3 id="索引生命周期常见的阶段"><a href="#索引生命周期常见的阶段" class="headerlink" title="索引生命周期常见的阶段"></a>索引生命周期常见的阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110032.png" alt="image-20200503112649257"></p>
+<ul>
+<li>Hot：索引还存在着大量的读写操作</li>
+<li>Warm：索引不存在写操作，还有被查询的需要</li>
+<li>Cold：数据不存在写操作，读操作也不多</li>
+<li>Delete：索引不再需要，可以被安全删除</li>
+</ul>
+<h3 id="一些索引声明周期管理工具"><a href="#一些索引声明周期管理工具" class="headerlink" title="一些索引声明周期管理工具"></a>一些索引声明周期管理工具</h3><h4 id="Elasticsearch-Curator-https-www-elastic-co-guide-en-elasticsearch-client-curator-current-index-htm-l"><a href="#Elasticsearch-Curator-https-www-elastic-co-guide-en-elasticsearch-client-curator-current-index-htm-l" class="headerlink" title="[Elasticsearch Curator](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm l)"></a>[Elasticsearch Curator](<a href="https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm</a> l)</h4><p>这是 ES 官方推出的工具，基于 python 的命令行工具。它内置了10多种 Index 相关的操作（Actions），每个动作可以顺序执行。 另外它还支持各种条件，过滤出需要操作的索引（Filters）。 <strong>但是它仅仅是一个命令行的用来执行索引管理的工具，并不具有自动检测索引状态+对索引进行相关动作的功能，它仅仅是把索引检查的一些动作聚合成了一个命令行，我们仍然需要定期人工去使用这些命令行来检查索引+操作索引。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110037.png" alt="image-20200503112959682"></p>
+<p>详细可查看：[<a href="https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm</a> l](<a href="https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.htm</a> l)</p>
+<h4 id="eBay-Lifecycle-Management-Tool"><a href="#eBay-Lifecycle-Management-Tool" class="headerlink" title="eBay Lifecycle Management Tool"></a>eBay Lifecycle Management Tool</h4><p>这是 eBay Pronto team 自研图形化工具：</p>
+<ul>
+<li>支持 Curator 的功能</li>
+<li>基于图形化配置</li>
+<li>配置 Job 定时触发，无需到时间了再手工操作</li>
+<li>一个界面，管理多个 ES 集群</li>
+<li>支持不同的 ES 版本</li>
+<li>系统高可用，保证一些节点的宕机导致一些操作没有被执行</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110044.png" alt="image-20200503113526070"></p>
+<p>eBay Lifecycle Management Tool 和 Curator 和 rollover api 区别：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110052.png" alt="image-20200503113611695"></p>
+<ul>
+<li>在对索引的操作上，eBay LMT 和 Curator 都是支持所有动作的，而 rollover api 仅仅包含了一个新索引创建和别名 rotation 的动作。</li>
+<li>Curator 和 rollover 并不支持全版本的 ES，后续版本才有的功能</li>
+<li>同时 Curator 和 rollover 也没有自动执行、图形化界面、保证系统高可用、多集群索引操作的支持</li>
+</ul>
+<h4 id="Index-Lifecycle-Management"><a href="#Index-Lifecycle-Management" class="headerlink" title="Index Lifecycle Management"></a>Index Lifecycle Management</h4><p>这是ES 6.6推出的一个新功能，基于 X-Pack Basic License，可免费试用。以下是 ILM 的一些相关概念：</p>
+<ul>
+<li>Policy：定义了一个管理索引的方式，它包含了多个 Phases 和 Actions</li>
+<li>Phase：定义了索引的各个阶段，并定义了该阶段中需要对索引执行该阶段包含的 Actions 的条件（索引大小最大值、索引文档数量最大个数、索引创建之后的最大时间），其中每个 Phase 都包含了几个固定的 Actions</li>
+<li>Action：在各个 Phase 中可以对索引进行的操作的集合。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110100.png" alt="image-20200503114713234"></p>
+<p>ILM 通过 Kibana Management 进行图形化界面管理的。”watch-history-ilm-policy”是一个自带的策略，它在Hot Phase没有任何动作，同时还定义了一个delete phase，即表示索引创建之后就从Hot Phase过渡到了 Delete Phase，并启动了 Delete Phase 的 Actions：7天后删除索引。也就是说如果对某个索引使用了这个策略，那么它将在创建7天后被删除。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110108.png" alt="image-20200503115049619"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110114.png" alt="image-20200503115308657"></p>
+<p>点击”创建策略”，其中 Hot Phase 是必须的，每个索引创建之后都是一个 Hot 状态，除非启动了其他Phase，并支持触发索引从 Hot 去到其他 Phase 的条件。另外我们可以启动该阶段的操作(rollover)。其他 Phase 按需设定。：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201220110122.png" alt="image-20200503115106680"></p>
+<h5 id="ILM-API-调用-Demo"><a href="#ILM-API-调用-Demo" class="headerlink" title="ILM API 调用 Demo"></a>ILM API 调用 Demo</h5><p>ILM 其实也是提供了对外的 API 调用的。以下是对于Kibana 的请求Demo</p>
+<pre class="line-numbers language-shell"><code class="language-shell"># 运行三个节点，分片 将box_type设置成 hot，warm和cold
+# 具体参考 github下，docker-hot-warm-cold 下的docker-compose 文件
+
+# 删除所有索引
+DELETE *
+
+# 设置 lifecycle 的定时检测时间间隔为1秒，即每秒都会进行一次检测是否有 有索引满足其匹配的 policy 中满足相关 phase 的actions 条件，如果有就执行 actions；生产环境10分种刷新一次
+PUT _cluster/settings
+{
+  "persistent": {
+    "indices.lifecycle.poll_interval":"1s"
+  }
+}
+
+# 创建一个 Policy
+PUT /_ilm/policy/log_ilm_policy
+{
+    # 包含4个 phases
+  "policy": {
+    "phases": {
+      "hot": {
+        # hot 只有一个 rollover 动作
+        "actions": {
+          "rollover": {
+            # 当文档数超过5个就执行 actions
+            "max_docs": 5
+          }
+        }
+      },
+      "warm": {
+        # 设置进入 warm phrase 的条件，10s 后从 hot 进入 warm 阶段，并执行以下 actions
+        "min_age": "10s",
+        # warm 也只有一个 allocate 动作
+        "actions": {
+          # (re)allocate 索引到一个 warm 标签节点上
+          "allocate": {
+            "include": {
+              "box_type": "warm"
+            }
+          }
+        }
+      },
+      "cold": {
+        # 15s 后从 warm 进入 cold
+        "min_age": "15s",
+        # 同 warm
+        "actions": {
+          "allocate": {
+            "include": {
+              "box_type": "cold"
+            }
+          }
+        }
+      },
+      "delete": {
+      # 20s 后从 cold 进入 delete
+        "min_age": "20s",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+
+
+
+# 设置索引模版
+PUT /_template/log_ilm_template
+{
+  # 指定可以使用当前模板的索引的规则
+  "index_patterns" : [
+      "ilm_index-*"
+  ],
+  "settings" : {
+    "index" : {
+      # 指定索引管理生命周期的策略为我们前面创建的策略
+      "lifecycle" : {
+        "name" : "log_ilm_policy",
+        "rollover_alias" : "ilm_alias"
+      },
+      # 索引路由到 hot 节点
+      "routing" : {
+        "allocation" : {
+          "include" : {
+            "box_type" : "hot"
+          }
+        }
+      },
+      # 一个主分片
+      "number_of_shards" : "1",
+      "number_of_replicas" : "0"
+    }
+  },
+  "mappings" : { },
+  "aliases" : { }
+}
+
+
+
+#创建索引
+PUT ilm_index-000001
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    # 指定了索引生命周期管理策略为前面创建的"log_ilm_policy"
+    "index.lifecycle.name": "log_ilm_policy",
+    # 指定对该索引执行 rollober api动作的时候指定的别名为"ilm_alias"，因为一个索引可能有多个别名，ES 不知道哪个才是用来做 rollover 的
+    "index.lifecycle.rollover_alias": "ilm_alias",
+    # 指定该索引路由到 hot 节点
+    "index.routing.allocation.include.box_type":"hot"
+  },
+  #  同时为该索引设置 rollover 的别名并设置"is_write_index"为 true，使得rollover 之后的老索引也可以被通过别名查询
+  "aliases": {
+    "ilm_alias": {
+      "is_write_index": true
+    }
+  }
+}
+
+# 对 Alias 写入文档
+POST ilm_alias/_doc
+{
+  "dfd":"dfdsf"
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">写作不易，客官能否打赏一杯奶茶？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/05/06/elasticsearch/009-guan-li-elasticsearch-ji-qun/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                阿钟
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '466e387c08bce10f3f28',
+        clientSecret: '5b2bf16f8a42bd72eef32e50187c7f2ccb105a1d',
+        repo: 'azhong.github.io',
+        owner: 'JohnZhongg',
+        admin: "JohnZhongg",
+        id: '2020/05/06/elasticsearch/009-guan-li-elasticsearch-ji-qun/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+    <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script> -->
+
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'false' === 'true',
+        avatar: 'wavatar',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '如果你没有GitHub账号，还可以在这里评论啦！'
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/05/06/elasticsearch/013-elk-ri-zhi-guan-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            问题日志分布太散，格式不一，维护困难，并且出现问题的时候来排查日志更是困难。
+解决方案通过 ELK 生态进行日志管理，使用 filebeat、logstash、kafka 等将数据导入到 ES，然后在 Kibana 的 logs 模块就可以
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-06
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/06/elasticsearch/000-dai-chu-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            摘录Elasticsearch 写入数据的工作原理是什么
+Elastiicserach7.x 学习路线图
+如何规划 Elasticsearch 集群规模和容量
+Elasticsearch 扫盲，提到了 term 和 posting list
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-06
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 阿钟的博客<br />'
+            + '作者: 阿钟<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2020- Azhong. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">627.1k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/JohnZhongg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:707845008@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://zhihu.com/people/change-94-17" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-inverse">知</i>
+    </a>
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=707845008&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+<!-- 
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+ --></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020, 12, 20, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

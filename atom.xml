@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-09-24T06:16:33.831Z</updated>
+  <updated>2020-12-20T11:51:52.753Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -18,24 +18,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/24/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/"/>
-    <id>https://honphanjohn.top/2020/09/24/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/</id>
-    <published>2020-09-24T06:16:33.831Z</published>
-    <updated>2020-09-24T06:16:33.831Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/23/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/"/>
-    <id>https://honphanjohn.top/2020/09/23/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/</id>
-    <published>2020-09-23T07:59:06.929Z</published>
-    <updated>2020-12-18T04:13:10.573Z</updated>
+    <link href="https://honphanjohn.top/2020/12/20/mq/rabbitmq/untitled/"/>
+    <id>https://honphanjohn.top/2020/12/20/mq/rabbitmq/untitled/</id>
+    <published>2020-12-20T11:35:33.583Z</published>
+    <updated>2020-12-20T11:51:52.753Z</updated>
     
     <summary type="html">
     
@@ -43,7 +29,9 @@
       
         
         
-          &lt;h1 id=&quot;Java内存模型与线程&quot;&gt;&lt;a href=&quot;#Java内存模型与线程&quot; class=&quot;headerlink&quot; title=&quot;Java内存模型与线程&quot;&gt;&lt;/a&gt;Java内存模型与线程&lt;/h1&gt;&lt;h2 id=&quot;硬件的效率与一致性&quot;&gt;&lt;a
+          &lt;ol&gt;
+&lt;li&gt;多个 process 可以复用一个连接建立多信道进行多路复用发布消息&lt;/li&gt;
+&lt;li&gt;rabbit mq 背压基于 TCP 拥塞控制窗口通知实现，所以一个背压将会对一个 socket
         
       
     
@@ -54,10 +42,24 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/20/jvm/diao-you/diao-you-gong-ju-ji-fu-zhu-gong-ju/"/>
-    <id>https://honphanjohn.top/2020/09/20/jvm/diao-you/diao-you-gong-ju-ji-fu-zhu-gong-ju/</id>
-    <published>2020-09-20T00:15:00.988Z</published>
-    <updated>2020-12-18T02:59:05.943Z</updated>
+    <link href="https://honphanjohn.top/2020/12/14/django/untitled/"/>
+    <id>https://honphanjohn.top/2020/12/14/django/untitled/</id>
+    <published>2020-12-14T08:29:48.646Z</published>
+    <updated>2020-12-14T08:29:48.646Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/12/11/web-qian-duan/nodejs/nodejs-ru-men/"/>
+    <id>https://honphanjohn.top/2020/12/11/web-qian-duan/nodejs/nodejs-ru-men/</id>
+    <published>2020-12-11T10:09:03.998Z</published>
+    <updated>2020-12-13T03:35:56.885Z</updated>
     
     <summary type="html">
     
@@ -65,7 +67,7 @@
       
         
         
-          &lt;h1 id=&quot;命令工具&quot;&gt;&lt;a href=&quot;#命令工具&quot; class=&quot;headerlink&quot; title=&quot;命令工具&quot;&gt;&lt;/a&gt;命令工具&lt;/h1&gt;&lt;h2 id=&quot;jps-JVM-Process-Status-Tool&quot;&gt;&lt;a
+          &lt;h1 id=&quot;简介与安装&quot;&gt;&lt;a href=&quot;#简介与安装&quot; class=&quot;headerlink&quot; title=&quot;简介与安装&quot;&gt;&lt;/a&gt;简介与安装&lt;/h1&gt;&lt;h2 id=&quot;什么是-Node-js&quot;&gt;&lt;a href=&quot;#什么是-Node-js&quot;
         
       
     
@@ -76,10 +78,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/15-la-ji-hui-shou-qi/"/>
-    <id>https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/15-la-ji-hui-shou-qi/</id>
-    <published>2020-09-18T01:58:43.748Z</published>
-    <updated>2020-12-18T04:11:58.177Z</updated>
+    <link href="https://honphanjohn.top/2020/11/27/web-qian-duan/h5/html/"/>
+    <id>https://honphanjohn.top/2020/11/27/web-qian-duan/h5/html/</id>
+    <published>2020-11-27T03:25:32.151Z</published>
+    <updated>2020-11-27T05:52:07.774Z</updated>
     
     <summary type="html">
     
@@ -88,7 +90,7 @@
         
         
           &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;GC分类&quot;&gt;&lt;a href=&quot;#GC分类&quot; class=&quot;headerlink&quot;
+&lt;h1 id=&quot;HTML简述序言&quot;&gt;&lt;a href=&quot;#HTML简述序言&quot; class=&quot;headerlink&quot; title=&quot;HTML简述序言&quot;&gt;&lt;/a&gt;HTML简述序言&lt;/h1&gt;&lt;h2 id=&quot;HTML基础&quot;&gt;&lt;a href=&quot;#HTML基础&quot;
         
       
     
@@ -99,209 +101,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/"/>
-    <id>https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/</id>
-    <published>2020-09-18T00:07:06.398Z</published>
-    <updated>2020-12-18T04:06:24.661Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;System-gc-的理解&quot;&gt;&lt;a href=&quot;#System-gc-的理解&quot; class=&quot;headerlink&quot; title=&quot;System.gc()的理解&quot;&gt;&lt;/a&gt;&lt;code&gt;System.gc()&lt;/code&gt;的理解&lt;/h1&gt;&lt;p&gt;在默认情况下,通过
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/</id>
-    <published>2020-09-17T11:39:35.412Z</published>
-    <updated>2020-12-18T04:05:29.366Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/10-stringtable/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/10-stringtable/</id>
-    <published>2020-09-17T06:56:06.607Z</published>
-    <updated>2020-12-18T03:59:51.912Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;String的基本特性&quot;&gt;&lt;a href=&quot;#String的基本特性&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/</id>
-    <published>2020-09-17T02:12:08.209Z</published>
-    <updated>2020-12-18T03:56:30.933Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;一、编译原理&quot;&gt;&lt;a href=&quot;#一、编译原理&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/</id>
-    <published>2020-09-17T01:32:51.984Z</published>
-    <updated>2020-12-18T03:21:44.077Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;直接内存概述&quot;&gt;&lt;a href=&quot;#直接内存概述&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/</id>
-    <published>2020-09-16T23:26:53.577Z</published>
-    <updated>2020-12-18T03:57:43.674Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;一、对象的实例化&quot;&gt;&lt;a href=&quot;#一、对象的实例化&quot; class=&quot;headerlink&quot; title=&quot;一、对象的实例化&quot;&gt;&lt;/a&gt;一、对象的实例化&lt;/h1&gt;&lt;h2 id=&quot;思维导图&quot;&gt;&lt;a href=&quot;#思维导图&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/16/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/06-fang-fa-qu/"/>
-    <id>https://honphanjohn.top/2020/09/16/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/06-fang-fa-qu/</id>
-    <published>2020-09-16T08:42:46.743Z</published>
-    <updated>2020-12-18T03:19:10.976Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;栈、堆、方法区的交互关系&quot;&gt;&lt;a href=&quot;#栈、堆、方法区的交互关系&quot; class=&quot;headerlink&quot; title=&quot;栈、堆、方法区的交互关系&quot;&gt;&lt;/a&gt;栈、堆、方法区的交互关系&lt;/h1&gt;&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/16/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/05-dui/"/>
-    <id>https://honphanjohn.top/2020/09/16/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/05-dui/</id>
-    <published>2020-09-15T23:49:54.144Z</published>
-    <updated>2020-12-18T03:17:43.194Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;堆的核心概述&quot;&gt;&lt;a href=&quot;#堆的核心概述&quot; class=&quot;headerlink&quot; title=&quot;堆的核心概述&quot;&gt;&lt;/a&gt;堆的核心概述&lt;/h1&gt;&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/15/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/04-ben-di-fang-fa-jie-kou-ji-ben-di-fang-fa-zhan/"/>
-    <id>https://honphanjohn.top/2020/09/15/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/04-ben-di-fang-fa-jie-kou-ji-ben-di-fang-fa-zhan/</id>
-    <published>2020-09-15T14:01:10.067Z</published>
-    <updated>2020-12-18T03:17:05.413Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;什么是本地方法&quot;&gt;&lt;a href=&quot;#什么是本地方法&quot; class=&quot;headerlink&quot; title=&quot;什么是本地方法&quot;&gt;&lt;/a&gt;什么是本地方法&lt;/h1&gt;&lt;p&gt;简单地讲，一个Native Method就是一个Java调用非Java代码的接口。一个Native
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/09/15/jvm/source/bian-yi-diao-shi-jdk9/"/>
-    <id>https://honphanjohn.top/2020/09/15/jvm/source/bian-yi-diao-shi-jdk9/</id>
-    <published>2020-09-15T02:32:48.421Z</published>
-    <updated>2020-09-15T02:33:15.873Z</updated>
+    <link href="https://honphanjohn.top/2020/11/23/nginx/keepalived/"/>
+    <id>https://honphanjohn.top/2020/11/23/nginx/keepalived/</id>
+    <published>2020-11-23T06:56:31.127Z</published>
+    <updated>2020-11-23T06:56:49.130Z</updated>
     
     <summary type="html">
     
@@ -312,10 +115,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/11/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/03-xu-ni-ji-zhan-fang-fa-zhan/"/>
-    <id>https://honphanjohn.top/2020/09/11/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/03-xu-ni-ji-zhan-fang-fa-zhan/</id>
-    <published>2020-09-11T03:36:12.986Z</published>
-    <updated>2020-12-18T03:16:47.710Z</updated>
+    <link href="https://honphanjohn.top/2020/11/20/shi-zhan-xiang-mu-bi-ji/untitled/"/>
+    <id>https://honphanjohn.top/2020/11/20/shi-zhan-xiang-mu-bi-ji/untitled/</id>
+    <published>2020-11-20T03:34:53.708Z</published>
+    <updated>2020-11-21T10:09:43.969Z</updated>
     
     <summary type="html">
     
@@ -323,7 +126,16 @@
       
         
         
-          &lt;h1 id=&quot;虚拟机栈概述&quot;&gt;&lt;a href=&quot;#虚拟机栈概述&quot; class=&quot;headerlink&quot;
+          &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;数据库外键去除&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;外键检查降低性能&lt;/li&gt;
+&lt;li&gt;耦合性太高，有时候两个关系表不一定在同一个库&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SpringBoot自动装配：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;@SpringBootAp
         
       
     
@@ -334,10 +146,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/11/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/02-cheng-xu-ji-shu-ji-cun-qi/"/>
-    <id>https://honphanjohn.top/2020/09/11/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/02-cheng-xu-ji-shu-ji-cun-qi/</id>
-    <published>2020-09-11T03:08:52.964Z</published>
-    <updated>2020-12-18T03:15:16.617Z</updated>
+    <link href="https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/"/>
+    <id>https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/</id>
+    <published>2020-11-01T00:58:28.597Z</published>
+    <updated>2020-11-01T01:45:42.589Z</updated>
     
     <summary type="html">
     
@@ -345,7 +157,7 @@
       
         
         
-          &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201218111502.png&quot;
+          &lt;h1 id=&quot;普通数据结构&quot;&gt;&lt;a href=&quot;#普通数据结构&quot; class=&quot;headerlink&quot; title=&quot;普通数据结构&quot;&gt;&lt;/a&gt;普通数据结构&lt;/h1&gt;&lt;h2 id=&quot;SDS-Simple-Dynamic-String&quot;&gt;&lt;a
         
       
     
@@ -356,10 +168,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/11/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/01-yun-xing-shi-shu-ju-qu/"/>
-    <id>https://honphanjohn.top/2020/09/11/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/01-yun-xing-shi-shu-ju-qu/</id>
-    <published>2020-09-10T23:30:33.264Z</published>
-    <updated>2020-12-18T03:14:55.054Z</updated>
+    <link href="https://honphanjohn.top/2020/10/30/suan-fa/dai-chu-li/"/>
+    <id>https://honphanjohn.top/2020/10/30/suan-fa/dai-chu-li/</id>
+    <published>2020-10-30T13:40:37.894Z</published>
+    <updated>2020-10-30T13:56:53.078Z</updated>
     
     <summary type="html">
     
@@ -367,7 +179,8 @@
       
         
         
-          &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
+          &lt;h3 id=&quot;预习知识点：&quot;&gt;&lt;a href=&quot;#预习知识点：&quot; class=&quot;headerlink&quot; title=&quot;预习知识点：&quot;&gt;&lt;/a&gt;预习知识点：&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a
         
       
     
@@ -378,10 +191,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/10/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/11-class-wen-jian/"/>
-    <id>https://honphanjohn.top/2020/09/10/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/11-class-wen-jian/</id>
-    <published>2020-09-10T13:47:37.315Z</published>
-    <updated>2020-12-18T04:00:47.028Z</updated>
+    <link href="https://honphanjohn.top/2020/10/22/docker/k8s/"/>
+    <id>https://honphanjohn.top/2020/10/22/docker/k8s/</id>
+    <published>2020-10-22T07:15:53.404Z</published>
+    <updated>2020-12-21T02:50:25.160Z</updated>
     
     <summary type="html">
     
@@ -389,8 +202,8 @@
       
         
         
-          &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;
+          &lt;p&gt;k8s 里面的节点分为 master 和 node 节点，master 提供 api 操作集群。&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -401,10 +214,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/10/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/fu-lu/"/>
-    <id>https://honphanjohn.top/2020/09/10/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/fu-lu/</id>
-    <published>2020-09-10T13:01:01.833Z</published>
-    <updated>2020-12-18T03:03:43.026Z</updated>
+    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/</id>
+    <published>2020-10-19T07:19:45.944Z</published>
+    <updated>2020-10-19T07:20:00.682Z</updated>
     
     <summary type="html">
     
@@ -412,8 +225,7 @@
       
         
         
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;附录&quot;&gt;&lt;a href=&quot;#附录&quot; class=&quot;headerlink&quot; title=&quot;附录&quot;&gt;&lt;/a&gt;附录&lt;/h1&gt;&lt;h2 id=&quot;JVM大图&quot;&gt;&lt;a href=&quot;#JVM大图&quot; class=&quot;headerlink&quot;
+          &lt;p&gt;继前两篇介绍了&lt;a href=&quot;https://segmentfault.com/a/1190000009249039&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;tun/tap&lt;/a&gt;和&lt;a
         
       
     
@@ -424,10 +236,10 @@
   
   <entry>
     <title></title>
-    <link href="https://honphanjohn.top/2020/09/10/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/12-lei-jia-zai-zi-xi-tong/"/>
-    <id>https://honphanjohn.top/2020/09/10/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/12-lei-jia-zai-zi-xi-tong/</id>
-    <published>2020-09-10T12:59:58.980Z</published>
-    <updated>2020-12-18T04:03:06.990Z</updated>
+    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/</id>
+    <published>2020-10-19T07:19:19.704Z</published>
+    <updated>2020-10-19T07:19:31.877Z</updated>
     
     <summary type="html">
     
@@ -435,7 +247,212 @@
       
         
         
-          &lt;h1 id=&quot;JVM类加载的特性&quot;&gt;&lt;a href=&quot;#JVM类加载的特性&quot; class=&quot;headerlink&quot;
+          &lt;p&gt;有了上一篇关于&lt;a href=&quot;https://segmentfault.com/a/1190000009249039&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/linux-session-he-jin-cheng-zu-gai-shu/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/linux-session-he-jin-cheng-zu-gai-shu/</id>
+    <published>2020-10-19T07:18:41.163Z</published>
+    <updated>2020-10-19T07:18:59.420Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在&lt;a href=&quot;https://segmentfault.com/a/1190000009082089&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/linux-ttypts-gai-shu/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/linux-ttypts-gai-shu/</id>
+    <published>2020-10-19T07:17:39.112Z</published>
+    <updated>2020-10-19T07:17:51.916Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;当我们在键盘上敲下一个字母的时候，到底是怎么发送到相应的进程的呢？我们通过ps、who等命令看到的类似tty1、pts/0这样的输出，它们的作用和区别是什么呢？&lt;/p&gt;
+&lt;h2 id=&quot;TTY历史&quot;&gt;&lt;a href=&quot;#TTY历史&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/network/netfilteriptables-jian-jie/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/network/netfilteriptables-jian-jie/</id>
+    <published>2020-10-19T07:17:11.796Z</published>
+    <updated>2020-10-19T07:17:22.595Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;netfilter和iptables是什么关系？常说的iptables里面的表(table)、链(chain)、规则(rule)都是什么东西？本篇将带着这些疑问介绍netfilter/iptables的结构和相关概念，帮助有需要的同学更好的理解netfilter/iptab
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/ssltls-ji-zheng-shu-gai-shu/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/ssltls-ji-zheng-shu-gai-shu/</id>
+    <published>2020-10-19T07:16:36.411Z</published>
+    <updated>2020-10-19T07:16:49.032Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;每次配置HTTPS或者SSL时，都需要指定一些cacert，cert，key之类的东西，他们的具体作用是什么呢？为什么配置了他们之后通信就安全了呢？怎么用openssl命令来生成它们呢？程序中应该如何使用这些文件呢？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本篇以TLS
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/</id>
+    <published>2020-10-19T07:15:31.579Z</published>
+    <updated>2020-10-19T07:16:09.745Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;继上一篇介绍了&lt;a href=&quot;https://segmentfault.com/a/1190000008836467&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/</id>
+    <published>2020-10-19T07:15:22.610Z</published>
+    <updated>2020-10-19T07:15:42.019Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;本文将介绍在Linux系统中，数据包是如何一步一步从网卡传到进程手中的。&lt;/p&gt;
+&lt;p&gt;如果英文没有问题，强烈建议阅读后面参考里的两篇文章，里面介绍的更详细。&lt;/p&gt;
+&lt;p&gt;本文只讨论以太网的物理网卡，不涉及虚拟设备，并且以一个UDP包的接收过程作为示例.&lt;/p&gt;
+&lt;blo
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/ipv6-jian-jie/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/ipv6-jian-jie/</id>
+    <published>2020-10-19T07:14:47.870Z</published>
+    <updated>2020-10-19T07:14:58.893Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;IPv6仅仅只是“长”吗？IPv6的地址长什么样？平时我们是怎么使用IPv6的呢？编写网络程序的时候要怎么处理IPv6？且待本篇一一道来。&lt;/p&gt;
+&lt;h2 id=&quot;为什么需要IPv6&quot;&gt;&lt;a href=&quot;#为什么需要IPv6&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/btrfs-wen-jian-xi-tong-zhi-subvolume-yu-snapshot/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/btrfs-wen-jian-xi-tong-zhi-subvolume-yu-snapshot/</id>
+    <published>2020-10-19T07:14:00.374Z</published>
+    <updated>2020-10-19T07:14:12.401Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;对于大部分文件系统来说，在磁盘上创建好文件系统，然后再挂载到系统中去就完事了。但对于Btrfs来说，除了在格式化和挂载的时候指定不同的参数外，还支持很多其他的功能，比如管理多块硬盘，支持LVM和RAID等，具体的可以参考它的&lt;a
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://honphanjohn.top/2020/10/19/linux/linux-wen-jian-xi-tong-zhi-aufs/"/>
+    <id>https://honphanjohn.top/2020/10/19/linux/linux-wen-jian-xi-tong-zhi-aufs/</id>
+    <published>2020-10-19T07:13:20.789Z</published>
+    <updated>2020-10-19T07:13:42.604Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;aufs的全称是advanced multi-layered unification
         
       
     

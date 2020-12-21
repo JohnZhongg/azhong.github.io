@@ -1,0 +1,2543 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content=" [toc]
+Bucket &amp;amp; Metrc 聚合分析及嵌套聚合在”ES入门”中最后的章节提到 ES 也提供了类似对文档进行聚合（分桶）和统计的方法，称之为 Aggregation。
+
+零、Aggregation 语法Aggregat">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>阿钟的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">阿钟的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">阿钟的博客</div>
+        <div class="logo-desc">
+            
+            广东工业大学 | 计算机科学与技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/JohnZhongg" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/JohnZhongg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        <span class="chip bg-color">无标签</span>
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-04
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    阿钟
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    12.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    55 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p> [toc]</p>
+<h1 id="Bucket-amp-Metrc-聚合分析及嵌套聚合"><a href="#Bucket-amp-Metrc-聚合分析及嵌套聚合" class="headerlink" title="Bucket &amp; Metrc 聚合分析及嵌套聚合"></a>Bucket &amp; Metrc 聚合分析及嵌套聚合</h1><p>在”ES入门”中最后的章节提到 ES 也提供了类似对文档进行聚合（分桶）和统计的方法，称之为 Aggregation。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093256.png" alt="image-20200427153438802"></p>
+<h3 id="零、Aggregation-语法"><a href="#零、Aggregation-语法" class="headerlink" title="零、Aggregation 语法"></a>零、Aggregation 语法</h3><p>Aggregation 属于 search 的一部分。一般情况下，建议将其 size 指定为0（表示不返回具体的文档信息，如果不这样设置，查询会像正常的查询一样也会在 hits 中返回查询命中的一些具体的文档信息）。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093257.png" alt="image-20200427153847421"></p>
+<h3 id="一、Metric-Aggregation"><a href="#一、Metric-Aggregation" class="headerlink" title="一、Metric Aggregation"></a>一、Metric Aggregation</h3><p>Metric Aggregation 用来统计数据的，它可以分为两类：</p>
+<ol>
+<li>单值分析：指输出一个分析结果<ul>
+<li>min、max、avg、sum</li>
+<li>Cardinality（类似 distinct count）</li>
+</ul>
+</li>
+<li>多值分析：输出多个分析结果<ul>
+<li>stats、extened stats</li>
+<li>percentile、percentile rank</li>
+<li>top hits</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>下面我们来看一下一些具体的示例：</p>
+<ol>
+<li><p>先准备1个索引和20个员工信息的文档数据</p>
+<pre><code>DELETE /employees
+PUT /employees/
+{
+  &quot;mappings&quot; : {
+      &quot;properties&quot; : {
+        &quot;age&quot; : {
+          &quot;type&quot; : &quot;integer&quot;
+        },
+        &quot;gender&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;job&quot; : {
+          &quot;type&quot; : &quot;text&quot;,
+          &quot;fields&quot; : {
+            &quot;keyword&quot; : {
+              &quot;type&quot; : &quot;keyword&quot;,
+              &quot;ignore_above&quot; : 50
+            }
+          }
+        },
+        &quot;name&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;salary&quot; : {
+          &quot;type&quot; : &quot;integer&quot;
+        }
+      }
+    }
+}
+
+PUT /employees/_bulk
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;1&quot; } }
+{ &quot;name&quot; : &quot;Emma&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Product Manager&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:35000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;2&quot; } }
+{ &quot;name&quot; : &quot;Underwood&quot;,&quot;age&quot;:41,&quot;job&quot;:&quot;Dev Manager&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 50000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;3&quot; } }
+{ &quot;name&quot; : &quot;Tran&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;Web Designer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:18000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;4&quot; } }
+{ &quot;name&quot; : &quot;Rivera&quot;,&quot;age&quot;:26,&quot;job&quot;:&quot;Web Designer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 22000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;5&quot; } }
+{ &quot;name&quot; : &quot;Rose&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:18000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;6&quot; } }
+{ &quot;name&quot; : &quot;Lucy&quot;,&quot;age&quot;:31,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 25000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;7&quot; } }
+{ &quot;name&quot; : &quot;Byrd&quot;,&quot;age&quot;:27,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:20000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;8&quot; } }
+{ &quot;name&quot; : &quot;Foster&quot;,&quot;age&quot;:27,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 20000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;9&quot; } }
+{ &quot;name&quot; : &quot;Gregory&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:22000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;10&quot; } }
+{ &quot;name&quot; : &quot;Bryant&quot;,&quot;age&quot;:20,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 9000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;11&quot; } }
+{ &quot;name&quot; : &quot;Jenny&quot;,&quot;age&quot;:36,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:38000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;12&quot; } }
+{ &quot;name&quot; : &quot;Mcdonald&quot;,&quot;age&quot;:31,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 32000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;13&quot; } }
+{ &quot;name&quot; : &quot;Jonthna&quot;,&quot;age&quot;:30,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:30000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;14&quot; } }
+{ &quot;name&quot; : &quot;Marshall&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 25000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;15&quot; } }
+{ &quot;name&quot; : &quot;King&quot;,&quot;age&quot;:33,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:28000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;16&quot; } }
+{ &quot;name&quot; : &quot;Mccarthy&quot;,&quot;age&quot;:21,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 16000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;17&quot; } }
+{ &quot;name&quot; : &quot;Goodwin&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 16000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;18&quot; } }
+{ &quot;name&quot; : &quot;Catherine&quot;,&quot;age&quot;:29,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 20000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;19&quot; } }
+{ &quot;name&quot; : &quot;Boone&quot;,&quot;age&quot;:30,&quot;job&quot;:&quot;DBA&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 30000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;20&quot; } }
+{ &quot;name&quot; : &quot;Kathy&quot;,&quot;age&quot;:29,&quot;job&quot;:&quot;DBA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 20000}</code></pre></li>
+<li><p>简单的Metrc 聚合：</p>
+<p>我们下面分别通过调用_search api 进行了 agg 的操作。我们在第一个和第二个调用中分别使用了 “min” 和 “max” agg，其中”min_salary”和”max_salary”是我们对于这次agg 的业务操作的名称定义，可以看到在 ES 返回给我们的信息中的”aggregations”对象下面就是以我们起的这些业务名称作为它的属性进行返回的，里面包含了我们需要统计的信息。</p>
+<p>另外，可以看到返回的结果中都命中了20条数据，因为我们的查询并没有加上任何条件，仅仅是一次简单的 agg 操作，所以命中了我们写入的全部20条文档数据。但是因为我们在查询的时候指定了 size 是0，所以在返回的 hits 下面的再一个 hits 属性数组是空的，没有返回任何详细的文档数据。</p>
+<p>而在第三个 _serach查询中，我们在 aggs 下面同时指定了3个 agg，进行三个 agg 操作，ES 在返回信息给我们的时候在 aggregation 数组中将3个 agg 操作的结果全部一起返回。并用我们起的agg名字进行分隔。</p>
+<p>而第四个操作，我们使用了一个 stats 聚合分析，它作为一个聚合 api 会同时对指定数值字段（salary）的最小、最大、平均、和、行数这5个统计。</p>
+<pre><code># Metric 聚合，找到最低的工资
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;min_salary&quot;: {
+      &quot;min&quot;: {
+        &quot;field&quot;:&quot;salary&quot;
+      }
+    }
+  }
+}
+
+# Metric 聚合，找到最高的工资
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;max_salary&quot;: {
+      &quot;max&quot;: {
+        &quot;field&quot;:&quot;salary&quot;
+      }
+    }
+  }
+}
+
+# 多个 Metric 聚合，找到最低最高和平均工资
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;max_salary&quot;: {
+      &quot;max&quot;: {
+        &quot;field&quot;: &quot;salary&quot;
+      }
+    },
+    &quot;min_salary&quot;: {
+      &quot;min&quot;: {
+        &quot;field&quot;: &quot;salary&quot;
+      }
+    },
+    &quot;avg_salary&quot;: {
+      &quot;avg&quot;: {
+        &quot;field&quot;: &quot;salary&quot;
+      }
+    }
+  }
+}
+
+# 一个聚合，输出多值
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;stats_salary&quot;: {
+      &quot;stats&quot;: {
+        &quot;field&quot;:&quot;salary&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093258.png" alt="image-20200427160734050"></p>
+</li>
+</ol>
+<h3 id="二、Bucket-Aggregation"><a href="#二、Bucket-Aggregation" class="headerlink" title="二、Bucket Aggregation"></a>二、Bucket Aggregation</h3><p>这个 agg 是按照一定的规则，将文档分配到不同桶中，从而达到分类的目的。ES 提供了一些常见的 Bucket Aggregation</p>
+<ul>
+<li>terms</li>
+<li>对于数字类型有：<ul>
+<li>Range、Date Range</li>
+<li>Histogram、Date Histogram</li>
+</ul>
+</li>
+</ul>
+<p>另外，Bucket Aggregation 是支持嵌套的。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093259.png" alt="image-20200427161220024"></p>
+<h4 id="Terms-Aggregation"><a href="#Terms-Aggregation" class="headerlink" title="Terms Aggregation"></a>Terms Aggregation</h4><h6 id="1、对结构化数据进行-term-aggregation"><a href="#1、对结构化数据进行-term-aggregation" class="headerlink" title="1、对结构化数据进行 term aggregation"></a>1、对结构化数据进行 term aggregation</h6><p>结构化数据（keyword、时间、数值、布尔）默认支持 doc_values，对于这类字段默认可以进行 Terms Aggregation。但是如果是对 text 类型的字段进行 Terms Aggregation 的时候，需要打开 fielddata（在 Mapping 中设置为 enable），然后会<strong>按照分词之后的词条（term）进行分组聚合</strong>。</p>
+<p>下面是我们对 job.keyword 字段进行 terms aggregation</p>
+<pre><code># 对keword 进行聚合
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;
+      }
+    }
+  }
+}</code></pre><p>可以看到是可以正常执行并返回结果的，ES 将我们的文档按照我们 job.keyword 的内容对文档进行了分桶，但是并没有将我们的 job 字段的内容进行分词（例如 Java Programmer 它还是完整的）。我们可以看到 ES 给我们返回的数据信息主要包含分桶的 key 和 桶中文档的数量，所有的桶作为一个个元素放到一个 buckets 数组中进行返回。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093300.png" alt="image-20200427162335350"></p>
+<h6 id="2、对-text-数据进行-term-aggregation"><a href="#2、对-text-数据进行-term-aggregation" class="headerlink" title="2、对 text 数据进行 term aggregation"></a>2、对 text 数据进行 term aggregation</h6><p> 下面我们对 text 类型的 job 字段进行 term aggregation 操作，可以看到，ES 直接给我们搞错了。”Fielddata is disabled on text fields by default. Set fielddata=true on [job] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead.”。告诉我们需要打开 Fieiddata</p>
+<pre><code># 对 Text 字段进行 terms 聚合查询，失败
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093301.png" alt="image-20200427162538195"></p>
+<p>下面我们打开 fielddata</p>
+<pre><code># 对 Text 字段打开 fielddata，支持terms aggregation
+PUT employees/_mapping
+{
+  &quot;properties&quot; : {
+    &quot;job&quot;:{
+       &quot;type&quot;:     &quot;text&quot;,
+       &quot;fielddata&quot;: true
+    }
+  }
+}</code></pre><p>再进行term aggregation 操作</p>
+<pre><code># 对 Text 字段进行 terms 分词。分词后的terms
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job&quot;
+      }
+    }
+  }
+}</code></pre><p>可以看到，现在是可以对 text 字段进行 terms aggregation 操作了，但是有个问题就是它是将 text 字段进行分词之后对词条进行分组统计，例如 Java Programmer 有7个员工，Javascript Programmer 有 4个员工，那么 ES 会对这两个文本进行分词为 java、javascript和 programmer，其中 java 词条关联的文档就是7个，javascript 词条关联的文档就是4个，但是 programmer 因为关联了7个”Java Programmer”和4个”Javascript Programmer”的文档，所以这个词条（桶）下的文档数就是11个。</p>
+<p>对于这样的结果，我们需要知道，然后根据需求来判断这个结果是否是我们需要的，如果我们的需求是原本的文本类型字段的内容作为一个完整的key对文档进行分桶，那么就像上面那样使用text 类型字段的子字段 keyword（keyword 类型）进行分桶。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093302.png" alt="image-20200427162743328"></p>
+<h6 id="3、Bucket-Size"><a href="#3、Bucket-Size" class="headerlink" title="3、Bucket Size"></a>3、Bucket Size</h6><p>我们可以通过指定 terms agg 的 size 来配置ES 给我们返回的桶数量，看下面的例子，我们通过分别指定了 terms agg的 size 为5或者3，ES 分别给我们返回了前5个桶和前3个桶（这里我们没有指定桶的排序，所以是按照 ES 的默认排序）。</p>
+<pre><code>#指定 bucket 的 size
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;ages_5&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;age&quot;,
+        //&quot;size&quot;:5
+        &quot;size&quot;: 3
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093303.png" alt="image-20200427164618181"></p>
+<h6 id="4、Top-Hits"><a href="#4、Top-Hits" class="headerlink" title="4、Top Hits"></a>4、Top Hits</h6><p>在现实生活中往往有这样的需求，在某某范围内找出最 XX 的数据，即 Top K 问题。下面是一个这样的需求的实现：我们需要将所有员工按照不同工种（job）进行分类，然后找出每个工种中年龄最大的三个员工。</p>
+<ol>
+<li>可以看到我们是先在 _search 请求 body 下面指定了一个 agg，我们起名为”jobs”，然后设置一个对字段”job.keyword” 进行 terms aggregation，实现对员工按照工种分类。</li>
+<li>然后在我们配置的”jobs”（会被 ES 转化成一个 term agg 对象）agg 对象下面再嵌套定义一个子的 agg，我们起名为”old_employee”，然后设置该 agg 类型为 <strong>top_hits</strong>，并设置 size属性 为3，表示找出前3个文档，然后通过 sort 属性来指定按照某个字段进行排序。</li>
+</ol>
+<p>可以看到 ES 给我们返回了我们想要的数据，首先是在返回对象中包含了”aggregations”属性，下面的一个子属性”jobs” 就是对应我们的第一层对于字段 job.keyword 的 terms aggregation的结果，即根据工种进行分类的各个员工桶，所有的桶又放到一个子属性”buckets”中。其中每个桶都有它的名字，即job.keyword 的一个字段值，另外还通过 doc_count 告诉了我们这个桶中有多少文档命中。而每个桶中还有一个属性就是”old_emplyee”，它就是我们指定的第二个 agg，嵌套在 terms agg 内的 top_hits agg的处理结果。它包含了一个 hits 属性，该属性下面有一个 total 属性告诉我们 这个子 agg 中命中了多个文档，并在另外一个一个子属性 hits 数组中给我们返回了按照指定排序的前三个文档。</p>
+<pre><code># 指定size，不同工种中，年纪最大的3个员工的具体信息
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;
+      },
+      &quot;aggs&quot;:{
+        &quot;old_employee&quot;:{
+          &quot;top_hits&quot;:{
+            &quot;size&quot;:3,
+            &quot;sort&quot;:[
+              {
+                &quot;age&quot;:{
+                  &quot;order&quot;:&quot;desc&quot;
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093304.png" alt="image-20200427170126884"></p>
+<h6 id="优化-Terms-聚合的性能"><a href="#优化-Terms-聚合的性能" class="headerlink" title="优化 Terms 聚合的性能"></a>优化 Terms 聚合的性能</h6><p>关于 Terms 聚合的性能优化，参考下面的官方文档在要进行Terms 聚合的字段的 mapping 上配置一个”eager_global_ordinals”的参数为 true。总的来说就是ES 中对于 terms aggregations 的操作需要保存一个”global ordinals”的数据结构在内存中的，但是默认这个数据结构是懒加载的（就是在具体收到 terms agg 请求之后才会去加载这个数据结构或者更新这个数据结构到和当前的索引数据一致），因为 ES 不知道用户要对哪个字段进行 term agg。用户可以通过对特定字段进行配置，这样 ES 就会立即在内存中对该字段加载这个数据结构，并且之后每当有新的索引进来的时候，新索引的信息也会立即同步到这个数据结构中。那么当我们进行 terms agg的时候，所有的数据都是预加载好的，在查询的时候就会有很好的性能。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093305.png" alt="image-20200427223850435"></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/tune-for-search-speed.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/tune-for-search-speed.html</a></p>
+<p><strong>开启这个选项的一些场景：</strong></p>
+<p>我们明确清除哪些字段是需要做 term agg 的，并且这个操作是比较频繁的，然后该索引是一直不断有数据写入的。</p>
+<h4 id="Cardinality"><a href="#Cardinality" class="headerlink" title="Cardinality"></a>Cardinality</h4><p>前面介绍到 Cardinality 类似 sql 中的 distinct 操作，即对分组中的数据进行去重操作（可以指定某个或者某些字段，也可以不指定）。看下面的例子，我们在开启了 fielddata 之后分别对字段 job 和它的子字段 job.keyword 进行了 cardinality 操作，可以看到分别得到了两个不同的结果。作别 job 字段得到的结果是10、右边 job.keyword 得到的结果是7。这个也是因为对于结构化数据和 text 类型数据的处理差异导致的。</p>
+<pre><code># 对job.keyword 和 job 进行 terms 聚合，分桶的总数并不一样
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;cardinate&quot;: {
+      &quot;cardinality&quot;: {
+        &quot;field&quot;: &quot;job&quot;
+        //&quot;field&quot;: &quot;job.keyword&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093306.png" alt="image-20200427163715421"></p>
+<h4 id="Range聚合"><a href="#Range聚合" class="headerlink" title="Range聚合"></a>Range聚合</h4><p>前面我们提到，在 Bucket aggregation 中，除了进行 Terms 分桶之后，还可以使用 Range 对一个范围进行分桶。在 Range Aggregatioin 中可以自定义 Key。可以看到下面的例子，我们对于员工的薪资范围（数值型字段）进行分桶，通过在 _search api 的 “aggs” 属性中指定 agg 名称，然后指定 agg 类型为 “range” ，并通过”field”属性指定分桶字段为”salary”，最后在”rangs”属性中定义分桶的逻辑：其中第一个桶为最小值到10000的范围的员工文档，第二个桶为10000到20000范围的员工文档，第三个范围为从20000到最大值的员工文档。</p>
+<p>另外我们还能手动设置 range agg 中的桶的 key，例如我们在定义第三个桶的范围的时候就指定了 key 为”&gt;20000”。</p>
+<p>然后通过执行看到 ES 给我们返回的数据中看到，第一个桶的文档有1个，第二个有4个，第三个有15个。另外第三个桶的 key 就是我们设置的”&gt;20000”，而其他 key 因为没有指定，所以是 ES 默认生成的。</p>
+<pre><code>#Salary Ranges 分桶，可以自己定义 key
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;salary_range&quot;: {
+      &quot;range&quot;: {
+        &quot;field&quot;:&quot;salary&quot;,
+        &quot;ranges&quot;:[
+          {
+            &quot;to&quot;:10000
+          },
+          {
+            &quot;from&quot;:10000,
+            &quot;to&quot;:20000
+          },
+          {
+            &quot;key&quot;:&quot;&gt;20000&quot;,
+            &quot;from&quot;:20000
+          }
+        ]
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093307.png" alt="image-20200427225842278"></p>
+<h4 id="Histogram-聚合"><a href="#Histogram-聚合" class="headerlink" title="Histogram 聚合"></a>Histogram 聚合</h4><p>下面我们来介绍 Histogram 聚合（直方图、柱状图）。同样的我们在 _search.aggs 中设置我们的 agg 名称，然后指定 agg type 为 “histogram”，并指定 field 为 salary，然后设置间隔 interval 为5000。并通过 extened_bounds 指定了上限和下限。这指示 ES 对检索查询之后的员工文档数据取薪资为0到100000之间的数据，每差5000则分为一个桶，然后返回 agg 的结果。</p>
+<p>通过观察结果可以看到，即使桶中没有信息，ES 也会进行返回，但是桶中文档 doc_value 的数量是0.</p>
+<pre><code>#Salary Histogram,工资0到10万，以 5000一个区间进行分桶
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;salary_histrogram&quot;: {
+      &quot;histogram&quot;: {
+        &quot;field&quot;:&quot;salary&quot;,
+        &quot;interval&quot;:5000,
+        &quot;extended_bounds&quot;:{
+          &quot;min&quot;:0,
+          &quot;max&quot;:100000
+
+        }
+      }
+    }
+  }
+}
+</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093308.png" alt="image-20200427225907495"></p>
+<h4 id="Bucket-Metric-Aggregation"><a href="#Bucket-Metric-Aggregation" class="headerlink" title="Bucket + Metric Aggregation"></a>Bucket + Metric Aggregation</h4><h6 id="Demo1："><a href="#Demo1：" class="headerlink" title="Demo1："></a>Demo1：</h6><p>前面提到，Bucket 聚合分析允许通过添加子聚合分析来进一步分析（即嵌套），其子聚合分析可以是 Bucket 和 Metric。</p>
+<p>下面是一个 Bucket 嵌套 Metic 的例子，可以看到我们在第一层 aggs 中设定一个 term agg，它根据”job.keyword”进行分桶；然后在 term agg（ 名称为Job_salary_stats）中又指定了一个 stats agg，表示对桶内的数据进行常用的数值统计。</p>
+<p>ES 给我们的返回结果也是按照第一个 term agg 分组之后的各个桶进行返回，然后桶内是第二个 stats agg 统计的相关数据。</p>
+<pre><code># 嵌套聚合1，按照工作类型分桶，并统计工资信息
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;Job_salary_stats&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;
+      },
+      &quot;aggs&quot;: {
+        &quot;salary&quot;: {
+          &quot;stats&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093309.png" alt="image-20200427230608950"></p>
+<h6 id="Demo2："><a href="#Demo2：" class="headerlink" title="Demo2："></a>Demo2：</h6><p> 下面我们再来看一个相对又复杂了一点的 Agg 嵌套，这次我们是先对 字段 “job.keyword” 进行分桶，即将所有员工按照工种进行分类，然后在各个工种桶中再按照性别字段 “gender” 进行分桶，即在工种之下再对员工进行性别的分类，然后再在性别桶下使用 stats agg 对员工薪资”salary”字段进行统计。</p>
+<pre><code># 多次嵌套。根据工作类型分桶，然后按照性别分桶，计算工资的统计信息
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;Job_gender_stats&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;
+      },
+      &quot;aggs&quot;: {
+        &quot;gender_stats&quot;: {
+          &quot;terms&quot;: {
+            &quot;field&quot;: &quot;gender&quot;
+          },
+          &quot;aggs&quot;: {
+            &quot;salary_stats&quot;: {
+              &quot;stats&quot;: {
+                &quot;field&quot;: &quot;salary&quot;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093310.png" alt="image-20200427230929788"></p>
+<h3 id="三、Pipeline-Aggregation"><a href="#三、Pipeline-Aggregation" class="headerlink" title="三、Pipeline Aggregation"></a>三、Pipeline Aggregation</h3><p>Pipeline Aggregation 指的是支持对聚合分析的结果（ 即经过分桶之后的或者还同时进行 Metric 的Bucket），再次进行聚合分析。</p>
+<p>Pipeline 的分析结果会输出到愿结果中，根据位置的不同，分为两类：</p>
+<ul>
+<li>Sibling：结果和现有分析结果同级<ul>
+<li>max、min、avg &amp; sum Bucket</li>
+<li>Stats、Extended Stats Bucket</li>
+<li>Percentiles Bucket</li>
+</ul>
+</li>
+<li>Parent：结果内嵌到现有的聚合分析结果中<ul>
+<li>Derivative（求导）</li>
+<li>Cumultive Sum（累计求和）</li>
+<li>Moving Function（滑动窗口）</li>
+</ul>
+</li>
+</ul>
+<h4 id="Sibling-Pipeline"><a href="#Sibling-Pipeline" class="headerlink" title="Sibling Pipeline"></a>Sibling Pipeline</h4><h5 id="1）求所有工种中平均员工薪资最低的工种"><a href="#1）求所有工种中平均员工薪资最低的工种" class="headerlink" title="1）求所有工种中平均员工薪资最低的工种"></a>1）求所有工种中平均员工薪资最低的工种</h5><ol>
+<li><p>准备数据</p>
+<pre><code>DELETE employees
+PUT /employees/_bulk
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;1&quot; } }
+{ &quot;name&quot; : &quot;Emma&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Product Manager&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:35000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;2&quot; } }
+{ &quot;name&quot; : &quot;Underwood&quot;,&quot;age&quot;:41,&quot;job&quot;:&quot;Dev Manager&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 50000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;3&quot; } }
+{ &quot;name&quot; : &quot;Tran&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;Web Designer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:18000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;4&quot; } }
+{ &quot;name&quot; : &quot;Rivera&quot;,&quot;age&quot;:26,&quot;job&quot;:&quot;Web Designer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 22000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;5&quot; } }
+{ &quot;name&quot; : &quot;Rose&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:18000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;6&quot; } }
+{ &quot;name&quot; : &quot;Lucy&quot;,&quot;age&quot;:31,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 25000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;7&quot; } }
+{ &quot;name&quot; : &quot;Byrd&quot;,&quot;age&quot;:27,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:20000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;8&quot; } }
+{ &quot;name&quot; : &quot;Foster&quot;,&quot;age&quot;:27,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 20000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;9&quot; } }
+{ &quot;name&quot; : &quot;Gregory&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:22000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;10&quot; } }
+{ &quot;name&quot; : &quot;Bryant&quot;,&quot;age&quot;:20,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 9000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;11&quot; } }
+{ &quot;name&quot; : &quot;Jenny&quot;,&quot;age&quot;:36,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:38000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;12&quot; } }
+{ &quot;name&quot; : &quot;Mcdonald&quot;,&quot;age&quot;:31,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 32000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;13&quot; } }
+{ &quot;name&quot; : &quot;Jonthna&quot;,&quot;age&quot;:30,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:30000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;14&quot; } }
+{ &quot;name&quot; : &quot;Marshall&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 25000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;15&quot; } }
+{ &quot;name&quot; : &quot;King&quot;,&quot;age&quot;:33,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:28000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;16&quot; } }
+{ &quot;name&quot; : &quot;Mccarthy&quot;,&quot;age&quot;:21,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 16000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;17&quot; } }
+{ &quot;name&quot; : &quot;Goodwin&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 16000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;18&quot; } }
+{ &quot;name&quot; : &quot;Catherine&quot;,&quot;age&quot;:29,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 20000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;19&quot; } }
+{ &quot;name&quot; : &quot;Boone&quot;,&quot;age&quot;:30,&quot;job&quot;:&quot;DBA&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 30000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;20&quot; } }
+{ &quot;name&quot; : &quot;Kathy&quot;,&quot;age&quot;:29,&quot;job&quot;:&quot;DBA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 20000}</code></pre></li>
+<li><p>我们对员工按照工种进行分组之后，找出平均工资最低的工种。</p>
+<p>可以看到，上面的需求可以理解为，将员工文档按照工种”job.keyword”进行分组分组之后(Terms of Bucket Agg)，然后求出所有分桶中员工文档的平均工资 salary(Metric Agg)，然后再对所有的桶进行分析（每个返回的桶都包含了这个 Metric Agg 的结果），即求出 Metric Agg 结果最低的那个桶。</p>
+<p>我们在 aggs 同级的属性中声明了一个”min_salary_by_job”的属性，然后再给它设置一个”min_bucket” 的子属性。表述这是一个用户自定义的名为”min_salary_by_job”的 “min_bucket”类型的 Pipeline Agg，然后给”min_bucket”设置一个”buckets_path”的子属性， 这是一个 pipeline Agg 的通用属性，表示需要进行分析的 Aggregation 的路径，我们上面先是名为”jobs”的 trems agg 进行了分桶，然后在”jobs”里面嵌套定义了一个 “avg_salary”的 Metric agg。所以我们需要做 pipeline agg 的路径就是”jobs &gt; avg_salary”。</p>
+<p>后面的返回结果中在 “jobs” agg 的结果下面有一个同级的返回就是”min_salary_by_job”，即我们的 pipeline agg 的结果，返回的就是平均工资最少的 key 为”Javascript Programmer”的 Bucket。</p>
+<p>因为它是定义在我们需要分析的桶的同级的，然后在”buckets_path”中指定要分析的对象是bucket agg 的一个子属性（Metric agg），返回结果也是同级，所以称之为 Sibling Pipeline（Bucket As Sibling/Brothers）。</p>
+<pre><code># 平均工资最低的工作类型
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;,
+        &quot;size&quot;: 10
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    },
+    &quot;min_salary_by_job&quot;:{
+      &quot;min_bucket&quot;: {
+        &quot;buckets_path&quot;: &quot;jobs&gt;avg_salary&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093311.png" alt="image-20200429081227260"></p>
+</li>
+</ol>
+<h5 id="2）基于所有工种的平均工资进行求平均工资"><a href="#2）基于所有工种的平均工资进行求平均工资" class="headerlink" title="2）基于所有工种的平均工资进行求平均工资"></a>2）基于所有工种的平均工资进行求平均工资</h5><p>以下是对分桶后的工种 Buckets 进行一次求平均工资的 pipeline agg，可以看到这次  pipeline agg 返回的结果仅仅是一个数值。</p>
+<pre><code># 平均工资的平均工资
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;,
+        &quot;size&quot;: 10
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    },
+    &quot;avg_salary_by_job&quot;:{
+      &quot;avg_bucket&quot;: {
+        &quot;buckets_path&quot;: &quot;jobs&gt;avg_salary&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093312.png" alt="image-20200429082330968"></p>
+<h5 id="3）对各工种的平均工资求百分数"><a href="#3）对各工种的平均工资求百分数" class="headerlink" title="3）对各工种的平均工资求百分数"></a>3）对各工种的平均工资求<a href="https://baike.baidu.com/item/%E7%99%BE%E5%88%86%E4%BD%8D%E6%95%B0/10064171?fr=aladdin" target="_blank" rel="noopener">百分数</a></h5><p>可以看到 ES 默认只是求出第1、5、25、50、75、95、99百分位数，分别是19250（Javascript Programmer）、21000（QA）、25000（DBA）、35000（Product Manager）、50000（Dev Manager）、50000（Dev Manager）。即只有百分之一的工种的平均工资低于等于19250（Js）、有百分之五低于等于21000（QA）、有百分之五十低于等于25000（DBA）有百分之七十五的工资低于等于35000（PM）、有百分之九十五和九十九工种都低于等于50000（Dev Manager）。</p>
+<pre><code># 平均工资的百分位数
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;,
+        &quot;size&quot;: 10
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    },
+    &quot;percentiles_salary_by_job&quot;:{
+      &quot;percentiles_bucket&quot;: {
+        &quot;buckets_path&quot;: &quot;jobs&gt;avg_salary&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093313.png" alt="image-20200429085248609"></p>
+<h5 id="4）其他例子"><a href="#4）其他例子" class="headerlink" title="4）其他例子"></a>4）其他例子</h5><pre><code># 平均工资最高的工作类型
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;,
+        &quot;size&quot;: 10
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    },
+    &quot;max_salary_by_job&quot;:{
+      &quot;max_bucket&quot;: {
+        &quot;buckets_path&quot;: &quot;jobs&gt;avg_salary&quot;
+      }
+    }
+  }
+}
+
+
+# 平均工资的统计分析
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;,
+        &quot;size&quot;: 10
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    },
+    &quot;stats_salary_by_job&quot;:{
+      &quot;stats_bucket&quot;: {
+        &quot;buckets_path&quot;: &quot;jobs&gt;avg_salary&quot;
+      }
+    }
+  }
+}</code></pre><h4 id="Parent-Pipeline"><a href="#Parent-Pipeline" class="headerlink" title="Parent Pipeline"></a>Parent Pipeline</h4><h5 id="1）Derivative-Aggregation"><a href="#1）Derivative-Aggregation" class="headerlink" title="1）Derivative Aggregation"></a>1）Derivative Aggregation</h5><p>对员工的年龄每间隔一岁为一组进行分组，然后求分组内的平均工资（直方图），并求出所有年龄分组的平均工资与（减去）前一个年龄分组的平均工资的差值。这里我们使用 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-pipeline-derivative-aggregation.html#_second_order_derivative" target="_blank" rel="noopener">Derivative Aggregation</a>。</p>
+<p> 可以看到，我们先是定义了一个 “histogram” (bucket) agg，实现员工按照一岁的年龄间隔的分桶，然后再对每个桶定义一个 “avg” (Metric) agg求每隔桶内员工的平均工资。最后我们在avg metric agg 的同级，也是 histogram bucket agg 的子级（桶内）定义了一个名为”derivative_avg_salary”的derivative (pipeline) agg，进行直方图每个区间(bucket)与上一个区间的 metic agg 的差值求解。</p>
+<p>可以看到我们这个pipeline agg 是定义在 bucket agg 之内的（因为每个 bucket 都会对应一个属于该 bucket 的 pipeline 分析结果，所以理所应当定义在每隔 bucket 之内），而 pipeline agg的 “buckets_path”属性指定的是”avg_salary”，它是”histogram” bucket agg 的子 agg（Metric agg）。</p>
+<p>另外看到 ES 的返回结果，除了第一个 histogram bucket之外其他的 bucket 之内都带有”derivative_avg_salary”的一个分析结果。所以我们称这种 pipeline agg 为 Parent Pipeline（Bucket As Parent）。</p>
+<pre><code>#按照年龄对平均工资求导
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;age&quot;: {
+      &quot;histogram&quot;: {
+        &quot;field&quot;: &quot;age&quot;,
+        &quot;min_doc_count&quot;: 1,
+        &quot;interval&quot;: 1
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        },
+        &quot;derivative_avg_salary&quot;:{
+          &quot;derivative&quot;: {
+            &quot;buckets_path&quot;: &quot;avg_salary&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093314.png" alt="image-20200429094332945"></p>
+<h5 id="2）cumulative-sum-aggregation"><a href="#2）cumulative-sum-aggregation" class="headerlink" title="2）cumulative_sum aggregation"></a>2）cumulative_sum aggregation</h5><p>这是一个对 bucket(parent of pipeline) 进行累加求和的 agg，可以看到结果返回的每一个 bucket 中都包含了对其 Metric agg 的结果再次进行 cumulative_sum agg 的结果，第一个 bucket 的cumulative_sum 的结果就 Metric agg 原本的结果，之后每个cumulative_sum agg 的结果都是对前一个 cumulative agg 结果的累加。</p>
+<pre><code>#Cumulative_sum
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;age&quot;: {
+      &quot;histogram&quot;: {
+        &quot;field&quot;: &quot;age&quot;,
+        &quot;min_doc_count&quot;: 1,
+        &quot;interval&quot;: 1
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        },
+        &quot;cumulative_salary&quot;:{
+          &quot;cumulative_sum&quot;: {
+            &quot;buckets_path&quot;: &quot;avg_salary&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093315.png" alt="image-20200429095145755"></p>
+<h5 id="3）Moving-Function"><a href="#3）Moving-Function" class="headerlink" title="3）Moving Function"></a>3）Moving Function</h5><p>Moving Function也是一个Parent Pipeline Agg。它表示对于一个一定顺序的集合，维护一个窗口大小 N（当前 Bucket 往前的 N 个Buckets，支持用户自定义，默认不确定，待看，这里指定了是10），然后对这 N 个 Buckets 进行一个 Function 求解（默认值不确定，待看，支持用户自定义，这里我们定义了一个”script”类型的 Function：”MovingFunctions.min(values)” ：表示对 “avg_salary”的结果”value”求最小值，也就是求窗口之内的 Bucket 的 Metric 最小值）。</p>
+<pre><code>#Moving Function
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;age&quot;: {
+      &quot;histogram&quot;: {
+        &quot;field&quot;: &quot;age&quot;,
+        &quot;min_doc_count&quot;: 1,
+        &quot;interval&quot;: 1
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        },
+        &quot;moving_avg_salary&quot;:{
+          &quot;moving_fn&quot;: {
+            &quot;buckets_path&quot;: &quot;avg_salary&quot;,
+            &quot;window&quot;:10,
+            &quot;script&quot;: &quot;MovingFunctions.min(values)&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093316.png" alt="image-20200429100413498"></p>
+<h3 id="四、Matrix-Aggregation"><a href="#四、Matrix-Aggregation" class="headerlink" title="四、Matrix Aggregation"></a>四、Matrix Aggregation</h3><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-matrix.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-matrix.html</a></p>
+<h3 id="五、相关阅读"><a href="#五、相关阅读" class="headerlink" title="五、相关阅读"></a>五、相关阅读</h3><p>以上介绍都是一些入门的介绍，当遇到要详细使用的时候，如果上面的介绍无法满足，可以去阅读以下文档，或者去寻找其他相关的文档。</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-metrics.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-metrics.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-bucket.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-bucket.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-pipeline.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-pipeline.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-matrix.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-matrix.html</a></p>
+<h1 id="聚合的作用范围与排序"><a href="#聚合的作用范围与排序" class="headerlink" title="聚合的作用范围与排序"></a>聚合的作用范围与排序</h1><p>ES 聚合分析的默认作用范围是 query 的查询结果集，如果没有使用指定 query，那么就是指定索引的所有文档数据。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093317.png" alt="image-20200429101259036"></p>
+<p>同时 ES 还支持以下方式改变聚合的作用范围：</p>
+<ul>
+<li>Filter</li>
+<li>Post_Filter</li>
+<li>Global</li>
+</ul>
+<p>下面我们来对这三种改变聚合的作用范围的操作进行分析，在此之前先准备数据：</p>
+<pre><code>DELETE /employees
+PUT /employees/
+{
+  &quot;mappings&quot; : {
+      &quot;properties&quot; : {
+        &quot;age&quot; : {
+          &quot;type&quot; : &quot;integer&quot;
+        },
+        &quot;gender&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;job&quot; : {
+          &quot;type&quot; : &quot;text&quot;,
+          &quot;fields&quot; : {
+            &quot;keyword&quot; : {
+              &quot;type&quot; : &quot;keyword&quot;,
+              &quot;ignore_above&quot; : 50
+            }
+          }
+        },
+        &quot;name&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;salary&quot; : {
+          &quot;type&quot; : &quot;integer&quot;
+        }
+      }
+    }
+}
+
+PUT /employees/_bulk
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;1&quot; } }
+{ &quot;name&quot; : &quot;Emma&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Product Manager&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:35000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;2&quot; } }
+{ &quot;name&quot; : &quot;Underwood&quot;,&quot;age&quot;:41,&quot;job&quot;:&quot;Dev Manager&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 50000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;3&quot; } }
+{ &quot;name&quot; : &quot;Tran&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;Web Designer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:18000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;4&quot; } }
+{ &quot;name&quot; : &quot;Rivera&quot;,&quot;age&quot;:26,&quot;job&quot;:&quot;Web Designer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 22000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;5&quot; } }
+{ &quot;name&quot; : &quot;Rose&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:18000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;6&quot; } }
+{ &quot;name&quot; : &quot;Lucy&quot;,&quot;age&quot;:31,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 25000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;7&quot; } }
+{ &quot;name&quot; : &quot;Byrd&quot;,&quot;age&quot;:27,&quot;job&quot;:&quot;QA&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:20000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;8&quot; } }
+{ &quot;name&quot; : &quot;Foster&quot;,&quot;age&quot;:27,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 20000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;9&quot; } }
+{ &quot;name&quot; : &quot;Gregory&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:22000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;10&quot; } }
+{ &quot;name&quot; : &quot;Bryant&quot;,&quot;age&quot;:20,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 9000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;11&quot; } }
+{ &quot;name&quot; : &quot;Jenny&quot;,&quot;age&quot;:36,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:38000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;12&quot; } }
+{ &quot;name&quot; : &quot;Mcdonald&quot;,&quot;age&quot;:31,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 32000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;13&quot; } }
+{ &quot;name&quot; : &quot;Jonthna&quot;,&quot;age&quot;:30,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;:30000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;14&quot; } }
+{ &quot;name&quot; : &quot;Marshall&quot;,&quot;age&quot;:32,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 25000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;15&quot; } }
+{ &quot;name&quot; : &quot;King&quot;,&quot;age&quot;:33,&quot;job&quot;:&quot;Java Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;:28000 }
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;16&quot; } }
+{ &quot;name&quot; : &quot;Mccarthy&quot;,&quot;age&quot;:21,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 16000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;17&quot; } }
+{ &quot;name&quot; : &quot;Goodwin&quot;,&quot;age&quot;:25,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 16000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;18&quot; } }
+{ &quot;name&quot; : &quot;Catherine&quot;,&quot;age&quot;:29,&quot;job&quot;:&quot;Javascript Programmer&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 20000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;19&quot; } }
+{ &quot;name&quot; : &quot;Boone&quot;,&quot;age&quot;:30,&quot;job&quot;:&quot;DBA&quot;,&quot;gender&quot;:&quot;male&quot;,&quot;salary&quot;: 30000}
+{ &quot;index&quot; : {  &quot;_id&quot; : &quot;20&quot; } }
+{ &quot;name&quot; : &quot;Kathy&quot;,&quot;age&quot;:29,&quot;job&quot;:&quot;DBA&quot;,&quot;gender&quot;:&quot;female&quot;,&quot;salary&quot;: 20000}</code></pre><h3 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h3><p>前面提到 agg 是基于query 的结果进行的，但是我们还可以基于 query 的结果再进行一次 filter，然后将 filter 之后的数据进行 agg。这里将介绍在 agg 内部使用 filter 对查询出来的数据范围进行过滤。</p>
+<p>可以看到下面的例子中，我们没有使用 query 操作，那么 agg 接收到的数据将是 employees 下的所有文档数据。然后我们在 aggs 属性下定义了两个 agg，分别是 older_person 和 all_jobs：</p>
+<ul>
+<li><p>其中 older_person 下面先是指定了一个 filter 子属性以及再定义了一个 aggs 子属性。这表示一个 filter 操作，ES 会对该”older_person” agg 的数据先进行一个 filter操作（过滤数据），然后将操作之后的结果输入到”aggs”，其中 aggs 中定义了一个 term 类型的名为 jobs 的 bucket agg。</p>
+<p>所以整个操作就是在所有员工中过滤出来35岁以上的员工然后按照工种进行分桶。</p>
+</li>
+<li><p>而下面的 all_jobs 子属性直接定义了一个”term”类型的 agg 操作，所以就是不过滤任何数据，直接进行一个 term agg 的分桶操作。</p>
+</li>
+</ul>
+<p>从返回结果可以看到进过 filter 操作之后的 older_person 只有2个员工文档数据，分桶之后得到了”Dev Manager”和”Java Programmer”两个桶，桶中分别有1个文档。</p>
+<pre><code>#Filter
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;older_person&quot;: {
+      &quot;filter&quot;:{
+        &quot;range&quot;:{
+          &quot;age&quot;:{
+            &quot;from&quot;:35
+          }
+        }
+      },
+      &quot;aggs&quot;:{
+         &quot;jobs&quot;:{
+           &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;
+      }
+      }
+    }},
+    &quot;all_jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;
+
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093318.png" alt="image-20200429102556623"></p>
+<h3 id="Post-Filter"><a href="#Post-Filter" class="headerlink" title="Post Filter"></a>Post Filter</h3><p>顾名思义，Post FIlter 指的就是进行 agg 之后再进行一次 filter，当然，和 filter 的作用对象一样，就是 query 之后的所有文档数据，也就是输入到 aggs 中的所有进行 agg 的文档。</p>
+<p>可以看到下面例子中，我们默认对 emplyees 中的所有文档数据以”job.keyword”字段进行 term agg 分桶。然后在 “aggs” 对象后面定义了一个同级的”post_filter”对象，并指定 filter 类型为 match，指定 match 的字段和值分别是”job.keyword”和”Dev Manager”。表示我们对所有的数据进行 aggs 操作之后（只有一个名为”jobs”的 term bucket agg）再进行”job.keyword=Dev Manager”到数据匹配的过滤。</p>
+<p>从返回结果可以看到，”hits” 中返回了所有字段”job”为”Dev Manager” 的文档数据，只有一条，而下面的 “aggregations” 就是terms agg 的结果了。</p>
+<pre><code>#Post field. 一条语句，找出所有的job类型。还能找到聚合后符合条件的结果
+POST employees/_search
+{
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;job.keyword&quot;
+      }
+    }
+  },
+  &quot;post_filter&quot;: {
+    &quot;match&quot;: {
+      &quot;job.keyword&quot;: &quot;Dev Manager&quot;
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093319.png" alt="image-20200429103209572"></p>
+<h3 id="Global"><a href="#Global" class="headerlink" title="Global"></a>Global</h3><p>在下面的例子，我们在第一层 aggs 前面定义了一个 query 对象查询出大于等于40岁的员工。然后传入到第一层 aggs 对象中。而 aggs 对象中定义了两个子对象，一个是 jobs，一个是 all。</p>
+<ul>
+<li><p>jobs 是一个 term bucket agg，它下面还定义了一个 aggs，里面只有一个 avg metric agg。表示对员工按照工种分桶然后求平均工资，而作用范围就是 query 传入到第一层 aggs 的所有数据，即求所有工种中40以上的员工的平均工资。</p>
+</li>
+<li><p>而 all 下面则是直接定义了一个 avg metric agg，即没有进行分桶操作直接求员工的平均值。但是留意到前面还定义了一个”global”属性，它表示一个查询对象，即和第一层”query”生成的对象是一样的，在这里定义的查询对象会忽略第一层 query传入到第一层 aggs 传入到 all 的数据范围（实际上就是忽略所有输入数据），用这个查询对象去查询当前指定索引的文档数据直接进行 avg metric agg 操作。</p>
+</li>
+</ul>
+<p>可以看到结果返回中名为 all 的 agg 命中数据有20条，而 jobs 只有1条。</p>
+<pre><code>#global
+POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;query&quot;: {
+    &quot;range&quot;: {
+      &quot;age&quot;: {
+        &quot;gte&quot;: 40
+      }
+    }
+  },
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;
+      },
+      &quot;aggs&quot;: {
+        &quot;salary_avg&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;: &quot;salary&quot;
+          }
+        }
+      }
+    },
+
+    &quot;all&quot;:{
+      &quot;global&quot;:{},
+      &quot;aggs&quot;:{
+        &quot;salary_avg&quot;:{
+          &quot;avg&quot;:{
+            &quot;field&quot;:&quot;salary&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093320.png" alt="image-20200429104336799"></p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h5 id="1、基于-bucket-agg-的普通属性进行排序"><a href="#1、基于-bucket-agg-的普通属性进行排序" class="headerlink" title="1、基于 bucket agg 的普通属性进行排序"></a>1、基于 bucket agg 的普通属性进行排序</h5><p><strong>默认情况下，aggs 的结果是按照 buckets 的 doc_count（_count）进行降序排序返回的</strong>（所有 agg 都基于 buckets agg，即数据聚合分组，有了一个数据分组才会有其他分析的操作，如果不进行 bucket 操作，那么所有数据就是一个缺省的 bucket）。</p>
+<p>可以看到下面的例子中，没有指定任何排序，返回的分桶按照 doc_count 从7到1进行降序排序返回。</p>
+<pre><code>POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;query&quot;: {
+    &quot;range&quot;: {
+      &quot;age&quot;: {
+        &quot;gte&quot;: 20
+      }
+    }
+  },
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093321.png" alt="image-20200429105754832"></p>
+<p><strong>我们通过给 agg 对象指定 order 属性可以实现对于返回 bucket 的自定义排序。可以看到下面例子中，我们通过给一个 terms agg 对象 job 指定一个”order”属性</strong>，并定义了两个排序规则，分别是按照bucket 的”_count”字段进行升序排序，在”_count”字段一样的 buckets 中按照 bucket 的”_key”对象进行降序排序。</p>
+<p>从返回结果可以看到所有 bucket 按照从1到7的_count 字段的升序排序。其中前两个 bucket 的 doc_count 是一样的，此时按照 _key 进行降序排序。</p>
+<pre><code>POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;query&quot;: {
+    &quot;range&quot;: {
+      &quot;age&quot;: {
+        &quot;gte&quot;: 20
+      }
+    }
+  },
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;,
+        &quot;order&quot;:[
+          {&quot;_count&quot;:&quot;asc&quot;},
+          {&quot;_key&quot;:&quot;desc&quot;}
+        ]
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093322.png" alt="image-20200429110003715"></p>
+<h5 id="2、基于-bucket-agg-的子-agg-的属性-多层属性-进行排序"><a href="#2、基于-bucket-agg-的子-agg-的属性-多层属性-进行排序" class="headerlink" title="2、基于 bucket agg 的子 agg 的属性(多层属性)进行排序"></a>2、基于 bucket agg 的子 agg 的属性(多层属性)进行排序</h5><p><strong>此外，我们还能在 order 中指定对 bucket agg的子 metric agg 的结果进行排序</strong>，请看下面例子，我们在 order 中指定了 jobs （terms bucket）agg 的子 avg metric agg 的名称，并指定排序类型为降序排序。</p>
+<p>下面的 ES 返回结果中对返回的按照工种分桶的 buckets 按照平均工资 降序返回。</p>
+<pre><code>POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;,
+        &quot;order&quot;:[  {
+            &quot;avg_salary&quot;:&quot;desc&quot;
+          }]
+      },
+      &quot;aggs&quot;: {
+        &quot;avg_salary&quot;: {
+          &quot;avg&quot;: {
+            &quot;field&quot;:&quot;salary&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093323.png" alt="image-20200429110534988"></p>
+<p><strong>上面的例子中，term bucket agg 的子 agg 是一个只有一个输出值的 avg metric agg。下面的例子展示的是一个拥有多输出值的 stats agg。可以看到我们可以通过”xxx.属性”的方式来指定按照 bucket 的子对象（应该不仅仅包括子 bucket）进行排序。</strong></p>
+<pre><code>POST employees/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;jobs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;job.keyword&quot;,
+        &quot;order&quot;:[  {
+            &quot;stats_salary.min&quot;:&quot;desc&quot;
+          }]  
+      },
+      &quot;aggs&quot;: {
+        &quot;stats_salary&quot;: {
+          &quot;stats&quot;: {
+            &quot;field&quot;:&quot;salary&quot;
+          }
+        }
+      }
+    }
+  }
+}</code></pre><h1 id="聚合的精准问题"><a href="#聚合的精准问题" class="headerlink" title="聚合的精准问题"></a>聚合的精准问题</h1><p>前面提到，ES 是一个可以支持对海量数据进行一个近实时搜索的搜索引擎，但是 ES 是牺牲了一定的搜索精准度来实现这个近实时的效果的。</p>
+<p>对于所有的数据计算来说，在数据量、精准度和实时性三个维度，只能同时满足两个。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093324.png" alt="image-20200429113150987"></p>
+<h3 id="Min-聚合分析的执行流程-准确"><a href="#Min-聚合分析的执行流程-准确" class="headerlink" title="Min 聚合分析的执行流程(准确)"></a>Min 聚合分析的执行流程(准确)</h3><p>我们可以看到，当 ES 的一个 coordinating节点接收到一个 min 聚合请求的时候，当聚合的数据范围分布在三个分片上，那么 coordinating 节点就会分别像这三个 data node 发出求 min 聚合的请求，此时这三个数据节点都分别求出自己的 min 聚合结果然后返回到 coordinating node，coordinating node 再在三个分片的结果中求出最小值，最终把结果返回给用户。</p>
+<p>所以对于 min 操作来说，是完全没有精准度损失的问题的。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093325.png" alt="image-20200429113448585"></p>
+<h3 id="Terms-聚合分析的执行流程-可能不准"><a href="#Terms-聚合分析的执行流程-可能不准" class="headerlink" title="Terms 聚合分析的执行流程(可能不准)"></a>Terms 聚合分析的执行流程(可能不准)</h3><p>我们从 terms aggregation 的两个参数入手分析其执行流程：</p>
+<ul>
+<li><p>doc_count_error_upper_cound：指的是在对各分片进行 buckets agg 的时候各个分片中没有返回的桶（例如用户请求返回前 N 个桶，此时 coordinating 节点向所有数据分片发出返回前 N 个桶的请求，此时指的就是按照顺序的第 N+1个桶中的可能的最大的文档数）中 doc_count 的可能最大值的总和。</p>
+<p>这个属性在agg 的返回信息中有一个对所有桶的总值，另外在每个桶下面还有一个对于该桶计算的值。 桶的 doc_count_error_upper_bound 属性默认没有计算和返回，通过设置 terms agg 对象的<code>show_term_doc_count_error:true</code>属性启用。这个属性反应了可能当前桶内少算的文档数量的最大值。</p>
+<p>我们可以通过观察和调低这个值来让 terms agg 更加准确。</p>
+</li>
+<li><p>sum_other_doc_count：指的是实际的文档总数与返回的分桶数中的文档总数的差值。</p>
+</li>
+</ul>
+<p>我们通过下面的详细例子来了解这两个参数的含义：</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093326.png" alt="image-20200429130549611"></p>
+<p>我们来看下面 terms 聚合的一个流程：</p>
+<p>当一个 coordinating node 接收到一个 terms agg 操作的请求，该请求还通过指定了一个 _size 字段要求返回前3个分桶。</p>
+<blockquote>
+<p>前面提到 ES 的 agg 默认情况下 bucket 是按照 doc_count 进行降序排序的。所以理论上应该返回前三个文档数最多的分桶。</p>
+</blockquote>
+<p>ES 发现需要进行分桶的数据分布在三个分片上面，就会分别发送请求到这三个分片上面分别求出在该 data node 上的前三个分桶，然后在 coordinating node 进行汇总并返回。</p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093327.png" alt="image-20200429114200737"></p>
+<p>我们以下面例子来分析 term agg 可能会出现不准确的情况：</p>
+<p>coordinating 收到一个求前三个桶的请求，发现数据分布在两个数据节点上，然后发送求前三个桶的请求到这两个分片上：</p>
+<ul>
+<li>分片1对数据进行分组之后有 A、B、C、D 4个桶，桶内数据分别是6、4、4、3，所以分片1会返回 A、B、C 3个桶；</li>
+<li>分片2对数据进行分组之后刚好也有A、B、C、D 3个桶，桶内数据分别是 6、2、1、3，所以分片2会返回 A、B、D3个桶。</li>
+</ul>
+<p>此时 coordinating 收到两个分片的返回数据之后会对返回数据进行汇总。得到 <strong>A</strong>(6+6=12)、<strong>B</strong>(4+2=6)、<strong>C</strong>(4+0=3&gt;D(0+3=3)) 三个桶作为前三个桶进行返回。但是我们发现其实 D分组中的文档总数其实是6，是比 C 要大的，但是因为在分片1中的排序之后的第3个桶的文档数已经比 D 要大，而分片1收到的请求是返回前3个桶，所以 D 并没有被返回，导致其在分片1中的文档数”丢失”了。</p>
+<p>我们看到，此时：</p>
+<ul>
+<li><p>总的<strong>doc_count_error_upper_bound 的数量就是分片1返回的最后一个桶的文档数4（ES 找到第3个桶就返回了，并不会再去看第4个桶的文档数是多少，所以这里指的是第4个桶的可能最大文档数，按照降序不可能超过桶 C 的文档数4，所以是4） 加上分片2返回的最后一个桶的文档数2等于6</strong>。</p>
+<p>而桶 A 的doc_count_error_upper_bound就是0（两个分片都返回了桶 A和它的文档数）、桶 B 也是0、桶 C 是2（分片2没有返回桶 C ，而返回的桶中最小的桶 B 的数量是2，所以没有返回的桶最大文档数按照降序只能是2）、桶 D 是4（分片1没有返回桶 D，返回的最少分文档数的桶文档数是4）。</p>
+</li>
+<li><p>而 <strong>sum_other_doc_count 的数量就是两份片文档数之和17+12减去返回的总文档数12+6+4得到7</strong>。</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093328.png" alt="image-20200429115333875"></p>
+<h3 id="解决-Terms-agg-不准的问题"><a href="#解决-Terms-agg-不准的问题" class="headerlink" title="解决 Terms agg 不准的问题"></a>解决 Terms agg 不准的问题</h3><p>Terms 聚合分析不准的根本原因是数据分散在多个分片上，负责最终汇总的 coordinating node 无法获取数据全貌。所以有以下两个角度对这个问题进行解决：</p>
+<ul>
+<li><p>当数据量不大的时候，设置 Primary Shard 为1，实现准确性。</p>
+</li>
+<li><p>通过调整 terms agg 对象的一个属性”shard_size”字段参数，提高精准度：</p>
+<p>shard_size 字段的意义就是设定在进行 terms agg 的时候从各个分片上返回的桶的数量，在上面的例子中 shard_size 就是3，我们通过设置为4，就可以解决这个问题。</p>
+<p>但是虽然调高了 shard_size，降低了 doc_count_error_upper_bound 数值，但是带来的就是整体计算量的增加，提高了准确度，但是也会导致计算时间变长。</p>
+<p>所以调整准确率可以通过这样来实现：在进行 terms agg 的时候打开<code>show_term_doc_count_error</code>来计算各个桶的 doc_count_error_upper_bound 并返回，通过不断调高 shard_size 来降低各个doc_count_error_upper_bound值为0。此时coordinating 获得的各个分片返回的桶就是准确的，汇总并返回给我们的就是准确的数据。</p>
+<blockquote>
+<p>默认的情况下，shard_size = size(要求返回的桶的数量) * 1.5 + 10。</p>
+</blockquote>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093329.png" alt="image-20200429132356896"></p>
+<p><img src="https://gitee.com/honphan/blogs-img/raw/master/blogs-img/20201220093330.png" alt="image-20200429132430277"></p>
+<p>为什么当各个桶中的 doc_count_error_upper_bound 都是0的时候，计算返回的桶就是完全准确的呢？计算返回的桶完全准确的意思是，coordinating node 收到的所有分片返回的桶中包含了实际上应该准确返回给用户的前 N 个桶。我们用反证法来推导：</p>
+<ul>
+<li>前提：各个桶中的 doc_count_error_upper_bound 都是0<ul>
+<li>只有一个分片中包含了一个实际上排在前 N 的桶 Z，但是没有返回到 coordiinating node，导致计算不准：如果存在这种情况，那么 doc_count_error_upper_bound 就不可能都是0。因为其他分片返回了桶Z，就会将没有返回桶Z的分片返回的最少文档数量的桶的文档数作为 桶 Z 的 doc_count_error_upper_bound。</li>
+<li>部分分片包含了某些实际上排在前 N 的桶 Z 但是没有返回到 coordinating node：证明同上。</li>
+<li>所有分片都没有返回一个实际上排在前 N 的桶 Z：回到我们的大前提，各个桶中的 doc_count_error_upper_bound 都是0，说明所有的分片返回的桶都是一样的，不可能存在这个分片返回的某个桶在那个分片中没有的情况，这点前两条证明已经回答。那么为什么桶 Z 没有返回呢，因为它在所有分片中都排在返回的这些桶的后面。所以即使将基于我们设置了 shard_size 之后各个分片返回的各个桶的文档数汇总起来，也都会超过从各个分片中汇总的桶 Z 的总数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>相关阅读：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-approximate-counts" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations-bucket-terms-aggregation.html#search-aggregations-bucket-terms-aggregation-approximate-counts</a></p>
+</blockquote>
+<h3 id="Kibana-测试请求"><a href="#Kibana-测试请求" class="headerlink" title="Kibana 测试请求"></a>Kibana 测试请求</h3><pre><code>DELETE my_flights
+PUT my_flights
+{
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 20
+  },
+  &quot;mappings&quot; : {
+      &quot;properties&quot; : {
+        &quot;AvgTicketPrice&quot; : {
+          &quot;type&quot; : &quot;float&quot;
+        },
+        &quot;Cancelled&quot; : {
+          &quot;type&quot; : &quot;boolean&quot;
+        },
+        &quot;Carrier&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;Dest&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;DestAirportID&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;DestCityName&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;DestCountry&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;DestLocation&quot; : {
+          &quot;type&quot; : &quot;geo_point&quot;
+        },
+        &quot;DestRegion&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;DestWeather&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;DistanceKilometers&quot; : {
+          &quot;type&quot; : &quot;float&quot;
+        },
+        &quot;DistanceMiles&quot; : {
+          &quot;type&quot; : &quot;float&quot;
+        },
+        &quot;FlightDelay&quot; : {
+          &quot;type&quot; : &quot;boolean&quot;
+        },
+        &quot;FlightDelayMin&quot; : {
+          &quot;type&quot; : &quot;integer&quot;
+        },
+        &quot;FlightDelayType&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;FlightNum&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;FlightTimeHour&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;FlightTimeMin&quot; : {
+          &quot;type&quot; : &quot;float&quot;
+        },
+        &quot;Origin&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;OriginAirportID&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;OriginCityName&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;OriginCountry&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;OriginLocation&quot; : {
+          &quot;type&quot; : &quot;geo_point&quot;
+        },
+        &quot;OriginRegion&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;OriginWeather&quot; : {
+          &quot;type&quot; : &quot;keyword&quot;
+        },
+        &quot;dayOfWeek&quot; : {
+          &quot;type&quot; : &quot;integer&quot;
+        },
+        &quot;timestamp&quot; : {
+          &quot;type&quot; : &quot;date&quot;
+        }
+      }
+    }
+}
+
+
+POST _reindex
+{
+  &quot;source&quot;: {
+    &quot;index&quot;: &quot;kibana_sample_data_flights&quot;
+  },
+  &quot;dest&quot;: {
+    &quot;index&quot;: &quot;my_flights&quot;
+  }
+}
+
+GET kibana_sample_data_flights/_count
+GET my_flights/_count
+
+get kibana_sample_data_flights/_search
+
+
+GET kibana_sample_data_flights/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;weather&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;OriginWeather&quot;,
+        &quot;size&quot;:5,
+        &quot;show_term_doc_count_error&quot;:true
+      }
+    }
+  }
+}
+
+
+GET my_flights/_search
+{
+  &quot;size&quot;: 0,
+  &quot;aggs&quot;: {
+    &quot;weather&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;:&quot;OriginWeather&quot;,
+        &quot;size&quot;:1,
+        &quot;shard_size&quot;: 4,
+        &quot;show_term_doc_count_error&quot;:true
+      }
+    }
+  }
+}</code></pre>
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">写作不易，客官能否打赏一杯奶茶？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/05/04/elasticsearch/007-shen-ru-ju-he/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                阿钟
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '466e387c08bce10f3f28',
+        clientSecret: '5b2bf16f8a42bd72eef32e50187c7f2ccb105a1d',
+        repo: 'azhong.github.io',
+        owner: 'JohnZhongg',
+        admin: "JohnZhongg",
+        id: '2020/05/04/elasticsearch/007-shen-ru-ju-he/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+    <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script> -->
+
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'false' === 'true',
+        avatar: 'wavatar',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '如果你没有GitHub账号，还可以在这里评论啦！'
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/05/04/elasticsearch/010-logstash/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Logstash 入门及架构介绍Logstash 是一款开源的 ETL 工具，支持200多个插件，下面是它可以抽取的一些数据源的例子以及一些支持写入数据的一些例子：
+
+Logstash Concepts
+Pipeline
+
+包含了 inpu
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-04
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/04/elasticsearch/008-shu-ju-jian-mo/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            [toc]
+数据的关联关系真实世界中有很多重要的关联关系：
+
+博客、作者、评论
+银行账户有多次交易记录
+客户有多个银行账户
+目录文件有多个文件和子目录
+
+在关系型数据库中，提供了一些范式化设计。
+
+1NF：消除非主属性对键的部分函数依赖
+2
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-04
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 阿钟的博客<br />'
+            + '作者: 阿钟<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2020- Azhong. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">627.1k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/JohnZhongg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:707845008@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://zhihu.com/people/change-94-17" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-inverse">知</i>
+    </a>
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=707845008&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+<!-- 
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+ --></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020, 12, 20, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>
