@@ -1,0 +1,3351 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="005_深入搜索, 技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content="[toc]
+基于词项和基于全文的搜索基于 Term的查询Term 的重要性term 是表达语意的最小单位。搜索和利用统计语言模型进行自然语言处理都需要处理 term。
+Es 中的特点
+在 Es 中，Term 查询包括以下查询：
+Term Q">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>005_深入搜索 | 阿钟的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">阿钟的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">阿钟的博客</div>
+        <div class="logo-desc">
+            
+            keep going...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/JohnZhongg" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/JohnZhongg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        005_深入搜索
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/tags/ES学习/" target="_blank">
+                            <span class="chip bg-color">ES学习</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/ES学习/" class="post-category" target="_blank">
+                            ES学习
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-22
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    阿钟
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    18.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    74 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>[toc]</p>
+<h1 id="基于词项和基于全文的搜索"><a href="#基于词项和基于全文的搜索" class="headerlink" title="基于词项和基于全文的搜索"></a>基于词项和基于全文的搜索</h1><h2 id="基于-Term的查询"><a href="#基于-Term的查询" class="headerlink" title="基于 Term的查询"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/term-level-queries.html" target="_blank" rel="noopener">基于 Term的查询</a></h2><h3 id="Term-的重要性"><a href="#Term-的重要性" class="headerlink" title="Term 的重要性"></a>Term 的重要性</h3><p>term 是表达语意的最小单位。搜索和利用统计语言模型进行自然语言处理都需要处理 term。</p>
+<h3 id="Es-中的特点"><a href="#Es-中的特点" class="headerlink" title="Es 中的特点"></a>Es 中的特点</h3><ol>
+<li><p>在 Es 中，Term 查询包括以下查询：</p>
+<p>Term Query、Range Query、Exists Query、Prefix Query、Wildcard Query</p>
+</li>
+<li><p>在 Es 中，Term 查询，对输入<strong>不做分词</strong>。会将输入作为一个整体的词项，在倒排索引中查询准确的词项，并且使用相关度算分公式为每个包含该词项的文档进行<strong>相关度算分</strong>，例如”App Store”</p>
+</li>
+<li><p>可以通过 Constant Score 将查询转换成一个 <strong>Filtering，避免算法，并利用缓存</strong>，提高性能。</p>
+</li>
+</ol>
+<h3 id="关于-Term-查询的例子"><a href="#关于-Term-查询的例子" class="headerlink" title="关于 Term 查询的例子"></a>关于 Term 查询的例子</h3><ol>
+<li><p>先插入以下索引</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211842.png" alt="image-20200424222441712"></p>
+</li>
+<li><p>执行以下查询语句</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211854.png" alt="image-20200424223011086"></p>
+<p>当查询”iPhone”的时候是得不到结果的，查询”iphone”的时候就可以。</p>
+<p>这是因为对于上面创建索引的时候认为 desc 字段是一个 text 类型的数据，所以会做默认的分词处理，即”iPhone”最终被转换成了小写。而我们这里指定了 term 查询，而 term 查询是一个精准词条查询，不会对数据做任何分词处理，直接进行 term 匹配，即”iPhone”，所以是匹配不到经过分词处理之后的”iphone”的。</p>
+</li>
+<li><p>执行以下查询语句</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211848.png" alt="image-20200424223706206"></p>
+<p>我们会发现也不会返回任何结果。同理，那是因为 Es 也在创建这条索引的时候对这个字段进行了默认的分词，如下图所示，整个内容被切分成了好几个 term。而我们将该完整 ID到该字段中进行 term 检索是匹配不到数据的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211902.png" alt="image-20200424223930419"></p>
+<p>此时如果我们查询的值改成”xhdk”，将得到匹配。但是如果我们就想对<strong>这个输入值</strong>进行精确匹配，应该怎么做呢？（我们不想返回其他不相关但是相似的数据）此时我们将检索字段改成”productId.keyword”即可返回精确匹配的文档，keyword 是Es 为每一个 text 类型的字段生成的子字段，它对 text 字段的原值进行了索引。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211911.png" alt="image-20200424224312908"></p>
+</li>
+<li><p>Es 的查询默认都会返回一个算分结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211918.png" alt="image-20200424224536835"></p>
+<p>如果我们希望跳过这个步骤，则可以利用：复合查询-Constant Score 转为 Filter</p>
+<ul>
+<li>将 Query 转成 Filter，忽略 TF-IDF 计算，避免相关性算分的开销</li>
+<li>FIlter 可以有效利用缓存</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211923.png" alt="image-20200424224637345"></p>
+</li>
+</ol>
+<h2 id="基于全文的查询"><a href="#基于全文的查询" class="headerlink" title="基于全文的查询"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/full-text-queries.html" target="_blank" rel="noopener">基于全文的查询</a></h2><h3 id="Es-基于全文本的查找"><a href="#Es-基于全文本的查找" class="headerlink" title="Es 基于全文本的查找"></a>Es 基于全文本的查找</h3><p>Match Query、Match Phrase Query、Query String Query</p>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
+<li>索引和搜索时都会进行分词，查询字符串先传递到一个合适的分词器，然后生成一个供查询的词项列表到倒排索引中进行检索</li>
+<li>查询时，先会对输入的查询进行分词，然后每个词项逐个进行底层的查询，最终将结果进行合并。并为每个文档生成一个算分。例如查”Matrix reloaded”，会查到包括 Matrix 或者 reloaded 的所有结果。</li>
+</ul>
+<h3 id="Match-Query-Result"><a href="#Match-Query-Result" class="headerlink" title="Match Query Result"></a>Match Query Result</h3><p>以下返回包含所有包含 Matrix 或者 reloaded 的文档</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211932.png" alt="image-20200424225433514"></p>
+<h3 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h3><p>使用 AND 操作符，返回所有包含 Matrix 以及 reloaded 的文档</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212112.png" alt="image-20200424225934203"></p>
+<h3 id="Minimum-shold-match"><a href="#Minimum-shold-match" class="headerlink" title="Minimum_shold_match"></a>Minimum_shold_match</h3><p>Minimum_should_match 参数可以调整 persicion 或者 recall 使我们返回的结果更加理想，该参s数可以控制应该匹配的词条的最少数量。</p>
+<p>数字可以是负数，例如有4个term的匹配，当匹配度为-25%与75%，其意义是一样的，都是最少匹配三个，但处理5个term时，-25%表示至少匹配四个，而75%表示至少匹配三个term。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212126.png" alt="image-20200424230033637"></p>
+<h3 id="Match-Phrase-Query"><a href="#Match-Phrase-Query" class="headerlink" title="Match Phrase Query"></a>Match Phrase Query</h3><p>match_phrase 查询的 slop 也可以对 persicion 和 recall 进行调整</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212132.png" alt="image-20200424230209902"></p>
+<h3 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212139.png" alt="image-20200424230310798"></p>
+<h2 id="Kibana-测试请求"><a href="#Kibana-测试请求" class="headerlink" title="Kibana 测试请求"></a>Kibana 测试请求</h2><pre><code>DELETE products
+PUT products
+{
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 1
+  }
+}
+
+
+POST /products/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;productID&quot; : &quot;XHDK-A-1293-#fJ3&quot;,&quot;desc&quot;:&quot;iPhone&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;productID&quot; : &quot;KDKE-B-9947-#kL5&quot;,&quot;desc&quot;:&quot;iPad&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 3 }}
+{ &quot;productID&quot; : &quot;JODL-X-1937-#pV7&quot;,&quot;desc&quot;:&quot;MBP&quot; }
+
+GET /products
+
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;desc&quot;: {
+        //&quot;value&quot;: &quot;iPhone&quot;
+        &quot;value&quot;:&quot;iphone&quot;
+      }
+    }
+  }
+}
+
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;desc.keyword&quot;: {
+        //&quot;value&quot;: &quot;iPhone&quot;
+        //&quot;value&quot;:&quot;iphone&quot;
+      }
+    }
+  }
+}
+
+
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;productID&quot;: {
+        &quot;value&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+      }
+    }
+  }
+}
+
+POST /products/_search
+{
+  //&quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;productID.keyword&quot;: {
+        &quot;value&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+      }
+    }
+  }
+}
+
+
+
+
+POST /products/_search
+{
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;term&quot;: {
+          &quot;productID.keyword&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+        }
+      }
+
+    }
+  }
+}
+
+
+#设置 position_increment_gap
+DELETE groups
+PUT groups
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;names&quot;:{
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;position_increment_gap&quot;: 0
+      }
+    }
+  }
+}
+
+GET groups/_mapping
+
+POST groups/_doc
+{
+  &quot;names&quot;: [ &quot;John Water&quot;, &quot;Water Smith&quot;]
+}
+
+POST groups/_search
+{
+  &quot;query&quot;: {
+    &quot;match_phrase&quot;: {
+      &quot;names&quot;: {
+        &quot;query&quot;: &quot;Water Water&quot;,
+        &quot;slop&quot;: 100
+      }
+    }
+  }
+}
+
+
+POST groups/_search
+{
+  &quot;query&quot;: {
+    &quot;match_phrase&quot;: {
+      &quot;names&quot;: &quot;Water Smith&quot;
+    }
+  }
+}</code></pre><h1 id="结构化搜索"><a href="#结构化搜索" class="headerlink" title="结构化搜索"></a>结构化搜索</h1><p>结构化搜索（Structured search）是指对结构化数据的搜索。日期、布尔类型和数字都是结构化的。</p>
+<p>文本也可以使结构化的。</p>
+<ul>
+<li>如彩色笔可以有离散的颜色集合：红、绿、蓝</li>
+<li>一个博客可能被标记了标签，例如：分布式、搜索</li>
+<li>电商网站上的商品都有 UPCs（通用产品码 Universal Product Codes）或者其他的唯一标识，它们都需要遵从严格规定的、格式化的格式。</li>
+</ul>
+<h3 id="1、Es-中的结构化搜索"><a href="#1、Es-中的结构化搜索" class="headerlink" title="1、Es 中的结构化搜索"></a>1、Es 中的结构化搜索</h3><p>布尔、时间、日期和数字这类结构化数据：有精确的格式，我们可以对这些格式进行逻辑操作。包括比较数字或时间的范围，或判定两个值的大小。</p>
+<p>结构化的文本可以做精确匹配或者部分匹配：Term 查询、Prefix 前缀查询</p>
+<p>结构化结果只有”是”或者”否”两个值，根据场景需要，可以决定结构化搜索是否需要打分（如果不需要就转成 Constant Score Query）</p>
+<h3 id="2、布尔值Term-查询示例"><a href="#2、布尔值Term-查询示例" class="headerlink" title="2、布尔值Term 查询示例"></a>2、布尔值Term 查询示例</h3><p>右边使用 constant_score 去掉算分的过程</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212148.png" alt="image-20200424231700038"></p>
+<h3 id="3、数字-Range查询示例"><a href="#3、数字-Range查询示例" class="headerlink" title="3、数字 Range查询示例"></a>3、数字 Range查询示例</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212154.png" alt="image-20200424231747274"></p>
+<h3 id="4、日期-Range-查询示例"><a href="#4、日期-Range-查询示例" class="headerlink" title="4、日期 Range 查询示例"></a>4、日期 Range 查询示例</h3><p>右边是日期表达式，根据这个表达式可以构建我们想要的时间区间</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212202.png" alt="image-20200424231820590"></p>
+<h3 id="5、空值相关查询"><a href="#5、空值相关查询" class="headerlink" title="5、空值相关查询"></a>5、空值相关查询</h3><p> 左边是查询 date 字段不是空的数据、右边是查询 date 字段是空的数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212208.png" alt="image-20200424232538063"></p>
+<h3 id="6、精确查找多个值"><a href="#6、精确查找多个值" class="headerlink" title="6、精确查找多个值"></a>6、精确查找多个值</h3><p>前两个查询是对一个字段进行多值 term 查询，可以发现只要包含任一个值都会进行返回。而第三个精准查询也是，只要该文档中该字段的值有一个是匹配该规则的，都会进行返回，不管其他值是否匹配。如果我们想要该字段是内容和值个数完全匹配才返回的话，解决方案：增加一个 genre_count 字段进行计数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212214.png" alt="image-20200424234452478"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212223.png" alt="image-20200424234525290"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212231.png" alt="image-20200424234335266"></p>
+<h3 id="7、Kibana-测试请求"><a href="#7、Kibana-测试请求" class="headerlink" title="7、Kibana 测试请求"></a>7、Kibana 测试请求</h3><pre><code>#结构化搜索，精确匹配
+DELETE products
+POST /products/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;price&quot; : 10,&quot;avaliable&quot;:true,&quot;date&quot;:&quot;2018-01-01&quot;, &quot;productID&quot; : &quot;XHDK-A-1293-#fJ3&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;price&quot; : 20,&quot;avaliable&quot;:true,&quot;date&quot;:&quot;2019-01-01&quot;, &quot;productID&quot; : &quot;KDKE-B-9947-#kL5&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 3 }}
+{ &quot;price&quot; : 30,&quot;avaliable&quot;:true, &quot;productID&quot; : &quot;JODL-X-1937-#pV7&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 4 }}
+{ &quot;price&quot; : 30,&quot;avaliable&quot;:false, &quot;productID&quot; : &quot;QQPX-R-3956-#aD8&quot; }
+
+GET products/_mapping
+
+
+
+#对布尔值 match 查询，有算分
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;avaliable&quot;: true
+    }
+  }
+}
+
+
+
+#对布尔值，通过constant score 转成 filtering，没有算分
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;term&quot;: {
+          &quot;avaliable&quot;: true
+        }
+      }
+    }
+  }
+}
+
+
+#数字类型 Term
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;price&quot;: 30
+    }
+  }
+}
+
+#数字类型 terms
+POST products/_search
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;terms&quot;: {
+          &quot;price&quot;: [
+            &quot;20&quot;,
+            &quot;30&quot;
+          ]
+        }
+      }
+    }
+  }
+}
+
+#数字 Range 查询
+GET products/_search
+{
+    &quot;query&quot; : {
+        &quot;constant_score&quot; : {
+            &quot;filter&quot; : {
+                &quot;range&quot; : {
+                    &quot;price&quot; : {
+                        &quot;gte&quot; : 20,
+                        &quot;lte&quot;  : 30
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+# 日期 range
+POST products/_search
+{
+    &quot;query&quot; : {
+        &quot;constant_score&quot; : {
+            &quot;filter&quot; : {
+                &quot;range&quot; : {
+                    &quot;date&quot; : {
+                      &quot;gte&quot; : &quot;now-1y&quot;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+#exists查询
+POST products/_search
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;exists&quot;: {
+          &quot;field&quot;: &quot;date&quot;
+        }
+      }
+    }
+  }
+}
+
+#处理多值字段
+POST /movies/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;title&quot; : &quot;Father of the Bridge Part II&quot;,&quot;year&quot;:1995, &quot;genre&quot;:&quot;Comedy&quot;}
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;title&quot; : &quot;Dave&quot;,&quot;year&quot;:1993,&quot;genre&quot;:[&quot;Comedy&quot;,&quot;Romance&quot;] }
+
+
+#处理多值字段，term 查询是包含，而不是等于
+POST movies/_search
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;term&quot;: {
+          &quot;genre.keyword&quot;: &quot;Comedy&quot;
+        }
+      }
+    }
+  }
+}
+
+
+#字符类型 terms
+POST products/_search
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;terms&quot;: {
+          &quot;productID.keyword&quot;: [
+            &quot;QQPX-R-3956-#aD8&quot;,
+            &quot;JODL-X-1937-#pV7&quot;
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;price&quot;: 30
+    }
+  }
+}
+
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;date&quot;: &quot;2019-01-01&quot;
+    }
+  }
+}
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;date&quot;: &quot;2019-01-01&quot;
+    }
+  }
+}
+
+
+
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;term&quot;: {
+          &quot;productID.keyword&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+        }
+      }
+    }
+  }
+}
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;productID.keyword&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+    }
+  }
+}
+
+#对布尔数值
+POST products/_search
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;term&quot;: {
+          &quot;avaliable&quot;: &quot;false&quot;
+        }
+      }
+    }
+  }
+}
+
+POST products/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;avaliable&quot;: {
+        &quot;value&quot;: &quot;false&quot;
+      }
+    }
+  }
+}
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;price&quot;: {
+        &quot;value&quot;: &quot;20&quot;
+      }
+    }
+  }
+}
+
+POST products/_search
+{
+  &quot;profile&quot;: &quot;true&quot;,
+  &quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;price&quot;: &quot;20&quot;
+    }
+    }
+  }
+}
+
+
+POST products/_search
+{
+  &quot;query&quot;: {
+    &quot;constant_score&quot;: {
+      &quot;filter&quot;: {
+        &quot;bool&quot;: {
+          &quot;must_not&quot;: {
+            &quot;exists&quot;: {
+              &quot;field&quot;: &quot;date&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre><h1 id="搜索的相关性算法"><a href="#搜索的相关性算法" class="headerlink" title="搜索的相关性算法"></a>搜索的相关性算法</h1><h3 id="1、相关性（Relevance）"><a href="#1、相关性（Relevance）" class="headerlink" title="1、相关性（Relevance）"></a>1、相关性（Relevance）</h3><p>搜索的相关算分，描述了一个文档和查询语句匹配的程度。ES 会对每个匹配查询条件的解雇哦进行算分_score。</p>
+<p>打分的本质是排序，需要把符合用户需求的文档排在前面。在 ES5之前，默认的相关性算分采用 TF-IDF，现在采用 BM 25。我们来看下面的例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212243.png" alt="image-20200425100254189"></p>
+<p>我们搜索”区块链的应用”被拆分成了三个 term，可以看到 id 为2和3的文档都包含了这三个 term，它们三个的相关性较之其他文档来说肯定是最高的。现在的问题是这三个中谁的相关性最高呢？</p>
+<h3 id="2、TF-IDF"><a href="#2、TF-IDF" class="headerlink" title="2、TF-IDF"></a>2、TF-IDF</h3><p>TF-IDF 被公认为是信息检索领域最重要的发明，除了在信息检索这方面，在文献分类和其他相关领域有着非常广泛的引用。</p>
+<h4 id="词频（TF）"><a href="#词频（TF）" class="headerlink" title="词频（TF）"></a>词频（TF）</h4><p>Term Frequency：检索词在一篇文档中出现的频率，检索词出现的次数除以文档的总字数。</p>
+<p>度量一条查询和结果文档相关性的简单方法，就是简单地将搜索中每一个词地 TF 进行相加：TF(区块链)+TF(的)+TF(应用)。另外，对于停用词（Stop word）”的”在文档中出现了很多次，但是对贡献相关度几乎没有用处，我们似乎不应该考虑它们地 TF。</p>
+<h4 id="逆文档频率（IDF）"><a href="#逆文档频率（IDF）" class="headerlink" title="逆文档频率（IDF）"></a>逆文档频率（IDF）</h4><ol>
+<li><p>DF：检索词在所有文档中出现地频率</p>
+<ul>
+<li>“区块链”在相对比较少的文档中出现</li>
+<li>“应用”在相对比较多的文档中出现</li>
+<li>“Stop word”在大量的文档中出现</li>
+</ul>
+</li>
+<li><p>Inverse Document Frequency：简单说=log(全部文档数/检索词出现过的文档总数)，它可以认为是一个 term 在搜索语句中的权重。</p>
+<p>如果某个 term 出现过的文档数越多，说明在计算整个搜索”语句”的文档相关性的时候，它的计算权重应该越低。所以我们可以通过式子”全部文档数/检索词 term 出现过的文档总数”可以计算到 term 的相对出现文档频率。但是为了可以将这个运算结果应用到整个文档的相关性中，我们可以对它”log”一下，这样我们可以使得运算结果变小可以乘到 term 的 TF 中，但是它的函数曲线趋势还是不变的，即随着 term 在所有文档中出现的次数越多，它的 IDF 就越低，只不过在次数越来越多的时候，它的 IDF 下降的速度越来越慢。</p>
+</li>
+</ol>
+<p><strong>TF-IDF 本质上就是将 TF 求和变成了加权求和</strong>：搜索语句”XXXX”被分隔成 n 个 term，搜索出来的所有文档的_score 计算就是”当前文档中第一个 term 出现的频率*第一个 term 的计算权重+当前文档中第二个 term 出现的频率*第二个term 的计算权重+… …”，而上面例子的计算公式就是：TF(区块链)*IDF(区块链)+TF(的)*IDF(的)+TF(应用)*IDF(应用)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212249.png" alt="image-20200425101606360"></p>
+<ol>
+<li><p>IDF 的概念，最早是剑桥大学的”斯巴克*琼斯”提出</p>
+<ul>
+<li>1972年-“关键词特殊性的统计解释和它在文献检索中的应用”</li>
+<li>但是没有从理论上解释 IDF 应该是用 log(全部文档数/检索词出现过的文档总数)，而不是其他函数。也没有做进一步的研究</li>
+</ul>
+</li>
+<li><p>1970、1980年代萨尔顿和罗宾逊，进行了进一步的证明和研究，并用香农信息论做了证明：<a href="http://www.staff.city.ac.uk/~sb317/papers/foundations_bm25_review.pdf" target="_blank" rel="noopener">http://www.staff.city.ac.uk/~sb317/papers/foundations_bm25_review.pdf</a></p>
+</li>
+<li><p>现代搜索引擎，对 TF-IDF 进行了大量细微的优化。</p>
+<ul>
+<li><p>Lucene 中的 TF-IDF 公式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212255.png" alt="image-20200425103957877"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="3、BM25"><a href="#3、BM25" class="headerlink" title="3、BM25"></a>3、BM25</h3><p>从 ES5 开始，默认算分算法改为 BM25。BM25做了一定的优化，它和经典的 TF-IDF 相比：当 TF 无限增加的时候，后者的 score 会不断增长；对于前者来说，随着 TF 的增长，TF 对于算法的影响会慢慢下降。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212302.png" alt="image-20200425104604283"></p>
+<h3 id="4、定制-Similarity-相似度"><a href="#4、定制-Similarity-相似度" class="headerlink" title="4、定制 Similarity(相似度)"></a>4、定制 Similarity(相似度)</h3><p>在 ES 中创建索引的时候对于相似度算分的计算是可以定制的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212307.png" alt="image-20200425104944347"></p>
+<p>K 默认值是 1.2，数值越⼩小，饱和度越⾼高，b 默认值是 0.75(取值范围 0-1)，0 代表禁⽌止 Normalization。</p>
+<p>BM25公式：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212323.png" alt="image-20200425105031183"></p>
+<h3 id="4、通过-Explain-API-查看-TF-IDF"><a href="#4、通过-Explain-API-查看-TF-IDF" class="headerlink" title="4、通过 Explain API 查看 TF-IDF"></a>4、通过 Explain API 查看 TF-IDF</h3><ol>
+<li><p>建立索引并写入文档</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212328.png" alt="image-20200425105935930"></p>
+</li>
+<li><p>搜索查看算分结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212333.png" alt="image-20200425110126666"></p>
+<p>我们看到搜索”elasticsearch”的时候，返回了两条记录”we like elasticsearch”和”we use elasticsearch to power the search”，前者算分比后者高，其实两者中”elasticsearch”出现的次数都是一样的，但是前者更短，所以最终算分更高。</p>
+</li>
+<li><p>explain 查看算分过程，我们加上”expalin”参数之后，看到右边的结果为我们显示了每一个文档的算分过程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212341.png" alt="image-20200425110652436"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212349.png" alt="image-20200425110523125"></p>
+</li>
+</ol>
+<h3 id="5、通过-Boosting-Relevance-控制相关度算分"><a href="#5、通过-Boosting-Relevance-控制相关度算分" class="headerlink" title="5、通过 Boosting Relevance 控制相关度算分"></a>5、通过 Boosting Relevance 控制相关度算分</h3><p>Boosting 是控制相关度的一种手段，我们可以在索引的 mapping、字段 的 mapping或者查询条件中对 Boosting 进行设置。</p>
+<ul>
+<li>当 boost &gt; 1时，打分的相关度相对性提升</li>
+<li>当0 &lt; boost &lt; 1时，打分的权重相对性降低</li>
+<li>当 boost &lt; 0时，贡献负分</li>
+</ul>
+<p>另外 es 还提供了一个 Boosting 的复合查询，其中包含 positive 和 negative 子查询，下面就是这样一个例子。</p>
+<ul>
+<li>我们将对于字段content 的”elasticsearch”词条的 term 查询纳入到 positive，表示这个查询会贡献正向分值。</li>
+<li>将对于同一个字段 content 的”like”词条的 term 查询纳入到 negative，表示这个查询会贡献负分，并设置 boosting 的一个属性”negative_boost”来指定负分基础数值。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212358.png" alt="image-20200425111223205"></p>
+<h3 id="6、Kibana-测试请求"><a href="#6、Kibana-测试请求" class="headerlink" title="6、Kibana 测试请求"></a>6、Kibana 测试请求</h3><pre><code>PUT testscore
+{
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 1
+  },
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;content&quot;: {
+        &quot;type&quot;: &quot;text&quot;
+      }
+    }
+  }
+}
+
+
+PUT testscore/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;content&quot;:&quot;we use Elasticsearch to power the search&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;content&quot;:&quot;we like elasticsearch&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 3 }}
+{ &quot;content&quot;:&quot;The scoring of documents is caculated by the scoring formula&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 4 }}
+{ &quot;content&quot;:&quot;you know, for search&quot; }
+
+
+
+POST /testscore/_search
+{
+  //&quot;explain&quot;: true,
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;content&quot;:&quot;you&quot;
+      //&quot;content&quot;: &quot;elasticsearch&quot;
+      //&quot;content&quot;:&quot;the&quot;
+      //&quot;content&quot;: &quot;the elasticsearch&quot;
+    }
+  }
+}
+
+POST testscore/_search
+{
+    &quot;query&quot;: {
+        &quot;boosting&quot; : {
+            &quot;positive&quot; : {
+                &quot;term&quot; : {
+                    &quot;content&quot; : &quot;elasticsearch&quot;
+                }
+            },
+            &quot;negative&quot; : {
+                 &quot;term&quot; : {
+                     &quot;content&quot; : &quot;like&quot;
+                }
+            },
+            &quot;negative_boost&quot; : 0.2
+        }
+    }
+}
+
+
+POST tmdb/_search
+{
+  &quot;_source&quot;: [&quot;title&quot;,&quot;overview&quot;],
+  &quot;query&quot;: {
+    &quot;more_like_this&quot;: {
+      &quot;fields&quot;: [
+        &quot;title^10&quot;,&quot;overview&quot;
+      ],
+      &quot;like&quot;: [{&quot;_id&quot;:&quot;14191&quot;}],
+      &quot;min_term_freq&quot;: 1,
+      &quot;max_query_terms&quot;: 12
+    }
+  }
+}</code></pre><h1 id="Query-amp-Filtering-与多字符串多字段查询"><a href="#Query-amp-Filtering-与多字符串多字段查询" class="headerlink" title="Query&amp;Filtering 与多字符串多字段查询"></a>Query&amp;Filtering 与多字符串多字段查询</h1><h3 id="Query-Context-amp-Filter-Context"><a href="#Query-Context-amp-Filter-Context" class="headerlink" title="Query Context &amp; Filter Context"></a>Query Context &amp; Filter Context</h3><p>下面是高级搜索的功能：支持多项文本输入，针对多个字段进行搜索。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212409.png" alt="image-20200425111639203"></p>
+<p>搜索引擎一般也提供基于时间，价格等条件的过滤。在 Elasticsearch 中，有 Query 和 Filter 两种不同的搜索 Context：</p>
+<ul>
+<li>Query Context：会进行相关性算分</li>
+<li>Filter Context：不需要进行算分（Yes or No），可以利用 Cache，获得更好的性能</li>
+</ul>
+<h3 id="条件组合"><a href="#条件组合" class="headerlink" title="条件组合"></a>条件组合</h3><p>问题：假设要搜索一部电影，包含了以下一些条件：</p>
+<ol>
+<li>评论中包含了 Guitar</li>
+<li>用户打分高于3分</li>
+<li>上映日期要在1993年与2000年之间</li>
+</ol>
+<p>这个搜索包含了3段逻辑针对不同字段，我们可以使用<strong>复合查询：bool Query</strong>来同时实现这三个逻辑，并且有比较好的性能。</p>
+<h3 id="bool-查询"><a href="#bool-查询" class="headerlink" title="bool 查询"></a>bool 查询</h3><p>一个 bool 查询，是一个或者多个查询子句的组合，它有4种子句，其中2种会影响算分，2种不影响算分。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212416.png" alt="image-20200425112512762"></p>
+<p>相关性打分并不只是全文本检索的专利。也适用于 yes|no 的子句，匹配的子句越多，相关性评分越高。如果多条查询子句被合并为一条复合查询语句，比如bool查询，则每个查询子句计算得出的评分会被合并到总的相关性评分中。</p>
+<h4 id="1、bool-查询语法"><a href="#1、bool-查询语法" class="headerlink" title="1、bool 查询语法"></a>1、bool 查询语法</h4><ul>
+<li>子查询可以任意顺序出现</li>
+<li>可以嵌套多个查询</li>
+<li>如果你的 bool 查询中，没有 must 条件，should 中必须至少满足一条查询</li>
+</ul>
+<p>下面是一个 bool 查询例子：</p>
+<ul>
+<li>第一个 must 子句表示第一个查询必须匹配到文档，并进行算分</li>
+<li>最后一个 should 检索满足其中一个条件的文档，并进行算分</li>
+<li>filter 对匹配文档进行过滤，不进行算分</li>
+<li>下面的 must_not 子句过滤价格小于等于10的文档，没有算分</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212423.png" alt="image-20200425112834474"></p>
+<h4 id="2、解决结构化查询：”包含而不是相等”的问题"><a href="#2、解决结构化查询：”包含而不是相等”的问题" class="headerlink" title="2、解决结构化查询：”包含而不是相等”的问题"></a>2、解决结构化查询：”包含而不是相等”的问题</h4><p>在”结构化搜索”章节的”精确查找多个值”小节中提到对于一个多值字段的结构化查询的语义是包含查询的，即这个字段只要是有一个值匹配了检索的 term，那么当前这个文档就是被命中了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212430.png" alt="image-20200425125615342"></p>
+<p>为了解决这个问题，我们可以针对这个字段引入一个”count”字段专门用来存储对这个字段的值个数，在查询的时候我们使用 bool 复合查询，在对某个字段检索我们需要的内容的同时，限制该字段的值的个数，从而实现精准匹配：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212436.png" alt="image-20200425125717640"></p>
+<h4 id="3、Query-Context、should-和-Filter-Context、must-not下的算分规则"><a href="#3、Query-Context、should-和-Filter-Context、must-not下的算分规则" class="headerlink" title="3、Query Context、should 和 Filter Context、must_not下的算分规则"></a>3、Query Context、should 和 Filter Context、must_not下的算分规则</h4><p>示例一：Query Context 和 should：影响算分</p>
+<p>前面我们提到，当前两个操作是会对匹配的文档进行算分的。</p>
+<ul>
+<li>对于 es 来说，query context 的语义就是寻找最接近用户意愿的数据，固然会对 query context 的”查询条件”对商品进行匹配并进行匹配相关度的计算。</li>
+<li>而 should 的语义也是寻找最接近用户意愿的数据，只不过 should 是包含一项仅匹配，且有它自己维度的算分规则。</li>
+</ul>
+<p>可以看到经过下面的 should 条件 或者 term query context 匹配到的文档是有分值的。然后在最顶层属性会有一个”max_score”属性用来聚合当前查询所有文档的分值表示当前查询的分值。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212443.png" alt="image-20200425130426352"></p>
+<p>示例二：Filter Context 和 must_not 查询不会进行算分</p>
+<p>可以看到下面的查询中只有 filter 和 must_not 条件：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212449.png" alt="image-20200425130212003"></p>
+<ul>
+<li>filter 的语意就是过滤，es认为这个功能仅仅就是筛选出匹配的数据即可，所以经过这个条件命中出来的文档分值都是0。（当然，如果有一个 should 或者 must 条件也命中了这个文档，那么应该就是将这两个条件计算的分值相加，然后加上当前 filter 的分值0得到这个文档的最终分值）</li>
+<li>而 must_not 的语义是用户想要排除这些数据，只要剩下的数据，那么返回的文档就是剩下的数据，理所当然的 must_not 条件并不是”匹配”了这些文档数据，也就没有”查询条件匹配相关度”这么个概念了，固然不会进行分值计算，所以经过排除 must_not 之后返回的文档没有被should 或者 must 条件命中，分值就是0。如果命中了，就按照上面提到的计算方式计算分值。</li>
+</ul>
+<p>根据上面的规则对每个返回的文档的分值进行计算并返回分值。然后也会对当前查询的所有分值进行汇总。</p>
+<h4 id="4、bool-嵌套"><a href="#4、bool-嵌套" class="headerlink" title="4、bool 嵌套"></a>4、bool 嵌套</h4><p>另外，bool 复合查询是支持嵌套的。下面的例子是利用嵌套 bool 实现”shuold not”的逻辑</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212456.png" alt="image-20200425132255987"></p>
+<h4 id="5、-bool-语句结构影响算分"><a href="#5、-bool-语句结构影响算分" class="headerlink" title="5、 bool 语句结构影响算分"></a>5、 bool 语句结构影响算分</h4><p>bool 查询语句的结构是会对相关度算分产生影响的：</p>
+<ul>
+<li>同一层级下的竞争字段，具有相同的权重</li>
+<li>通过嵌套 bool 查询，可以改变对算分的影响</li>
+</ul>
+<p>看下面的例子，我们通过将左边的颜色下放一层，导致关于颜色的匹配算分低于其他算分</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212502.png" alt="image-20200425152642186"></p>
+<h4 id="6、控制字段的-Boosting"><a href="#6、控制字段的-Boosting" class="headerlink" title="6、控制字段的 Boosting"></a>6、控制字段的 Boosting</h4><p>在”搜索的相关性算法”的章节我们提到可以通过 Boosting 控制算分的逻辑，其中可以索引mapping、字段 mapping 以及查询中进行boosting 控制。</p>
+<p>下面是 bool 查询中进行 boosting 修改的一个例子。可以看到我们建立了一个索引写入了两个文档，其中包含两个字段 title 和 content，我们并没有对索引进行 mapping 定义，所以是动态生成的，boosting 的值都是默认的。</p>
+<p>下面我们对这个索引进行一个 bool 查询，可以看到一个 bool 查询中包含了两个 match 查询，分别是针对 title 字段和 content 字段，而这两个字段的查询的内容都是一样的”apple ipad”。其中我们还对这两个查询分别定义了不同的 boost。</p>
+<p>此时我们设置 title match 查询的 boost 是4，content match 查询的 boost 是1，那么我们插入的两个文档将都会被命中返回。因为 title match 的 boost 值较高，所以针对 title 字段的算分权重高，那么由于文档2的 title字段包含了两个”Apple iPad”，固然返回结果中文档2会排在文档1前面。但是如果我们将它们的两个 boost 值互调，那么返回的排序就也会互调了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212508.png" alt="image-20200425153207293"></p>
+<h4 id="7、Not-Quite-Not"><a href="#7、Not-Quite-Not" class="headerlink" title="7、Not Quite Not"></a>7、Not Quite Not</h4><p>我们看下面这样的一个例子。我们插入三条文档数据。然后通过 bool 复合 match 查询 content 中包含 apple 的新闻。可以看到三条文档数据都返回了。但是实际上我们只是想查询关于苹果公司产品新闻，排在第一位的新闻是”苹果公司员工喜欢苹果派和苹果汁”，不是我们想要的数据。我们可以怎样优化呢？看下面操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212514.png" alt="image-20200425155444685"></p>
+<ol>
+<li><p>那么我们可以做以下修改，加入一个 must_not 的 bool 查询，这样我们就会过滤掉包含”派”的数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212521.png" alt="image-20200425155750331"></p>
+</li>
+<li><p>但是有时候我们并不是想直接过滤这些其他数据，而是想将它排在较后面的位置，那么我们可以使用 boosting 查询，将”派”纳入到贡献负分的 boosting-negative 查询中，并设置贡献分值为0.5，这样就能实现我们想要的效果了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212526.png" alt="image-20200425155933321"></p>
+</li>
+</ol>
+<h4 id="8、相关阅读"><a href="#8、相关阅读" class="headerlink" title="8、相关阅读"></a>8、相关阅读</h4><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html</a></p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-boosting-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-boosting-query.html</a></p>
+<h4 id="9、Kibana-测试请求"><a href="#9、Kibana-测试请求" class="headerlink" title="9、Kibana 测试请求"></a>9、Kibana 测试请求</h4><pre><code>POST /products/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;price&quot; : 10,&quot;avaliable&quot;:true,&quot;date&quot;:&quot;2018-01-01&quot;, &quot;productID&quot; : &quot;XHDK-A-1293-#fJ3&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;price&quot; : 20,&quot;avaliable&quot;:true,&quot;date&quot;:&quot;2019-01-01&quot;, &quot;productID&quot; : &quot;KDKE-B-9947-#kL5&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 3 }}
+{ &quot;price&quot; : 30,&quot;avaliable&quot;:true, &quot;productID&quot; : &quot;JODL-X-1937-#pV7&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 4 }}
+{ &quot;price&quot; : 30,&quot;avaliable&quot;:false, &quot;productID&quot; : &quot;QQPX-R-3956-#aD8&quot; }
+
+
+
+#基本语法
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot; : {
+      &quot;must&quot; : {
+        &quot;term&quot; : { &quot;price&quot; : &quot;30&quot; }
+      },
+      &quot;filter&quot;: {
+        &quot;term&quot; : { &quot;avaliable&quot; : &quot;true&quot; }
+      },
+      &quot;must_not&quot; : {
+        &quot;range&quot; : {
+          &quot;price&quot; : { &quot;lte&quot; : 10 }
+        }
+      },
+      &quot;should&quot; : [
+        { &quot;term&quot; : { &quot;productID.keyword&quot; : &quot;JODL-X-1937-#pV7&quot; } },
+        { &quot;term&quot; : { &quot;productID.keyword&quot; : &quot;XHDK-A-1293-#fJ3&quot; } }
+      ],
+      &quot;minimum_should_match&quot; :1
+    }
+  }
+}
+
+#改变数据模型，增加字段。解决数组包含而不是精确匹配的问题
+POST /newmovies/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;title&quot; : &quot;Father of the Bridge Part II&quot;,&quot;year&quot;:1995, &quot;genre&quot;:&quot;Comedy&quot;,&quot;genre_count&quot;:1 }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;title&quot; : &quot;Dave&quot;,&quot;year&quot;:1993,&quot;genre&quot;:[&quot;Comedy&quot;,&quot;Romance&quot;],&quot;genre_count&quot;:2 }
+
+#must，有算分
+POST /newmovies/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        {&quot;term&quot;: {&quot;genre.keyword&quot;: {&quot;value&quot;: &quot;Comedy&quot;}}},
+        {&quot;term&quot;: {&quot;genre_count&quot;: {&quot;value&quot;: 1}}}
+
+      ]
+    }
+  }
+}
+
+#Filter。不参与算分，结果的score是0
+POST /newmovies/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;filter&quot;: [
+        {&quot;term&quot;: {&quot;genre.keyword&quot;: {&quot;value&quot;: &quot;Comedy&quot;}}},
+        {&quot;term&quot;: {&quot;genre_count&quot;: {&quot;value&quot;: 1}}}
+        ]
+
+    }
+  }
+}
+
+
+#Filtering Context
+POST _search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot; : {
+
+      &quot;filter&quot;: {
+        &quot;term&quot; : { &quot;avaliable&quot; : &quot;true&quot; }
+      },
+      &quot;must_not&quot; : {
+        &quot;range&quot; : {
+          &quot;price&quot; : { &quot;lte&quot; : 10 }
+        }
+      }
+    }
+  }
+}
+
+
+#Query Context
+POST /products/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;price&quot; : 10,&quot;avaliable&quot;:true,&quot;date&quot;:&quot;2018-01-01&quot;, &quot;productID&quot; : &quot;XHDK-A-1293-#fJ3&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;price&quot; : 20,&quot;avaliable&quot;:true,&quot;date&quot;:&quot;2019-01-01&quot;, &quot;productID&quot; : &quot;KDKE-B-9947-#kL5&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 3 }}
+{ &quot;price&quot; : 30,&quot;avaliable&quot;:true, &quot;productID&quot; : &quot;JODL-X-1937-#pV7&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 4 }}
+{ &quot;price&quot; : 30,&quot;avaliable&quot;:false, &quot;productID&quot; : &quot;QQPX-R-3956-#aD8&quot; }
+
+
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        {
+          &quot;term&quot;: {
+            &quot;productID.keyword&quot;: {
+              &quot;value&quot;: &quot;JODL-X-1937-#pV7&quot;}}
+        },
+        {&quot;term&quot;: {&quot;avaliable&quot;: {&quot;value&quot;: true}}
+        }
+      ]
+    }
+  }
+}
+
+
+#嵌套，实现了 should not 逻辑
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: {
+        &quot;term&quot;: {
+          &quot;price&quot;: &quot;30&quot;
+        }
+      },
+      &quot;should&quot;: [
+        {
+          &quot;bool&quot;: {
+            &quot;must_not&quot;: {
+              &quot;term&quot;: {
+                &quot;avaliable&quot;: &quot;false&quot;
+              }
+            }
+          }
+        }
+      ],
+      &quot;minimum_should_match&quot;: 1
+    }
+  }
+}
+
+
+#Controll the Precision
+POST _search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot; : {
+      &quot;must&quot; : {
+        &quot;term&quot; : { &quot;price&quot; : &quot;30&quot; }
+      },
+      &quot;filter&quot;: {
+        &quot;term&quot; : { &quot;avaliable&quot; : &quot;true&quot; }
+      },
+      &quot;must_not&quot; : {
+        &quot;range&quot; : {
+          &quot;price&quot; : { &quot;lte&quot; : 10 }
+        }
+      },
+      &quot;should&quot; : [
+        { &quot;term&quot; : { &quot;productID.keyword&quot; : &quot;JODL-X-1937-#pV7&quot; } },
+        { &quot;term&quot; : { &quot;productID.keyword&quot; : &quot;XHDK-A-1293-#fJ3&quot; } }
+      ],
+      &quot;minimum_should_match&quot; :2
+    }
+  }
+}
+
+
+
+POST /animals/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        { &quot;term&quot;: { &quot;text&quot;: &quot;brown&quot; }},
+        { &quot;term&quot;: { &quot;text&quot;: &quot;red&quot; }},
+        { &quot;term&quot;: { &quot;text&quot;: &quot;quick&quot;   }},
+        { &quot;term&quot;: { &quot;text&quot;: &quot;dog&quot;   }}
+      ]
+    }
+  }
+}
+
+POST /animals/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        { &quot;term&quot;: { &quot;text&quot;: &quot;quick&quot; }},
+        { &quot;term&quot;: { &quot;text&quot;: &quot;dog&quot;   }},
+        {
+          &quot;bool&quot;:{
+            &quot;should&quot;:[
+               { &quot;term&quot;: { &quot;text&quot;: &quot;brown&quot; }},
+                 { &quot;term&quot;: { &quot;text&quot;: &quot;brown&quot; }},
+            ]
+          }
+
+        }
+      ]
+    }
+  }
+}
+
+
+DELETE blogs
+POST /blogs/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{&quot;title&quot;:&quot;Apple iPad&quot;, &quot;content&quot;:&quot;Apple iPad,Apple iPad&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{&quot;title&quot;:&quot;Apple iPad,Apple iPad&quot;, &quot;content&quot;:&quot;Apple iPad&quot; }
+
+
+POST blogs/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        {&quot;match&quot;: {
+          &quot;title&quot;: {
+            &quot;query&quot;: &quot;apple,ipad&quot;,
+            &quot;boost&quot;: 1.1
+          }
+        }},
+
+        {&quot;match&quot;: {
+          &quot;content&quot;: {
+            &quot;query&quot;: &quot;apple,ipad&quot;,
+            &quot;boost&quot;:
+          }
+        }}
+      ]
+    }
+  }
+}
+
+DELETE news
+POST /news/_bulk
+{ &quot;index&quot;: { &quot;_id&quot;: 1 }}
+{ &quot;content&quot;:&quot;Apple Mac&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 2 }}
+{ &quot;content&quot;:&quot;Apple iPad&quot; }
+{ &quot;index&quot;: { &quot;_id&quot;: 3 }}
+{ &quot;content&quot;:&quot;Apple employee like Apple Pie and Apple Juice&quot; }
+
+
+POST news/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: {
+        &quot;match&quot;:{&quot;content&quot;:&quot;apple&quot;}
+      }
+    }
+  }
+}
+
+POST news/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: {
+        &quot;match&quot;:{&quot;content&quot;:&quot;apple&quot;}
+      },
+      &quot;must_not&quot;: {
+        &quot;match&quot;:{&quot;content&quot;:&quot;pie&quot;}
+      }
+    }
+  }
+}
+
+POST news/_search
+{
+  &quot;query&quot;: {
+    &quot;boosting&quot;: {
+      &quot;positive&quot;: {
+        &quot;match&quot;: {
+          &quot;content&quot;: &quot;apple&quot;
+        }
+      },
+      &quot;negative&quot;: {
+        &quot;match&quot;: {
+          &quot;content&quot;: &quot;pie&quot;
+        }
+      },
+      &quot;negative_boost&quot;: 0.5
+    }
+  }
+}</code></pre><h1 id="单字符串多字段查询"><a href="#单字符串多字段查询" class="headerlink" title="单字符串多字段查询"></a>单字符串多字段查询</h1><h3 id="单字符串查询"><a href="#单字符串查询" class="headerlink" title="单字符串查询"></a>单字符串查询</h3><p>例如像搜索引擎 google 只提供了一个输入框，底层是查询相关的多个字段，支持按照价格、时间等其他字段进行过滤。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212539.png" alt="image-20200425161137411"></p>
+<h3 id="Disjunction-Max-Query"><a href="#Disjunction-Max-Query" class="headerlink" title="Disjunction Max Query"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-dis-max-query.html" target="_blank" rel="noopener">Disjunction Max Query</a></h3><h4 id="1、单字符串多字段查询的算分排序问题"><a href="#1、单字符串多字段查询的算分排序问题" class="headerlink" title="1、单字符串多字段查询的算分排序问题"></a>1、单字符串多字段查询的算分排序问题</h4><p>我们插入两个文档到索引中：</p>
+<ul>
+<li>第一个文档的标题是”敏捷的灰兔子”，内容是”灰兔子是很常见的”。</li>
+<li>第二个文档的标题是”保持宠物的健康”，内容是”我的敏捷的灰色狐狸会定期地吃兔子”。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212546.png" alt="image-20200425184604609"></p>
+<p>此时我们同时对标题和内容搜索”Brown fox”，希望优先搜索到关于”灰色狐狸”的内容，要不然搜索到”灰色”或者”狐狸”也是可以的。现在我们发出一个 bool_should query：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212553.png" alt="image-20200425184626266"></p>
+<p>但是发现返回结果虽然两条内容都返回了，文档1却排在文档2的前面，这并不符合我们的预期，因为文档2的内容里面是拥有”brown fox”这个”连贯”（前后顺序一致）的 term 组合的。为什么会出现这样的情况呢？ 请看以下内容。</p>
+<h4 id="2、Dis-Max-Query解决该场景问题"><a href="#2、Dis-Max-Query解决该场景问题" class="headerlink" title="2、Dis-Max Query解决该场景问题"></a>2、Dis-Max Query解决该场景问题</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212558.png" alt="image-20200425192332460"></p>
+<p>我们通过”explain”分析 should 查询的算分过程，得知它的逻辑是将每一个获得匹配的 match 查询的算分进行相加，而 match 查询的算分则是将查询内容拆解出来的所有 term 在当前文档当前字段的 TF*IDF 之后进行相加。</p>
+<ul>
+<li>查询 should 语句中的两个查询</li>
+<li>加和两个查询的评分</li>
+<li>乘以匹配语句的总数?</li>
+<li>处理所有语句的总数?</li>
+</ul>
+<p>简单来说，should 查询就是将所有 term 在所有匹配字段的算分进行相加。那么上面的查询对于第一个文档来说 brown 字段在 title 和 body 字段同时命中，而第二个文档只在 body 字段命中了 brown 字段和 fox 字段，因为 brown 字段长度比 fox 长，文档一的两个字段都比文档二的两个字段要短，最终相加出来的评分必然比文档二大。</p>
+<p>经过上面的分析我们找到的问题的所在，根据我们的需求，查询”Brown fox”虽然是希望可以跨字段查询，但是我们想优先得到的文档是在标题或者内容中同时包含”Brown fox”，<strong>此时它作为一个词组出现的意义相对更高</strong>。但是我们又希望可以查询到”brown”或者”fox”的内容，只不过放在后面而已。 <strong>所以我们需要的应该是这样一个查询语义：任何被检索到的文档将其匹配评分最高的字段作为该文档的评分进行返回</strong>，而不是 bool 的累加所有字段的评分。此时我们可以引进 <strong>Disjuction Max Query</strong>，它的查询语义就是如此。</p>
+<p>看下面的操作，就可以得到我们想要的效果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212606.png" alt="image-20200425190909309"></p>
+<blockquote>
+<p>以上关于”brown fox”的例子可能不是很恰当，我们的实际需求可能也不是这样子的。但是针对单个字段作为文档的最高评分返回这个需求肯定是有的。所以先了解、理解这个功能吧。遇到了需求自然就懂了。</p>
+</blockquote>
+<h4 id="3、通过-Tie-Breaker-参数进行优化调整"><a href="#3、通过-Tie-Breaker-参数进行优化调整" class="headerlink" title="3、通过 Tie Breaker 参数进行优化调整"></a>3、通过 Tie Breaker 参数进行优化调整</h4><p>通过上面的例子了解了 Disjuction Max Query 之后，我们来看下面的例子，我们还是基于上面的索引和文档进行查询，本次是同时对 title 和 body 检索”Quick pets”，可以看到右边显示的结果是两个文档的分值都是一样的。这就引出一个新问题：</p>
+<p>有一些情况下，所有文档都没有字段同时存在”Quick”和”pets”，即我们所检索的内容作为一个词组存在与某个文档的字段中，现在我们的需求就退化了，希望优先得到”<strong>所有字段尽量匹配</strong>“的数据。但是我们发现，在下面的例子中，文档1的标题中匹配了一个 quick，而文档2的标题中匹配了一个  pets，内容中匹配了一个quick，文档2才是我们优先想得到的文档。而 Disjuction Max Query 仅仅是得到最优匹配字段的分值作为文档分值返回，那么文档1的最优匹配字段自然是匹配了 “quick” 的 title 了，而文档2也是匹配了”pets”的 title，所以导致它们分值一致。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212612.png" alt="image-20200425193552947"></p>
+<p>针对上面的问题，我们引入了 Disjuction Max Query 的一个属性Tie Breaker进行优化，这个属性的语义是：</p>
+<ol>
+<li>获得最佳匹配语句的评分_score，</li>
+<li>将其他匹配语句的评分与 tie_breaker 相乘</li>
+<li>对以上评分求和并规范化作为整个 Disjuction Max Query 的评分返回</li>
+</ol>
+<blockquote>
+<p>Tie Breaker 是一个介于0-1之间的浮点数。0代表使用最佳匹配；1代表所有语句同等重要，即退化成了 bool_should 查询。</p>
+</blockquote>
+<p>我们加上该属性进行查询，得到了想要的效果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212621.png" alt="image-20200425194957062"></p>
+<p>加上 expain 查看算分过程：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212627.png" alt="image-20200425195144954"></p>
+<h4 id="4、Kibana-测试请求"><a href="#4、Kibana-测试请求" class="headerlink" title="4、Kibana 测试请求"></a>4、Kibana 测试请求</h4><pre><code>PUT /blogs/_doc/1
+{
+    &quot;title&quot;: &quot;Quick brown rabbits&quot;,
+    &quot;body&quot;:  &quot;Brown rabbits are commonly seen.&quot;
+}
+
+PUT /blogs/_doc/2
+{
+    &quot;title&quot;: &quot;Keeping pets healthy&quot;,
+    &quot;body&quot;:  &quot;My quick brown fox eats rabbits on a regular basis.&quot;
+}
+
+POST /blogs/_search
+{
+    &quot;query&quot;: {
+        &quot;bool&quot;: {
+            &quot;should&quot;: [
+                { &quot;match&quot;: { &quot;title&quot;: &quot;Brown fox&quot; }},
+                { &quot;match&quot;: { &quot;body&quot;:  &quot;Brown fox&quot; }}
+            ]
+        }
+    }
+}
+
+POST blogs/_search
+{
+    &quot;query&quot;: {
+        &quot;dis_max&quot;: {
+            &quot;queries&quot;: [
+                { &quot;match&quot;: { &quot;title&quot;: &quot;Quick pets&quot; }},
+                { &quot;match&quot;: { &quot;body&quot;:  &quot;Quick pets&quot; }}
+            ]
+        }
+    }
+}
+
+
+POST blogs/_search
+{
+    &quot;query&quot;: {
+        &quot;dis_max&quot;: {
+            &quot;queries&quot;: [
+                { &quot;match&quot;: { &quot;title&quot;: &quot;Quick pets&quot; }},
+                { &quot;match&quot;: { &quot;body&quot;:  &quot;Quick pets&quot; }}
+            ],
+            &quot;tie_breaker&quot;: 0.2
+        }
+    }
+}</code></pre><h3 id="Multi-Match-Query"><a href="#Multi-Match-Query" class="headerlink" title="Multi Match Query"></a>Multi Match Query</h3><p>对于单字符串多字段查询有以下三种查询场景：</p>
+<h4 id="1、最佳字段（Best-Fields）"><a href="#1、最佳字段（Best-Fields）" class="headerlink" title="1、最佳字段（Best Fields）"></a>1、最佳字段（Best Fields）</h4><p>当字段之间相互竞争，又相互关联。例如上面的 title 和 body 这样的字段。评分来自最佳匹配字段。该场景我们可以使用上面的 disjuction max query 实现，也可以使用这里介绍的 multi match query 实现。</p>
+<p>在这种查询场景下，以我们上面的例子为例，multi_match 查询的实现调用如下（可以达到和 dis-max query 一样的效果）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212635.png" alt="image-20200425203340340"></p>
+<ul>
+<li>Best Fields 是默认类型，可以不用指定</li>
+<li>Minimum should Match 等参数可以传递到生成的 query 中</li>
+</ul>
+<h4 id="2、多数字段（Most-Fileds）"><a href="#2、多数字段（Most-Fileds）" class="headerlink" title="2、多数字段（Most Fileds）"></a>2、多数字段（Most Fileds）</h4><p>在处理多字段检索英文内容的时，一种常见的手段是：</p>
+<ul>
+<li>针对检索内容的”<strong>主要或者重要字段</strong>“字段设置分词器为 English Analyzer，该分词器会抽取英文词干（过去时、现在进行时、派生词等相关词语），将相同词干的词语加入同义词，这样我们对该字段进行检索的时候可以匹配更多的文档（提高 recall）；然后为该字段增加一个子字段，该子字段使用 Standard Analyzer，该分词器仅提供简单的分词操作，匹配会更加精准（提高 precision）。</li>
+<li>检索内容的其他字段作为匹配文档提高相关度的信号，匹配字段越多越好。</li>
+</ul>
+<h5 id="案例和问题"><a href="#案例和问题" class="headerlink" title="案例和问题"></a>案例和问题</h5><p>查看下面的截图，我们先建立包含一个 text 类型的 title 字段的索引，并为该字段指定英文分词器。然后输入两个文档。并执行了一个对 title 字段执行了一个”barking dogs”的 match 查询。右边是返回结果，我们看到，title 内容为”my dog barks”的文档的分值要比”I see a lot of barking dogs on the road”的分值要高，但是第二个文档中是包含”barking dogs”这个完整内容的，这显然不符合我们预期。<strong>这是因为英文分词器会对字段内容进行词干抽取加入同义词进行索引和检索</strong>，所以”barking”和”barks”都会映射到”bark”索引上，”dogs”会映射到”dog”上，即”barking dogs”最终被解释为”bark”和”dog”两个词条来进行索引和检索，而文档1和文档2都命中了 barking 和 dogs，但是文档1更短，固然分值更高。</p>
+<p>那么我们现在遇到的问题是，我们想保证这两个文档都被命中返回，但是文档2的内容分值更高。也就是在保证尽量多地返回相关文档（recall）的同时保证更准确的文档排在最前面（precision）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212641.png" alt="image-20200425204850031"></p>
+<h5 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h5><p>此时我们就引入了我们讲到的 Most Field 了。如下图，我们重构了索引，为字段 title 增加了一个子字段”std”，并为其指定类型为和 title 一样的 text，但是分词器指定为 standard。</p>
+<p>此时我们在执行查询语句的时候，使用了 multi_match 的 most_fields 查询，指定检索内容”query”为”barking dogs”，字段为”title”和”title.std”。这样就能达到我们想要的效果了，两个文档都返回，但是文档2排在前面。</p>
+<p>下面两张截图是加了”explain”之后返回的结果，通过 explain 我们知道，对于检索内容”barking dogs”，es 先对其在 title 字段上进行了检索，自然的两个文档都匹配了，所以必然两个文档都会返回；然后对该字符串在 title.std 字段上进行检索，此时只会有文档2匹配；后面就是算分环节了，文档1命中了字段 title，所以算分就是针对词条”bark”和”dog”的算分总和，而文档2同时命中了字段 title 和 title.std，所以其算分为针对词条”bark”、”dog”、”barking”和”dogs”算分的总和，所以文档2算分大于文档1。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212647.png" alt="image-20200425205824661"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212653.png" alt="image-20200425210534498"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212700.png" alt="image-20200425210548518"></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ul>
+<li><p>用广度匹配字段 title 包含尽可能多的文档以提升召回率，同时又使用 title.std 作为信号将相关度更高的问答那个置于结果顶部。</p>
+</li>
+<li><p>每个字段对于最终评分的贡献可以通过自定义值 boost 来控制。比如，我们的文档中可能不只 title 这么一个字段可能还有很多其他的字段，我们为了使得 title 字段更为重要，同时也降低了其他信号字段的作用。（设置 boost 如下所示在字段后面通过”^”符号紧跟一个 boost 值）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212711.png" alt="image-20200425211246523"></p>
+</li>
+</ul>
+<h4 id="3、混合字段（Cross-Field）"><a href="#3、混合字段（Cross-Field）" class="headerlink" title="3、混合字段（Cross Field）"></a>3、混合字段（Cross Field）</h4><p>对于某些实体，例如”人”这个实体，拥有人名、地址、图书信息等这些字段信息。我们需要在这多个字段中检索我们想要查询的信息，而单个字段只能作为整体的一部分。希望在任何这些列出的字段中找到尽可能多的词。</p>
+<h5 id="案例和问题-1"><a href="#案例和问题-1" class="headerlink" title="案例和问题"></a>案例和问题</h5><p> 下面是一个地址的文档信息：<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212719.png" alt="image-20200425211810699"></p>
+<p>当我们对于一个输入字符串想对这个包含多个字段的地址文档进行检索的时候，我们想到了可以使用 Multi Match-most_fields query实现。但是使用 most_fields 只能在一定程度上实现这个需求，即类似下面这样的搜索，我们认为用户的搜索的内容是一个非结构化的内容，会经过拆分之后形成一个个词条，这些词条允许在不同的字段上被检索到，只要所有词条都能被检索到我们就认为这个文档是匹配的，进行返回与算分：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212724.png" alt="image-20200425211819075"></p>
+<p>但是如果我们的需求产生了变化，认为用户的输入无论是否一个结构化的内容，它最终形成的词条都只能在文档的某一个或者多个字段完全涵盖才算匹配，即使是多个字段分别涵盖这些词条我们也不能认为它是匹配，面对这样的场景most_fields 就不能满足了，我们也不能对它和 Match Query 一样加上一个And Operator 来解决。（为 most_fields 增加And Operator 调用查询 api 是不会报错的，但是返回结果却不是我们的预期效果，本实验返回空）</p>
+<p>虽然针对上面的需求，我们可以用前面提到的 copy_to 将多字段内容复制到同一个字段上，<strong>但是这样需要花费额外的空间，且原本算分可能也会受到影响。</strong></p>
+<h5 id="解决问题-1"><a href="#解决问题-1" class="headerlink" title="解决问题"></a>解决问题</h5><p>此时我们就引入了 multi_match 的 coress_fields query，它可以完全解决这样的场景：</p>
+<ul>
+<li>支持使用 Operator</li>
+<li>与 copy_to 相比，其中一个优势就是它可以在搜索的时为单个字段提升权重</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212731.png" alt="image-20200425213510342"></p>
+<h1 id="多语言及中文分词与检索"><a href="#多语言及中文分词与检索" class="headerlink" title="多语言及中文分词与检索"></a>多语言及中文分词与检索</h1><h3 id="自然语言与查询-recall"><a href="#自然语言与查询-recall" class="headerlink" title="自然语言与查询 recall"></a>自然语言与查询 recall</h3><ol>
+<li>当处理人类自然语言时，有些情况，尽管搜索和原文不完全匹配，但是希望搜到一些内容<ul>
+<li>Quick brown fox 和 fast brown fox</li>
+<li>Jumping fox 和 Jumped foxes</li>
+</ul>
+</li>
+<li>一些可采取的优化<ul>
+<li>归一化词元：清除变音符号，如 ròle 的时候也会匹配role</li>
+<li>抽取词根：清除单复数和时态的差异</li>
+<li>包含同义词</li>
+<li>拼写错误或者同音异形词</li>
+</ul>
+</li>
+</ol>
+<h3 id="混合多语言的挑战"><a href="#混合多语言的挑战" class="headerlink" title="混合多语言的挑战"></a>混合多语言的挑战</h3><ol>
+<li><p>一些具体的多语言场景</p>
+<ul>
+<li>不同的索引使用不同的语言</li>
+<li>同一个索引中，不同的字段</li>
+<li>一个文档的一个字段内混合不同的语言</li>
+</ul>
+</li>
+<li><p>混合语言存在的一些挑战</p>
+<ul>
+<li>词干提取：以色列文档，包含了希伯来语、阿拉伯语、俄语和英文</li>
+<li>不正确的文档频率：英文为主的文章中，德文算分高（因为德文的出现频率很低，一旦对德文进行检索，自然算分高）</li>
+<li>需要判断用户搜索时使用的语言，语言识别（Compact Language Detector），然后根据语言查询不同的索引。</li>
+</ul>
+</li>
+<li><p>一个搜索条件(框)支持多语言查询方案</p>
+<ul>
+<li><p>不同语言用不同索引，例如 orders-cn ，orders-en</p>
+</li>
+<li><p>可以通过设置mulfi field创建多个子字段，这个子字段可以使用不同的分词器。</p>
+<p>至于用户在搜索的时候使用什么语言，可以让用户指定，或者通过http header中的accept language来判定。</p>
+</li>
+</ul>
+<p>至于索引的数据，如果你明确知道他所用的语言，用方案一会很简单。否则你需要使用一个学习算法对文档的语言进行归类。有一些现成的库可以使用，例如：chromiu-compact-language-detector ，基于google的CLD开发，支持160多种语言的detect。</p>
+</li>
+</ol>
+<h3 id="分词的挑战"><a href="#分词的挑战" class="headerlink" title="分词的挑战"></a>分词的挑战</h3><ol>
+<li><p>英文分词：You’re 分成一个还是多个？Half-baked 中间的横杠是否去掉。</p>
+</li>
+<li><p>中文分词</p>
+<ul>
+<li><p>分词标准不同：哈工大标准中，姓和名是分开的；HanLP 分词是在一起的。具体情况需指定不同的标准</p>
+</li>
+<li><p>歧义（组合型歧义、交集型歧义、真歧义）</p>
+<p>中华人民共和国、美国会通过对台售武法案、上海仁和服装厂</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="中文分词方法的演变-字典法"><a href="#中文分词方法的演变-字典法" class="headerlink" title="中文分词方法的演变-字典法"></a>中文分词方法的演变-字典法</h3><ol>
+<li>查字典：最容易想到的分词方法（北京航空大学的梁南元教授提出）<ul>
+<li>一个句子从左到右扫描一遍。遇到有的词就标示出来。找到复合词，就找最长的</li>
+<li>不认识的字串就分隔成单字词</li>
+</ul>
+</li>
+<li>最小词数的分词理论：哈工大王晓龙博士把查字典的方法理论化<ul>
+<li>一句话应该分成数量最少的词串</li>
+<li>遇到二义性的分割，无能为力（例如：”发展中国家”、”上海大学城书店”）</li>
+<li>用各种文化规则来解决二义性都不成功</li>
+</ul>
+</li>
+</ol>
+<h3 id="中文分词方法的演变-基于统计法的机器学习算法"><a href="#中文分词方法的演变-基于统计法的机器学习算法" class="headerlink" title="中文分词方法的演变-基于统计法的机器学习算法"></a>中文分词方法的演变-基于统计法的机器学习算法</h3><ol>
+<li><p>统计语言模型：1990年前后，清华大学电子工程系郭进博士</p>
+<p>解决了二义性问题，将中文分词的错误率降低了一个数量级。概率问题，动态规划+利用维特比算法快速找到最佳分词</p>
+</li>
+<li><p>基于统计的机器学习算法</p>
+<ul>
+<li>这类目前常用的算法是 HMM、CRF、SVM、深度学习等算法。比如 HanLP 分词工具是基于 CRF 算法，以CRF 为例，基本思路是对汉子进行标注训练，不仅考虑了词语出现的频率，还考虑上下文，具备较好的学习能力，因此其对歧义词和未登录词的识别都具有良好的效果。</li>
+<li>随着深度学习的兴起，也出现了基于神经网络的分词器，有人尝试使用双向 LSTM+CRF 实现分词器，其本质上是序列标注，据报道其分词器字符准确率可高达97.5%</li>
+</ul>
+</li>
+</ol>
+<h3 id="中文分词器现状"><a href="#中文分词器现状" class="headerlink" title="中文分词器现状"></a>中文分词器现状</h3><ol>
+<li>中文分词器以统计语言模型为基础，经过几十年的发展，今天基本已经可以看做是一个已经解决的问题。</li>
+<li>不同分词器的好坏，主要的差别在于数据的使用和工程使用的精度</li>
+<li>常见的分词都是使用机器学习算法和词典相结合，一方面能够提高分词准确率，另一方面能够改善领域适应性。</li>
+</ol>
+<h3 id="一些中文分词器"><a href="#一些中文分词器" class="headerlink" title="一些中文分词器"></a>一些中文分词器</h3><ul>
+<li><p>HanLP：面相生产环境的自然语言处理工具包</p>
+<p><a href="http://hanlp.com/" target="_blank" rel="noopener">http://hanlp.com/</a></p>
+<p><a href="https://github.com/KennFalcon/elasticsearch-analysis-hanlp" target="_blank" rel="noopener">https://github.com/KennFalcon/elasticsearch-analysis-hanlp</a></p>
+</li>
+<li><p>IK 分词器</p>
+<p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
+</li>
+</ul>
+<h4 id="HanLP-Analysis"><a href="#HanLP-Analysis" class="headerlink" title="HanLP Analysis"></a>HanLP Analysis</h4><p>Es 插件下载：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">./elasticsearch-plugin install https://github.com/KennFalcon/elasticsearch-analysis- hanlp/releases/download/v7.1.0/elasticsearch-analysis-hanlp-7.1.0.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>支持远程词典配置：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212740.png" alt="image-20200425223736717"></p>
+<h4 id="IK-Analysis"><a href="#IK-Analysis" class="headerlink" title="IK Analysis"></a>IK Analysis</h4><p>Es 插件下载：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">./elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-
+ik/releases/download/v7.1.0/elasticsearch-analysis-ik-7.1.0.zip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>支持字典热更更新</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212745.png" alt="image-20200425223843999"></p>
+<h4 id="Pinyin-Analysis"><a href="#Pinyin-Analysis" class="headerlink" title="Pinyin Analysis"></a>Pinyin Analysis</h4><p>Es 插件下载：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">./elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis- pinyin/releases/download/v7.1.0/elasticsearch-analysis-pinyin-7.1.0.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212751.png" alt="image-20200425223920933"></p>
+<h3 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" target="_blank" rel="noopener">Elasticsearch IK分词插件</a></p>
+<p><a href="https://github.com/KennFalcon/elasticsearch-analysis-hanlp" target="_blank" rel="noopener">Elasticsearch hanlp 分词插件</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/50444885" target="_blank" rel="noopener">分词算法综述</a></p>
+<p><strong>一些分词工具，供参考：</strong></p>
+<p><a href="http://ictclas.nlpir.org/nlpir/" target="_blank" rel="noopener">中科院计算所NLPIR</a></p>
+<p><a href="https://github.com/NLPchina/ansj_seg" target="_blank" rel="noopener">ansj分词器</a></p>
+<p><a href="https://github.com/HIT-SCIR/ltp" target="_blank" rel="noopener">哈工大的LTP</a></p>
+<p><a href="https://github.com/thunlp/THULAC" target="_blank" rel="noopener">清华大学THULAC</a></p>
+<p><a href="https://nlp.stanford.edu/software/segmenter.shtml" target="_blank" rel="noopener">斯坦福分词器</a></p>
+<p><a href="https://github.com/hankcs/HanLP" target="_blank" rel="noopener">Hanlp分词器</a></p>
+<p><a href="https://github.com/yanyiwu/cppjieba" target="_blank" rel="noopener">结巴分词</a></p>
+<p><a href="https://github.com/koth/kcws" target="_blank" rel="noopener">KCWS分词器(字嵌入+Bi-LSTM+CRF)</a></p>
+<p><a href="https://github.com/frcchang/zpar/releases" target="_blank" rel="noopener">ZPar</a></p>
+<p><a href="https://github.com/wks/ik-analyzer" target="_blank" rel="noopener">IKAnalyzer</a></p>
+<h3 id="Kibana-测试请求-1"><a href="#Kibana-测试请求-1" class="headerlink" title="Kibana 测试请求"></a>Kibana 测试请求</h3><pre><code>#stop word
+
+DELETE my_index
+PUT /my_index/_doc/1
+{ &quot;title&quot;: &quot;I&#39;m happy for this fox&quot; }
+
+PUT /my_index/_doc/2
+{ &quot;title&quot;: &quot;I&#39;m not happy about my fox problem&quot; }
+
+
+POST my_index/_search
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;title&quot;: &quot;not happy fox&quot;
+    }
+  }
+}
+
+
+#虽然通过使用 english （英语）分析器，使得匹配规则更加宽松，我们也因此提高了召回率，但却降低了精准匹配文档的能力。为了获得两方面的优势，我们可以使用multifields（多字段）对 title 字段建立两次索引： 一次使用 `english`（英语）分析器，另一次使用 `standard`（标准）分析器:
+
+DELETE my_index
+
+PUT /my_index
+{
+  &quot;mappings&quot;: {
+    &quot;blog&quot;: {
+      &quot;properties&quot;: {
+        &quot;title&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;analyzer&quot;: &quot;english&quot;
+        }
+      }
+    }
+  }
+}
+
+PUT /my_index
+{
+  &quot;mappings&quot;: {
+    &quot;blog&quot;: {
+      &quot;properties&quot;: {
+        &quot;title&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;fields&quot;: {
+            &quot;english&quot;: {
+              &quot;type&quot;:     &quot;string&quot;,
+              &quot;analyzer&quot;: &quot;english&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+PUT /my_index/blog/1
+{ &quot;title&quot;: &quot;I&#39;m happy for this fox&quot; }
+
+PUT /my_index/blog/2
+{ &quot;title&quot;: &quot;I&#39;m not happy about my fox problem&quot; }
+
+GET /_search
+{
+  &quot;query&quot;: {
+    &quot;multi_match&quot;: {
+      &quot;type&quot;:     &quot;most_fields&quot;,
+      &quot;query&quot;:    &quot;not happy foxes&quot;,
+      &quot;fields&quot;: [ &quot;title&quot;, &quot;title.english&quot; ]
+    }
+  }
+}
+
+
+#安装插件
+./elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.1.0/elasticsearch-analysis-ik-7.1.0.zip
+#安装插件
+bin/elasticsearch install https://github.com/KennFalcon/elasticsearch-analysis-hanlp/releases/download/v7.1.0/elasticsearch-analysis-hanlp-7.1.0.zip
+
+
+
+
+#ik_max_word
+#ik_smart
+#hanlp: hanlp默认分词
+#hanlp_standard: 标准分词
+#hanlp_index: 索引分词
+#hanlp_nlp: NLP分词
+#hanlp_n_short: N-最短路分词
+#hanlp_dijkstra: 最短路分词
+#hanlp_crf: CRF分词（在hanlp 1.6.6已开始废弃）
+#hanlp_speed: 极速词典分词
+
+POST _analyze
+{
+  &quot;analyzer&quot;: &quot;hanlp_standard&quot;,
+  &quot;text&quot;: [&quot;剑桥分析公司多位高管对卧底记者说，他们确保了唐纳德·特朗普在总统大选中获胜&quot;]
+
+}     
+
+#Pinyin
+PUT /artists/
+{
+    &quot;settings&quot; : {
+        &quot;analysis&quot; : {
+            &quot;analyzer&quot; : {
+                &quot;user_name_analyzer&quot; : {
+                    &quot;tokenizer&quot; : &quot;whitespace&quot;,
+                    &quot;filter&quot; : &quot;pinyin_first_letter_and_full_pinyin_filter&quot;
+                }
+            },
+            &quot;filter&quot; : {
+                &quot;pinyin_first_letter_and_full_pinyin_filter&quot; : {
+                    &quot;type&quot; : &quot;pinyin&quot;,
+                    &quot;keep_first_letter&quot; : true,
+                    &quot;keep_full_pinyin&quot; : false,
+                    &quot;keep_none_chinese&quot; : true,
+                    &quot;keep_original&quot; : false,
+                    &quot;limit_first_letter_length&quot; : 16,
+                    &quot;lowercase&quot; : true,
+                    &quot;trim_whitespace&quot; : true,
+                    &quot;keep_none_chinese_in_first_letter&quot; : true
+                }
+            }
+        }
+    }
+}
+
+
+GET /artists/_analyze
+{
+  &quot;text&quot;: [&quot;刘德华 张学友 郭富城 黎明 四大天王&quot;],
+  &quot;analyzer&quot;: &quot;user_name_analyzer&quot;
+}</code></pre><h1 id="平时开发及测试需要注意"><a href="#平时开发及测试需要注意" class="headerlink" title="平时开发及测试需要注意"></a>平时开发及测试需要注意</h1><h3 id="思考与分析"><a href="#思考与分析" class="headerlink" title="思考与分析"></a>思考与分析</h3><ul>
+<li>“精确值”还是”全文”</li>
+<li>搜索是怎样的？不同字段需要配置怎样的分词器</li>
+<li>测试不同的选项<ul>
+<li>分词器、多字段属性、是否要 g-grams、what are some critical synonyms、为字段设置不同的权重</li>
+<li>测试不同的选项，测试不同的搜索条件</li>
+<li>查看搜索结果和相关性算分、对搜索结果高亮显示</li>
+</ul>
+</li>
+</ul>
+<h3 id="测试相关性：理解原理-多分析-多调整测试"><a href="#测试相关性：理解原理-多分析-多调整测试" class="headerlink" title="测试相关性：理解原理+多分析+多调整测试"></a>测试相关性：理解原理+多分析+多调整测试</h3><p>技术分为道和术两种</p>
+<ul>
+<li>道：原理和原则</li>
+<li>术：具体的做法、具体的解法</li>
+</ul>
+<p>关于搜索，为了有一个好的搜索结果。除了真正理解背后的原理，更需要多加实践与分析</p>
+<ul>
+<li>单纯追求”术”，会一直很辛苦。只有掌握了本质和精髓之”道，做事才游刃有余</li>
+<li>要做好搜索，除了理解原理，也需要坚持去分析一些不好的搜索结果。只有通过一定时间的积累，才能真正所有感觉</li>
+<li>总希望一个模型，一个算法，就能毕其功于一役，是不现实的</li>
+</ul>
+<h3 id="监控并理解用户行为"><a href="#监控并理解用户行为" class="headerlink" title="监控并理解用户行为"></a>监控并理解用户行为</h3><p>开发的时候不要过度调试相关度</p>
+<p>而要监控搜索结果，监控用户点击最顶端结果的频次</p>
+<p>将搜索结果提高到几高水平，唯一途径就是</p>
+<ul>
+<li>需要具有度量用户行为的强大能力</li>
+<li>可以在后台实现统计数据，比如：用户的查询和结果，有多少被点击了</li>
+<li>哪些搜索，没有返回结果</li>
+</ul>
+<h1 id="使用-Search-Template-和-Index-Alias"><a href="#使用-Search-Template-和-Index-Alias" class="headerlink" title="使用 Search Template 和 Index Alias"></a>使用 Search Template 和 Index Alias</h1><h3 id="Search-Template"><a href="#Search-Template" class="headerlink" title="Search Template"></a>Search Template</h3><p>主要可用于解耦程序和搜索 DSL。Elasticsearch 的查询语句对相关性算分和查询性能都至关重要。</p>
+<p>在开发初期，虽然可以明确查询参数，但是往往还不能最终定义查询的 DSL 的具体结构。</p>
+<p>我们可以通过 Search Template 定义一个 Contract，解耦开发人员、搜索工程师、性能工程师之间的工作，让其各司其职。</p>
+<ol>
+<li>使用_script api创建一个名为 “tmdb”的 Search Template，我们对DSL中的 multi_match 查询的 query 属性定义为一个template 的变量，这个属性也就是用户查询的时候输入的一个检索字符串</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212814.png" alt="image-20200426000122334"></p>
+<ol start="2">
+<li><p>使用 Search Template 进行查询</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212821.png" alt="image-20200426000417028"></p>
+</li>
+</ol>
+<blockquote>
+<p>详细语法参考：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-template.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-template.html</a></p>
+</blockquote>
+<h3 id="Index-Alias"><a href="#Index-Alias" class="headerlink" title="Index Alias"></a>Index Alias</h3><p>主要用于实现零停机运维。当我们如果经常会修改一个索引的名称，但是我们elasticsearch 的上层应用又不想经常性地修改引用索引地名称，这时候我们就可以使用 Index Alias。上层应用对 alias 进行索引地访问。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212829.png" alt="image-20200426001116712"></p>
+<p>另外我们还可以使用 Alias 创建不同地查询的视图，例如下面的动作在创建索引的同时使用了一个 range filter，设定对该 alias 的访问只能获得 rating字段大于等于4的文档数据。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212836.png" alt="image-20200426001144059"></p>
+<h1 id="Function-Score-Query-优化算分"><a href="#Function-Score-Query-优化算分" class="headerlink" title="Function Score Query 优化算分"></a>Function Score Query 优化算分</h1><p>Elasticsearch 默认会以文档的相关度算分进行排序，可以通过指定一个或者多个查询字段进行排序。但是在某些特定条件，无法针对相关度，对排序实现更多的控制，即使用相关度算分排序无法满足需求。</p>
+<p>而 Function Score Query 可以在查询结束后，对每一个匹配的文档进行一系列的重新算分，根据新生成的分数进行排序。它提供了几种默认的计算分值的函数：</p>
+<ul>
+<li>Weight：为每一个文档设置一个简单而不被规范化的权重</li>
+<li>Field Value Factor：使用该数值来修改_score，例如将”热度”和”点赞数”作为算分的参考因素</li>
+<li>Random Score：对搜索结果进行随机的排序，使得我们可以在实现特定需求例如需要为每一个用户使用一个不同的随机算分</li>
+<li>衰减函数：以某个字段的值为标准，举例某个值越近，得分越高</li>
+<li>Script Score：自定义脚本完全控制所需逻辑</li>
+</ul>
+<h3 id="案例使用-function-score-query"><a href="#案例使用-function-score-query" class="headerlink" title="案例使用 function score query"></a>案例使用 function score query</h3><p>希望能够将点赞多的 blog，放在搜索列表相对靠前的位置。同时搜索的评分，还是要作为排序的主要依据。 以下就是一个例子，我们写入一个文档到博客索引中，这个文档包含一个标题、内容、投票数三个字段。</p>
+<p>下面就是一个查询博客文档的请求，它使用了 function_score 的 query，我们指定了 votes 字段作为 field_value_factor对搜索结果进行重新算分。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212857.png" alt="image-20200426070338527"></p>
+<p>以上 function_score 的算分规则其实就是：新的算分= 旧的算分 <em> 投票数；（上面的逻辑就是相关度算分 </em> 6）</p>
+<h3 id="使用-Modifier-平滑曲线"><a href="#使用-Modifier-平滑曲线" class="headerlink" title="使用 Modifier 平滑曲线"></a>使用 Modifier 平滑曲线</h3><p>以上查询会存在以下问题，当用户投票数的差异非常大的时候，例如有三篇博客的投票数分别是0，1000，1000000000的时候，算分结果的差异也会非常大，因为它是简单的相乘。</p>
+<p>这时候我们可以引进 function_score 的 field_value_factor 的另一个属性 modifier 了，它可以对算分的函数进行平滑处理，例如我们在下面的例子中使用了 log1p 的 modifiier，它将会导致我们的新算分逻辑产生变化：新的算分 = 旧的算分 <em> log(1 + 投票数)；（即：相关度算分 </em> log(1 + 投票数)）log 了一下，这样就能让我们的算分函数曲线在投票数越来越高的时候趋向平滑。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212907.png" alt="image-20200426071341391"></p>
+<p>另外，modifier 还有以下平滑处理方式可以选择，根据实际的场景进行选择：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212928.png" alt="image-20200426071419020"></p>
+<h3 id="Factor"><a href="#Factor" class="headerlink" title="Factor"></a>Factor</h3><p>另外我们还能如下面例子这样使用另一个属性”factor”，它也会影响到我们的算分：新的算分 = 旧的算分 <em> log(1 + factor </em> 投票数)；即（相关度算分 <em> log(1 + factor </em> 投票数)）。从而实现更精准的控制。下面是不同 factor下的算分函数曲线的平滑度：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221212940.png" alt="image-20200426072018972"></p>
+<h3 id="Boost-Mode-和-Max-Boost"><a href="#Boost-Mode-和-Max-Boost" class="headerlink" title="Boost Mode 和 Max Boost"></a>Boost Mode 和 Max Boost</h3><p>Function_score query 还可以通过Boost Mode来控制新的算分方式：</p>
+<ul>
+<li>Multiply：算分与log函数值（如果没有进行平滑处理就是该字段值本身）的乘积（默认，就是我们上面例子使用的）</li>
+<li>Sum：算分与log函数值（如果没有进行平滑处理就是该字段值本身）的和</li>
+<li>Min/Max：算分与log函数值（如果没有进行平滑处理就是该字段值本身）取最小/最大值</li>
+<li>Replace：使用log函数值（如果没有进行平滑处理就是该字段值本身）取代算分</li>
+</ul>
+<p>另外Max Boost 可以将返回结果的新算分计算结果维持在一个最大值之内，下面例子没有加入 Max_Boost 之前最大算分为5点几，加入之后 max_boost=3之后变成了3点几：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213057.png" alt="image-20200426074419723"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213106.png" alt="image-20200426074330667"></p>
+<h3 id="一致性随机函数"><a href="#一致性随机函数" class="headerlink" title="一致性随机函数"></a>一致性随机函数</h3><p>使用场景：网站的广告需要提高展现率，让每个用户能看到不同的随机排名，但是也希望同一个用户访问时，其访问到的广告的顺序时一致的。</p>
+<p>这样我们就可以使用 function_score 的 random_score 设置其属性 seed 值来实现，它会通过一个随机函数对搜索文档进行随机算分，同一个 seed 值每一个文档获得的随机算分是一致的，这也就保证了随机函数的一致性。</p>
+<p>这样我们就可以通过为不同用户指定不同 seed 值实现随机排序了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213113.png" alt="image-20200426074552470"></p>
+<h3 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-function-score-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-function-score-query.html</a></p>
+</blockquote>
+<h3 id="Kibana-测试请求："><a href="#Kibana-测试请求：" class="headerlink" title="Kibana 测试请求："></a>Kibana 测试请求：</h3><pre><code>DELETE blogs
+PUT /blogs/_doc/1
+{
+  &quot;title&quot;:   &quot;About popularity&quot;,
+  &quot;content&quot;: &quot;In this post we will talk about...&quot;,
+  &quot;votes&quot;:   0
+}
+
+PUT /blogs/_doc/2
+{
+  &quot;title&quot;:   &quot;About popularity&quot;,
+  &quot;content&quot;: &quot;In this post we will talk about...&quot;,
+  &quot;votes&quot;:   100
+}
+
+PUT /blogs/_doc/3
+{
+  &quot;title&quot;:   &quot;About popularity&quot;,
+  &quot;content&quot;: &quot;In this post we will talk about...&quot;,
+  &quot;votes&quot;:   1000000
+}
+
+
+POST /blogs/_search
+{
+  &quot;query&quot;: {
+    &quot;function_score&quot;: {
+      &quot;query&quot;: {
+        &quot;multi_match&quot;: {
+          &quot;query&quot;:    &quot;popularity&quot;,
+          &quot;fields&quot;: [ &quot;title&quot;, &quot;content&quot; ]
+        }
+      },
+      &quot;field_value_factor&quot;: {
+        &quot;field&quot;: &quot;votes&quot;
+      }
+    }
+  }
+}
+
+POST /blogs/_search
+{
+  &quot;query&quot;: {
+    &quot;function_score&quot;: {
+      &quot;query&quot;: {
+        &quot;multi_match&quot;: {
+          &quot;query&quot;:    &quot;popularity&quot;,
+          &quot;fields&quot;: [ &quot;title&quot;, &quot;content&quot; ]
+        }
+      },
+      &quot;field_value_factor&quot;: {
+        &quot;field&quot;: &quot;votes&quot;,
+        &quot;modifier&quot;: &quot;log1p&quot;
+      }
+    }
+  }
+}
+
+
+POST /blogs/_search
+{
+  &quot;query&quot;: {
+    &quot;function_score&quot;: {
+      &quot;query&quot;: {
+        &quot;multi_match&quot;: {
+          &quot;query&quot;:    &quot;popularity&quot;,
+          &quot;fields&quot;: [ &quot;title&quot;, &quot;content&quot; ]
+        }
+      },
+      &quot;field_value_factor&quot;: {
+        &quot;field&quot;: &quot;votes&quot;,
+        &quot;modifier&quot;: &quot;log1p&quot; ,
+        &quot;factor&quot;: 0.1
+      }
+    }
+  }
+}
+
+
+POST /blogs/_search
+{
+  &quot;query&quot;: {
+    &quot;function_score&quot;: {
+      &quot;query&quot;: {
+        &quot;multi_match&quot;: {
+          &quot;query&quot;:    &quot;popularity&quot;,
+          &quot;fields&quot;: [ &quot;title&quot;, &quot;content&quot; ]
+        }
+      },
+      &quot;field_value_factor&quot;: {
+        &quot;field&quot;: &quot;votes&quot;,
+        &quot;modifier&quot;: &quot;log1p&quot; ,
+        &quot;factor&quot;: 0.1
+      },
+      &quot;boost_mode&quot;: &quot;sum&quot;,
+      &quot;max_boost&quot;: 3
+    }
+  }
+}
+
+POST /blogs/_search
+{
+  &quot;query&quot;: {
+    &quot;function_score&quot;: {
+      &quot;random_score&quot;: {
+        &quot;seed&quot;: 911119
+      }
+    }
+  }
+}</code></pre><h1 id="Elasticsearch-Suggester-API"><a href="#Elasticsearch-Suggester-API" class="headerlink" title="Elasticsearch Suggester API"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-suggesters-term.html" target="_blank" rel="noopener">Elasticsearch Suggester API</a></h1><p> 现代的搜索引擎，一般都会提供 Suggest as type 的功能，帮助用户在输入搜索的过程中，进行自动补全或者纠错。通过协助用户输入更加精准的关键词，提高后续搜索阶段文档匹配的程度。</p>
+<p>在 google 上搜索，一开始会自动补全。当输入到一定长度，如因为单词拼写错误无法补全，就会开始提示相似的词或者句子。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213122.png" alt="image-20200426091217561"></p>
+<p>搜索引擎中类似的功能，在 Elasticsearch 中是通过 Suggester API 实现的，其原理时：将输入的文本分解为 Token，然后在索引的字段里找相似的 Term 并返回。</p>
+<p><strong>根据不同的使用场景，Elasticsearch 设计了4种类别的 Suggesters：</strong></p>
+<ul>
+<li>Term &amp; Phrase Suggester</li>
+<li>Complete &amp; Context Suggester</li>
+</ul>
+<p>下面我们来看几个案例，在此之前先建立一个测试索引和一些文档数据，这些文档都有一个 body 字段，该字段使用默认分词器standard，仅进行了大写转小写的动作，对于它来说”rocks”和”rock”是两个词：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213131.png" alt="image-20200426095728513"></p>
+<h3 id="Term-Suggester"><a href="#Term-Suggester" class="headerlink" title="Term Suggester"></a>Term Suggester</h3><p>Term Suggester 下提供了三种 Suggestion Mode：</p>
+<ul>
+<li>Missing：如果索引中已经存在term，不提供建议</li>
+<li>Popular：推荐出现频率比当前检索词条更加高的词</li>
+<li>Always：无论出现频率是否比当前检索词条更高，都进行返回</li>
+</ul>
+<h5 id="Missing-Mode"><a href="#Missing-Mode" class="headerlink" title="Missing Mode"></a>Missing Mode</h5><p>我们来看下下面的例子，调用_search 的时候我们指定了 suggest 而不是 query，这个就是 es 的 Suggester，这个例子中我们指定了一个 term-suggestion，其中 text 的内容就是用户输入的内容，其中我们指定了 body 作为我们检索建议词条的字段：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213138.png" alt="image-20200426094146863"></p>
+<p>Suggester 其实就是一种特殊类型的搜索。”text”里是调用时提供的文本，通常来自于用户界面上用户输入的内容。</p>
+<p>可以看到上面的用户输入的”lucen”是一个错误的拼写，应该是”lucene”。下面我们分析一下 suggestion 的工作流程：</p>
+<ol>
+<li><p>该 term-suggestion 在接收到 text 的内容之后，会经过分词器的拆分成一个个 terms，然后到索引中进行 term 匹配，此时如果匹配不到或者匹配到了就要看我们配置的”suggest_mode”来决定后面的步骤怎么走</p>
+</li>
+<li><p>可以看到我们在上面的例子中配置了”missing”的”suggest_mode”：当text 拆分之后的 term 在索引的 term 字典中无法匹配的时候， 就会将<strong>一些</strong>“相似的”词条在 options 中进行返回；<strong>如果匹配了，options 中就不会返回任何内容</strong>（最后一个文档”elasticsearch is rock solid”中包含）。</p>
+<p>其中每个”相似的”词条中都包含了一个”score”字段，这个字段描述了当前返回词条和 text 中词条的相似度，这个相似度是通过 Levenshtein Edit DIstance 的算法实现的。核心思想就是一个词改动多少字符就可以和另外一个词一致。es 提供了很多可选参数来控制相似性的模糊程度。例如”max_edits”，它的可输入范围是[1,2]，具体控制逻辑待研究：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213147.png" alt="image-20200426095436658"></p>
+</li>
+<li><p>另外 options 中返回的建议词条默认是按照词频”frequence”进行排序的，我们也可以设定按照相似度”score”进行排序，通过设置一个 sort 属性即可：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213157.png" alt="image-20200426102750909"></p>
+</li>
+</ol>
+<h5 id="Popular-Mode"><a href="#Popular-Mode" class="headerlink" title="Popular Mode"></a>Popular Mode</h5><p>上面的 Missing Mode 的例子中可以看到对于输入”lucen rock”拆解之后的第二个词条 “rock” 已经在索引词条字段中存在了，就不在 suggestion 中返回，如果我们依然想对匹配的索引的字段进行返回，可以通过设置”popular” mode 来实现（但是需要注意的，它只会返回在所有文档中词频比当前匹配的检索词条更高的相似词条）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213204.png" alt="image-20200426100559190"></p>
+<p>可以看到 es 的 popular mode 是按照出现频率（rocks 在两篇文档中出现了，更 popular）或者相似度给我们进行了返回（匹配的词条本身不会返回，上例中 “rock” 没有返回）。</p>
+<h6 id="Prefix-Length"><a href="#Prefix-Length" class="headerlink" title="Prefix Length"></a>Prefix Length</h6><p>我们针对以上例子做一个改动，将搜索 text 中的”rock”改成了”hock”， 可以看到即使是 popular mode，针对该 term 也没有返回相关的建议。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213222.png" alt="image-20200426101648776"></p>
+<p>这是因为 es 在默认情况下，如果检索词条的第一个字符和被检索词条的第一个字符都不匹配，就认为它们是”不相似的”，这个逻辑es 也提供了一个参数实现可配置化：”prefix_length”，当我们将这个参数设置为0的时候，es 就会跳过第一个字符的检查，即可获得返回”rock”：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213233.png" alt="image-20200426102903196"></p>
+<h5 id="Always-Mode"><a href="#Always-Mode" class="headerlink" title="Always Mode"></a>Always Mode</h5><p>上面的例子中，我们使用了”popular mode”，它在当前检索的词条在索引的词条字典中已经存在的情况下也可以进行返回，但是有个前提条件就是只返回词频比检索词条更高的其他相似词条。如果我们也想对词频比当前检索词条低的相似词条进行返回，可以通过设置”always mode”进行实现。</p>
+<h3 id="Phrase-Suggester"><a href="#Phrase-Suggester" class="headerlink" title="Phrase Suggester"></a>Phrase Suggester</h3><p>Phrase Suggester 在 Term Suggester 上增加了一些额外的逻辑，还支持了一些额外的参数：</p>
+<ul>
+<li>Max Errors：最多可以拼错的 Terms 数</li>
+<li>Confidence：限制返回结果数，默认为1</li>
+</ul>
+<p>下面是一个 Phrase Suggester 的例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213242.png" alt="image-20200426105038444"></p>
+<p>详细参考<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-suggesters-phrase.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-suggesters-phrase.html</a></p>
+<h3 id="Completion-Suggester"><a href="#Completion-Suggester" class="headerlink" title="Completion Suggester"></a>Completion Suggester</h3><p>Completion Suggester 提供了”自动完成”（Auto Complete）的功能。用户每输入一个字符，就需要即时发送一个查询请求到后端查找匹配项。这对性能要求比较苛刻。Elasticsearch 采用了不同的数据结构，并非通过倒排索引来完成。而是将 Analyze 的数据编码成 FST 和索引一起存放。FST 会被 ES 整个加载进内存，速度很快。</p>
+<p>FST 只能用于前缀查找。</p>
+<h5 id="使用-Completion-Suggester-的一些步骤"><a href="#使用-Completion-Suggester-的一些步骤" class="headerlink" title="使用 Completion Suggester 的一些步骤"></a>使用 Completion Suggester 的一些步骤</h5><ol>
+<li><p>定义 mapping，对需要使用 Completion Suggester 实现自动完成的功能的字段使用”completion” type</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213255.png" alt="image-20200426110259562"></p>
+</li>
+<li><p>索引数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213304.png" alt="image-20200426110312381"></p>
+</li>
+<li><p>搜索数据</p>
+<p>可以看到我们也是调用了_search api 然后指定了 suggest，并在它的一个子属性”article-suggest”下面指定了”completion”的 suggest并为其指定了”title_completion”字段，也就是我们在建立索引的时候指定为”completion”type 的字段，<strong>然后设置”prefix”为”el”，这个 “prefix”就是用户目前输入的内容</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213311.png" alt="image-20200426110326232"></p>
+<p>可以看到，es 为我们返回了所有以”el”为前缀的数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213335.png" alt="image-20200426110532849"></p>
+</li>
+</ol>
+<h3 id="Context-Suggester"><a href="#Context-Suggester" class="headerlink" title="Context Suggester"></a>Context Suggester</h3><p>它是 Completion Suggester 的扩展，可以在搜索中加入更多的上下文信息，例如，存在这么个需求，当用户输入”star” 的时候：</p>
+<ul>
+<li><p>如果用户在咖啡频道，es 给出建议”Starbucks”</p>
+</li>
+<li><p>如果用户在电影频道：es 给出建议”star wars”</p>
+<p>es 中 context suggester 可以实现两种 context：</p>
+</li>
+<li><p>category：任意字符串</p>
+</li>
+<li><p>geo：地理位置信息</p>
+</li>
+</ul>
+<h5 id="实现-Context-Suggester"><a href="#实现-Context-Suggester" class="headerlink" title="实现 Context Suggester"></a>实现 Context Suggester</h5><ol>
+<li><p>定制一个 Mapping</p>
+<p>如下图我们建立了一个 comments 索引，在其 mapping 中定义了一个字段为  completion_autocomplete，该字段类型也是”completion”，然后为它设置了另外一个属性”context”，然后设置上下文类型 type 为”category”，并起名为” comment_category”上下文：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213347.png" alt="image-20200426111938127"></p>
+</li>
+<li><p>索引数据</p>
+<p>如下图所示我们分别在该索引中设置了两条文档，文档内容分别是”I love the star war movies”和”Where can I find a Starbucks”，我们需要实现上面讲的在不同频道进行输入前缀”sta”的时候提示不同的相应的内容，我们可以像下面这样进行索引数据：</p>
+<ol>
+<li><p>为每个文档进行 comment_autocomplete 字段的设置（该字段类型是 completion，和上面的 Completion Suggester 一样），表示我们想让这个文档可以提供自动提示的内容</p>
+</li>
+<li><p>如果我们没有根据不同上下文提示不同内容的需求，完全可以像上面的 Completion Suggester 的设置那样直接将 Comment 的内容复制到 comment_autocomplete 字段中（或者干脆删掉 comment 字段即可，那么就和 completion suggester 一样了）；但是现在我们现在需要实现这样的需求，所以我们还要对 comment_autocomplete 字段的内容进行定制：</p>
+<ul>
+<li><p>通过设置 contexts 属性将当前文档与不同的上下文绑定，可以看到 contexts 属性是一个数组，也就是说支持设置多个值，而它的值又不是一个字符串类型，我们是可以对它再进行设置的，也就是说这里的上下文划分两个维度支持我们更灵活的数据分类和聚合（例如我们可以设置两层 context：第一层 context 通过在建立索引的时候为 mapping中的 contexts 属性中设置不同的属性来实现；第二层 context 通过在索引文档的时候通过给文档指定不通contexts 属性的值来实现）。</p>
+<p>而在本案例中我们只给索引建立了一个上下文（我们只需要实现一层 context）：comment_category。所以我们直接给不同频道的文档对”comment_category”进行不同的设值，同一频道的文档进行相同的设值，这样就可以实现文档和上下文绑定聚合的功能。对于上下文我们可以理解为 FST 的不同隔离空间。</p>
+</li>
+<li><p>通过设置 input 属性将 input 的内容绑定到指定的上下文，也就是 FST 的隔离空间，然后建立这些 input 值和当前文档的关联关系。（后续用户进行自动完成动作的时候就会到指定的 FST 隔离空间下进行词条检索匹配，一旦匹配到了，就会根据 input 值绑定的文档对文档进行返回）</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213356.png" alt="image-20200426112828073"></p>
+</li>
+<li><p>查询数据</p>
+<p>我们现在进行数据查询，可以看到我们设置用户输入的内容”sta”到 prefix 属性，然后指定 completion 的属性 field 为 comment_autocomplete，表示我们要到这个字段中进行”自动完成操作”，然后指定 completion 的 contexts 字段的”comment_category”属性值为”coffee”，表示我们要到comment_category 的一级上下文下的 coffee 二级上下文查找进行词条检索匹配。</p>
+<p>es 将会完成这样的动作，根据我们指定的上下文 contexts 属性值将 sta 到指定的 FST 空间中进行前缀匹配（因为我们设置了comment_autocomplete 字段是上下文自动完成，这里的查询不设置上下文将会报错）。如果匹配到了就会返回和匹配字符串绑定的文档（因为可以在多个文档中设置相同的 input，所以可能会返回多个文档）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221213403.png" alt="image-20200426114016502"></p>
+<p>根据上面的逻辑，如果我们没有为一个文档进行上下文绑定，那么我们在进行以上的上下文查询的时候将会无法匹配到该文档；另外，我们可以给一个文档设置和文档内容完全不相关的 input（这种情况下，即使不包含上下文功能的功能，也会和上面的 completion suggester 的实现存在差异）。</p>
+</li>
+</ol>
+<h3 id="四种-suggestion-比较"><a href="#四种-suggestion-比较" class="headerlink" title="四种 suggestion 比较"></a>四种 suggestion 比较</h3><ul>
+<li><p>精准度</p>
+<p>Completion &gt; Phrase &gt; term</p>
+</li>
+</ul>
+<ul>
+<li><p>召回率</p>
+<p>Term &gt; Phrase &gt; Completion</p>
+</li>
+<li><p>性能</p>
+<p>Completion &gt; Phrase &gt; Term</p>
+</li>
+</ul>
+<h4 id="Kibana-测试请求-2"><a href="#Kibana-测试请求-2" class="headerlink" title="Kibana 测试请求"></a>Kibana 测试请求</h4><pre><code>DELETE articles
+PUT articles
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;title_completion&quot;:{
+        &quot;type&quot;: &quot;completion&quot;
+      }
+    }
+  }
+}
+
+POST articles/_bulk
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;lucene is very cool&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;Elasticsearch builds on top of lucene&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;Elasticsearch rocks&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;elastic is the company behind ELK stack&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;Elk stack rocks&quot;}
+{ &quot;index&quot; : {} }
+
+
+POST articles/_search?pretty
+{
+  &quot;size&quot;: 0,
+  &quot;suggest&quot;: {
+    &quot;article-suggester&quot;: {
+      &quot;prefix&quot;: &quot;elk &quot;,
+      &quot;completion&quot;: {
+        &quot;field&quot;: &quot;title_completion&quot;
+      }
+    }
+  }
+}
+
+DELETE articles
+
+POST articles/_bulk
+{ &quot;index&quot; : { } }
+{ &quot;body&quot;: &quot;lucene is very cool&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;body&quot;: &quot;Elasticsearch builds on top of lucene&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;body&quot;: &quot;Elasticsearch rocks&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;body&quot;: &quot;elastic is the company behind ELK stack&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;body&quot;: &quot;Elk stack rocks&quot;}
+{ &quot;index&quot; : {} }
+{  &quot;body&quot;: &quot;elasticsearch is rock solid&quot;}
+
+
+POST _analyze
+{
+  &quot;analyzer&quot;: &quot;standard&quot;,
+  &quot;text&quot;: [&quot;Elk stack  rocks rock&quot;]
+}
+
+POST /articles/_search
+{
+  &quot;size&quot;: 1,
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;body&quot;: &quot;lucen rock&quot;
+    }
+  },
+  &quot;suggest&quot;: {
+    &quot;term-suggestion&quot;: {
+      &quot;text&quot;: &quot;lucen rock&quot;,
+      &quot;term&quot;: {
+        &quot;suggest_mode&quot;: &quot;missing&quot;,
+        &quot;field&quot;: &quot;body&quot;
+      }
+    }
+  }
+}
+
+
+POST /articles/_search
+{
+
+  &quot;suggest&quot;: {
+    &quot;term-suggestion&quot;: {
+      &quot;text&quot;: &quot;lucen rock&quot;,
+      &quot;term&quot;: {
+        &quot;suggest_mode&quot;: &quot;popular&quot;,
+        &quot;field&quot;: &quot;body&quot;
+      }
+    }
+  }
+}
+
+
+POST /articles/_search
+{
+
+  &quot;suggest&quot;: {
+    &quot;term-suggestion&quot;: {
+      &quot;text&quot;: &quot;lucen rock&quot;,
+      &quot;term&quot;: {
+        &quot;suggest_mode&quot;: &quot;always&quot;,
+        &quot;field&quot;: &quot;body&quot;,
+      }
+    }
+  }
+}
+
+
+POST /articles/_search
+{
+
+  &quot;suggest&quot;: {
+    &quot;term-suggestion&quot;: {
+      &quot;text&quot;: &quot;lucen hocks&quot;,
+      &quot;term&quot;: {
+        &quot;suggest_mode&quot;: &quot;always&quot;,
+        &quot;field&quot;: &quot;body&quot;,
+        &quot;prefix_length&quot;:0,
+        &quot;sort&quot;: &quot;frequency&quot;
+      }
+    }
+  }
+}
+
+
+POST /articles/_search
+{
+  &quot;suggest&quot;: {
+    &quot;my-suggestion&quot;: {
+      &quot;text&quot;: &quot;lucne and elasticsear rock hello world &quot;,
+      &quot;phrase&quot;: {
+        &quot;field&quot;: &quot;body&quot;,
+        &quot;max_errors&quot;:2,
+        &quot;confidence&quot;:0,
+        &quot;direct_generator&quot;:[{
+          &quot;field&quot;:&quot;body&quot;,
+          &quot;suggest_mode&quot;:&quot;always&quot;
+        }],
+        &quot;highlight&quot;: {
+          &quot;pre_tag&quot;: &quot;&lt;em&gt;&quot;,
+          &quot;post_tag&quot;: &quot;&lt;/em&gt;&quot;
+        }
+      }
+    }
+  }
+}
+
+DELETE articles
+PUT articles
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;title_completion&quot;:{
+        &quot;type&quot;: &quot;completion&quot;
+      }
+    }
+  }
+}
+
+POST articles/_bulk
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;lucene is very cool&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;Elasticsearch builds on top of lucene&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;Elasticsearch rocks&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;elastic is the company behind ELK stack&quot;}
+{ &quot;index&quot; : { } }
+{ &quot;title_completion&quot;: &quot;Elk stack rocks&quot;}
+{ &quot;index&quot; : {} }
+
+
+POST articles/_search?pretty
+{
+  &quot;size&quot;: 0,
+  &quot;suggest&quot;: {
+    &quot;article-suggester&quot;: {
+      &quot;prefix&quot;: &quot;elk &quot;,
+      &quot;completion&quot;: {
+        &quot;field&quot;: &quot;title_completion&quot;
+      }
+    }
+  }
+}
+
+
+DELETE comments
+PUT comments
+PUT comments/_mapping
+{
+  &quot;properties&quot;: {
+    &quot;comment_autocomplete&quot;:{
+      &quot;type&quot;: &quot;completion&quot;,
+      &quot;contexts&quot;:[{
+        &quot;type&quot;:&quot;category&quot;,
+        &quot;name&quot;:&quot;comment_category&quot;
+      }]
+    }
+  }
+}
+
+POST comments/_doc
+{
+  &quot;comment&quot;:&quot;I love the star war movies&quot;,
+  &quot;comment_autocomplete&quot;:{
+    &quot;input&quot;:[&quot;star wars&quot;],
+    &quot;contexts&quot;:{
+      &quot;comment_category&quot;:&quot;movies&quot;
+    }
+  }
+}
+
+POST comments/_doc
+{
+  &quot;comment&quot;:&quot;Where can I find a Starbucks&quot;,
+  &quot;comment_autocomplete&quot;:{
+    &quot;input&quot;:[&quot;starbucks&quot;],
+    &quot;contexts&quot;:{
+      &quot;comment_category&quot;:&quot;coffee&quot;
+    }
+  }
+}
+
+
+POST comments/_search
+{
+  &quot;suggest&quot;: {
+    &quot;MY_SUGGESTION&quot;: {
+      &quot;prefix&quot;: &quot;sta&quot;,
+      &quot;completion&quot;:{
+        &quot;field&quot;:&quot;comment_autocomplete&quot;,
+        &quot;contexts&quot;:{
+          &quot;comment_category&quot;:&quot;coffee&quot;
+        }
+      }
+    }
+  }
+}</code></pre>
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">写作不易，客官能否打赏一杯奶茶？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《005_深入搜索》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/12/22/elasticsearch/005-shen-ru-sou-suo/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                阿钟
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '466e387c08bce10f3f28',
+        clientSecret: '5b2bf16f8a42bd72eef32e50187c7f2ccb105a1d',
+        repo: 'azhong.github.io',
+        owner: 'JohnZhongg',
+        admin: "JohnZhongg",
+        id: '2020/12/22/elasticsearch/005-shen-ru-sou-suo/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+    <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script> -->
+
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'false' === 'true',
+        avatar: 'wavatar',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '如果你没有GitHub账号，还可以在这里评论啦！'
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/12/22/elasticsearch/003-an-zhuang-shang-shou/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="003_安装上手">
+                        
+                        <span class="card-title">003_安装上手</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            003_安装上手
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ES学习/" class="post-category" target="_blank">
+                                    ES学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ES学习/" target="_blank">
+                        <span class="chip bg-color">ES学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/22/elasticsearch/015-java-es/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="015_Java_ES">
+                        
+                        <span class="card-title">015_Java_ES</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            015_Java_ES
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ES学习/" class="post-category" target="_blank">
+                                    ES学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ES学习/" target="_blank">
+                        <span class="chip bg-color">ES学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2020- Azhong. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">628k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/JohnZhongg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:707845008@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://zhihu.com/people/change-94-17" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-inverse">知</i>
+    </a>
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=707845008&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+<!-- 
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+ --></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020, 12, 20, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

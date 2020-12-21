@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-12-21T06:56:57.656Z</updated>
+  <updated>2020-12-21T16:42:17.354Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -17,199 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>vue 学习资料</title>
-    <link href="https://honphanjohn.top/2020/12/21/web-qian-duan/vue-xue-xi-zi-liao/"/>
-    <id>https://honphanjohn.top/2020/12/21/web-qian-duan/vue-xue-xi-zi-liao/</id>
-    <published>2020-12-21T06:56:08.701Z</published>
-    <updated>2020-12-21T06:56:57.656Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;a href=&quot;https://cn.vuejs.org/v2/guide/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;基本功能&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://cli.vuejs.org/zh/&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="web前端" scheme="https://honphanjohn.top/categories/web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="vue" scheme="https://honphanjohn.top/tags/vue/"/>
-    
-      <category term="学习资料" scheme="https://honphanjohn.top/tags/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Eureka的自我保护机制</title>
-    <link href="https://honphanjohn.top/2020/12/21/springcloud/eureka-de-zi-wo-bao-hu-ji-zhi/"/>
-    <id>https://honphanjohn.top/2020/12/21/springcloud/eureka-de-zi-wo-bao-hu-ji-zhi/</id>
-    <published>2020-12-21T06:53:15.510Z</published>
-    <updated>2020-12-21T06:54:38.858Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;自我保护机制介绍&quot;&gt;&lt;a href=&quot;#自我保护机制介绍&quot; class=&quot;headerlink&quot; title=&quot;自我保护机制介绍&quot;&gt;&lt;/a&gt;自我保护机制介绍&lt;/h1&gt;&lt;p&gt;当检测到同时有大量已注册客户端因为非正常断开连接然后准备从注册列表剔除，Eureka
-        
-      
-    
-    </summary>
-    
-      <category term="springcloud" scheme="https://honphanjohn.top/categories/springcloud/"/>
-    
-    
-      <category term="eureka" scheme="https://honphanjohn.top/tags/eureka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux的fork()和exec()</title>
-    <link href="https://honphanjohn.top/2020/12/21/linux/personal/linux-de-fork-he-exec/"/>
-    <id>https://honphanjohn.top/2020/12/21/linux/personal/linux-de-fork-he-exec/</id>
-    <published>2020-12-21T06:51:50.316Z</published>
-    <updated>2020-12-21T06:52:42.330Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;fork 会基于现有的进程复制一个子进程出来，该子进程代码空间和数据空间都指向父进程的物理空间。只要两个进程的任一个对数据进行修改，此时会产生一个系统中断，中断处理函数对该数据所在内存单元进行拷贝副本到子进程，然后再进行后续操作。即为写时复制。&lt;/p&gt;
-&lt;p&gt;fork
-        
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="https://honphanjohn.top/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="https://honphanjohn.top/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nodejs 入门</title>
-    <link href="https://honphanjohn.top/2020/12/11/web-qian-duan/nodejs/nodejs-ru-men/"/>
-    <id>https://honphanjohn.top/2020/12/11/web-qian-duan/nodejs/nodejs-ru-men/</id>
-    <published>2020-12-11T10:09:03.998Z</published>
-    <updated>2020-12-21T04:41:50.765Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;简介与安装&quot;&gt;&lt;a href=&quot;#简介与安装&quot; class=&quot;headerlink&quot; title=&quot;简介与安装&quot;&gt;&lt;/a&gt;简介与安装&lt;/h1&gt;&lt;h2 id=&quot;什么是-Node-js&quot;&gt;&lt;a href=&quot;#什么是-Node-js&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="web前端" scheme="https://honphanjohn.top/categories/web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="nodejs" scheme="https://honphanjohn.top/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTML简述序言</title>
-    <link href="https://honphanjohn.top/2020/11/27/web-qian-duan/h5/html/"/>
-    <id>https://honphanjohn.top/2020/11/27/web-qian-duan/h5/html/</id>
-    <published>2020-11-27T03:25:32.151Z</published>
-    <updated>2020-12-21T04:44:58.056Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;HTML简述序言&quot;&gt;&lt;a href=&quot;#HTML简述序言&quot; class=&quot;headerlink&quot; title=&quot;HTML简述序言&quot;&gt;&lt;/a&gt;HTML简述序言&lt;/h1&gt;&lt;h2 id=&quot;HTML基础&quot;&gt;&lt;a href=&quot;#HTML基础&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="web前端" scheme="https://honphanjohn.top/categories/web%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="html" scheme="https://honphanjohn.top/tags/html/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《redis设计与实践》读书笔记</title>
-    <link href="https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/"/>
-    <id>https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/</id>
-    <published>2020-11-01T00:58:28.597Z</published>
-    <updated>2020-12-21T04:48:11.235Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;普通数据结构&quot;&gt;&lt;a href=&quot;#普通数据结构&quot; class=&quot;headerlink&quot; title=&quot;普通数据结构&quot;&gt;&lt;/a&gt;普通数据结构&lt;/h1&gt;&lt;h2 id=&quot;SDS-Simple-Dynamic-String&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="redis" scheme="https://honphanjohn.top/categories/redis/"/>
-    
-    
-      <category term="redis设计与实践" scheme="https://honphanjohn.top/tags/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>k8s概述</title>
-    <link href="https://honphanjohn.top/2020/10/22/docker/k8s/"/>
-    <id>https://honphanjohn.top/2020/10/22/docker/k8s/</id>
-    <published>2020-10-22T07:15:53.404Z</published>
-    <updated>2020-12-21T05:06:38.162Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;k8s 里面的节点分为 master 和 node 节点，master 提供 api 操作集群。&lt;/p&gt;
-&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-      <category term="k8s" scheme="https://honphanjohn.top/categories/k8s/"/>
-    
-    
-      <category term="k8s" scheme="https://honphanjohn.top/tags/k8s/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>4_docker镜像</title>
-    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/4-docker-jing-xiang/"/>
-    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/4-docker-jing-xiang/</id>
-    <published>2020-10-18T06:24:43.702Z</published>
-    <updated>2020-12-21T05:11:53.849Z</updated>
+    <title>volatile 和 synchronized</title>
+    <link href="https://honphanjohn.top/2020/12/22/bing-fa-bian-cheng/volatile-and-synchronized/"/>
+    <id>https://honphanjohn.top/2020/12/22/bing-fa-bian-cheng/volatile-and-synchronized/</id>
+    <published>2020-12-21T16:42:17.353Z</published>
+    <updated>2020-12-21T16:42:17.354Z</updated>
     
     <summary type="html">
     
@@ -218,25 +30,25 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;Docker镜像是用来启动容器的构建基石。让我们通过进一步学习 Docker镜像来继续我们的Docker之旅。
+&lt;h1 id=&quot;1、概述&quot;&gt;&lt;a href=&quot;#1、概述&quot; class=&quot;headerlink&quot; title=&quot;1、概述&quot;&gt;&lt;/a&gt;1、概述&lt;/h1&gt;&lt;p&gt;Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节
         
       
     
     </summary>
     
-      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+      <category term="Java并发编程" scheme="https://honphanjohn.top/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
+      <category term="Java并发编程" scheme="https://honphanjohn.top/tags/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
-    <title>3_docker容器</title>
-    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/3-docker-rong-qi/"/>
-    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/3-docker-rong-qi/</id>
-    <published>2020-10-18T06:24:24.825Z</published>
-    <updated>2020-12-21T05:11:52.611Z</updated>
+    <title>Java 并发编程艺术读书草稿</title>
+    <link href="https://honphanjohn.top/2020/12/22/bing-fa-bian-cheng/java-bing-fa-bian-cheng-yi-zhu-du-shu-cao-gao/"/>
+    <id>https://honphanjohn.top/2020/12/22/bing-fa-bian-cheng/java-bing-fa-bian-cheng-yi-zhu-du-shu-cao-gao/</id>
+    <published>2020-12-21T16:42:17.319Z</published>
+    <updated>2020-12-21T16:42:17.320Z</updated>
     
     <summary type="html">
     
@@ -244,26 +56,25 @@
       
         
         
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;帮助&quot;&gt;&lt;a href=&quot;#帮助&quot; class=&quot;headerlink&quot; title=&quot;帮助&quot;&gt;&lt;/a&gt;帮助&lt;/h1&gt;&lt;p&gt;官方文档列出了完整的 Docker 命令列表，也可以使用 &lt;code&gt;docker help&lt;/code&gt;
+          &lt;p&gt;在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:&lt;strong&gt;共享内存和消息传递&lt;/strong&gt;&lt;a
         
       
     
     </summary>
     
-      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+      <category term="Java并发编程" scheme="https://honphanjohn.top/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
+      <category term="Java并发编程" scheme="https://honphanjohn.top/tags/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
-    <title>1_docker简介</title>
-    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/1-docker-jian-jie/"/>
-    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/1-docker-jian-jie/</id>
-    <published>2020-10-18T06:23:17.480Z</published>
-    <updated>2020-12-21T05:11:48.808Z</updated>
+    <title>项目笔记草稿</title>
+    <link href="https://honphanjohn.top/2020/12/22/shi-zhan-xiang-mu-bi-ji/untitled/"/>
+    <id>https://honphanjohn.top/2020/12/22/shi-zhan-xiang-mu-bi-ji/untitled/</id>
+    <published>2020-12-21T16:42:17.300Z</published>
+    <updated>2020-12-21T16:42:17.301Z</updated>
     
     <summary type="html">
     
@@ -271,26 +82,34 @@
       
         
         
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;简单、轻量的构建方式&quot;&gt;&lt;a href=&quot;#简单、轻量的构建方式&quot; class=&quot;headerlink&quot; title=&quot;简单、轻量的构建方式&quot;&gt;&lt;/a&gt;简单、轻量的构建方式&lt;/h1&gt;&lt;p&gt;Docker 依赖了”&lt;a
+          &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;数据库外键去除&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;外键检查降低性能&lt;/li&gt;
+&lt;li&gt;耦合性太高，有时候两个关系表不一定在同一个库&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SpringBoot自动装配：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;@SpringBootAp
         
       
     
     </summary>
     
-      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+      <category term="随记" scheme="https://honphanjohn.top/categories/%E9%9A%8F%E8%AE%B0/"/>
     
     
-      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
+      <category term="随记" scheme="https://honphanjohn.top/tags/%E9%9A%8F%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
-    <title>2_安装docker</title>
-    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/2-an-zhuang-docker/"/>
-    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/2-an-zhuang-docker/</id>
-    <published>2020-10-18T06:23:02.525Z</published>
-    <updated>2020-12-21T05:11:50.681Z</updated>
+    <title>测试文章</title>
+    <link href="https://honphanjohn.top/2020/12/22/untitled/"/>
+    <id>https://honphanjohn.top/2020/12/22/untitled/</id>
+    <published>2020-12-21T16:42:17.280Z</published>
+    <updated>2020-12-21T16:42:17.281Z</updated>
     
     <summary type="html">
     
@@ -298,88 +117,218 @@
       
         
         
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;总览&quot;&gt;&lt;a href=&quot;#总览&quot; class=&quot;headerlink&quot; title=&quot;总览&quot;&gt;&lt;/a&gt;总览&lt;/h1&gt;&lt;p&gt;Docker的安装既快又简单。目前, Docker已经支持非常多的
-        
-      
-    
-    </summary>
-    
-      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
-    
-    
-      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker概述</title>
-    <link href="https://honphanjohn.top/2020/10/17/docker/docker/"/>
-    <id>https://honphanjohn.top/2020/10/17/docker/docker/</id>
-    <published>2020-10-17T06:34:10.141Z</published>
-    <updated>2020-12-21T05:52:37.154Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221105211.png&quot; alt=&quot;什么是docker&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
-    
-    
-      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mysql学习笔记：基础架构</title>
-    <link href="https://honphanjohn.top/2020/09/30/mysql/ji-chu-jia-gou-ji-suo-yin-ji-suo-ji-shi-wu-shi-xian-ji-ri-zhi/"/>
-    <id>https://honphanjohn.top/2020/09/30/mysql/ji-chu-jia-gou-ji-suo-yin-ji-suo-ji-shi-wu-shi-xian-ji-ri-zhi/</id>
-    <published>2020-09-30T06:45:49.611Z</published>
-    <updated>2020-12-21T05:46:16.859Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;一、基础架构-一条SQL查询语句是如何执行的&quot;&gt;&lt;a href=&quot;#一、基础架构-一条SQL查询语句是如何执行的&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="mysql" scheme="https://honphanjohn.top/categories/mysql/"/>
-    
-    
-      <category term="mysql" scheme="https://honphanjohn.top/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JVM线程模型概述</title>
-    <link href="https://honphanjohn.top/2020/09/24/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/"/>
-    <id>https://honphanjohn.top/2020/09/24/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/</id>
-    <published>2020-09-24T06:16:33.831Z</published>
-    <updated>2020-12-21T04:55:41.787Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;暂无&lt;/p&gt;
+          &lt;p&gt;resources&lt;/p&gt;
 
+        
+      
+    
+    </summary>
+    
+      <category term="测试分类" scheme="https://honphanjohn.top/categories/%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="测试标签" scheme="https://honphanjohn.top/tags/%E6%B5%8B%E8%AF%95%E6%A0%87%E7%AD%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>00_前言</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/00-qian-yan/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/00-qian-yan/</id>
+    <published>2020-12-21T16:41:54.988Z</published>
+    <updated>2020-12-21T16:41:54.989Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h1 id=&quot;JDK、JRE、JVM&quot;&gt;&lt;a href=&quot;#JDK、JRE、JVM&quot; class=&quot;headerlink&quot; title=&quot;JDK、JRE、JVM&quot;&gt;&lt;/a&gt;JDK、JRE、JVM&lt;/h1&gt;&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>05_堆</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/05-dui/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/05-dui/</id>
+    <published>2020-12-21T16:41:54.959Z</published>
+    <updated>2020-12-21T16:41:54.959Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;堆的核心概述&quot;&gt;&lt;a href=&quot;#堆的核心概述&quot; class=&quot;headerlink&quot; title=&quot;堆的核心概述&quot;&gt;&lt;/a&gt;堆的核心概述&lt;/h1&gt;&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>04_本地方法接口及本地方法栈</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/04-ben-di-fang-fa-jie-kou-ji-ben-di-fang-fa-zhan/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/04-ben-di-fang-fa-jie-kou-ji-ben-di-fang-fa-zhan/</id>
+    <published>2020-12-21T16:41:54.922Z</published>
+    <updated>2020-12-21T16:41:54.923Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;什么是本地方法&quot;&gt;&lt;a href=&quot;#什么是本地方法&quot; class=&quot;headerlink&quot; title=&quot;什么是本地方法&quot;&gt;&lt;/a&gt;什么是本地方法&lt;/h1&gt;&lt;p&gt;简单地讲，一个Native Method就是一个Java调用非Java代码的接口。一个Native
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11_Class文件</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/11-class-wen-jian/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/11-class-wen-jian/</id>
+    <published>2020-12-21T16:41:54.891Z</published>
+    <updated>2020-12-21T16:41:54.892Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>06_方法区</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/06-fang-fa-qu/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/06-fang-fa-qu/</id>
+    <published>2020-12-21T16:41:54.863Z</published>
+    <updated>2020-12-21T16:41:54.864Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;栈、堆、方法区的交互关系&quot;&gt;&lt;a href=&quot;#栈、堆、方法区的交互关系&quot; class=&quot;headerlink&quot; title=&quot;栈、堆、方法区的交互关系&quot;&gt;&lt;/a&gt;栈、堆、方法区的交互关系&lt;/h1&gt;&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>01_运行时数据区</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/01-yun-xing-shi-shu-ju-qu/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/01-yun-xing-shi-shu-ju-qu/</id>
+    <published>2020-12-21T16:41:54.546Z</published>
+    <updated>2020-12-21T16:41:54.547Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>12_类加载子系统</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/12-lei-jia-zai-zi-xi-tong/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/12-lei-jia-zai-zi-xi-tong/</id>
+    <published>2020-12-21T16:41:54.520Z</published>
+    <updated>2020-12-21T16:41:54.522Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;JVM类加载的特性&quot;&gt;&lt;a href=&quot;#JVM类加载的特性&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>07_直接内存</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/</id>
+    <published>2020-12-21T16:41:54.497Z</published>
+    <updated>2020-12-21T16:41:54.497Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;直接内存概述&quot;&gt;&lt;a href=&quot;#直接内存概述&quot; class=&quot;headerlink&quot;
         
       
     
@@ -394,10 +343,10 @@
   
   <entry>
     <title>16_高效并发</title>
-    <link href="https://honphanjohn.top/2020/09/23/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/"/>
-    <id>https://honphanjohn.top/2020/09/23/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/</id>
-    <published>2020-09-23T07:59:06.929Z</published>
-    <updated>2020-12-21T04:59:21.846Z</updated>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/</id>
+    <published>2020-12-21T16:41:54.388Z</published>
+    <updated>2020-12-21T16:41:54.389Z</updated>
     
     <summary type="html">
     
@@ -419,11 +368,11 @@
   </entry>
   
   <entry>
-    <title>JVM调优工具及辅助工具</title>
-    <link href="https://honphanjohn.top/2020/09/20/jvm/diao-you/diao-you-gong-ju-ji-fu-zhu-gong-ju/"/>
-    <id>https://honphanjohn.top/2020/09/20/jvm/diao-you/diao-you-gong-ju-ji-fu-zhu-gong-ju/</id>
-    <published>2020-09-20T00:15:00.988Z</published>
-    <updated>2020-12-21T04:59:57.281Z</updated>
+    <title>03_虚拟机栈(方法栈)</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/03-xu-ni-ji-zhan-fang-fa-zhan/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/03-xu-ni-ji-zhan-fang-fa-zhan/</id>
+    <published>2020-12-21T16:41:54.030Z</published>
+    <updated>2020-12-21T16:41:54.031Z</updated>
     
     <summary type="html">
     
@@ -431,7 +380,7 @@
       
         
         
-          &lt;h1 id=&quot;命令工具&quot;&gt;&lt;a href=&quot;#命令工具&quot; class=&quot;headerlink&quot; title=&quot;命令工具&quot;&gt;&lt;/a&gt;命令工具&lt;/h1&gt;&lt;h2 id=&quot;jps-JVM-Process-Status-Tool&quot;&gt;&lt;a
+          &lt;h1 id=&quot;虚拟机栈概述&quot;&gt;&lt;a href=&quot;#虚拟机栈概述&quot; class=&quot;headerlink&quot;
         
       
     
@@ -445,11 +394,29 @@
   </entry>
   
   <entry>
-    <title>15_垃圾回收器</title>
-    <link href="https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/15-la-ji-hui-shou-qi/"/>
-    <id>https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/15-la-ji-hui-shou-qi/</id>
-    <published>2020-09-18T01:58:43.748Z</published>
-    <updated>2020-12-21T04:59:18.719Z</updated>
+    <title>Java-JVM-操作系统线程模型</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/</id>
+    <published>2020-12-21T16:41:54.013Z</published>
+    <updated>2020-12-21T16:41:54.014Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JVM 附录</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/fu-lu/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/fu-lu/</id>
+    <published>2020-12-21T16:41:53.989Z</published>
+    <updated>2020-12-21T16:41:53.990Z</updated>
     
     <summary type="html">
     
@@ -458,7 +425,33 @@
         
         
           &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;GC分类&quot;&gt;&lt;a href=&quot;#GC分类&quot; class=&quot;headerlink&quot;
+&lt;h1 id=&quot;附录&quot;&gt;&lt;a href=&quot;#附录&quot; class=&quot;headerlink&quot; title=&quot;附录&quot;&gt;&lt;/a&gt;附录&lt;/h1&gt;&lt;h2 id=&quot;JVM大图&quot;&gt;&lt;a href=&quot;#JVM大图&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>08_执行引擎</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/</id>
+    <published>2020-12-21T16:41:53.964Z</published>
+    <updated>2020-12-21T16:41:53.965Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一、编译原理&quot;&gt;&lt;a href=&quot;#一、编译原理&quot; class=&quot;headerlink&quot;
         
       
     
@@ -473,10 +466,10 @@
   
   <entry>
     <title>14_GC关键概念补充</title>
-    <link href="https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/"/>
-    <id>https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/</id>
-    <published>2020-09-18T00:07:06.398Z</published>
-    <updated>2020-12-21T04:59:15.638Z</updated>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/</id>
+    <published>2020-12-21T16:41:53.942Z</published>
+    <updated>2020-12-21T16:41:53.942Z</updated>
     
     <summary type="html">
     
@@ -499,10 +492,10 @@
   
   <entry>
     <title>13_GC概述及算法思想</title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/</id>
-    <published>2020-09-17T11:39:35.412Z</published>
-    <updated>2020-12-21T04:59:12.884Z</updated>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/</id>
+    <published>2020-12-21T16:41:53.920Z</published>
+    <updated>2020-12-21T16:41:53.920Z</updated>
     
     <summary type="html">
     
@@ -524,11 +517,11 @@
   </entry>
   
   <entry>
-    <title>10_StringTable</title>
-    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/10-stringtable/"/>
-    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/10-stringtable/</id>
-    <published>2020-09-17T06:56:06.607Z</published>
-    <updated>2020-12-21T04:59:02.994Z</updated>
+    <title>09_对象</title>
+    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/"/>
+    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/</id>
+    <published>2020-12-21T16:41:53.892Z</published>
+    <updated>2020-12-21T16:41:53.892Z</updated>
     
     <summary type="html">
     
@@ -536,7 +529,8 @@
       
         
         
-          &lt;h1 id=&quot;String的基本特性&quot;&gt;&lt;a href=&quot;#String的基本特性&quot; class=&quot;headerlink&quot;
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;一、对象的实例化&quot;&gt;&lt;a href=&quot;#一、对象的实例化&quot; class=&quot;headerlink&quot; title=&quot;一、对象的实例化&quot;&gt;&lt;/a&gt;一、对象的实例化&lt;/h1&gt;&lt;h2 id=&quot;思维导图&quot;&gt;&lt;a href=&quot;#思维导图&quot;
         
       
     
