@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://honphanjohn.top/2020/10/17/docker/docker/</loc>
+    <lastmod>2020-12-21</lastmod>
+  </url>  <url>
+    <loc>https://honphanjohn.top/2020/02/16/mysql/gao-ke-yong/</loc>
+    <lastmod>2020-12-21</lastmod>
+  </url>  <url>
+    <loc>https://honphanjohn.top/2020/09/30/mysql/ji-chu-jia-gou-ji-suo-yin-ji-suo-ji-shi-wu-shi-xian-ji-ri-zhi/</loc>
+    <lastmod>2020-12-21</lastmod>
+  </url>  <url>
     <loc>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/4-docker-jing-xiang/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
@@ -14,9 +23,6 @@
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/untitled/</loc>
-    <lastmod>2020-12-21</lastmod>
-  </url>  <url>
-    <loc>https://honphanjohn.top/2020/10/17/docker/docker/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/10/22/docker/k8s/</loc>
@@ -133,13 +139,7 @@
     <loc>https://honphanjohn.top/2020/02/16/mq/rabbitmq/untitled/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
-    <loc>https://honphanjohn.top/2020/02/16/mysql/gao-ke-yong/</loc>
-    <lastmod>2020-12-21</lastmod>
-  </url>  <url>
     <loc>https://honphanjohn.top/2020/02/16/mysql/sui-ji/</loc>
-    <lastmod>2020-12-21</lastmod>
-  </url>  <url>
-    <loc>https://honphanjohn.top/2020/09/30/mysql/ji-chu-jia-gou-ji-suo-yin-ji-suo-ji-shi-wu-shi-xian-ji-ri-zhi/</loc>
     <lastmod>2020-12-21</lastmod>
   </url>  <url>
     <loc>https://honphanjohn.top/2020/11/01/redis/redis-she-ji-yu-shi-jian/gai-lan/</loc>

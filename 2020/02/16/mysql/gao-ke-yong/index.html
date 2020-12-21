@@ -488,14 +488,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    31.1k
+                    30.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    111 分
+                    109 分
                 </div>
                 
                 
@@ -512,7 +512,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="MySQL是怎么保证主备一致的"><a href="#MySQL是怎么保证主备一致的" class="headerlink" title="MySQL是怎么保证主备一致的"></a>MySQL是怎么保证主备一致的</h1><p>毫不夸张地说，MySQL 能够成为现下最流行的开源数据库，binlog 功不可没。在最开始，MySQL 是以容易学习和方便的高可用架构，被开发人员青睐的。而它的几乎所有的高可用架构，都直接依赖于 binlog。虽然这些高可用架构已经呈现出越来越复杂的趋势，但都是从最基本的一主一备演化过来的。</p>
-<h2 id="MySQL-主备的基本原理"><a href="#MySQL-主备的基本原理" class="headerlink" title="MySQL 主备的基本原理"></a>MySQL 主备的基本原理</h2><p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/MySQL%E4%B8%BB%E5%A4%87%E5%88%87%E6%8D%A2%E6%B5%81%E7%A8%8B.png" alt="MySQL主备切换流程"></p>
+<h2 id="MySQL-主备的基本原理"><a href="#MySQL-主备的基本原理" class="headerlink" title="MySQL 主备的基本原理"></a>MySQL 主备的基本原理</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134822.png" alt="MySQL主备切换流程"></p>
 <p>在状态 1 中，客户端的读写都直接访问节点 A，而节点 B 是 A 的备库，只是将 A 的更新都同步过来，到本地执行。这样可以保持节点 B 和 A 的数据是相同的。当需要切换的时候，就切成状态 2。这时候客户端读写访问的都是节点 B，而节点 A 是 B 的备库。</p>
 <p>在状态 1 中，虽然节点 B 没有被直接访问，但是依然建议你把节点 B（也就是备库）设置成只读（readonly）模式。这样做，有以下几个考虑：</p>
 <ol>
@@ -522,7 +522,7 @@
 </ol>
 <p>把备库设置成只读了，还怎么跟主库保持同步更新呢？这个问题不用担心。<strong>因为 readonly 设置对超级 (super) 权限用户是无效的，而用于同步更新的线程，就拥有超级权限</strong>。</p>
 <h2 id="主备同步"><a href="#主备同步" class="headerlink" title="主备同步"></a>主备同步</h2><p>接下来，再看看节点 A 到 B 这条线的内部流程是什么样的。下图就是一个 update 语句在节点 A 执行，然后同步到节点 B 的完整流程图。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%BB%E5%A4%87%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="主备流程图"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134829.png" alt="主备流程图"></p>
 <p>主库接收到客户端的更新请求后，执行内部事务的更新逻辑，同时写 binlog。</p>
 <p>备库 B 跟主库 A 之间维持了一个长连接。主库 A 内部有一个线程，专门用于服务备库 B 的这个长连接。一个事务日志同步的完整过程是这样的：</p>
 <ol>
@@ -563,7 +563,7 @@ insert into t values(5,5,'2018-11-09');<span aria-hidden="true" class="line-numb
 <pre class="line-numbers language-mysql"><code class="language-mysql">mysql> delete from t /*comment*/  where a>=4 and t_modified<='2018-11-10' limit 1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="statement"><a href="#statement" class="headerlink" title="statement"></a>statement</h3><p>当 <code>binlog_format=statement</code> 时，binlog 里面记录的就是 SQL 语句的原文。可以用以下命令看 binlog 中的内容。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">mysql> show binlog events in 'master.000001';<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>![statement 格式 binlog 示例](高可用.resources/statement 格式 binlog 示例.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134837.png" alt="statement 格式 binlog 示例"></p>
 <ol>
 <li>第一行 <code>SET @@SESSION.GTID_NEXT=&#39;ANONYMOUS’</code>在主备切换的时候用到；</li>
 <li>第二行是一个 <code>BEGIN</code>，跟第四行的 <code>commit</code> 对应，表示中间是一个事务；</li>
@@ -571,7 +571,7 @@ insert into t values(5,5,'2018-11-09');<span aria-hidden="true" class="line-numb
 <li>最后一行是一个 <code>COMMIT</code>。你可以看到里面写着 <code>xid=61</code>。</li>
 </ol>
 <h4 id="和-row-格式的区别"><a href="#和-row-格式的区别" class="headerlink" title="和 row 格式的区别"></a>和 row 格式的区别</h4><p>为了说明 statement 和 row 格式的区别，我们来看一下这条 delete 命令的执行效果图：</p>
-<p>![delete 执行 warnings](高可用.resources/delete 执行 warnings.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134841.png" alt="delete 执行 warnings"></p>
 <p>可以看到，运行这条 <code>delete</code> 命令产生了一个 warning，原因是当前 binlog 设置的是 statement 格式，并且语句中有 limit，所以这个命令可能是 unsafe 的。为什么这么说呢？这是因为 delete 带 limit，很可能会出现主备数据不一致的情况。比如上面这个例子：</p>
 <ol>
 <li>如果 <code>delete</code> 语句使用的是索引 <code>a</code>，那么会根据索引 <code>a</code> 找到第一个满足条件的行，也就是说删除的是 a=4 这一行；</li>
@@ -579,7 +579,7 @@ insert into t values(5,5,'2018-11-09');<span aria-hidden="true" class="line-numb
 </ol>
 <p>由于 <code>statement</code> 格式下，记录到 binlog 里的是语句原文，因此可能会出现这样一种情况：在主库执行这条 SQL 语句的时候，用的是索引 <code>a</code>；而在备库执行这条 SQL 语句的时候，却使用了索引 <code>t_modified</code>。因此，MySQL 认为这样写是有风险的。</p>
 <h3 id="row"><a href="#row" class="headerlink" title="row"></a>row</h3><p>那么，如果把 binlog 的格式改为 <code>binlog_format=‘row’</code>， 是不是就没有这个问题了呢？我们先来看看这时候 binog 中的内容吧。</p>
-<p>![row 格式 binlog 示例](高可用.resources/row 格式 binlog 示例.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134843.png" alt="row 格式 binlog 示例"></p>
 <p>可以看到，与 statement 格式的 binlog 相比，前后的 <code>BEGIN</code> 和 <code>COMMIT</code> 是一样的。但是，row 格式的 binlog 里没有了 SQL 语句的原文，而是替换成了两个 event：Table_map 和 Delete_rows。</p>
 <ol>
 <li><code>Table_map event</code>，用于说明接下来要操作的表是 test 库的表 t;</li>
@@ -587,7 +587,7 @@ insert into t values(5,5,'2018-11-09');<span aria-hidden="true" class="line-numb
 </ol>
 <p>其实，通过上图是看不到 row 格式的详细信息的，还需要借助 mysqlbinlog 工具，用下面这个命令解析和查看 binlog 中的内容。因为上图中的信息显示，这个事务的 binlog 是从 8900 这个位置开始的，所以可以用 <code>start-position</code> 参数来指定从这个位置的日志开始解析。</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">mysqlbinlog  -vv data/master.000001 --start-position=8900;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>![row 格式 binlog 示例的详细信息](高可用.resources/row 格式 binlog 示例的详细信息.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134848.png" alt="row 格式 binlog 示例的详细信息"></p>
 <p>从这个图中，我们可以看到以下几个信息：</p>
 <ol>
 <li>server id 1，表示这个事务是在 server_id=1 的这个库上执行的。</li>
@@ -612,15 +612,15 @@ insert into t values(5,5,'2018-11-09');<span aria-hidden="true" class="line-numb
 <h3 id="恢复数据工具"><a href="#恢复数据工具" class="headerlink" title="恢复数据工具"></a>恢复数据工具</h3><p>其实，由 <code>delete</code>、<code>insert</code> 或者 <code>update</code> 语句导致的数据操作错误，需要恢复到操作之前状态的情况，也时有发生。MariaDB 的<a href="https://mariadb.com/kb/en/flashback/" target="_blank" rel="noopener">Flashback</a>工具就是基于上面介绍的原理来回滚数据的。</p>
 <h2 id="binlog-恢复数据注意点"><a href="#binlog-恢复数据注意点" class="headerlink" title="binlog 恢复数据注意点"></a>binlog 恢复数据注意点</h2><p>虽然 mixed 格式的 binlog 现在已经用得不多了，但这里还是要再借用一下 mixed 格式来说明一个问题，来看一下这条 SQL 语句：</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">mysql> insert into t values(10,10, now());<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>![mixed 格式和 now()](高可用.resources/mixed 格式和 now().png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134855.png" alt="mixed 格式和 now()"></p>
 <p>可以看到，MySQL 用的居然是 statement 格式。你一定会奇怪，如果这个 binlog 过了 1 分钟才传给备库的话，那主备的数据不就不一致了吗？接下来，我们再用 mysqlbinlog 工具来看看：</p>
-<p>![TIMESTAMP 命令](高可用.resources/TIMESTAMP 命令.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134857.png" alt="TIMESTAMP 命令"></p>
 <p>从图中的结果可以看到，原来 binlog 在记录 event 的时候，多记了一条命令：<code>SET TIMESTAMP=1546103491</code>。它用 SET TIMESTAMP 命令约定了接下来的 <code>now()</code> 函数的返回时间。因此，不论这个 binlog 是 1 分钟之后被备库执行，还是 3 天后用来恢复这个库的备份，这个 <code>insert</code> 语句插入的行，值都是固定的。也就是说，通过这条 <code>SET TIMESTAMP</code> 命令，MySQL 就确保了主备数据的一致性。</p>
 <p>所以不能用 mysqlbinlog 解析出日志直接把里面的 statement 语句直接拷贝出来执行。这个方法是有风险的。因为有些语句的执行结果是依赖于上下文命令的，直接执行的结果很可能是错误的。所以，用 binlog 来恢复数据的标准做法是，用 mysqlbinlog 工具解析出来，然后把解析结果整个发给 MySQL 执行。类似下面的命令：</p>
 <pre class="line-numbers language-shell"><code class="language-shell">mysqlbinlog master.000001  --start-position=2738 --stop-position=2973 | mysql -h127.0.0.1 -P13000 -u$user -p$pwd;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这个命令的意思是，将 master.000001 文件里面从第 2738 字节到第 2973 字节中间这段内容解析出来，放到 MySQL 去执行。</p>
 <h2 id="循环复制问题"><a href="#循环复制问题" class="headerlink" title="循环复制问题"></a>循环复制问题</h2><p>binlog 的特性确保了在备库执行相同的 binlog，可以得到与主库相同的状态。因此，我们可以认为正常情况下主备的数据是一致的。也就是说，[该图中](##MySQL 主备的基本原理) A、B 两个节点的内容是一致的，其实，该图中画的是 M-S 结构，但实际生产上使用比较多的是双 M 结构，也就是下图所示的主备切换流程。</p>
-<p>![MySQL 主备切换流程 – 双 M 结构](高可用.resources/MySQL 主备切换流程 – 双 M 结构.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134902.png" alt="MySQL 主备切换流程 -- 双 M 结构"></p>
 <p>可以发现，双 M 结构和 M-S 结构，其实区别只是多了一条线，即：节点 A 和 B 之间总是互为主备关系。这样在切换的时候就不用再修改主备关系（只是增加了一条关系，同一时间还是只有一台 MySQL 可以写入数据）。</p>
 <p>但是，双 M 结构还有一个问题需要解决。业务逻辑在节点 A 上更新了一条语句，然后再把生成的 binlog 发给节点 B，节点 B 执行完这条更新语句后也会生成 binlog。（建议把参数 <code>log_slave_updates</code> 设置为 <code>on</code>，表示备库执行 relay log 后生成 binlog）。那么，如果节点 A 同时是节点 B 的备库，相当于又把节点 B 新生成的 binlog 拿过来执行了一次，然后节点 A 和 B 间，会不断地循环执行这个更新语句，也就是循环复制了。这个要怎么解决呢？</p>
 <h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>从上图中可以看到，MySQL 在 binlog 中记录了这个命令第一次执行时所在实例的 server id。因此，我们可以用下面的逻辑，来解决两个节点间的循环复制的问题：</p>
@@ -638,7 +638,7 @@ insert into t values(5,5,'2018-11-09');<span aria-hidden="true" class="line-numb
 <p>所以，死循环在这里就断掉了。</p>
 <h4 id="还是会出现循环复制的场景"><a href="#还是会出现循环复制的场景" class="headerlink" title="还是会出现循环复制的场景"></a>还是会出现循环复制的场景</h4><p>一种场景是，在一个主库更新事务后，用命令 <code>set global server_id=x</code> 修改了 server_id。等日志再传回来的时候，发现 server_id 跟自己的 server_id 不同，就只能执行了。</p>
 <p>另一种场景是，有三个节点的时候，如下图所示，trx1 是在节点 B 执行的，因此 binlog 上的 server_id 就是 B，binlog 传给节点 A，然后 A 和 A’搭建了双 M 结构，就会出现循环复制。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%89%E8%8A%82%E7%82%B9%E5%BE%AA%E7%8E%AF%E5%A4%8D%E5%88%B6.png" alt="三节点循环复制"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134905.png" alt="三节点循环复制"></p>
 <p>这种三节点复制的场景，做数据库迁移的时候会出现。如果出现了循环复制，可以在 A 或者 A’上，执行如下命令：</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">stop slave；
 CHANGE MASTER TO IGNORE_SERVER_IDS=(server_id_of_B);
@@ -648,7 +648,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 CHANGE MASTER TO IGNORE_SERVER_IDS=();
 start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h1 id="MySQL是怎么保证高可用的"><a href="#MySQL是怎么保证高可用的" class="headerlink" title="MySQL是怎么保证高可用的"></a>MySQL是怎么保证高可用的</h1><p>正常情况下，只要主库执行更新生成的所有 binlog，都可以传到备库并被正确地执行，备库就能达到跟主库一致的状态，这就是最终一致性。但是，MySQL 要提供高可用能力，只有最终一致性是不够的。为什么这么说呢？这里，再放一次双 M 结构的主备切换流程图。</p>
-<p>![MySQL 主备切换流程–双 M 结构](高可用.resources/MySQL 主备切换流程–双 M 结构.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134909.png" alt="MySQL 主备切换流程--双 M 结构"></p>
 <h2 id="主备切换基础知识"><a href="#主备切换基础知识" class="headerlink" title="主备切换基础知识"></a>主备切换基础知识</h2><p>主备切换可能是一个主动运维动作，比如软件升级、主库所在机器按计划下线等，也可能是被动操作，比如主库所在机器掉电。</p>
 <h3 id="主备延迟时间计算"><a href="#主备延迟时间计算" class="headerlink" title="主备延迟时间计算"></a>主备延迟时间计算</h3><p>接下来先一起看看主动切换的场景。在介绍主动切换流程的详细步骤之前，要先你说明一个概念，即“同步延迟”。与数据同步有关的时间点主要包括以下三个：</p>
 <ol>
@@ -682,11 +682,11 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>另一种典型的大事务场景，就是大表 DDL。这个场景处理方案就是，计划内的 DDL，建议使用 gh-ost 方案。</li>
 </ul>
 <h4 id="4-gt-备库的并行复制能力"><a href="#4-gt-备库的并行复制能力" class="headerlink" title="4&gt;备库的并行复制能力"></a>4&gt;备库的并行复制能力</h4><p>如果主库上也不做大事务了，还有什么原因会导致主备延迟吗？造成主备延迟还有一个大方向的原因，就是备库的并行复制能力。前面几种可能导致备库延迟的原因，不论是偶发性的查询压力，还是备份，对备库延迟的影响一般是分钟级的，而且在备库恢复正常以后都能够追上来。但是，如果备库执行日志的速度持续低于主库生成日志的速度，那这个延迟就有可能成了小时级别。而且对于一个压力持续比较高的主库来说，备库很可能永远都追不上主库的节奏。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%BB%E5%A4%87%E6%B5%81%E7%A8%8B%E5%9B%BE%E5%B9%B6%E8%A1%8C%E8%83%BD%E5%8A%9B.png" alt="主备流程图并行能力"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134917.png" alt="主备流程图并行能力"></p>
 <p>谈到主备的并行复制能力，我们要关注的是图中黑色的两个箭头。一个箭头代表了客户端写入主库，另一箭头代表的是备库上 sql_thread 执行中转日志（relay log）。如果用箭头的粗细来代表并行度的话，那么真实情况就如上图所示，第一个箭头要明显粗于第二个箭头。在主库上，影响并发度的原因就是各种锁了。由于 InnoDB 引擎支持行锁，除了所有并发事务都在更新同一行（热点行）这种极端场景外，它对业务并发度的支持还是很友好的。所以，在性能测试的时候会发现，并发压测线程 32 就比单线程时，总体吞吐量高。</p>
 <p>而日志在备库上的执行，就是图中备库上 sql_thread 更新数据 (DATA) 的逻辑。如果是用单线程的话，就会导致备库应用日志不够快，造成主备延迟。</p>
 <h5 id="MySQL-5-6-之前不支持并行复制"><a href="#MySQL-5-6-之前不支持并行复制" class="headerlink" title="MySQL 5.6 之前不支持并行复制"></a>MySQL 5.6 之前不支持并行复制</h5><p>在官方的 5.6 版本之前，MySQL 只支持单线程复制，由此在主库并发高、TPS 高时就会出现严重的主备延迟问题。从单线程复制到最新版本的多线程复制，中间的演化经历了好几个版本。其实说到底，所有的多线程复制机制，都是要把上图中只有一个线程的 sql_thread，拆成多个线程，也就是都符合下面的这个模型：</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt="多线程模型"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134919.png" alt="多线程模型"></p>
 <p>上图中，coordinator 就是原来的 sql_thread, 不过现在它不再直接更新数据了，只负责读取中转日志和分发事务。真正更新日志的，变成了 worker 线程。而 work 线程的个数，就是由参数 <code>slave_parallel_workers</code> 决定的。根据经验，把这个值设置为 8~16 之间最好（32 核物理机的情况），毕竟备库还有可能要提供读查询，不能把 CPU 都吃光了。</p>
 <h5 id="并行复制发展过程"><a href="#并行复制发展过程" class="headerlink" title="并行复制发展过程"></a>并行复制发展过程</h5><ul>
 <li>事务能不能按照轮询的方式分发给各个 worker，也就是第一个事务分给 worker_1，第二个事务发给 worker_2 呢？其实是不行的。因为，事务被分发给 worker 以后，不同的 worker 就独立执行了。但是，由于 CPU 的调度策略，很可能第二个事务最终比第一个事务先执行。而如果这时候刚好这两个事务更新的是同一行，也就意味着，同一行上的两个事务，在主库和备库上的执行顺序相反，会导致主备不一致的问题。</li>
@@ -702,7 +702,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <ol>
 <li><p><strong>按表分发策略</strong></p>
 <p>按表分发事务的基本思路是，如果两个事务更新不同的表，它们就可以并行。因为数据是存储在表里的，所以按表分发，可以保证两个 worker 不会更新同一行。当然，如果有跨表的事务，还是要把两张表放在一起考虑的。如下图所示，就是按表分发的规则。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E6%8C%89%E8%A1%A8%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt="按表并行复制程模型"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134927.png" alt="按表并行复制程模型"></p>
 <p>可以看到，每个 worker 线程对应一个 hash 表，用于保存当前正在这个 worker 的“执行队列”里的事务所涉及的表。hash 表的 key 是“库名. 表名”，value 是一个数字，表示队列中有多少个事务修改这个表。</p>
 <p>在有事务分配给 worker 时，事务里面涉及的表会被加到对应的 hash 表中。worker 执行完成后，这个表会被从 hash 表中去掉。上图中，hash_table_1 表示，现在 worker_1 的“待执行事务队列”里，有 4 个事务涉及到 <code>db1.t1</code> 表，有 1 个事务涉及到 <code>db2.t2</code> 表；hash_table_2 表示，现在 worker_2 中有一个事务会更新到表 <code>t3</code> 的数据。</p>
 <p>假设在图中的情况下，coordinator 从中转日志中读入一个新事务 T，这个事务修改的行涉及到表 <code>t1</code> 和 <code>t3</code>。现在我们用事务 T 的分配流程，来看一下分配规则：</p>
@@ -733,7 +733,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 
 insert into t1 values(1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>假设，接下来我们要在主库执行这两个事务：</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E5%94%AF%E4%B8%80%E9%94%AE%E5%86%B2%E7%AA%81%E7%A4%BA%E4%BE%8B.png" alt="唯一键冲突示例"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134930.png" alt="唯一键冲突示例"></p>
 <p>可以看到，这两个事务要更新的行的主键值不同，但是如果它们被分到不同的 worker，就有可能 session B 的语句先执行。这时候 id=1 的行的 a 的值还是 1，就会报唯一键冲突。</p>
 <p>因此，基于行的策略，事务 hash 表中还需要考虑到表中除了主键之外还是有可能存在其它唯一键的，此时 key 应该是“库名 + 表名 + 索引 a 的名字 +a 的值”。</p>
 <p>比如，在上面这个例子中，要在表 <code>t1</code> 上执行 <code>update t1 set a=1 where id=2</code> 语句，在 binlog 里面记录了整行的数据修改前各个字段的值，和修改后各个字段的值。因此，coordinator 在解析这个语句的 binlog 的时候，这个事务的 hash 表就有三个项:</p>
@@ -784,9 +784,9 @@ insert into t1 values(1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5);<span aria-hidden="
 </ol>
 <p>当时，这个策略出来的时候是相当惊艳的。因为，之前业界的思路都是在“分析 binlog，并拆分到 worker”上。而 MariaDB 的这个策略，目标是“模拟主库的并行模式”。但是，这个策略有一个问题，它并没有实现“<strong>真正的模拟主库并发度</strong>”这个目标。</p>
 <p>在主库上，一组事务在 commit 的时候，下一组事务是同时处于“执行中”状态的。如下图所示，假设了三组事务在主库的执行情况，你可以看到在 trx1、trx2 和 trx3 提交的时候，trx4、trx5 和 trx6 是在执行的。这样，在第一组事务提交完成的时候，下一组事务很快就会进入 commit 状态。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%BB%E5%BA%93%E5%B9%B6%E8%A1%8C%E4%BA%8B%E5%8A%A1.png" alt="主库并行事务"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135153.png" alt="主库并行事务"></p>
 <p>而按照 MariaDB 的并行复制策略，备库上的执行效果如下图所示。</p>
-<p>![MariaDB 并行复制，备库并行效果](高可用.resources/MariaDB 并行复制，备库并行效果.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134940.png" alt="MariaDB 并行复制，备库并行效果"></p>
 <p>可以看到，<strong>在备库上执行的时候，要等第一组事务完全执行完成后，第二组事务才能开始执行（需要保证同一个提交组的事务完全提交下一组才能开始执行，即使下一组已经准备就绪了），这样系统的吞吐量就不够。另外，这个方案很容易被大事务拖后腿。假设 trx2 是一个超大事务，那么在备库应用的时候，trx1 和 trx3 执行完成后，就只能等 trx2 完全执行完成，下一组才能开始执行。这段时间，只有一个 worker 线程在工作，是对资源的浪费</strong>。不过即使如此，这个策略仍然是一个很漂亮的创新。因为，它对原系统的改造非常少，实现也很优雅。</p>
 <h6 id="MySQL-5-7-的并行复制策略"><a href="#MySQL-5-7-的并行复制策略" class="headerlink" title="MySQL 5.7 的并行复制策略"></a>MySQL 5.7 的并行复制策略</h6><p>在 MariaDB 并行复制实现之后，官方的 MySQL5.7 版本也提供了类似的功能，由参数 <code>slave-parallel-type</code> 来控制并行复制策略：</p>
 <ol>
@@ -794,7 +794,7 @@ insert into t1 values(1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5);<span aria-hidden="
 <li>配置为 <code>LOGICAL_CLOCK</code>，表示的就是类似 MariaDB 的策略。不过，<strong>MySQL 5.7 这个策略，针对并行度做了优化</strong>。</li>
 </ol>
 <p>上面提到 MariaDB 的从库并行复制策略中，即使下一组在主库已经提交的事务已经传送到 relay log 等待执行，在当前组事务完全提交之前，它都不能执行，也就是说，它是在每一次日志 fsync 的时候对同一批已经 prepare 完毕准备被标记为 commit 状态的事务进行聚合成为一组并行执行事务。<strong>因为它同时还要保证存在更新冲突的事务在主备库上的更新都是一致的，所以以事务被标记为 commit 状态的先后顺序作为同步点入手是可以得到主库上冲突事务的执行的前后顺序的</strong>。但是这里面是否可以优化呢？有的，上面提到的 MySQL 5.7 的优化就是这里，再回顾一下两阶段提交：</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E7%BB%86%E5%8C%96%E8%BF%87%E7%A8%8B%E5%9B%BE.png" alt="两阶段提交细化过程图"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134947.png" alt="两阶段提交细化过程图"></p>
 <p>其实，不用等到 commit 阶段，只要能够到达 redo log prepare 阶段，就表示事务已经通过锁冲突的检验了，即只有当前事务所需要的资源没有被其它未提交事务占有的情况下，当前事务执行提交的时候才可以不经阻塞进入 redo log prepare 状态，否则当前事务将会被阻塞。也就是说，除了上面提到的 MariaDB 的从库根据事务被标记为 commit 状态的先后顺序与主库进行冲突事务的提交顺序同步之外，还可以根据事务被标记为 prepare 状态的先后顺序与主库进行同步。</p>
 <p>因此，MySQL 5.7 并行复制策略的思想是：</p>
 <ol>
@@ -839,7 +839,7 @@ insert into t1 values(1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5);<span aria-hidden="
 <li>… …</li>
 </ul>
 <h3 id="主备延迟时间分析示例"><a href="#主备延迟时间分析示例" class="headerlink" title="主备延迟时间分析示例"></a>主备延迟时间分析示例</h3><p>一般现在的数据库运维系统都有备库延迟监控，其实就是在备库上执行 show slave status，采集 seconds_behind_master 的值。假设，现在你看到你维护的一个备库，它的延迟监控的图像类似下图，是一个 45°斜向上的线段，你觉得可能是什么原因导致呢？你又会怎么去确认这个原因呢？</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E5%A4%87%E5%BA%93%E5%BB%B6%E8%BF%9F.png" alt="备库延迟"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134953.png" alt="备库延迟"></p>
 <p>看这曲线应该是T3随着时间的增长在增长，而T1这个时间点是没变的。即备库的同步在这段时间完全被堵住了。产生这种现象典型的场景主要包括两种：</p>
 <ul>
 <li><p>一种是大事务（包括大表 DDL、一个事务操作很多行）；</p>
@@ -860,7 +860,7 @@ select * from t limit 1;<span aria-hidden="true" class="line-numbers-rows"><span
 <li>把业务请求切到备库 B。</li>
 </ol>
 <p>这个切换流程，一般是由专门的 HA 系统来完成的，暂时称之为可靠性优先流程。</p>
-<p>![MySQL 可靠性优先主备切换流程](高可用.resources/MySQL 可靠性优先主备切换流程.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221134956.png" alt="MySQL 可靠性优先主备切换流程"></p>
 <blockquote>
 <p>注：图中的 SBM，是 seconds_behind_master 参数的简写。</p>
 </blockquote>
@@ -877,7 +877,7 @@ insert into t(c) values(1),(2),(3);<span aria-hidden="true" class="line-numbers-
 <pre class="line-numbers language-mysql"><code class="language-mysql">insert into t(c) values(4);
 insert into t(c) values(5);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>假设，现在主库上其他的数据表有大量的更新，导致主备延迟达到 5 秒。在插入一条 c=4 的语句后，发起了主备切换。下图是可用性优先策略，且 <code>binlog_format=mixed</code> 时的切换流程和数据结果。</p>
-<p>![可用性优先策略，且 binlog_format=mixed](高可用.resources/可用性优先策略，且 binlog_format=mixed.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135002.png" alt="可用性优先策略，且 binlog_format=mixed"></p>
 <ol>
 <li>步骤 2 中，主库 A 执行完 <code>insert</code> 语句，插入了一行数据（4,4），之后开始进行主备切换。</li>
 <li>步骤 3 中，由于主备之间有 5 秒的延迟，所以备库 B 还没来得及应用“插入 c=4”这个中转日志，就开始接收客户端“插入 c=5”的命令。</li>
@@ -886,7 +886,7 @@ insert into t(c) values(5);<span aria-hidden="true" class="line-numbers-rows"><s
 </ol>
 <p>最后的结果就是，主库 A 和备库 B 上出现了两行不一致的数据。可以看到，这个数据不一致，是由可用性优先流程导致的。</p>
 <p>那么，如果还是用可用性优先策略，但设置 <code>binlog_format=row</code>，情况又会怎样呢？因为 row 格式在记录 binlog 的时候，会记录新插入的行的所有字段值，所以最后只会有一行不一致。而且，两边的主备同步的应用线程会报错 duplicate key error 并停止。也就是说，这种情况下，备库 B 的 (5,4) 和主库 A 的 (5,5) 这两行数据，都不会被对方执行。</p>
-<p>![可用性优先策略，且 binlog_format=row](高可用.resources/可用性优先策略，且 binlog_format=row.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135009.png" alt="可用性优先策略，且 binlog_format=row"></p>
 <h4 id="两者比较"><a href="#两者比较" class="headerlink" title="两者比较"></a>两者比较</h4><p>从上面的分析中，可以看到一些结论：</p>
 <ol>
 <li>使用 row 格式的 binlog 时，数据不一致的问题更容易被发现。而使用 mixed 或者 statement 格式的 binlog 时，数据很可能悄悄地就不一致了。如果过了很久才发现数据不一致的问题，很可能这时的数据不一致已经不可查，或者连带造成了更多的数据逻辑不一致。</li>
@@ -900,14 +900,14 @@ insert into t(c) values(5);<span aria-hidden="true" class="line-numbers-rows"><s
 </ul>
 <p>这时候，可能就需要选择先强行切换，事后再补数据的策略。当然，事后复盘的时候，我们想到了一个改进措施就是，让业务逻辑不要依赖于这类日志的写入。也就是说，日志写入这个逻辑模块应该可以降级，比如写到本地文件，或者写到另外一个临时库里面。这样的话，这种场景就又可以使用可靠性优先策略了。</p>
 <h5 id="主备延迟的重要"><a href="#主备延迟的重要" class="headerlink" title="主备延迟的重要"></a>主备延迟的重要</h5><p>按照可靠性优先的思路，异常切换会是什么效果？假设，主库 A 和备库 B 间的主备延迟是 30 分钟，这时候主库 A 掉电了，HA 系统要切换 B 作为主库。我们在主动切换的时候，可以等到主备延迟小于 5 秒的时候再启动切换，但这时候已经别无选择了。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BC%98%E5%85%88%E7%AD%96%E7%95%A5%EF%BC%8C%E4%B8%BB%E5%BA%93%E4%B8%8D%E5%8F%AF%E7%94%A8.png" alt="可靠性优先策略，主库不可用"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135012.png" alt="可靠性优先策略，主库不可用"></p>
 <p>采用可靠性优先策略的话，就必须得等到备库 B 的 <code>seconds_behind_master=0</code> 之后，才能切换。但现在的情况比刚刚更严重，并不是系统只读、不可写的问题了，而是系统处于完全不可用的状态。因为，主库 A 掉电后，我们的连接还没有切到备库 B。</p>
 <p>那能不能直接切换到备库 B，但是保持 B 只读呢？这样也不行。因为，这段时间内，中转日志还没有应用完成，如果直接发起主备切换，客户端查询看不到之前执行完成的事务，会认为有“数据丢失”。虽然随着中转日志的继续应用，这些数据会恢复回来，但是对于一些业务来说，查询到“暂时丢失数据的状态”也是不能被接受的。</p>
 <p>所以在满足数据可靠性的前提下，MySQL 高可用系统的可用性，是依赖于主备延迟的。延迟的时间越小，在主库故障的时候，服务恢复需要的时间就越短，可用性就越高。<strong>所以在实际的应用中，更建议使用可靠性优先的策略。毕竟保证数据准确，应该是数据库服务的底线。在这个基础上，通过减少主备延迟，提升系统的可用性。</strong></p>
 <h2 id="一主多从：如何正确地切换主备"><a href="#一主多从：如何正确地切换主备" class="headerlink" title="一主多从：如何正确地切换主备"></a>一主多从：如何正确地切换主备</h2><p>上面讲的都是一主一备的结构。大多数的互联网应用场景都是读多写少，所以业务在发展过程中很可能先会遇到读性能的问题。而在数据库层解决读性能问题，就要涉及到一主多从的架构。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%80%E4%B8%BB%E5%A4%9A%E4%BB%8E%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.png" alt="一主多从基本结构"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135019.png" alt="一主多从基本结构"></p>
 <p>图中，虚线箭头表示的是主备关系，也就是 A 和 A’互为主备， 从库 B、C、D 指向的是主库 A。一主多从的设置，一般用于读写分离，主库负责所有的写入和一部分读，其他的读请求则由从库分担。下图就是主库发生故障，主备切换后的结果。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%80%E4%B8%BB%E5%A4%9A%E4%BB%8E%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84--%E4%B8%BB%E5%A4%87%E5%88%87%E6%8D%A2.png" alt="一主多从基本结构--主备切换"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135026.png" alt="一主多从基本结构--主备切换"></p>
 <p>相比于一主一备的切换流程，一主多从结构在切换完成后，A’会成为新的主库，从库 B、C、D 也要改接到 A’。正是由于多了从库 B、C、D 重新指向的这个过程，所以主备切换的复杂性也相应增加了。</p>
 <p>接下来，我们再一起看看一个切换系统会怎么完成一主多从的主备切换过程。</p>
 <h3 id="基于位点的主备切换"><a href="#基于位点的主备切换" class="headerlink" title="基于位点的主备切换"></a>基于位点的主备切换</h3><p>当我们把节点 B 设置成节点 A’的从库的时候，需要执行一条 <code>change master</code> 命令：</p>
@@ -934,7 +934,7 @@ MASTER_LOG_POS=$master_log_pos  <span aria-hidden="true" class="line-numbers-row
 </li>
 <li><p>用 mysqlbinlog 工具结合第二步查到的 A’ 的当前最新的 binlog File 和位置解析 A’的 File，得到 T 时刻的位点。</p>
 <pre class="line-numbers language-shell"><code class="language-shell">mysqlbinlog File --stop-datetime=T --start-datetime=T<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>![mysqlbinlog 部分输出结果](高可用.resources/mysqlbinlog 部分输出结果.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135033.png" alt="mysqlbinlog 部分输出结果"></p>
 <p>图中，end_log_pos 后面的值“123”，表示的就是 A’这个实例，在 T 时刻写入新的 binlog 的位置。然后，我们就可以把 123 这个值作为 $master_log_pos ，用在节点 B 的 <code>change master</code> 命令里。</p>
 </li>
 </ol>
@@ -991,7 +991,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 ) ENGINE=InnoDB;
 
 insert into t values(1,1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>![初始化数据的 binlog](高可用.resources/初始化数据的 binlog.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135040.png" alt="初始化数据的 binlog"></p>
 <p>可以看到，事务的 BEGIN 之前有一条 <code>SET @@SESSION.GTID_NEXT</code> 命令。这时，如果实例 X 有从库，那么将 <code>CREATE TABLE</code> 和 <code>insert</code> 语句的 binlog 同步到从库，从库在执行事务之前就会先执行这两个 SET 命令， 这样被加入从库的 GTID 集合的，就是图中的这两个 GTID。</p>
 <p>假设，现在这个实例 X 是另外一个实例 Y 的从库，并且此时在实例 Y 上执行了下面这条插入语句：</p>
 <pre class="line-numbers language-mysql"><code class="language-mysql">insert into t values(1,1);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1003,7 +1003,7 @@ commit;
 set gtid_next=automatic;
 start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中，前三条语句的作用，是通过提交一个空事务，把这个 GTID 加到实例 X 的 GTID 集合中。如下图所示，就是执行完这个空事务之后的 <code>show master status</code> 的结果。</p>
-<p>![show master status 结果](高可用.resources/show master status 结果.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135043.png" alt="show master status 结果"></p>
 <p>可以看到实例 X 的 <code>Executed_Gtid_set</code> (GTID集合)里面，已经加入了这个 GTID。这样，再执行 <code>start slave</code> 命令让同步线程执行起来的时候，虽然实例 X 上还是会继续执行实例 Y 传过来的事务，但是由于“aaaaaaaa-cccc-dddd-eeee-ffffffffffff:10”已经存在于实例 X 的 GTID 集合中了，所以实例 X 就会直接跳过这个事务，也就不会再出现主键冲突的错误。</p>
 <blockquote>
 <p>在上面的这个语句序列中，start slave 命令之前还有一句 <code>set gtid_next=automatic</code>。这句话的作用是“恢复 GTID 的默认分配行为”，也就是说如果之后有新的事务再执行，就还是按照原来的分配方式，继续分配 gno=3（当然，在同步主库的线程中，会通过主动设置主库的 GTID 为 current_gtid 执行主库事务，而在当前库上新执行的事务就是 automatic 了）。</p>
@@ -1065,9 +1065,9 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 </li>
 </ul>
 <h2 id="一主多从：主备延迟带来的读写分离问题"><a href="#一主多从：主备延迟带来的读写分离问题" class="headerlink" title="一主多从：主备延迟带来的读写分离问题"></a>一主多从：主备延迟带来的读写分离问题</h2><p>所谓的一主多从的结构，其实就是读写分离的基本结构了。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.png" alt="读写分离基本结构"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135049.png" alt="读写分离基本结构"></p>
 <p>读写分离的主要目标就是分摊主库的压力。图 1 中的结构是客户端（client）主动做负载均衡，这种模式下一般会把数据库的连接信息放在客户端的连接层。也就是说，由客户端来选择后端数据库进行查询。还有一种架构是，在 MySQL 和客户端之间有一个中间代理层 proxy，客户端只连接 proxy， 由 proxy 根据请求类型和上下文决定请求的分发路由。</p>
-<p>![带 proxy 的读写分离架构](高可用.resources/带 proxy 的读写分离架构.jpg)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135051.jpg" alt="带 proxy 的读写分离架构"></p>
 <h3 id="客户端直连和-proxy-读写分离架构"><a href="#客户端直连和-proxy-读写分离架构" class="headerlink" title="客户端直连和 proxy 读写分离架构"></a>客户端直连和 proxy 读写分离架构</h3><ol>
 <li>客户端直连方案，因为少了一层 proxy 转发，所以查询性能稍微好一点儿，并且整体架构简单，排查问题更方便。但是这种方案，由于要了解后端部署细节，所以在出现主备切换、库迁移等操作的时候，客户端都会感知到，并且需要调整数据库连接信息。你可能会觉得这样客户端也太麻烦了，信息大量冗余，架构很丑。其实也未必，一般采用这样的架构，一定会伴随一个负责管理后端的组件，比如 Zookeeper，尽量让业务端只专注于业务逻辑开发。</li>
 <li>带 proxy 的架构，对客户端比较友好。客户端不需要关注后端细节，连接维护、后端信息维护等工作，都是由 proxy 完成的。但这样的话，对后端维护团队的要求会更高。而且，proxy 也需要有高可用架构。因此，带 proxy 架构的整体就相对比较复杂。</li>
@@ -1097,7 +1097,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <h4 id="判断主备无延迟方案"><a href="#判断主备无延迟方案" class="headerlink" title="判断主备无延迟方案"></a>判断主备无延迟方案</h4><p>要确保备库无延迟，通常有三种做法。前面提到<code>show slave status</code> 结果里的 <code>seconds_behind_master</code> 参数的值，可以用来衡量主备延迟时间的长短。</p>
 <p>所以<strong>第一种确保主备无延迟的方法</strong>是，每次从库执行查询请求前，先判断 <code>seconds_behind_master</code> 是否已经等于 0。如果还不等于 0 ，那就必须等到这个参数变为 0 才能执行查询请求。<code>seconds_behind_master</code> 的单位是秒，如果你觉得精度不够的话，还可以采用对比位点和 GTID 的方法来确保主备无延迟，也就是接下来要说的第二和第三种方法。</p>
 <p>如下图所示，是一个 <code>show slave status</code> 结果的部分截图</p>
-<p>![show slave status 结果](高可用.resources/show slave status 结果.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135056.png" alt="show slave status 结果"></p>
 <p>现在，我们就通过这个结果，来看看具体如何通过对比位点和 GTID 来确保主备无延迟。</p>
 <p><strong>第二种方法，对比位点确保主备无延迟</strong>：</p>
 <ul>
@@ -1119,7 +1119,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>在备库执行 binlog 完成。</li>
 </ol>
 <p>我们上面判断主备无延迟的逻辑，是“备库收到的日志都执行完成了”。但是，从 binlog 在主备之间状态的分析中，不难看出还有一部分日志，处于客户端已经收到提交确认，而备库还没收到日志的状态。如下图所示就是这样的一个状态。</p>
-<p>![备库还没收到 trx3](高可用.resources/备库还没收到 trx3.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135101.png" alt="备库还没收到 trx3"></p>
 <p>这时，主库上执行完成了三个事务 trx1、trx2 和 trx3，其中：</p>
 <ol>
 <li>trx1 和 trx2 已经传到从库，并且已经执行完成了；</li>
@@ -1139,7 +1139,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>但如果是查询落到其他从库上，它们可能还没有收到最新的日志，就会产生过期读的问题。</li>
 </ol>
 <p>其实，判断同步位点的方案还有另外一个潜在的问题，即：如果在业务更新的高峰期，主库的位点或者 GTID 集合更新很快，那么上面的两个位点等值判断就会一直不成立，很可能出现从库上迟迟无法响应查询请求的情况。实际上，回到我们最初的业务逻辑里，当发起一个查询请求以后，我们要得到准确的结果，其实并不需要等到“主备完全同步”。为什么这么说呢？我们来看一下这个时序图。</p>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E4%B8%BB%E5%A4%87%E6%8C%81%E7%BB%AD%E5%BB%B6%E8%BF%9F%E4%B8%80%E4%B8%AA%E4%BA%8B%E5%8A%A1.png" alt="主备持续延迟一个事务"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135105.png" alt="主备持续延迟一个事务"></p>
 <p>上图中，就是等待位点方案的一个 bad case。图中备库 B 下的虚线框，分别表示 relaylog 和 binlog 中的事务。可以看到，从状态 1 到状态 4，一直处于延迟一个事务的状态。备库 B 一直到状态 4 都和主库 A 存在延迟，如果用上面必须等到无延迟才能查询的方案，select 语句直到状态 4 都不能被执行。但是，其实客户端是在发完 trx1 更新后发起的 select 语句，我们只需要确保 trx1 已经执行完成就可以执行 select 语句了。也就是说，如果在状态 3 执行查询请求，得到的就是预期结果了。</p>
 <h5 id="semi-sync-判断主备无延迟的方案的问题："><a href="#semi-sync-判断主备无延迟的方案的问题：" class="headerlink" title="semi-sync + 判断主备无延迟的方案的问题："></a>semi-sync + 判断主备无延迟的方案的问题：</h5><ul>
 <li>一主多从的时候，在某些从库执行查询请求会存在过期读的现象；</li>
@@ -1167,7 +1167,7 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>如果返回值是 &gt;=0 的正整数，则在这个从库执行查询语句；</li>
 <li>否则，到主库执行查询语句。</li>
 </ol>
-<p>![master_pos_wait 方案](高可用.resources/master_pos_wait 方案.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135109.png" alt="master_pos_wait 方案"></p>
 <p>这里我们假设，这条 select 查询最多在从库上等待 1 秒。那么，如果 1 秒内 <code>master_pos_wait</code> 返回一个大于等于 0 的整数，就确保了从库上执行的这个查询结果一定包含了 trx1 的数据。</p>
 <p>步骤 5 到主库执行查询语句，是这类方案常用的退化机制。因为从库的延迟时间不可控，不能无限等待，所以如果等待超时，就应该放弃，然后到主库去查。如果所有的从库都延迟超过 1 秒了，那查询压力不就都跑到主库上了吗？确实是这样。但是，按照我们设定不允许过期读的要求，就只有两种选择，一种是超时放弃，一种是转到主库查询。具体怎么选择，就需要业务开发同学做好限流策略了。</p>
 <h4 id="GTID-方案"><a href="#GTID-方案" class="headerlink" title="GTID 方案"></a>GTID 方案</h4><p>如果你的数据库开启了 GTID 模式，对应的也有等待 GTID 的方案。MySQL 中同样提供了一个类似的命令：</p>
@@ -1186,12 +1186,12 @@ start slave;<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>否则，到主库执行查询语句。</li>
 </ol>
 <p>跟等主库位点的方案一样，等待超时后是否直接到主库查询，需要业务开发同学来做限流考虑。</p>
-<p>![wait_for_executed_gtid_set 方案](高可用.resources/wait_for_executed_gtid_set 方案.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135112.png" alt="wait_for_executed_gtid_set 方案"></p>
 <p>在上面的第一步中，trx1 事务更新完成后，从返回包直接获取这个事务的 GTID。问题是，怎么能够让 MySQL 在执行事务后，返回包中带上 GTID 呢？只需要将参数 <code>session_track_gtids</code> 设置为 <code>OWN_GTID</code>，然后通过 API 接口 <code>mysql_session_track_get_first</code> 从返回包解析出 GTID 的值即可。</p>
 <p>类似的 <code>mysql_reset_connection</code> 也存在这类 API 接口，那么这类接口应该怎么使用呢？其实，MySQL 并没有提供这类接口的 SQL 用法，是提供给程序的 <a href="https://dev.mysql.com/doc/refman/5.7/en/c-api-functions.html" target="_blank" rel="noopener">API</a>。比如，为了让客户端在事务提交后，返回的 GITD 能够在客户端显示出来，可以对 MySQL 客户端代码做点修改，如下所示：</p>
-<p>![显示更新事务的 GTID– 代码](高可用.resources/显示更新事务的 GTID– 代码.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135114.png" alt="显示更新事务的 GTID-- 代码"></p>
 <p>这样，就可以看到语句执行完成，显示出 GITD 的值。</p>
-<p>![显示更新事务的 GTID– 效果](高可用.resources/显示更新事务的 GTID– 效果.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135119.png" alt="显示更新事务的 GTID-- 效果"></p>
 <p>当然了，这只是一个例子。你要使用这个方案的时候，还是应该在你的客户端代码中调用 <code>mysql_session_track_get_first</code> 这个函数。</p>
 <h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>假设系统采用了等 GTID 的方案，现在要对主库的一张大表做 DDL，可能会出现什么情况呢？为了避免这种情况，你会怎么做呢？</p>
 <p>假设，这条语句在主库上要执行 10 分钟，提交后传到备库就要 10 分钟（典型的大事务）。那么，在主库 DDL 之后再提交的事务的 GTID，去备库查的时候，就会等 10 分钟才出现。这样，这个读写分离机制在这 10 分钟之内都会超时，然后走主库。</p>
@@ -1212,7 +1212,7 @@ CREATE TABLE `t` (
 ) ENGINE=InnoDB;
 
 insert into t values(1,1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>![查询 blocked](高可用.resources/查询 blocked.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135122.png" alt="查询 blocked"></p>
 <p>我们设置 <code>innodb_thread_concurrency</code> 参数的目的是，控制 InnoDB 的并发线程上限。也就是说，一旦并发线程数达到这个值，InnoDB 在接收到新请求的时候，就会进入等待状态，直到有线程退出。这里把 <code>innodb_thread_concurrency</code> 设置成 3，表示 InnoDB 只允许 3 个线程并行执行。</p>
 <p>而在我们的例子中，前三个 session 中的 sleep(100)，使得这三个语句都处于“执行”状态，以此来模拟大查询。 session D 里面，<code>select 1</code> 是能执行成功的，但是查询表 t 的语句会被堵住。也就是说，如果这时候我们用 select 1 来检测实例是否正常的话，是检测不出问题的。</p>
 <p>在 InnoDB 中，<code>innodb_thread_concurrency</code> 这个参数的默认值是 0，表示不限制并发线程数量。但是，不限制并发线程数肯定是不行的。因为，一个机器的 CPU 核数有限，线程全冲进来，上下文切换的成本就会太高。所以，通常情况下，我们建议把 <code>innodb_thread_concurrency</code> 设置为 64~128 之间的值。</p>
@@ -1230,7 +1230,7 @@ insert into t values(1,1)<span aria-hidden="true" class="line-numbers-rows"><spa
 <li>线程 2 到线程 129 都执行 <code>update t set c=c+1 where id=1;</code> 由于等行锁，进入等待状态。这样就有 128 个线程处于等待状态；</li>
 <li>如果处于锁等待状态的线程计数不减一，InnoDB 就会认为线程数用满了，会阻止其他语句进入引擎执行，这样线程 1 不能提交事务。而另外的 128 个线程又处于锁等待状态，整个系统就堵住了。</li>
 </ol>
-<p><img src="%E9%AB%98%E5%8F%AF%E7%94%A8.resources/%E7%B3%BB%E7%BB%9F%E9%94%81%E6%AD%BB%E7%8A%B6%E6%80%81%EF%BC%88%E5%81%87%E8%AE%BE%E7%AD%89%E8%A1%8C%E9%94%81%E7%9A%84%E8%AF%AD%E5%8F%A5%E5%8D%A0%E7%94%A8%E5%B9%B6%E5%8F%91%E8%AE%A1%E6%95%B0%EF%BC%89.png" alt="系统锁死状态（假设等行锁的语句占用并发计数）"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135126.png" alt="系统锁死状态（假设等行锁的语句占用并发计数）"></p>
 <p>这时候 InnoDB 不能响应任何请求，整个系统被锁死。而且，由于所有线程都处于等待状态，此时占用的 CPU 却是 0，而这明显不合理。所以，我们说 InnoDB 在设计时，遇到进程进入锁等待的情况时，将并发线程的计数减 1 的设计，是合理而且是必要的。</p>
 </li>
 </ol>
@@ -1262,7 +1262,7 @@ insert into mysql.health_check(id, t_modified) values (@@server_id, now()) on du
 </ol>
 <p>也就是说，这时候在业务系统上正常的 SQL 语句已经执行得很慢了，但是 DBA 上去一看，HA 系统还在正常工作，并且认为主库现在处于可用状态。之所以会出现这个现象，根本原因是我们上面说的所有方法，都是基于外部检测的。外部检测天然有一个问题，就是随机性。因为，外部检测都需要<strong>定时轮询</strong>，所以系统可能已经出问题了，但是却需要等到下一个检测发起执行语句的时候，我们才有可能发现问题。而且，如果你的运气不够好的话，可能第一次轮询还不能发现，这就会导致切换慢的问题。所以，接下来我要再和你介绍一种在 MySQL 内部发现数据库问题的方法。</p>
 <h3 id="内部统计"><a href="#内部统计" class="headerlink" title="内部统计"></a>内部统计</h3><p>针对磁盘利用率这个问题，如果 MySQL 可以告诉我们，内部每一次 IO 请求的时间，那我们判断数据库是否出问题的方法就可靠得多了。其实，MySQL 5.6 版本以后提供的 <code>performance_schema</code> 库，就在 <code>file_summary_by_event_name</code> 表里统计了每次 IO 请求的时间。<code>file_summary_by_event_name</code> 表里有很多行数据，我们先来看看 <code>event_name=&#39;wait/io/file/innodb/innodb_log_file’</code>这一行。</p>
-<p>![performance_schema.file_summary_by_event_name 的一行](高可用.resources/performance_schema.file_summary_by_event_name 的一行.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135133.png" alt="performance_schema.file_summary_by_event_name 的一行"></p>
 <ul>
 <li>这一行表示统计的是 redo log 的写入时间，第一列 <code>EVENT_NAME</code> 表示统计的类型。</li>
 <li>接下来的三组数据，显示的是 redo log 操作的时间统计。<ul>
@@ -1320,7 +1320,7 @@ insert into mysql.health_check(id, t_modified) values (@@server_id, now()) on du
 <li>把这些日志，除了误删除数据的语句外，全部应用到临时库。</li>
 </ol>
 <p>这个流程的示意图如下所示：</p>
-<p>![数据恢复流程 -mysqlbinlog 方法](高可用.resources/数据恢复流程 -mysqlbinlog 方法.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135141.png" alt="数据恢复流程 -mysqlbinlog 方法"></p>
 <h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
 <li>为了加速数据恢复，如果这个临时库上有多个数据库，你可以在使用 <code>mysqlbinlog</code> 命令时，加上一个<code>–database</code> 参数，用来指定误删表所在的库。这样，就避免了在恢复数据时还要应用其他库日志的情况。</li>
 <li>在应用日志的时候，需要跳过 12 点误操作的那个语句的 binlog：<ul>
@@ -1335,7 +1335,7 @@ insert into mysql.health_check(id, t_modified) values (@@server_id, now()) on du
 <li>用 mysqlbinlog 解析出日志应用，应用日志的过程就只能是单线程。前面介绍的关于备库同步主库的那些并行复制的方法，在这里都用不上。</li>
 </ol>
 <h3 id="加速恢复"><a href="#加速恢复" class="headerlink" title="加速恢复"></a>加速恢复</h3><p>一种加速的方法是，<strong>在用备份恢复出临时实例之后，将这个临时实例设置成线上备库的从库</strong>：在 <code>start slave</code> 之前，先通过执行﻿﻿<code>change replication filter replicate_do_table = (tbl_name)</code> 命令，就可以让临时库只同步误操作的表；这样做也可以用上并行复制技术，来加速整个数据恢复过程。</p>
-<p>![数据恢复流程 -master-slave 方法](高可用.resources/数据恢复流程 -master-slave 方法.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221135144.png" alt="数据恢复流程 -master-slave 方法"></p>
 <p>可以看到，图中 binlog 备份系统到线上备库有一条虚线，是指如果由于时间太久，备库上已经删除了临时实例需要的 binlog 的话，我们可以从 binlog 备份系统中找到需要的 binlog，再放回备库中。</p>
 <p>假设，我们发现当前临时实例需要的 binlog 是从 master.000005 开始的，但是在备库上执行 show binlogs 显示的最小的 binlog 文件是 master.000007，意味着少了两个 binlog 文件。这时，我们就需要去 binlog 备份系统中找到这两个文件。</p>
 <p>把之前删掉的 binlog 放回备库的操作步骤，是这样的：</p>
@@ -2130,7 +2130,7 @@ insert into mysql.health_check(id, t_modified) values (@@server_id, now()) on du
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">627k</span>
+            <span class="white-color">624.3k</span>
             
 
             <br>
