@@ -1,0 +1,2204 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="IPV6简介, 技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content="IPv6仅仅只是“长”吗？IPv6的地址长什么样？平时我们是怎么使用IPv6的呢？编写网络程序的时候要怎么处理IPv6？且待本篇一一道来。
+为什么需要IPv6?全球的IP地址由一个名字叫IANA（Internet Assigned Numb">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>IPV6简介 | 阿钟的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">阿钟的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">阿钟的博客</div>
+        <div class="logo-desc">
+            
+            广东工业大学 | 计算机科学与技术
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/JohnZhongg" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/JohnZhongg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '12345';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        IPV6简介
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/tags/linux/" target="_blank">
+                            <span class="chip bg-color">linux</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/linux/" class="post-category" target="_blank">
+                            linux
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-02-16
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    阿钟
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    12.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    50 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>IPv6仅仅只是“长”吗？IPv6的地址长什么样？平时我们是怎么使用IPv6的呢？编写网络程序的时候要怎么处理IPv6？且待本篇一一道来。</p>
+<h2 id="为什么需要IPv6"><a href="#为什么需要IPv6" class="headerlink" title="为什么需要IPv6?"></a>为什么需要IPv6?</h2><p>全球的IP地址由一个名字叫<a href="https://www.iana.org/" target="_blank" rel="noopener">IANA</a>（Internet Assigned Numbers Authority）的机构管理，在它下面有5个分管机构，名字叫分别叫AFRINIC、<a href="https://www.apnic.net/" target="_blank" rel="noopener">APNIC</a>、ARIN、PIPE NCC和LACNIC，他们分别负责全球五个不同地区的IP地址分配，中国就归APNIC管。</p>
+<p>IANA只负责将IP地址分配给下面的5个分管机构，分管机构再负责将IP地址分配给相关地区的网络运营商或者研究机构等。</p>
+<p>IPv4的长度只有32位，总共约42亿的地址，除去<a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses" target="_blank" rel="noopener">预留的大约6亿地址</a>外，实际在公网中可以被使用的地址大约只有36亿，而据最新统计，世界人口已经超过了70亿，并且截至2016年，人们正在使用的智能手机数量已经超过了20亿。</p>
+<p>截至2011年01月31日，IANA已经将所有的IP地址分配给了下面的5个分管机构，而到2011年04月15日，APNIC的IP地址已经全部分配完了，就是说，如果我们的中国电信、移动和联通的IP地址不够用的话，已经没有地方可以申请更多的IP地址了。</p>
+<p>很明显，如果每个设备都用一个公网IP的话，IPv4早就不够用了，虽然现在用<a href="https://en.wikipedia.org/wiki/Network_address_translation" target="_blank" rel="noopener">NAT</a>的方式还能坚持一段时间，但终究不是长久之策，我们需要一个更大的IP地址空间。</p>
+<h2 id="IPv6的优点"><a href="#IPv6的优点" class="headerlink" title="IPv6的优点"></a>IPv6的优点</h2><h4 id="更大的地址空间"><a href="#更大的地址空间" class="headerlink" title="更大的地址空间"></a>更大的地址空间</h4><p>名字叫IPv6，但它的长度并不是64位，而是128位，总的地址空间大约为3.4*10^38，一个亿是10的8次方，那么IPv6就有340万亿亿亿亿个地址（4个亿连一起），所以说给地球上的每一粒沙子分配一个IP地址不是在吹牛，是真可以。</p>
+<p>可以参考<a href="https://itsnobody.wordpress.com/2012/02/17/how-many-addresses-can-ipv6-hold/" target="_blank" rel="noopener">这篇文章</a>和<a href="http://www.npr.org/sections/krulwich/2012/09/17/161096233/which-is-greater-the-number-of-sand-grains-on-earth-or-stars-in-the-sky" target="_blank" rel="noopener">这篇文章</a>，里面提到地球上所有沙滩的沙子大约有7.5*10^18粒，这个值跟IPv6的10^38相差了很多个数量级，就算加上沙漠等其它的地方，IPv6的数量也足够覆盖它。</p>
+<h4 id="点到点通信更方便"><a href="#点到点通信更方便" class="headerlink" title="点到点通信更方便"></a>点到点通信更方便</h4><p>IPv6完全有能力为联网的每个设备分配一个公网IP，于是我们可以不再需要NAT，从而非常方便的实现点到点的直接通信。</p>
+<p>说好处之前，先了解一下NAT的缺点：</p>
+<ul>
+<li>使用了NAT之后，每次通信都要做一次NAT转换，影响性能。</li>
+<li>处于两个不同NAT网络内部的机器不能直接通信，他们之间的通信得依赖第三方的服务器，极大的限制了网络的连通性，同时所有的数据都会被第三方所监控。</li>
+<li>为了支持NAT，很多网络协议变得很复杂，大大增加了网络的复杂性。</li>
+</ul>
+<p>没有了NAT之后，当然上面的这些缺点也就没有了，同时会带来下面这些比较直观的好处：</p>
+<ul>
+<li>更方便： 想象一下，每个电脑都有公网IP，你电脑出了点问题，找我帮忙看一下，只要把你的IP给我，我就可以连上去了，而我们现在的情况是，两个人都是内网IP，没法直接访问，非得用QQ共享桌面之类的软件。</li>
+<li>更安全： 配合点到点的加密，让网络更安全，不给第三方监听的机会； 以网络聊天为例，通过使用点到点的聊天软件，就不用担心被人监听聊天记录了；同时访问家里的摄像头不再需要经过第三方服务器，不用担心给别人看直播了。</li>
+</ul>
+<h4 id="IP配置更方便"><a href="#IP配置更方便" class="headerlink" title="IP配置更方便"></a>IP配置更方便</h4><p>IPv6有一个功能叫<a href="https://tools.ietf.org/html/rfc2462" target="_blank" rel="noopener">Stateless Auto Configuration</a>，简单点说，就是可以不借助DHCP服务器实现IP地址的分配，插上网线就能上网。</p>
+<p>系统起来后，就会为每个网卡生成一个Link-Local的IP地址，简单点说就是一个固定的前缀加上mac地址，由于mac地址全球唯一，所以这样构成的IP地址是唯一的，有了这个地址后，就可以局域网进行通信了，但是这种地址路由器是不会转发的。</p>
+<p>如果网络里有路由器； 系统会通过广播的方式问路由器，路由器会返回一个子网前缀，类似于IPv4里面的192.168.0.0/16，系统将子网前缀和mac地址组合起来，构成了一个唯一的IP地址，这个IP地址可以通过路由器路由。</p>
+<p>也就是说，就算不做任何配置，系统启动起来后，网卡就一定会有IPv6地址，有了IPv6地址就可以通信。</p>
+<p>当然IP地址也可以由DHCP6服务器来分配，这种方式分配叫做Stateful Auto Configuration。</p>
+<h4 id="局域网内更安全"><a href="#局域网内更安全" class="headerlink" title="局域网内更安全"></a>局域网内更安全</h4><p>由<a href="https://tools.ietf.org/html/rfc4861" target="_blank" rel="noopener">Neighbor Discovery</a>代替了IPv4里面的<a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol" target="_blank" rel="noopener">ARP</a>协议，没有ARP后，跟<a href="https://en.wikipedia.org/wiki/ARP_spoofing" target="_blank" rel="noopener">ARP相关的攻击</a>就不存在了</p>
+<h4 id="路由更快"><a href="#路由更快" class="headerlink" title="路由更快"></a>路由更快</h4><ul>
+<li>跟IPv4不同，IPv6包头的字段长度是固定的，没有可选字段，所以路由器不需要检查IP包头是否包含可选字段。</li>
+<li>IPv6包头里面没有checksum字段，不需要像IPv4那样每次TTL减1后都需要重新计算包头的checksum。</li>
+<li>IPv6不支持在中途被分片和重组，即不能在路由器和防火墙上被分片，从而减轻了路由器的负担。</li>
+</ul>
+<p>IPv6包头里面没有checksum，那么会不会不安全呢？如果数据传输的过程中损坏了怎么办呢？首先，现在的网络都比较好，出现损坏的情况很少；其次，就算损坏了，有两种情况，一种是被路由器丢弃或者发到了错误的主机，这种情况不会造成什么问题，因为IP层本来就不保证可靠的传输，而是由上面的传输层来保证（如TCP），另一种情况是接受方收到了数据包，但由于数据包受损，内容已经和发送方发出来的不一样了，这种情况也是交给上面的传输层协议处理，比如UDP、TCP，它们都有自己的校验码，完全有能力发现数据损坏的问题。</p>
+<p>不允许路由器对IPv6包进行分片，那么怎么保证发送端不会发送太大的数据包呢？首先，IPv6要求入网链路至少能传输1280字节的IP包，如果出现不能传输1280字节IP包这种情况，需要链路层自己处理分片和重组的过程；其次，跟IPv4里面PMTUD（Path MTU Discovery）是可选的不同，在IPv6里面，<a href="https://tools.ietf.org/html/rfc1981" target="_blank" rel="noopener">PMTUD</a>是一个非常重要且必须的功能；所以一般情况下发送小于等于1280字节的IP包肯定能到达目的地，加上现在大部分人都用以太网（MTU为1500，包含以太网的包头），绝大部分情况下一个包过去就能确定PMTU（Path MTU ），不会影响数据传输性能。</p>
+<h4 id="更安全"><a href="#更安全" class="headerlink" title="更安全"></a>更安全</h4><p>在设计IPv4的时候，根本没有考虑过安全问题。</p>
+<p>而在设计IPv6的时候，安全问题作为一个很重要的方面被考虑进来了，尤其是端到端的安全，IPsec正是在这样的背景下被设计出来的，有了IPsec后，在IP层就能实现安全传输。</p>
+<p>虽然IPsec也被引入到了IPv4，但由于IPsec连传输层的端口都进行了加密，导致IPsec碰到NAT网络的时候，会造成很多麻烦，虽然现在已经有了解决办法，但IPsec在IPv4网络里面还是受到诸多限制。</p>
+<h4 id="更好的QoS"><a href="#更好的QoS" class="headerlink" title="更好的QoS"></a>更好的QoS</h4><p>IPv6的包头里面包含了一个叫做<a href="https://tools.ietf.org/html/rfc6437" target="_blank" rel="noopener">Flow Label</a>的字段，专门为QoS服务。</p>
+<h4 id="更好的支持移动设备"><a href="#更好的支持移动设备" class="headerlink" title="更好的支持移动设备"></a>更好的支持移动设备</h4><p>移动网络要求设备能在不同的网络里面快速的切换，并且现有的通信不受切换的影响，在IPv6里面，有专门的协议<a href="https://tools.ietf.org/html/rfc6275" target="_blank" rel="noopener">Mobile IPv6 (MIPv6)</a>来处理这个事情。</p>
+<h2 id="IPv6格式"><a href="#IPv6格式" class="headerlink" title="IPv6格式"></a>IPv6格式</h2><p>这里不介绍报文的格式，只介绍IPv6地址的格式。</p>
+<h4 id="地址表示方式"><a href="#地址表示方式" class="headerlink" title="地址表示方式"></a>地址表示方式</h4><p>IPv6地址的128位分成了由冒号分割的8段，每段2个字节16位，这16位由16进制表示，这里是一些例子，左边是完整的格式，右边是缩写格式：</p>
+<table>
+<thead>
+<tr>
+<th>完整的格式</th>
+<th>缩写格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000:0000:0000:0000:0000:0000:0000:0000</td>
+<td>::</td>
+</tr>
+<tr>
+<td>0000:0000:0000:0000:0000:0000:0000:0001</td>
+<td>::1</td>
+</tr>
+<tr>
+<td>FF02:0000:0000:0000:0000:0000:0000:0001</td>
+<td>FF02::1</td>
+</tr>
+<tr>
+<td>FC00:0001:A000:0B00:0000:0527:0127:00AB</td>
+<td>FC00:1:A000:B00::527:127:AB</td>
+</tr>
+<tr>
+<td>2001:0000:1111:000A:00B0:0000:9000:0200</td>
+<td>2001:0:1111:A:B0::9000:200</td>
+</tr>
+<tr>
+<td>2001:0DB8:0000:0000:ABCD:0000:0000:1234</td>
+<td>2002:DB8::ABCD:0:0:1234 或者 2001:DB8:0:0:ABCD::1234</td>
+</tr>
+<tr>
+<td>2001:0DB8:AAAA:0001:0000:0000:0000:0100</td>
+<td>2001:DB8:AAAA:1::100</td>
+</tr>
+</tbody></table>
+<p>两条缩写规则：</p>
+<ul>
+<li>用冒号分割的每段里面的前面的0可以省略掉，如:0001:可以缩写成:1:，:0000:可以缩写成:0:</li>
+<li>如果冒号里面的是0的话，可以忽略掉（相邻的多个0可以一起忽略掉），直接写成两个冒号，如:0000:0000:可以被缩写成::</li>
+</ul>
+<p><strong>注意：</strong>如果地址中有多个连续为0的段，只能将其中的一个缩写成::，如果两个都缩写了，就不知道每个缩写了多少个0，这也是上面的表格中2001:0DB8:0000:0000:ABCD:0000:0000:1234被缩写成2002:DB8::ABCD:0:0:1234或者2001:DB8:0:0:ABCD::1234的原因，它不能被缩写成2001:DB8::ABCD::1234，一般的做法是哪种方法省略的0越多就用哪种。</p>
+<h4 id="网段表示方式"><a href="#网段表示方式" class="headerlink" title="网段表示方式"></a>网段表示方式</h4><p>IPv6和IPv4一样，也有网段和子网的概念，在IPv6里面，表示子网号或者网段的时候，也是类似的方法，如：2001:0:0:CD30::/60，这个时候前面的地址只需要写前60位，后面的所有位都用::来缩写，类似于IPv4里面的192.168.0。0/16，不过要注意的是，这里2001:0:0:CD30::不能把前面的两个0也缩写，因为这样就不是一个合法的IPv6地址了。</p>
+<h2 id="IPv6地址类型"><a href="#IPv6地址类型" class="headerlink" title="IPv6地址类型"></a>IPv6地址类型</h2><p>IPv6里面有三种地址类型；</p>
+<ul>
+<li>Unicast: 单播地址，就是我们常用的地址，唯一标识一个网络接口</li>
+<li>Anycast: 任意播（直译有点怪），一类特殊的IP地址，多个网络接口（不同的设备）都配上相同的地址，往这个地址发送数据的时候，路由器会只发往其中的一个接口，一般发往最近的那一个。（这个好像对实现负载均衡比较有用）</li>
+<li>Multicast: 多播地址，代表一类unicast的集合，但往这个地址发送数据的时候，会将数据发给属于这个多播组的每个unicast地址。</li>
+</ul>
+<p>IPv6里面没有类似于IPv4那样单独的广播概念，它的功能被包含在多播里面。</p>
+<blockquote>
+<p>本人对anycast和multicast不是特别了解，所以没法描述的很清楚。</p>
+</blockquote>
+<h4 id="IPv6地址分类"><a href="#IPv6地址分类" class="headerlink" title="IPv6地址分类"></a>IPv6地址分类</h4><p>现有的IP地址被分配成如下几大类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>前缀</th>
+<th>IPv6表示方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unspecified</td>
+<td>00…00 (128位)</td>
+<td>::/128</td>
+</tr>
+<tr>
+<td>Loopback</td>
+<td>00…01 (128位)</td>
+<td>::1/128</td>
+</tr>
+<tr>
+<td>Multicast</td>
+<td>11111111</td>
+<td>FF00::/8</td>
+</tr>
+<tr>
+<td>Link-Local unicast</td>
+<td>1111111010</td>
+<td>FE80::/10</td>
+</tr>
+<tr>
+<td>Unique local address</td>
+<td>1111110</td>
+<td>FC00::/7</td>
+</tr>
+<tr>
+<td>Global Unicast</td>
+<td>所有其它</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>全0的地址::/128为未定义地址，大家不要去使用</li>
+<li>除了最后一位是1，其它都是0的地址::1/128为本地环回地址，同IPv4里面的127.0.0.1</li>
+<li>FF00::/8这个网段的地址都是多播地址</li>
+<li>FE80::/10为Link-Local的单播地址，这类地址不能穿过路由器</li>
+<li>FC00::/7为本地的单播地址，可以穿过本地的路由器，但不能穿过外网的路由器，即只可以在本地使用，和IPv4里面的192.168.0.0/16相似</li>
+<li><strong>全局的单播地址目前只有2000::/3开头的可以被申请使用，其它的都被预留了</strong></li>
+</ul>
+<h4 id="预定义的多播地址"><a href="#预定义的多播地址" class="headerlink" title="预定义的多播地址"></a>预定义的多播地址</h4><p>这里是两个常用的预定义的多播地址：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FF02:0:0:0:0:0:0:1</td>
+<td>子网内的所有机器</td>
+</tr>
+<tr>
+<td>FF02:0:0:0:0:0:0:2</td>
+<td>子网内的所有路由器</td>
+</tr>
+</tbody></table>
+<p>后面有例子演示如何使用多播</p>
+<h2 id="子网的划分"><a href="#子网的划分" class="headerlink" title="子网的划分"></a>子网的划分</h2><p>IPv6要求所有的单播（unicast）地址的子网必须是64位的，即下面这种格式：</p>
+<pre><code>   |         64 bits         |         64 bits         |
+   +-------------------------+-------------------------+
+   |        subnet ID        |       interface ID      |   </code></pre><p>如果子网的长度不是64位的话，会导致一些IPv6的功能不可用，详情请参考<a href="https://tools.ietf.org/html/rfc5375" target="_blank" rel="noopener">IPv6 Unicast Address Assignment Considerations</a>。</p>
+<p>Interface ID为<a href="http://standards.ieee.org/develop/regauth/tut/eui64.pdf" target="_blank" rel="noopener">Modified EUI-64</a>格式，标准里面提供了如何将48位mac地址转换成EUI-64格式的方法。</p>
+<p>IPv6标准要求单播地址的子网必须是64位的，主要是为了简化IPv6的管理，同时路由也方便，毕竟现在CPU都是64位的，如果子网号超过64位的话，会给路由造成一定的困难，同时64位的接口ID也比较容易存放一个UUID，比如可以容纳48位的mac地址，为Stateless Auto Configuration的地址分配提供了足够的空间。</p>
+<p>64位的子网够用吗？64位的子网已经可以容纳2^64的设备了，相当于40亿个现在的IPv4地址空间的规模，实在是想不出还有哪种场合需要更大的子网。</p>
+<p>64位的子网浪费吗？想想IPv4时代，几个人或者一群人通过NAT共享1个公网IP，而到了IPv6时代，这些人竟然可以拥有2^64个IP地址，想用几个用几个，为几个人分配一个64位的子网是不是有点浪费呢？其实谈不上浪费，IPv6的地址就是有那么多，大家都空着不用也是浪费，按道理64位的IP地址在可预见的将来已经够用了，而之所以采用128位IP加64位子网的方式，是因为能给我们的管理和使用方面带来很多的方便，如上面提到的便于路由和地址分配等。就算以后IP不够用了，再来放开子网位数的限制应该问题也不大。</p>
+<blockquote>
+<p>想起了一句话： 等我有了钱，要装两条宽带，一条玩游戏，一条聊QQ。</p>
+</blockquote>
+<h2 id="Linux上配置IPv6"><a href="#Linux上配置IPv6" class="headerlink" title="Linux上配置IPv6"></a>Linux上配置IPv6</h2><blockquote>
+<p>下面的所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
+</blockquote>
+<p>现在的大部分Linux发行版默认情况下都启用了IPv6，如果没有，请参考发行版相关文档进行配置</p>
+<pre><code>#这里有输出，表示IPv6已结启用了
+dev@ubuntu:~$ test -f /proc/net/if_inet6 &amp;&amp; echo &quot;IPv6 is already enabled&quot;
+IPv6 is already enabled</code></pre><p>IPv6启用后，每个网卡都会有一个IPv6地址，如下：</p>
+<pre><code>dev@ubuntu:~$ ifconfig
+enp0s3    Link encap:Ethernet  HWaddr 08:00:27:03:d0:e7
+          inet addr:192.168.3.12  Bcast:192.168.3.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe03:d0e7/64 Scope:Link
+          ......
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          ......</code></pre><p>这里lo的IPv6地址是环回地址::1，而enp0s3有一个“Scope:Link”的IPv6地址fe80::a00:27ff:fe03:d0e7，这个IP地址即上面说到的Link-local地址，它没法通过路由器，只能在子网内部使用。</p>
+<blockquote>
+<p>由于IPv6对交换机没有要求，所以就算没有支持IPv6的路由器，我们也可以在本地局域网内试玩一下IPv6</p>
+</blockquote>
+<p>通过ip命令就可以给网卡添加IPv6地址，和一个网卡只能有一个IPv4地址不同，一个网卡可以配置多个IPv6地址。</p>
+<pre><code>#添加一个global的地址
+dev@ubuntu:~$ sudo ip -6 addr add 2001::1/64 dev enp0s3
+#添加一个Unique local address地址
+dev@ubuntu:~$ sudo ip -6 addr add fd00::1/64 dev enp0s3
+dev@ubuntu:~$ ifconfig enp0s3
+enp0s3    Link encap:Ethernet  HWaddr 08:00:27:03:d0:e7
+          inet addr:192.168.3.12  Bcast:192.168.3.255  Mask:255.255.255.0
+          inet6 addr: fd00::1/64 Scope:Global
+          inet6 addr: 2001::1/64 Scope:Global
+          inet6 addr: fe80::a00:27ff:fe03:d0e7/64 Scope:Link
+          ......</code></pre><p>再来看看系统默认的路由表：</p>
+<pre><code>dev@ubuntu:~$ route -A inet6
+Kernel IPv6 routing table
+Destination                    Next Hop                   Flag Met Ref Use If
+2001::/64                      ::                         U    256 0     0 enp0s3
+fd00::/64                      ::                         U    256 0     0 enp0s3
+fe80::/64                      ::                         U    256 1     3 enp0s3
+::/0                           ::                         !n   -1  1   832 lo
+::1/128                        ::                         Un   0   3    36 lo
+2001::1/128                    ::                         Un   0   3     9 lo
+fd00::1/128                    ::                         Un   0   2     5 lo
+fe80::a00:27ff:fe03:d0e7/128   ::                         Un   0   3   193 lo
+ff00::/8                       ::                         U    256 2    84 enp0s3
+::/0                           ::                         !n   -1  1   832 lo</code></pre><p>从“Next Hop”列可以看出，这里的所有网段都是本地接口可以直接到达的网段，不需要路由器转发。</p>
+<h2 id="使用IPv6"><a href="#使用IPv6" class="headerlink" title="使用IPv6"></a>使用IPv6</h2><p>上节配置好了IPv6之后，我们这节来看看怎么使用这些地址</p>
+<blockquote>
+<p>这里只用一台机器来演示怎么和自己通信，大家有条件的话可以试试两台机器之间通信，效果是一样的。</p>
+</blockquote>
+<h4 id="ping6"><a href="#ping6" class="headerlink" title="ping6"></a>ping6</h4><p>和IPv4里面的ping相对于的命令是ping6，对于不同类型的地址，ping的方式不一样(为了节省篇幅，示例中省略了ping成功时的输出)：</p>
+<pre><code>#ping lo的环回地址
+dev@ubuntu:~$ ping6 ::1
+
+#ping类型为“Scope:Global”的地址
+dev@ubuntu:~$ ping6 fd00::1
+dev@ubuntu:~$ ping6 2001::1
+
+
+#ping类型为“Scope:Link”的地址
+dev@ubuntu:~$ ping6 -I enp0s3 fe80::a00:27ff:fe03:d0e7
+
+#ping一个多播（Multicast）地址，ff02::1代表子网中的所有机器
+dev@ubuntu:~$ ping6 -I enp0s3 ff02::1
+PING ff02::1(ff02::1) from fe80::a00:27ff:fe03:d0e7 enp0s3: 56 data bytes
+64 bytes from fe80::a00:27ff:fe03:d0e7: icmp_seq=1 ttl=64 time=0.036 ms
+64 bytes from fe80::3aea:a7ff:fe6c:ecff: icmp_seq=1 ttl=64 time=0.744 ms (DUP!)
+64 bytes from fe80::188d:cbae:80d5:7a7a: icmp_seq=1 ttl=64 time=0.791 ms (DUP!)
+......
+#可以看到局域网中的其它机器回复的结果，这些IP都是其它机器的“Scope:Link”地址
+#这里(DUP!)是由于ping多播地址时会收到多个回复，导致ping认为有重复的应答，其实是正常情况
+
+#选择其中的任意一个，单独ping一下试试
+dev@ubuntu:~$ ping6 -I enp0s3 fe80::188d:cbae:80d5:7a7a
+
+#访问Link-local的地址的时候，除了-I参数外，我们可以直接这样访问
+dev@ubuntu:~$ ping6 fe80::188d:cbae:80d5:7a7a%enp0s3
+
+#或者根据enp0s3的id来访问
+#获取enp0s3的id
+dev@ubuntu:~$ grep enp0s3 /proc/net/if_inet6 | cut -d&#39; &#39; -f2 | uniq
+02
+dev@ubuntu:~$ ping6 fe80::188d:cbae:80d5:7a7a%2</code></pre><p>从上面可以看出，ping环回地址和global地址时，直接ping就可以了，而ping多播和Link-Local地址时，需要指定从哪个接口出去，这是因为机器上所有接口的Link-Local地址都属于同一个网段，当有多个接口时，根本没办法自动的判断应该从哪个接口出去。（不过从上面的路由表里面可以看出，在本地只有一个接口时，已经标识fe80::/64和ff00::/8可以从enp0s3口出去，不确定为什么在这种情况下，应用层的程序还要求指定接口名称，可能是为了保持统一吧，不管有几个接口，都一样的用法）。</p>
+<blockquote>
+<p>注意： 如果是访问其它机器的link-local地址，-I参数和百分号的后面一定要指定本机出去的接口名称，而不是目的IP对应的接口名称</p>
+</blockquote>
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><p>DNS里面有一个专门的IPv6类型，叫AAAA，查询的时候指定类型就可以了</p>
+<pre><code>#host命令默认情况下只查询A类地址，即IPv4地址
+#指定-t AAAA即可查询域名的IPv6地址
+#这里的结果显示，baidu.com还不支持IPv6，google.com已经支持了
+dev@ubuntu:~$ host -t AAAA baidu.com
+baidu.com has no AAAA record
+dev@ubuntu:~$ host -t AAAA google.com
+google.com has IPv6 address 2607:f8b0:400e:c04::65
+
+#dig命令也是一样的参数
+dev@ubuntu:~$ dig -t AAAA google.com
+#这里省略输出结果，有点长</code></pre><h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>下面四种方式都可以登陆当前机器</p>
+<pre><code>dev@ubuntu:~$ ssh ::1   
+dev@ubuntu:~$ ssh 2001::1
+dev@ubuntu:~$ ssh fe80::a00:27ff:fe03:d0e7%enp0s3
+dev@ubuntu:~$ ssh fe80::a00:27ff:fe03:d0e7%2</code></pre><h4 id="http"><a href="#http" class="headerlink" title="http"></a>http</h4><p>下面以curl来进行演示，如果有图形界面的浏览器的话，可以直接在浏览器里面输入同样的地址</p>
+<pre><code>#--------------------------第一个shell窗口----------------------
+#准备一个支持IPv6的http服务器
+dev@ubuntu:~$ sudo apt-get install php
+dev@ubuntu:~$ mkdir web
+dev@ubuntu:~$ echo &quot;hello world!&quot; &gt; web/index.html
+#启动http服务器，监听所有接口的8080端口
+dev@ubuntu:~$ php -S [::]:8080 -t ./web/
+PHP 7.0.15-0ubuntu0.16.04.4 Development Server started at Mon Mar 20 23:44:26 2017
+Listening on http://[::]:8080
+Document root is /home/dev/web
+Press Ctrl-C to quit.
+
+#--------------------------第二个shell窗口----------------------
+#确认监听正确，这里:::8080就表示监听了所有IPv6和IPv4接口的8080端口
+dev@ubuntu:~$ netstat -anp|grep 8080
+tcp6       0      0 :::8080                 :::*                    LISTEN      13716/php
+
+#先试试用IPv4的地址连过来，没有问题
+dev@ubuntu:~$ curl http://127.0.0.1:8080/
+hello world!
+
+#IPv6的环回地址
+dev@ubuntu:~$ curl http://[::1]:8080/
+hello world!
+
+#IPv6的global地址
+dev@ubuntu:~$ curl http://[2001::1]:8080/
+hello world!
+
+#link-local地址
+dev@ubuntu:~$ curl http://[fe80::a00:27ff:fe03:d0e7%enp0s3]:8080/
+hello world!
+dev@ubuntu:~$ curl http://[fe80::a00:27ff:fe03:d0e7%2]:8080/
+hello world!</code></pre><h2 id="IPv6编程示例"><a href="#IPv6编程示例" class="headerlink" title="IPv6编程示例"></a>IPv6编程示例</h2><p>这里以python代码为示例，写了一个UDP的服务器和客户端，演示如何同时支持IPv4和IPv6。（为了简化起见，代码里面没有做错误处理）</p>
+<h4 id="server-py"><a href="#server-py" class="headerlink" title="server.py"></a>server.py</h4><pre><code>import socket
+import sys
+
+ip,port = sys.argv[1],int(sys.argv[2])
+
+addrinfo = socket.getaddrinfo(ip, port, proto=socket.IPPROTO_UDP)[0]
+sock = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
+addr = addrinfo[4]
+sock.bind(addr)
+
+print(&quot;Listening on [{}]:{}...&quot;.format(addr[0], addr[1]))
+
+while True:
+    data, addr = sock.recvfrom(65535)
+    print(&quot;Recvfrom [{}]:{}\t{}&quot;.format(addr[0], addr[1], data))
+    sock.sendto(data, addr)</code></pre><h4 id="client-py"><a href="#client-py" class="headerlink" title="client.py"></a>client.py</h4><pre><code>import socket
+import sys
+
+host,port = sys.argv[1],int(sys.argv[2])
+
+addrinfos = socket.getaddrinfo(host, port, proto=socket.IPPROTO_UDP)
+for addrinfo in addrinfos:
+    sock = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
+    sock.settimeout(2)
+    data = b&#39;hello&#39;
+    addr = addrinfo[4]
+    sock.sendto(data, addr)
+    print(&quot;Sendto   [{}]:{}\t{}&quot;.format(addr[0], addr[1], data))
+    try:
+        data, addr = sock.recvfrom(65535)
+        print(&quot;Recvfrom [{}]:{}\t{}&quot;.format(addr[0], addr[1], data))
+    except socket.timeout:
+        print(&quot;timeout&quot;)</code></pre><p>如果参数传入的是域名或者主机名，getaddrinfo函数可能返回多个IP，这时候客户端需要根据自己的应用特点选择一个或多个进行通信，在本例中是发送数据包给所有的IP。</p>
+<p>getaddrinfo返回的IP列表里面的顺序是有讲究的，如果对这个很在意的话，请参考<a href="https://tools.ietf.org/html/rfc6724" target="_blank" rel="noopener">rfc6724</a>，默认情况一般是IPv6的地址在前面，在Linux下还可以通过<a href="https://linux.die.net/man/5/gai.conf" target="_blank" rel="noopener">/etc/gai.conf</a>来配置相关的顺序。</p>
+<h4 id="server使用示例"><a href="#server使用示例" class="headerlink" title="server使用示例"></a>server使用示例</h4><pre><code>dev@ubuntu:~/ipv6$ python3 server.py :: 8000
+Listening on [::]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py 0.0.0.0 8000
+Listening on [0.0.0.0]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py 2001::1 8000
+Listening on [2001::1]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py fe80::a00:27ff:fe03:d0e7%enp0s3 8000
+Listening on [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py fe80::a00:27ff:fe03:d0e7%2 8000
+Listening on [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000...</code></pre><h4 id="server绑定所有IPv4和IPv6的接口，-然后client用不同的方式发包"><a href="#server绑定所有IPv4和IPv6的接口，-然后client用不同的方式发包" class="headerlink" title="server绑定所有IPv4和IPv6的接口， 然后client用不同的方式发包"></a>server绑定所有IPv4和IPv6的接口， 然后client用不同的方式发包</h4><pre><code>dev@ubuntu:~/ipv6$ python3 server.py :: 8000
+Listening on [::]:8000...
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:48033        b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:50298        b&#39;hello&#39;
+Recvfrom [2001::1]:60882        b&#39;hello&#39;
+Recvfrom [::1]:44664    b&#39;hello&#39;
+Recvfrom [::ffff:127.0.0.1]:46676       b&#39;hello&#39;
+Recvfrom [::1]:55518    b&#39;hello&#39;
+Recvfrom [::ffff:127.0.0.1]:35961       b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:36281        b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py fe80::a00:27ff:fe03:d0e7%enp0s3 8000
+Sendto   [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py fe80::a00:27ff:fe03:d0e7%2 8000
+Sendto   [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py 2001::1 8000
+Sendto   [2001::1]:8000 b&#39;hello&#39;
+Recvfrom [2001::1]:8000 b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py ::1 8000
+Sendto   [::1]:8000     b&#39;hello&#39;
+Recvfrom [::1]:8000     b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py 127.0.0.1 8000
+Sendto   [127.0.0.1]:8000       b&#39;hello&#39;
+Recvfrom [127.0.0.1]:8000       b&#39;hello&#39;
+#由于localhost在/etc/hosts里面配置了两个IP，所以这里发了两个数据包，
+#并且是先发IPv6的地址
+dev@ubuntu:~/ipv6$ python3 client.py localhost 8000
+Sendto   [::1]:8000     b&#39;hello&#39;
+Recvfrom [::1]:8000     b&#39;hello&#39;
+Sendto   [127.0.0.1]:8000       b&#39;hello&#39;
+Recvfrom [127.0.0.1]:8000       b&#39;hello&#39;
+#通过多播地址发给当前子网中的所有机器
+dev@ubuntu:~/ipv6$ python3 client.py FF02:0:0:0:0:0:0:1%enp0s3 8000
+Sendto   [ff02::1%enp0s3]:8000  b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://etherealmind.com/allocating-64-wasteful-ipv6-not/" target="_blank" rel="noopener">Why Allocating a /64 is Not Wasteful and Necessary</a><br><a href="http://ipv6.com/articles/general/Top-10-Features-that-make-IPv6-greater-than-IPv4.htm" target="_blank" rel="noopener">Top 10 Features that make IPv6 ‘greater’ than IPv4</a><br><a href="https://tools.ietf.org/html/rfc4291" target="_blank" rel="noopener">IP Version 6 Addressing Architecture</a>IPv6仅仅只是“长”吗？IPv6的地址长什么样？平时我们是怎么使用IPv6的呢？编写网络程序的时候要怎么处理IPv6？且待本篇一一道来。</p>
+<h2 id="为什么需要IPv6-1"><a href="#为什么需要IPv6-1" class="headerlink" title="为什么需要IPv6?"></a>为什么需要IPv6?</h2><p>全球的IP地址由一个名字叫<a href="https://www.iana.org/" target="_blank" rel="noopener">IANA</a>（Internet Assigned Numbers Authority）的机构管理，在它下面有5个分管机构，名字叫分别叫AFRINIC、<a href="https://www.apnic.net/" target="_blank" rel="noopener">APNIC</a>、ARIN、PIPE NCC和LACNIC，他们分别负责全球五个不同地区的IP地址分配，中国就归APNIC管。</p>
+<p>IANA只负责将IP地址分配给下面的5个分管机构，分管机构再负责将IP地址分配给相关地区的网络运营商或者研究机构等。</p>
+<p>IPv4的长度只有32位，总共约42亿的地址，除去<a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses" target="_blank" rel="noopener">预留的大约6亿地址</a>外，实际在公网中可以被使用的地址大约只有36亿，而据最新统计，世界人口已经超过了70亿，并且截至2016年，人们正在使用的智能手机数量已经超过了20亿。</p>
+<p>截至2011年01月31日，IANA已经将所有的IP地址分配给了下面的5个分管机构，而到2011年04月15日，APNIC的IP地址已经全部分配完了，就是说，如果我们的中国电信、移动和联通的IP地址不够用的话，已经没有地方可以申请更多的IP地址了。</p>
+<p>很明显，如果每个设备都用一个公网IP的话，IPv4早就不够用了，虽然现在用<a href="https://en.wikipedia.org/wiki/Network_address_translation" target="_blank" rel="noopener">NAT</a>的方式还能坚持一段时间，但终究不是长久之策，我们需要一个更大的IP地址空间。</p>
+<h2 id="IPv6的优点-1"><a href="#IPv6的优点-1" class="headerlink" title="IPv6的优点"></a>IPv6的优点</h2><h4 id="更大的地址空间-1"><a href="#更大的地址空间-1" class="headerlink" title="更大的地址空间"></a>更大的地址空间</h4><p>名字叫IPv6，但它的长度并不是64位，而是128位，总的地址空间大约为3.4*10^38，一个亿是10的8次方，那么IPv6就有340万亿亿亿亿个地址（4个亿连一起），所以说给地球上的每一粒沙子分配一个IP地址不是在吹牛，是真可以。</p>
+<p>可以参考<a href="https://itsnobody.wordpress.com/2012/02/17/how-many-addresses-can-ipv6-hold/" target="_blank" rel="noopener">这篇文章</a>和<a href="http://www.npr.org/sections/krulwich/2012/09/17/161096233/which-is-greater-the-number-of-sand-grains-on-earth-or-stars-in-the-sky" target="_blank" rel="noopener">这篇文章</a>，里面提到地球上所有沙滩的沙子大约有7.5*10^18粒，这个值跟IPv6的10^38相差了很多个数量级，就算加上沙漠等其它的地方，IPv6的数量也足够覆盖它。</p>
+<h4 id="点到点通信更方便-1"><a href="#点到点通信更方便-1" class="headerlink" title="点到点通信更方便"></a>点到点通信更方便</h4><p>IPv6完全有能力为联网的每个设备分配一个公网IP，于是我们可以不再需要NAT，从而非常方便的实现点到点的直接通信。</p>
+<p>说好处之前，先了解一下NAT的缺点：</p>
+<ul>
+<li>使用了NAT之后，每次通信都要做一次NAT转换，影响性能。</li>
+<li>处于两个不同NAT网络内部的机器不能直接通信，他们之间的通信得依赖第三方的服务器，极大的限制了网络的连通性，同时所有的数据都会被第三方所监控。</li>
+<li>为了支持NAT，很多网络协议变得很复杂，大大增加了网络的复杂性。</li>
+</ul>
+<p>没有了NAT之后，当然上面的这些缺点也就没有了，同时会带来下面这些比较直观的好处：</p>
+<ul>
+<li>更方便： 想象一下，每个电脑都有公网IP，你电脑出了点问题，找我帮忙看一下，只要把你的IP给我，我就可以连上去了，而我们现在的情况是，两个人都是内网IP，没法直接访问，非得用QQ共享桌面之类的软件。</li>
+<li>更安全： 配合点到点的加密，让网络更安全，不给第三方监听的机会； 以网络聊天为例，通过使用点到点的聊天软件，就不用担心被人监听聊天记录了；同时访问家里的摄像头不再需要经过第三方服务器，不用担心给别人看直播了。</li>
+</ul>
+<h4 id="IP配置更方便-1"><a href="#IP配置更方便-1" class="headerlink" title="IP配置更方便"></a>IP配置更方便</h4><p>IPv6有一个功能叫<a href="https://tools.ietf.org/html/rfc2462" target="_blank" rel="noopener">Stateless Auto Configuration</a>，简单点说，就是可以不借助DHCP服务器实现IP地址的分配，插上网线就能上网。</p>
+<p>系统起来后，就会为每个网卡生成一个Link-Local的IP地址，简单点说就是一个固定的前缀加上mac地址，由于mac地址全球唯一，所以这样构成的IP地址是唯一的，有了这个地址后，就可以局域网进行通信了，但是这种地址路由器是不会转发的。</p>
+<p>如果网络里有路由器； 系统会通过广播的方式问路由器，路由器会返回一个子网前缀，类似于IPv4里面的192.168.0.0/16，系统将子网前缀和mac地址组合起来，构成了一个唯一的IP地址，这个IP地址可以通过路由器路由。</p>
+<p>也就是说，就算不做任何配置，系统启动起来后，网卡就一定会有IPv6地址，有了IPv6地址就可以通信。</p>
+<p>当然IP地址也可以由DHCP6服务器来分配，这种方式分配叫做Stateful Auto Configuration。</p>
+<h4 id="局域网内更安全-1"><a href="#局域网内更安全-1" class="headerlink" title="局域网内更安全"></a>局域网内更安全</h4><p>由<a href="https://tools.ietf.org/html/rfc4861" target="_blank" rel="noopener">Neighbor Discovery</a>代替了IPv4里面的<a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol" target="_blank" rel="noopener">ARP</a>协议，没有ARP后，跟<a href="https://en.wikipedia.org/wiki/ARP_spoofing" target="_blank" rel="noopener">ARP相关的攻击</a>就不存在了</p>
+<h4 id="路由更快-1"><a href="#路由更快-1" class="headerlink" title="路由更快"></a>路由更快</h4><ul>
+<li>跟IPv4不同，IPv6包头的字段长度是固定的，没有可选字段，所以路由器不需要检查IP包头是否包含可选字段。</li>
+<li>IPv6包头里面没有checksum字段，不需要像IPv4那样每次TTL减1后都需要重新计算包头的checksum。</li>
+<li>IPv6不支持在中途被分片和重组，即不能在路由器和防火墙上被分片，从而减轻了路由器的负担。</li>
+</ul>
+<p>IPv6包头里面没有checksum，那么会不会不安全呢？如果数据传输的过程中损坏了怎么办呢？首先，现在的网络都比较好，出现损坏的情况很少；其次，就算损坏了，有两种情况，一种是被路由器丢弃或者发到了错误的主机，这种情况不会造成什么问题，因为IP层本来就不保证可靠的传输，而是由上面的传输层来保证（如TCP），另一种情况是接受方收到了数据包，但由于数据包受损，内容已经和发送方发出来的不一样了，这种情况也是交给上面的传输层协议处理，比如UDP、TCP，它们都有自己的校验码，完全有能力发现数据损坏的问题。</p>
+<p>不允许路由器对IPv6包进行分片，那么怎么保证发送端不会发送太大的数据包呢？首先，IPv6要求入网链路至少能传输1280字节的IP包，如果出现不能传输1280字节IP包这种情况，需要链路层自己处理分片和重组的过程；其次，跟IPv4里面PMTUD（Path MTU Discovery）是可选的不同，在IPv6里面，<a href="https://tools.ietf.org/html/rfc1981" target="_blank" rel="noopener">PMTUD</a>是一个非常重要且必须的功能；所以一般情况下发送小于等于1280字节的IP包肯定能到达目的地，加上现在大部分人都用以太网（MTU为1500，包含以太网的包头），绝大部分情况下一个包过去就能确定PMTU（Path MTU ），不会影响数据传输性能。</p>
+<h4 id="更安全-1"><a href="#更安全-1" class="headerlink" title="更安全"></a>更安全</h4><p>在设计IPv4的时候，根本没有考虑过安全问题。</p>
+<p>而在设计IPv6的时候，安全问题作为一个很重要的方面被考虑进来了，尤其是端到端的安全，IPsec正是在这样的背景下被设计出来的，有了IPsec后，在IP层就能实现安全传输。</p>
+<p>虽然IPsec也被引入到了IPv4，但由于IPsec连传输层的端口都进行了加密，导致IPsec碰到NAT网络的时候，会造成很多麻烦，虽然现在已经有了解决办法，但IPsec在IPv4网络里面还是受到诸多限制。</p>
+<h4 id="更好的QoS-1"><a href="#更好的QoS-1" class="headerlink" title="更好的QoS"></a>更好的QoS</h4><p>IPv6的包头里面包含了一个叫做<a href="https://tools.ietf.org/html/rfc6437" target="_blank" rel="noopener">Flow Label</a>的字段，专门为QoS服务。</p>
+<h4 id="更好的支持移动设备-1"><a href="#更好的支持移动设备-1" class="headerlink" title="更好的支持移动设备"></a>更好的支持移动设备</h4><p>移动网络要求设备能在不同的网络里面快速的切换，并且现有的通信不受切换的影响，在IPv6里面，有专门的协议<a href="https://tools.ietf.org/html/rfc6275" target="_blank" rel="noopener">Mobile IPv6 (MIPv6)</a>来处理这个事情。</p>
+<h2 id="IPv6格式-1"><a href="#IPv6格式-1" class="headerlink" title="IPv6格式"></a>IPv6格式</h2><p>这里不介绍报文的格式，只介绍IPv6地址的格式。</p>
+<h4 id="地址表示方式-1"><a href="#地址表示方式-1" class="headerlink" title="地址表示方式"></a>地址表示方式</h4><p>IPv6地址的128位分成了由冒号分割的8段，每段2个字节16位，这16位由16进制表示，这里是一些例子，左边是完整的格式，右边是缩写格式：</p>
+<table>
+<thead>
+<tr>
+<th>完整的格式</th>
+<th>缩写格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000:0000:0000:0000:0000:0000:0000:0000</td>
+<td>::</td>
+</tr>
+<tr>
+<td>0000:0000:0000:0000:0000:0000:0000:0001</td>
+<td>::1</td>
+</tr>
+<tr>
+<td>FF02:0000:0000:0000:0000:0000:0000:0001</td>
+<td>FF02::1</td>
+</tr>
+<tr>
+<td>FC00:0001:A000:0B00:0000:0527:0127:00AB</td>
+<td>FC00:1:A000:B00::527:127:AB</td>
+</tr>
+<tr>
+<td>2001:0000:1111:000A:00B0:0000:9000:0200</td>
+<td>2001:0:1111:A:B0::9000:200</td>
+</tr>
+<tr>
+<td>2001:0DB8:0000:0000:ABCD:0000:0000:1234</td>
+<td>2002:DB8::ABCD:0:0:1234 或者 2001:DB8:0:0:ABCD::1234</td>
+</tr>
+<tr>
+<td>2001:0DB8:AAAA:0001:0000:0000:0000:0100</td>
+<td>2001:DB8:AAAA:1::100</td>
+</tr>
+</tbody></table>
+<p>两条缩写规则：</p>
+<ul>
+<li>用冒号分割的每段里面的前面的0可以省略掉，如:0001:可以缩写成:1:，:0000:可以缩写成:0:</li>
+<li>如果冒号里面的是0的话，可以忽略掉（相邻的多个0可以一起忽略掉），直接写成两个冒号，如:0000:0000:可以被缩写成::</li>
+</ul>
+<p><strong>注意：</strong>如果地址中有多个连续为0的段，只能将其中的一个缩写成::，如果两个都缩写了，就不知道每个缩写了多少个0，这也是上面的表格中2001:0DB8:0000:0000:ABCD:0000:0000:1234被缩写成2002:DB8::ABCD:0:0:1234或者2001:DB8:0:0:ABCD::1234的原因，它不能被缩写成2001:DB8::ABCD::1234，一般的做法是哪种方法省略的0越多就用哪种。</p>
+<h4 id="网段表示方式-1"><a href="#网段表示方式-1" class="headerlink" title="网段表示方式"></a>网段表示方式</h4><p>IPv6和IPv4一样，也有网段和子网的概念，在IPv6里面，表示子网号或者网段的时候，也是类似的方法，如：2001:0:0:CD30::/60，这个时候前面的地址只需要写前60位，后面的所有位都用::来缩写，类似于IPv4里面的192.168.0。0/16，不过要注意的是，这里2001:0:0:CD30::不能把前面的两个0也缩写，因为这样就不是一个合法的IPv6地址了。</p>
+<h2 id="IPv6地址类型-1"><a href="#IPv6地址类型-1" class="headerlink" title="IPv6地址类型"></a>IPv6地址类型</h2><p>IPv6里面有三种地址类型；</p>
+<ul>
+<li>Unicast: 单播地址，就是我们常用的地址，唯一标识一个网络接口</li>
+<li>Anycast: 任意播（直译有点怪），一类特殊的IP地址，多个网络接口（不同的设备）都配上相同的地址，往这个地址发送数据的时候，路由器会只发往其中的一个接口，一般发往最近的那一个。（这个好像对实现负载均衡比较有用）</li>
+<li>Multicast: 多播地址，代表一类unicast的集合，但往这个地址发送数据的时候，会将数据发给属于这个多播组的每个unicast地址。</li>
+</ul>
+<p>IPv6里面没有类似于IPv4那样单独的广播概念，它的功能被包含在多播里面。</p>
+<blockquote>
+<p>本人对anycast和multicast不是特别了解，所以没法描述的很清楚。</p>
+</blockquote>
+<h4 id="IPv6地址分类-1"><a href="#IPv6地址分类-1" class="headerlink" title="IPv6地址分类"></a>IPv6地址分类</h4><p>现有的IP地址被分配成如下几大类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>前缀</th>
+<th>IPv6表示方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unspecified</td>
+<td>00…00 (128位)</td>
+<td>::/128</td>
+</tr>
+<tr>
+<td>Loopback</td>
+<td>00…01 (128位)</td>
+<td>::1/128</td>
+</tr>
+<tr>
+<td>Multicast</td>
+<td>11111111</td>
+<td>FF00::/8</td>
+</tr>
+<tr>
+<td>Link-Local unicast</td>
+<td>1111111010</td>
+<td>FE80::/10</td>
+</tr>
+<tr>
+<td>Unique local address</td>
+<td>1111110</td>
+<td>FC00::/7</td>
+</tr>
+<tr>
+<td>Global Unicast</td>
+<td>所有其它</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>全0的地址::/128为未定义地址，大家不要去使用</li>
+<li>除了最后一位是1，其它都是0的地址::1/128为本地环回地址，同IPv4里面的127.0.0.1</li>
+<li>FF00::/8这个网段的地址都是多播地址</li>
+<li>FE80::/10为Link-Local的单播地址，这类地址不能穿过路由器</li>
+<li>FC00::/7为本地的单播地址，可以穿过本地的路由器，但不能穿过外网的路由器，即只可以在本地使用，和IPv4里面的192.168.0.0/16相似</li>
+<li><strong>全局的单播地址目前只有2000::/3开头的可以被申请使用，其它的都被预留了</strong></li>
+</ul>
+<h4 id="预定义的多播地址-1"><a href="#预定义的多播地址-1" class="headerlink" title="预定义的多播地址"></a>预定义的多播地址</h4><p>这里是两个常用的预定义的多播地址：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FF02:0:0:0:0:0:0:1</td>
+<td>子网内的所有机器</td>
+</tr>
+<tr>
+<td>FF02:0:0:0:0:0:0:2</td>
+<td>子网内的所有路由器</td>
+</tr>
+</tbody></table>
+<p>后面有例子演示如何使用多播</p>
+<h2 id="子网的划分-1"><a href="#子网的划分-1" class="headerlink" title="子网的划分"></a>子网的划分</h2><p>IPv6要求所有的单播（unicast）地址的子网必须是64位的，即下面这种格式：</p>
+<pre><code>   |         64 bits         |         64 bits         |
+   +-------------------------+-------------------------+
+   |        subnet ID        |       interface ID      |   </code></pre><p>如果子网的长度不是64位的话，会导致一些IPv6的功能不可用，详情请参考<a href="https://tools.ietf.org/html/rfc5375" target="_blank" rel="noopener">IPv6 Unicast Address Assignment Considerations</a>。</p>
+<p>Interface ID为<a href="http://standards.ieee.org/develop/regauth/tut/eui64.pdf" target="_blank" rel="noopener">Modified EUI-64</a>格式，标准里面提供了如何将48位mac地址转换成EUI-64格式的方法。</p>
+<p>IPv6标准要求单播地址的子网必须是64位的，主要是为了简化IPv6的管理，同时路由也方便，毕竟现在CPU都是64位的，如果子网号超过64位的话，会给路由造成一定的困难，同时64位的接口ID也比较容易存放一个UUID，比如可以容纳48位的mac地址，为Stateless Auto Configuration的地址分配提供了足够的空间。</p>
+<p>64位的子网够用吗？64位的子网已经可以容纳2^64的设备了，相当于40亿个现在的IPv4地址空间的规模，实在是想不出还有哪种场合需要更大的子网。</p>
+<p>64位的子网浪费吗？想想IPv4时代，几个人或者一群人通过NAT共享1个公网IP，而到了IPv6时代，这些人竟然可以拥有2^64个IP地址，想用几个用几个，为几个人分配一个64位的子网是不是有点浪费呢？其实谈不上浪费，IPv6的地址就是有那么多，大家都空着不用也是浪费，按道理64位的IP地址在可预见的将来已经够用了，而之所以采用128位IP加64位子网的方式，是因为能给我们的管理和使用方面带来很多的方便，如上面提到的便于路由和地址分配等。就算以后IP不够用了，再来放开子网位数的限制应该问题也不大。</p>
+<blockquote>
+<p>想起了一句话： 等我有了钱，要装两条宽带，一条玩游戏，一条聊QQ。</p>
+</blockquote>
+<h2 id="Linux上配置IPv6-1"><a href="#Linux上配置IPv6-1" class="headerlink" title="Linux上配置IPv6"></a>Linux上配置IPv6</h2><blockquote>
+<p>下面的所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
+</blockquote>
+<p>现在的大部分Linux发行版默认情况下都启用了IPv6，如果没有，请参考发行版相关文档进行配置</p>
+<pre><code>#这里有输出，表示IPv6已结启用了
+dev@ubuntu:~$ test -f /proc/net/if_inet6 &amp;&amp; echo &quot;IPv6 is already enabled&quot;
+IPv6 is already enabled</code></pre><p>IPv6启用后，每个网卡都会有一个IPv6地址，如下：</p>
+<pre><code>dev@ubuntu:~$ ifconfig
+enp0s3    Link encap:Ethernet  HWaddr 08:00:27:03:d0:e7
+          inet addr:192.168.3.12  Bcast:192.168.3.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe03:d0e7/64 Scope:Link
+          ......
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          ......</code></pre><p>这里lo的IPv6地址是环回地址::1，而enp0s3有一个“Scope:Link”的IPv6地址fe80::a00:27ff:fe03:d0e7，这个IP地址即上面说到的Link-local地址，它没法通过路由器，只能在子网内部使用。</p>
+<blockquote>
+<p>由于IPv6对交换机没有要求，所以就算没有支持IPv6的路由器，我们也可以在本地局域网内试玩一下IPv6</p>
+</blockquote>
+<p>通过ip命令就可以给网卡添加IPv6地址，和一个网卡只能有一个IPv4地址不同，一个网卡可以配置多个IPv6地址。</p>
+<pre><code>#添加一个global的地址
+dev@ubuntu:~$ sudo ip -6 addr add 2001::1/64 dev enp0s3
+#添加一个Unique local address地址
+dev@ubuntu:~$ sudo ip -6 addr add fd00::1/64 dev enp0s3
+dev@ubuntu:~$ ifconfig enp0s3
+enp0s3    Link encap:Ethernet  HWaddr 08:00:27:03:d0:e7
+          inet addr:192.168.3.12  Bcast:192.168.3.255  Mask:255.255.255.0
+          inet6 addr: fd00::1/64 Scope:Global
+          inet6 addr: 2001::1/64 Scope:Global
+          inet6 addr: fe80::a00:27ff:fe03:d0e7/64 Scope:Link
+          ......</code></pre><p>再来看看系统默认的路由表：</p>
+<pre><code>dev@ubuntu:~$ route -A inet6
+Kernel IPv6 routing table
+Destination                    Next Hop                   Flag Met Ref Use If
+2001::/64                      ::                         U    256 0     0 enp0s3
+fd00::/64                      ::                         U    256 0     0 enp0s3
+fe80::/64                      ::                         U    256 1     3 enp0s3
+::/0                           ::                         !n   -1  1   832 lo
+::1/128                        ::                         Un   0   3    36 lo
+2001::1/128                    ::                         Un   0   3     9 lo
+fd00::1/128                    ::                         Un   0   2     5 lo
+fe80::a00:27ff:fe03:d0e7/128   ::                         Un   0   3   193 lo
+ff00::/8                       ::                         U    256 2    84 enp0s3
+::/0                           ::                         !n   -1  1   832 lo</code></pre><p>从“Next Hop”列可以看出，这里的所有网段都是本地接口可以直接到达的网段，不需要路由器转发。</p>
+<h2 id="使用IPv6-1"><a href="#使用IPv6-1" class="headerlink" title="使用IPv6"></a>使用IPv6</h2><p>上节配置好了IPv6之后，我们这节来看看怎么使用这些地址</p>
+<blockquote>
+<p>这里只用一台机器来演示怎么和自己通信，大家有条件的话可以试试两台机器之间通信，效果是一样的。</p>
+</blockquote>
+<h4 id="ping6-1"><a href="#ping6-1" class="headerlink" title="ping6"></a>ping6</h4><p>和IPv4里面的ping相对于的命令是ping6，对于不同类型的地址，ping的方式不一样(为了节省篇幅，示例中省略了ping成功时的输出)：</p>
+<pre><code>#ping lo的环回地址
+dev@ubuntu:~$ ping6 ::1
+
+#ping类型为“Scope:Global”的地址
+dev@ubuntu:~$ ping6 fd00::1
+dev@ubuntu:~$ ping6 2001::1
+
+
+#ping类型为“Scope:Link”的地址
+dev@ubuntu:~$ ping6 -I enp0s3 fe80::a00:27ff:fe03:d0e7
+
+#ping一个多播（Multicast）地址，ff02::1代表子网中的所有机器
+dev@ubuntu:~$ ping6 -I enp0s3 ff02::1
+PING ff02::1(ff02::1) from fe80::a00:27ff:fe03:d0e7 enp0s3: 56 data bytes
+64 bytes from fe80::a00:27ff:fe03:d0e7: icmp_seq=1 ttl=64 time=0.036 ms
+64 bytes from fe80::3aea:a7ff:fe6c:ecff: icmp_seq=1 ttl=64 time=0.744 ms (DUP!)
+64 bytes from fe80::188d:cbae:80d5:7a7a: icmp_seq=1 ttl=64 time=0.791 ms (DUP!)
+......
+#可以看到局域网中的其它机器回复的结果，这些IP都是其它机器的“Scope:Link”地址
+#这里(DUP!)是由于ping多播地址时会收到多个回复，导致ping认为有重复的应答，其实是正常情况
+
+#选择其中的任意一个，单独ping一下试试
+dev@ubuntu:~$ ping6 -I enp0s3 fe80::188d:cbae:80d5:7a7a
+
+#访问Link-local的地址的时候，除了-I参数外，我们可以直接这样访问
+dev@ubuntu:~$ ping6 fe80::188d:cbae:80d5:7a7a%enp0s3
+
+#或者根据enp0s3的id来访问
+#获取enp0s3的id
+dev@ubuntu:~$ grep enp0s3 /proc/net/if_inet6 | cut -d&#39; &#39; -f2 | uniq
+02
+dev@ubuntu:~$ ping6 fe80::188d:cbae:80d5:7a7a%2</code></pre><p>从上面可以看出，ping环回地址和global地址时，直接ping就可以了，而ping多播和Link-Local地址时，需要指定从哪个接口出去，这是因为机器上所有接口的Link-Local地址都属于同一个网段，当有多个接口时，根本没办法自动的判断应该从哪个接口出去。（不过从上面的路由表里面可以看出，在本地只有一个接口时，已经标识fe80::/64和ff00::/8可以从enp0s3口出去，不确定为什么在这种情况下，应用层的程序还要求指定接口名称，可能是为了保持统一吧，不管有几个接口，都一样的用法）。</p>
+<blockquote>
+<p>注意： 如果是访问其它机器的link-local地址，-I参数和百分号的后面一定要指定本机出去的接口名称，而不是目的IP对应的接口名称</p>
+</blockquote>
+<h4 id="DNS-1"><a href="#DNS-1" class="headerlink" title="DNS"></a>DNS</h4><p>DNS里面有一个专门的IPv6类型，叫AAAA，查询的时候指定类型就可以了</p>
+<pre><code>#host命令默认情况下只查询A类地址，即IPv4地址
+#指定-t AAAA即可查询域名的IPv6地址
+#这里的结果显示，baidu.com还不支持IPv6，google.com已经支持了
+dev@ubuntu:~$ host -t AAAA baidu.com
+baidu.com has no AAAA record
+dev@ubuntu:~$ host -t AAAA google.com
+google.com has IPv6 address 2607:f8b0:400e:c04::65
+
+#dig命令也是一样的参数
+dev@ubuntu:~$ dig -t AAAA google.com
+#这里省略输出结果，有点长</code></pre><h4 id="SSH-1"><a href="#SSH-1" class="headerlink" title="SSH"></a>SSH</h4><p>下面四种方式都可以登陆当前机器</p>
+<pre><code>dev@ubuntu:~$ ssh ::1   
+dev@ubuntu:~$ ssh 2001::1
+dev@ubuntu:~$ ssh fe80::a00:27ff:fe03:d0e7%enp0s3
+dev@ubuntu:~$ ssh fe80::a00:27ff:fe03:d0e7%2</code></pre><h4 id="http-1"><a href="#http-1" class="headerlink" title="http"></a>http</h4><p>下面以curl来进行演示，如果有图形界面的浏览器的话，可以直接在浏览器里面输入同样的地址</p>
+<pre><code>#--------------------------第一个shell窗口----------------------
+#准备一个支持IPv6的http服务器
+dev@ubuntu:~$ sudo apt-get install php
+dev@ubuntu:~$ mkdir web
+dev@ubuntu:~$ echo &quot;hello world!&quot; &gt; web/index.html
+#启动http服务器，监听所有接口的8080端口
+dev@ubuntu:~$ php -S [::]:8080 -t ./web/
+PHP 7.0.15-0ubuntu0.16.04.4 Development Server started at Mon Mar 20 23:44:26 2017
+Listening on http://[::]:8080
+Document root is /home/dev/web
+Press Ctrl-C to quit.
+
+#--------------------------第二个shell窗口----------------------
+#确认监听正确，这里:::8080就表示监听了所有IPv6和IPv4接口的8080端口
+dev@ubuntu:~$ netstat -anp|grep 8080
+tcp6       0      0 :::8080                 :::*                    LISTEN      13716/php
+
+#先试试用IPv4的地址连过来，没有问题
+dev@ubuntu:~$ curl http://127.0.0.1:8080/
+hello world!
+
+#IPv6的环回地址
+dev@ubuntu:~$ curl http://[::1]:8080/
+hello world!
+
+#IPv6的global地址
+dev@ubuntu:~$ curl http://[2001::1]:8080/
+hello world!
+
+#link-local地址
+dev@ubuntu:~$ curl http://[fe80::a00:27ff:fe03:d0e7%enp0s3]:8080/
+hello world!
+dev@ubuntu:~$ curl http://[fe80::a00:27ff:fe03:d0e7%2]:8080/
+hello world!</code></pre><h2 id="IPv6编程示例-1"><a href="#IPv6编程示例-1" class="headerlink" title="IPv6编程示例"></a>IPv6编程示例</h2><p>这里以python代码为示例，写了一个UDP的服务器和客户端，演示如何同时支持IPv4和IPv6。（为了简化起见，代码里面没有做错误处理）</p>
+<h4 id="server-py-1"><a href="#server-py-1" class="headerlink" title="server.py"></a>server.py</h4><pre><code>import socket
+import sys
+
+ip,port = sys.argv[1],int(sys.argv[2])
+
+addrinfo = socket.getaddrinfo(ip, port, proto=socket.IPPROTO_UDP)[0]
+sock = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
+addr = addrinfo[4]
+sock.bind(addr)
+
+print(&quot;Listening on [{}]:{}...&quot;.format(addr[0], addr[1]))
+
+while True:
+    data, addr = sock.recvfrom(65535)
+    print(&quot;Recvfrom [{}]:{}\t{}&quot;.format(addr[0], addr[1], data))
+    sock.sendto(data, addr)</code></pre><h4 id="client-py-1"><a href="#client-py-1" class="headerlink" title="client.py"></a>client.py</h4><pre><code>import socket
+import sys
+
+host,port = sys.argv[1],int(sys.argv[2])
+
+addrinfos = socket.getaddrinfo(host, port, proto=socket.IPPROTO_UDP)
+for addrinfo in addrinfos:
+    sock = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
+    sock.settimeout(2)
+    data = b&#39;hello&#39;
+    addr = addrinfo[4]
+    sock.sendto(data, addr)
+    print(&quot;Sendto   [{}]:{}\t{}&quot;.format(addr[0], addr[1], data))
+    try:
+        data, addr = sock.recvfrom(65535)
+        print(&quot;Recvfrom [{}]:{}\t{}&quot;.format(addr[0], addr[1], data))
+    except socket.timeout:
+        print(&quot;timeout&quot;)</code></pre><p>如果参数传入的是域名或者主机名，getaddrinfo函数可能返回多个IP，这时候客户端需要根据自己的应用特点选择一个或多个进行通信，在本例中是发送数据包给所有的IP。</p>
+<p>getaddrinfo返回的IP列表里面的顺序是有讲究的，如果对这个很在意的话，请参考<a href="https://tools.ietf.org/html/rfc6724" target="_blank" rel="noopener">rfc6724</a>，默认情况一般是IPv6的地址在前面，在Linux下还可以通过<a href="https://linux.die.net/man/5/gai.conf" target="_blank" rel="noopener">/etc/gai.conf</a>来配置相关的顺序。</p>
+<h4 id="server使用示例-1"><a href="#server使用示例-1" class="headerlink" title="server使用示例"></a>server使用示例</h4><pre><code>dev@ubuntu:~/ipv6$ python3 server.py :: 8000
+Listening on [::]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py 0.0.0.0 8000
+Listening on [0.0.0.0]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py 2001::1 8000
+Listening on [2001::1]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py fe80::a00:27ff:fe03:d0e7%enp0s3 8000
+Listening on [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000...
+dev@ubuntu:~/ipv6$ python3 server.py fe80::a00:27ff:fe03:d0e7%2 8000
+Listening on [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000...</code></pre><h4 id="server绑定所有IPv4和IPv6的接口，-然后client用不同的方式发包-1"><a href="#server绑定所有IPv4和IPv6的接口，-然后client用不同的方式发包-1" class="headerlink" title="server绑定所有IPv4和IPv6的接口， 然后client用不同的方式发包"></a>server绑定所有IPv4和IPv6的接口， 然后client用不同的方式发包</h4><pre><code>dev@ubuntu:~/ipv6$ python3 server.py :: 8000
+Listening on [::]:8000...
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:48033        b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:50298        b&#39;hello&#39;
+Recvfrom [2001::1]:60882        b&#39;hello&#39;
+Recvfrom [::1]:44664    b&#39;hello&#39;
+Recvfrom [::ffff:127.0.0.1]:46676       b&#39;hello&#39;
+Recvfrom [::1]:55518    b&#39;hello&#39;
+Recvfrom [::ffff:127.0.0.1]:35961       b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:36281        b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py fe80::a00:27ff:fe03:d0e7%enp0s3 8000
+Sendto   [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py fe80::a00:27ff:fe03:d0e7%2 8000
+Sendto   [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py 2001::1 8000
+Sendto   [2001::1]:8000 b&#39;hello&#39;
+Recvfrom [2001::1]:8000 b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py ::1 8000
+Sendto   [::1]:8000     b&#39;hello&#39;
+Recvfrom [::1]:8000     b&#39;hello&#39;
+dev@ubuntu:~/ipv6$ python3 client.py 127.0.0.1 8000
+Sendto   [127.0.0.1]:8000       b&#39;hello&#39;
+Recvfrom [127.0.0.1]:8000       b&#39;hello&#39;
+#由于localhost在/etc/hosts里面配置了两个IP，所以这里发了两个数据包，
+#并且是先发IPv6的地址
+dev@ubuntu:~/ipv6$ python3 client.py localhost 8000
+Sendto   [::1]:8000     b&#39;hello&#39;
+Recvfrom [::1]:8000     b&#39;hello&#39;
+Sendto   [127.0.0.1]:8000       b&#39;hello&#39;
+Recvfrom [127.0.0.1]:8000       b&#39;hello&#39;
+#通过多播地址发给当前子网中的所有机器
+dev@ubuntu:~/ipv6$ python3 client.py FF02:0:0:0:0:0:0:1%enp0s3 8000
+Sendto   [ff02::1%enp0s3]:8000  b&#39;hello&#39;
+Recvfrom [fe80::a00:27ff:fe03:d0e7%enp0s3]:8000 b&#39;hello&#39;</code></pre><h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p><a href="http://etherealmind.com/allocating-64-wasteful-ipv6-not/" target="_blank" rel="noopener">Why Allocating a /64 is Not Wasteful and Necessary</a><br><a href="http://ipv6.com/articles/general/Top-10-Features-that-make-IPv6-greater-than-IPv4.htm" target="_blank" rel="noopener">Top 10 Features that make IPv6 ‘greater’ than IPv4</a><br><a href="https://tools.ietf.org/html/rfc4291" target="_blank" rel="noopener">IP Version 6 Addressing Architecture</a></p>
+
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">写作不易，客官能否打赏一杯奶茶？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《IPV6简介》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/02/16/linux/ipv6-jian-jie/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                阿钟
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '466e387c08bce10f3f28',
+        clientSecret: '5b2bf16f8a42bd72eef32e50187c7f2ccb105a1d',
+        repo: 'azhong.github.io',
+        owner: 'JohnZhongg',
+        admin: "JohnZhongg",
+        id: '2020/02/16/linux/ipv6-jian-jie/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+    <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script> -->
+
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'false' === 'true',
+        avatar: 'wavatar',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '如果你没有GitHub账号，还可以在这里评论啦！'
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/02/16/linux/linux-session-he-jin-cheng-zu-gai-shu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Linux session和进程组概述">
+                        
+                        <span class="card-title">Linux session和进程组概述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            linux
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/02/16/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Linux下常见文件系统对比">
+                        
+                        <span class="card-title">Linux下常见文件系统对比</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            linux
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 阿钟的博客<br />'
+            + '作者: 阿钟<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2020- Azhong. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">624.3k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/JohnZhongg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:707845008@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://zhihu.com/people/change-94-17" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-inverse">知</i>
+    </a>
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=707845008&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+<!-- 
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+ --></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020, 12, 20, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

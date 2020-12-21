@@ -123,11 +123,11 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/</id>
-    <published>2020-10-19T07:19:45.944Z</published>
-    <updated>2020-10-19T07:20:00.682Z</updated>
+    <title>4_docker镜像</title>
+    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/4-docker-jing-xiang/"/>
+    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/4-docker-jing-xiang/</id>
+    <published>2020-10-18T06:24:43.702Z</published>
+    <updated>2020-12-21T05:11:53.849Z</updated>
     
     <summary type="html">
     
@@ -135,21 +135,26 @@
       
         
         
-          &lt;p&gt;继前两篇介绍了&lt;a href=&quot;https://segmentfault.com/a/1190000009249039&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;tun/tap&lt;/a&gt;和&lt;a
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;Docker镜像是用来启动容器的构建基石。让我们通过进一步学习 Docker镜像来继续我们的Docker之旅。
         
       
     
     </summary>
     
+      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/</id>
-    <published>2020-10-19T07:19:19.704Z</published>
-    <updated>2020-10-19T07:19:31.877Z</updated>
+    <title>3_docker容器</title>
+    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/3-docker-rong-qi/"/>
+    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/3-docker-rong-qi/</id>
+    <published>2020-10-18T06:24:24.825Z</published>
+    <updated>2020-12-21T05:11:52.611Z</updated>
     
     <summary type="html">
     
@@ -157,21 +162,26 @@
       
         
         
-          &lt;p&gt;有了上一篇关于&lt;a href=&quot;https://segmentfault.com/a/1190000009249039&quot; target=&quot;_blank&quot;
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;帮助&quot;&gt;&lt;a href=&quot;#帮助&quot; class=&quot;headerlink&quot; title=&quot;帮助&quot;&gt;&lt;/a&gt;帮助&lt;/h1&gt;&lt;p&gt;官方文档列出了完整的 Docker 命令列表，也可以使用 &lt;code&gt;docker help&lt;/code&gt;
         
       
     
     </summary>
     
+      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-session-he-jin-cheng-zu-gai-shu/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-session-he-jin-cheng-zu-gai-shu/</id>
-    <published>2020-10-19T07:18:41.163Z</published>
-    <updated>2020-10-19T07:18:59.420Z</updated>
+    <title>1_docker简介</title>
+    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/1-docker-jian-jie/"/>
+    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/1-docker-jian-jie/</id>
+    <published>2020-10-18T06:23:17.480Z</published>
+    <updated>2020-12-21T05:11:48.808Z</updated>
     
     <summary type="html">
     
@@ -179,21 +189,26 @@
       
         
         
-          &lt;p&gt;在&lt;a href=&quot;https://segmentfault.com/a/1190000009082089&quot; target=&quot;_blank&quot;
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;简单、轻量的构建方式&quot;&gt;&lt;a href=&quot;#简单、轻量的构建方式&quot; class=&quot;headerlink&quot; title=&quot;简单、轻量的构建方式&quot;&gt;&lt;/a&gt;简单、轻量的构建方式&lt;/h1&gt;&lt;p&gt;Docker 依赖了”&lt;a
         
       
     
     </summary>
     
+      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-ttypts-gai-shu/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-ttypts-gai-shu/</id>
-    <published>2020-10-19T07:17:39.112Z</published>
-    <updated>2020-10-19T07:17:51.916Z</updated>
+    <title>2_安装docker</title>
+    <link href="https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/2-an-zhuang-docker/"/>
+    <id>https://honphanjohn.top/2020/10/18/docker/yin-xiang-bi-ji/2-an-zhuang-docker/</id>
+    <published>2020-10-18T06:23:02.525Z</published>
+    <updated>2020-12-21T05:11:50.681Z</updated>
     
     <summary type="html">
     
@@ -201,22 +216,26 @@
       
         
         
-          &lt;p&gt;当我们在键盘上敲下一个字母的时候，到底是怎么发送到相应的进程的呢？我们通过ps、who等命令看到的类似tty1、pts/0这样的输出，它们的作用和区别是什么呢？&lt;/p&gt;
-&lt;h2 id=&quot;TTY历史&quot;&gt;&lt;a href=&quot;#TTY历史&quot; class=&quot;headerlink&quot;
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;总览&quot;&gt;&lt;a href=&quot;#总览&quot; class=&quot;headerlink&quot; title=&quot;总览&quot;&gt;&lt;/a&gt;总览&lt;/h1&gt;&lt;p&gt;Docker的安装既快又简单。目前, Docker已经支持非常多的
         
       
     
     </summary>
     
+      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/network/netfilteriptables-jian-jie/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/network/netfilteriptables-jian-jie/</id>
-    <published>2020-10-19T07:17:11.796Z</published>
-    <updated>2020-10-19T07:17:22.595Z</updated>
+    <title>docker概述</title>
+    <link href="https://honphanjohn.top/2020/10/17/docker/docker/"/>
+    <id>https://honphanjohn.top/2020/10/17/docker/docker/</id>
+    <published>2020-10-17T06:34:10.141Z</published>
+    <updated>2020-12-21T05:52:37.154Z</updated>
     
     <summary type="html">
     
@@ -224,21 +243,26 @@
       
         
         
-          &lt;p&gt;netfilter和iptables是什么关系？常说的iptables里面的表(table)、链(chain)、规则(rule)都是什么东西？本篇将带着这些疑问介绍netfilter/iptables的结构和相关概念，帮助有需要的同学更好的理解netfilter/iptab
+          &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221105211.png&quot; alt=&quot;什么是docker&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
     </summary>
     
+      <category term="docker" scheme="https://honphanjohn.top/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://honphanjohn.top/tags/docker/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/ssltls-ji-zheng-shu-gai-shu/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/ssltls-ji-zheng-shu-gai-shu/</id>
-    <published>2020-10-19T07:16:36.411Z</published>
-    <updated>2020-10-19T07:16:49.032Z</updated>
+    <title>mysql学习笔记：基础架构</title>
+    <link href="https://honphanjohn.top/2020/09/30/mysql/ji-chu-jia-gou-ji-suo-yin-ji-suo-ji-shi-wu-shi-xian-ji-ri-zhi/"/>
+    <id>https://honphanjohn.top/2020/09/30/mysql/ji-chu-jia-gou-ji-suo-yin-ji-suo-ji-shi-wu-shi-xian-ji-ri-zhi/</id>
+    <published>2020-09-30T06:45:49.611Z</published>
+    <updated>2020-12-21T05:46:16.859Z</updated>
     
     <summary type="html">
     
@@ -246,23 +270,25 @@
       
         
         
-          &lt;p&gt;每次配置HTTPS或者SSL时，都需要指定一些cacert，cert，key之类的东西，他们的具体作用是什么呢？为什么配置了他们之后通信就安全了呢？怎么用openssl命令来生成它们呢？程序中应该如何使用这些文件呢？&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;本篇以TLS
+          &lt;h1 id=&quot;一、基础架构-一条SQL查询语句是如何执行的&quot;&gt;&lt;a href=&quot;#一、基础架构-一条SQL查询语句是如何执行的&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="mysql" scheme="https://honphanjohn.top/categories/mysql/"/>
+    
+    
+      <category term="mysql" scheme="https://honphanjohn.top/tags/mysql/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/</id>
-    <published>2020-10-19T07:15:31.579Z</published>
-    <updated>2020-10-19T07:16:09.745Z</updated>
+    <title>JVM线程模型概述</title>
+    <link href="https://honphanjohn.top/2020/09/24/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/"/>
+    <id>https://honphanjohn.top/2020/09/24/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/</id>
+    <published>2020-09-24T06:16:33.831Z</published>
+    <updated>2020-12-21T04:55:41.787Z</updated>
     
     <summary type="html">
     
@@ -270,21 +296,26 @@
       
         
         
-          &lt;p&gt;继上一篇介绍了&lt;a href=&quot;https://segmentfault.com/a/1190000008836467&quot; target=&quot;_blank&quot;
+          &lt;p&gt;暂无&lt;/p&gt;
+
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/</id>
-    <published>2020-10-19T07:15:22.610Z</published>
-    <updated>2020-10-19T07:15:42.019Z</updated>
+    <title>16_高效并发</title>
+    <link href="https://honphanjohn.top/2020/09/23/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/"/>
+    <id>https://honphanjohn.top/2020/09/23/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/16-gao-xiao-bing-fa/</id>
+    <published>2020-09-23T07:59:06.929Z</published>
+    <updated>2020-12-21T04:59:21.846Z</updated>
     
     <summary type="html">
     
@@ -292,24 +323,25 @@
       
         
         
-          &lt;p&gt;本文将介绍在Linux系统中，数据包是如何一步一步从网卡传到进程手中的。&lt;/p&gt;
-&lt;p&gt;如果英文没有问题，强烈建议阅读后面参考里的两篇文章，里面介绍的更详细。&lt;/p&gt;
-&lt;p&gt;本文只讨论以太网的物理网卡，不涉及虚拟设备，并且以一个UDP包的接收过程作为示例.&lt;/p&gt;
-&lt;blo
+          &lt;h1 id=&quot;Java内存模型与线程&quot;&gt;&lt;a href=&quot;#Java内存模型与线程&quot; class=&quot;headerlink&quot; title=&quot;Java内存模型与线程&quot;&gt;&lt;/a&gt;Java内存模型与线程&lt;/h1&gt;&lt;h2 id=&quot;硬件的效率与一致性&quot;&gt;&lt;a
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/ipv6-jian-jie/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/ipv6-jian-jie/</id>
-    <published>2020-10-19T07:14:47.870Z</published>
-    <updated>2020-10-19T07:14:58.893Z</updated>
+    <title>JVM调优工具及辅助工具</title>
+    <link href="https://honphanjohn.top/2020/09/20/jvm/diao-you/diao-you-gong-ju-ji-fu-zhu-gong-ju/"/>
+    <id>https://honphanjohn.top/2020/09/20/jvm/diao-you/diao-you-gong-ju-ji-fu-zhu-gong-ju/</id>
+    <published>2020-09-20T00:15:00.988Z</published>
+    <updated>2020-12-21T04:59:57.281Z</updated>
     
     <summary type="html">
     
@@ -317,22 +349,25 @@
       
         
         
-          &lt;p&gt;IPv6仅仅只是“长”吗？IPv6的地址长什么样？平时我们是怎么使用IPv6的呢？编写网络程序的时候要怎么处理IPv6？且待本篇一一道来。&lt;/p&gt;
-&lt;h2 id=&quot;为什么需要IPv6&quot;&gt;&lt;a href=&quot;#为什么需要IPv6&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;命令工具&quot;&gt;&lt;a href=&quot;#命令工具&quot; class=&quot;headerlink&quot; title=&quot;命令工具&quot;&gt;&lt;/a&gt;命令工具&lt;/h1&gt;&lt;h2 id=&quot;jps-JVM-Process-Status-Tool&quot;&gt;&lt;a
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/btrfs-wen-jian-xi-tong-zhi-subvolume-yu-snapshot/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/btrfs-wen-jian-xi-tong-zhi-subvolume-yu-snapshot/</id>
-    <published>2020-10-19T07:14:00.374Z</published>
-    <updated>2020-10-19T07:14:12.401Z</updated>
+    <title>15_垃圾回收器</title>
+    <link href="https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/15-la-ji-hui-shou-qi/"/>
+    <id>https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/15-la-ji-hui-shou-qi/</id>
+    <published>2020-09-18T01:58:43.748Z</published>
+    <updated>2020-12-21T04:59:18.719Z</updated>
     
     <summary type="html">
     
@@ -340,21 +375,26 @@
       
         
         
-          &lt;p&gt;对于大部分文件系统来说，在磁盘上创建好文件系统，然后再挂载到系统中去就完事了。但对于Btrfs来说，除了在格式化和挂载的时候指定不同的参数外，还支持很多其他的功能，比如管理多块硬盘，支持LVM和RAID等，具体的可以参考它的&lt;a
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;GC分类&quot;&gt;&lt;a href=&quot;#GC分类&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-wen-jian-xi-tong-zhi-aufs/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-wen-jian-xi-tong-zhi-aufs/</id>
-    <published>2020-10-19T07:13:20.789Z</published>
-    <updated>2020-10-19T07:13:42.604Z</updated>
+    <title>14_GC关键概念补充</title>
+    <link href="https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/"/>
+    <id>https://honphanjohn.top/2020/09/18/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/</id>
+    <published>2020-09-18T00:07:06.398Z</published>
+    <updated>2020-12-21T04:59:15.638Z</updated>
     
     <summary type="html">
     
@@ -362,21 +402,25 @@
       
         
         
-          &lt;p&gt;aufs的全称是advanced multi-layered unification
+          &lt;h1 id=&quot;System-gc-的理解&quot;&gt;&lt;a href=&quot;#System-gc-的理解&quot; class=&quot;headerlink&quot; title=&quot;System.gc()的理解&quot;&gt;&lt;/a&gt;&lt;code&gt;System.gc()&lt;/code&gt;的理解&lt;/h1&gt;&lt;p&gt;在默认情况下,通过
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/</id>
-    <published>2020-10-19T07:12:50.139Z</published>
-    <updated>2020-10-19T07:13:01.316Z</updated>
+    <title>13_GC概述及算法思想</title>
+    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/"/>
+    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/13-gc-gai-shu-ji-suan-fa-si-xiang/</id>
+    <published>2020-09-17T11:39:35.412Z</published>
+    <updated>2020-12-21T04:59:12.884Z</updated>
     
     <summary type="html">
     
@@ -384,24 +428,25 @@
       
         
         
-          &lt;p&gt;本文将对Linux下常见的几种文件系统进行对比，包括ext2、ext3、ext4、XFS和Btrfs，希望能帮助大家更好的选择合适的文件系统。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;内容来自于网上找的资料以及自己的一些经验，能力有限，错误在所难免，仅供参考&lt;/p&gt;
-&lt;/b
+          &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-xu-ni-wen-jian-xi-tong-jian-jie/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-xu-ni-wen-jian-xi-tong-jian-jie/</id>
-    <published>2020-10-19T07:11:57.225Z</published>
-    <updated>2020-10-19T07:12:29.675Z</updated>
+    <title>10_StringTable</title>
+    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/10-stringtable/"/>
+    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/10-stringtable/</id>
+    <published>2020-09-17T06:56:06.607Z</published>
+    <updated>2020-12-21T04:59:02.994Z</updated>
     
     <summary type="html">
     
@@ -409,25 +454,25 @@
       
         
         
-          &lt;p&gt;本文将对Linux下的VFS做一个简单介绍，主要包括VFS里面的一些概念，以及文件系统是如何与VFS交互的。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;本文所涉及的代码摘自Linux-4.4.0-59&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;什么是VFS&quot;&gt;&lt;a
+          &lt;h1 id=&quot;String的基本特性&quot;&gt;&lt;a href=&quot;#String的基本特性&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/</id>
-    <published>2020-10-19T07:11:07.202Z</published>
-    <updated>2020-10-19T07:12:26.105Z</updated>
+    <title>08_执行引擎</title>
+    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/"/>
+    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/</id>
+    <published>2020-09-17T02:12:08.209Z</published>
+    <updated>2020-12-21T04:58:56.691Z</updated>
     
     <summary type="html">
     
@@ -435,21 +480,25 @@
       
         
         
-          &lt;p&gt;在cgroup里面，跟CPU相关的子系统有&lt;a href=&quot;https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt&quot; target=&quot;_blank&quot;
+          &lt;h1 id=&quot;一、编译原理&quot;&gt;&lt;a href=&quot;#一、编译原理&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-cpu-shi-yong-lu/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-cpu-shi-yong-lu/</id>
-    <published>2020-10-19T07:10:43.163Z</published>
-    <updated>2020-10-19T07:10:52.991Z</updated>
+    <title>07_直接内存</title>
+    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/"/>
+    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/07-zhi-jie-nei-cun/</id>
+    <published>2020-09-17T01:32:51.984Z</published>
+    <updated>2020-12-21T04:58:53.931Z</updated>
     
     <summary type="html">
     
@@ -457,22 +506,25 @@
       
         
         
-          &lt;p&gt;在Linux下面，可以通过top命令看到CPU的负载情况，其输出大概如下（只摘录CPU部分）：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03,
+          &lt;h1 id=&quot;直接内存概述&quot;&gt;&lt;a href=&quot;#直接内存概述&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://honphanjohn.top/2020/10/19/linux/linux-oom-killer/"/>
-    <id>https://honphanjohn.top/2020/10/19/linux/linux-oom-killer/</id>
-    <published>2020-10-19T07:10:16.125Z</published>
-    <updated>2020-10-19T07:10:26.790Z</updated>
+    <title>09_对象</title>
+    <link href="https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/"/>
+    <id>https://honphanjohn.top/2020/09/17/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/</id>
+    <published>2020-09-16T23:26:53.577Z</published>
+    <updated>2020-12-21T04:59:00.277Z</updated>
     
     <summary type="html">
     
@@ -480,13 +532,17 @@
       
         
         
-          &lt;p&gt;作为Linux下的程序员，有时不得不面对一个问题，那就是系统内存被用光了，这时当进程再向内核申请内存时，内核会怎么办呢？程序里面调用的malloc函数会返回null吗？&lt;/p&gt;
-&lt;p&gt;为了处理内存不足时的问题，Linux内核发明了一种机制，叫OOM(Out Of
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;一、对象的实例化&quot;&gt;&lt;a href=&quot;#一、对象的实例化&quot; class=&quot;headerlink&quot; title=&quot;一、对象的实例化&quot;&gt;&lt;/a&gt;一、对象的实例化&lt;/h1&gt;&lt;h2 id=&quot;思维导图&quot;&gt;&lt;a href=&quot;#思维导图&quot;
         
       
     
     </summary>
     
+      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
