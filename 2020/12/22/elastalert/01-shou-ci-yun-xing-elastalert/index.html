@@ -8,7 +8,12 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="01_首次运行elastalert | 阿钟的博客">
+    <meta name="description" content="依赖
+Elasticsearch
+ISO8601 or Unix timestamped data
+Python 3.6
+pip, see requirements.txt
+Packages on Ubuntu 14.x: python-p">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -446,12 +451,12 @@
                     
                     <div class="article-tag">
                         
-                        <a href="/tags/ES学习/" target="_blank">
-                            <span class="chip bg-color">ES学习</span>
-                        </a>
-                        
                         <a href="/tags/ELK告警/" target="_blank">
                             <span class="chip bg-color">ELK告警</span>
+                        </a>
+                        
+                        <a href="/tags/ES学习/" target="_blank">
+                            <span class="chip bg-color">ES学习</span>
                         </a>
                         
                     </div>
@@ -492,14 +497,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    2.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    9 分
                 </div>
                 
                 
@@ -515,7 +520,151 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><ul>
+<li>Elasticsearch</li>
+<li>ISO8601 or Unix timestamped data</li>
+<li>Python 3.6</li>
+<li>pip, see requirements.txt</li>
+<li>Packages on Ubuntu 14.x: python-pip python-dev libffi-dev libssl-dev</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>ElastAlert 在 0.2.0 相较于 0.1.x 版本升级到了 Python3，且 requirements.txt 文件中强制依赖 elasticsearch 7 。</p>
+</li>
+<li><p>在 <a href="https://github.com/Yelp/elastalert/blob/master/changelog.md" target="_blank" rel="noopener">changlog</a> 中截止到当前最新的 0.2.4 版本没有增加很多特性。不过经测试即使本地安装的 elasticsearch python 客户端模块不是 7.x 也是可以兼容查询的。</p>
+</li>
+<li><p>需要注意的是无论任何版本 ElastAlert 不支持 <code>doc_type</code> 字段查询</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="下载与配置"><a href="#下载与配置" class="headerlink" title="下载与配置"></a>下载与配置</h2><h3 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h3><p>你可以通过 pip 安装最新的 released 版本的 ElastAlert :</p>
+<pre><code>$ pip3 install elastalert</code></pre><h3 id="源代码安装"><a href="#源代码安装" class="headerlink" title="源代码安装"></a>源代码安装</h3><p>这里安装官方文档的源代码安装进行实操</p>
+<blockquote>
+<p>请注意你的环境是否携带了多版本的 Python 环境，<code>pip</code> 指向的是不是正确版本的 python，例如要运行的 ElastAlert 是0.2.x 版本的，需要 Python 是 3.x 及其对应的 <code>pip</code> 包管理器</p>
+</blockquote>
+<p>或者从仓库克隆当前的最新代码:</p>
+<pre><code>$ git clone https://github.com/Yelp/elastalert.git</code></pre><p>然后通过 setuptools 工具运行官方提供的 <code>setup.py</code> 进行安装:</p>
+<pre><code>$ pip3 install &quot;setuptools&gt;=11.3&quot;
+$ python3 setup.py install</code></pre><p>取决于 Elasticsearch 的版本, 你可能需要手安装正确版本的 elasticsearch-py (ES 官方提供的 Python 客户端)(虽然 requirements.txt 里面写死了版本是 7).</p>
+<p>Elasticsearch 5.0+:</p>
+<pre><code>$ pip3 install &quot;elasticsearch&gt;=5.0.0&quot;</code></pre><p>Elasticsearch 2.X:</p>
+<pre><code>$ pip3 install &quot;elasticsearch&lt;3.0.0&quot;</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>下一步，打开 <code>config.yaml</code> 示例文件。你会在文件中看到几个配置选项。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># ElastAlert 加载规则文件的路径，如果里面没有任何有效规则配置文件，ElastAlert 将不能启动，同时 ElastAlert</span>
+<span class="token comment" spellcheck="true"># 会监视这个路径进行热重载，这里使用 example_rules 相对路径文件夹名称</span>
+<span class="token key atrule">rules_folder</span><span class="token punctuation">:</span> example_rules
+
+<span class="token comment" spellcheck="true"># ElastAlert 轮询 ES 间隔，覆盖全局 config.yaml 配置文件</span>
+<span class="token comment" spellcheck="true"># 单位从 weeks 到 seconds</span>
+<span class="token key atrule">run_every</span><span class="token punctuation">:</span>
+  <span class="token key atrule">minutes</span><span class="token punctuation">:</span> <span class="token number">1</span>
+
+<span class="token comment" spellcheck="true"># 对 ES 的查询窗口，覆盖全局 config.yaml 配置文件，use_count_query和use_terms_query被设置的时候无效</span>
+<span class="token key atrule">buffer_time</span><span class="token punctuation">:</span>
+  <span class="token key atrule">minutes</span><span class="token punctuation">:</span> <span class="token number">15</span>
+
+<span class="token comment" spellcheck="true"># ES 集群地址，会写入一些轮询、告警、错误元信息</span>
+<span class="token key atrule">es_host</span><span class="token punctuation">:</span> elasticsearch.example.com
+
+<span class="token comment" spellcheck="true"># ES 集群端口</span>
+<span class="token key atrule">es_port</span><span class="token punctuation">:</span> <span class="token number">9200</span>
+
+<span class="token comment" spellcheck="true"># 上面提到的 ElastAlert 写入信息的索引名称，使用 elastalert-create-index 创建 mapping</span>
+<span class="token key atrule">writeback_index</span><span class="token punctuation">:</span> elastalert_status
+
+<span class="token comment" spellcheck="true"># 告警失败后的重试窗口</span>
+<span class="token key atrule">alert_time_limit</span><span class="token punctuation">:</span>
+  <span class="token key atrule">days</span><span class="token punctuation">:</span> <span class="token number">2</span>
+
+<span class="token comment" spellcheck="true"># 其它非必要参数已删除</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="配置-ES"><a href="#配置-ES" class="headerlink" title="配置 ES"></a>配置 ES</h2><p>ElastAlert 会将它的 ES 查询和告警的信息和元数据回写到 ES 中。这对于审计、调试是很有用的，同时它允许 ElastAlert 在重启后准确地恢复到停止之前的状态。这对于 ElastAlert 的运行来说不是必要的，不过是强烈建议的。</p>
+<p>第一步，我们需要通过运行 <code>elastalert-create-index</code> 命令来为 ElastAlert 创建索引：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elastalert]# elastalert-create-index
+Elastic Version: 7.1.0
+Reading Elastic 6 index mappings:
+Reading index mapping 'es_mappings/6/silence.json'
+Reading index mapping 'es_mappings/6/elastalert_status.json'
+Reading index mapping 'es_mappings/6/elastalert.json'
+Reading index mapping 'es_mappings/6/past_elastalert.json'
+Reading index mapping 'es_mappings/6/elastalert_error.json'
+New index elastalert_status created
+Done!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建了以下索引</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201222121751.png" alt="image-20201222121751045"></p>
+<h2 id="创建一个规则"><a href="#创建一个规则" class="headerlink" title="创建一个规则"></a>创建一个规则</h2><p>每个 <code>规则</code> 配置文件中定义了一个要执行的查询, 触发<code>匹配</code>的参数, 以及一个当<code>匹配</code>发生的时候会被激活的<code>告警器</code>列表. 下面使用 <code>example_rules/example_frequency.yaml</code> 作为一个模板:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># From example_rules/example_frequency.yaml</span>
+
+<span class="token comment" spellcheck="true"># 要轮询的 es 地址和端口</span>
+<span class="token key atrule">es_host</span><span class="token punctuation">:</span> elasticsearch.example.com
+<span class="token key atrule">es_port</span><span class="token punctuation">:</span> <span class="token number">9200</span>
+<span class="token comment" spellcheck="true"># 唯一的规则名称，如果发生重名 ElastAlert 将无法启动</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> Example rule
+<span class="token comment" spellcheck="true"># 每个规则都会有一个类型，不同的类型会有不同的参数设置</span>
+<span class="token comment" spellcheck="true"># frequence 类型表示在 timeframe 之内超过 num_events 数量的时候进行告警</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> frequency
+<span class="token comment" spellcheck="true"># 查询的 ES 索引(ES 查询天然支持通配符)。如果你使用 Logstash，可以使用如下配置</span>
+<span class="token key atrule">index</span><span class="token punctuation">:</span> logstash<span class="token punctuation">-</span>*
+<span class="token key atrule">num_events</span><span class="token punctuation">:</span> <span class="token number">50</span>
+<span class="token key atrule">timeframe</span><span class="token punctuation">:</span>
+    <span class="token key atrule">hours</span><span class="token punctuation">:</span> <span class="token number">4</span>
+<span class="token comment" spellcheck="true"># filter 是一个 ES filter 查询集合。如果没有想要设置的 filter，应该被设置为一个空 list，如 filter: []</span>
+<span class="token key atrule">filter</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">term</span><span class="token punctuation">:</span>
+    <span class="token key atrule">some_field</span><span class="token punctuation">:</span> <span class="token string">"some_value"</span>
+<span class="token comment" spellcheck="true"># alert 是一个告警器列表。email alert 需要一个 SMTP 服务器来发送邮件。默认它会尝试连接 localhost，使用 smtp_host 进行修改</span>
+<span class="token comment" spellcheck="true"># 暂时没有看到修改 smtp 服务端口的选项，qq 端口是 465</span>
+<span class="token key atrule">alert</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token string">"smtp.qq.com"</span>
+<span class="token comment" spellcheck="true"># email 是一个告警器发送告警邮件的地址列表</span>
+<span class="token key atrule">email</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token string">"707845008@qq.com"</span>
+<span class="token comment" spellcheck="true"># 修改查询时间格式为 unix 毫秒时间戳。一定要注意看你的 ES 里面的时间戳字段是什么类型的，否则将无法匹配</span>
+<span class="token comment" spellcheck="true"># 这里考虑到是测试和可读性，使用默认的 ISO8601 时间戳</span>
+<span class="token comment" spellcheck="true"># timestamp_type: unix_ms</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>重要：</p>
+<ul>
+<li><p><em><em>所有日志文档必须拥有一个 timestamp 字段(一直提到的轮询窗口就是基于这个字段做的 range query). ElastAlert 默认使用 <code>@timestamp</code> , 可以通过 <code>timestamp_field</code> 选项改变. </em></em></p>
+</li>
+<li><p><strong>默认情况下 ElastAlert 使用 ISO8601 时间戳,  unix 时间戳可以通过 <code>timestamp_type</code> 修改(当然也可以修改为其它，具体的参考配置列表章节).</strong></p>
+</li>
+</ul>
+</blockquote>
+<p>最终这个<code>规则</code>表示 “当在 4 小时内出现 50 个文档的 some_field 字段值为 some_value 的时候发送一个邮件到 <a href="mailto:707845008@qq.com" target="_blank" rel="noopener">707845008@qq.com</a>“.</p>
+<h2 id="检测你的规则配置"><a href="#检测你的规则配置" class="headerlink" title="检测你的规则配置"></a>检测你的规则配置</h2><p>运行 <code>elastalert-test-rule</code> 工具将会检测你的配置文件是否可以成功加载:</p>
+<pre><code>$ elastalert-test-rule example_rules/example_frequency.yaml</code></pre><p>如果你想定义一个要使用的配置文件，可以使用 config 选项:</p>
+<pre><code>$ elastalert-test-rule --config &lt;path-to-config-file&gt; example_rules/example_frequency.yaml</code></pre><p>配置选项加载顺序如下：</p>
+<ol>
+<li>在规则 yaml 文件中加载</li>
+<li>在 config 文件中加载(如果指定)</li>
+<li>使用内省设置</li>
+</ol>
+<h2 id="运行-ElastAlert"><a href="#运行-ElastAlert" class="headerlink" title="运行 ElastAlert"></a>运行 ElastAlert</h2><p>有两种方式可以运行 ElastAlert. 通过 Supervisor (<a href="http://supervisord.org/" target="_blank" rel="noopener">http://supervisord.org/</a>) 作为一个守护进程, 或者直接由 Python 运行. 在这里为了调试建议, 直接使用 python 直接:</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$ python -m elastalert.elastalert --verbose --rule example_frequency.yaml  # or use the entry point: elastalert --verbose --rule ...
+No handlers could be found for logger "Elasticsearch"
+INFO:root:Queried rule Example rule from 1-15 14:22 PST to 1-15 15:07 PST: 5 hits
+INFO:Elasticsearch:POST http://elasticsearch.example.com:14900/elastalert_status/elastalert_status?op_type=create [status:201 request:0.025s]
+INFO:root:Ran Example rule from 1-15 14:22 PST to 1-15 15:07 PST: 5 query hits (0 already seen), 0 matches, 0 alerts sent
+INFO:root:Sleeping for 297 seconds<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ElastAlert 使用了 python 的日志系统, <code>--verbose</code> 设置显示 INFO 级别信息. <code>--rule example_frequency.yaml</code> 指定要执行的日志, 否则 ElastAlert 将会加载在 example_rules 文件夹中的其它<code>规则</code>文件.</p>
+<p>让我们分解一下响应信息看看发生了什么.</p>
+<pre><code>Queried rule Example rule from 1-15 14:22 PST to 1-15 15:07 PST: 5 hits</code></pre><p>ElastAlert 定期查询最近 <code>buffer_time</code> (default 45 minutes) 时间窗内的匹配 filters 的数据. 可以看到命中了 5 条.</p>
+<pre><code>POST http://elasticsearch.example.com:14900/elastalert_status/elastalert_status?op_type=create [status:201 request:0.025s]</code></pre><p>上面这行显示了 ElastAlert 上传了一个关于刚刚发出的查询的信息文档到 elastalert_status 索引.</p>
+<pre><code>Ran Example rule from 1-15 14:22 PST to 1-15 15:07 PST: 5 query hits (0 already seen), 0 matches, 0 alerts sent</code></pre><p>上面这行意味着 ElastAlert 已经完成了<code>规则</code> 处理. 对于一个大时间区间, 有时会执行多个查询，但是它们的数据将会被一起处理. <code>query_hits</code> 是从 ES 查询到的文档数量, <code>already seen</code> 指的是那些在前面的一个查询中已经被查询出来（buffer_time &gt; run_every 导致查询时间窗口重叠）, 这些将会被忽略. <code>matches</code> 指的是匹配了 <code>规则类型</code> 之后的输出文档数量, <code>alerts sent</code> 指的是实际发出的 <code>告警</code> 数(可能配了多个<code>告警器</code>). 这可能会因为 <code>realert</code> 、<code>aggregation</code> 选项或者一个错误导致 <code>matches</code> 有差异.</p>
+<pre><code>Sleeping for 297 seconds</code></pre><p>默认 <code>run_every</code> 是 5 分钟, 意味着 ElastAlert 将会陷入 sleep 直到上个周期的运行过了 5 分钟才会执行一次从当前时间到 5 分钟之前的范围查询.</p>
+<p>假设, 在接下来的 297 秒内, ES 中又增加了 45 个<code>匹配</code>的文档:</p>
+<pre><code>INFO:root:Queried rule Example rule from 1-15 14:27 PST to 1-15 15:12 PST: 51 hits
+...
+INFO:root:Sent email to [&#39;elastalert@example.com&#39;]
+...
+INFO:root:Ran Example rule from 1-15 14:27 PST to 1-15 15:12 PST: 51 query hits, 1 matches, 1 alerts sent</code></pre><p>邮件正文将会包含如下内容:</p>
+<pre><code>Example rule
+
+At least 50 events occurred between 1-15 11:12 PST and 1-15 15:12 PST
+
+@timestamp: 2015-01-15T15:12:00-08:00</code></pre><p>如果出现了一个错误, 例如 SMTP 服务不可达, 你将会看到:</p>
+<pre><code>ERROR:root:Error while running alert email: Error connecting to SMTP host: [Errno 61] Connection refused</code></pre><p>请注意如果你停止 ElastAlert 然后过一会再启动它, 它将会查询 <code>elastalert_status</code> 然后从上一次查询的结束时间开始查询. 这是为了防止当 ElastAlert 重启的时候发生重复告警或者遗漏告警.</p>
+<p>使用 <code>--debug</code> 而不是 <code>--verbose</code>, 邮件不会发出, 取而代之的是打印日志. 另外, 查询 ES 的动作不会被保存到保存到 <code>elastalert_status</code>.</p>
+
             </div>
             <hr />
 
@@ -1043,12 +1192,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ES学习/" target="_blank">
-                        <span class="chip bg-color">ES学习</span>
-                    </a>
-                    
                     <a href="/tags/ELK告警/" target="_blank">
                         <span class="chip bg-color">ELK告警</span>
+                    </a>
+                    
+                    <a href="/tags/ES学习/" target="_blank">
+                        <span class="chip bg-color">ES学习</span>
                     </a>
                     
                 </div>
@@ -1234,7 +1383,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">629.1k</span>
+            <span class="white-color">631.5k</span>
             
 
             <br>
