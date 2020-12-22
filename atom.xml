@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-12-22T06:31:11.766Z</updated>
+  <updated>2020-12-22T11:52:06.956Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -17,11 +17,44 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>02_规则类型和配置选项</title>
+    <link href="https://honphanjohn.top/2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/"/>
+    <id>https://honphanjohn.top/2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/</id>
+    <published>2020-12-22T06:34:05.344Z</published>
+    <updated>2020-12-22T11:52:06.956Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在源码目录下的 &lt;code&gt;example_rules&lt;/code&gt; 文件夹中有几个不同类型的 &lt;code&gt;规则&lt;/code&gt; 配置可以参考。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;p&gt;所有的时间选项的格式都是
+        
+      
+    
+    </summary>
+    
+      <category term="elastalert" scheme="https://honphanjohn.top/categories/elastalert/"/>
+    
+      <category term="ES学习" scheme="https://honphanjohn.top/categories/elastalert/ES%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="ES学习" scheme="https://honphanjohn.top/tags/ES%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="ELK告警" scheme="https://honphanjohn.top/tags/ELK%E5%91%8A%E8%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>01_首次运行elastalert</title>
     <link href="https://honphanjohn.top/2020/12/22/elastalert/01-shou-ci-yun-xing-elastalert/"/>
     <id>https://honphanjohn.top/2020/12/22/elastalert/01-shou-ci-yun-xing-elastalert/</id>
     <published>2020-12-22T03:24:00.406Z</published>
-    <updated>2020-12-22T06:31:11.766Z</updated>
+    <updated>2020-12-22T08:28:38.411Z</updated>
     
     <summary type="html">
     
@@ -42,9 +75,9 @@
       <category term="ES学习" scheme="https://honphanjohn.top/categories/elastalert/ES%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="ELK告警" scheme="https://honphanjohn.top/tags/ELK%E5%91%8A%E8%AD%A6/"/>
-    
       <category term="ES学习" scheme="https://honphanjohn.top/tags/ES%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="ELK告警" scheme="https://honphanjohn.top/tags/ELK%E5%91%8A%E8%AD%A6/"/>
     
   </entry>
   
@@ -53,7 +86,7 @@
     <link href="https://honphanjohn.top/2020/12/22/elastalert/elastalert-yi-wen-ji-lu/"/>
     <id>https://honphanjohn.top/2020/12/22/elastalert/elastalert-yi-wen-ji-lu/</id>
     <published>2020-12-22T01:05:26.096Z</published>
-    <updated>2020-12-22T06:31:17.107Z</updated>
+    <updated>2020-12-22T11:12:27.602Z</updated>
     
     <summary type="html">
     
@@ -513,32 +546,6 @@
         
         
           &lt;h1 id=&quot;一、编译原理&quot;&gt;&lt;a href=&quot;#一、编译原理&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>14_GC关键概念补充</title>
-    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/"/>
-    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/14-gc-guan-jian-gai-nian-bu-chong/</id>
-    <published>2020-12-21T16:41:53.942Z</published>
-    <updated>2020-12-21T16:41:53.942Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;System-gc-的理解&quot;&gt;&lt;a href=&quot;#System-gc-的理解&quot; class=&quot;headerlink&quot; title=&quot;System.gc()的理解&quot;&gt;&lt;/a&gt;&lt;code&gt;System.gc()&lt;/code&gt;的理解&lt;/h1&gt;&lt;p&gt;在默认情况下,通过
         
       
     

@@ -451,12 +451,12 @@ Packages on Ubuntu 14.x: python-p">
                     
                     <div class="article-tag">
                         
-                        <a href="/tags/ELK告警/" target="_blank">
-                            <span class="chip bg-color">ELK告警</span>
-                        </a>
-                        
                         <a href="/tags/ES学习/" target="_blank">
                             <span class="chip bg-color">ES学习</span>
+                        </a>
+                        
+                        <a href="/tags/ELK告警/" target="_blank">
+                            <span class="chip bg-color">ELK告警</span>
                         </a>
                         
                     </div>
@@ -613,13 +613,14 @@ Done!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 <span class="token comment" spellcheck="true"># alert 是一个告警器列表。email alert 需要一个 SMTP 服务器来发送邮件。默认它会尝试连接 localhost，使用 smtp_host 进行修改</span>
 <span class="token comment" spellcheck="true"># 暂时没有看到修改 smtp 服务端口的选项，qq 端口是 465</span>
 <span class="token key atrule">alert</span><span class="token punctuation">:</span>
-<span class="token punctuation">-</span> <span class="token string">"smtp.qq.com"</span>
+<span class="token punctuation">-</span> <span class="token string">"email"</span>
 <span class="token comment" spellcheck="true"># email 是一个告警器发送告警邮件的地址列表</span>
 <span class="token key atrule">email</span><span class="token punctuation">:</span>
 <span class="token punctuation">-</span> <span class="token string">"707845008@qq.com"</span>
+<span class="token key atrule">smtp_host</span><span class="token punctuation">:</span> smtp.qq.com
 <span class="token comment" spellcheck="true"># 修改查询时间格式为 unix 毫秒时间戳。一定要注意看你的 ES 里面的时间戳字段是什么类型的，否则将无法匹配</span>
 <span class="token comment" spellcheck="true"># 这里考虑到是测试和可读性，使用默认的 ISO8601 时间戳</span>
-<span class="token comment" spellcheck="true"># timestamp_type: unix_ms</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true"># timestamp_type: unix_ms</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>重要：</p>
 <ul>
@@ -1148,18 +1149,17 @@ At least 50 events occurred between 1-15 11:12 PST and 1-15 15:12 PST
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/12/22/elastalert/01-shou-ci-yun-xing-elastalert/">
+                <a href="/2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="01_首次运行elastalert">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="02_规则类型和配置选项">
                         
-                        <span class="card-title">01_首次运行elastalert</span>
+                        <span class="card-title">02_规则类型和配置选项</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1169,9 +1169,9 @@ At least 50 events occurred between 1-15 11:12 PST and 1-15 15:12 PST
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1188,16 +1188,15 @@ At least 50 events occurred between 1-15 11:12 PST and 1-15 15:12 PST
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ELK告警/" target="_blank">
-                        <span class="chip bg-color">ELK告警</span>
-                    </a>
-                    
                     <a href="/tags/ES学习/" target="_blank">
                         <span class="chip bg-color">ES学习</span>
+                    </a>
+                    
+                    <a href="/tags/ELK告警/" target="_blank">
+                        <span class="chip bg-color">ELK告警</span>
                     </a>
                     
                 </div>
@@ -1383,7 +1382,7 @@ At least 50 events occurred between 1-15 11:12 PST and 1-15 15:12 PST
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">631.5k</span>
+            <span class="white-color">634.8k</span>
             
 
             <br>

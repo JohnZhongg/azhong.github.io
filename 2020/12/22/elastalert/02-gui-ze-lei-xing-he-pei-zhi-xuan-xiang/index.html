@@ -4,14 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="000_一些摘录, 技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="keywords" content="02_规则类型和配置选项, 技术博客 钟鸿鹏 honphan 阿钟">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="摘录Elasticsearch 写入数据的工作原理是什么
-Elastiicserach7.x 学习路线图
-如何规划 Elasticsearch 集群规模和容量
-Elasticsearch 扫盲，提到了 term 和 posting list">
+    <meta name="description" content="在源码目录下的 example_rules 文件夹中有几个不同类型的 规则 配置可以参考。
+
+注意：
+所有的时间选项的格式都是 &amp;lt;单位&amp;gt;:X , 其中单位可以是 weeks, days, hours, minutes 或者 se">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +19,7 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>000_一些摘录 | 阿钟的博客</title>
+    <title>02_规则类型和配置选项 | 阿钟的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -338,7 +338,7 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        000_一些摘录
+                        02_规则类型和配置选项
                     </div>
                 </div>
             </div>
@@ -453,6 +453,10 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
                             <span class="chip bg-color">ES学习</span>
                         </a>
                         
+                        <a href="/tags/ELK告警/" target="_blank">
+                            <span class="chip bg-color">ELK告警</span>
+                        </a>
+                        
                     </div>
                     
                 </div>
@@ -461,7 +465,11 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                        <a href="/categories/ES学习/" class="post-category" target="_blank">
+                        <a href="/categories/elastalert/" class="post-category" target="_blank">
+                            elastalert
+                        </a>
+                        
+                        <a href="/categories/elastalert/ES学习/" class="post-category" target="_blank">
                             ES学习
                         </a>
                         
@@ -487,14 +495,14 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    89
+                    3.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    13 分
                 </div>
                 
                 
@@ -510,15 +518,409 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h1><p><a href="https://mp.weixin.qq.com/s/rw6vmDgXUh0SUUh7uo1APg" target="_blank" rel="noopener">Elasticsearch 写入数据的工作原理是什么</a></p>
-<p><a href="https://mp.weixin.qq.com/s/hs1kPbxOyqgrRUWlhsD3gQ" target="_blank" rel="noopener">Elastiicserach7.x 学习路线图</a></p>
-<p><a href="https://mp.weixin.qq.com/s/RSlAMI29knfslD--weCXcw" target="_blank" rel="noopener">如何规划 Elasticsearch 集群规模和容量</a></p>
-<p><a href="https://mp.weixin.qq.com/s/tq3zMbs-ZmSK-trprq82gg" target="_blank" rel="noopener">Elasticsearch 扫盲，提到了 term 和 posting list 的数据结构和压缩</a></p>
-<p><a href="https://mp.weixin.qq.com/s/kepEeLJlkZYosZr2hugkRA" target="_blank" rel="noopener">Elasticsearch 史上最全最常用工具清单</a></p>
-<p><a href="https://elasticsearch.cn/article/6178" target="_blank" rel="noopener">Elasticsearch 存储结构</a></p>
-<p><a href="https://elasticsearch.cn/article/32" target="_blank" rel="noopener">ES 内存</a></p>
-<p><a href="https://mp.weixin.qq.com/s/QXN84qItcnIjN1Hjxtt3Wg" target="_blank" rel="noopener">微信：图解Elasticsearch搜索原理</a></p>
-<p><a href="https://segmentfault.com/a/1190000021193400" target="_blank" rel="noopener">7.5 破解白金步骤</a></p>
+                <p>在源码目录下的 <code>example_rules</code> 文件夹中有几个不同类型的 <code>规则</code> 配置可以参考。</p>
+<blockquote>
+<p>注意：</p>
+<p>所有的时间选项的格式都是 <code>&lt;单位&gt;:X</code> , 其中单位可以是 weeks, days, hours, minutes 或者 seconds. 例如 <code>minutes: 15</code> 或者 <code>hours: 1</code> .</p>
+</blockquote>
+<h2 id="规则配置列表"><a href="#规则配置列表" class="headerlink" title="规则配置列表"></a>规则配置列表</h2><h3 id="所有规则通用"><a href="#所有规则通用" class="headerlink" title="所有规则通用"></a>所有规则通用</h3><h4 id="必须"><a href="#必须" class="headerlink" title="必须"></a>必须</h4><h5 id="es-host-string-no-default"><a href="#es-host-string-no-default" class="headerlink" title="es_host(string, no default)"></a><code>es_host</code>(string, no default)</h5><p><code>规则</code> 要轮询(监控)的 ES 集群 hostname</p>
+<h5 id="es-port-number-no-default"><a href="#es-port-number-no-default" class="headerlink" title="es_port (number, no default)"></a><code>es_port</code> (number, no default)</h5><p>ES 集群端口</p>
+<h5 id="index-string-no-default"><a href="#index-string-no-default" class="headerlink" title="index (string, no default)"></a><code>index</code> (string, no default)</h5><p>要查询的索引. 可以使用通配符, 例如: <code>index: my-index-*</code>. 还可以使用包含 <code>%Y</code>表示年、<code>%m</code>表示月、<code>%d</code>表示天的格式化字符串. 如果要使用这种格式化字符串, 需要将 <code>use_strftime_index</code> 设置为 true</p>
+<h5 id="type-string-no-default"><a href="#type-string-no-default" class="headerlink" title="type (string, no default)"></a><code>type</code> (string, no default)</h5><p>要使用的<code>规则类型</code>：<code>RuleType</code>（包含内置和自定义并导入的）. 对于导入模块的类型应该被声明为 <code>module.file.RuleName</code>. </p>
+<h5 id="alert-string-or-list-no-defult"><a href="#alert-string-or-list-no-defult" class="headerlink" title="alert (string or list, no defult)"></a><code>alert</code> (string or list, no defult)</h5><p>要使用的<code>告警器</code>：<code>Alerter</code>.同 <code>规则类型</code> 包含内置和自定义导入的. 导入的<code>告警器</code>应该被声明为 <code>module.file.AlertName</code>.</p>
+<h5 id="filter-ES-filter-DSL-no-default"><a href="#filter-ES-filter-DSL-no-default" class="headerlink" title="filter (ES filter DSL, no default)"></a><code>filter</code> (ES filter DSL, no default)</h5><p>一个 ES 查询 DSL 的 filters 列表. ElastAlert 将会使用 <code>{&#39;filter&#39;: {&#39;bool&#39;: {&#39;must&#39;: [config.filter]}}}</code> 的格式（and 操作）以及一个额外的 timestamp range filter 来查询 ES. 这些 filters 的查询出来的所有结果都会被传递到 <code>RuleType</code> 进行分析. 对于更多关于如何书写 filters, 后续有介绍, 或者参考<a href="https://elastalert.readthedocs.io/en/latest/recipes/writing_filters.html#writingfilters" target="_blank" rel="noopener">官网</a>.</p>
+<h4 id="非必须"><a href="#非必须" class="headerlink" title="非必须"></a>非必须</h4><h5 id="buffer-time-time-default-from-config-yaml"><a href="#buffer-time-time-default-from-config-yaml" class="headerlink" title="buffer_time (time, default from config.yaml)"></a><code>buffer_time</code> (time, default from config.yaml)</h5><p>在当前 <code>规则</code> 中覆盖全局 <code>config.yaml</code> 的值. 如果 <code>use_count_qeury</code>或者<code>use_terms_query</code> 为true, 该值会被忽略.</p>
+<h5 id="realert-time-default-1-min"><a href="#realert-time-default-1-min" class="headerlink" title="realert (time, default: 1 min)"></a><code>realert</code> (time, default: 1 min)</h5><p>这个选项允许你在一段时间内忽略重复告警. 如果<code>规则</code>设置了<code>query_key</code>字段, 这个选项将会基于每一个 key 起作用. </p>
+<ul>
+<li>对于给定 <code>规则</code> 的所有<code>匹配</code>、或者说在<code>query_key</code>上拥有同一个值的<code>匹配</code>将会在给定时间段被忽略.</li>
+<li>所有 <code>query_key</code> 字段没有值的<code>匹配</code>都会被分到一个值设为<code>_missing</code> 的组. </li>
+</ul>
+<p>忽略时间是从一个<code>告警</code>发出的时间点开始算的, 而不是触发事件的时间. </p>
+<p>默认值是 1 分钟, 这意味着 ElastAlert 如果运行了很长一段时间且触发了很多<code>规则</code>，只有第一个<code>告警</code>会被发出. 如果想每一条都发出, 需要设置 <code>realert</code> 为 0.</p>
+<h5 id="exponential-realert-optional-time-no-default"><a href="#exponential-realert-optional-time-no-default" class="headerlink" title="exponential_realert (optional, time, no default)"></a><code>exponential_realert</code> (optional, time, no default)</h5><p>使得 <code>alert</code> 成指数级增长直到 <code>exponential_realert</code> : 如果触发<code>匹配</code> 的时间距离上一次触发小于当前 <code>alert</code> 的两倍, 那么 <code>alert</code> 会翻倍.</p>
+<h6 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h6><p>举个例子</p>
+<ul>
+<li><code>realert</code> 设置为 <code>minutes: 10</code>, <code>exponential_realert</code> 设置为 <code>hours: 1</code></li>
+<li>一个<code>告警</code>在 1:00 的时候触发, 另一个在 1:15, 则下一个<code>告警</code>至少要是 1:35 之后才能触发.</li>
+<li>如果在 1:35 到 2:15 之间触发了一个 <code>告警</code>, <code>realert</code> 将增长到 1 个小时（最大值）.</li>
+<li>之后如果超过 2 个小时也没有触发 <code>告警</code>, <code>realert</code> 就会恢复.</li>
+</ul>
+<blockquote>
+<p>注意那些被忽略的<code>告警</code>不会对<code>realert</code>产生影响（例如在 1:05 的时候）</p>
+</blockquote>
+<h5 id="name-string-defaults-to-the-filename"><a href="#name-string-defaults-to-the-filename" class="headerlink" title="name (string, defaults to the filename)"></a><code>name</code> (string, defaults to the filename)</h5><h5 id="use-strftime-index-boolean-default-False"><a href="#use-strftime-index-boolean-default-False" class="headerlink" title="use_strftime_index (boolean, default False)"></a><code>use_strftime_index</code> (boolean, default False)</h5><p>如果设置为 true, ElastAlert 将会在每一次对于 ES 的查询中使用 <code>datetime.strftime</code> 来对索引进行格式化. 参考 <a href="https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior" target="_blank" rel="noopener">strftime</a> 获取更多信息. 如果一个查询贯穿了好几天, 格式化之后的索引将会被用逗号拼接(其实就是使用 python 提供的字符串格式化 api 用一个格式匹配我们的想要的日期). 这对于缩小查询索引的范围是很有用的, 相对于通配符索引, 应该会有显著的提速. </p>
+<h5 id="owner-string-default-empty-string"><a href="#owner-string-default-empty-string" class="headerlink" title="owner (string, default empty string)"></a><code>owner</code> (string, default empty string)</h5><p>这个值可以被用来标识<code>告警</code>的持有者. 可选的, 这个字段可以被包含在任何<code>告警</code>类型中</p>
+<h5 id="priority-int-default-2"><a href="#priority-int-default-2" class="headerlink" title="priority (int, default 2)"></a><code>priority</code> (int, default 2)</h5><p>该值被用来标识<code>告警</code>的相关优先级/重要程度. 可选的, 这个字段可以被包含在任意 <code>告警</code>类型中（例如使用在 email 的主题或者正文文本中）.</p>
+<p><code>category</code> (string, default empty string)</p>
+<p>该值被用来标识<code>告警</code>的分组. 可选的, 这个字段可以被包含在任意 <code>告警</code>类型中（例如使用在 email 的主题或者正文文本中）.</p>
+<h5 id="query-delay-time-default-0-min"><a href="#query-delay-time-default-0-min" class="headerlink" title="query_delay (time, default 0 min)"></a><code>query_delay</code> (time, default 0 min)</h5><p>这个选项将会使得 ElastAlert 减掉一个时间量, 让<code>规则</code>延迟运行. 这对于那些 ES 不是实时索引的数据是有用的.</p>
+<h5 id="use-ssl-boolean-default-False"><a href="#use-ssl-boolean-default-False" class="headerlink" title="use_ssl (boolean, default False)"></a><code>use_ssl</code> (boolean, default False)</h5><p>是否使用 TLS 连接 ES. 环境变量 <code>ES_USE_SSL</code> 会覆盖这个字段</p>
+<h5 id="verify-certs-boolean-default-True"><a href="#verify-certs-boolean-default-True" class="headerlink" title="verify_certs (boolean, default True)"></a><code>verify_certs</code> (boolean, default True)</h5><p>是否进行 TLS 证书验证 ES 连接</p>
+<h5 id="client-cert-string-no-default"><a href="#client-cert-string-no-default" class="headerlink" title="client_cert(string, no default)"></a><code>client_cert</code>(string, no default)</h5><p>客户端 PEM 证书</p>
+<h5 id="client-key-string-no-default"><a href="#client-key-string-no-default" class="headerlink" title="client_key(string, no default)"></a><code>client_key</code>(string, no default)</h5><p>客户端私钥文件</p>
+<h5 id="es-username-string-no-default"><a href="#es-username-string-no-default" class="headerlink" title="es_username (string, no default)"></a><code>es_username</code> (string, no default)</h5><p>ES 登录用户名. 环境变量 <code>ES_USERNAME</code> 会覆盖这个字段</p>
+<h5 id="es-password-string-no-default"><a href="#es-password-string-no-default" class="headerlink" title="es_password (string, no default)"></a><code>es_password</code> (string, no default)</h5><p>ES 登录用户密码. 环境变量 <code>ES_PASSWORD</code> 会覆盖这个字段</p>
+<h5 id="es-url-prefix-string-no-default"><a href="#es-url-prefix-string-no-default" class="headerlink" title="es_url_prefix (string, no default)"></a><code>es_url_prefix</code> (string, no default)</h5><p>ES 端点的 URL 前缀</p>
+<h5 id="es-send-get-body-as-string-default-“GET”"><a href="#es-send-get-body-as-string-default-“GET”" class="headerlink" title="es_send_get_body_as (string, default “GET”)"></a><code>es_send_get_body_as</code> (string, default “GET”)</h5><p>查询 ES 时使用的 HTTP 方法</p>
+<h5 id="aggregation-time-no-default"><a href="#aggregation-time-no-default" class="headerlink" title="aggregation (time, no default)"></a><code>aggregation</code> (time, no default)</h5><p>这个选项允许你将多个<code>匹配</code>聚合到一个<code>告警</code>中. 每当一个<code>匹配</code>发生, ElastAlert就会等待一个 <code>aggregation</code> 的周期, 然后在周期时间到达后, 发送所有在该周期内出现的的 <code>匹配</code>  到<code>告警器</code>. </p>
+<h6 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h6><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">aggregation</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hours</span><span class="token punctuation">:</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>12点整有一个告警, 13点整又有一个, 第三个是在14点半, 一个告警将会在14点发出, 因为12点整出现了第一个 <code>匹配</code>, 需要等待2个小时, 将这2个小时之内的所有<code>匹配</code>在14点整聚合成一个<code>告警</code>发出. 因为14点整之后的第一个<code>匹配</code>是在14点半, 所以又要等2个小时, 在16点半的时候将这两个小时内的所有<code>匹配</code>整合成一个<code>告警</code>发出.</p>
+<h6 id="固定告警时间"><a href="#固定告警时间" class="headerlink" title="固定告警时间"></a>固定告警时间</h6><p>如果你希望在一个递推的时间间隔中聚合所有<code>告警</code>再发送, 你可以使用<code>schedule</code> 字段. 举个例子, 如果你希望在每个周一和周五接收<code>告警</code>: </p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">aggregation</span><span class="token punctuation">:</span>
+  <span class="token key atrule">schedule</span><span class="token punctuation">:</span> <span class="token string">'2 4 * * mon,fri'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这里使用了 <a href="http://www.nncron.ru/help/EN/working/cron-format.htm" target="_blank" rel="noopener">Cron</a> 语法. 注意不可以同时设置 <code>schedule</code> 和标准时间字段(<code>hours</code>、<code>minutes</code>、<code>days</code>), 只能选择其一.</p>
+<h6 id="对匹配进行分组"><a href="#对匹配进行分组" class="headerlink" title="对匹配进行分组"></a>对<code>匹配</code>进行分组</h6><p>默认情况下, 所有在一个聚合窗口中的事件(<code>匹配</code>)会分在一组内. 不过, 如果你的规则定义了 <code>aggregation_key</code> 字段, 然后所有该字段拥有同一个值的事件都会被分为一组. 每当在该 key 上遇到一个新值的时候就会创建一个隔离的聚合窗口.</p>
+<p>举个例子, 如果你希望接收以触发<code>匹配</code>事件的用户为分组的<code>告警</code>, 你可以这样设置:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">aggregation_key</span><span class="token punctuation">:</span> <span class="token string">'my_data.username'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>假设有一个 10 分钟的聚合窗口, 如果接收到以下数据:</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>'my_data'<span class="token operator">:</span> <span class="token punctuation">{</span>'username'<span class="token operator">:</span> 'alice'<span class="token punctuation">,</span> 'event_type'<span class="token operator">:</span> 'login'<span class="token punctuation">}</span><span class="token punctuation">,</span> '@timestamp'<span class="token operator">:</span> '<span class="token number">2016</span>-<span class="token number">09</span>-20T00<span class="token operator">:</span><span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span>'<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>'my_data'<span class="token operator">:</span> <span class="token punctuation">{</span>'username'<span class="token operator">:</span> 'bob'<span class="token punctuation">,</span> 'event_type'<span class="token operator">:</span> 'something'<span class="token punctuation">}</span><span class="token punctuation">,</span> '@timestamp'<span class="token operator">:</span> '<span class="token number">2016</span>-<span class="token number">09</span>-20T00<span class="token operator">:</span><span class="token number">05</span><span class="token operator">:</span><span class="token number">00</span>'<span class="token punctuation">}</span>
+<span class="token punctuation">{</span>'my_data'<span class="token operator">:</span> <span class="token punctuation">{</span>'username'<span class="token operator">:</span> 'alice'<span class="token punctuation">,</span> 'event_type'<span class="token operator">:</span> 'something else'<span class="token punctuation">}</span><span class="token punctuation">,</span> '@timestamp'<span class="token operator">:</span> '<span class="token number">2016</span>-<span class="token number">09</span>-20T00<span class="token operator">:</span><span class="token number">06</span><span class="token operator">:</span><span class="token number">00</span>'<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这将会生成 2 个<code>告警</code>: 一个包含 alice 的两个 <code>匹配</code> 事件, 在 <code>2016-09-20T00:10:00</code> 发送; 另一个包含 bob 的一个事件, 将会在 <code>2016-09-20T00:16:00</code> 发送.</p>
+<h6 id="概要信息"><a href="#概要信息" class="headerlink" title="概要信息"></a>概要信息</h6><p>对于聚合告警来说, 有时候会在那些展示媒介（email, jira ticket等）上出现较大数量的文档(例如某个分组下出现了很多500错误). 如果你设置了 <code>summary_table_fields</code> 字段, ElastAlert 会从所有查询到的文档中针对该字段提供一个概要信息.</p>
+<p>举个例子, 如果你希望对那些 <code>匹配</code> 了 <code>规则</code> 的文档的 <code>username</code> 和 <code>event_type</code> 做一个概述以便你可以很方便地得到最有相关/有价值的字段的信息, 你可以如下设置:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">summary_table_fields</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> my_data.username
+    <span class="token punctuation">-</span> my_data.event_type<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>基于上面的 alice 和 bob 的数据, ElastAlert 会在告警媒介中提供如下概要表格:</p>
+<pre class="line-numbers language-asciiarmor"><code class="language-asciiarmor">+------------------+--------------------+
+| my_data.username | my_data.event_type |
++------------------+--------------------+
+|      alice       |       login        |
+|       bob        |     something      |
+|      alice       |   something else   |
++------------------+--------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><p>默认的聚合时间是基于当前的系统时间, 而不是<code>匹配</code>的时间（例如第一条<code>匹配</code>出现后, 取当前系统时间戳作为时间窗口的起始值, 而不是取查询中的时间戳）. This means that running elastalert over past events will result in different alerts than if elastalert had been running while those events occured. This behavior can be changed by setting <code>aggregate_by_match_time</code>.</p>
+<h5 id="aggregate-by-match-time"><a href="#aggregate-by-match-time" class="headerlink" title="aggregate_by_match_time"></a><code>aggregate_by_match_time</code></h5><p>Setting this to true will cause aggregations to be created relative to the timestamp of the first event, rather than the current time. This is useful for querying over historic data or if using a very large buffer_time and you want multiple aggregations to occur from a single query.</p>
+<h5 id="max-query-size-int-default-global-max-query-size"><a href="#max-query-size-int-default-global-max-query-size" class="headerlink" title="max_query_size (int, default global max_query_size)"></a><code>max_query_size</code> (int, default global max_query_size)</h5><p>和全局 <code>max_query_size</code> 意义一样, 会覆盖全局的. </p>
+<h5 id="include-list-of-string-default-“-”-all-fields"><a href="#include-list-of-string-default-“-”-all-fields" class="headerlink" title="include (list of string, default [“*”] / all fields)"></a><code>include</code> (list of string, default [“*”] / all fields)</h5><p>查询结果应该返回的字段. 设置之后, 只有设置的字段以及 <a href="mailto:'%40timestamp" target="_blank" rel="noopener">‘@timestamp</a>’, <code>query_key</code>, <code>compare_key</code>, and <code>top_count_keys</code> 会返回. </p>
+<h5 id="description-string-default-empty-string"><a href="#description-string-default-empty-string" class="headerlink" title="description (string, default empty string)"></a><code>description</code> (string, default empty string)</h5><p>对于 <code>规则</code> 的描述. 可以在自定义<code>告警器</code>中引用到这个值, 提供一个 <code>规则</code> 触发原因的上下文.</p>
+<h5 id="generate-kibana-link-boolean-default-False"><a href="#generate-kibana-link-boolean-default-False" class="headerlink" title="generate_kibana_link (boolean, default False)"></a><code>generate_kibana_link</code> (boolean, default False)</h5><p>这个选项只对 Kibana3 有效. 如果设置为 true, ElastAlert 将会在 <code>告警</code> 中生成一个临时的 Kibana 面板以及一个链接. 这个面板由一个基于时间变化的事件图标以及一个包含了 <code>include</code> 中字段的表格. 如果当前 <code>规则</code> 设置了 <code>query_key</code>, 这个面板也会包含一个关于该<code>告警</code>的该 <code>query_key</code> 的 filter. 该面板 schema 将会被上传到 kibana-int 的索引作为一个临时面板.</p>
+<h5 id="kibana-url-string-default-from-http-lt-es-host-gt-lt-es-port-gt-plugin-kibana"><a href="#kibana-url-string-default-from-http-lt-es-host-gt-lt-es-port-gt-plugin-kibana" class="headerlink" title="kibana_url (string, default from http://&lt;es_host&gt;:&lt;es_port&gt;/_plugin/kibana/)"></a><code>kibana_url</code> (string, default from <code>http://&lt;es_host&gt;:&lt;es_port&gt;/_plugin/kibana/</code>)</h5><p>访问 Kibana 的 url. 这在 <code>generate_kibana_link</code> 或者 <code>use_kibana_dashboard</code> 为 true 的时候使用. 如果没有定义, 将会使用 <code>es_host</code> 以及 <code>es_port</code> 拼接成一个 URL.</p>
+<h5 id="use-kibana-dashboard-string-no-default"><a href="#use-kibana-dashboard-string-no-default" class="headerlink" title="use_kibana_dashboard (string, no default)"></a><code>use_kibana_dashboard</code> (string, no default)</h5><p>Kibana3 面板的名称. 不像 <code>generate_kibana_link</code> 那样从一个模板生成一个面板, ElastAlert 可以复用一个已存在的面板. 它会在面板上根据<code>匹配</code> 的时间将该时间范围设置到面板, 将其上传为一个临时面板, 并添加一个 filter 到 <code>告警</code> 的 <code>query_key</code> 字段上（如果有的话）, 然后将 url 放到 <code>告警</code>里面.</p>
+<h5 id="use-kibana4-dashboard-string-no-default"><a href="#use-kibana4-dashboard-string-no-default" class="headerlink" title="use_kibana4_dashboard (string, no default)"></a><code>use_kibana4_dashboard</code> (string, no default)</h5><p>一个 Kibana4 面板的链接. 例如, “<a href="https://kibana.example.com/#/dashboard/My-Dashboard”" target="_blank" rel="noopener">https://kibana.example.com/#/dashboard/My-Dashboard”</a>. This will set the time setting on the dashboard from the match time minus the timeframe, to 10 minutes after the match time. Note that this does not support filtering by <code>query_key</code> like Kibana 3. This value can use $VAR and ${VAR} references to expand environment variables.</p>
+<h5 id="kibana4-start-timedelta-time-default-10-min"><a href="#kibana4-start-timedelta-time-default-10-min" class="headerlink" title="kibana4_start_timedelta (time, default: 10 min)"></a><code>kibana4_start_timedelta</code> (time, default: 10 min)</h5><h5 id="kibana4-end-timedelta-time-default-10-min"><a href="#kibana4-end-timedelta-time-default-10-min" class="headerlink" title="kibana4_end_timedelta (time, default: 10 min)"></a><code>kibana4_end_timedelta</code> (time, default: 10 min)</h5><h5 id="use-local-time-boolean-default-True"><a href="#use-local-time-boolean-default-True" class="headerlink" title="use_local_time (boolean, default True)"></a><code>use_local_time</code> (boolean, default True)</h5><h5 id="match-enhancements-list-of-strs-no-default"><a href="#match-enhancements-list-of-strs-no-default" class="headerlink" title="match_enhancements (list of strs, no default)"></a><code>match_enhancements</code> (list of strs, no default)</h5><h5 id="top-count-keys-list-of-strings"><a href="#top-count-keys-list-of-strings" class="headerlink" title="top_count_keys (list of strings)"></a><code>top_count_keys</code> (list of strings)</h5><p>一个包含多个字段的集合. ElastAlert 会在这些字段上使用 term query 查询 X 个最常见的值, X 默认值是 5, 或者 <code>top_count_number</code>（如果该选项被存在）. For example, if <code>num_events</code> is 100, and <code>top_count_keys</code> is <code>- &quot;username&quot;</code>, the alert will say how many of the 100 events have each username, for the top 5 usernames. When this is computed, the time range used is from <code>timeframe</code> before the most recent event to 10 minutes past the most recent event. Because ElastAlert uses an aggregation query to compute this, it will attempt to use the field name plus “.raw” to count unanalyzed terms. To turn this off, set <code>raw_count_keys</code> to false.</p>
+<h5 id="top-count-number-int-default-5"><a href="#top-count-number-int-default-5" class="headerlink" title="top_count_number (int, default 5)"></a><code>top_count_number</code> (int, default 5)</h5><p>如果 <code>top_count_keys</code> 设置, 该选项为 term query 中每个 terms 的数量.</p>
+<h5 id="raw-count-keys-boolean-default-True"><a href="#raw-count-keys-boolean-default-True" class="headerlink" title="raw_count_keys (boolean, default True)"></a><code>raw_count_keys</code> (boolean, default True)</h5><p>如果设置为 true, 所有在 <code>top_count_keys</code> 中定义的字段都会拼接一个 <code>.raw</code> 后缀.（一个 keyword 类型的子字段, 高版本的 ES 后缀为 <code>.keyword</code>）</p>
+<h5 id="scan-entire-timeframe-bool-default-False"><a href="#scan-entire-timeframe-bool-default-False" class="headerlink" title="scan_entire_timeframe (bool, default False)"></a><code>scan_entire_timeframe</code> (bool, default False)</h5><h5 id="import-string-no-default-IGNORED-IF-use-count-query-or-use-terms-query-is-true"><a href="#import-string-no-default-IGNORED-IF-use-count-query-or-use-terms-query-is-true" class="headerlink" title="import (string no default) IGNORED IF use_count_query or use_terms_query is true"></a><code>import</code> (string no default) IGNORED IF <code>use_count_query</code> or <code>use_terms_query</code> is true</h5><p>将所有设置导入到当前 yaml 文件中. 这允许通用配置选项被共享. 注意导入的文件如果不包含完整的<code>规则</code>配置就应该以<code>.yml</code>或者<code>.yaml</code>为后缀, 这样 ElastAlert 才不会加载它们并报错. 在被导入的文件中的 Filters 将会在当前<code>规则</code>中被合并成一个 <code>Any Filters</code> . 在一个<code>规则</code>配置文件中只能有一个 <code>import</code>, 不过被 import 的文件又可以 import 其它的文件. 导入的文件名称可以是绝对路径和相对于<code>规则路径</code>.</p>
+<h5 id="timestamp-type-string-default-iso"><a href="#timestamp-type-string-default-iso" class="headerlink" title="timestamp_type (string, default iso)"></a><code>timestamp_type</code> (string, default iso)</h5><h5 id="timestamp-format-string-default-“-Y-m-dT-H-M-SZ”"><a href="#timestamp-format-string-default-“-Y-m-dT-H-M-SZ”" class="headerlink" title="timestamp_format (string, default “%Y-%m-%dT%H:%M:%SZ”)"></a><code>timestamp_format</code> (string, default “%Y-%m-%dT%H:%M:%SZ”)</h5><h5 id="timestamp-format-expr-string-no-default"><a href="#timestamp-format-expr-string-no-default" class="headerlink" title="timestamp_format_expr (string, no default )"></a><code>timestamp_format_expr</code> (string, no default )</h5><h5 id="source-enabled-boolean-default-True"><a href="#source-enabled-boolean-default-True" class="headerlink" title="_source_enabled (boolean, default True)"></a><code>_source_enabled</code> (boolean, default True)</h5><h5 id="alert-text-args-array-of-strs"><a href="#alert-text-args-array-of-strs" class="headerlink" title="alert_text_args (array of strs)"></a><code>alert_text_args</code> (array of strs)</h5><h5 id="alert-text-kw-object"><a href="#alert-text-kw-object" class="headerlink" title="alert_text_kw (object)"></a><code>alert_text_kw</code> (object)</h5><h5 id="alert-missing-value-string-default-“”"><a href="#alert-missing-value-string-default-“”" class="headerlink" title="alert_missing_value (string, default “”)"></a><code>alert_missing_value</code> (string, default “<missing value>”)</missing></h5><h5 id="is-enabled-boolean-default-True"><a href="#is-enabled-boolean-default-True" class="headerlink" title="is_enabled (boolean, default True)"></a><code>is_enabled</code> (boolean, default True)</h5><h5 id="search-extra-index-boolean-default-False"><a href="#search-extra-index-boolean-default-False" class="headerlink" title="search_extra_index (boolean, default False)"></a><code>search_extra_index</code> (boolean, default False)</h5><p>If this is true, ElastAlert will add an extra index on the early side onto each search. For example, if it’s querying completely within 2018-06-28, it will actually use 2018-06-27,2018-06-28. This can be useful if your timestamp_field is not what’s being used to generate the index names. If that’s the case, sometimes a query would not have been using the right index.</p>
+<table>
+<thead>
+<tr>
+<th>RULE TYPE</th>
+<th>Any</th>
+<th>Blacklist</th>
+<th>Whitelist</th>
+<th>Change</th>
+<th>Frequency</th>
+<th>Spike</th>
+<th>Flatline</th>
+<th>New_term</th>
+<th>Cardinality</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>compare_key</code> (list of strs, no default)</td>
+<td></td>
+<td>Req</td>
+<td>Req</td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>blacklist</code> (list of strs, no default)</td>
+<td></td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>whitelist</code> (list of strs, no default)</td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ignore_null</code> (boolean, no default)</td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>query_key</code> (string, no default)</td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td>Opt</td>
+<td>Opt</td>
+<td>Opt</td>
+<td>Req</td>
+<td>Opt</td>
+</tr>
+<tr>
+<td><code>aggregation_key</code> (string, no default)</td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>summary_table_fields</code> (list, no default)</td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>timeframe</code> (time, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td>Req</td>
+<td>Req</td>
+<td>Req</td>
+<td></td>
+<td>Req</td>
+</tr>
+<tr>
+<td><code>num_events</code> (int, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>attach_related</code> (boolean, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>use_count_query</code> (boolean, no default)<code>doc_type</code> (string, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td>Opt</td>
+<td>Opt</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>use_terms_query</code> (boolean, no default)<br><code>doc_type</code> (string, no default)<br><code>query_key</code> (string, no default)<br><code>terms_size</code> (int, default 50)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td>Opt</td>
+<td></td>
+<td>Opt</td>
+<td></td>
+</tr>
+<tr>
+<td><code>spike_height</code> (int, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>spike_type</code> ([up|down|both], no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>alert_on_new_data</code> (boolean, default False)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>threshold_ref</code> (int, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>threshold_cur</code> (int, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>threshold</code> (int, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>fields</code> (string or list, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Req</td>
+<td></td>
+</tr>
+<tr>
+<td><code>terms_window_size</code> (time, default 30 days)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+</tr>
+<tr>
+<td><code>window_step_size</code> (time, default 1 day)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+</tr>
+<tr>
+<td><code>alert_on_missing_fields</code> (boolean, default False)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+<td></td>
+</tr>
+<tr>
+<td><code>cardinality_field</code> (string, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Req</td>
+</tr>
+<tr>
+<td><code>max_cardinality</code> (boolean, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+</tr>
+<tr>
+<td><code>min_cardinality</code> (boolean, no default)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Opt</td>
+</tr>
+</tbody></table>
 
             </div>
             <hr />
@@ -677,9 +1079,9 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《000_一些摘录》
+                    《02_规则类型和配置选项》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/12/22/elasticsearch/000-dai-chu-li/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/" property="cc:attributionName"
                rel="cc:attributionURL">
                 阿钟
             </a> 采用
@@ -720,7 +1122,7 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
         repo: 'azhong.github.io',
         owner: 'JohnZhongg',
         admin: "JohnZhongg",
-        id: '2020/12/22/elasticsearch/000-dai-chu-li/',
+        id: '2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1003,34 +1405,97 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/12/22/elasticsearch/002-jian-jie/">
+                <a href="/2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="002_简介">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="02_规则类型和配置选项">
                         
-                        <span class="card-title">002_简介</span>
+                        <span class="card-title">02_规则类型和配置选项</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            002_简介
+                            ELK告警
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/ES学习/" class="post-category" target="_blank">
+                            <a href="/categories/elastalert/" class="post-category" target="_blank">
+                                    elastalert
+                                </a>
+                            
+                            <a href="/categories/elastalert/ES学习/" class="post-category" target="_blank">
+                                    ES学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ES学习/" target="_blank">
+                        <span class="chip bg-color">ES学习</span>
+                    </a>
+                    
+                    <a href="/tags/ELK告警/" target="_blank">
+                        <span class="chip bg-color">ELK告警</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/22/elastalert/01-shou-ci-yun-xing-elastalert/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="01_首次运行elastalert">
+                        
+                        <span class="card-title">01_首次运行elastalert</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            ELK告警
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/elastalert/" class="post-category" target="_blank">
+                                    elastalert
+                                </a>
+                            
+                            <a href="/categories/elastalert/ES学习/" class="post-category" target="_blank">
                                     ES学习
                                 </a>
                             
@@ -1045,53 +1510,8 @@ Elasticsearch 扫盲，提到了 term 和 posting list">
                         <span class="chip bg-color">ES学习</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/12/22/docker/yin-xiang-bi-ji/1-docker-jian-jie/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="1、docker简介">
-                        
-                        <span class="card-title">1、docker简介</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            1、docker简介
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/docker/" class="post-category" target="_blank">
-                                    docker
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/docker/" target="_blank">
-                        <span class="chip bg-color">docker</span>
+                    <a href="/tags/ELK告警/" target="_blank">
+                        <span class="chip bg-color">ELK告警</span>
                     </a>
                     
                 </div>
