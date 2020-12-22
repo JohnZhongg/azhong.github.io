@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-12-21T16:42:17.354Z</updated>
+  <updated>2020-12-22T03:14:03.113Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>elastalert疑问记录</title>
+    <link href="https://honphanjohn.top/2020/12/22/elastalert/elastalert-yi-wen-ji-lu/"/>
+    <id>https://honphanjohn.top/2020/12/22/elastalert/elastalert-yi-wen-ji-lu/</id>
+    <published>2020-12-22T01:05:26.096Z</published>
+    <updated>2020-12-22T03:14:03.113Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;config.yaml 文件中的&lt;code&gt;max_aggregation&lt;/code&gt;配置项不太理解&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;config.yaml
+        
+      
+    
+    </summary>
+    
+      <category term="elastalert" scheme="https://honphanjohn.top/categories/elastalert/"/>
+    
+    
+      <category term="ELK告警" scheme="https://honphanjohn.top/tags/ELK%E5%91%8A%E8%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>volatile 和 synchronized</title>
@@ -504,33 +533,6 @@
         
         
           &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>09_对象</title>
-    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/"/>
-    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/09-dui-xiang/</id>
-    <published>2020-12-21T16:41:53.892Z</published>
-    <updated>2020-12-21T16:41:53.892Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;一、对象的实例化&quot;&gt;&lt;a href=&quot;#一、对象的实例化&quot; class=&quot;headerlink&quot; title=&quot;一、对象的实例化&quot;&gt;&lt;/a&gt;一、对象的实例化&lt;/h1&gt;&lt;h2 id=&quot;思维导图&quot;&gt;&lt;a href=&quot;#思维导图&quot;
         
       
     

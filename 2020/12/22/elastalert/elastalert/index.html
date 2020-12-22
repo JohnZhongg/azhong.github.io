@@ -485,14 +485,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    3.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    11 分
                 </div>
                 
                 
@@ -540,28 +540,27 @@
 <li><strong><code>rules_folder</code>: 当<code>rules_loader</code> 是默认值的时候生效。指的是包含所有规则配置文件的文件夹名。ElastAlert 会加载该文件夹及其所有子孙文件夹下以 <code>.yaml</code> 结束的文件。如果这个文件夹内的文件发生了变化，ElastAlert 会分别加载、重载、移除这些文件(自动监听且热加载？).</strong></li>
 <li><strong><code>scan_subdirectories</code>: Optional;  当<code>rules_loader</code> 是默认值的时候生效。设置是否递归扫描 <code>rules_folder</code> - <code>true</code> or <code>false</code>. 默认是 <code>true</code></strong></li>
 <li><strong><code>run_every</code>: 定义 ElastAlert 轮询 ES 的间隔(ElastAlert记住它上次查询的时间，然后按照这个值定期查询) 。这个字段是一个嵌套对象字段, 这个对象的属性可以是各时间单位，例如 <code>minutes: 5</code>，这也是 ElastAlert 所有配置文件中定义时间的方式.</strong></li>
-<li><code>writeback_index</code>:  <code>es_host</code> 中被用来存储 ES 元信息的索引名称.</li>
-<li><code>max_query_size</code>: The maximum number of documents that will be downloaded from Elasticsearch in a single query. The default is 10,000, and if you expect to get near this number, consider using <code>use_count_query</code> for the rule. If this limit is reached, ElastAlert will <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html" target="_blank" rel="noopener">scroll</a> using the size of <code>max_query_size</code> through the set amount of pages, when <code>max_scrolling_count</code> is set or until processing all results.</li>
-<li><code>max_scrolling_count</code>: The maximum amount of pages to scroll through. The default is <code>0</code>, which means the scrolling has no limit. For example if this value is set to <code>5</code> and the <code>max_query_size</code> is set to <code>10000</code> then <code>50000</code> documents will be downloaded at most.</li>
-<li><code>scroll_keepalive</code>: The maximum time (formatted in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units" target="_blank" rel="noopener">Time Units</a>) the scrolling context should be kept alive. Avoid using high values as it abuses resources in Elasticsearch, but be mindful to allow sufficient time to finish processing all the results.</li>
-<li><code>max_aggregation</code>: The maximum number of alerts to aggregate together. If a rule has <code>aggregation</code> set, all alerts occuring within a timeframe will be sent together. The default is 10,000.</li>
-<li><code>old_query_limit</code>: The maximum time between queries for ElastAlert to start at the most recently run query. When ElastAlert starts, for each rule, it will search <code>elastalert_metadata</code> for the most recently run query and start from that time, unless it is older than <code>old_query_limit</code>, in which case it will start from the present time. The default is one week.</li>
-<li><code>disable_rules_on_error</code>: If true, ElastAlert will disable rules which throw uncaught (not EAException) exceptions. It will upload a traceback message to <code>elastalert_metadata</code> and if <code>notify_email</code> is set, send an email notification. The rule will no longer be run until either ElastAlert restarts or the rule file has been modified. This defaults to True.</li>
-<li><code>show_disabled_rules</code>: If true, ElastAlert show the disable rules’ list when finishes the execution. This defaults to True.</li>
-<li><code>notify_email</code>: An email address, or list of email addresses, to which notification emails will be sent. Currently, only an uncaught exception will send a notification email. The from address, SMTP host, and reply-to header can be set using <code>from_addr</code>, <code>smtp_host</code>, and <code>email_reply_to</code> options, respectively. By default, no emails will be sent.</li>
-<li><code>from_addr</code>: The address to use as the from header in email notifications. This value will be used for email alerts as well, unless overwritten in the rule config. The default value is “ElastAlert”.</li>
-<li><code>smtp_host</code>: The SMTP host used to send email notifications. This value will be used for email alerts as well, unless overwritten in the rule config. The default is “localhost”.</li>
-<li><code>email_reply_to</code>: This sets the Reply-To header in emails. The default is the recipient address.</li>
-<li><code>aws_region</code>: This makes ElastAlert to sign HTTP requests when using Amazon Elasticsearch Service. It’ll use instance role keys to sign the requests. The environment variable <code>AWS_DEFAULT_REGION</code> will override this field.</li>
-<li><code>boto_profile</code>: Deprecated! Boto profile to use when signing requests to Amazon Elasticsearch Service, if you don’t want to use the instance role keys.</li>
-<li><code>profile</code>: AWS profile to use when signing requests to Amazon Elasticsearch Service, if you don’t want to use the instance role keys. The environment variable <code>AWS_DEFAULT_PROFILE</code> will override this field.</li>
-<li><code>replace_dots_in_field_names</code>: If <code>True</code>, ElastAlert replaces any dots in field names with an underscore before writing documents to Elasticsearch. The default value is <code>False</code>. Elasticsearch 2.0 - 2.3 does not support dots in field names.</li>
-<li><code>string_multi_field_name</code>: If set, the suffix to use for the subfield for string multi-fields in Elasticsearch. The default value is <code>.raw</code> for Elasticsearch 2 and <code>.keyword</code> for Elasticsearch 5.</li>
-<li><code>add_metadata_alert</code>: If set, alerts will include metadata described in rules (<code>category</code>, <code>description</code>, <code>owner</code> and <code>priority</code>); set to <code>True</code> or <code>False</code>. The default is <code>False</code>.</li>
-<li><code>skip_invalid</code>: If <code>True</code>, skip invalid files instead of exiting.</li>
+<li><strong><code>writeback_index</code>:  <code>es_host</code> 中被用来存储 ES 元信息的索引名称.</strong></li>
+<li><code>max_query_size</code>: 每次查询 ES 的时候的限制查询文档的最大数量. 默认是 10,000, 如果你的需求接近了这个数值，考虑在 <code>规则</code> 定义中使用 <code>use_count_query</code> 选项. 如果查询文档数量达到这个限制，ElastAlert 将会使用使用 ES 的 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html" target="_blank" rel="noopener">scroll</a> API 进行查询，将 <code>max_query_size</code> 作为每一次 scroll 的页数, 然后一直 scroll <code>max_scrolling_count</code> 次，如果 <code>max_scrolling_count</code> 没有设置，将会一直 scroll 完整个查询快照.</li>
+<li><code>max_scrolling_count</code>: 允许 scroll 的最大页数. 默认是 <code>0</code>, 不限制 scroll 的页数. 例如如果这个值被设置为 <code>5</code> 且 <code>max_query_size</code> 设置为 <code>10000</code> ，那么最多 <code>50000</code> 个文档会被查询出来.</li>
+<li><code>scroll_keepalive</code>: scrolling 的上下文(快照)允许存在的最大时间 (格式为 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units" target="_blank" rel="noopener">Time Units</a>) . 避免设置一个很大的值，因为这会滥用 ES 的资源, 但是同时要注意允许足够多的时间以获取查询结果并处理.</li>
+<li><code>max_aggregation</code>: 最大的聚合告警数量. 如果一个<code>规则</code>设置了 <code>aggregation</code> , 所有在一个时间区间内(timeframe) 出现的告警将会被一起发生. 默认值是 10,000.</li>
+<li><strong><code>old_query_limit</code>: 当 ElastAlert 启动的时候，允许它从上次发出查询的日期继续查询的最大间隔. 当 ElastAlert 启动的时候，对于每一个 <code>规则</code> ，它都会从 <code>elastalert_metadata</code> 中查询上次轮询的时间然后从该时间开始查询数据, 除非该时间比 <code>old_query_limit</code> 还要早, 此时它就会从当前时间开始查询. 默认是一个星期.</strong></li>
+<li><strong><code>disable_rules_on_error</code>: 如果设置为 true, ElastAlert 将会禁用那些抛出未捕获异常(非 EAException)的 <code>规则</code> . 它会上传一个异常追溯信息到 <code>elastalert_metadata</code> 并且如果 <code>notify_email</code> 如果设置了, 就会发送一个<code>提醒邮件</code>. 被禁用的<code>规则</code>将不再会运行直到 ElastAlert 重启或者<code>规则</code>配置文件被修改了. 默认是 True.</strong></li>
+<li><code>show_disabled_rules</code>: 如果是 true, ElastAlert 在完成执行之后会显示(打印)被禁用的<code>规则</code>列表. 默认是 True.</li>
+<li><strong><code>notify_email</code>: 一个或者一组被用来发送<code>提醒邮件</code>的邮件地址. 在当前，只有抛出未捕获异常的时候会发送<code>提醒邮件</code>. 发送地址, SMTP 服务器地址 以及邮件的 reply-to 头部可以通过 <code>from_addr</code>, <code>smtp_host</code>, and <code>email_reply_to</code> 选项进行分别设置. 默认情况下，不会发出任何邮件.</strong></li>
+<li><code>from_addr</code>: <code>提醒邮件</code>中的 from 头部. 这个值也会被 <code>邮件告警</code> 中使用, 除非在 <code>规则</code> 配置中被重写. 默认值是 “ElastAlert”.</li>
+<li><code>smtp_host</code>: 指定发送<code>提醒邮件</code>的 SMTP 服务地址. 这个值也会被 <code>邮件告警</code> 中使用，除非在 <code>规则</code> 配置中被重写. 默认值是 “localhost”.</li>
+<li><code>email_reply_to</code>: 设置邮件的 Reply-To (回复地址)头部. 默认值就是收件地址(例如<code>notify_email</code>).</li>
+<li><code>aws_region</code>: 这会使得 ElastAlert 在使用亚马逊 ES 服务的时候对 HTTP 请求进行签名. 它会使用实例角色(instance role keys)密钥对请求进行签名. 环境变量 <code>AWS_DEFAULT_REGION</code> 会覆盖这个字段.</li>
+<li><code>boto_profile</code>: 已废弃! 用来对发向 Amazon Elasticsearch Service 请求的签名的 Boto profile, 如果你不使用 instance role keys.</li>
+<li><code>profile</code>: 用来对 Amazon Elasticsearch Service 请求进行签名的 AWS profile , 如果你不使用 instance role keys. 环境变量 <code>AWS_DEFAULT_PROFILE</code> 会覆盖这个字段.</li>
+<li><code>replace_dots_in_field_names</code>: 如果是 <code>True</code>, ElastAlert 会在将 documents 写入到 ES 之前将字段中的任何<code>点</code>替换成<code>下划线</code>. 默认值是 <code>False</code>. Elasticsearch 2.0 - 2.3 不支持在字段名称中存在<code>点</code>.</li>
+<li><code>string_multi_field_name</code>: 作为 ES 中 string multi-fields 的 subfield. Elasticsearch 2 默认值 <code>.raw</code>  、Elasticsearch 5 默认值是 <code>.keyword</code>.</li>
+<li><code>add_metadata_alert</code>: 设置<code>告警</code>是否包含在<code>规则</code>配置文件中包含的元信息 (<code>category</code>, <code>description</code>, <code>owner</code> and <code>priority</code>); 设置 <code>True</code> or <code>False</code>. 默认是 <code>False</code>.</li>
+<li><strong><code>skip_invalid</code>: 如果设置为 <code>True</code>, 跳过无效文件而不是退出.</strong></li>
 </ul>
-<p>By default, ElastAlert uses a simple basic logging configuration to print log messages to standard error. You can change the log level to <code>INFO</code> messages by using the <code>--verbose</code> or <code>--debug</code> command line options.</p>
-<p>If you need a more sophisticated logging configuration, you can provide a full logging configuration in the config file. This way you can also configure logging to a file, to Logstash and adjust the logging format.</p>
+<p>默认情况下，ElastAlert 使用一个简单的基础日志配置来打印标准错误的日志信息。可以通过使用 <code>--verbose</code> 或者 <code>--debug</code> 命令行选项将日志级别改成 <code>INFO</code>. 如果你需要一个更复杂的日志配置，你可以在 config 文件提供一个完整的日志配置, 这会使得你可以配置日志输出到一个文件，或者 Logstash 或者调整日志格式。</p>
 <h3 id="主要原理"><a href="#主要原理" class="headerlink" title="主要原理"></a>主要原理</h3><p>基于两个核心组件<code>规则类型</code>和<code>告警器</code>定期向 ES 发出请求，然后将 ES 的响应数据传递给 <code>规则类型</code>，由<code>规则类型</code>决定是否出现匹配。当出现匹配的时候，这些数据将会被投递给一个或者多个<code>告警器</code>，具体行为取决于匹配的结果。</p>
 <p>以上提到的内容都被配置在一些规则文件中，每个文件中定义了一个查询、一个<code>规则类型</code>、和一组<code>告警器</code>。</p>
 <h4 id="支持的常见监控规则"><a href="#支持的常见监控规则" class="headerlink" title="支持的常见监控规则"></a>支持的常见监控规则</h4><p>以下是 ElastAlert 提供的一些基于常见的监控模型实现的<code>规则类型</code>：</p>
@@ -595,6 +594,18 @@
 <li>使用一个唯一值字段对告警进行分离/隔离</li>
 <li>对<code>规则类型</code>匹配的数据做拦截和增强</li>
 </ul>
+<h3 id="运行-ElastAlert"><a href="#运行-ElastAlert" class="headerlink" title="运行 ElastAlert"></a>运行 ElastAlert</h3><pre><code>$ python elastalert/elastalert.py</code></pre><p>在运行 ElastAlert 的时候有几个参数是可用的:</p>
+<p><code>--config</code> 声明要使用的配置文件. 默认是 <code>config.yaml</code>.</p>
+<p><code>--debug</code> 以 debug 模式. 这会使得 ElastAlert 日志变得冗长, 将所有的 <code>告警器</code> 修改为 <code>DebugAlerter</code>, 仅在控制台打印告警而不执行正常的告警行为, 并且不会将对 ES 的查询和告警元数据写入 ES. 和 –verbose 不能一起使用.</p>
+<p><code>--verbose</code> 也会使得 ElastAlert 日志变得冗长, 使得你可以看到关于查询 ES 的状态信息. 和 –debug 不能一起使用.</p>
+<p><code>--start &lt;timestamp&gt;</code> 将会强制 ElastAlert 从给定时间开始查询, 而不是默认的从当前时间开始查询. 时间戳格式应该是 ISO8601, 例如<code>YYYY-MM-DDTHH:MM:SS</code> (UTC) 或者携带时区 <code>YYYY-MM-DDTHH:MM:SS-08:00</code> (PST). 请注意如果查询一个很大的时间区间，那么在该<code>规则</code>完成整个时间段查询之前将不会发出告警. 强制从当前时间开始查询, 使用 “NOW”.</p>
+<p><code>--end &lt;timestamp&gt;</code> 会导致 ElastAlert 在指定时间戳停止查询. 默认情况下, ElastAlert 将会无限定期查询 ES.</p>
+<p><code>--rule &lt;rule.yaml&gt;</code> 只会执行给定<code>规则</code>文件. 该值应该是一个完全文件路径或者一个文件名存在于 <code>rules_folder</code> 或者它的子孙文件夹.</p>
+<p><code>--silence &lt;unit&gt;=&lt;number&gt;</code> 会将给定<code>规则</code>中<code>告警</code>静默一段时间. <code>规则</code> 必须通过 <code>--rule</code> 给出. <code>&lt;unit&gt;</code> 可以是 days, weeks, hours, minutes or seconds. <code>&lt;number&gt;</code> 是一个整型. 举个例子, <code>--rule noisy_rule.yaml --silence hours=4</code> 会禁止 noisy_rule 在 4 hours 内发出告警.</p>
+<p><code>--es_debug</code> 将会对所有对于 Elasticsearch 的查询进行日志记录.</p>
+<p><code>--es_debug_trace &lt;trace.log&gt;</code> 会将所有对于 ES 做参数的 curl 命令进行日志记录到指定文件. <code>--es_debug_trace</code> 会被传递到 <a href="http://elasticsearch-py.readthedocs.io/en/master/index.html#logging" target="_blank" rel="noopener">elasticsearch.py</a> , 它记录的是 localhost:9200 而不是实际的 <code>es_host</code>:<code>es_port</code>.</p>
+<p><code>--end &lt;timestamp&gt;</code> will force ElastAlert to stop querying after the given time, instead of the default, querying to the present time. This really only makes sense when running standalone. The timestamp is formatted as <code>YYYY-MM-DDTHH:MM:SS</code> (UTC) or with timezone <code>YYYY-MM-DDTHH:MM:SS-XX:00</code> (UTC-XX).</p>
+<p><code>--pin_rules</code> 将会禁止 ElastAlert 在<code>规则</code>配置文件发生变化的时候对<code>规则</code>进行加载、重载、移除(热重载).</p>
 
             </div>
             <hr />
@@ -1289,7 +1300,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">628k</span>
+            <span class="white-color">629.1k</span>
             
 
             <br>
