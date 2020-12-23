@@ -4,12 +4,17 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="2、创建并管理cgroup, 技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="keywords" content="elastalert聚合告警, 技术博客 钟鸿鹏 honphan 阿钟">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="本文将创建并挂载一颗不和任何subsystem绑定的cgroup树，用来演示怎么创建、删除子cgroup，以及如何往cgroup中添加和删除进程。
-由于不和任何subsystem绑定，所以这棵树没有任何实际的功能，但这不影响我们的演示，还有">
+    <meta name="description" content="拉取代码及准备工作
+¶代码拉取
+克隆代码到本地
+git clone https://github.com/Yelp/elastalert.git
+
+以下是代码目录：
+zhonghongpeng@bogon elastalert % tree">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +22,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>2、创建并管理cgroup | 阿钟的博客</title>
+    <title>elastalert聚合告警 | 阿钟的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -317,7 +322,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '12345';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -336,7 +341,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        2、创建并管理cgroup
+                        elastalert聚合告警
                     </div>
                 </div>
             </div>
@@ -447,8 +452,8 @@
                     
                     <div class="article-tag">
                         
-                        <a href="/tags/cgroup/" target="_blank">
-                            <span class="chip bg-color">cgroup</span>
+                        <a href="/tags/ELK告警/" target="_blank">
+                            <span class="chip bg-color">ELK告警</span>
                         </a>
                         
                     </div>
@@ -459,8 +464,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                        <a href="/categories/linux/" class="post-category" target="_blank">
-                            linux
+                        <a href="/categories/elastalert/" class="post-category" target="_blank">
+                            elastalert
                         </a>
                         
                     </div>
@@ -471,7 +476,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-16
+                    2020-12-23
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -485,14 +490,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    376
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    1 分
                 </div>
                 
                 
@@ -508,252 +513,96 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>本文将创建并挂载一颗不和任何subsystem绑定的cgroup树，用来演示怎么创建、删除子cgroup，以及如何往cgroup中添加和删除进程。</p>
-<p>由于不和任何subsystem绑定，所以这棵树没有任何实际的功能，但这不影响我们的演示，还有一个好处就是我们不会受subsystem功能的影响，可以将精力集中在cgroup树上。</p>
-<blockquote>
-<p>本篇所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
-</blockquote>
-<h2 id="挂载cgroup树"><a class="header-anchor" href="#挂载cgroup树">¶</a>挂载cgroup树</h2>
-<p>开始使用cgroup前需要先挂载cgroup树，下面先看看如何挂载一颗cgroup树，然后再查看其根目录下生成的文件</p>
-<pre><code>#准备需要的目录
-dev@ubuntu:~$ mkdir cgroup &amp;&amp; cd cgroup
-dev@ubuntu:~/cgroup$ mkdir demo
+                <h1>拉取代码及准备工作</h1>
+<h2 id="代码拉取"><a class="header-anchor" href="#代码拉取">¶</a>代码拉取</h2>
+<p>克隆代码到本地</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">git clone https://github.com/Yelp/elastalert.git
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>以下是代码目录：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">zhonghongpeng@bogon elastalert % tree ./ -L 1
+./
+├── Dockerfile-test
+├── LICENSE
+├── Makefile
+├── README.md
+├── build
+├── changelog.md
+├── config.yaml.example
+├── dist
+├── docker-compose.yml
+├── docs
+├── elastalert
+├── elastalert.egg-info
+├── example_rules
+├── mytest
+├── pytest.ini
+├── requirements-dev.txt
+├── requirements.txt
+├── setup.cfg
+├── setup.py
+├── supervisord.conf.example
+├── tests
+├── tox.ini
+└── venv
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="pycharm开发环境准备"><a class="header-anchor" href="#pycharm开发环境准备">¶</a>pycharm开发环境准备</h2>
+<p>使用 pycharm 打开项目根目录：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201223153727.png" alt="image-20201223153727704"></p>
+<h3 id="配置测试环境和venv"><a class="header-anchor" href="#配置测试环境和venv">¶</a>配置测试环境和venv</h3>
+<h4 id="venv"><a class="header-anchor" href="#venv">¶</a>venv</h4>
+<p>venv 可以用来在当前目录创建一个隔离的 python 运行环境，在使用 pycharm 导入项目的时候一般会弹出是否在根目录创建 venv，设置是即可. 来到以下 <code>Preferences</code> 界面确认路径是否正确（venv的基础Python版本以及venv环境路径）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201223154238.png" alt="image-20201223154238353"></p>
+<h4 id="测试框架选择"><a class="header-anchor" href="#测试框架选择">¶</a>测试框架选择</h4>
+<p>还是 <code>Preferences</code> 窗口，配置 <code>requirements.txt</code> 和测试框架为 <code>pytest</code>（<code>requirements.txt</code>不是必要，下面将使用 <code>setup.py</code> 安装依赖）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201223154047.png" alt="image-20201223154047862"></p>
+<h4 id="安装依赖"><a class="header-anchor" href="#安装依赖">¶</a>安装依赖</h4>
+<p>在根目录下 <code>setup.py</code> 文件的依赖数组最后增加 <code>pytest</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201223155006.png" alt="image-20201223155006145"></p>
+<p>然后右击该文件选择运行即可进行安装：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201223155203.png" alt="image-20201223155203193"></p>
+<p>安装完成后可以看到在 venv 中导入了以下脚本：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">zhonghongpeng@bogon elastalert % tree venv -L 4
+venv
+├── bin
+│   ├── __pycache__
+│   │   └── jp.cpython-37.pyc
+│   ├── activate
+│   ├── activate.csh
+│   ├── activate.fish
+│   ├── chardetect
+│   ├── easy_install
+│   ├── easy_install-3.7
+│   ├── easy_install-3.9
+│   ├── elastalert
+│   ├── elastalert-create-index
+│   ├── elastalert-rule-from-kibana
+│   ├── elastalert-test-rule
+│   ├── jirashell
+│   ├── jp.py
+│   ├── jsonschema
+│   ├── natsort
+│   ├── pbr
+│   ├── pip
+│   ├── pip3
+│   ├── pip3.7
+│   ├── py.test
+│   ├── pytest
+│   ├── python -> python3.7
+│   ├── python3 -> python3.7
+│   ├── python3.7 -> /usr/local/bin/python3.7
+│   └── stomp
+├── include
+├── lib
+│   └── python3.7
+│       └── site-packages
+│				... ...
+│           ├── elastalert-0.2.4-py3.7.egg
+│				... ...
+└── pyvenv.cfg
 
-#由于name=demo的cgroup树不存在，所以系统会创建一颗新的cgroup树，然后挂载到demo目录
-dev@ubuntu:~/cgroup$ sudo mount -t cgroup -o none,name=demo demo ./demo
-
-#挂载点所在目录就是这颗cgroup树的root cgroup，在root cgroup下面，系统生成了一些默认文件
-dev@ubuntu:~/cgroup$ ls ./demo/
-cgroup.clone_children  cgroup.procs  cgroup.sane_behavior  notify_on_release  release_agent  tasks
-
-#cgroup.procs里包含系统中的所有进程
-dev@ubuntu:~/cgroup$ wc -l ./demo/cgroup.procs
-131 ./demo/cgroup.procs
-</code></pre>
-<p>下面是每个文件的含义：</p>
-<ul>
-<li>cgroup.clone_children<br>
-这个文件只对cpuset（subsystem）有影响，当该文件的内容为1时，新创建的cgroup将会继承父cgroup的配置，即从父cgroup里面拷贝配置文件来初始化新cgroup，可以参考<a href="https://lkml.org/lkml/2010/7/29/368" target="_blank" rel="noopener">这里</a></li>
-<li>cgroup.procs<br>
-当前cgroup中的所有进程ID，系统不保证ID是顺序排列的，且ID有可能重复</li>
-<li>cgroup.sane_behavior<br>
-具体功能不详，可以参考<a href="https://lkml.org/lkml/2014/7/2/684" target="_blank" rel="noopener">这里</a>和<a href="https://lkml.org/lkml/2014/7/2/686" target="_blank" rel="noopener">这里</a></li>
-<li>notify_on_release<br>
-该文件的内容为1时，当cgroup退出时（不再包含任何进程和子cgroup），将调用release_agent里面配置的命令。新cgroup被创建时将默认继承父cgroup的这项配置。</li>
-<li>release_agent<br>
-里面包含了cgroup退出时将会执行的命令，系统调用该命令时会将相应cgroup的相对路径当作参数传进去。 注意：这个文件只会存在于root cgroup下面，其他cgroup里面不会有这个文件。</li>
-<li>tasks<br>
-当前cgroup中的所有线程ID，系统不保证ID是顺序排列的</li>
-</ul>
-<p>后面在介绍如何往cgroup中添加进程时会介绍cgroup.procs和tasks的差别。</p>
-<h2 id="创建和删除cgroup"><a class="header-anchor" href="#创建和删除cgroup">¶</a>创建和删除cgroup</h2>
-<p>挂载好上面的cgroup树之后，就可以在里面建子cgroup了</p>
-<pre><code>#创建子cgroup很简单，新建一个目录就可以了
-dev@ubuntu:~/cgroup$ cd demo
-dev@ubuntu:~/cgroup/demo$ sudo mkdir cgroup1
-
-#在新创建的cgroup里面，系统默认也生成了一些文件，这些文件的意义和root cgroup里面的一样
-dev@ubuntu:~/cgroup/demo$ ls cgroup1/
-cgroup.clone_children  cgroup.procs  notify_on_release  tasks
-
-#新创建的cgroup里没有任何进程和线程
-dev@ubuntu:~/cgroup/demo$ wc -l cgroup1/cgroup.procs
-0 cgroup1/cgroup.procs
-dev@ubuntu:~/cgroup/demo$ wc -l cgroup1/tasks
-0 cgroup1/tasks
-
-#每个cgroup都可以创建自己的子cgroup，所以我们也可以在cgroup1里面创建子cgroup
-dev@ubuntu:~/cgroup/demo$ sudo mkdir cgroup1/cgroup11
-dev@ubuntu:~/cgroup/demo$ ls cgroup1/cgroup11
-cgroup.clone_children  cgroup.procs  notify_on_release  tasks
-
-#删除cgroup也很简单，删除掉相应的目录就可以了
-dev@ubuntu:~/cgroup/demo$ sudo rmdir cgroup1/
-rmdir: failed to remove 'cgroup1/': Device or resource busy
-#这里删除cgroup1失败，是因为它里面包含了子cgroup，所以不能删除，
-#如果cgroup1包含有进程或者线程，也会删除失败
-
-#先删除cgroup11，再删除cgroup1就可以了
-dev@ubuntu:~/cgroup/demo$ sudo rmdir cgroup1/cgroup11/
-dev@ubuntu:~/cgroup/demo$ sudo rmdir cgroup1/
-</code></pre>
-<h2 id="添加进程"><a class="header-anchor" href="#添加进程">¶</a>添加进程</h2>
-<p>创建新的cgroup后，就可以往里面添加进程了。注意下面几点：</p>
-<ul>
-<li>在一颗cgroup树里面，一个进程必须要属于一个cgroup。</li>
-<li>新创建的子进程将会自动加入父进程所在的cgroup。</li>
-<li>从一个cgroup移动一个进程到另一个cgroup时，只要有目的cgroup的写入权限就可以了，系统不会检查源cgroup里的权限。</li>
-<li>用户只能操作属于自己的进程，不能操作其他用户的进程，root账号除外。</li>
-</ul>
-<pre><code>#--------------------------第一个shell窗口----------------------
-#创建一个新的cgroup
-dev@ubuntu:~/cgroup/demo$ sudo mkdir test
-dev@ubuntu:~/cgroup/demo$ cd test
-
-#将当前bash加入到上面新创建的cgroup中
-dev@ubuntu:~/cgroup/demo/test$ echo $$
-1421
-dev@ubuntu:~/cgroup/demo/test$ sudo sh -c 'echo 1421 &gt; cgroup.procs'
-#注意：一次只能往这个文件中写一个进程ID，如果需要写多个的话，需要多次调用这个命令
-
-#--------------------------第二个shell窗口----------------------
-#重新打开一个shell窗口，避免第一个shell里面运行的命令影响输出结果
-#这时可以看到cgroup.procs里面包含了上面的第一个shell进程
-dev@ubuntu:~/cgroup/demo/test$ cat cgroup.procs
-1421
-
-#--------------------------第一个shell窗口----------------------
-#回到第一个窗口，运行top命令
-dev@ubuntu:~/cgroup/demo/test$ top
-#这里省略输出内容
-
-#--------------------------第二个shell窗口----------------------
-#这时再在第二个窗口查看，发现top进程自动和它的父进程（1421）属于同一个cgroup
-dev@ubuntu:~/cgroup/demo/test$ cat cgroup.procs
-1421
-16515
-dev@ubuntu:~/cgroup/demo/test$ ps -ef|grep top
-dev      16515  1421  0 04:02 pts/0    00:00:00 top
-dev@ubuntu:~/cgroup/demo/test$
-
-#在一颗cgroup树里面，一个进程必须要属于一个cgroup，
-#所以我们不能凭空从一个cgroup里面删除一个进程，只能将一个进程从一个cgroup移到另一个cgroup，
-#这里我们将1421移动到root cgroup
-dev@ubuntu:~/cgroup/demo/test$ sudo sh -c 'echo 1421 &gt; ../cgroup.procs'
-dev@ubuntu:~/cgroup/demo/test$ cat cgroup.procs
-16515
-#移动1421到另一个cgroup之后，它的子进程不会随着移动
-
-#--------------------------第一个shell窗口----------------------
-##回到第一个shell窗口，进行清理工作
-#先用ctrl+c退出top命令
-dev@ubuntu:~/cgroup/demo/test$ cd ..
-#然后删除创建的cgroup
-dev@ubuntu:~/cgroup/demo$ sudo rmdir test
-</code></pre>
-<h2 id="权限"><a class="header-anchor" href="#权限">¶</a>权限</h2>
-<p>上面我们都是用sudo(root账号)来操作的，但实际上普通账号也可以操作cgroup</p>
-<pre><code>#创建一个新的cgroup，并修改他的owner
-dev@ubuntu:~/cgroup/demo$ sudo mkdir permission
-dev@ubuntu:~/cgroup/demo$ sudo chown -R dev:dev ./permission/
-
-#1421原来属于root cgroup，虽然dev没有root cgroup的权限，但还是可以将1421移动到新的cgroup下，
-#说明在移动进程的时候，系统不会检查源cgroup里的权限。
-dev@ubuntu:~/cgroup/demo$ echo 1421 &gt; ./permission/cgroup.procs
-
-#由于dev没有root cgroup的权限，再把1421移回root cgroup失败
-dev@ubuntu:~/cgroup/demo$ echo 1421 &gt; ./cgroup.procs
--bash: ./cgroup.procs: Permission denied
-
-#找一个root账号的进程
-dev@ubuntu:~/cgroup/demo$ ps -ef|grep /lib/systemd/systemd-logind
-root       839     1  0 01:52 ?        00:00:00 /lib/systemd/systemd-logind
-#因为该进程属于root，dev没有操作它的权限，所以将该进程加入到permission中失败
-dev@ubuntu:~/cgroup/demo$ echo 839 &gt;./permission/cgroup.procs
--bash: echo: write error: Permission denied
-#只能由root账号添加
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo 839 &gt;./permission/cgroup.procs'
-
-#dev还可以在permission下创建子cgroup
-dev@ubuntu:~/cgroup/demo$ mkdir permission/c1
-dev@ubuntu:~/cgroup/demo$ ls permission/c1
-cgroup.clone_children  cgroup.procs  notify_on_release  tasks
-
-#清理
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo 839 &gt;./cgroup.procs'
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo 1421 &gt;./cgroup.procs'
-dev@ubuntu:~/cgroup/demo$ rmdir permission/c1
-dev@ubuntu:~/cgroup/demo$ sudo rmdir permission
-</code></pre>
-<h2 id="cgroup-procs-vs-tasks"><a class="header-anchor" href="#cgroup-procs-vs-tasks">¶</a>cgroup.procs vs tasks</h2>
-<p>上面提到cgroup.procs包含的是进程ID， 而tasks里面包含的是线程ID，那么他们有什么区别呢？</p>
-<pre><code>#创建两个新的cgroup用于演示
-dev@ubuntu:~/cgroup/demo$ sudo mkdir c1 c2
-
-#为了便于操作，先给root账号设置一个密码，然后切换到root账号
-dev@ubuntu:~/cgroup/demo$ sudo passwd root
-dev@ubuntu:~/cgroup/demo$ su root
-root@ubuntu:/home/dev/cgroup/demo#
-
-#系统中找一个有多个线程的进程
-root@ubuntu:/home/dev/cgroup/demo# ps -efL|grep /lib/systemd/systemd-timesyncd
-systemd+   610     1   610  0    2 01:52 ?        00:00:00 /lib/systemd/systemd-timesyncd
-systemd+   610     1   616  0    2 01:52 ?        00:00:00 /lib/systemd/systemd-timesyncd
-#进程610有两个线程，分别是610和616
-
-#将616加入c1/cgroup.procs
-root@ubuntu:/home/dev/cgroup/demo# echo 616 &gt; c1/cgroup.procs
-#由于cgroup.procs存放的是进程ID，所以这里看到的是616所属的进程ID（610）
-root@ubuntu:/home/dev/cgroup/demo# cat c1/cgroup.procs
-610
-#从tasks中的内容可以看出，虽然只往cgroup.procs中加了线程616，
-#但系统已经将这个线程所属的进程的所有线程都加入到了tasks中，
-#说明现在整个进程的所有线程已经处于c1中了
-root@ubuntu:/home/dev/cgroup/demo# cat c1/tasks
-610
-616
-
-#将616加入c2/tasks中
-root@ubuntu:/home/dev/cgroup/demo# echo 616 &gt; c2/tasks
-
-#这时我们看到虽然在c1/cgroup.procs和c2/cgroup.procs里面都有610，
-#但c1/tasks和c2/tasks中包含了不同的线程，说明这个进程的两个线程分别属于不同的cgroup
-root@ubuntu:/home/dev/cgroup/demo# cat c1/cgroup.procs
-610
-root@ubuntu:/home/dev/cgroup/demo# cat c1/tasks
-610
-root@ubuntu:/home/dev/cgroup/demo# cat c2/cgroup.procs
-610
-root@ubuntu:/home/dev/cgroup/demo# cat c2/tasks
-616
-#通过tasks，我们可以实现线程级别的管理，但通常情况下不会这么用，
-#并且在cgroup V2以后，将不再支持该功能，只能以进程为单位来配置cgroup
-
-#清理
-root@ubuntu:/home/dev/cgroup/demo# echo 610 &gt; ./cgroup.procs
-root@ubuntu:/home/dev/cgroup/demo# rmdir c1
-root@ubuntu:/home/dev/cgroup/demo# rmdir c2
-root@ubuntu:/home/dev/cgroup/demo# exit
-exit
-</code></pre>
-<h2 id="release-agent"><a class="header-anchor" href="#release-agent">¶</a>release_agent</h2>
-<p>当一个cgroup里没有进程也没有子cgroup时，release_agent将被调用来执行cgroup的清理工作。</p>
-<pre><code>#创建新的cgroup用于演示
-dev@ubuntu:~/cgroup/demo$ sudo mkdir test
-#先enable release_agent
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo 1 &gt; ./test/notify_on_release'
-
-#然后创建一个脚本/home/dev/cgroup/release_demo.sh，
-#一般情况下都会利用这个脚本执行一些cgroup的清理工作，但我们这里为了演示简单，仅仅只写了一条日志到指定文件
-dev@ubuntu:~/cgroup/demo$ cat &gt; /home/dev/cgroup/release_demo.sh &lt;&lt; EOF
-#!/bin/bash
-echo \$0:\$1 &gt;&gt; /home/dev/release_demo.log
-EOF
-
-#添加可执行权限
-dev@ubuntu:~/cgroup/demo$ chmod +x ../release_demo.sh
-
-#将该脚本设置进文件release_agent
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo /home/dev/cgroup/release_demo.sh &gt; ./release_agent'
-dev@ubuntu:~/cgroup/demo$ cat release_agent
-/home/dev/cgroup/release_demo.sh
-
-#往test里面添加一个进程，然后再移除，这样就会触发release_demo.sh
-dev@ubuntu:~/cgroup/demo$ echo $$
-27597
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo 27597 &gt; ./test/cgroup.procs'
-dev@ubuntu:~/cgroup/demo$ sudo sh -c 'echo 27597 &gt; ./cgroup.procs'
-
-#从日志可以看出，release_agent被触发了，/test是cgroup的相对路径
-dev@ubuntu:~/cgroup/demo$ cat /home/dev/release_demo.log
-/home/dev/cgroup/release_demo.sh:/test
-</code></pre>
-<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
-<p>本文介绍了如何操作cgroup，由于没有和任何subsystem关联，所以在这颗树上的所有操作都没有实际的功能，不会对系统有影响。从下一篇开始，将介绍具体的subsystem。</p>
-<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
-<ul>
-<li><a href="https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt" target="_blank" rel="noopener">CGROUPS v1</a></li>
-</ul>
+119 directories, 44 files
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="查看-metric-aggregation-代码结构"><a class="header-anchor" href="#查看-metric-aggregation-代码结构">¶</a>查看 metric_aggregation 代码结构</h2>
 
             </div>
             <hr />
@@ -912,9 +761,9 @@ dev@ubuntu:~/cgroup/demo$ cat /home/dev/release_demo.log
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《2、创建并管理cgroup》
+                    《elastalert聚合告警》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/02/16/linux/cgroup/2-chuang-jian-bing-guan-li-cgroup/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/12/23/elastalert/elastalert-ju-he-gao-jing/" property="cc:attributionName"
                rel="cc:attributionURL">
                 阿钟
             </a> 采用
@@ -955,7 +804,7 @@ dev@ubuntu:~/cgroup/demo$ cat /home/dev/release_demo.log
         repo: 'azhong.github.io',
         owner: 'JohnZhongg',
         admin: "JohnZhongg",
-        id: '2020/02/16/linux/cgroup/2-chuang-jian-bing-guan-li-cgroup/',
+        id: '2020/12/23/elastalert/elastalert-ju-he-gao-jing/',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1238,46 +1087,48 @@ dev@ubuntu:~/cgroup/demo$ cat /home/dev/release_demo.log
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/16/linux/cgroup/1-cgroup-gai-shu/">
+                <a href="/2020/12/23/elastalert/elastalert-ju-he-gao-jing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="1、Cgroup概述">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="elastalert聚合告警">
                         
-                        <span class="card-title">1、Cgroup概述</span>
+                        <span class="card-title">elastalert聚合告警</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            linux
+                            源码修改增加自定义聚合功能
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/elastalert/" class="post-category" target="_blank">
+                                    elastalert
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/cgroup/" target="_blank">
-                        <span class="chip bg-color">cgroup</span>
+                    <a href="/tags/ELK告警/" target="_blank">
+                        <span class="chip bg-color">ELK告警</span>
                     </a>
                     
                 </div>
@@ -1291,31 +1142,35 @@ dev@ubuntu:~/cgroup/demo$ cat /home/dev/release_demo.log
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/cgroup/3-xian-zhi-cgroup-de-jin-cheng-shu-subsystem-zhi-pids/">
+                <a href="/2020/12/22/elastalert/02-gui-ze-lei-xing-he-pei-zhi-xuan-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="3、限制cgroup的进程数（subsystem之pids）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="02_规则类型和配置选项">
                         
-                        <span class="card-title">3、限制cgroup的进程数（subsystem之pids）</span>
+                        <span class="card-title">02_规则类型和配置选项</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            linux
+                            ELK告警
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-16
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/elastalert/" class="post-category" target="_blank">
+                                    elastalert
+                                </a>
+                            
+                            <a href="/categories/elastalert/ES学习/" class="post-category" target="_blank">
+                                    ES学习
                                 </a>
                             
                             
@@ -1325,8 +1180,12 @@ dev@ubuntu:~/cgroup/demo$ cat /home/dev/release_demo.log
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/cgroup/" target="_blank">
-                        <span class="chip bg-color">cgroup</span>
+                    <a href="/tags/ES学习/" target="_blank">
+                        <span class="chip bg-color">ES学习</span>
+                    </a>
+                    
+                    <a href="/tags/ELK告警/" target="_blank">
+                        <span class="chip bg-color">ELK告警</span>
                     </a>
                     
                 </div>

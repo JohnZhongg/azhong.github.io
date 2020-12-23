@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2020-12-22T11:52:06.956Z</updated>
+  <updated>2020-12-23T07:55:13.828Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>elastalert聚合告警</title>
+    <link href="https://honphanjohn.top/2020/12/23/elastalert/elastalert-ju-he-gao-jing/"/>
+    <id>https://honphanjohn.top/2020/12/23/elastalert/elastalert-ju-he-gao-jing/</id>
+    <published>2020-12-23T07:31:53.206Z</published>
+    <updated>2020-12-23T07:55:13.828Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1&gt;拉取代码及准备工作&lt;/h1&gt;
+&lt;h2 id=&quot;代码拉取&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#代码拉取&quot;&gt;¶&lt;/a&gt;代码拉取&lt;/h2&gt;
+&lt;p&gt;克隆代码到本地&lt;/p&gt;
+&lt;pre class=&quot;line-numbers
+        
+      
+    
+    </summary>
+    
+      <category term="elastalert" scheme="https://honphanjohn.top/categories/elastalert/"/>
+    
+    
+      <category term="ELK告警" scheme="https://honphanjohn.top/tags/ELK%E5%91%8A%E8%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>02_规则类型和配置选项</title>
@@ -541,33 +570,6 @@
 &lt;h1&gt;附录&lt;/h1&gt;
 &lt;h2 id=&quot;JVM大图&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#JVM大图&quot;&gt;¶&lt;/a&gt;JVM大图&lt;/h2&gt;
 &lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>08_执行引擎</title>
-    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/"/>
-    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/08-zhi-xing-yin-qing/</id>
-    <published>2020-12-21T16:41:53.964Z</published>
-    <updated>2020-12-21T16:41:53.965Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1&gt;一、编译原理&lt;/h1&gt;
-&lt;p&gt;如今,基于物理机、Java虚拟机,或者是非Java的其他高级语言虚拟机(HLLVM)的代码执行过程,大体上都会遵循这种符合现代经典编译原理的思路,在执行前先对程序源码进行词法分析和语法分析处理,把源码转化为抽象语法树(Abstract
         
       
     
