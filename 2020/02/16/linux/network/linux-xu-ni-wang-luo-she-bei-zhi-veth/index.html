@@ -9,9 +9,10 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="有了上一篇关于tun/tap的介绍之后，大家应该对虚拟网络设备有了一定的了解，本篇将接着介绍另一种虚拟网络设备veth。
-veth设备的特点
+¶veth设备的特点
+
 veth和其它的网络设备都一样，一端连接的是内核协议栈。
-veth设备是成对出现的，另一端两个设备">
+veth设备是成对出现的，另一端两个">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -332,7 +333,7 @@ veth设备是成对出现的，另一端两个设备">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,7 +512,8 @@ veth设备是成对出现的，另一端两个设备">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>有了上一篇关于<a href="https://segmentfault.com/a/1190000009249039" target="_blank" rel="noopener">tun/tap的介绍</a>之后，大家应该对虚拟网络设备有了一定的了解，本篇将接着介绍另一种虚拟网络设备veth。</p>
-<h2 id="veth设备的特点"><a href="#veth设备的特点" class="headerlink" title="veth设备的特点"></a>veth设备的特点</h2><ul>
+<h2 id="veth设备的特点"><a class="header-anchor" href="#veth设备的特点">¶</a>veth设备的特点</h2>
+<ul>
 <li>veth和其它的网络设备都一样，一端连接的是内核协议栈。</li>
 <li>veth设备是成对出现的，另一端两个设备彼此相连</li>
 <li>一个设备收到协议栈的数据发送请求后，会将数据发送到另一个设备上去。</li>
@@ -533,13 +535,19 @@ veth设备是成对出现的，另一端两个设备">
 |              |         192.168.2.11     192.168.2.1            |
 +--------------|-------------------------------------------------+
                ↓
-         Physical Network</code></pre><p>上图中，我们给物理网卡eth0配置的IP为192.168.1.11， 而veth0和veth1的IP分别是192.168.2.11和192.168.2.1。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>我们通过示例的方式来一步一步的看看veth设备的特点。</p>
-<h3 id="只给一个veth设备配置IP"><a href="#只给一个veth设备配置IP" class="headerlink" title="只给一个veth设备配置IP"></a>只给一个veth设备配置IP</h3><p>先通过ip link命令添加veth0和veth1，然后配置veth0的IP，并将两个设备都启动起来</p>
+         Physical Network
+</code></pre>
+<p>上图中，我们给物理网卡eth0配置的IP为192.168.1.11， 而veth0和veth1的IP分别是192.168.2.11和192.168.2.1。</p>
+<h2 id="示例"><a class="header-anchor" href="#示例">¶</a>示例</h2>
+<p>我们通过示例的方式来一步一步的看看veth设备的特点。</p>
+<h3 id="只给一个veth设备配置IP"><a class="header-anchor" href="#只给一个veth设备配置IP">¶</a>只给一个veth设备配置IP</h3>
+<p>先通过ip link命令添加veth0和veth1，然后配置veth0的IP，并将两个设备都启动起来</p>
 <pre><code>dev@debian:~$ sudo ip link add veth0 type veth peer name veth1
 dev@debian:~$ sudo ip addr add 192.168.2.11/24 dev veth0
 dev@debian:~$ sudo ip link set veth0 up
-dev@debian:~$ sudo ip link set veth1 up</code></pre><p>这里不给veth1设备配置IP的原因就是想看看在veth1没有IP的情况下，veth0收到协议栈的数据后会不会转发给veth1。</p>
+dev@debian:~$ sudo ip link set veth1 up
+</code></pre>
+<p>这里不给veth1设备配置IP的原因就是想看看在veth1没有IP的情况下，veth0收到协议栈的数据后会不会转发给veth1。</p>
 <p>ping一下192.168.2.1，由于veth1还没配置IP，所以肯定不通</p>
 <pre><code>dev@debian:~$ ping -c 4 192.168.2.1
 PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
@@ -550,7 +558,9 @@ From 192.168.2.11 icmp_seq=4 Destination Host Unreachable
 
 --- 192.168.2.1 ping statistics ---
 4 packets transmitted, 0 received, +4 errors, 100% packet loss, time 3015ms
-pipe 3</code></pre><p>但为什么ping不通呢？是到哪一步失败的呢？</p>
+pipe 3
+</code></pre>
+<p>但为什么ping不通呢？是到哪一步失败的呢？</p>
 <p>先看看抓包的情况，从下面的输出可以看出，veth0和veth1收到了同样的ARP请求包，但没有看到ARP应答包：</p>
 <pre><code>dev@debian:~$ sudo tcpdump -n -i veth0
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -570,7 +580,9 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 20:20:50.570023 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
 20:20:51.570023 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
 20:20:52.569988 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
-20:20:53.570833 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28</code></pre><p>为什么会这样呢？了解ping背后发生的事情后就明白了：</p>
+20:20:53.570833 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
+</code></pre>
+<p>为什么会这样呢？了解ping背后发生的事情后就明白了：</p>
 <ol>
 <li>ping进程构造ICMP echo请求包，并通过socket发给协议栈，</li>
 <li>协议栈根据目的IP地址和系统路由表，知道去192.168.2.1的数据包应该要由192.168.2.11口出去</li>
@@ -580,8 +592,11 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 <li>veth1收到ARP包后，转交给另一端的协议栈</li>
 <li>协议栈一看自己的设备列表，发现本地没有192.168.2.1这个IP，于是就丢弃了该ARP请求包，这就是为什么只能看到ARP请求包，看不到应答包的原因</li>
 </ol>
-<h3 id="给两个veth设备都配置IP"><a href="#给两个veth设备都配置IP" class="headerlink" title="给两个veth设备都配置IP"></a>给两个veth设备都配置IP</h3><p>给veth1也配置上IP</p>
-<pre><code>dev@debian:~$ sudo ip addr add 192.168.2.1/24 dev veth1</code></pre><p>再ping 192.168.2.1成功（由于192.168.2.1是本地IP，所以默认会走lo设备，为了避免这种情况，这里使用ping命令带上了-I参数，指定数据包走指定设备）</p>
+<h3 id="给两个veth设备都配置IP"><a class="header-anchor" href="#给两个veth设备都配置IP">¶</a>给两个veth设备都配置IP</h3>
+<p>给veth1也配置上IP</p>
+<pre><code>dev@debian:~$ sudo ip addr add 192.168.2.1/24 dev veth1
+</code></pre>
+<p>再ping 192.168.2.1成功（由于192.168.2.1是本地IP，所以默认会走lo设备，为了避免这种情况，这里使用ping命令带上了-I参数，指定数据包走指定设备）</p>
 <pre><code>dev@debian:~$ ping -c 4 192.168.2.1 -I veth0
 PING 192.168.2.1 (192.168.2.1) from 192.168.2.11 veth0: 56(84) bytes of data.
 64 bytes from 192.168.2.1: icmp_seq=1 ttl=64 time=0.032 ms
@@ -591,8 +606,15 @@ PING 192.168.2.1 (192.168.2.1) from 192.168.2.11 veth0: 56(84) bytes of data.
 
 --- 192.168.2.1 ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3002ms
-rtt min/avg/max/mdev = 0.032/0.046/0.055/0.009 ms</code></pre><blockquote>
-<p>注意：对于非debian系统，这里有可能ping不通，主要是因为内核中的一些ARP相关配置导致veth1不返回ARP应答包，如ubuntu上就会出现这种情况，解决办法如下：<br>root@ubuntu:<del># echo 1 &gt; /proc/sys/net/ipv4/conf/veth1/accept_local<br>root@ubuntu:</del># echo 1 &gt; /proc/sys/net/ipv4/conf/veth0/accept_local<br>root@ubuntu:<del># echo 0 &gt; /proc/sys/net/ipv4/conf/all/rp_filter<br>root@ubuntu:</del># echo 0 &gt; /proc/sys/net/ipv4/conf/veth0/rp_filter<br>root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/veth1/rp_filter</p>
+rtt min/avg/max/mdev = 0.032/0.046/0.055/0.009 ms
+</code></pre>
+<blockquote>
+<p>注意：对于非debian系统，这里有可能ping不通，主要是因为内核中的一些ARP相关配置导致veth1不返回ARP应答包，如ubuntu上就会出现这种情况，解决办法如下：<br>
+root@ubuntu:~# echo 1 &gt; /proc/sys/net/ipv4/conf/veth1/accept_local<br>
+root@ubuntu:~# echo 1 &gt; /proc/sys/net/ipv4/conf/veth0/accept_local<br>
+root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/all/rp_filter<br>
+root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/veth0/rp_filter<br>
+root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/veth1/rp_filter</p>
 </blockquote>
 <p>再来看看抓包情况，我们在veth0和veth1上都看到了ICMP echo的请求包，但为什么没有应答包呢？上面不是显示ping进程已经成功收到了应答包吗？</p>
 <pre><code>dev@debian:~$ sudo tcpdump -n -i veth0
@@ -611,7 +633,9 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 20:24:12.221372 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 1, length 64
 20:24:13.222089 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 2, length 64
 20:24:14.224836 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 3, length 64
-20:24:15.223826 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 4, length 64</code></pre><p>看看数据包的流程就明白了：</p>
+20:24:15.223826 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 4, length 64
+</code></pre>
+<p>看看数据包的流程就明白了：</p>
 <ol>
 <li>ping进程构造ICMP echo请求包，并通过socket发给协议栈，</li>
 <li>由于ping程序指定了走veth0，并且本地ARP缓存里面已经有了相关记录，所以不用再发送ARP出去，协议栈就直接将该数据包交给了veth0</li>
@@ -630,7 +654,10 @@ listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
 20:25:49.590273 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 1, length 64
 20:25:50.590018 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 2, length 64
 20:25:51.590027 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 3, length 64
-20:25:52.590030 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 4, length 64</code></pre><h3 id="试着ping下其它的IP"><a href="#试着ping下其它的IP" class="headerlink" title="试着ping下其它的IP"></a>试着ping下其它的IP</h3><p>ping 192.168.2.0/24网段的其它IP失败，ping一个公网的IP也失败：</p>
+20:25:52.590030 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 4, length 64
+</code></pre>
+<h3 id="试着ping下其它的IP"><a class="header-anchor" href="#试着ping下其它的IP">¶</a>试着ping下其它的IP</h3>
+<p>ping 192.168.2.0/24网段的其它IP失败，ping一个公网的IP也失败：</p>
 <pre><code>dev@debian:~$ ping -c 1 -I veth0 192.168.2.2
 PING 192.168.2.2 (192.168.2.2) from 192.168.2.11 veth0: 56(84) bytes of data.
 From 192.168.2.11 icmp_seq=1 Destination Host Unreachable
@@ -643,7 +670,9 @@ PING baidu.com (111.13.101.208) from 192.168.2.11 veth0: 56(84) bytes of data.
 From 192.168.2.11 icmp_seq=1 Destination Host Unreachable
 
 --- baidu.com ping statistics ---
-1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms</code></pre><p>从抓包来看，和上面第一种veth1没有配置IP的情况是一样的，ARP请求没人处理</p>
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+</code></pre>
+<p>从抓包来看，和上面第一种veth1没有配置IP的情况是一样的，ARP请求没人处理</p>
 <pre><code>dev@debian:~$ sudo tcpdump -i veth1
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
@@ -652,11 +681,17 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 02:25:25.223471 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28
 02:25:27.946539 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28
 02:25:28.946633 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28
-02:25:29.948055 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>从上面的介绍中可以看出，从veth0设备出去的数据包，会转发到veth1上，如果目的地址是veth1的IP的话，就能被协议栈处理，否则连ARP那关都过不了，IP forward啥的都用不上，所以不借助其它虚拟设备的话，这样的数据包只能在本地协议栈里面打转转，没法走到eth0上去，即没法发送到外面的网络中去。</p>
+02:25:29.948055 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28
+</code></pre>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>从上面的介绍中可以看出，从veth0设备出去的数据包，会转发到veth1上，如果目的地址是veth1的IP的话，就能被协议栈处理，否则连ARP那关都过不了，IP forward啥的都用不上，所以不借助其它虚拟设备的话，这样的数据包只能在本地协议栈里面打转转，没法走到eth0上去，即没法发送到外面的网络中去。</p>
 <p>下一篇将介绍Linux下的网桥，到时候veth设备就有用武之地了。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a href="http://www.opencloudblog.com/?p=66" target="_blank" rel="noopener">Linux Switching – Interconnecting Namespaces</a>有了上一篇关于<a href="https://segmentfault.com/a/1190000009249039" target="_blank" rel="noopener">tun/tap的介绍</a>之后，大家应该对虚拟网络设备有了一定的了解，本篇将接着介绍另一种虚拟网络设备veth。</p>
-<h2 id="veth设备的特点-1"><a href="#veth设备的特点-1" class="headerlink" title="veth设备的特点"></a>veth设备的特点</h2><ul>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
+<li>
+<p><a href="http://www.opencloudblog.com/?p=66" target="_blank" rel="noopener">Linux Switching – Interconnecting Namespaces</a>有了上一篇关于<a href="https://segmentfault.com/a/1190000009249039" target="_blank" rel="noopener">tun/tap的介绍</a>之后，大家应该对虚拟网络设备有了一定的了解，本篇将接着介绍另一种虚拟网络设备veth。</p>
+<h2 id="veth设备的特点-v2"><a class="header-anchor" href="#veth设备的特点-v2">¶</a>veth设备的特点</h2>
+<ul>
 <li>veth和其它的网络设备都一样，一端连接的是内核协议栈。</li>
 <li>veth设备是成对出现的，另一端两个设备彼此相连</li>
 <li>一个设备收到协议栈的数据发送请求后，会将数据发送到另一个设备上去。</li>
@@ -678,13 +713,19 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 |              |         192.168.2.11     192.168.2.1            |
 +--------------|-------------------------------------------------+
                ↓
-         Physical Network</code></pre><p>上图中，我们给物理网卡eth0配置的IP为192.168.1.11， 而veth0和veth1的IP分别是192.168.2.11和192.168.2.1。</p>
-<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><p>我们通过示例的方式来一步一步的看看veth设备的特点。</p>
-<h3 id="只给一个veth设备配置IP-1"><a href="#只给一个veth设备配置IP-1" class="headerlink" title="只给一个veth设备配置IP"></a>只给一个veth设备配置IP</h3><p>先通过ip link命令添加veth0和veth1，然后配置veth0的IP，并将两个设备都启动起来</p>
+         Physical Network
+</code></pre>
+<p>上图中，我们给物理网卡eth0配置的IP为192.168.1.11， 而veth0和veth1的IP分别是192.168.2.11和192.168.2.1。</p>
+<h2 id="示例-v2"><a class="header-anchor" href="#示例-v2">¶</a>示例</h2>
+<p>我们通过示例的方式来一步一步的看看veth设备的特点。</p>
+<h3 id="只给一个veth设备配置IP-v2"><a class="header-anchor" href="#只给一个veth设备配置IP-v2">¶</a>只给一个veth设备配置IP</h3>
+<p>先通过ip link命令添加veth0和veth1，然后配置veth0的IP，并将两个设备都启动起来</p>
 <pre><code>dev@debian:~$ sudo ip link add veth0 type veth peer name veth1
 dev@debian:~$ sudo ip addr add 192.168.2.11/24 dev veth0
 dev@debian:~$ sudo ip link set veth0 up
-dev@debian:~$ sudo ip link set veth1 up</code></pre><p>这里不给veth1设备配置IP的原因就是想看看在veth1没有IP的情况下，veth0收到协议栈的数据后会不会转发给veth1。</p>
+dev@debian:~$ sudo ip link set veth1 up
+</code></pre>
+<p>这里不给veth1设备配置IP的原因就是想看看在veth1没有IP的情况下，veth0收到协议栈的数据后会不会转发给veth1。</p>
 <p>ping一下192.168.2.1，由于veth1还没配置IP，所以肯定不通</p>
 <pre><code>dev@debian:~$ ping -c 4 192.168.2.1
 PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
@@ -695,7 +736,9 @@ From 192.168.2.11 icmp_seq=4 Destination Host Unreachable
 
 --- 192.168.2.1 ping statistics ---
 4 packets transmitted, 0 received, +4 errors, 100% packet loss, time 3015ms
-pipe 3</code></pre><p>但为什么ping不通呢？是到哪一步失败的呢？</p>
+pipe 3
+</code></pre>
+<p>但为什么ping不通呢？是到哪一步失败的呢？</p>
 <p>先看看抓包的情况，从下面的输出可以看出，veth0和veth1收到了同样的ARP请求包，但没有看到ARP应答包：</p>
 <pre><code>dev@debian:~$ sudo tcpdump -n -i veth0
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -715,7 +758,9 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 20:20:50.570023 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
 20:20:51.570023 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
 20:20:52.569988 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
-20:20:53.570833 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28</code></pre><p>为什么会这样呢？了解ping背后发生的事情后就明白了：</p>
+20:20:53.570833 ARP, Request who-has 192.168.2.1 tell 192.168.2.11, length 28
+</code></pre>
+<p>为什么会这样呢？了解ping背后发生的事情后就明白了：</p>
 <ol>
 <li>ping进程构造ICMP echo请求包，并通过socket发给协议栈，</li>
 <li>协议栈根据目的IP地址和系统路由表，知道去192.168.2.1的数据包应该要由192.168.2.11口出去</li>
@@ -725,8 +770,11 @@ listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 <li>veth1收到ARP包后，转交给另一端的协议栈</li>
 <li>协议栈一看自己的设备列表，发现本地没有192.168.2.1这个IP，于是就丢弃了该ARP请求包，这就是为什么只能看到ARP请求包，看不到应答包的原因</li>
 </ol>
-<h3 id="给两个veth设备都配置IP-1"><a href="#给两个veth设备都配置IP-1" class="headerlink" title="给两个veth设备都配置IP"></a>给两个veth设备都配置IP</h3><p>给veth1也配置上IP</p>
-<pre><code>dev@debian:~$ sudo ip addr add 192.168.2.1/24 dev veth1</code></pre><p>再ping 192.168.2.1成功（由于192.168.2.1是本地IP，所以默认会走lo设备，为了避免这种情况，这里使用ping命令带上了-I参数，指定数据包走指定设备）</p>
+<h3 id="给两个veth设备都配置IP-v2"><a class="header-anchor" href="#给两个veth设备都配置IP-v2">¶</a>给两个veth设备都配置IP</h3>
+<p>给veth1也配置上IP</p>
+<pre><code>dev@debian:~$ sudo ip addr add 192.168.2.1/24 dev veth1
+</code></pre>
+<p>再ping 192.168.2.1成功（由于192.168.2.1是本地IP，所以默认会走lo设备，为了避免这种情况，这里使用ping命令带上了-I参数，指定数据包走指定设备）</p>
 <pre><code>dev@debian:~$ ping -c 4 192.168.2.1 -I veth0
 PING 192.168.2.1 (192.168.2.1) from 192.168.2.11 veth0: 56(84) bytes of data.
 64 bytes from 192.168.2.1: icmp_seq=1 ttl=64 time=0.032 ms
@@ -736,8 +784,15 @@ PING 192.168.2.1 (192.168.2.1) from 192.168.2.11 veth0: 56(84) bytes of data.
 
 --- 192.168.2.1 ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3002ms
-rtt min/avg/max/mdev = 0.032/0.046/0.055/0.009 ms</code></pre><blockquote>
-<p>注意：对于非debian系统，这里有可能ping不通，主要是因为内核中的一些ARP相关配置导致veth1不返回ARP应答包，如ubuntu上就会出现这种情况，解决办法如下：<br>root@ubuntu:<del># echo 1 &gt; /proc/sys/net/ipv4/conf/veth1/accept_local<br>root@ubuntu:</del># echo 1 &gt; /proc/sys/net/ipv4/conf/veth0/accept_local<br>root@ubuntu:<del># echo 0 &gt; /proc/sys/net/ipv4/conf/all/rp_filter<br>root@ubuntu:</del># echo 0 &gt; /proc/sys/net/ipv4/conf/veth0/rp_filter<br>root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/veth1/rp_filter</p>
+rtt min/avg/max/mdev = 0.032/0.046/0.055/0.009 ms
+</code></pre>
+<blockquote>
+<p>注意：对于非debian系统，这里有可能ping不通，主要是因为内核中的一些ARP相关配置导致veth1不返回ARP应答包，如ubuntu上就会出现这种情况，解决办法如下：<br>
+root@ubuntu:~# echo 1 &gt; /proc/sys/net/ipv4/conf/veth1/accept_local<br>
+root@ubuntu:~# echo 1 &gt; /proc/sys/net/ipv4/conf/veth0/accept_local<br>
+root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/all/rp_filter<br>
+root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/veth0/rp_filter<br>
+root@ubuntu:~# echo 0 &gt; /proc/sys/net/ipv4/conf/veth1/rp_filter</p>
 </blockquote>
 <p>再来看看抓包情况，我们在veth0和veth1上都看到了ICMP echo的请求包，但为什么没有应答包呢？上面不是显示ping进程已经成功收到了应答包吗？</p>
 <pre><code>dev@debian:~$ sudo tcpdump -n -i veth0
@@ -749,39 +804,71 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 20:23:45.111091 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24169, seq 3, length 64
 20:23:46.110082 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24169, seq 4, length 64
 
-</code></pre></li>
-</ul>
-<p>  dev@debian:~$ sudo tcpdump -n -i veth1<br>  tcpdump: verbose output suppressed, use -v or -vv for full protocol decode<br>  listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes<br>  20:24:12.221372 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 1, length 64<br>  20:24:13.222089 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 2, length 64<br>  20:24:14.224836 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 3, length 64<br>  20:24:15.223826 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 4, length 64</p>
-<pre><code>
-  看看数据包的流程就明白了：
 
-  1. ping进程构造ICMP echo请求包，并通过socket发给协议栈，
-  2. 由于ping程序指定了走veth0，并且本地ARP缓存里面已经有了相关记录，所以不用再发送ARP出去，协议栈就直接将该数据包交给了veth0
-  3. 由于veth0的另一端连的是veth1，所以ICMP echo请求包就转发给了veth1
-  4. veth1收到ICMP echo请求包后，转交给另一端的协议栈
-  5. 协议栈一看自己的设备列表，发现本地有192.168.2.1这个IP，于是构造ICMP echo应答包，准备返回
-  6. 协议栈查看自己的路由表，发现回给192.168.2.11的数据包应该走lo口，于是将应答包交给lo设备
-  7. lo接到协议栈的应答包后，啥都没干，转手又把数据包还给了协议栈（相当于协议栈通过发送流程把数据包给lo，然后lo再将数据包交给协议栈的接收流程）
-  8. 协议栈收到应答包后，发现有socket需要该包，于是交给了相应的socket
-  9. 这个socket正好是ping进程创建的socket，于是ping进程收到了应答包
+dev@debian:~$ sudo tcpdump -n -i veth1
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
+20:24:12.221372 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 1, length 64
+20:24:13.222089 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 2, length 64
+20:24:14.224836 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 3, length 64
+20:24:15.223826 IP 192.168.2.11 &gt; 192.168.2.1: ICMP echo request, id 24174, seq 4, length 64
+</code></pre>
+<p>看看数据包的流程就明白了：</p>
+<ol>
+<li>ping进程构造ICMP echo请求包，并通过socket发给协议栈，</li>
+<li>由于ping程序指定了走veth0，并且本地ARP缓存里面已经有了相关记录，所以不用再发送ARP出去，协议栈就直接将该数据包交给了veth0</li>
+<li>由于veth0的另一端连的是veth1，所以ICMP echo请求包就转发给了veth1</li>
+<li>veth1收到ICMP echo请求包后，转交给另一端的协议栈</li>
+<li>协议栈一看自己的设备列表，发现本地有192.168.2.1这个IP，于是构造ICMP echo应答包，准备返回</li>
+<li>协议栈查看自己的路由表，发现回给192.168.2.11的数据包应该走lo口，于是将应答包交给lo设备</li>
+<li>lo接到协议栈的应答包后，啥都没干，转手又把数据包还给了协议栈（相当于协议栈通过发送流程把数据包给lo，然后lo再将数据包交给协议栈的接收流程）</li>
+<li>协议栈收到应答包后，发现有socket需要该包，于是交给了相应的socket</li>
+<li>这个socket正好是ping进程创建的socket，于是ping进程收到了应答包</li>
+</ol>
+<p>抓一下lo设备上的数据，发现应答包确实是从lo口回来的：</p>
+<pre><code>dev@debian:~$ sudo tcpdump -n -i lo
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
+20:25:49.590273 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 1, length 64
+20:25:50.590018 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 2, length 64
+20:25:51.590027 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 3, length 64
+20:25:52.590030 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 4, length 64
+</code></pre>
+<h3 id="试着ping下其它的IP-v2"><a class="header-anchor" href="#试着ping下其它的IP-v2">¶</a>试着ping下其它的IP</h3>
+<p>ping 192.168.2.0/24网段的其它IP失败，ping一个公网的IP也失败：</p>
+<pre><code>dev@debian:~$ ping -c 1 -I veth0 192.168.2.2
+PING 192.168.2.2 (192.168.2.2) from 192.168.2.11 veth0: 56(84) bytes of data.
+From 192.168.2.11 icmp_seq=1 Destination Host Unreachable
 
-  抓一下lo设备上的数据，发现应答包确实是从lo口回来的：
-</code></pre><p>  dev@debian:~$ sudo tcpdump -n -i lo<br>  tcpdump: verbose output suppressed, use -v or -vv for full protocol decode<br>  listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes<br>  20:25:49.590273 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 1, length 64<br>  20:25:50.590018 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 2, length 64<br>  20:25:51.590027 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 3, length 64<br>  20:25:52.590030 IP 192.168.2.1 &gt; 192.168.2.11: ICMP echo reply, id 24177, seq 4, length 64</p>
-<pre><code>
-  ### 试着ping下其它的IP
+--- 192.168.2.2 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
 
-  ping 192.168.2.0/24网段的其它IP失败，ping一个公网的IP也失败：
-</code></pre><p>  dev@debian:~$ ping -c 1 -I veth0 192.168.2.2<br>  PING 192.168.2.2 (192.168.2.2) from 192.168.2.11 veth0: 56(84) bytes of data.<br>  From 192.168.2.11 icmp_seq=1 Destination Host Unreachable</p>
-<p>  — 192.168.2.2 ping statistics —<br>  1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms</p>
-<p>  dev@debian:~$ ping -c 1 -I veth0 baidu.com<br>  PING baidu.com (111.13.101.208) from 192.168.2.11 veth0: 56(84) bytes of data.<br>  From 192.168.2.11 icmp_seq=1 Destination Host Unreachable</p>
-<p>  — baidu.com ping statistics —<br>  1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms</p>
-<pre><code>
-  从抓包来看，和上面第一种veth1没有配置IP的情况是一样的，ARP请求没人处理
-</code></pre><p>  dev@debian:~$ sudo tcpdump -i veth1<br>  tcpdump: verbose output suppressed, use -v or -vv for full protocol decode<br>  listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes<br>  02:25:23.223947 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28<br>  02:25:24.224352 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28<br>  02:25:25.223471 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28<br>  02:25:27.946539 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28<br>  02:25:28.946633 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28<br>  02:25:29.948055 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28<br>  ```</p>
-<h2 id="结束语-1"><a href="#结束语-1" class="headerlink" title="结束语"></a>结束语</h2><p>  从上面的介绍中可以看出，从veth0设备出去的数据包，会转发到veth1上，如果目的地址是veth1的IP的话，就能被协议栈处理，否则连ARP那关都过不了，IP forward啥的都用不上，所以不借助其它虚拟设备的话，这样的数据包只能在本地协议栈里面打转转，没法走到eth0上去，即没法发送到外面的网络中去。</p>
-<p>  下一篇将介绍Linux下的网桥，到时候veth设备就有用武之地了。</p>
-<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><ul>
+dev@debian:~$ ping -c 1 -I veth0 baidu.com
+PING baidu.com (111.13.101.208) from 192.168.2.11 veth0: 56(84) bytes of data.
+From 192.168.2.11 icmp_seq=1 Destination Host Unreachable
+
+--- baidu.com ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+</code></pre>
+<p>从抓包来看，和上面第一种veth1没有配置IP的情况是一样的，ARP请求没人处理</p>
+<pre><code>dev@debian:~$ sudo tcpdump -i veth1
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on veth1, link-type EN10MB (Ethernet), capture size 262144 bytes
+02:25:23.223947 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28
+02:25:24.224352 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28
+02:25:25.223471 ARP, Request who-has 192.168.2.2 tell 192.168.2.11, length 28
+02:25:27.946539 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28
+02:25:28.946633 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28
+02:25:29.948055 ARP, Request who-has 123.125.114.144 tell 192.168.2.11, length 28
+</code></pre>
+<h2 id="结束语-v2"><a class="header-anchor" href="#结束语-v2">¶</a>结束语</h2>
+<p>从上面的介绍中可以看出，从veth0设备出去的数据包，会转发到veth1上，如果目的地址是veth1的IP的话，就能被协议栈处理，否则连ARP那关都过不了，IP forward啥的都用不上，所以不借助其它虚拟设备的话，这样的数据包只能在本地协议栈里面打转转，没法走到eth0上去，即没法发送到外面的网络中去。</p>
+<p>下一篇将介绍Linux下的网桥，到时候veth设备就有用武之地了。</p>
+<h2 id="参考-v2"><a class="header-anchor" href="#参考-v2">¶</a>参考</h2>
+<ul>
 <li><a href="http://www.opencloudblog.com/?p=66" target="_blank" rel="noopener">Linux Switching – Interconnecting Namespaces</a></li>
+</ul>
+</li>
 </ul>
 
             </div>
@@ -1271,13 +1358,13 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/netfilteriptables-jian-jie/">
+                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="netfilteriptables简介">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux虚拟网络设备之bridge(桥)">
                         
-                        <span class="card-title">netfilteriptables简介</span>
+                        <span class="card-title">Linux虚拟网络设备之bridge(桥)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1320,19 +1407,19 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/">
+                <a href="/2020/02/16/linux/network/netfilteriptables-jian-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="《redis实战》读书笔记">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="netfilteriptables简介">
                         
-                        <span class="card-title">《redis实战》读书笔记</span>
+                        <span class="card-title">netfilteriptables简介</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            《redis实战》读书笔记
+                            linux
                         
                     </div>
                     <div class="publish-info">
@@ -1343,8 +1430,8 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/redis/" class="post-category" target="_blank">
-                                    redis
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
                                 </a>
                             
                             
@@ -1354,8 +1441,8 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/redis实战/" target="_blank">
-                        <span class="chip bg-color">redis实战</span>
+                    <a href="/tags/network/" target="_blank">
+                        <span class="chip bg-color">network</span>
                     </a>
                     
                 </div>
@@ -1492,7 +1579,7 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

@@ -9,8 +9,9 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="在这里尝试简单回答一些常见的关于容器的疑问，仅供参考。
-容器是什么简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。
-容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这">
+¶容器是什么
+简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。
+容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -331,7 +332,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -510,9 +511,11 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>在这里尝试简单回答一些常见的关于容器的疑问，仅供参考。</p>
-<h2 id="容器是什么"><a href="#容器是什么" class="headerlink" title="容器是什么"></a>容器是什么</h2><p>简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。</p>
+<h2 id="容器是什么"><a class="header-anchor" href="#容器是什么">¶</a>容器是什么</h2>
+<p>简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。</p>
 <p>容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范，具体见<a href="https://www.opencontainers.org/" target="_blank" rel="noopener">Open Container Initiative(OCI)</a>。</p>
-<h2 id="容器和虚拟机的差别"><a href="#容器和虚拟机的差别" class="headerlink" title="容器和虚拟机的差别"></a>容器和虚拟机的差别</h2><p>从技术角度来看，他们是不同的两种技术，没有任何关系，但由于他们的应用场景有重叠的地方，所以人们经常比较他们两个</p>
+<h2 id="容器和虚拟机的差别"><a class="header-anchor" href="#容器和虚拟机的差别">¶</a>容器和虚拟机的差别</h2>
+<p>从技术角度来看，他们是不同的两种技术，没有任何关系，但由于他们的应用场景有重叠的地方，所以人们经常比较他们两个</p>
 <ul>
 <li>容器目前只能在Linux上运行，容器里面只能跑Linux</li>
 <li>虚拟机可以在所有主流平台上运行，比如Windows，Linux，Mac等，并且能模拟不同的系统平台，如在Windows下安装Linux的虚拟机</li>
@@ -520,13 +523,18 @@
 <li>虚拟机是一整套的虚拟环境，包括BIOS, 虚拟网卡, 磁盘, CPU，以及操作系统等， 启动慢，占用硬件资源多.</li>
 <li>由于虚拟机的和主机只是共享硬件资源，隔离程度要比容器高，所以相对来说虚拟机更安全</li>
 </ul>
-<h2 id="什么时候应该用虚拟机，什么时候应该用容器"><a href="#什么时候应该用虚拟机，什么时候应该用容器" class="headerlink" title="什么时候应该用虚拟机，什么时候应该用容器"></a>什么时候应该用虚拟机，什么时候应该用容器</h2><p>打个比方，A准备在网上卖东西，是自己搭建一套电商平台，还是直接在淘宝上开个小店呢？这就得看A的需求，自己搭建平台当然好，完全自己控制，想有什么功能都可以，但缺点是成本太高，淘宝上开店成本小，但要受淘宝的很多限制。想想如果淘宝的店子就能满足需求，为什么还费那么大劲去自己搭建平台呢？</p>
+<h2 id="什么时候应该用虚拟机，什么时候应该用容器"><a class="header-anchor" href="#什么时候应该用虚拟机，什么时候应该用容器">¶</a>什么时候应该用虚拟机，什么时候应该用容器</h2>
+<p>打个比方，A准备在网上卖东西，是自己搭建一套电商平台，还是直接在淘宝上开个小店呢？这就得看A的需求，自己搭建平台当然好，完全自己控制，想有什么功能都可以，但缺点是成本太高，淘宝上开店成本小，但要受淘宝的很多限制。想想如果淘宝的店子就能满足需求，为什么还费那么大劲去自己搭建平台呢？</p>
 <p>虚拟机和容器的关系也差不多，虚拟机当然好，完全控制在自己手中的一套系统，没有条条框框的限制，缺点就是启动慢耗资源；容器启动快耗资源少，但受到的限制比较多（后面介绍docker的时候会提到这些限制）。所以一般的原则是如果容器能满足需求，就用容器，如果容器满足不了就用虚拟机。如何判断容器是否满足需求呢？大致原则是如果应用对硬件和内核没有特殊需求，一般都能使用容器，否则需要咨询专家。</p>
 <p>当然这里只是从功能和资源消耗的角度来考虑，实际情况要比这个复杂的多，包括管理是否方便，相关的技术是否成熟等等。</p>
-<h2 id="docker和容器的关系"><a href="#docker和容器的关系" class="headerlink" title="docker和容器的关系"></a>docker和容器的关系</h2><p>docker是容器管理技术的一种实现，用来管理容器，就像VMware是虚拟机的一种实现一样，除了docker，还有<a href="https://linuxcontainers.org/" target="_blank" rel="noopener">LXC/LXD</a>，<a href="https://coreos.com/rkt/" target="_blank" rel="noopener">Rocket</a>，<a href="https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html" target="_blank" rel="noopener">systemd-nspawn</a>，只是docker做的最好，所以我们一说容器，就想到了docker。</p>
-<h2 id="为什么容器只出现在Linux里面"><a href="#为什么容器只出现在Linux里面" class="headerlink" title="为什么容器只出现在Linux里面"></a>为什么容器只出现在Linux里面</h2><p>因为Linux中有资源隔离和管理的机制(Namespace,CGroups)，有COW（copy on write）文件系统等容器所需要的基础技术。当然其他平台也有类似的东西，但功能都没有Linux下的完善，不过随着容器技术越来越流行，其他的系统平台也在慢慢的实现和完善类似的这些技术。</p>
-<h2 id="为什么容器里面只能运行Linux"><a href="#为什么容器里面只能运行Linux" class="headerlink" title="为什么容器里面只能运行Linux"></a>为什么容器里面只能运行Linux</h2><p>因为Linux下的所有容器共享一个Linux内核，所以容器里面只能跑Linux系统</p>
-<h2 id="不同的Linux发行版为什么可以共享内核"><a href="#不同的Linux发行版为什么可以共享内核" class="headerlink" title="不同的Linux发行版为什么可以共享内核"></a>不同的Linux发行版为什么可以共享内核</h2><p>先看一下Linux下启动一个进程的大概过程，当在Shell里面启动一个程序的时候，会发生如下过程：</p>
+<h2 id="docker和容器的关系"><a class="header-anchor" href="#docker和容器的关系">¶</a>docker和容器的关系</h2>
+<p>docker是容器管理技术的一种实现，用来管理容器，就像VMware是虚拟机的一种实现一样，除了docker，还有<a href="https://linuxcontainers.org/" target="_blank" rel="noopener">LXC/LXD</a>，<a href="https://coreos.com/rkt/" target="_blank" rel="noopener">Rocket</a>，<a href="https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html" target="_blank" rel="noopener">systemd-nspawn</a>，只是docker做的最好，所以我们一说容器，就想到了docker。</p>
+<h2 id="为什么容器只出现在Linux里面"><a class="header-anchor" href="#为什么容器只出现在Linux里面">¶</a>为什么容器只出现在Linux里面</h2>
+<p>因为Linux中有资源隔离和管理的机制(Namespace,CGroups)，有COW（copy on write）文件系统等容器所需要的基础技术。当然其他平台也有类似的东西，但功能都没有Linux下的完善，不过随着容器技术越来越流行，其他的系统平台也在慢慢的实现和完善类似的这些技术。</p>
+<h2 id="为什么容器里面只能运行Linux"><a class="header-anchor" href="#为什么容器里面只能运行Linux">¶</a>为什么容器里面只能运行Linux</h2>
+<p>因为Linux下的所有容器共享一个Linux内核，所以容器里面只能跑Linux系统</p>
+<h2 id="不同的Linux发行版为什么可以共享内核"><a class="header-anchor" href="#不同的Linux发行版为什么可以共享内核">¶</a>不同的Linux发行版为什么可以共享内核</h2>
+<p>先看一下Linux下启动一个进程的大概过程，当在Shell里面启动一个程序的时候，会发生如下过程：</p>
 <ol>
 <li>Shell运行系统调用，通知内核启动一个指定位置上的程序</li>
 <li>内核加载指定位置上的可执行文件以及它所依赖的动态库</li>
@@ -544,14 +552,19 @@
 <li>应用层需要的系统调用内核能支持</li>
 </ul>
 <p>由于Linux下可执行文件和动态库的格式以及系统调用的接口都比较稳定，所以不同的Linux发行版在大部分情况下都可以共享同一个内核。一般来说，新的内核兼容老的Linux发行版，但太老的内核不一定支持新的Linux发行版。如果你的应用对内核有特殊需求，那么应该考虑一下用容器是否是一个明智的选择。</p>
-<h2 id="容器启动为什么那么快？"><a href="#容器启动为什么那么快？" class="headerlink" title="容器启动为什么那么快？"></a>容器启动为什么那么快？</h2><p>容器的本质是一个或多个进程以及他们所能访问的资源的集合。启动一个容器的步骤大概就是：</p>
+<h2 id="容器启动为什么那么快？"><a class="header-anchor" href="#容器启动为什么那么快？">¶</a>容器启动为什么那么快？</h2>
+<p>容器的本质是一个或多个进程以及他们所能访问的资源的集合。启动一个容器的步骤大概就是：</p>
 <ol>
-<li>配置好相关资源，如内存、磁盘、网络等<br>配置资源就是往系统中添加一些配置，非常快</li>
-<li>初始化容器所用到的文件目录结构<br>由于Linux下有COW（copy on write）的文件系统，如Btrfs、aufs，所以可以很快的根据镜像生成容器的文件系统目录结构。</li>
-<li>启动进程<br>和启动一个普通的进程没有区别，对Linux内核来说，所有的应用层进程都是一样的</li>
+<li>配置好相关资源，如内存、磁盘、网络等<br>
+配置资源就是往系统中添加一些配置，非常快</li>
+<li>初始化容器所用到的文件目录结构<br>
+由于Linux下有COW（copy on write）的文件系统，如Btrfs、aufs，所以可以很快的根据镜像生成容器的文件系统目录结构。</li>
+<li>启动进程<br>
+和启动一个普通的进程没有区别，对Linux内核来说，所有的应用层进程都是一样的</li>
 </ol>
 <p>从上面可以看出启动容器的过程中没有耗时的操作，这也是为什么容器能在毫秒级别启动起来的原因</p>
-<h2 id="启动容器会占用很多资源导致系统变慢吗"><a href="#启动容器会占用很多资源导致系统变慢吗" class="headerlink" title="启动容器会占用很多资源导致系统变慢吗"></a>启动容器会占用很多资源导致系统变慢吗</h2><p>由于Namespace和CGroups已经是Linux内核的一部分了，所以应用层运行的进程一定会属于某个Namespace和CGroups（如果没有指定，就属于默认的Namespace和CGroups），也就是说，就算我们不用Docker，所有的进程都已经运行在默认容器中了。对内核来说，默认容器中运行的进程和Docker创建的容器中运行的进程没有什么区别，就是他们所属的容器号不一样。</p>
+<h2 id="启动容器会占用很多资源导致系统变慢吗"><a class="header-anchor" href="#启动容器会占用很多资源导致系统变慢吗">¶</a>启动容器会占用很多资源导致系统变慢吗</h2>
+<p>由于Namespace和CGroups已经是Linux内核的一部分了，所以应用层运行的进程一定会属于某个Namespace和CGroups（如果没有指定，就属于默认的Namespace和CGroups），也就是说，就算我们不用Docker，所有的进程都已经运行在默认容器中了。对内核来说，默认容器中运行的进程和Docker创建的容器中运行的进程没有什么区别，就是他们所属的容器号不一样。</p>
 <p>所以说创建新容器会不会影响主机性能完全取决于容器里面运行什么东西。如果运行的是耗资源的进程，那么肯定会对主机性能造成影响，但这种影响可以在一定程度上由CGroups控制住，不至于对主机带来灾难性的影响。如果容器里面运行的是不耗资源的进程，那么对系统就没有影响，只是容器里面的文件系统可能会占用一些磁盘空间。</p>
 
             </div>
@@ -1041,19 +1054,19 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/mq/rabbitmq/untitled/">
+                <a href="/2020/02/16/linux/cgroup/4-xian-zhi-cgroup-de-nei-cun-shi-yong-subsystem-zhi-memory/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="rabbit mq 学习总结记录">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="4、限制cgroup的内存使用（subsystem之memory）">
                         
-                        <span class="card-title">rabbit mq 学习总结记录</span>
+                        <span class="card-title">4、限制cgroup的内存使用（subsystem之memory）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            rabbit mq 学习记录
+                            linux
                         
                     </div>
                     <div class="publish-info">
@@ -1064,8 +1077,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/rabbit-mq/" class="post-category" target="_blank">
-                                    rabbit mq
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
                                 </a>
                             
                             
@@ -1075,12 +1088,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/mq/" target="_blank">
-                        <span class="chip bg-color">mq</span>
-                    </a>
-                    
-                    <a href="/tags/rabbit-mq/" target="_blank">
-                        <span class="chip bg-color">rabbit mq</span>
+                    <a href="/tags/cgroup/" target="_blank">
+                        <span class="chip bg-color">cgroup</span>
                     </a>
                     
                 </div>
@@ -1094,13 +1103,13 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/cgroup/2-chuang-jian-bing-guan-li-cgroup/">
+                <a href="/2020/02/16/linux/namespace/1-namespace-gai-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="2、创建并管理cgroup">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="1、namespace概述">
                         
-                        <span class="card-title">2、创建并管理cgroup</span>
+                        <span class="card-title">1、namespace概述</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1128,8 +1137,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/cgroup/" target="_blank">
-                        <span class="chip bg-color">cgroup</span>
+                    <a href="/tags/namespace/" target="_blank">
+                        <span class="chip bg-color">namespace</span>
                     </a>
                     
                 </div>
@@ -1266,7 +1275,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

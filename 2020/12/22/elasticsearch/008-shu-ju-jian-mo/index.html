@@ -9,7 +9,8 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[toc]
-数据的关联关系真实世界中有很多重要的关联关系：
+数据的关联关系
+真实世界中有很多重要的关联关系：
 
 博客、作者、评论
 银行账户有多次交易记录
@@ -19,7 +20,7 @@
 在关系型数据库中，提供了一些范式化设计。
 
 1NF：消除非主属性对键的部分函数依赖
-2">
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -340,7 +341,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -495,14 +496,14 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    15k
+                    15.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    62 分
+                    63 分
                 </div>
                 
                 
@@ -519,7 +520,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h1 id="数据的关联关系"><a href="#数据的关联关系" class="headerlink" title="数据的关联关系"></a>数据的关联关系</h1><p>真实世界中有很多重要的关联关系：</p>
+<h1>数据的关联关系</h1>
+<p>真实世界中有很多重要的关联关系：</p>
 <ul>
 <li>博客、作者、评论</li>
 <li>银行账户有多次交易记录</li>
@@ -533,8 +535,8 @@
 <li>3NF：消除主属性对键的传递函数依赖</li>
 <li>BCNF：主属性不依赖于主属性</li>
 </ul>
-<p>范式化设计（Normalization） 主要目的是”减少不必要的更新”。但是带来的副作用就是，一个完全范式化设计的数据库会经常面临”查询缓慢”的问题（数据库越范式化，就需要 join 越多的表）在最近的场景中，随着查询场景的增多，这个问题会暴露的越明显。除了可以简化操作（减少不必要的更新）之外还有节省存储空间的优点。但是最近存储空间却越来越便宜。</p>
-<p>所以就有了反范式化设计（Denormalization）的概念。反范式化设计就是使得数据”Flattening”（扁平化），不使用关联关系，而是在文档中保存冗余的数据拷贝。</p>
+<p>范式化设计（Normalization） 主要目的是&quot;减少不必要的更新&quot;。但是带来的副作用就是，一个完全范式化设计的数据库会经常面临&quot;查询缓慢&quot;的问题（数据库越范式化，就需要 join 越多的表）在最近的场景中，随着查询场景的增多，这个问题会暴露的越明显。除了可以简化操作（减少不必要的更新）之外还有节省存储空间的优点。但是最近存储空间却越来越便宜。</p>
+<p>所以就有了反范式化设计（Denormalization）的概念。反范式化设计就是使得数据&quot;Flattening&quot;（扁平化），不使用关联关系，而是在文档中保存冗余的数据拷贝。</p>
 <ul>
 <li>其优点是无需处理 join 操作，数据读取性能好。Elasticsearch 通过压缩_source 字段，减少磁盘空间的开销。</li>
 <li>缺点是不适合在数据频繁修改的场景，一条数据的改动，可能会引起很多数据的更新。</li>
@@ -547,11 +549,13 @@
 <li>父子关联关系（Parent/Child）</li>
 <li>用户自己在应用端关联</li>
 </ul>
-<h3 id="对象及-Nested-对象"><a href="#对象及-Nested-对象" class="headerlink" title="对象及 Nested 对象"></a>对象及 Nested 对象</h3><p>数据关系其实可以最终抽象为一对一、一对多的关系（多对一和多对多关系都是由它们转化或者组合而来）。</p>
-<h4 id="案例1：一对一关系（对象）"><a href="#案例1：一对一关系（对象）" class="headerlink" title="案例1：一对一关系（对象）"></a>案例1：一对一关系（对象）</h4><p>我们来看一个以博客为主导的博客和作者的关系，对于一个博客来说，它只会有一个作者。所以我们可以通过以下设置来设定”博客”索引的 mapping。可以看到：</p>
+<h3 id="对象及-Nested-对象"><a class="header-anchor" href="#对象及-Nested-对象">¶</a>对象及 Nested 对象</h3>
+<p>数据关系其实可以最终抽象为一对一、一对多的关系（多对一和多对多关系都是由它们转化或者组合而来）。</p>
+<h4 id="案例1：一对一关系（对象）"><a class="header-anchor" href="#案例1：一对一关系（对象）">¶</a>案例1：一对一关系（对象）</h4>
+<p>我们来看一个以博客为主导的博客和作者的关系，对于一个博客来说，它只会有一个作者。所以我们可以通过以下设置来设定&quot;博客&quot;索引的 mapping。可以看到：</p>
 <ul>
-<li>我们在mappings 下面的 properties 属性中设置博客索引的子属性，通过设置每个 properties 的子属性的一个 type 属性来指定其具体的”ES 普通类型”。（content、time 属性）</li>
-<li>但是在 user 属性中，我们没有对其 type 属性值进行设定，<strong>而是设定了一个 properties 属性</strong>，属性值是一个嵌套的 JSON 对象，它包含了”text”类型的”city”属性、”long”类型的”userid”属性、”keyword”类型的”username”属性。这就是 ES 的 “对象”类型数据的设定方式。</li>
+<li>我们在mappings 下面的 properties 属性中设置博客索引的子属性，通过设置每个 properties 的子属性的一个 type 属性来指定其具体的&quot;ES 普通类型&quot;。（content、time 属性）</li>
+<li>但是在 user 属性中，我们没有对其 type 属性值进行设定，<strong>而是设定了一个 properties 属性</strong>，属性值是一个嵌套的 JSON 对象，它包含了&quot;text&quot;类型的&quot;city&quot;属性、&quot;long&quot;类型的&quot;userid&quot;属性、&quot;keyword&quot;类型的&quot;username&quot;属性。这就是 ES 的 &quot;对象&quot;类型数据的设定方式。</li>
 </ul>
 <pre><code>DELETE blog
 # 设置blog的 Mapping
@@ -580,7 +584,9 @@ PUT /blog
       }
     }
   }
-}</code></pre><p>其实我们插入一条文档数据</p>
+}
+</code></pre>
+<p>其实我们插入一条文档数据</p>
 <pre><code># 插入一条 Blog 信息
 PUT blog/_doc/1
 {
@@ -591,7 +597,9 @@ PUT blog/_doc/1
     &quot;username&quot;:&quot;Jack&quot;,
     &quot;city&quot;:&quot;Shanghai&quot;
   }
-}</code></pre><p>在查询的时候通过 <code>user.xxx=xxx</code> 的指定作者的信息进行条件查询（包括查询的时候也是这样来更新指定博客文档中的作者信息）：</p>
+}
+</code></pre>
+<p>在查询的时候通过 <code>user.xxx=xxx</code> 的指定作者的信息进行条件查询（包括查询的时候也是这样来更新指定博客文档中的作者信息）：</p>
 <pre><code># 查询 Blog 信息
 POST blog/_search
 {
@@ -603,9 +611,13 @@ POST blog/_search
       ]
     }
   }
-}</code></pre><h4 id="案例2：一对多关系（Nested-对象）"><a href="#案例2：一对多关系（Nested-对象）" class="headerlink" title="案例2：一对多关系（Nested 对象）"></a>案例2：一对多关系（Nested 对象）</h4><p>我们来看一个电影和演员的例子，这是一个一对多关系，一个电影可以包含多个演员。下面我们来分析下在 ES 中关于一对多关系是如何存储的。</p>
-<h5 id="1、在索引中设置对象型字段"><a href="#1、在索引中设置对象型字段" class="headerlink" title="1、在索引中设置对象型字段"></a>1、在索引中设置对象型字段</h5><p>先准备数据。可以看到我们创建了一个电影索引，其包含了两个字段：一个是 title 字段，类型为普通类型”text”；另一个 actors 字段是一个对象类型。这个对象包含一个”keyword”普通类型的 first_name 字段和一个”keyword”普通类型的 last_name 字段（<strong>注意，在 ES 中不用指定数组类型，每个文档的每个字段默认可以存储多个值</strong>）。</p>
-<p>然后我们写入了一条电影文档数据：title 为 “Speed”；actors 有：”Keanu Reeves”和”Dnnis Hopper” 两位。</p>
+}
+</code></pre>
+<h4 id="案例2：一对多关系（Nested-对象）"><a class="header-anchor" href="#案例2：一对多关系（Nested-对象）">¶</a>案例2：一对多关系（Nested 对象）</h4>
+<p>我们来看一个电影和演员的例子，这是一个一对多关系，一个电影可以包含多个演员。下面我们来分析下在 ES 中关于一对多关系是如何存储的。</p>
+<h5 id="1、在索引中设置对象型字段"><a class="header-anchor" href="#1、在索引中设置对象型字段">¶</a>1、在索引中设置对象型字段</h5>
+<p>先准备数据。可以看到我们创建了一个电影索引，其包含了两个字段：一个是 title 字段，类型为普通类型&quot;text&quot;；另一个 actors 字段是一个对象类型。这个对象包含一个&quot;keyword&quot;普通类型的 first_name 字段和一个&quot;keyword&quot;普通类型的 last_name 字段（<strong>注意，在 ES 中不用指定数组类型，每个文档的每个字段默认可以存储多个值</strong>）。</p>
+<p>然后我们写入了一条电影文档数据：title 为 “Speed”；actors 有：“Keanu Reeves&quot;和&quot;Dnnis Hopper” 两位。</p>
 <pre><code>DELETE my_movies
 # 电影的Mapping信息
 PUT my_movies
@@ -652,7 +664,10 @@ POST my_movies/_doc/1
     }
 
   ]
-}</code></pre><h5 id="2、基于对象型字段的查询"><a href="#2、基于对象型字段的查询" class="headerlink" title="2、基于对象型字段的查询"></a>2、基于对象型字段的查询</h5><p>下面我们尝试来查询数据，分别指定”actors.first_name”和”actors.last_name”为”Keanu”和”Hopper”，理论上应该查询不出来数据。但是实际上看到竟然匹配到了数据。下面我们来分析下为什么会匹配到了数据</p>
+}
+</code></pre>
+<h5 id="2、基于对象型字段的查询"><a class="header-anchor" href="#2、基于对象型字段的查询">¶</a>2、基于对象型字段的查询</h5>
+<p>下面我们尝试来查询数据，分别指定&quot;actors.first_name&quot;和&quot;actors.last_name&quot;为&quot;Keanu&quot;和&quot;Hopper&quot;，理论上应该查询不出来数据。但是实际上看到竟然匹配到了数据。下面我们来分析下为什么会匹配到了数据</p>
 <pre><code># 查询电影信息
 POST my_movies/_search
 {
@@ -664,11 +679,15 @@ POST my_movies/_search
       ]
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221214954.png" alt="image-20200429143625922"></p>
-<h5 id="3、ES-对对象型字段的存储方法"><a href="#3、ES-对对象型字段的存储方法" class="headerlink" title="3、ES 对对象型字段的存储方法"></a>3、ES 对对象型字段的存储方法</h5><p>为什么上面会匹配到数据呢？这是因为，ES 在对文档数据进行存储的时候，内部对象的边界是没有考虑在内的，JSON 格式被处理成扁平式键值对的结构。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221214954.png" alt="image-20200429143625922"></p>
+<h5 id="3、ES-对对象型字段的存储方法"><a class="header-anchor" href="#3、ES-对对象型字段的存储方法">¶</a>3、ES 对对象型字段的存储方法</h5>
+<p>为什么上面会匹配到数据呢？这是因为，ES 在对文档数据进行存储的时候，内部对象的边界是没有考虑在内的，JSON 格式被处理成扁平式键值对的结构。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215012.png" alt="image-20200429144129911"></p>
-<p>当对一个对象类型的属性进行多值”并”查询的时候就会导致了意外的搜索结果。此时我们可以通过用 Nested Data Type解决这个问题。</p>
-<h5 id="4、创建-nested-对象型字段"><a href="#4、创建-nested-对象型字段" class="headerlink" title="4、创建 nested 对象型字段"></a>4、创建 nested 对象型字段</h5><p>创建 nested 类型字段。删除之前创建的索引，重新创建索引，可以看到，<strong>我们在设定”actors”字段的时候除了指定”properties”属性之外，还设定了一个”type”属性为”nested”</strong>。</p>
+<p>当对一个对象类型的属性进行多值&quot;并&quot;查询的时候就会导致了意外的搜索结果。此时我们可以通过用 Nested Data Type解决这个问题。</p>
+<h5 id="4、创建-nested-对象型字段"><a class="header-anchor" href="#4、创建-nested-对象型字段">¶</a>4、创建 nested 对象型字段</h5>
+<p>创建 nested 类型字段。删除之前创建的索引，重新创建索引，可以看到，<strong>我们在设定&quot;actors&quot;字段的时候除了指定&quot;properties&quot;属性之外，还设定了一个&quot;type&quot;属性为&quot;nested&quot;</strong>。</p>
 <pre><code>DELETE my_movies
 # 创建 Nested 对象 Mapping
 PUT my_movies
@@ -705,7 +724,10 @@ POST my_movies/_doc/1
     }
 
   ]
-}</code></pre><h5 id="5、基于-nested-型字段的查询和聚合"><a href="#5、基于-nested-型字段的查询和聚合" class="headerlink" title="5、基于 nested 型字段的查询和聚合"></a>5、基于 nested 型字段的查询和聚合</h5><p>基于 nested 类型字段的查询。此时我们如果需要对 nested 类型字段进行查询，就需要使用一个 “nested” 查询，然后通过设定其”path”属性为我们要查询的”nested”类型的字段名称”actors”。然后再在里面嵌套上我们前面的 bool 查询的内容。可以看到，这次查询不正确的姓和名组合就没有返回数据了。</p>
+}
+</code></pre>
+<h5 id="5、基于-nested-型字段的查询和聚合"><a class="header-anchor" href="#5、基于-nested-型字段的查询和聚合">¶</a>5、基于 nested 型字段的查询和聚合</h5>
+<p>基于 nested 类型字段的查询。此时我们如果需要对 nested 类型字段进行查询，就需要使用一个 “nested” 查询，然后通过设定其&quot;path&quot;属性为我们要查询的&quot;nested&quot;类型的字段名称&quot;actors&quot;。然后再在里面嵌套上我们前面的 bool 查询的内容。可以看到，这次查询不正确的姓和名组合就没有返回数据了。</p>
 <pre><code># Nested 查询
 POST my_movies/_search
 {
@@ -733,12 +755,14 @@ POST my_movies/_search
       ]
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215018.png" alt="image-20200429145346645"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215018.png" alt="image-20200429145346645"></p>
 <p>当我们查询正确的姓名组合的时候，就可以返回正确的数据</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215027.png" alt="image-20200429145518567"></p>
 <p>当我们再用一个正确的姓名组合去做一个普通的非 nested 的 bool 查询的时候，会发现也匹配不到数据了，为什么会这样呢？下面我们来分析一下原因。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215035.png" alt="image-20200429145635416"></p>
-<p>另外当我们需要对 nested 类型的字段进行聚合的时候，我们一样要声明当前聚合操作是对于 nested 类型字段的聚合。通过在具体的 agg 对象内部声明一个”nested”的属性对象，一样的，该对象的”path”属性设置为 nested 类型字段的名称。</p>
+<p>另外当我们需要对 nested 类型的字段进行聚合的时候，我们一样要声明当前聚合操作是对于 nested 类型字段的聚合。通过在具体的 agg 对象内部声明一个&quot;nested&quot;的属性对象，一样的，该对象的&quot;path&quot;属性设置为 nested 类型字段的名称。</p>
 <pre><code># Nested Aggregation
 POST my_movies/_search
 {
@@ -758,28 +782,37 @@ POST my_movies/_search
       }
     }
   }
-}</code></pre><h5 id="6、ES-对于-nested-型字段的存储方法"><a href="#6、ES-对于-nested-型字段的存储方法" class="headerlink" title="6、ES 对于 nested 型字段的存储方法"></a>6、ES 对于 nested 型字段的存储方法</h5><p>在 ES 中，对于 nested 数据类型，会对该字段所有对象进行独立索引。在 ES 内部会将这个多个nested 类型属性对象索引到多个分隔的 Lucene 文档中，在查询的时候做 Join 处理。所以我们在对 nested 类型数据的时候需要 nested 查询，该查询会让 ES 知道当前用户需要到另外的一个独立的 nested 文档集合进行数据查找，而 nested 这个文档集合的名称（用来在当前索引中聚合这些文档，其实可以理解为给这些文档起了个统一前缀）在建立的时候是取的该 nested 类型字段名做关联的，所以我们需要指定字段名告诉 ES 到哪个nested 文档集合进行关联查询。</p>
-<p>另外我们上面还尝试使用正确姓和名的组合是查询不出来数据的。正如我们上面的描述，ES 在存储 nested 类型数据的时候是存储到另外一个专门存储 nested 类型字段数据的独立文档中的，所以一个正常的 bool 查询就是在当前文档中进行指定的”键值匹配”。当然找不到数据！</p>
+}
+</code></pre>
+<h5 id="6、ES-对于-nested-型字段的存储方法"><a class="header-anchor" href="#6、ES-对于-nested-型字段的存储方法">¶</a>6、ES 对于 nested 型字段的存储方法</h5>
+<p>在 ES 中，对于 nested 数据类型，会对该字段所有对象进行独立索引。在 ES 内部会将这个多个nested 类型属性对象索引到多个分隔的 Lucene 文档中，在查询的时候做 Join 处理。所以我们在对 nested 类型数据的时候需要 nested 查询，该查询会让 ES 知道当前用户需要到另外的一个独立的 nested 文档集合进行数据查找，而 nested 这个文档集合的名称（用来在当前索引中聚合这些文档，其实可以理解为给这些文档起了个统一前缀）在建立的时候是取的该 nested 类型字段名做关联的，所以我们需要指定字段名告诉 ES 到哪个nested 文档集合进行关联查询。</p>
+<p>另外我们上面还尝试使用正确姓和名的组合是查询不出来数据的。正如我们上面的描述，ES 在存储 nested 类型数据的时候是存储到另外一个专门存储 nested 类型字段数据的独立文档中的，所以一个正常的 bool 查询就是在当前文档中进行指定的&quot;键值匹配&quot;。当然找不到数据！</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215042.png" alt="image-20200429150333417"></p>
-<h4 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h4><blockquote>
+<h4 id="相关阅读"><a class="header-anchor" href="#相关阅读">¶</a>相关阅读</h4>
+<blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-nested-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-nested-query.html</a></p>
 </blockquote>
-<h3 id="文档的父子关系"><a href="#文档的父子关系" class="headerlink" title="文档的父子关系"></a>文档的父子关系</h3><p>经过上面的介绍我们知道了可以使用对象类型字段和 nested 对象类型字段存储有关系的数据。但是使用这两种数据类型有一个局限性就是，当需要对文档中的嵌套的对象类型字段或者 nested 对象类型字段进行更新的时候，我们往往也要更新其他文档中的数据。</p>
+<h3 id="文档的父子关系"><a class="header-anchor" href="#文档的父子关系">¶</a>文档的父子关系</h3>
+<p>经过上面的介绍我们知道了可以使用对象类型字段和 nested 对象类型字段存储有关系的数据。但是使用这两种数据类型有一个局限性就是，当需要对文档中的嵌套的对象类型字段或者 nested 对象类型字段进行更新的时候，我们往往也要更新其他文档中的数据。</p>
 <p>例如1个作者有3篇文章，我们在 ES 中存储了以文章为主导的文档数据，其中文章文档中有一个对象（或者 nested 对象）类型字段表示其作者。所以当前索引中是有三个文章文档的作者字段内容是一样的，但我们修改了这个作者的信息的时候，需要同时更新这三个文章文档。</p>
 <p>这在某些索引的写操作远远比读操作要频繁的时候，是很不友好的。所以 ES 还提供了另外一种类似关系型数据库中 join 的实现。使用 join 数据类型实现，可以 通过维护 parent、child 的关系，从而分离两个对象：</p>
 <ul>
 <li>父文档和子文档是同时存在于索引中的两个独立的文档</li>
 <li>更新父文档无需重新索引子文档。子文当被添加，更新或者删除也不会影响父文档和其他的子文档。</li>
 </ul>
-<h5 id="1、定义父子关系的几个步骤"><a href="#1、定义父子关系的几个步骤" class="headerlink" title="1、定义父子关系的几个步骤"></a>1、定义父子关系的几个步骤</h5><p>我们使用以下请求创建一个名为”my_blogs”的索引：</p>
+<h5 id="1、定义父子关系的几个步骤"><a class="header-anchor" href="#1、定义父子关系的几个步骤">¶</a>1、定义父子关系的几个步骤</h5>
+<p>我们使用以下请求创建一个名为&quot;my_blogs&quot;的索引：</p>
 <ol>
-<li><p>通过 settings 设定了该索引的分片数为2</p>
+<li>
+<p>通过 settings 设定了该索引的分片数为2</p>
 </li>
-<li><p>在 mappinigs 中显示设置了两个字段为 context 和 title，前者为 text 类型，后者为 keyword 类型。在业务上，这两个字段都属于博客的字段。</p>
+<li>
+<p>在 mappinigs 中显示设置了两个字段为 context 和 title，前者为 text 类型，后者为 keyword 类型。在业务上，这两个字段都属于博客的字段。</p>
 </li>
-<li><p>此外在 mappings 中我们还设置了一个关键属性”blog_comments_relation”，它的 type 字段不是 ES 中的普通字段类型也不是 nested 类型，而是”join”，ES 会基于该属性在该索引上建立一个父子文档关系对象。</p>
-<p>其中由”relations”关键字来维护多个父子关系集合，relation 对象的每个属性都代表一个父子关系，可以通过设置多个属性来设置多个父子关系：其中属性名为当前父子关系中的父文档的标识；属性值为当前父子关系的子文档标识。在往当前索引中索引文档的时候通过设置文档字段”blog_comments_relation.name”为 relation 中某个属性的属性名后者属性值来指定当前文档是哪对父子关系中的父或者子文档。</p>
-<p><strong>（注意：同一个索引中不能创建多个”join”类型的同级属性；relations 关键字不支持多值。设置了就会报4xx 的错误）</strong></p>
+<li>
+<p>此外在 mappings 中我们还设置了一个关键属性&quot;blog_comments_relation&quot;，它的 type 字段不是 ES 中的普通字段类型也不是 nested 类型，而是&quot;join&quot;，ES 会基于该属性在该索引上建立一个父子文档关系对象。</p>
+<p>其中由&quot;relations&quot;关键字来维护多个父子关系集合，relation 对象的每个属性都代表一个父子关系，可以通过设置多个属性来设置多个父子关系：其中属性名为当前父子关系中的父文档的标识；属性值为当前父子关系的子文档标识。在往当前索引中索引文档的时候通过设置文档字段&quot;blog_comments_relation.name&quot;为 relation 中某个属性的属性名后者属性值来指定当前文档是哪对父子关系中的父或者子文档。</p>
+<p><strong>（注意：同一个索引中不能创建多个&quot;join&quot;类型的同级属性；relations 关键字不支持多值。设置了就会报4xx 的错误）</strong></p>
 </li>
 </ol>
 <pre><code>DELETE my_blogs
@@ -805,11 +838,14 @@ PUT my_blogs
       }
     }
   }
-}</code></pre><h5 id="2、索引父文档"><a href="#2、索引父文档" class="headerlink" title="2、索引父文档"></a>2、索引父文档</h5><p>下面我们索引两个父文档（博客数据对象）到索引中：</p>
+}
+</code></pre>
+<h5 id="2、索引父文档"><a class="header-anchor" href="#2、索引父文档">¶</a>2、索引父文档</h5>
+<p>下面我们索引两个父文档（博客数据对象）到索引中：</p>
 <ol>
-<li>我们分别为它们指定了 id 为”blog1”和”blog2”，为了后面索引子文档的时候方便获取该 id</li>
-<li>它们包含的字段有”title”和”content”</li>
-<li>其中我们还通过指定文档数据的”blog_comments_relation.name”来标识其为”blog:comment”父子关系中的父文档（blog）</li>
+<li>我们分别为它们指定了 id 为&quot;blog1&quot;和&quot;blog2&quot;，为了后面索引子文档的时候方便获取该 id</li>
+<li>它们包含的字段有&quot;title&quot;和&quot;content&quot;</li>
+<li>其中我们还通过指定文档数据的&quot;blog_comments_relation.name&quot;来标识其为&quot;blog:comment&quot;父子关系中的父文档（blog）</li>
 </ol>
 <pre><code>#索引父文档
 PUT my_blogs/_doc/blog1
@@ -829,14 +865,20 @@ PUT my_blogs/_doc/blog2
     &quot;blog_comments_relation&quot;:{
     &quot;name&quot;:&quot;blog&quot;
   }
-}</code></pre><h5 id="3、索引子文档"><a href="#3、索引子文档" class="headerlink" title="3、索引子文档"></a>3、索引子文档</h5><p>下面我们往索引中索引了3个子文档：</p>
+}
+</code></pre>
+<h5 id="3、索引子文档"><a class="header-anchor" href="#3、索引子文档">¶</a>3、索引子文档</h5>
+<p>下面我们往索引中索引了3个子文档：</p>
 <ol>
-<li><p>我们分别指定了它们的 id 为 comment1、comment2和 comment3并<strong>给他们设置了路由分片的 hash key 为对应的父文档 id，这非常重要，我们需要保证父文档和子文档必须存在相同的分片上以确保查询 join 的性能。</strong>（如果父文档和子文档没有同时在同一个分片上会发生什么？这个待后续研究）</p>
+<li>
+<p>我们分别指定了它们的 id 为 comment1、comment2和 comment3并<strong>给他们设置了路由分片的 hash key 为对应的父文档 id，这非常重要，我们需要保证父文档和子文档必须存在相同的分片上以确保查询 join 的性能。</strong>（如果父文档和子文档没有同时在同一个分片上会发生什么？这个待后续研究）</p>
 </li>
-<li><p>子文档包含了两个未在 mapping 上显示声明的字段 comment 和 username</p>
+<li>
+<p>子文档包含了两个未在 mapping 上显示声明的字段 comment 和 username</p>
 </li>
-<li><p><strong>通过指定文档的”blog_comments_relation.name”属性为 comment 来指定当前文档为”blog:comment”父子关系中的子文档。</strong></p>
-<p><strong>通过指定文档的”blog_comments_relation.parent”属性为当前文档的父文档 id 来指定当前子文档的父文档，这是必须的</strong></p>
+<li>
+<p><strong>通过指定文档的&quot;blog_comments_relation.name&quot;属性为 comment 来指定当前文档为&quot;blog:comment&quot;父子关系中的子文档。</strong></p>
+<p><strong>通过指定文档的&quot;blog_comments_relation.parent&quot;属性为当前文档的父文档 id 来指定当前子文档的父文档，这是必须的</strong></p>
 </li>
 </ol>
 <pre><code>#索引子文档
@@ -870,16 +912,26 @@ PUT my_blogs/_doc/comment3?routing=blog2
     &quot;name&quot;:&quot;comment&quot;,
     &quot;parent&quot;:&quot;blog2&quot;
   }
-}</code></pre><h5 id="4、查询"><a href="#4、查询" class="headerlink" title="4、查询"></a>4、查询</h5><h6 id="1）查询所有文档"><a href="#1）查询所有文档" class="headerlink" title="1）查询所有文档"></a>1）查询所有文档</h6><p>可以看到查询所有文档的时候，索引内的所有父子文档都是可以返回的，包括文档的父子关系标识信息。</p>
+}
+</code></pre>
+<h5 id="4、查询"><a class="header-anchor" href="#4、查询">¶</a>4、查询</h5>
+<h6 id="1）查询所有文档"><a class="header-anchor" href="#1）查询所有文档">¶</a>1）查询所有文档</h6>
+<p>可以看到查询所有文档的时候，索引内的所有父子文档都是可以返回的，包括文档的父子关系标识信息。</p>
 <pre><code># 查询所有文档
 POST my_blogs/_search
 {
 
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215051.png" alt="image-20200429170601599"></p>
-<h6 id="2）通过文档-id-直接查询父文档（不包含子文档内容）"><a href="#2）通过文档-id-直接查询父文档（不包含子文档内容）" class="headerlink" title="2）通过文档 id 直接查询父文档（不包含子文档内容）"></a>2）通过文档 id 直接查询父文档（不包含子文档内容）</h6><p>可以看到也是可以返回的，父文档不包含子文档的内容</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215051.png" alt="image-20200429170601599"></p>
+<h6 id="2）通过文档-id-直接查询父文档（不包含子文档内容）"><a class="header-anchor" href="#2）通过文档-id-直接查询父文档（不包含子文档内容）">¶</a>2）通过文档 id 直接查询父文档（不包含子文档内容）</h6>
+<p>可以看到也是可以返回的，父文档不包含子文档的内容</p>
 <pre><code>#根据父文档ID查看
-GET my_blogs/_doc/blog2</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215104.png" alt="image-20200429170747744"></p>
-<h6 id="3）通过-“parent-id”-查询查询子文档信息"><a href="#3）通过-“parent-id”-查询查询子文档信息" class="headerlink" title="3）通过 “parent_id” 查询查询子文档信息"></a>3）通过 “parent_id” 查询查询子文档信息</h6><ul>
+GET my_blogs/_doc/blog2
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215104.png" alt="image-20200429170747744"></p>
+<h6 id="3）通过-“parent-id”-查询查询子文档信息"><a class="header-anchor" href="#3）通过-“parent-id”-查询查询子文档信息">¶</a>3）通过 “parent_id” 查询查询子文档信息</h6>
+<ul>
 <li>指定 query 为 parent_id 类型的查询</li>
 <li>并设置parent_id 的子属性 type 为 comment（即 mapping 中设置的 relations 关键字中的属性值）指定子文档的类型</li>
 <li>指定 parent_id 的子属性 id 为父文档的 id “blog2”</li>
@@ -894,13 +946,16 @@ POST my_blogs/_search
       &quot;id&quot;: &quot;blog2&quot;
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215114.png" alt="image-20200429171114422"></p>
-<h6 id="4）”has-child”-查询通过子文档的信息查询父文档"><a href="#4）”has-child”-查询通过子文档的信息查询父文档" class="headerlink" title="4）”has_child” 查询通过子文档的信息查询父文档"></a>4）”has_child” 查询通过子文档的信息查询父文档</h6><ul>
-<li>指定 query 类型为”has_child”查询类型</li>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215114.png" alt="image-20200429171114422"></p>
+<h6 id="4）“has-child”-查询通过子文档的信息查询父文档"><a class="header-anchor" href="#4）“has-child”-查询通过子文档的信息查询父文档">¶</a>4）“has_child” 查询通过子文档的信息查询父文档</h6>
+<ul>
+<li>指定 query 类型为&quot;has_child&quot;查询类型</li>
 <li>通过设置 has_child 的子属性 type 为comment（即 mapping 中设置的 relations 关键字中的属性值）指定子文档的类型</li>
 <li>设置一个查询对象到 has_child 的子属性，这里设置为 match 查询类型，查询字段是 username，值为 “Jack”</li>
 </ul>
-<p>以上请求在收到信息之后会去查询类型为 comment 的子文档中是否有 username 为”jack”的文档，如果有，则返回其关联的父文档。可以看到，结果中返回了 blog1和 blog2父文档，它们分别关联一个comment1和 comment2子文档其中 username 字段都是 Jack。</p>
+<p>以上请求在收到信息之后会去查询类型为 comment 的子文档中是否有 username 为&quot;jack&quot;的文档，如果有，则返回其关联的父文档。可以看到，结果中返回了 blog1和 blog2父文档，它们分别关联一个comment1和 comment2子文档其中 username 字段都是 Jack。</p>
 <pre><code># Has Child 查询,返回父文档
 POST my_blogs/_search
 {
@@ -914,14 +969,17 @@ POST my_blogs/_search
       }
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215121.png" alt="image-20200429171625009"></p>
-<h6 id="5）”has-parent”-查询通过父文档的信息查询子文档"><a href="#5）”has-parent”-查询通过父文档的信息查询子文档" class="headerlink" title="5）”has_parent” 查询通过父文档的信息查询子文档"></a>5）”has_parent” 查询通过父文档的信息查询子文档</h6><p>和”has_child”类似，”has_parent”则是通过父文档的信息查询子文档。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215121.png" alt="image-20200429171625009"></p>
+<h6 id="5）“has-parent”-查询通过父文档的信息查询子文档"><a class="header-anchor" href="#5）“has-parent”-查询通过父文档的信息查询子文档">¶</a>5）“has_parent” 查询通过父文档的信息查询子文档</h6>
+<p>和&quot;has_child&quot;类似，&quot;has_parent&quot;则是通过父文档的信息查询子文档。</p>
 <ul>
-<li>指定 query 类型为”has_parent”查询类型</li>
+<li>指定 query 类型为&quot;has_parent&quot;查询类型</li>
 <li>通过设置 has_parent 的子属性 type 为 blog（即 mapping 中设置的 relations 关键字中的属性值）指定父文档的类型</li>
 <li>设置一个查询对象到 has_parent 的子属性，这里设置为 match 查询类型，查询字段是  title，值为 “Learning Hadoop”</li>
 </ul>
-<p>以上请求在收到信息之后会去查询类型为 blog 的父文档中进行”titile = Learning Hadoop”的 match 查询，如果匹配到了文档数据，则返回其关联的子文档。可以看到，结果中返回了 comment2和 comment3 子文档，它们都关联 blog2父文档，而该父文档的 title 就是”Learning Hadoop”（该字段类型是 keyword，精准匹配）。</p>
+<p>以上请求在收到信息之后会去查询类型为 blog 的父文档中进行&quot;titile = Learning Hadoop&quot;的 match 查询，如果匹配到了文档数据，则返回其关联的子文档。可以看到，结果中返回了 comment2和 comment3 子文档，它们都关联 blog2父文档，而该父文档的 title 就是&quot;Learning Hadoop&quot;（该字段类型是 keyword，精准匹配）。</p>
 <pre><code># Has Parent 查询，返回相关的子文档
 POST my_blogs/_search
 {
@@ -935,13 +993,20 @@ POST my_blogs/_search
       }
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215129.png" alt="image-20200429172448481"></p>
-<h6 id="6）-通过文档-id-直接访问子文档"><a href="#6）-通过文档-id-直接访问子文档" class="headerlink" title="6） 通过文档 id 直接访问子文档"></a>6） 通过文档 id 直接访问子文档</h6><p>当我们直接通过子文档的 id 进行访问子文档的时候，是查询不到子文档的。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215129.png" alt="image-20200429172448481"></p>
+<h6 id="6）-通过文档-id-直接访问子文档"><a class="header-anchor" href="#6）-通过文档-id-直接访问子文档">¶</a>6） 通过文档 id 直接访问子文档</h6>
+<p>当我们直接通过子文档的 id 进行访问子文档的时候，是查询不到子文档的。</p>
 <pre><code>#通过ID ，访问子文档
-GET my_blogs/_doc/comment3</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215136.png" alt="image-20200429173007166"></p>
+GET my_blogs/_doc/comment3
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215136.png" alt="image-20200429173007166"></p>
 <p>需要在id 后面加上 routing 才行：</p>
 <pre><code>#通过ID和routing ，访问子文档
-GET my_blogs/_doc/comment3?routing=blog2</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215141.png" alt="image-20200429173042470"></p>
+GET my_blogs/_doc/comment3?routing=blog2
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215141.png" alt="image-20200429173042470"></p>
 <p>另外通过 id 更新子文档的时候也要指定 routing：</p>
 <pre><code>#更新子文档
 PUT my_blogs/_doc/comment3?routing=blog2
@@ -951,14 +1016,19 @@ PUT my_blogs/_doc/comment3?routing=blog2
       &quot;name&quot;: &quot;comment&quot;,
       &quot;parent&quot;: &quot;blog2&quot;
     }
-}</code></pre><h3 id="嵌套对象-v-s-父子文档"><a href="#嵌套对象-v-s-父子文档" class="headerlink" title="嵌套对象 v.s. 父子文档"></a>嵌套对象 v.s. 父子文档</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215151.png" alt="image-20200429173328674"></p>
-<h3 id="相关阅读-1"><a href="#相关阅读-1" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+}
+</code></pre>
+<h3 id="嵌套对象-v-s-父子文档"><a class="header-anchor" href="#嵌套对象-v-s-父子文档">¶</a>嵌套对象 v.s. 父子文档</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215151.png" alt="image-20200429173328674"></p>
+<h3 id="相关阅读-v2"><a class="header-anchor" href="#相关阅读-v2">¶</a>相关阅读</h3>
+<blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-has-child-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-has-child-query.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-has-parent-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-has-parent-query.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-parent-id-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-parent-id-query.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-parent-id-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/query-dsl-parent-id-query.html</a></p>
 </blockquote>
-<h1 id="重建索引"><a href="#重建索引" class="headerlink" title="重建索引"></a>重建索引</h1><p>一般在以下几种情况时，我们需要重建索引：</p>
+<h1>重建索引</h1>
+<p>一般在以下几种情况时，我们需要重建索引：</p>
 <ol>
 <li>索引的 Mappings 发生变更：字段类型更改、分词器及字段更新</li>
 <li>索引的 Settings 发生变更：索引的主分片数发生改变</li>
@@ -969,9 +1039,11 @@ PUT my_blogs/_doc/comment3?routing=blog2
 <li>Update By Query：在现有索引上重建</li>
 <li>Reindex：在其他索引上重新构建出当前索引</li>
 </ul>
-<h3 id="案例1：为索引增加子字段（Update-By-Query）"><a href="#案例1：为索引增加子字段（Update-By-Query）" class="headerlink" title="案例1：为索引增加子字段（Update By Query）"></a>案例1：为索引增加子字段（Update By Query）</h3><p>下面我们来描述一个给索引 mapping 中的字段增加一个子字段并使用 Update By Query 重建索引的过程。</p>
+<h3 id="案例1：为索引增加子字段（Update-By-Query）"><a class="header-anchor" href="#案例1：为索引增加子字段（Update-By-Query）">¶</a>案例1：为索引增加子字段（Update By Query）</h3>
+<p>下面我们来描述一个给索引 mapping 中的字段增加一个子字段并使用 Update By Query 重建索引的过程。</p>
 <ol>
-<li><p>直接往一个索引在写入文档，使用 ES 的 Dynamic Mapping 自动创建索引</p>
+<li>
+<p>直接往一个索引在写入文档，使用 ES 的 Dynamic Mapping 自动创建索引</p>
 <pre><code>DELETE blogs/
 
 # 写入文档
@@ -979,12 +1051,20 @@ PUT blogs/_doc/1
 {
   &quot;content&quot;:&quot;Hadoop is cool&quot;,
   &quot;keyword&quot;:&quot;hadoop&quot;
-}</code></pre></li>
-<li><p>查看刚刚创建的索引，可以看到 ES  为这个索引创建了一个 Mapping，并自动设置content和 keyword 字段，类型都是 text，并且都为他们创建一个子字段keyword，类型为 keyword。</p>
-<pre><code># 查看 Mapping
-GET blogs/_mapping</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215159.png" alt="image-20200429175813394"></p>
+}
+</code></pre>
 </li>
-<li><p>其实我们想修改 Mapping 中的 content 字段，为其增加一个子字段”english”，类型不变，设置分词器为”english”，使得我们更好地使用英文内容对该字段进行搜索。</p>
+<li>
+<p>查看刚刚创建的索引，可以看到 ES  为这个索引创建了一个 Mapping，并自动设置content和 keyword 字段，类型都是 text，并且都为他们创建一个子字段keyword，类型为 keyword。</p>
+</li>
+</ol>
+<pre><code># 查看 Mapping
+GET blogs/_mapping
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215159.png" alt="image-20200429175813394"></p>
+<ol start="3">
+<li>
+<p>其实我们想修改 Mapping 中的 content 字段，为其增加一个子字段&quot;english&quot;，类型不变，设置分词器为&quot;english&quot;，使得我们更好地使用英文内容对该字段进行搜索。</p>
 <pre><code># 修改 Mapping，增加子字段，使用英文分词器
 PUT blogs/_mapping
 {
@@ -999,8 +1079,11 @@ PUT blogs/_mapping
       }
     }
   }
-}</code></pre></li>
-<li><p>写入新的文档并对新加的字段进行查询，是可以查出来数据的</p>
+}
+</code></pre>
+</li>
+<li>
+<p>写入新的文档并对新加的字段进行查询，是可以查出来数据的</p>
 <pre><code># 写入文档
 PUT blogs/_doc/2
 {
@@ -1014,9 +1097,12 @@ POST blogs/_search
     &quot;match&quot;: {
       &quot;content.english&quot;: &quot;Elasticsearch&quot;
     }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215219.png" alt="image-20200429180358045"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215219.png" alt="image-20200429180358045"></p>
 </li>
-<li><p>但是当我们对旧的文档对新加字段进行查询的时候，发现查询不到数据。</p>
+<li>
+<p>但是当我们对旧的文档对新加字段进行查询的时候，发现查询不到数据。</p>
 <pre><code># 查询 Mapping 变更前写入的文档
 POST blogs/_search
 {
@@ -1025,9 +1111,12 @@ POST blogs/_search
       &quot;content.english&quot;: &quot;Hadoop&quot;
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215228.png" alt="image-20200429180541028"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215228.png" alt="image-20200429180541028"></p>
 </li>
-<li><p>使用 <code>_update_by_query</code> api 进行现有的索引重建后再查询新数据。即可查询出来了。</p>
+<li>
+<p>使用 <code>_update_by_query</code> api 进行现有的索引重建后再查询新数据。即可查询出来了。</p>
 <pre><code># Update所有文档
 POST blogs/_update_by_query
 {
@@ -1041,10 +1130,13 @@ POST blogs/_search
       &quot;content.english&quot;: &quot;Hadoop&quot;
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215239.png" alt="image-20200429180708458"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215239.png" alt="image-20200429180708458"></p>
 </li>
 </ol>
-<h3 id="案例2：更改-Mapping-中的字段的类型（ReIndex）"><a href="#案例2：更改-Mapping-中的字段的类型（ReIndex）" class="headerlink" title="案例2：更改 Mapping 中的字段的类型（ReIndex）"></a>案例2：更改 Mapping 中的字段的类型（ReIndex）</h3><p>ES 是不允许我们修改现有 mapping 中已经定义的字段的类型的，直接报错：</p>
+<h3 id="案例2：更改-Mapping-中的字段的类型（ReIndex）"><a class="header-anchor" href="#案例2：更改-Mapping-中的字段的类型（ReIndex）">¶</a>案例2：更改 Mapping 中的字段的类型（ReIndex）</h3>
+<p>ES 是不允许我们修改现有 mapping 中已经定义的字段的类型的，直接报错：</p>
 <pre><code>PUT blogs/_mapping
 {
         &quot;properties&quot; : {
@@ -1062,10 +1154,13 @@ POST blogs/_search
         }
       }
 }
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215248.png" alt="image-20200429181124513"></p>
+
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215248.png" alt="image-20200429181124513"></p>
 <p>那么如果我们确实要修改字段类型怎么办呢？只能创建新的索引，并且设置正确的字段类型，再通过 reindex api 将老索引的数据导入到新索引。下面我们来描述一个修改Mapping 中字段的场景：</p>
 <ol>
-<li><p>创建新索引并设置正确的字段类型</p>
+<li>
+<p>创建新索引并设置正确的字段类型</p>
 <pre><code>DELETE blogs_fix
 
 # 创建新的索引并且设定新的Mapping
@@ -1087,8 +1182,11 @@ PUT blogs_fix/
         }
       }    
   }
-}</code></pre></li>
-<li><p>调用 ES 的 <code>_reindex</code> api 将老索引的数据重新导入到新索引</p>
+}
+</code></pre>
+</li>
+<li>
+<p>调用 ES 的 <code>_reindex</code> api 将老索引的数据重新导入到新索引</p>
 <pre><code># Reindx API
 POST  _reindex
 {
@@ -1098,8 +1196,12 @@ POST  _reindex
   &quot;dest&quot;: {
     &quot;index&quot;: &quot;blogs_fix&quot;
   }
-}</code></pre><p>从新索引查询 id 为1的文档</p>
-<pre><code>GET  blogs_fix/_doc/1</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215256.png" alt="image-20200429181628754"></p>
+}
+</code></pre>
+<p>从新索引查询 id 为1的文档</p>
+<pre><code>GET  blogs_fix/_doc/1
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215256.png" alt="image-20200429181628754"></p>
 <p>我们刚刚将一个 keyword 字段从 text 类型修改为 keyword 类型，通过 terms agg 进行测试，是没有问题的：</p>
 <pre><code># 测试 Term Aggregation
 POST blogs_fix/_search
@@ -1113,15 +1215,20 @@ POST blogs_fix/_search
       }
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215303.png" alt="image-20200429181927451"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215303.png" alt="image-20200429181927451"></p>
 </li>
 </ol>
-<h4 id="ReIndex-总结"><a href="#ReIndex-总结" class="headerlink" title="ReIndex 总结"></a>ReIndex 总结</h4><h6 id="1、使用场景"><a href="#1、使用场景" class="headerlink" title="1、使用场景"></a>1、使用场景</h6><ul>
+<h4 id="ReIndex-总结"><a class="header-anchor" href="#ReIndex-总结">¶</a>ReIndex 总结</h4>
+<h6 id="1、使用场景"><a class="header-anchor" href="#1、使用场景">¶</a>1、使用场景</h6>
+<ul>
 <li>修改索引的主分片数</li>
 <li>改变 Mapping 中的字段类型</li>
 <li>集群内数据迁移/跨集群的数据迁移</li>
 </ul>
-<h6 id="2、数据冲突的解决方案"><a href="#2、数据冲突的解决方案" class="headerlink" title="2、数据冲突的解决方案"></a>2、数据冲突的解决方案</h6><p>另外当我们往新索引中进行 _reindex 的时候，有可能已经存在了一些数据。在默认情况下以及设置”dest.version_type=internal”的时候，ES 将会将强制覆盖所有已经存在的文档，然后版本号+1。</p>
+<h6 id="2、数据冲突的解决方案"><a class="header-anchor" href="#2、数据冲突的解决方案">¶</a>2、数据冲突的解决方案</h6>
+<p>另外当我们往新索引中进行 _reindex 的时候，有可能已经存在了一些数据。在默认情况下以及设置&quot;dest.version_type=internal&quot;的时候，ES 将会将强制覆盖所有已经存在的文档，然后版本号+1。</p>
 <pre><code>//默认情况
 POST _reindex
 {
@@ -1142,11 +1249,14 @@ POST _reindex
     &quot;index&quot;: &quot;new_twitter&quot;,
     &quot;version_type&quot;: &quot;internal&quot;
   }
-}</code></pre><p>通过设置”dest.version_type=external”可以让 ES 在遇到已经存在的文档的时候比较两者的版本，当已存在于 dest 中的文档的版本低于 source 中版本的时候，就会更新dest 中的该文档；如果无冲突将直接索引文档。</p>
-<p>另外我们可以通过设置”dest.op_type=create”来让 _reindex 仅仅创建目标 index 中缺失的文档。所有的已经存在的文档都会导致一个版本冲突。</p>
+}
+</code></pre>
+<p>通过设置&quot;dest.version_type=external&quot;可以让 ES 在遇到已经存在的文档的时候比较两者的版本，当已存在于 dest 中的文档的版本低于 source 中版本的时候，就会更新dest 中的该文档；如果无冲突将直接索引文档。</p>
+<p>另外我们可以通过设置&quot;dest.op_type=create&quot;来让 _reindex 仅仅创建目标 index 中缺失的文档。所有的已经存在的文档都会导致一个版本冲突。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215313.png" alt="image-20200429200157335"></p>
 <p>默认情况下，以上版本冲突会使得 _reindex 操作中止。我们可以通过设置 _reindex 的直接属性 “conflicts=proceed” 让 _reindex 在遇到版本冲突的时候跳过当前这个文档，继续处理下一个文档，当 _reindex 完成之后会返回遇到版本冲突的数量。（注意，这个参数仅仅可以对版本冲突错误有效，其他错误还是会中止 _reindex 操作）</p>
-<h6 id="3、筛选需要-reindex-的数据"><a href="#3、筛选需要-reindex-的数据" class="headerlink" title="3、筛选需要 _reindex 的数据"></a>3、筛选需要 _reindex 的数据</h6><p>有时，我们并不想对所有的文档进行迁移。我们可以通过在 source 属性中指定一个查询来筛选我们需要 _reindex 的数据。此外，对于 size、sort 等在查询动作中设定的参数都是可以设置的，具体参考官方文档。</p>
+<h6 id="3、筛选需要-reindex-的数据"><a class="header-anchor" href="#3、筛选需要-reindex-的数据">¶</a>3、筛选需要 _reindex 的数据</h6>
+<p>有时，我们并不想对所有的文档进行迁移。我们可以通过在 source 属性中指定一个查询来筛选我们需要 _reindex 的数据。此外，对于 size、sort 等在查询动作中设定的参数都是可以设置的，具体参考官方文档。</p>
 <pre><code>POST _reindex
 {
   &quot;source&quot;: {
@@ -1160,17 +1270,25 @@ POST _reindex
   &quot;dest&quot;: {
     &quot;index&quot;: &quot;new_twitter&quot;
   }
-}</code></pre><h6 id="4、跨集群-Reindex"><a href="#4、跨集群-Reindex" class="headerlink" title="4、跨集群 Reindex"></a>4、跨集群 Reindex</h6><p>ES 同时还支持跨集群的 reindex，我们先在本地（dest）中修改 elasticearch.yml 文件中的配置<code>reindex.remote.whitelist: &quot;otherhost:9200, another:9200”</code>开启白名单（对 source 的端口），然后设置 source 的 remote 属性进行远程连接配置，最后发起 _reindex 操作</p>
+}
+</code></pre>
+<h6 id="4、跨集群-Reindex"><a class="header-anchor" href="#4、跨集群-Reindex">¶</a>4、跨集群 Reindex</h6>
+<p>ES 同时还支持跨集群的 reindex，我们先在本地（dest）中修改 elasticearch.yml 文件中的配置<code>reindex.remote.whitelist: &quot;otherhost:9200, another:9200”</code>开启白名单（对 source 的端口），然后设置 source 的 remote 属性进行远程连接配置，最后发起 _reindex 操作</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215338.png" alt="image-20200429201706072"></p>
-<h6 id="5、异步-reiindex"><a href="#5、异步-reiindex" class="headerlink" title="5、异步 reiindex"></a>5、异步 reiindex</h6><p>同时 reindex 还支持异步操作。通过指定 url 参数<code>wait_for_completion=false</code>来实现：</p>
+<h6 id="5、异步-reiindex"><a class="header-anchor" href="#5、异步-reiindex">¶</a>5、异步 reiindex</h6>
+<p>同时 reindex 还支持异步操作。通过指定 url 参数<code>wait_for_completion=false</code>来实现：</p>
 <pre><code>POST _reindex?wait_for_completion=false
 {
 ... ...
-}</code></pre><p>此时执行该请求将会得到一个 task id。可以通过 _task api 来查看任务状态：</p>
+}
+</code></pre>
+<p>此时执行该请求将会得到一个 task id。可以通过 _task api 来查看任务状态：</p>
 <pre><code>GET _tsak?detailed=true&amp;actions=*reindex
 {
 
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215345.png" alt="image-20200429202014925"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215345.png" alt="image-20200429202014925"></p>
 <blockquote>
 <p>使用 Reindex API 的注意点：</p>
 <ol>
@@ -1179,11 +1297,14 @@ POST _reindex
 <li>建议对 api 使用 alias，在 reindex 好之后可以直接切换 alias 指向的新 index 即可。</li>
 </ol>
 </blockquote>
-<h3 id="相关阅读-2"><a href="#相关阅读-2" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<h3 id="相关阅读-v3"><a class="header-anchor" href="#相关阅读-v3">¶</a>相关阅读</h3>
+<blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/docs-reindex.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/docs-reindex.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/docs-update-by-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/docs-update-by-query.html</a></p>
 </blockquote>
-<h1 id="Ingest-Pipeline-amp-Painless-Script"><a href="#Ingest-Pipeline-amp-Painless-Script" class="headerlink" title="Ingest Pipeline &amp; Painless Script"></a>Ingest Pipeline &amp; Painless Script</h1><h3 id="Ingest-Node"><a href="#Ingest-Node" class="headerlink" title="Ingest Node"></a>Ingest Node</h3><p>Ingest Node 是在 Elasticsearch 5.0后，引入了一种新的节点。默认配置下，每个节点都是Ingest Node。</p>
+<h1>Ingest Pipeline &amp; Painless Script</h1>
+<h3 id="Ingest-Node"><a class="header-anchor" href="#Ingest-Node">¶</a>Ingest Node</h3>
+<p>Ingest Node 是在 Elasticsearch 5.0后，引入了一种新的节点。默认配置下，每个节点都是Ingest Node。</p>
 <ol>
 <li>可拦截 Index 或者 Bulk API 的请求，对数据进行预处理（如：为某个字段设置默认值、重命名某个字段的字段名、对字段值进行 Split 操作等），处理完成之后重新返回给 index 或者 Buik API</li>
 <li>相对 Logstash 无需额外引入新的工具依赖，就可以进行数据预处理</li>
@@ -1191,17 +1312,22 @@ POST _reindex
 </ol>
 <p>例如以下 index 的请求中 tags 字段时候一个使用逗号分隔的文本，我们现在需要对其进行分隔之后再存入 ES，方便后期需要对 Tags 字段进行Aggregation 统计：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215356.png" alt="image-20200429205049625"></p>
-<h4 id="1、Pipeline-amp-Processor"><a href="#1、Pipeline-amp-Processor" class="headerlink" title="1、Pipeline &amp; Processor"></a>1、Pipeline &amp; Processor</h4><p>Pipeline：管道会对通过的数据（文档）按照顺序进行加工。</p>
+<h4 id="1、Pipeline-Processor"><a class="header-anchor" href="#1、Pipeline-Processor">¶</a>1、Pipeline &amp; Processor</h4>
+<p>Pipeline：管道会对通过的数据（文档）按照顺序进行加工。</p>
 <p>Processor：Elasticsearch 对一些加工的行为进行了抽象包装，它提供了很多内置的 Processors。也支持通过插件的方式，实现自己的 Processor。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215405.png" alt="image-20200429205543898"></p>
-<h4 id="2、Ingest-API"><a href="#2、Ingest-API" class="headerlink" title="2、Ingest API"></a>2、Ingest API</h4><p>参考下面的示例，ingest api 在 ES 中是一个定级 api，路径为_ingest。后面紧跟的就是 pipeline，即我们上面提到的概念。</p>
+<h4 id="2、Ingest-API"><a class="header-anchor" href="#2、Ingest-API">¶</a>2、Ingest API</h4>
+<p>参考下面的示例，ingest api 在 ES 中是一个定级 api，路径为_ingest。后面紧跟的就是 pipeline，即我们上面提到的概念。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215411.png" alt="image-20200429213050917"></p>
-<h5 id="1）Ingest-pipeline-测试"><a href="#1）Ingest-pipeline-测试" class="headerlink" title="1）Ingest pipeline 测试"></a>1）Ingest pipeline 测试</h5><p>在 pipeline 后面定义的路径或者 restful 方法就是ES 实际提供的 ingest api。_simulate 是 ES 提供的一个可以对 ingest pipeline 进行测试的 api。参考以下示例：</p>
+<h5 id="1）Ingest-pipeline-测试"><a class="header-anchor" href="#1）Ingest-pipeline-测试">¶</a>1）Ingest pipeline 测试</h5>
+<p>在 pipeline 后面定义的路径或者 restful 方法就是ES 实际提供的 ingest api。_simulate 是 ES 提供的一个可以对 ingest pipeline 进行测试的 api。参考以下示例：</p>
 <ul>
-<li><p>我们对该 api 的请求体对象中的 pipeline属性进行了定义，包括这个 pipeline 的描述和 pipeliine 中包含的 processors。</p>
-<p>这里仅定义了两个 processors：第一个是”split” processor，它对所有文档的”tags”字段进行一个以”,”为分隔符的分隔操作，然后将分隔后得到的一个字符串数组覆盖到文档的 tags 属性中；第二个是”set” processor，为每一个文档增加一个字段，并设置默认值为0。</p>
+<li>
+<p>我们对该 api 的请求体对象中的 pipeline属性进行了定义，包括这个 pipeline 的描述和 pipeliine 中包含的 processors。</p>
+<p>这里仅定义了两个 processors：第一个是&quot;split&quot; processor，它对所有文档的&quot;tags&quot;字段进行一个以&quot;,“为分隔符的分隔操作，然后将分隔后得到的一个字符串数组覆盖到文档的 tags 属性中；第二个是&quot;set” processor，为每一个文档增加一个字段，并设置默认值为0。</p>
 </li>
-<li><p>然后在 api 请求体中通过设置 docs 填充测试文档数据。可以看到这些文档数据都包含一个 tags 字段，都是以逗号分隔。且都增加了一个 view 字段，值为0。</p>
+<li>
+<p>然后在 api 请求体中通过设置 docs 填充测试文档数据。可以看到这些文档数据都包含一个 tags 字段，都是以逗号分隔。且都增加了一个 view 字段，值为0。</p>
 </li>
 </ul>
 <p>可以看到api 发出调用后返回的结果中，两个文档的 tags 字段都被分隔成了一个数组。</p>
@@ -1246,10 +1372,13 @@ POST _ingest/pipeline/_simulate
       }
     }
   ]
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215420.png" alt="image-20200429211257800"></p>
-<h5 id="2）新增一个-ingest-pipeline"><a href="#2）新增一个-ingest-pipeline" class="headerlink" title="2）新增一个 ingest pipeline"></a>2）新增一个 ingest pipeline</h5><p>在上面经过测试之后我们的 ingest pipeline 是没有问题的，此时我们就可以创建这个 pipeline 对象了。通过调用 PUT 方法并在 _ingest/pipeline/ 后面加上我们要创建的这个 pipeline 对象的 id进行创建。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215420.png" alt="image-20200429211257800"></p>
+<h5 id="2）新增一个-ingest-pipeline"><a class="header-anchor" href="#2）新增一个-ingest-pipeline">¶</a>2）新增一个 ingest pipeline</h5>
+<p>在上面经过测试之后我们的 ingest pipeline 是没有问题的，此时我们就可以创建这个 pipeline 对象了。通过调用 PUT 方法并在 _ingest/pipeline/ 后面加上我们要创建的这个 pipeline 对象的 id进行创建。</p>
 <p>然后可以通过 GET 方法使用同样的 URI 进行查询动作。</p>
-<p>另外我们还能对创建之后的 pipeline 再次进行 _simulate 的测试动作，请求方法为 POST 方法，URI 则是上面创建和查询使用的 URI 拼接上子路径 _simulate，然后在请求体中直接设置测试文档到”docs”属性。而不用像前面的测试动作一样需要指定”pipeline”属性。</p>
+<p>另外我们还能对创建之后的 pipeline 再次进行 _simulate 的测试动作，请求方法为 POST 方法，URI 则是上面创建和查询使用的 URI 拼接上子路径 _simulate，然后在请求体中直接设置测试文档到&quot;docs&quot;属性。而不用像前面的测试动作一样需要指定&quot;pipeline&quot;属性。</p>
 <pre><code># 为ES添加一个 Pipeline
 PUT _ingest/pipeline/blog_pipeline
 {
@@ -1283,10 +1412,13 @@ POST _ingest/pipeline/blog_pipeline/_simulate
       }
     }
   ]
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215429.png" alt="image-20200429211636889"></p>
-<h5 id="3）使用创建之后的-ingest-pipeline"><a href="#3）使用创建之后的-ingest-pipeline" class="headerlink" title="3）使用创建之后的 ingest pipeline"></a>3）使用创建之后的 ingest pipeline</h5><p>在创建了 ingest pipeline 之后我们就可以在对文档 index 的时候（通过 index或者 bulk api）使用这些 pipeline 了。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215429.png" alt="image-20200429211636889"></p>
+<h5 id="3）使用创建之后的-ingest-pipeline"><a class="header-anchor" href="#3）使用创建之后的-ingest-pipeline">¶</a>3）使用创建之后的 ingest pipeline</h5>
+<p>在创建了 ingest pipeline 之后我们就可以在对文档 index 的时候（通过 index或者 bulk api）使用这些 pipeline 了。</p>
 <p>下面我们来看一些例子：</p>
-<p>我们在第一个请求中没使用 ingest pipeline，tags 中的数据是原封不动地存储到文档中然后被索引；而在第二个请求中，我们<strong>在索引数据的 URI 后面使用了一个”piipeline=${pipeline_name}”的参数</strong>，指定了我们要对本次文档数据使用id 为”blog_pipeline”的 ingest pipeline 进行预处理，即我们前面创建的 pipeline。</p>
+<p>我们在第一个请求中没使用 ingest pipeline，tags 中的数据是原封不动地存储到文档中然后被索引；而在第二个请求中，我们<strong>在索引数据的 URI 后面使用了一个&quot;piipeline=${pipeline_name}&quot;的参数</strong>，指定了我们要对本次文档数据使用id 为&quot;blog_pipeline&quot;的 ingest pipeline 进行预处理，即我们前面创建的 pipeline。</p>
 <p>两个索引文档的请求都执行之后，我们通过 _search api 查询索引后的两个文档。可以看到第一个文档的 tags 还是没有处理的；而第二个文档的 tags 字段则是被分隔成了一个字符串数组。</p>
 <pre><code>#不使用pipeline更新数据
 PUT tech_blogs/_doc/1
@@ -1305,12 +1437,16 @@ PUT tech_blogs/_doc/2?pipeline=blog_pipeline
 }
 #查看两条数据，一条被处理，一条未被处理
 POST tech_blogs/_search
-{}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215435.png" alt="image-20200429212336066"></p>
-<p>除了上面的例子，我们还可以在前面提到的重构索引的 api <code>_update_by_query</code>中使用 ingest pipeline。但是如果基于上面的数据直接执行的话，会得到类型转换异常的错误，因为有一个文档的该字段已经被转成了数组类型，对应 java 中的 ArrayList，”split”操作需要的是一个字符串类型字段，而此时它已经不是一个 String，解决方法看下面。</p>
+{}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215435.png" alt="image-20200429212336066"></p>
+<p>除了上面的例子，我们还可以在前面提到的重构索引的 api <code>_update_by_query</code>中使用 ingest pipeline。但是如果基于上面的数据直接执行的话，会得到类型转换异常的错误，因为有一个文档的该字段已经被转成了数组类型，对应 java 中的 ArrayList，&quot;split&quot;操作需要的是一个字符串类型字段，而此时它已经不是一个 String，解决方法看下面。</p>
 <pre><code>#update_by_query 会导致错误
 POST tech_blogs/_update_by_query?pipeline=blog_pipeline
 {
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215455.png" alt="image-20200429212605175"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215455.png" alt="image-20200429212605175"></p>
 <p>此时我们可以通过设置 <code>_update_by_query</code>的 api 设置查询参数实现将我们更新过的数据进行过滤。可以看到我们前面设置的 pipeline 中其实还设置了一个给文档增加一个新字段 view 的操作。所以我们可以将查询条件设置为必须不存在一个 view字段的数据才进行 _update_by_query 操作。此时再对该字段指定我们前面设置的pipeline，就不会遇到已经被处理过的数据了，即可正常执行。</p>
 <pre><code>#增加update_by_query的条件
 POST tech_blogs/_update_by_query?pipeline=blog_pipeline
@@ -1325,48 +1461,65 @@ POST tech_blogs/_update_by_query?pipeline=blog_pipeline
         }
     }
 }
-</code></pre><h4 id="3、一些内置Processors"><a href="#3、一些内置Processors" class="headerlink" title="3、一些内置Processors"></a>3、一些内置Processors</h4><ul>
-<li><p>Split Processor (例:将给定字段值分成⼀一个数组)</p>
+
+</code></pre>
+<h4 id="3、一些内置Processors"><a class="header-anchor" href="#3、一些内置Processors">¶</a>3、一些内置Processors</h4>
+<ul>
+<li>
+<p>Split Processor (例:将给定字段值分成⼀一个数组)</p>
 </li>
-<li><p>Remove / Rename Processor (例:移除⼀个重命名字段)</p>
+<li>
+<p>Remove / Rename Processor (例:移除⼀个重命名字段)</p>
 </li>
-<li><p>Append (例:为商品增加⼀个新的标签)</p>
+<li>
+<p>Append (例:为商品增加⼀个新的标签)</p>
 </li>
-<li><p>Convert(例:将商品价格，从字符串转换成 float 类型)</p>
+<li>
+<p>Convert(例:将商品价格，从字符串转换成 float 类型)</p>
 </li>
-<li><p>Date / JSON(例:⽇期格式转换，字符串转 JSON 对象)</p>
+<li>
+<p>Date / JSON(例:⽇期格式转换，字符串转 JSON 对象)</p>
 </li>
-<li><p>Date Index Name Processor (例:将通过该处理器的⽂档，分配到指定时间格式的索引中)</p>
+<li>
+<p>Date Index Name Processor (例:将通过该处理器的⽂档，分配到指定时间格式的索引中)</p>
 </li>
-<li><p>Fail Processor (⼀旦出现异常，该 Pipeline 指定的错误信息能返回给用户)</p>
+<li>
+<p>Fail Processor (⼀旦出现异常，该 Pipeline 指定的错误信息能返回给用户)</p>
 </li>
-<li><p>Foreach Process(数组字段，数组的每个元素都会使⽤到一个相同的处理器)</p>
+<li>
+<p>Foreach Process(数组字段，数组的每个元素都会使⽤到一个相同的处理器)</p>
 </li>
-<li><p>Grok Processor(⽇志的⽇期格式切割)</p>
+<li>
+<p>Grok Processor(⽇志的⽇期格式切割)</p>
 </li>
-<li><p>Gsub / Join / Split(字符串替换 / 数组转字符串/ 字符串转数组)</p>
+<li>
+<p>Gsub / Join / Split(字符串替换 / 数组转字符串/ 字符串转数组)</p>
 </li>
-<li><p>Lowercase / Upcase(⼤小写转换)</p>
+<li>
+<p>Lowercase / Upcase(⼤小写转换)</p>
 </li>
 </ul>
 <blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-processors.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-processors.html</a></p>
 </blockquote>
-<h4 id="4、Ingest-Node-v-s-Logstash"><a href="#4、Ingest-Node-v-s-Logstash" class="headerlink" title="4、Ingest Node v.s. Logstash"></a>4、Ingest Node v.s. Logstash</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215503.png" alt="image-20200429213426597"></p>
+<h4 id="4、Ingest-Node-v-s-Logstash"><a class="header-anchor" href="#4、Ingest-Node-v-s-Logstash">¶</a>4、Ingest Node v.s. Logstash</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215503.png" alt="image-20200429213426597"></p>
 <blockquote>
 <p>我应该使用 logstash 还是 es ingest node：<a href="https://www.elastic.co/cn/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes</a></p>
 </blockquote>
-<h3 id="Painless"><a href="#Painless" class="headerlink" title="Painless"></a>Painless</h3><p>自 Elasticsearch 5.x 后引入，专门为 Elasticsearch 设计，扩展了 Java 的语法。</p>
+<h3 id="Painless"><a class="header-anchor" href="#Painless">¶</a>Painless</h3>
+<p>自 Elasticsearch 5.x 后引入，专门为 Elasticsearch 设计，扩展了 Java 的语法。</p>
 <p>6.0 开始，ES 只支持 Painless。Groovy、Javascript 和 Python 都不再支持。</p>
 <p>Painless 支持所有 Java 的数据类型及 Java API 子集。具备以下特性：</p>
 <ul>
-<li>高性能 </li>
+<li>高性能</li>
 <li>安全</li>
 <li>支持显示类型或者动态定义类型</li>
 </ul>
 <p>Painless 的用途：</p>
 <ul>
-<li>可以对文档字段进行加工处理：<ul>
+<li>可以对文档字段进行加工处理：
+<ul>
 <li>更新或者删除字段，处理数据聚合操作</li>
 <li>Script Field：对返回的字段提前进行计算</li>
 <li>Function Score：对文档的算分进行处理</li>
@@ -1375,10 +1528,12 @@ POST tech_blogs/_update_by_query?pipeline=blog_pipeline
 <li>在 Ingest Pipeline 中执行脚本</li>
 <li>在 Reindex API、Update By Query 时，对数据进行处理</li>
 </ul>
-<h4 id="1、在-Painless-脚本中访问字段"><a href="#1、在-Painless-脚本中访问字段" class="headerlink" title="1、在 Painless 脚本中访问字段"></a>1、在 Painless 脚本中访问字段</h4><p>在 Painless 脚本中访问字段根据当前使用脚本的上下文的不同对字段的访问语法也不同，具体参考下列表格：</p>
+<h4 id="1、在-Painless-脚本中访问字段"><a class="header-anchor" href="#1、在-Painless-脚本中访问字段">¶</a>1、在 Painless 脚本中访问字段</h4>
+<p>在 Painless 脚本中访问字段根据当前使用脚本的上下文的不同对字段的访问语法也不同，具体参考下列表格：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215511.png" alt="image-20200429213955719"></p>
 <p>可以看到在 Ingestion 中，ctx 引用的是文档的 _source 属性对象；在 Update 的时候，ctx 引用的就是文档对象；在 Search 和 Agg 的时候， 没有提供 ctx 的引用，提供了一个 doc 的引用，引用的是文档的 _source 属性对象。</p>
-<h4 id="2、-在-Ingest-Pipeline-中的使用示例"><a href="#2、-在-Ingest-Pipeline-中的使用示例" class="headerlink" title="2、 在 Ingest Pipeline 中的使用示例"></a>2、 在 Ingest Pipeline 中的使用示例</h4><p>可以看到在下面的例子中，我们在之前的 ingest pipeline 中加入了一个新的 processor，这是一个”script” processor。它需要处理的字段是”source”。即直接访问文档的封装了所有字段的属性。处理逻辑是：如果文档（的 _source）中包含一个 content 字段，就将该字段的长度设置到一个”content_length”字段中，没有该字段就新增；如果不包含一个 content 字段，则直接设置 content_length 为0。</p>
+<h4 id="2、-在-Ingest-Pipeline-中的使用示例"><a class="header-anchor" href="#2、-在-Ingest-Pipeline-中的使用示例">¶</a>2、 在 Ingest Pipeline 中的使用示例</h4>
+<p>可以看到在下面的例子中，我们在之前的 ingest pipeline 中加入了一个新的 processor，这是一个&quot;script&quot; processor。它需要处理的字段是&quot;source&quot;。即直接访问文档的封装了所有字段的属性。处理逻辑是：如果文档（的 _source）中包含一个 content 字段，就将该字段的长度设置到一个&quot;content_length&quot;字段中，没有该字段就新增；如果不包含一个 content 字段，则直接设置 content_length 为0。</p>
 <p>可以看到输出结果中增加了一个 content_length 字段，值为 content 的内容长度。</p>
 <pre><code># 增加一个 Script Prcessor
 POST _ingest/pipeline/_simulate
@@ -1431,9 +1586,12 @@ POST _ingest/pipeline/_simulate
       }
     }
   ]
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215518.png" alt="image-20200429214426689"></p>
-<h4 id="3、在文档字段更新中使用示例"><a href="#3、在文档字段更新中使用示例" class="headerlink" title="3、在文档字段更新中使用示例"></a>3、在文档字段更新中使用示例</h4><p>我们先是初始化了一个浏览数是0的博客文档。然后在更新的时候使用了一个”script”类型的更新操作，在其子属性source 中指定了 painless 脚本的内容，并可以利用请求体中的 script 对象的子属性构建脚本执行的时候的参数上下文。</p>
-<p>例如下面例子中我们给”script”设置了一个”params”属性对象，并给该对象设置了一个”new_views:100”的属性对。此时脚本在执行的时候会将”script”对象作为其上下文的一部分，在识别脚本中的”params.new_views”部分的时候就可以匹配到”scirpt”对象的”params.newviews”属性值100了。所以构成的更新语义就是将 id 为1的文档的 views 字段的值加上100。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215518.png" alt="image-20200429214426689"></p>
+<h4 id="3、在文档字段更新中使用示例"><a class="header-anchor" href="#3、在文档字段更新中使用示例">¶</a>3、在文档字段更新中使用示例</h4>
+<p>我们先是初始化了一个浏览数是0的博客文档。然后在更新的时候使用了一个&quot;script&quot;类型的更新操作，在其子属性source 中指定了 painless 脚本的内容，并可以利用请求体中的 script 对象的子属性构建脚本执行的时候的参数上下文。</p>
+<p>例如下面例子中我们给&quot;script&quot;设置了一个&quot;params&quot;属性对象，并给该对象设置了一个&quot;new_views:100&quot;的属性对。此时脚本在执行的时候会将&quot;script&quot;对象作为其上下文的一部分，在识别脚本中的&quot;params.new_views&quot;部分的时候就可以匹配到&quot;scirpt&quot;对象的&quot;params.newviews&quot;属性值100了。所以构成的更新语义就是将 id 为1的文档的 views 字段的值加上100。</p>
 <pre><code>DELETE tech_blogs
 # 输入一个博客文档，并设置其浏览数 view 为0
 PUT tech_blogs/_doc/1
@@ -1457,12 +1615,15 @@ POST tech_blogs/_update/1
 POST tech_blogs/_search
 {
 
-}</code></pre><h4 id="4、在搜索的时候使用示例"><a href="#4、在搜索的时候使用示例" class="headerlink" title="4、在搜索的时候使用示例"></a>4、在搜索的时候使用示例</h4><p>参考下面的例子，我们在 _search api 中指定了一个 “script_fields” api，然后再后面定义了一个match_all 的”query” api。</p>
+}
+</code></pre>
+<h4 id="4、在搜索的时候使用示例"><a class="header-anchor" href="#4、在搜索的时候使用示例">¶</a>4、在搜索的时候使用示例</h4>
+<p>参考下面的例子，我们在 _search api 中指定了一个 “script_fields” api，然后再后面定义了一个match_all 的&quot;query&quot; api。</p>
 <ul>
 <li>match_all query api 表示查询出所有文档数据</li>
-<li>而 _search 会将 query 得到的文档数据输入到定义在它下面的”script_fields”对象中，该对象的子属性名”rnd_views”将表示当前”script_fields”的名称。而”rnd_views”属性对象中我们通过指定该对象的子属性”lang”为 palinless 标识它为一个 painless 脚本，并在 source 中填入了脚本内容，脚本逻辑为调用 Java 的 Random 函数随机生成一个值并加上每一个文档中的 views 字段的值。</li>
+<li>而 _search 会将 query 得到的文档数据输入到定义在它下面的&quot;script_fields&quot;对象中，该对象的子属性名&quot;rnd_views&quot;将表示当前&quot;script_fields&quot;的名称。而&quot;rnd_views&quot;属性对象中我们通过指定该对象的子属性&quot;lang&quot;为 palinless 标识它为一个 painless 脚本，并在 source 中填入了脚本内容，脚本逻辑为调用 Java 的 Random 函数随机生成一个值并加上每一个文档中的 views 字段的值。</li>
 </ul>
-<p>可以看到返回的结果中只包含了”script_fields”的结果，文档的字段都没有被返回。</p>
+<p>可以看到返回的结果中只包含了&quot;script_fields&quot;的结果，文档的字段都没有被返回。</p>
 <pre><code>GET tech_blogs/_search
 {
   &quot;script_fields&quot;: {
@@ -1471,7 +1632,7 @@ POST tech_blogs/_search
         &quot;lang&quot;: &quot;painless&quot;,
         &quot;source&quot;: &quot;&quot;&quot;
           java.util.Random rnd = new Random();
-          doc[&#39;views&#39;].value+rnd.nextInt(1000);
+          doc['views'].value+rnd.nextInt(1000);
         &quot;&quot;&quot;
       }
     }
@@ -1479,8 +1640,11 @@ POST tech_blogs/_search
   &quot;query&quot;: {
     &quot;match_all&quot;: {}
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215526.png" alt="image-20200429220656262"></p>
-<h4 id="5、脚本缓存"><a href="#5、脚本缓存" class="headerlink" title="5、脚本缓存"></a>5、脚本缓存</h4><p>上面的在 api 中直接输入脚本的源字符串，在 api 执行的时候实时编译脚本，这种脚本叫做 inline script；此外还可以将脚本进行预编译之后缓存到 ES 中，之后可以直接通过预编译的脚本 id 直接对编译后的脚本对象进行调用，而这种脚本叫做 Stored Script。</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215526.png" alt="image-20200429220656262"></p>
+<h4 id="5、脚本缓存"><a class="header-anchor" href="#5、脚本缓存">¶</a>5、脚本缓存</h4>
+<p>上面的在 api 中直接输入脚本的源字符串，在 api 执行的时候实时编译脚本，这种脚本叫做 inline script；此外还可以将脚本进行预编译之后缓存到 ES 中，之后可以直接通过预编译的脚本 id 直接对编译后的脚本对象进行调用，而这种脚本叫做 Stored Script。</p>
 <p>脚本的预编译通过 _script api 实现，可以看到下面例子中先是对脚本进行了预编译并，然后直接通过脚本 id 调用预编译之后的脚本。</p>
 <pre><code>#保存脚本在 Cluster State
 POST _scripts/update_views
@@ -1499,9 +1663,12 @@ POST tech_blogs/_update/1
       &quot;new_views&quot;:1000
     }
   }
-}</code></pre><p>因为脚本编译的开销相较大，所以推荐使用预编译的脚本。在 ES 中，对于Inline Scripts 和 Stored Scripts 都会进行缓存，默认缓存数量是100个。可以通过以下参数进行设置。</p>
+}
+</code></pre>
+<p>因为脚本编译的开销相较大，所以推荐使用预编译的脚本。在 ES 中，对于Inline Scripts 和 Stored Scripts 都会进行缓存，默认缓存数量是100个。可以通过以下参数进行设置。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215536.png" alt="image-20200429221126585"></p>
-<h3 id="相关阅读-3"><a href="#相关阅读-3" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<h3 id="相关阅读-v4"><a class="header-anchor" href="#相关阅读-v4">¶</a>相关阅读</h3>
+<blockquote>
 <p><a href="https://www.elastic.co/cn/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-apis.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-apis.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-processors.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-processors.html</a></p>
@@ -1510,7 +1677,8 @@ POST tech_blogs/_update/1
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-processors.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/ingest-processors.html</a></p>
 <p><a href="https://www.elastic.co/cn/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/should-i-use-logstash-or-elasticsearch-ingest-nodes</a></p>
 </blockquote>
-<h1 id="Elasticsearch-数据建模"><a href="#Elasticsearch-数据建模" class="headerlink" title="Elasticsearch 数据建模"></a>Elasticsearch 数据建模</h1><p>数据建模（Data modeling），是创建数据模型的过程。数据模型是对真实世界进行抽象描述的一种工具和方法，实现对现实世界的映射。</p>
+<h1>Elasticsearch 数据建模</h1>
+<p>数据建模（Data modeling），是创建数据模型的过程。数据模型是对真实世界进行抽象描述的一种工具和方法，实现对现实世界的映射。</p>
 <p>数据建模包含3个过程：</p>
 <ol>
 <li>概念模型</li>
@@ -1520,40 +1688,49 @@ POST tech_blogs/_update/1
 <p>数据建模一般基于功能需求和性能需求两个角度进行考虑：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215544.png" alt="image-20200430080436915"></p>
 <p>那么在 ES 中我们应该如何进行数据建模呢？ES 中数据建模主要分为两方面：一方面是对于索引、文档和对象关系的规划建模；另一方面是对于文档字段的建模。</p>
-<h3 id="字段建模"><a href="#字段建模" class="headerlink" title="字段建模"></a>字段建模</h3><p>在对字段建模的过程，我们一般从以下4个方面进行分析：</p>
+<h3 id="字段建模"><a class="header-anchor" href="#字段建模">¶</a>字段建模</h3>
+<p>在对字段建模的过程，我们一般从以下4个方面进行分析：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215556.png" alt="image-20200430080744087"></p>
-<h4 id="1、字段类型"><a href="#1、字段类型" class="headerlink" title="1、字段类型"></a>1、字段类型</h4><ul>
-<li>Text &amp; Keyword<ul>
+<h4 id="1、字段类型"><a class="header-anchor" href="#1、字段类型">¶</a>1、字段类型</h4>
+<ul>
+<li>Text &amp; Keyword
+<ul>
 <li>Text：用于全文本字段，文本会被 Analyzer 分词。默认不支持聚合分析及排序，需要设置 fielddata 为 true。</li>
 <li>keyword：用于 id，枚举及不需要分词的文本。例如电话号码、email 地址、手机号码、邮政编码、性别等。适用于字段需要被 Filter（精确匹配），Soring 和 Aggregation 的场景。</li>
-<li>设置多字段类型：如果用户没有在 mappnig 中显式设置字符串字段的类型，ES 默认会将其设置为 text 类型并且设置一个 keyword 的子字段。在处理人类语言时，通过增加”英文”，”拼音”和”标准”分词器，提高搜索结构。</li>
+<li>设置多字段类型：如果用户没有在 mappnig 中显式设置字符串字段的类型，ES 默认会将其设置为 text 类型并且设置一个 keyword 的子字段。在处理人类语言时，通过增加&quot;英文&quot;，&quot;拼音&quot;和&quot;标准&quot;分词器，提高搜索结构。</li>
 </ul>
 </li>
-<li>结构化数据<ul>
+<li>结构化数据
+<ul>
 <li>数值类型：尽量选择贴近的类型。例如可用用 byte，就不要用 long。</li>
 <li>枚举类型：设置为 keyword。即便时数字，也应该设置成 keyword，获取更好的性能。</li>
 <li>其他：日期、布尔、地理信息… …都需要将其设置为正确的字段类型。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2、是否需要搜索"><a href="#2、是否需要搜索" class="headerlink" title="2、是否需要搜索"></a>2、是否需要搜索</h4><ul>
+<h4 id="2、是否需要搜索"><a class="header-anchor" href="#2、是否需要搜索">¶</a>2、是否需要搜索</h4>
+<ul>
 <li>如果不需要对该字段进行检索、排序和聚合分析：Enable 设置为 false。</li>
 <li>如果仅仅是不需要检索：只将 index 设置为 false。</li>
-<li>对需要检索的字段，可以通过如下配置：<ul>
+<li>对需要检索的字段，可以通过如下配置：
+<ul>
 <li>index_options：设置索引的粒度</li>
 <li>norms：该字段用于在查询的时候进行查询的分值字段的，如果对这个字段的查询不需要计算分值，可以关闭这个选项，它也会占用一定的存储空间。</li>
 <li>… …</li>
 </ul>
 </li>
 </ul>
-<h4 id="3、聚合及排序"><a href="#3、聚合及排序" class="headerlink" title="3、聚合及排序"></a>3、聚合及排序</h4><ul>
+<h4 id="3、聚合及排序"><a class="header-anchor" href="#3、聚合及排序">¶</a>3、聚合及排序</h4>
+<ul>
 <li>如果不需要对该字段进行检索、排序和聚合分析：Enable 设置为 false。</li>
 <li>如果仅仅是不需要排序或者聚合分析功能：Doc_values/fielddata 设置为 false。</li>
 <li>更新频繁、聚合查询频繁的 keyword 类型的字段：推荐将 eager_global_ordinals 设置为 true。</li>
 </ul>
-<h4 id="4、额外的存储"><a href="#4、额外的存储" class="headerlink" title="4、额外的存储"></a>4、额外的存储</h4><p>文档的所有字段默认都是存储在 _source 字段下的，我们需要基于一些特定场景来判断是否需要将这些字段存储在 _source 之外。</p>
+<h4 id="4、额外的存储"><a class="header-anchor" href="#4、额外的存储">¶</a>4、额外的存储</h4>
+<p>文档的所有字段默认都是存储在 _source 字段下的，我们需要基于一些特定场景来判断是否需要将这些字段存储在 _source 之外。</p>
 <ul>
-<li><p>_source 字段是否必须：当文档中的内容相当大或者查询文档并不需要每次都返回所有字段的内容的时候，基于节约磁盘的角度，可以考虑 disable _source。当 disable _source 字段之后：</p>
+<li>
+<p>_source 字段是否必须：当文档中的内容相当大或者查询文档并不需要每次都返回所有字段的内容的时候，基于节约磁盘的角度，可以考虑 disable _source。当 disable _source 字段之后：</p>
 <ul>
 <li>将在查询的时候在文档的返回结果中无法看到 _source 字段</li>
 <li>且无法做 reindex，无法做 update</li>
@@ -1566,8 +1743,10 @@ POST tech_blogs/_update/1
 <ul>
 <li>是否需要专门存储当前字段数据，Store 设置成 true，可以对该字段的原始内容进行专门的存储。一般结合 _source 的 enable 设置为 false 使用。</li>
 </ul>
-<h4 id="5、一个字段建模实例"><a href="#5、一个字段建模实例" class="headerlink" title="5、一个字段建模实例"></a>5、一个字段建模实例</h4><ol>
-<li><p>使用 ES 的默认 Dynamic Mapping 创建索引 Mapping。可以看到我们下面先是索引了一本书的信息，其包含以下字段信息：</p>
+<h4 id="5、一个字段建模实例"><a class="header-anchor" href="#5、一个字段建模实例">¶</a>5、一个字段建模实例</h4>
+<ol>
+<li>
+<p>使用 ES 的默认 Dynamic Mapping 创建索引 Mapping。可以看到我们下面先是索引了一本书的信息，其包含以下字段信息：</p>
 <ul>
 <li>书名</li>
 <li>简介</li>
@@ -1586,9 +1765,12 @@ PUT books/_doc/1
   &quot;cover_url&quot;:&quot;https://images-na.ssl-images-amazon.com/images/I/51OeaMFxcML.jpg&quot;
 }
 #查询自动创建的Mapping
-GET books/_mapping</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215615.png" alt="image-20200430085140227"></p>
+GET books/_mapping
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215615.png" alt="image-20200430085140227"></p>
 </li>
-<li><p>优化字段设定。 </p>
+<li>
+<p>优化字段设定。</p>
 <ul>
 <li>类型：我们知道，图书的作者、封面链接都是一个精确值，所以将它们都设置为 keyword；另外，将发行日期设置为日期格式；而简介时不需要一个 keyword 子字段的，它本身在99.99%的情况下都不会作为一个精确值被检索，所以无需再针对这个字段进行精确索引；而书名在一般情况下都会支持全文检索和精确检索两种情况，所以保持默认类型不用变化。</li>
 <li>是否需要索引：对于封面链接，一般是不会有人基于该字段来检索图书，所以我们设置 index 为 false。</li>
@@ -1639,8 +1821,11 @@ POST books/_search
       }
     }
   }
-}</code></pre></li>
-<li><p>需求变更。现在我们收到了新的需求变更，需要在图书文档中增加一个图书内容的字段，并要求能对图书的内容进行全文检索的同时支持高亮显示。</p>
+}
+</code></pre>
+</li>
+<li>
+<p>需求变更。现在我们收到了新的需求变更，需要在图书文档中增加一个图书内容的字段，并要求能对图书的内容进行全文检索的同时支持高亮显示。</p>
 <p>这个新需求会导致 _source 的内容过大。默认情况下对于文档的检索无论是 data node 返回数据给 coordinating node 还是 coordinating node 返回数据给用户都会携带着 _source 一起返回，这样每次查询无论用户是否真的需要获取全部的字段（或者数据量比较大的图书内容字段）信息都会导致大量数据的传输。</p>
 <p>考虑到图书信息一般在导入之后就不再会有 update 操作，我们可以通过关闭 _source 字段，并将所有字段的 “store” 设置为 true 来解决问题。下面我们删除图书索引并重新设置 mapping，然后重新索引一个图书文档。</p>
 <pre><code>DELETE books
@@ -1678,14 +1863,18 @@ PUT books/_doc/1
   &quot;author&quot;:&quot;Bharvi Dixit&quot;,
   &quot;public_date&quot;:&quot;2017&quot;,
   &quot;cover_url&quot;:&quot;https://images-na.ssl-images-amazon.com/images/I/51OeaMFxcML.jpg&quot;
-}</code></pre><p>此时尝试查询的时候，_source 字段关闭了，ES 默认是不会返回文档额外存储的字段的。</p>
+}
+</code></pre>
+<p>此时尝试查询的时候，_source 字段关闭了，ES 默认是不会返回文档额外存储的字段的。</p>
 <pre><code>#查询结果中，Source不包含数据
 POST books/_search
-{}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215628.png" alt="image-20200430090941895"></p>
+{}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215628.png" alt="image-20200430090941895"></p>
 <p>我们需要指定 API 中具体需要操作或者查询的字段</p>
 <ul>
-<li>下面我们通过在 _search API 的 “stored_fields”的动作对象，这个对象会抓取经过查询出来的文档数据的具体字段值然后封装到一个”fields”对象中，这个”fields”对象会作为返回信息的文档对象的一个属性值返回，这样我们就能看到一个文档中我们指定的具体字段信息了。</li>
-<li>另外我们还通过在 _search API 的 “highlight” 动作对象，该对象和”stored_fields”对象的逻辑差不多，只不过它在从文档的（用户）指定字段中把字段数据抓取出来之后经过高亮标签拼接再封装到一个”highlight”对象，然后设置到返回信息的文档对象的”highlight”属性中。</li>
+<li>下面我们通过在 _search API 的 &quot;stored_fields&quot;的动作对象，这个对象会抓取经过查询出来的文档数据的具体字段值然后封装到一个&quot;fields&quot;对象中，这个&quot;fields&quot;对象会作为返回信息的文档对象的一个属性值返回，这样我们就能看到一个文档中我们指定的具体字段信息了。</li>
+<li>另外我们还通过在 _search API 的 “highlight” 动作对象，该对象和&quot;stored_fields&quot;对象的逻辑差不多，只不过它在从文档的（用户）指定字段中把字段数据抓取出来之后经过高亮标签拼接再封装到一个&quot;highlight&quot;对象，然后设置到返回信息的文档对象的&quot;highlight&quot;属性中。</li>
 </ul>
 <pre><code>#搜索，通过store 字段显示数据，同时高亮显示 conent的内容
 POST books/_search
@@ -1701,10 +1890,13 @@ POST books/_search
       &quot;content&quot;:{}
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215641.png" alt="image-20200430091119890"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215641.png" alt="image-20200430091119890"></p>
 </li>
 </ol>
-<h4 id="6、Mapping-字段的相关设置"><a href="#6、Mapping-字段的相关设置" class="headerlink" title="6、Mapping 字段的相关设置"></a>6、<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html" target="_blank" rel="noopener">Mapping 字段的相关设置</a></h4><ul>
+<h4 id="6、Mapping-字段的相关设置"><a class="header-anchor" href="#6、Mapping-字段的相关设置">¶</a>6、<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html" target="_blank" rel="noopener">Mapping 字段的相关设置</a></h4>
+<ul>
 <li>Enabled – 设置成 false，仅做存储，不支持搜索和聚合分析 (数据保存在 _source 中)</li>
 <li>Index – 是否构倒排索引。设置成 false，⽆法被搜索，但还是支持 aggregation，并出现在 _source中</li>
 <li>Norms – 如果字段仅用做过滤和聚合分析，可以关闭，节约存储</li>
@@ -1715,20 +1907,25 @@ POST books/_search
 <li>Multifields 多字段特性</li>
 <li>Dynamic – true / false / strict 控制 Mapping 的⾃动更新</li>
 </ul>
-<h4 id="7、数据建模中一些相关的-API"><a href="#7、数据建模中一些相关的-API" class="headerlink" title="7、数据建模中一些相关的 API"></a>7、数据建模中一些相关的 API</h4><ul>
+<h4 id="7、数据建模中一些相关的-API"><a class="header-anchor" href="#7、数据建模中一些相关的-API">¶</a>7、数据建模中一些相关的 API</h4>
+<ul>
 <li>Index Template &amp; Dynamic Template：根据索引的名字匹配不同的 Mapping 和 Settings。可以在一个 Mapping 上动态的设定字段类型</li>
 <li>Index Alias：无需停机，无需修改程序，修改 alias 之后立即生效，即可使用该 alias（可进行零停机 reindex 等动作）</li>
 <li>Update By Query &amp; Reindex</li>
 </ul>
-<h4 id="8、相关阅读"><a href="#8、相关阅读" class="headerlink" title="8、相关阅读"></a>8、相关阅读</h4><blockquote>
+<h4 id="8、相关阅读"><a class="header-anchor" href="#8、相关阅读">¶</a>8、相关阅读</h4>
+<blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html</a></p>
 </blockquote>
-<h3 id="文档及关系建模及一些数据建模最佳实践"><a href="#文档及关系建模及一些数据建模最佳实践" class="headerlink" title="文档及关系建模及一些数据建模最佳实践"></a>文档及关系建模及一些数据建模最佳实践</h3><h4 id="建模建议-一-：如何处理关联关系"><a href="#建模建议-一-：如何处理关联关系" class="headerlink" title="建模建议(一)：如何处理关联关系"></a>建模建议(一)：如何处理关联关系</h4><p>下图就是我们在选择索引中的文档关系的一个优先考虑流程：</p>
+<h3 id="文档及关系建模及一些数据建模最佳实践"><a class="header-anchor" href="#文档及关系建模及一些数据建模最佳实践">¶</a>文档及关系建模及一些数据建模最佳实践</h3>
+<h4 id="建模建议-一-：如何处理关联关系"><a class="header-anchor" href="#建模建议-一-：如何处理关联关系">¶</a>建模建议(一)：如何处理关联关系</h4>
+<p>下图就是我们在选择索引中的文档关系的一个优先考虑流程：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215650.png" alt="image-20200430095305105"></p>
 <blockquote>
 <p>需要注意的是：在 Kibana 中目前暂时没有对 nested 类型和 parent/child 类型提供一个很好的支持。在未来有可能会支持。如果需要使用 Kibana 进行数据分析，在数据建模时仍需对嵌套和父子关系类型作出取舍。</p>
 </blockquote>
-<h4 id="建模建议-二-：避免过多字段"><a href="#建模建议-二-：避免过多字段" class="headerlink" title="建模建议(二)：避免过多字段"></a>建模建议(二)：避免过多字段</h4><p>一个文档中，最好避免大量的字段：</p>
+<h4 id="建模建议-二-：避免过多字段"><a class="header-anchor" href="#建模建议-二-：避免过多字段">¶</a>建模建议(二)：避免过多字段</h4>
+<p>一个文档中，最好避免大量的字段：</p>
 <ul>
 <li>过多的字段不容易维护</li>
 <li>Mapping 信息保存在 Cluster State 中，数据量过大，对集群性能会有影响（Cluster State 信息需要和所有的节点同步）</li>
@@ -1736,13 +1933,14 @@ POST books/_search
 </ul>
 <p>ES 中默认最大字段数是1000，可以通过设置<code>index.mapping.total)fields.limit</code>限定最大字段数。</p>
 <p><strong>可能导致文档中有成百上千的字段的原因：</strong></p>
-<p>可能是因为启用了 Dynamic Mapping，用户在对其数据结构不是很准确的了解和控制的情况下会导致一些为止的新字段的写入。所以在生产环境中我们尽量不要使用 Dynamic Mapping。通过 Mapping 中的”_doc.dynamic”属性控制：</p>
+<p>可能是因为启用了 Dynamic Mapping，用户在对其数据结构不是很准确的了解和控制的情况下会导致一些为止的新字段的写入。所以在生产环境中我们尽量不要使用 Dynamic Mapping。通过 Mapping 中的&quot;_doc.dynamic&quot;属性控制：</p>
 <ul>
 <li>true：未知字段会被自动加入以及索引</li>
 <li>false：新字段不会被索引，但是会保存到 _source</li>
 <li>strict：索引未知字段会失败，直接报错</li>
 </ul>
-<h5 id="示例：Cookie-Service-的数据"><a href="#示例：Cookie-Service-的数据" class="headerlink" title="示例：Cookie Service 的数据"></a>示例：Cookie Service 的数据</h5><p>我们现在有一个保存 Cookie 的服务，我们打算将 cookie 数据索引到 ES 的一个 cookie_service 中，并在一开始使用了 dynamic mapping，直接索引数据。</p>
+<h5 id="示例：Cookie-Service-的数据"><a class="header-anchor" href="#示例：Cookie-Service-的数据">¶</a>示例：Cookie Service 的数据</h5>
+<p>我们现在有一个保存 Cookie 的服务，我们打算将 cookie 数据索引到 ES 的一个 cookie_service 中，并在一开始使用了 dynamic mapping，直接索引数据。</p>
 <p>可以看到在下面的例子中，我们分别保存了两个 cookies，而两个 cookie 中的含有的键值对是不一样的，主要是 cookie 的键，<strong>因为 cookie 是一个可以由用户自定义的一个键值对，所以cookie 对象中的属性字段输入到 ES 可能就会有成千上百以上了</strong>！</p>
 <pre><code>##索引数据，dynamic mapping 会不断加入新增字段
 PUT cookie_service/_doc/1
@@ -1761,10 +1959,13 @@ PUT cookie_service/_doc/2
    &quot;login&quot;:&quot;2019-01-01&quot;,
    &quot;email&quot;:&quot;xyz@abc.com&quot;
  }
-}</code></pre><p>此时，我们可以使用 nested Object 来解决这个问题。看下面的例子，我们删除了原本的 cookie_service 索引，并进行显示 mapping 设置。我们重新定义了索引中文档的”cookies”字段为一个”nested”类型的字段，这个对象有4个属性：</p>
+}
+</code></pre>
+<p>此时，我们可以使用 nested Object 来解决这个问题。看下面的例子，我们删除了原本的 cookie_service 索引，并进行显示 mapping 设置。我们重新定义了索引中文档的&quot;cookies&quot;字段为一个&quot;nested&quot;类型的字段，这个对象有4个属性：</p>
 <ul>
 <li>“name”：存储的就是一个 cookie 键</li>
-<li>根据cookie 值的不同类型存储到不同的value字段：<ul>
+<li>根据cookie 值的不同类型存储到不同的value字段：
+<ul>
 <li>“dataValue”：date 类型</li>
 <li>“keywordValue”：keyword 类型</li>
 <li>“intValue”：integer 类型</li>
@@ -1867,17 +2068,23 @@ POST cookie_service/_search
     }
   }
 }
-</code></pre><blockquote>
+
+</code></pre>
+<blockquote>
 <p>但是虽然通过 Nested 对象保存这种 key/value 数据可以减少字段数量，解决了 Cluster State 中保存过多 Meta 信息的问题，但是同时也导致了查询语句复杂度增加；另外 nested 对象不利于在 Kibana 中实现可视化分析。</p>
 </blockquote>
-<h4 id="建模建议-三-：避免正则查询"><a href="#建模建议-三-：避免正则查询" class="headerlink" title="建模建议(三)：避免正则查询"></a>建模建议(三)：避免正则查询</h4><p>我们应该尽量避免在 ES 中使用正则、通配符查询，特别是将通配符放在开头，会导致性能的灾难。前面也提到 ES 提供了一个基于前缀的 terms 查询，但是性能不够好。</p>
-<p>下面我们来分析一个案例提供一些对于”匹配”查询的一些优化思路。</p>
-<h5 id="示例：模糊查询版本信息"><a href="#示例：模糊查询版本信息" class="headerlink" title="示例：模糊查询版本信息"></a>示例：模糊查询版本信息</h5><p>我们拥有一个 softwares 的一个索引，里面索引了一些软件的信息。其中的一个 version 字段包含了软件的版本信息，以 ES 为例，可能包含一个值为”7.1.0”的ES文档。 现在我们需要该字段支持模糊查询，例如：搜索所有是 bug fix 版本的软件并返回每个主版本号所关联的文档？</p>
+<h4 id="建模建议-三-：避免正则查询"><a class="header-anchor" href="#建模建议-三-：避免正则查询">¶</a>建模建议(三)：避免正则查询</h4>
+<p>我们应该尽量避免在 ES 中使用正则、通配符查询，特别是将通配符放在开头，会导致性能的灾难。前面也提到 ES 提供了一个基于前缀的 terms 查询，但是性能不够好。</p>
+<p>下面我们来分析一个案例提供一些对于&quot;匹配&quot;查询的一些优化思路。</p>
+<h5 id="示例：模糊查询版本信息"><a class="header-anchor" href="#示例：模糊查询版本信息">¶</a>示例：模糊查询版本信息</h5>
+<p>我们拥有一个 softwares 的一个索引，里面索引了一些软件的信息。其中的一个 version 字段包含了软件的版本信息，以 ES 为例，可能包含一个值为&quot;7.1.0&quot;的ES文档。 现在我们需要该字段支持模糊查询，例如：搜索所有是 bug fix 版本的软件并返回每个主版本号所关联的文档？</p>
 <pre><code>PUT softwares/_doc/1
 {
   &quot;software_version&quot;:&quot;7.1.0&quot;
 }
-GET softwares/_mapping</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215700.png" alt="image-20200430104356697"></p>
+GET softwares/_mapping
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215700.png" alt="image-20200430104356697"></p>
 <p>解决方案可以将 version 经过各部分的拆分之后，从字符串类型转为对象类型，可以看到我们为 version 属性设置了4个属性：</p>
 <ul>
 <li>display_name：keyword 类型，维护原始的版本字符串信息</li>
@@ -1885,7 +2092,7 @@ GET softwares/_mapping</code></pre><p><img src="https://cdn.jsdelivr.net/gh/John
 <li>marjor：byte 类型，将版本信息拆分之后截取出来的 major 版本号</li>
 <li>minor：byte 类型，将版本信息拆分之后截取出来的 minor 版本号</li>
 </ul>
-<p>这样，原本的”7.1.0”我们就拆成了”hot_fix=7;marjor=1;minor=0”，在检索的时候根据具体子版本号使用 bool 查询即可，大大提升性能：</p>
+<p>这样，原本的&quot;7.1.0&quot;我们就拆成了&quot;hot_fix=7;marjor=1;minor=0&quot;，在检索的时候根据具体子版本号使用 bool 查询即可，大大提升性能：</p>
 <pre><code>DELETE softwares
 # 优化,使用inner object
 PUT softwares/
@@ -1961,8 +2168,11 @@ POST softwares/_search
       ]
     }
   }
-}</code></pre><h4 id="建模建议-四-：避免空值引起的聚合不准"><a href="#建模建议-四-：避免空值引起的聚合不准" class="headerlink" title="建模建议(四)：避免空值引起的聚合不准"></a>建模建议(四)：避免空值引起的聚合不准</h4><p>请看下面示例，我们分别一个ratings 索引中创建了两个文档，它们都只有一个字段”rating”，文档1的值为5，文档2的值为 null。</p>
-<p>然后我们进行了一次对”rating”的 avg metric agg，发现得到的 rating 平均值是5，因为 ES 在进行字段 Metric计算的时候，是会过滤空值的，但是对于用户来说，一个文档在这个字段的空值其实指的应该是该文档语义下该字段的默认值，比如这里的 rating 字段，如果是空我们认为它是排名第一的，在这种语义下，下面的 Metric 结果就是错误的。</p>
+}
+</code></pre>
+<h4 id="建模建议-四-：避免空值引起的聚合不准"><a class="header-anchor" href="#建模建议-四-：避免空值引起的聚合不准">¶</a>建模建议(四)：避免空值引起的聚合不准</h4>
+<p>请看下面示例，我们分别一个ratings 索引中创建了两个文档，它们都只有一个字段&quot;rating&quot;，文档1的值为5，文档2的值为 null。</p>
+<p>然后我们进行了一次对&quot;rating&quot;的 avg metric agg，发现得到的 rating 平均值是5，因为 ES 在进行字段 Metric计算的时候，是会过滤空值的，但是对于用户来说，一个文档在这个字段的空值其实指的应该是该文档语义下该字段的默认值，比如这里的 rating 字段，如果是空我们认为它是排名第一的，在这种语义下，下面的 Metric 结果就是错误的。</p>
 <pre><code>PUT ratings/_doc/1
 {
  &quot;rating&quot;:5
@@ -1981,7 +2191,9 @@ POST ratings/_search
       }
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215708.png" alt="image-20200430105104466"></p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215708.png" alt="image-20200430105104466"></p>
 <p>基于上面的问题，我们可以通过 <code>mapping.properties.null_value</code>属性来处理空值，这个属性的值就指定了其所属字段的默认值。下面的例子中我们设置了 rating 的字段的默认值是1，这样我们重新索引文档后再进行 metric 操作就能得到一个想要的值了。</p>
 <pre><code># Not Null 解决聚合的问题
 DELETE ratings
@@ -2025,19 +2237,25 @@ POST ratings/_search
       }
     }
   }
-}</code></pre><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215713.png" alt="image-20200430105634440"></p>
-<h4 id="建模建议-五-：为索引的-Mapping-加入-Meta-信息"><a href="#建模建议-五-：为索引的-Mapping-加入-Meta-信息" class="headerlink" title="建模建议(五)：为索引的 Mapping 加入 Meta 信息"></a>建模建议(五)：为索引的 Mapping 加入 Meta 信息</h4><p>Mappings 设置非常重要，需要从两个维度进行考虑：</p>
+}
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221215713.png" alt="image-20200430105634440"></p>
+<h4 id="建模建议-五-：为索引的-Mapping-加入-Meta-信息"><a class="header-anchor" href="#建模建议-五-：为索引的-Mapping-加入-Meta-信息">¶</a>建模建议(五)：为索引的 Mapping 加入 Meta 信息</h4>
+<p>Mappings 设置非常重要，需要从两个维度进行考虑：</p>
 <ul>
 <li>功能：搜索、聚合、排序</li>
 <li>性能：存储的开销、内存的开销、搜索的开销</li>
 </ul>
 <p>同时 Mappings 的设置也是一个迭代的过程</p>
 <ul>
-<li><p>加入新的字段很容易（必要时需要 update_by_query）</p>
+<li>
+<p>加入新的字段很容易（必要时需要 update_by_query）</p>
 </li>
-<li><p>更新删除字段不允许（需要 reindex 到一个新的索引）</p>
+<li>
+<p>更新删除字段不允许（需要 reindex 到一个新的索引）</p>
 </li>
-<li><p>最好能对 Mappings 加入 Meta 信息，更好的进行版本控制</p>
+<li>
+<p>最好能对 Mappings 加入 Meta 信息，更好的进行版本控制</p>
 <p>参考下面例子，一开始在 _mapping 中设置了一个 _meta 属性，并在这个属性中再增加一个子属性 software_version_mapping 表示当前 mapping 的版本号，在之后的 mapping 更新中要手动的维护这个版本号：</p>
 <pre><code># 在Mapping中加入元信息，便于管理
 PUT softwares/
@@ -2058,11 +2276,15 @@ PUT softwares/_mapping
       &quot;type&quot;: &quot;keyword&quot;
     }
   }
-}</code></pre></li>
-<li><p>可以考虑将 Mapping 文件上传 git 进行管理</p>
+}
+</code></pre>
+</li>
+<li>
+<p>可以考虑将 Mapping 文件上传 git 进行管理</p>
 </li>
 </ul>
-<h3 id="相关阅读-4"><a href="#相关阅读-4" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<h3 id="相关阅读-v5"><a class="header-anchor" href="#相关阅读-v5">¶</a>相关阅读</h3>
+<blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/general-recommendations.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/general-recommendations.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/tune-for-disk-usage.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/tune-for-disk-usage.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/tune-for-search-speed.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/tune-for-search-speed.html</a></p>
@@ -2559,7 +2781,7 @@ PUT softwares/_mapping
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="004_Elasticsearch 入门">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="004_Elasticsearch 入门">
                         
                         <span class="card-title">004_Elasticsearch 入门</span>
                     </div>
@@ -2608,7 +2830,7 @@ PUT softwares/_mapping
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="013_ELK日志管理">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="013_ELK日志管理">
                         
                         <span class="card-title">013_ELK日志管理</span>
                     </div>
@@ -2776,7 +2998,7 @@ PUT softwares/_mapping
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

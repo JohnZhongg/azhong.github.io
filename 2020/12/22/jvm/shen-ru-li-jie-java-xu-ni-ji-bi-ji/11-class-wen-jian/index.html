@@ -9,9 +9,10 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[toc]
-介绍Class文件是JVM的输入，Java虚拟机规范中定义了Class文件的结构。Class文件是JVM实现平台无关、技术无关的基础。
+介绍
+Class文件是JVM的输入，Java虚拟机规范中定义了Class文件的结构。Class文件是JVM实现平台无关、技术无关的基础。
 
-Class文件是一组以8字节为单位的字节流，各个数据项目按顺序紧凑排列(无特殊分隔符，如空">
+Class文件是一组以8字节为单位的字节流，各个数据项目按顺序紧凑排列(无特殊分隔符，如">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -332,7 +333,7 @@ Class文件是一组以8字节为单位的字节流，各个数据项目按顺�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,17 +512,20 @@ Class文件是一组以8字节为单位的字节流，各个数据项目按顺�
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>Class文件是JVM的输入，Java虚拟机规范中定义了Class文件的结构。Class文件是JVM实现平台无关、技术无关的基础。</p>
+<h1>介绍</h1>
+<p>Class文件是JVM的输入，Java虚拟机规范中定义了Class文件的结构。Class文件是JVM实现平台无关、技术无关的基础。</p>
 <ol>
 <li>Class文件是一组以8字节为单位的字节流，各个数据项目按顺序紧凑排列(无特殊分隔符，如空格)</li>
 <li>对于占用空间大于8字节的数据项，按照高位在前(Big-edian)的方式分割成多个8字节进行存储</li>
-<li>Class文件格式里面只有两种类型：无符号数、表<ol>
+<li>Class文件格式里面只有两种类型：无符号数、表
+<ol>
 <li>无符号数属于基本的数据类型,以u1、u2、u4、u8来分别代表1个字节、2个字节、4个字节和8个字节的无符号数,无符号数可以用来描述数字、索引引用、数量值或者按照UTF-8编码构成字符串值。</li>
-<li>表：由多个无符号数和其它表构成的复合数据类型，通常以”_info”结尾。表用于描述有层次关系的复合结构的数据,整个Class文件本质上也可以视作是一张表</li>
+<li>表：由多个无符号数和其它表构成的复合数据类型，通常以&quot;_info&quot;结尾。表用于描述有层次关系的复合结构的数据,整个Class文件本质上也可以视作是一张表</li>
 </ol>
 </li>
 </ol>
-<h2 id="Class文件图表示意"><a href="#Class文件图表示意" class="headerlink" title="Class文件图表示意"></a>Class文件图表示意</h2><table>
+<h2 id="Class文件图表示意"><a class="header-anchor" href="#Class文件图表示意">¶</a>Class文件图表示意</h2>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -530,7 +534,8 @@ Class文件是一组以8字节为单位的字节流，各个数据项目按顺�
 <th>抽象类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u4</td>
 <td>magic</td>
 <td>1</td>
@@ -626,42 +631,52 @@ Class文件是一组以8字节为单位的字节流，各个数据项目按顺�
 <td>attributes_count</td>
 <td>表</td>
 </tr>
-</tbody></table>
-<p> <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235326.png" alt="class"></p>
-<h1 id="魔数与Class文件的版本"><a href="#魔数与Class文件的版本" class="headerlink" title="魔数与Class文件的版本"></a>魔数与Class文件的版本</h1><p>每个Class文件的头4个字节被称为魔数(Magic Number),它的唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件,其值为”0xCAFEBABE”。</p>
+</tbody>
+</table>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235326.png" alt="class"></p>
+<h1>魔数与Class文件的版本</h1>
+<p>每个Class文件的头4个字节被称为魔数(Magic Number),它的唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件,其值为&quot;0xCAFEBABE&quot;。</p>
 <p>紧接着魔数的4个字节存储的是Class文件的版本号:第5和第6个字节是次版本号(Minor Version),第7和第8个字节是主版本号(Major Version)。</p>
-<h1 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h1><p>常量池描述分为两部分：</p>
+<h1>常量池</h1>
+<p>常量池描述分为两部分：</p>
 <ul>
-<li><p>constant_pool_count：常量池数量，固定占两个字节</p>
+<li>
+<p>constant_pool_count：常量池数量，固定占两个字节</p>
 <blockquote>
 <p>注意：</p>
 <p>常量池项(cp_info)从索引0开始，最后一个常量池项(cp_info)的素引值为constant_pool_count-1，所以真正常量池数量应该为constant_pool_count-1。例如constant_ pool_ count=22,则后面的常量池项(cp_info)的个数就为21。</p>
-<p>原因是在指定 class 文件规范的时候,将第0项常量空出来是有特殊考虑的,这样做是为了满足某些指向常量池的素引值的数据在特定的情况下表达“不引用任何一个常量池项”的意思,这种情况下可以将素引值设置成0来表示) </p>
+<p>原因是在指定 class 文件规范的时候,将第0项常量空出来是有特殊考虑的,这样做是为了满足某些指向常量池的素引值的数据在特定的情况下表达“不引用任何一个常量池项”的意思,这种情况下可以将素引值设置成0来表示)</p>
 <p>class文件结构中只有常量池的容量计数是从1开始,对于其他集合类型,包括接口索引集合、字段表集合、方法表集合等的容量计数都与一般习惯相同,是从0开始。</p>
 </blockquote>
 </li>
-<li><p>cp_info：常量池项，长度由常量池数量以及本身的常量类型决定</p>
+<li>
+<p>cp_info：常量池项，长度由常量池数量以及本身的常量类型决定</p>
 </li>
 </ul>
-<h2 id="常量池内容"><a href="#常量池内容" class="headerlink" title="常量池内容"></a>常量池内容</h2><p>常量池中主要存放两大类常量:字面量(Literal)和符号引用(Symbolic References)。</p>
+<h2 id="常量池内容"><a class="header-anchor" href="#常量池内容">¶</a>常量池内容</h2>
+<p>常量池中主要存放两大类常量:字面量(Literal)和符号引用(Symbolic References)。</p>
 <ul>
 <li>字面量比较接近于Java语言层面的常量概念, 如文本字符串、被声明为final的常量值等。</li>
-<li>而符号引用则属于编译原理方面的概念,主要包括下面几类常量:<ul>
-<li>被模块导出或者开放的包(Package) </li>
-<li>类和接口的全限定名(Fully Qualified Name) </li>
-<li>字段的名称和描述符(Descriptor) </li>
+<li>而符号引用则属于编译原理方面的概念,主要包括下面几类常量:
+<ul>
+<li>被模块导出或者开放的包(Package)</li>
+<li>类和接口的全限定名(Fully Qualified Name)</li>
+<li>字段的名称和描述符(Descriptor)</li>
 <li>方法的名称和描述符</li>
-<li>方法句柄和方法类型(Method Handle、Method Type、Invoke Dynamic) </li>
+<li>方法句柄和方法类型(Method Handle、Method Type、Invoke Dynamic)</li>
 <li>动态调用点和动态常量(Dynamically-Computed CallSite、Dynamically-Computed Constant)</li>
 </ul>
 </li>
 </ul>
-<h2 id="常量池项-cp-info-结构"><a href="#常量池项-cp-info-结构" class="headerlink" title="常量池项(cp_info)结构"></a>常量池项(cp_info)结构</h2><p>常量池中每一项常量都是一个表,现在常量表中共有17种结构各不相同的表结构数据，这17类表都有一个共同的特点,表结构起始的第一位是个u1类型的标志位(tag),代表着当前常量属于哪种常量类型。</p>
-<pre class="line-numbers language-c"><code class="language-c">cp_info <span class="token punctuation">{</span>
-    u1 tag<span class="token punctuation">;</span>
-    u1 info<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="tag值"><a href="#tag值" class="headerlink" title="tag值"></a>tag值</h3><p>每个常量池项(cp_info)都会对应记录着Class文件中的某种类型的字面量。VM虚拟机根据tag的值来确定是某个常量池项(cp_info)表示什么类型的字面量。</p>
+<h2 id="常量池项-cp-info-结构"><a class="header-anchor" href="#常量池项-cp-info-结构">¶</a>常量池项(cp_info)结构</h2>
+<p>常量池中每一项常量都是一个表,现在常量表中共有17种结构各不相同的表结构数据，这17类表都有一个共同的特点,表结构起始的第一位是个u1类型的标志位(tag),代表着当前常量属于哪种常量类型。</p>
+<pre class="line-numbers language-language-c"><code class="language-language-c">cp_info {
+	u1 tag;
+	u1 info[];
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="tag值"><a class="header-anchor" href="#tag值">¶</a>tag值</h3>
+<p>每个常量池项(cp_info)都会对应记录着Class文件中的某种类型的字面量。VM虚拟机根据tag的值来确定是某个常量池项(cp_info)表示什么类型的字面量。</p>
 <table>
 <thead>
 <tr>
@@ -670,7 +685,8 @@ Class文件是一组以8字节为单位的字节流，各个数据项目按顺�
 <th>更细化的结构</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>以UTF-8编码的字符串，通常用于被其他表结构引用</td>
 <td>CONSTANT_Utf8_info</td>
@@ -755,65 +771,72 @@ Class文件是一组以8字节为单位的字节流，各个数据项目按顺�
 <td>表示一个模块中开放或者导出的包</td>
 <td>CONSTANT_Package_info</td>
 </tr>
-</tbody></table>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>使用<code>javap -v</code>查看字节码文件。</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//固定占用5字节，1字节指定tag类型为3，4字节为int二进制描述</span>
+</tbody>
+</table>
+<h3 id="示例"><a class="header-anchor" href="#示例">¶</a>示例</h3>
+<p>使用<code>javap -v</code>查看字节码文件。</p>
+<pre class="line-numbers language-language-c"><code class="language-language-c">//固定占用5字节，1字节指定tag类型为3，4字节为int二进制描述
 CONSTANT_Integer_info
-<span class="token punctuation">{</span>
-    u1 tag<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span>
-    u4 bytes<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//固定占用5字节，1字节指定tag类型为4，4字节为float二进制描述</span>
+{
+	u1 tag=3;
+	u4 bytes;
+}
+//固定占用5字节，1字节指定tag类型为4，4字节为float二进制描述
 CONSTANT_Float_info
-<span class="token punctuation">{</span>
-    u1 tag<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">;</span>
-    u4 bytes<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//固定占用9字节，1字节指定tag类型为5，后面4字节为long的高4位，再接着是long的低4位</span>
+{
+	u1 tag=4;
+	u4 bytes;
+}
+//固定占用9字节，1字节指定tag类型为5，后面4字节为long的高4位，再接着是long的低4位
 CONSTANT_Long_info
-<span class="token punctuation">{</span>
-  u1 tag<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
-  u4 high_bytes<span class="token punctuation">;</span>
-  u4 low_bytes<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//固定占用9字节，1字节指定tag类型为6，后面4字节为double的高4位，再接着是double的低4位</span>
+{
+  u1 tag=5;
+  u4 high_bytes;
+  u4 low_bytes;
+}
+//固定占用9字节，1字节指定tag类型为6，后面4字节为double的高4位，再接着是double的低4位
 CONSTANT_Double_info
-<span class="token punctuation">{</span>
-  u1 tag<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">;</span>
-  u4 high_bytes<span class="token punctuation">;</span>
-  u4 low_bytes<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//JVM规定源文件中的所有字面量都以UTF-8编码格式存储到在class字节码文件中(包含方法名、""括起来的字符串、类名等等)</span>
+{
+  u1 tag=6;
+  u4 high_bytes;
+  u4 low_bytes;
+}
+//JVM规定源文件中的所有字面量都以UTF-8编码格式存储到在class字节码文件中(包含方法名、""括起来的字符串、类名等等)
 CONSTANT_Utf8_info
-<span class="token punctuation">{</span>
-  u1 tag<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//一个字节指定tag类型为1</span>
-  u2 length<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//两个字节指定长度，所以源文件的字面量都是有长度限制的</span>
-  u1 bytes<span class="token punctuation">[</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//接下来的length个长度字节承载UTF-8编码的二进制文本数据</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//用双引号""括起来的字符串字面量，固定3个字节</span>
+{
+  u1 tag=1;	//一个字节指定tag类型为1
+  u2 length;	//两个字节指定长度，所以源文件的字面量都是有长度限制的
+  u1 bytes[length];	//接下来的length个长度字节承载UTF-8编码的二进制文本数据
+}
+//用双引号""括起来的字符串字面量，固定3个字节
 CONSTANT_String_info
-<span class="token punctuation">{</span>
-  u1 tag<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//一个字节指定tag类型为8</span>
-  u2 string_index<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//两个字节指向常量池中某个 CONSTANT_Utf8_info 项的索引</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//类名字面量，同样固定3个字节</span>
+{
+  u1 tag=8;	//一个字节指定tag类型为8
+  u2 string_index;	//两个字节指向常量池中某个 CONSTANT_Utf8_info 项的索引
+}
+//类名字面量，同样固定3个字节
 CONSTANT_Class_info
-<span class="token punctuation">{</span>
-    u1 tag<span class="token operator">=</span><span class="token number">7</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//一个字节指定tag类型为7</span>
-  u2 name_index<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//两个字节指向常量池中某个 CONSTANT_Utf8_info 项的索引</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+{
+	u1 tag=7;	//一个字节指定tag类型为7
+  u2 name_index;	//两个字节指向常量池中某个 CONSTANT_Utf8_info 项的索引
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>对于类名字面量需要注意的：</p>
 <ol>
-<li><p>对于某个类而言,其class文件中至少要有两个CONSTANT_Class_info常量池项,用来表示自己的类信息和其父类信息。(除了<code>java.lang.Object</code>类除外,其他的任何类都会默认继承自<code>java.lang.Object</code>)如果类声明实现了某些接口,那么接口的信息也会生成对应的CONSTANT_Class_info常量池项。</p>
+<li>
+<p>对于某个类而言,其class文件中至少要有两个CONSTANT_Class_info常量池项,用来表示自己的类信息和其父类信息。(除了<code>java.lang.Object</code>类除外,其他的任何类都会默认继承自<code>java.lang.Object</code>)如果类声明实现了某些接口,那么接口的信息也会生成对应的CONSTANT_Class_info常量池项。</p>
 <p>所以对于某个类或接口而言,其自身、父类和继承或实现的接口的信息会被直接组装成CONSTANT_Class_info常量池项放置到常量池中</p>
 </li>
-<li><p>类中或接口中使用到了其他的类,只有在类中实际使用到了该类时,该类的信息才会在常量池中有对应的CONSTANT_Class_info常量池项; 否则Javac编译器只会将生成CONSTANT_Utf8_info而不会生成CONSTANT_Class_info</p>
+<li>
+<p>类中或接口中使用到了其他的类,只有在类中实际使用到了该类时,该类的信息才会在常量池中有对应的CONSTANT_Class_info常量池项; 否则Javac编译器只会将生成CONSTANT_Utf8_info而不会生成CONSTANT_Class_info</p>
 </li>
 </ol>
 </blockquote>
-<h3 id="各表结构示意"><a href="#各表结构示意" class="headerlink" title="各表结构示意"></a>各表结构示意</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235334.png" alt="image-20200921114044036"><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235340.png" alt="image-20200921114112717"><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235348.png" alt="image-20200921114153809"></p>
-<h1 id="访问标识"><a href="#访问标识" class="headerlink" title="访问标识"></a>访问标识</h1><p>常量池结束之后,紧接着的2个字节(16个标志位)代表访问标志(access_flags),这个标志用于识别类或者接口层次的一些访问信息,包括:<strong>这个Class</strong>是类还是接口;是否定义为public类型;是否定义为abstract 类型;如果是类的话,是否被声明为final;等等。</p>
+<h3 id="各表结构示意"><a class="header-anchor" href="#各表结构示意">¶</a>各表结构示意</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235334.png" alt="image-20200921114044036"><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235340.png" alt="image-20200921114112717"><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235348.png" alt="image-20200921114153809"></p>
+<h1>访问标识</h1>
+<p>常量池结束之后,紧接着的2个字节(16个标志位)代表访问标志(access_flags),这个标志用于识别类或者接口层次的一些访问信息,包括:<strong>这个Class</strong>是类还是接口;是否定义为public类型;是否定义为abstract 类型;如果是类的话,是否被声明为final;等等。</p>
 <p>access_flags中一共有16个标志位可以使用,当前只定义了其中<strong>9个</strong>,没有使用到的标志位要求一律为零：</p>
 <table>
 <thead>
@@ -823,7 +846,8 @@ CONSTANT_Class_info
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ACC_PUBLIC</td>
 <td>0x0001</td>
 <td>是否为 public类型</td>
@@ -868,25 +892,30 @@ CONSTANT_Class_info
 <td>0X8000</td>
 <td>标识这是一个模块</td>
 </tr>
-</tbody></table>
-<h1 id="类索引、父类索引与接口索引集合"><a href="#类索引、父类索引与接口索引集合" class="headerlink" title="类索引、父类索引与接口索引集合"></a>类索引、父类索引与接口索引集合</h1><p>类索引(this_class)和父类索引(super_class)<strong>都是一个u2类型的数据</strong>,而接口索引集合(interfaces)<strong>是一组u2类型的数据的集合</strong>,Class文件中由这三项数据来确定该类型的继承关系。</p>
+</tbody>
+</table>
+<h1>类索引、父类索引与接口索引集合</h1>
+<p>类索引(this_class)和父类索引(super_class)<strong>都是一个u2类型的数据</strong>,而接口索引集合(interfaces)<strong>是一组u2类型的数据的集合</strong>,Class文件中由这三项数据来确定该类型的继承关系。</p>
 <ol>
-<li><strong>类索引用于确定这个类(当前Class字节码”文件”)的全限定名</strong></li>
-<li><strong>父类索引用于确定这个类(当前Class字节码”文件”)的父类的全限定名。</strong>由于Java语言不允许多重继承,所以父类索引只有一个,除了<code>java.lang.Object</code>之外,所有的Java类都有父类,因此除了<code>java.lang.Object</code>外,所有Java类的父类索引都不为0。</li>
+<li><strong>类索引用于确定这个类(当前Class字节码&quot;文件&quot;)的全限定名</strong></li>
+<li>**父类索引用于确定这个类(当前Class字节码&quot;文件&quot;)的父类的全限定名。**由于Java语言不允许多重继承,所以父类索引只有一个,除了<code>java.lang.Object</code>之外,所有的Java类都有父类,因此除了<code>java.lang.Object</code>外,所有Java类的父类索引都不为0。</li>
 <li>接口索引集合就用来描述这个类实现了哪些接口,这些被实现的接口将按implements关键字(如果这个Class文件表示的是一个接口,则应当是extends关键字)后的接口顺序从左到右排列在接口索引集合中。</li>
 </ol>
 <p>类索引、父类索引和接口索引集合都按顺序排列在访问标志之后</p>
 <ol>
-<li><p>类索引和父类索引用两个u2类型的索引值表示<strong>,它们各自指向一个类型为CONSTANT_Class_info的类描述符常量,通过CONSTANT_Class_info类型的常量中的索引值可以找到定义在CONSTANT_Utf8_info类型的常量中的全限定名字符串</strong>。</p>
+<li>
+<p>类索引和父类索引用两个u2类型的索引值表示**,它们各自指向一个类型为CONSTANT_Class_info的类描述符常量,通过CONSTANT_Class_info类型的常量中的索引值可以找到定义在CONSTANT_Utf8_info类型的常量中的全限定名字符串**。</p>
 </li>
-<li><p>对于接口索引集合,<strong>入口的第一项u2类型的数据为接口计数器</strong>(interfaces_count),表示索引表的容量：</p>
+<li>
+<p>对于接口索引集合,<strong>入口的第一项u2类型的数据为接口计数器</strong>(interfaces_count),表示索引表的容量：</p>
 <ul>
 <li>如果该类没有实现任何接口,则该计数器值为0, 后面接口的索引表不再占用任何字节</li>
 <li>如果该类实现了2各接口，则该计数器值为2，后面再跟两个u2类型数据存储<strong>CONSTANT_Class_info的索引</strong>。</li>
 </ul>
 </li>
 </ol>
-<h1 id="字段表"><a href="#字段表" class="headerlink" title="字段表"></a>字段表</h1><p>字段表(field_info)用于描述接口或者类中声明的变量。Java语言中的“字段”(Field)包括类级变量以及实例级变量,但不包括在方法内部声明的局部变量。</p>
+<h1>字段表</h1>
+<p>字段表(field_info)用于描述接口或者类中声明的变量。Java语言中的“字段”(Field)包括类级变量以及实例级变量,但不包括在方法内部声明的局部变量。</p>
 <p>字段可以包括的修饰符有：</p>
 <ol>
 <li>字段的作用域(public、private、protected修饰符)</li>
@@ -897,7 +926,8 @@ CONSTANT_Class_info
 <li>字段数据类型(基本类型、对象、数组)</li>
 <li>字段名称</li>
 </ol>
-<h2 id="字段表结构"><a href="#字段表结构" class="headerlink" title="字段表结构"></a>字段表结构</h2><p>字段表集合中不会列出从父类或者父接口中继承而来的字段,但有可能出现原本Java代码之中不存在的字段,譬如在内部类中为了保持对外部类的访问性,编译器就会自动添加指向外部类实例的字段。另外,在Java语言中字段是无法重载的,两个字段的数据类型、修饰符不管是否相同,都必须使用不一样的名称,但是对于Class文件格式来讲,只要两个字段的描述符不是完全相同,那字段重名就是合法的。</p>
+<h2 id="字段表结构"><a class="header-anchor" href="#字段表结构">¶</a>字段表结构</h2>
+<p>字段表集合中不会列出从父类或者父接口中继承而来的字段,但有可能出现原本Java代码之中不存在的字段,譬如在内部类中为了保持对外部类的访问性,编译器就会自动添加指向外部类实例的字段。另外,在Java语言中字段是无法重载的,两个字段的数据类型、修饰符不管是否相同,都必须使用不一样的名称,但是对于Class文件格式来讲,只要两个字段的描述符不是完全相同,那字段重名就是合法的。</p>
 <table>
 <thead>
 <tr>
@@ -906,7 +936,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>access_flags</td>
 <td>1</td>
@@ -931,8 +962,10 @@ CONSTANT_Class_info
 <td>attributes</td>
 <td>attributes_count</td>
 </tr>
-</tbody></table>
-<h2 id="access-flags"><a href="#access-flags" class="headerlink" title="access_flags"></a>access_flags</h2><table>
+</tbody>
+</table>
+<h2 id="access-flags"><a class="header-anchor" href="#access-flags">¶</a>access_flags</h2>
+<table>
 <thead>
 <tr>
 <th>标志名称</th>
@@ -940,7 +973,8 @@ CONSTANT_Class_info
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ACC_PUBLIC</td>
 <td>0x0001</td>
 <td>字段是否public</td>
@@ -985,22 +1019,25 @@ CONSTANT_Class_info
 <td>0x4000</td>
 <td>字段是否enum</td>
 </tr>
-</tbody></table>
-<h2 id="name-index和descriptor-index"><a href="#name-index和descriptor-index" class="headerlink" title="name_index和descriptor_index"></a>name_index和descriptor_index</h2><p>跟随access_flags标志的是两项索引值:name_index和descriptor_index。它们<strong>存储的都是常量池中某常量池项的索引值表示对其引用</strong>,分别代表着字段的简单名称以及字段和方法的描述符，概念对比：</p>
+</tbody>
+</table>
+<h2 id="name-index和descriptor-index"><a class="header-anchor" href="#name-index和descriptor-index">¶</a>name_index和descriptor_index</h2>
+<p>跟随access_flags标志的是两项索引值:name_index和descriptor_index。它们<strong>存储的都是常量池中某常量池项的索引值表示对其引用</strong>,分别代表着字段的简单名称以及字段和方法的描述符，概念对比：</p>
 <ol>
-<li><p>全限定名：”java/lang/Object;”，包名+类名以斜杠分隔并以分号结尾。</p>
-</li>
-<li><p>简单名称</p>
+<li>全限定名：“java/lang/Object;”，包名+类名以斜杠分隔并以分号结尾。</li>
+<li>简单名称
 <ul>
 <li>没有类型和参数修饰的方法名称</li>
 <li>字段名称</li>
 </ul>
 </li>
-<li><p>描述符</p>
+<li>描述符
 <ul>
-<li><p>单独作为一个”CONSTANT_Utf8_info”项描述字段的数据类型</p>
+<li>
+<p>单独作为一个&quot;CONSTANT_Utf8_info&quot;项描述字段的数据类型</p>
 </li>
-<li><p>组合<strong>多个有序</strong>的描述符以及<code>()</code>为一个”CONSTANT_Utf8_info”来描述方法的参数列表（包括数量、类型以及顺序）和返回值类型，如：<code>()Ljava/lang/String;</code>即可描述方法为无参、返回值为<code>String</code></p>
+<li>
+<p>组合<strong>多个有序</strong>的描述符以及<code>()</code>为一个&quot;CONSTANT_Utf8_info&quot;来描述方法的参数列表（包括数量、类型以及顺序）和返回值类型，如：<code>()Ljava/lang/String;</code>即可描述方法为无参、返回值为<code>String</code></p>
 <blockquote>
 <p>方法参数的类型描述符按顺序排列，完了之后才是返回值类型描述符</p>
 </blockquote>
@@ -1008,14 +1045,16 @@ CONSTANT_Class_info
 </ul>
 </li>
 </ol>
-<h3 id="描述符"><a href="#描述符" class="headerlink" title="描述符"></a>描述符</h3><table>
+<h3 id="描述符"><a class="header-anchor" href="#描述符">¶</a>描述符</h3>
+<table>
 <thead>
 <tr>
 <th>标识字符</th>
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>B</code></td>
 <td>基本类型byte</td>
 </tr>
@@ -1059,10 +1098,14 @@ CONSTANT_Class_info
 <td><code>[</code></td>
 <td>数组类型,每一维度将使用一个前置的<code>[</code>字符来描述,如一个定义为<code>java.lang.String[][]</code>类型的二维数组将被记录成<code>[[Ljava/lang/String;</code>,一个整型数组<code>int[]</code>将被记录成<code>[I</code>。</td>
 </tr>
-</tbody></table>
-<h2 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h2><p>由attributes_count指定attributes项的个数，每个attributes项中包含一个CONSTANT_Utf8_info常量池项的索引，该Utf8常量表示属性的名称，另外attributes结构(属性表结构)还有其他的一些字段构成，具体参考下面的属性表介绍。</p>
-<h1 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h1><p>与字段表集合相对应地,如果父类方法在子类中没有被重写(Override),方法表集合中就不会出现来自父类的方法信息。但同样地,有可能会出现由编译器自动添加的方法,最常见的便是类构造器<code>&lt;clinit&gt;()</code>方法和实例构造器<code>&lt;init&gt;()</code>方法。</p>
-<h2 id="方法表结构"><a href="#方法表结构" class="headerlink" title="方法表结构"></a>方法表结构</h2><p>方法表的结构和字段表非常相似：</p>
+</tbody>
+</table>
+<h2 id="属性表集合"><a class="header-anchor" href="#属性表集合">¶</a>属性表集合</h2>
+<p>由attributes_count指定attributes项的个数，每个attributes项中包含一个CONSTANT_Utf8_info常量池项的索引，该Utf8常量表示属性的名称，另外attributes结构(属性表结构)还有其他的一些字段构成，具体参考下面的属性表介绍。</p>
+<h1>方法表集合</h1>
+<p>与字段表集合相对应地,如果父类方法在子类中没有被重写(Override),方法表集合中就不会出现来自父类的方法信息。但同样地,有可能会出现由编译器自动添加的方法,最常见的便是类构造器<code>&lt;clinit&gt;()</code>方法和实例构造器<code>&lt;init&gt;()</code>方法。</p>
+<h2 id="方法表结构"><a class="header-anchor" href="#方法表结构">¶</a>方法表结构</h2>
+<p>方法表的结构和字段表非常相似：</p>
 <table>
 <thead>
 <tr>
@@ -1071,7 +1114,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>access_flags</td>
 <td>1</td>
@@ -1096,8 +1140,10 @@ CONSTANT_Class_info
 <td>attributes</td>
 <td>attributes_count</td>
 </tr>
-</tbody></table>
-<h2 id="Access-flags"><a href="#Access-flags" class="headerlink" title="Access_flags"></a>Access_flags</h2><table>
+</tbody>
+</table>
+<h2 id="Access-flags"><a class="header-anchor" href="#Access-flags">¶</a>Access_flags</h2>
+<table>
 <thead>
 <tr>
 <th>标志名称</th>
@@ -1105,7 +1151,8 @@ CONSTANT_Class_info
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ACC_PUBLIC</td>
 <td>0x0001</td>
 <td>方法是否public</td>
@@ -1165,11 +1212,15 @@ CONSTANT_Class_info
 <td>0x1000</td>
 <td>字段是否由编译器自动产生</td>
 </tr>
-</tbody></table>
-<h2 id="属性表集合-1"><a href="#属性表集合-1" class="headerlink" title="属性表集合"></a>属性表集合</h2><p>同字段表。</p>
-<h1 id="属性表集合-2"><a href="#属性表集合-2" class="headerlink" title="属性表集合"></a>属性表集合</h1><p>与Class文件中其他的数据项目要求严格的顺序、长度和内容不同,属性表集合的限制稍微宽松一些,不再要求各个属性表具有严格顺序,并且《Java虚拟机规范》允许只要不与已有属性名重复,任何人实现的编译器都可以向属性表中写入自己定义的属性信息,Java虚拟机运行时会忽略掉它不认识的属性。为了能正确解析Class文件,《Java虚拟机规范》最初只预定义了9项所有Java虚拟机实现都应当能识别的属性,而在最新的《Java虚拟机规范》的Java SE 12版本中,预定义属性已经增加到29项。</p>
+</tbody>
+</table>
+<h2 id="属性表集合-v2"><a class="header-anchor" href="#属性表集合-v2">¶</a>属性表集合</h2>
+<p>同字段表。</p>
+<h1>属性表集合</h1>
+<p>与Class文件中其他的数据项目要求严格的顺序、长度和内容不同,属性表集合的限制稍微宽松一些,不再要求各个属性表具有严格顺序,并且《Java虚拟机规范》允许只要不与已有属性名重复,任何人实现的编译器都可以向属性表中写入自己定义的属性信息,Java虚拟机运行时会忽略掉它不认识的属性。为了能正确解析Class文件,《Java虚拟机规范》最初只预定义了9项所有Java虚拟机实现都应当能识别的属性,而在最新的《Java虚拟机规范》的Java SE 12版本中,预定义属性已经增加到29项。</p>
 <p>Class文件、字段表、方法表都可以携带自己的属性表集合。</p>
-<h2 id="常用、关键的预定义属性"><a href="#常用、关键的预定义属性" class="headerlink" title="常用、关键的预定义属性"></a>常用、关键的预定义属性</h2><table>
+<h2 id="常用、关键的预定义属性"><a class="header-anchor" href="#常用、关键的预定义属性">¶</a>常用、关键的预定义属性</h2>
+<table>
 <thead>
 <tr>
 <th>属性名称</th>
@@ -1177,7 +1228,8 @@ CONSTANT_Class_info
 <th>含义</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Code</td>
 <td>方法表</td>
 <td>Java代码编译成的字节码指令</td>
@@ -1317,8 +1369,10 @@ CONSTANT_Class_info
 <td>类</td>
 <td>JDK11中新增的属性,用于支持嵌套类(Java中 的内部类)的反射和访问控制的API,一个宿主类通过该属性得知自己有哪些内部类</td>
 </tr>
-</tbody></table>
-<h2 id="属性表结构"><a href="#属性表结构" class="headerlink" title="属性表结构"></a>属性表结构</h2><p>对于每一个属性项,它的名称都要从常量池中引用一个CONSTANT_Utf8_info类型的常量来表示, 而<strong>属性值的结构则是完全自定义的</strong>,根据具体的属性信息有不一样的结构,只需要通过一个u4的长度属性去说明属性值所占用的位数即可。</p>
+</tbody>
+</table>
+<h2 id="属性表结构"><a class="header-anchor" href="#属性表结构">¶</a>属性表结构</h2>
+<p>对于每一个属性项,它的名称都要从常量池中引用一个CONSTANT_Utf8_info类型的常量来表示, 而<strong>属性值的结构则是完全自定义的</strong>,根据具体的属性信息有不一样的结构,只需要通过一个u4的长度属性去说明属性值所占用的位数即可。</p>
 <table>
 <thead>
 <tr>
@@ -1327,7 +1381,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1342,9 +1397,11 @@ CONSTANT_Class_info
 <td>attribute_info</td>
 <td>attribute_length</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>attribute_length表示attribute_info的长度，所以：<code>attribute_length值=整个属性表的长度 - 6</code>。</p>
-<h3 id="Code属性"><a href="#Code属性" class="headerlink" title="Code属性"></a>Code属性</h3><p>Java程序方法体里面的代码经过Javac编译器处理之后,最终变为字节码指令存储在Code属性内。Code属性出现在方法表的属性集合之中,但并非所有的方法表都必须存在这个属性,譬如接口或者抽象类中的方法就不存在Code属性。</p>
+<h3 id="Code属性"><a class="header-anchor" href="#Code属性">¶</a>Code属性</h3>
+<p>Java程序方法体里面的代码经过Javac编译器处理之后,最终变为字节码指令存储在Code属性内。Code属性出现在方法表的属性集合之中,但并非所有的方法表都必须存在这个属性,譬如接口或者抽象类中的方法就不存在Code属性。</p>
 <table>
 <thead>
 <tr>
@@ -1353,7 +1410,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1403,20 +1461,27 @@ CONSTANT_Class_info
 <td>attributes</td>
 <td>attributes_count</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
-<li><p>attribute_name_index是一项指向CONSTANT_Utf8_info型常量的索引,此常量值固定为“Code”</p>
+<li>
+<p>attribute_name_index是一项指向CONSTANT_Utf8_info型常量的索引,此常量值固定为“Code”</p>
 </li>
-<li><p>attribute_length指示了属性值的长度</p>
+<li>
+<p>attribute_length指示了属性值的长度</p>
 </li>
-<li><p>max_stack代表了操作数栈(Operand Stack)深度的最大值</p>
+<li>
+<p>max_stack代表了操作数栈(Operand Stack)深度的最大值</p>
 </li>
-<li><p>max_locals代表了局部变量表所需的存储空间。在这里,max_locals的单位是变量槽(Slot),变量槽是虚拟机为局部变量分配内存所使用的最小单位。对于byte、char、float、int、short、boolean和returnAddress等长度不超过32位的数据类型,每个局部变量占用一个变量槽,而double和long这两种64 位的数据类型则需要两个变量槽来存放。方法参数(<strong>包括实例方法中的隐藏参数“this”</strong>)、显式异常处理程序的参数(Exception Handler Parameter,就是try-catch语句中catch块中所定义的异常)、方法体中定义的局部变量都需要依赖局部变量表来存放。注意,并不是在方法中用了多少个局部变量,就把这些局部变量所占变量槽数量之和作为max_locals的值,操作数栈和局部变量表直接决定一个该方法的栈帧所耗费的内存,不必要的操作数栈深度和变量槽数量会造成内存的浪费。Java虚拟机的做法是将局部变量表中的变量槽进行重用,当代码执行超出一个局部变量的作用域时,这个局部变量所占的变量槽可以被其他局部变量所使用,Javac编译器会根据变量的作用域来分配变量槽给各个变量使用,根据同时生存的最大局部变量数量和类型计算出max_locals的大小。</p>
+<li>
+<p>max_locals代表了局部变量表所需的存储空间。在这里,max_locals的单位是变量槽(Slot),变量槽是虚拟机为局部变量分配内存所使用的最小单位。对于byte、char、float、int、short、boolean和returnAddress等长度不超过32位的数据类型,每个局部变量占用一个变量槽,而double和long这两种64 位的数据类型则需要两个变量槽来存放。方法参数(<strong>包括实例方法中的隐藏参数“this”</strong>)、显式异常处理程序的参数(Exception Handler Parameter,就是try-catch语句中catch块中所定义的异常)、方法体中定义的局部变量都需要依赖局部变量表来存放。注意,并不是在方法中用了多少个局部变量,就把这些局部变量所占变量槽数量之和作为max_locals的值,操作数栈和局部变量表直接决定一个该方法的栈帧所耗费的内存,不必要的操作数栈深度和变量槽数量会造成内存的浪费。Java虚拟机的做法是将局部变量表中的变量槽进行重用,当代码执行超出一个局部变量的作用域时,这个局部变量所占的变量槽可以被其他局部变量所使用,Javac编译器会根据变量的作用域来分配变量槽给各个变量使用,根据同时生存的最大局部变量数量和类型计算出max_locals的大小。</p>
 </li>
-<li><p>code_length和code用来存储Java源程序编译后生成的字节码指令。code_length代表字节码长度, code是用于存储字节码指令的一系列字节流。<strong>既然叫字节码指令,那顾名思义每个指令就是一个u1类型的单字节</strong>,当虚拟机读取到code中的一个字节码时,就可以对应找出这个字节码代表的是什么指令,并且可以知道这条指令后面是否需要跟随参数,以及后续的参数应当如何解析。我们知道一个u1 数据类型的取值范围为0x00<del>0xFF,对应十进制的0</del>255,也就是一共可以表达256条指令。目前, 《Java虚拟机规范》已经定义了其中约200条编码值对应的指令含义。</p>
+<li>
+<p>code_length和code用来存储Java源程序编译后生成的字节码指令。code_length代表字节码长度, code是用于存储字节码指令的一系列字节流。<strong>既然叫字节码指令,那顾名思义每个指令就是一个u1类型的单字节</strong>,当虚拟机读取到code中的一个字节码时,就可以对应找出这个字节码代表的是什么指令,并且可以知道这条指令后面是否需要跟随参数,以及后续的参数应当如何解析。我们知道一个u1 数据类型的取值范围为0x00<sub>0xFF,对应十进制的0</sub>255,也就是一共可以表达256条指令。目前, 《Java虚拟机规范》已经定义了其中约200条编码值对应的指令含义。</p>
 <p>关于code_length,有一件值得注意的事情,虽然它是一个u4类型的长度值,理论上最大值可以达到2的32次幂,但是《Java虚拟机规范》中明确限制了一个方法不允许超过65535条字节码指令</p>
 </li>
-<li><p>exception_table_length和exception_table用来存储异常表，非必须，异常表结构如下：</p>
+<li>
+<p>exception_table_length和exception_table用来存储异常表，非必须，异常表结构如下：</p>
 <table>
 <thead>
 <tr>
@@ -1425,7 +1490,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>start_pc</td>
 <td>1</td>
@@ -1445,31 +1511,34 @@ CONSTANT_Class_info
 <td>catch_type</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>如果当字节码从第start_pc行到第end_pc行之间(不含第end_pc行)出现了类型为catch_type或者其子类的异常(catch_type为指向一个CONSTANT_Class_info型常量的索引),则转到第handler_pc行继续处理。当catch_type的值为0时,代表任意异常情况都需要转到handler_pc处进行处理。</p>
 <p>异常表实际上是Java代码的一部分,尽管字节码中有最初为处理异常而设计的跳转指令,但《Java 虚拟机规范》中明确要求Java语言的编译器应当选择使用异常表而不是通过跳转指令来实现Java异常及<strong>finally处理机制</strong>。</p>
 <p>例如：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">inc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-        x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-        x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">public int inc() {
+	int x;
+	try {
+		x = 1;
+		return x;
+	} catch (Exception e) {
+		x = 2;
+		return x;
+	} finally {
+		x = 3;
+	}
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以上代码会生成三个异常表：</p>
 <ul>
-<li>如果try语句块中出现属于Exception或其子类的异常,转到catch语句块处理; </li>
-<li>如果try语句块中出现不属于Exception或其子类的异常,转到finally语句块处理; </li>
+<li>如果try语句块中出现属于Exception或其子类的异常,转到catch语句块处理;</li>
+<li>如果try语句块中出现不属于Exception或其子类的异常,转到finally语句块处理;</li>
 <li>如果catch语句块中出现任何异常,转到finally语句块处理</li>
 </ul>
 </li>
 </ul>
-<h3 id="Exceptions属性"><a href="#Exceptions属性" class="headerlink" title="Exceptions属性"></a>Exceptions属性</h3><p>这里的Exceptions属性是在方法表中与Code属性平级的一项属性,不要与前面刚刚讲解完的异常表产生混淆。Exceptions属性的作用是列举出方法中可能抛出的受查异常(Checked Excepitons),也就是方法描述时在throws关键字后面列举的异常。</p>
+<h3 id="Exceptions属性"><a class="header-anchor" href="#Exceptions属性">¶</a>Exceptions属性</h3>
+<p>这里的Exceptions属性是在方法表中与Code属性平级的一项属性,不要与前面刚刚讲解完的异常表产生混淆。Exceptions属性的作用是列举出方法中可能抛出的受查异常(Checked Excepitons),也就是方法描述时在throws关键字后面列举的异常。</p>
 <table>
 <thead>
 <tr>
@@ -1478,7 +1547,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1498,9 +1568,11 @@ CONSTANT_Class_info
 <td>exception_index_table</td>
 <td>number_of_exception</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>此属性中的number_of_exceptions项表示方法可能抛出number_of_exceptions种受查异常,每一种受查异常使用一个exception_index_table项表示;exception_index_table是一个指向常量池中CONSTANT_Class_info型常量的索引,代表了该受查异常的类型。</p>
-<h3 id="LineNumberTable属性"><a href="#LineNumberTable属性" class="headerlink" title="LineNumberTable属性"></a>LineNumberTable属性</h3><p>LineNumberTable属性用于描述Java源码行号与字节码行号(字节码的偏移量)之间的对应关系。</p>
+<h3 id="LineNumberTable属性"><a class="header-anchor" href="#LineNumberTable属性">¶</a>LineNumberTable属性</h3>
+<p>LineNumberTable属性用于描述Java源码行号与字节码行号(字节码的偏移量)之间的对应关系。</p>
 <p>它并不是运行时必需的属性,但默认会生成到Class文件之中,可以在Javac中使用-g:none或-g:lines 选项来取消或要求生成这项信息。如果选择不生成LineNumberTable属性,对程序运行产生的最主要影响就是当抛出异常时,堆栈中将不会显示出错的行号,并且在调试程序的时候,也无法按照源码行来设置断点。</p>
 <table>
 <thead>
@@ -1510,7 +1582,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1530,10 +1603,13 @@ CONSTANT_Class_info
 <td>line_number_table</td>
 <td>line_number_table_length</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>line_number_table是一个数量为line_number_table_length、类型为line_number_info的集合, line_number_info表包含start_pc和line_number两个u2类型的数据项,前者是字节码行号,后者是Java源码行号。</p>
-<h3 id="LocalVariableTable及LocalVariableTypeTable属性"><a href="#LocalVariableTable及LocalVariableTypeTable属性" class="headerlink" title="LocalVariableTable及LocalVariableTypeTable属性"></a>LocalVariableTable及LocalVariableTypeTable属性</h3><p>它是Code属性的子属性。LocalVariableTable属性用于描述栈帧中局部变量表的变量与Java源码中定义的变量之间的关系,它也不是运行时必需的属性,但默认会生成到Class文件之中,可以在Javac中使用-g:none或-g:vars选项来取消或要求生成这项信息。如果没有生成这项属性,最大的影响就是当其他人引用这个方法时,所有的参数名称都将会丢失,譬如IDE将会使用诸如arg0、arg1之类的占位符代替原有的参数名,这对程序运行没有影响,但是会对代码编写带来较大不便,而且在调试期间无法根据参数名称从上下文中获得参数值。</p>
-<h4 id="LocalVariableTable结构"><a href="#LocalVariableTable结构" class="headerlink" title="LocalVariableTable结构"></a>LocalVariableTable结构</h4><table>
+<h3 id="LocalVariableTable及LocalVariableTypeTable属性"><a class="header-anchor" href="#LocalVariableTable及LocalVariableTypeTable属性">¶</a>LocalVariableTable及LocalVariableTypeTable属性</h3>
+<p>它是Code属性的子属性。LocalVariableTable属性用于描述栈帧中局部变量表的变量与Java源码中定义的变量之间的关系,它也不是运行时必需的属性,但默认会生成到Class文件之中,可以在Javac中使用-g:none或-g:vars选项来取消或要求生成这项信息。如果没有生成这项属性,最大的影响就是当其他人引用这个方法时,所有的参数名称都将会丢失,譬如IDE将会使用诸如arg0、arg1之类的占位符代替原有的参数名,这对程序运行没有影响,但是会对代码编写带来较大不便,而且在调试期间无法根据参数名称从上下文中获得参数值。</p>
+<h4 id="LocalVariableTable结构"><a class="header-anchor" href="#LocalVariableTable结构">¶</a>LocalVariableTable结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1541,7 +1617,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1561,8 +1638,10 @@ CONSTANT_Class_info
 <td>local_variable_table</td>
 <td>local_variable_table_length</td>
 </tr>
-</tbody></table>
-<h4 id="local-variable-info结构"><a href="#local-variable-info结构" class="headerlink" title="local_variable_info结构"></a>local_variable_info结构</h4><p>其中local_variable_info项目代表了一个栈帧与源码中的局部变量的关联</p>
+</tbody>
+</table>
+<h4 id="local-variable-info结构"><a class="header-anchor" href="#local-variable-info结构">¶</a>local_variable_info结构</h4>
+<p>其中local_variable_info项目代表了一个栈帧与源码中的局部变量的关联</p>
 <table>
 <thead>
 <tr>
@@ -1571,7 +1650,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>start_pc</td>
 <td>1</td>
@@ -1596,15 +1676,19 @@ CONSTANT_Class_info
 <td>index</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
 <li>start_pc和length属性分别代表了这个局部变量的生命周期开始的字节码偏移量及其作用范围覆盖的长度,两者结合起来就是这个局部变量在字节码之中的作用域范围。</li>
 <li>name_index和descriptor_index都是指向常量池中CONSTANT_Utf8_info型常量的索引,分别代表了局部变量的名称以及这个局部变量的描述符。</li>
 <li>index是这个局部变量在栈帧的局部变量表中变量槽的位置。当这个变量数据类型是64位类型时(double和long),它占用的变量槽为index和index+1两个。</li>
 </ul>
-<h4 id="LocalVariableTypeTable"><a href="#LocalVariableTypeTable" class="headerlink" title="LocalVariableTypeTable"></a>LocalVariableTypeTable</h4><p>在JDK 5引入泛型之后,LocalVariableTable属性增加了一个“姐妹属性”——LocalVariableTypeTable。这个新增的属性结构与LocalV ariableTable非常相似,仅仅是把记录的字段描述符的descriptor_index替换成了字段的特征签名(Signature)。对于非泛型类型来说,描述符和特征签名能描述的信息是能吻合一致的,但是泛型引入之后,由于描述符中泛型的参数化类型被擦除掉,描述符就不能准确描述泛型类型了。因此出现了LocalV ariableTypeTable属性,使用字段的特征签名来完成泛型的描述。</p>
-<h3 id="SourceFile及SourceDebugExtension属性"><a href="#SourceFile及SourceDebugExtension属性" class="headerlink" title="SourceFile及SourceDebugExtension属性"></a>SourceFile及SourceDebugExtension属性</h3><p>SourceFile属性用于记录生成这个Class文件的源码文件名称。这个属性也是可选的,可以使用Javac 的-g:none或-g:source选项来关闭或要求生成这项信息。在Java中,对于大多数的类来说,类名和文件名是一致的,但是有一些特殊情况(如内部类)例外。如果不生成这项属性,当抛出异常时,堆栈中将不会显示出错代码所属的文件名。这个属性是一个定长的属性</p>
-<h4 id="SourceFile属性结构"><a href="#SourceFile属性结构" class="headerlink" title="SourceFile属性结构"></a>SourceFile属性结构</h4><table>
+<h4 id="LocalVariableTypeTable"><a class="header-anchor" href="#LocalVariableTypeTable">¶</a>LocalVariableTypeTable</h4>
+<p>在JDK 5引入泛型之后,LocalVariableTable属性增加了一个“姐妹属性”——LocalVariableTypeTable。这个新增的属性结构与LocalV ariableTable非常相似,仅仅是把记录的字段描述符的descriptor_index替换成了字段的特征签名(Signature)。对于非泛型类型来说,描述符和特征签名能描述的信息是能吻合一致的,但是泛型引入之后,由于描述符中泛型的参数化类型被擦除掉,描述符就不能准确描述泛型类型了。因此出现了LocalV ariableTypeTable属性,使用字段的特征签名来完成泛型的描述。</p>
+<h3 id="SourceFile及SourceDebugExtension属性"><a class="header-anchor" href="#SourceFile及SourceDebugExtension属性">¶</a>SourceFile及SourceDebugExtension属性</h3>
+<p>SourceFile属性用于记录生成这个Class文件的源码文件名称。这个属性也是可选的,可以使用Javac 的-g:none或-g:source选项来关闭或要求生成这项信息。在Java中,对于大多数的类来说,类名和文件名是一致的,但是有一些特殊情况(如内部类)例外。如果不生成这项属性,当抛出异常时,堆栈中将不会显示出错代码所属的文件名。这个属性是一个定长的属性</p>
+<h4 id="SourceFile属性结构"><a class="header-anchor" href="#SourceFile属性结构">¶</a>SourceFile属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1612,7 +1696,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1627,9 +1712,11 @@ CONSTANT_Class_info
 <td>sourcefile_index</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>sourcefile_index数据项是指向常量池中CONSTANT_Utf8_info型常量的索引,常量值是源码文件的文件名。</p>
-<h4 id="SourceDebugExtension"><a href="#SourceDebugExtension" class="headerlink" title="SourceDebugExtension"></a>SourceDebugExtension</h4><p>为了方便在编译器和动态生成的Class中加入供程序员使用的自定义内容,在JDK 5时,新增了SourceDebugExtension属性用于存储额外的代码调试信息。典型的场景是在进行JSP文件调试时,无法通过Java堆栈来定位到JSP文件的行号。JSR 45提案为这些非Java语言编写,却需要编译成字节码并运行在Java虚拟机中的程序提供了一个进行调试的标准机制,使用SourceDebugExtension属性就可以用于存储这个标准所新加入的调试信息,譬如让程序员能够快速从异常堆栈中定位出原始JSP中出现问题的行号。</p>
+<h4 id="SourceDebugExtension"><a class="header-anchor" href="#SourceDebugExtension">¶</a>SourceDebugExtension</h4>
+<p>为了方便在编译器和动态生成的Class中加入供程序员使用的自定义内容,在JDK 5时,新增了SourceDebugExtension属性用于存储额外的代码调试信息。典型的场景是在进行JSP文件调试时,无法通过Java堆栈来定位到JSP文件的行号。JSR 45提案为这些非Java语言编写,却需要编译成字节码并运行在Java虚拟机中的程序提供了一个进行调试的标准机制,使用SourceDebugExtension属性就可以用于存储这个标准所新加入的调试信息,譬如让程序员能够快速从异常堆栈中定位出原始JSP中出现问题的行号。</p>
 <table>
 <thead>
 <tr>
@@ -1638,7 +1725,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1653,13 +1741,16 @@ CONSTANT_Class_info
 <td>debug_extension[attribute_length]</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其中debug_extension存储的就是额外的调试信息,是一组通过变长UTF-8格式来表示的字符串。一个类中最多只允许存在一个SourceDebugExtension属性。</p>
-<h3 id="ConstantValue属性"><a href="#ConstantValue属性" class="headerlink" title="ConstantValue属性"></a>ConstantValue属性</h3><p>ConstantValue属性的作用是通知虚拟机自动为静态变量赋值。只有被static关键字修饰的变量(类变量)才可以使用这项属性。</p>
+<h3 id="ConstantValue属性"><a class="header-anchor" href="#ConstantValue属性">¶</a>ConstantValue属性</h3>
+<p>ConstantValue属性的作用是通知虚拟机自动为静态变量赋值。只有被static关键字修饰的变量(类变量)才可以使用这项属性。</p>
 <p>类似“int x=123”和“static int x=123”这样的变量定义在Java程序里面是非常常见的事情,但虚拟机对这两种变量赋值的方式和时刻都有所不同。</p>
 <ul>
 <li>对非static类型的变量(也就是实例变量)的赋值是在<code>&lt;init&gt;()</code>方法中进行的;</li>
-<li>而对于类变量,则有两种方式可以选择:<ul>
+<li>而对于类变量,则有两种方式可以选择:
+<ul>
 <li>在<code>&lt;clinit&gt;()</code>方法中或者使用ConstantValue属性。目前Oracle公司实现的Javac编译器的选择是,如果同时使用final和static来修饰一个变量(按照习惯,这里称“常量”更贴切),并且这个变量的数据类型是基本类型或者<code>java.lang.String</code>的话,就将会生成ConstantValue属性来进行初始化;</li>
 <li>如果这个变量没有被final修饰,或者并非基本类型及字符串,则将会选择在<code>&lt;clinit&gt;()</code>方法中进行初始化。</li>
 </ul>
@@ -1667,7 +1758,8 @@ CONSTANT_Class_info
 </ul>
 <p>虽然有final关键字才更符合“ConstantValue”的语义,但《Java虚拟机规范》中并没有强制要求字段必须设置ACC_FINAL标志,只要求有ConstantValue属性的字段必须设置ACC_STATIC标志而已,<strong>对final关键字的要求是Javac编译器自己加入的限制</strong>。</p>
 <p>而对ConstantValue的属性值只能限于基本类型和String这点,其实并不能算是什么限制,这是理所当然的结果。因为此属性的属性值只是一个常量池的索引号,由于Class文件格式的常量类型中只有与基本属性和字符串相对应的字面量,所以就算ConstantValue属性想支持别的类型也无能为力。</p>
-<h4 id="属性结构"><a href="#属性结构" class="headerlink" title="属性结构"></a>属性结构</h4><table>
+<h4 id="属性结构"><a class="header-anchor" href="#属性结构">¶</a>属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1675,7 +1767,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1690,10 +1783,13 @@ CONSTANT_Class_info
 <td>constantvalue_index</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>从数据结构中可以看出ConstantValue属性是一个定长属性,它的attribute_length数据项值必须固定为2。constantvalue_index数据项代表了常量池中一个字面量常量的引用,根据字段类型的不同,字面量可以是CONSTANT_Long_info、CONSTANT_Float_info、CONSTANT_Double_info、CONSTANT_Integer_info和CONSTANT_String_info常量中的一种。</p>
-<h3 id="InnerClasses属性"><a href="#InnerClasses属性" class="headerlink" title="InnerClasses属性"></a>InnerClasses属性</h3><p>InnerClasses属性用于记录内部类与宿主类之间的关联。如果一个类中定义了内部类,那编译器将会为它以及它所包含的内部类生成InnerClasses属性。</p>
-<h4 id="InnerClasses属性结构"><a href="#InnerClasses属性结构" class="headerlink" title="InnerClasses属性结构"></a>InnerClasses属性结构</h4><table>
+<h3 id="InnerClasses属性"><a class="header-anchor" href="#InnerClasses属性">¶</a>InnerClasses属性</h3>
+<p>InnerClasses属性用于记录内部类与宿主类之间的关联。如果一个类中定义了内部类,那编译器将会为它以及它所包含的内部类生成InnerClasses属性。</p>
+<h4 id="InnerClasses属性结构"><a class="header-anchor" href="#InnerClasses属性结构">¶</a>InnerClasses属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1701,7 +1797,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1721,9 +1818,11 @@ CONSTANT_Class_info
 <td>inner_classes</td>
 <td>number_of_class</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>数据项number_of_classes代表需要记录多少个内部类信息,每一个内部类的信息都由一个inner_classes_info表进行描述。</p>
-<h4 id="inner-classes-info结构"><a href="#inner-classes-info结构" class="headerlink" title="inner_classes_info结构"></a>inner_classes_info结构</h4><table>
+<h4 id="inner-classes-info结构"><a class="header-anchor" href="#inner-classes-info结构">¶</a>inner_classes_info结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1731,7 +1830,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>inner_class_info_index</td>
 <td>1</td>
@@ -1751,73 +1851,31 @@ CONSTANT_Class_info
 <td>inner_class_access_flags</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
 <li>inner_class_info_index和outer_class_info_index都是指向常量池中CONSTANT_Class_info型常量的索引,分别代表了内部类和宿主类的符号引用。</li>
 <li>inner_name_index是指向常量池中CONSTANT_Utf8_info型常量的索引,代表这个内部类的名称, 如果是匿名内部类,这项值为0。</li>
-<li>inner_class_access_flags是内部类的访问标志,类似于类的access_flags,它的取值范围如下<table>
-<thead>
-<tr>
-<th>标志名称</th>
-<th>标志值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ACC_PUBLIC</td>
-<td>0x0001</td>
-<td>内部类是否为public</td>
-</tr>
-<tr>
-<td>ACC_PRIVATE</td>
-<td>0x0002</td>
-<td>内部类是否为private</td>
-</tr>
-<tr>
-<td>ACC_PROTECTED</td>
-<td>0x0004</td>
-<td>内部类是否为protected</td>
-</tr>
-<tr>
-<td>ACC_STATIC</td>
-<td>0x0008</td>
-<td>内部类是否为static</td>
-</tr>
-<tr>
-<td>ACC_FINAL</td>
-<td>0x0010</td>
-<td>内部类是否为final</td>
-</tr>
-<tr>
-<td>ACC_INTERFACE</td>
-<td>0x0020</td>
-<td>内部类是否为接口</td>
-</tr>
-<tr>
-<td>ACC_ABSTRACT</td>
-<td>0x0400</td>
-<td>内部类是否为abstract</td>
-</tr>
-<tr>
-<td>ACC_SYNTHETIC</td>
-<td>0x1000</td>
-<td>内部类是否并非由用户代码产生的</td>
-</tr>
-<tr>
-<td>ACC_ANNOTATION</td>
-<td>0x2000</td>
-<td>内部类是不是一个注解</td>
-</tr>
-<tr>
-<td>ACC_ENUM</td>
-<td>0x4000</td>
-<td>内部类是不是一个枚举</td>
-</tr>
-</tbody></table>
-</li>
+<li>inner_class_access_flags是内部类的访问标志,类似于类的access_flags,它的取值范围如下<br>
+| 标志名称       | 标志值 | 含义                           |<br>
+| -------------- | ------ | ------------------------------ |<br>
+| ACC_PUBLIC     | 0x0001 | 内部类是否为public             |<br>
+| ACC_PRIVATE    | 0x0002 | 内部类是否为private            |<br>
+| ACC_PROTECTED  | 0x0004 | 内部类是否为protected          |<br>
+| ACC_STATIC     | 0x0008 | 内部类是否为static             |<br>
+| ACC_FINAL      | 0x0010 | 内部类是否为final              |<br>
+| ACC_INTERFACE  | 0x0020 | 内部类是否为接口               |<br>
+| ACC_ABSTRACT   | 0x0400 | 内部类是否为abstract           |<br>
+| ACC_SYNTHETIC  | 0x1000 | 内部类是否并非由用户代码产生的 |<br>
+| ACC_ANNOTATION | 0x2000 | 内部类是不是一个注解           |<br>
+| ACC_ENUM       | 0x4000 | 内部类是不是一个枚举           |</li>
 </ul>
-<h3 id="Deprecated及Synthetic属性"><a href="#Deprecated及Synthetic属性" class="headerlink" title="Deprecated及Synthetic属性"></a>Deprecated及Synthetic属性</h3><p>Deprecated和Synthetic两个属性都属于标志类型的布尔属性,只存在有和没有的区别,没有属性值的概念。<br>Deprecated属性用于表示某个类、字段或者方法,已经被程序作者定为不再推荐使用,它可以通过代码中使用“@deprecated”注解进行设置。<br>Synthetic属性代表此字段或者方法并不是由Java源码直接产生的,而是由编译器自行添加的,在JDK 5之后,标识一个类、字段或者方法是编译器自动产生的,也可以设置它们访问标志中的ACC_SYNTHETIC标志位。编译器通过生成一些在源代码中不存在的Synthetic方法、字段甚至是整个类的方式,实现了越权访问(越过private修饰器)或其他绕开了语言限制的功能,这可以算是一种早期优化的技巧,其中最典型的例子就是枚举类中自动生成的枚举元素数组和嵌套类的桥接方法(Bridge Method)。所有由不属于用户代码产生的类、方法及字段都应当至少设置Synthetic属性或者ACC_SYNTHETIC标志位中的一项,唯一的例外是<code>&lt;init&gt;()</code>方法和类构造器<code>&lt;clinit&gt;()</code>方法。</p>
-<h4 id="Deprecated和Synthetic属性的结构"><a href="#Deprecated和Synthetic属性的结构" class="headerlink" title="Deprecated和Synthetic属性的结构"></a>Deprecated和Synthetic属性的结构</h4><table>
+<h3 id="Deprecated及Synthetic属性"><a class="header-anchor" href="#Deprecated及Synthetic属性">¶</a>Deprecated及Synthetic属性</h3>
+<p>Deprecated和Synthetic两个属性都属于标志类型的布尔属性,只存在有和没有的区别,没有属性值的概念。<br>
+Deprecated属性用于表示某个类、字段或者方法,已经被程序作者定为不再推荐使用,它可以通过代码中使用“@deprecated”注解进行设置。<br>
+Synthetic属性代表此字段或者方法并不是由Java源码直接产生的,而是由编译器自行添加的,在JDK 5之后,标识一个类、字段或者方法是编译器自动产生的,也可以设置它们访问标志中的ACC_SYNTHETIC标志位。编译器通过生成一些在源代码中不存在的Synthetic方法、字段甚至是整个类的方式,实现了越权访问(越过private修饰器)或其他绕开了语言限制的功能,这可以算是一种早期优化的技巧,其中最典型的例子就是枚举类中自动生成的枚举元素数组和嵌套类的桥接方法(Bridge Method)。所有由不属于用户代码产生的类、方法及字段都应当至少设置Synthetic属性或者ACC_SYNTHETIC标志位中的一项,唯一的例外是<code>&lt;init&gt;()</code>方法和类构造器<code>&lt;clinit&gt;()</code>方法。</p>
+<h4 id="Deprecated和Synthetic属性的结构"><a class="header-anchor" href="#Deprecated和Synthetic属性的结构">¶</a>Deprecated和Synthetic属性的结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1825,7 +1883,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1835,10 +1894,13 @@ CONSTANT_Class_info
 <td>attribute_length</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其中attribute_length数据项的值必须为0x00000000,因为没有任何属性值需要设置。</p>
-<h3 id="StackMapTable属性"><a href="#StackMapTable属性" class="headerlink" title="StackMapTable属性"></a>StackMapTable属性</h3><p>StackMapTable属性在JDK 6增加到Class文件规范之中,它是一个相当复杂的变长属性,位于Code 属性的属性表中。这个属性会在虚拟机类加载的字节码验证阶段被新类型检查验证器(Type Checker)使用,目的在于代替以前比较消耗性能的基于数据流分析的类型推导验证器。</p>
-<h4 id="StackMapTable属性结构"><a href="#StackMapTable属性结构" class="headerlink" title="StackMapTable属性结构"></a>StackMapTable属性结构</h4><table>
+<h3 id="StackMapTable属性"><a class="header-anchor" href="#StackMapTable属性">¶</a>StackMapTable属性</h3>
+<p>StackMapTable属性在JDK 6增加到Class文件规范之中,它是一个相当复杂的变长属性,位于Code 属性的属性表中。这个属性会在虚拟机类加载的字节码验证阶段被新类型检查验证器(Type Checker)使用,目的在于代替以前比较消耗性能的基于数据流分析的类型推导验证器。</p>
+<h4 id="StackMapTable属性结构"><a class="header-anchor" href="#StackMapTable属性结构">¶</a>StackMapTable属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1846,7 +1908,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1866,9 +1929,11 @@ CONSTANT_Class_info
 <td>stack_map_frame_entries</td>
 <td>number_of_entries</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>StackMapTable属性中包含零至多个栈映射帧(Stack Map Frame),每个栈映射帧都显式或隐式地代表了一个字节码偏移量,用于表示执行到该字节码时局部变量表和操作数栈的验证类型。类型检查验证器会通过检查目标方法的局部变量和操作数栈所需要的类型来确定一段字节码指令是否符合逻辑约束。</p>
-<h3 id="Signature属性"><a href="#Signature属性" class="headerlink" title="Signature属性"></a>Signature属性</h3><p>Signature属性在JDK 5增加到Class文件规范之中,它是一个可选的定长属性,可以出现于类、字段表和方法表结构的属性表中。在JDK 5里面大幅增强了Java语言的语法,在此之后,任何类、接口、初始化方法或成员的泛型签名如果包含了类型变量(Type Variable)或参数化类型(Parameterized Type),则Signature属性会为它记录泛型签名信息。之所以要专门使用这样一个属性去记录泛型类型,是因为Java语言的泛型采用的是擦除法实现的伪泛型,字节码(Code属性)中所有的泛型信息编译(类型变量、参数化类型)在编译之后都通通被擦除掉。使用擦除法的好处是实现简单(主要修改Javac编译器,虚拟机内部只做了很少的改动)、非常容易实现Backport,运行期也能够节省一些类型所占的内存空间。但坏处是运行期就无法像C#等有真泛型支持的语言那样,将泛型类型与用户定义的普通类型同等对待,例如运行期做反射时无法获得泛型信息。Signature属性就是为了弥补这个缺陷而增设的,现在Java的反射API能够获取的泛型类型,最终的数据来源也是这个属性。</p>
+<h3 id="Signature属性"><a class="header-anchor" href="#Signature属性">¶</a>Signature属性</h3>
+<p>Signature属性在JDK 5增加到Class文件规范之中,它是一个可选的定长属性,可以出现于类、字段表和方法表结构的属性表中。在JDK 5里面大幅增强了Java语言的语法,在此之后,任何类、接口、初始化方法或成员的泛型签名如果包含了类型变量(Type Variable)或参数化类型(Parameterized Type),则Signature属性会为它记录泛型签名信息。之所以要专门使用这样一个属性去记录泛型类型,是因为Java语言的泛型采用的是擦除法实现的伪泛型,字节码(Code属性)中所有的泛型信息编译(类型变量、参数化类型)在编译之后都通通被擦除掉。使用擦除法的好处是实现简单(主要修改Javac编译器,虚拟机内部只做了很少的改动)、非常容易实现Backport,运行期也能够节省一些类型所占的内存空间。但坏处是运行期就无法像C#等有真泛型支持的语言那样,将泛型类型与用户定义的普通类型同等对待,例如运行期做反射时无法获得泛型信息。Signature属性就是为了弥补这个缺陷而增设的,现在Java的反射API能够获取的泛型类型,最终的数据来源也是这个属性。</p>
 <table>
 <thead>
 <tr>
@@ -1877,7 +1942,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1892,11 +1958,15 @@ CONSTANT_Class_info
 <td>singnature_index</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其中signature_index项的值必须是一个对常量池的有效索引。常量池在该索引处的项必须是CONSTANT_Utf8_info结构,表示类签名或方法类型签名或字段类型签名。如果当前的Signature属性是类文件的属性,则这个结构表示类签名,如果当前的Signature属性是方法表的属性,则这个结构表示方法类型签名,如果当前Signature属性是字段表的属性,则这个结构表示字段类型签名。</p>
-<h3 id="BootstrapMethods属性"><a href="#BootstrapMethods属性" class="headerlink" title="BootstrapMethods属性"></a>BootstrapMethods属性</h3><p>BootstrapMethods属性在JDK 7时增加到Class文件规范之中,它是一个复杂的变长属性,位于类文件的属性表中。这个属性用于保存invokedynamic指令引用的引导方法限定符。<br>根据《Java虚拟机规范》(从Java SE 7版起)的规定,如果某个类文件结构的常量池中曾经出现过CONSTANT_InvokeDynamic_info类型的常量,那么这个类文件的属性表中必须存在一个明确的BootstrapMethods属性,另外,即使CONSTANT_InvokeDynamic_info类型的常量在常量池中出现过多次,类文件的属性表中最多也只能有一个BootstrapMethods属性。BootstrapMethods属性和JSR-292中的InvokeDynamic指令和java.lang.Invoke包关系非常密切,要介绍这个属性的作用,必须先讲清楚InovkeDynamic指令的运作原理。</p>
+<h3 id="BootstrapMethods属性"><a class="header-anchor" href="#BootstrapMethods属性">¶</a>BootstrapMethods属性</h3>
+<p>BootstrapMethods属性在JDK 7时增加到Class文件规范之中,它是一个复杂的变长属性,位于类文件的属性表中。这个属性用于保存invokedynamic指令引用的引导方法限定符。<br>
+根据《Java虚拟机规范》(从Java SE 7版起)的规定,如果某个类文件结构的常量池中曾经出现过CONSTANT_InvokeDynamic_info类型的常量,那么这个类文件的属性表中必须存在一个明确的BootstrapMethods属性,另外,即使CONSTANT_InvokeDynamic_info类型的常量在常量池中出现过多次,类文件的属性表中最多也只能有一个BootstrapMethods属性。BootstrapMethods属性和JSR-292中的InvokeDynamic指令和java.lang.Invoke包关系非常密切,要介绍这个属性的作用,必须先讲清楚InovkeDynamic指令的运作原理。</p>
 <p>虽然JDK 7中已经提供了InovkeDynamic指令,但这个版本的Javac编译器还暂时无法支持InvokeDynamic指令和生成BootstrapMethods属性,必须通过一些非常规的手段才能使用它们。直到JDK 8中Lambda表达式和接口默认方法的出现,InvokeDynamic指令才算在Java语言生成的Class文件中有了用武之地。</p>
-<h4 id="BootstrapMethods属性结构"><a href="#BootstrapMethods属性结构" class="headerlink" title="BootstrapMethods属性结构"></a>BootstrapMethods属性结构</h4><table>
+<h4 id="BootstrapMethods属性结构"><a class="header-anchor" href="#BootstrapMethods属性结构">¶</a>BootstrapMethods属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1904,7 +1974,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1924,8 +1995,10 @@ CONSTANT_Class_info
 <td>bootstrap_methods</td>
 <td>num_bootstrap_methods</td>
 </tr>
-</tbody></table>
-<h4 id="boostrap-method结构"><a href="#boostrap-method结构" class="headerlink" title="boostrap_method结构"></a>boostrap_method结构</h4><table>
+</tbody>
+</table>
+<h4 id="boostrap-method结构"><a class="header-anchor" href="#boostrap-method结构">¶</a>boostrap_method结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1933,7 +2006,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>bootstrap_method_ref</td>
 <td>1</td>
@@ -1948,8 +2022,9 @@ CONSTANT_Class_info
 <td>bootstrap_arguments</td>
 <td>num_boostrap_arguments</td>
 </tr>
-</tbody></table>
-<p>BootstrapMethods属性里,num_bootstrap_methods项的值给出了bootstrap_methods[]数组中的引导方法限定符的数量。而bootstrap_methods[]数组的每个成员包含了一个指向常量池CONSTANT_MethodHandle结构的索引值,它代表了一个引导方法。还包含了这个引导方法静态参数的序列(可能为空)。bootstrap_methods[]数组的每个成员必须包含以下三项内容: </p>
+</tbody>
+</table>
+<p>BootstrapMethods属性里,num_bootstrap_methods项的值给出了bootstrap_methods[]数组中的引导方法限定符的数量。而bootstrap_methods[]数组的每个成员包含了一个指向常量池CONSTANT_MethodHandle结构的索引值,它代表了一个引导方法。还包含了这个引导方法静态参数的序列(可能为空)。bootstrap_methods[]数组的每个成员必须包含以下三项内容:</p>
 <ul>
 <li>bootstrap_method_ref:bootstrap_method_ref项的值必须是一个对常量池的有效索引。常量池在该索引处的值必须是一个CONSTANT_MethodHandle_info结构。</li>
 <li>num_bootstrap_arguments:num_bootstrap_arguments项的值给出了bootstrap_argu-ments[]数组成员的数量。</li>
@@ -1966,10 +2041,12 @@ CONSTANT_Class_info
 <li>CONSTANT_MethodHandle_info</li>
 <li>CONSTANT_MethodType_info</li>
 </ul>
-<h3 id="MethodParameters属性"><a href="#MethodParameters属性" class="headerlink" title="MethodParameters属性"></a>MethodParameters属性</h3><p>MethodParameters是在JDK 8时新加入到Class文件格式中的,它是一个用在方法表中的变长属性。</p>
+<h3 id="MethodParameters属性"><a class="header-anchor" href="#MethodParameters属性">¶</a>MethodParameters属性</h3>
+<p>MethodParameters是在JDK 8时新加入到Class文件格式中的,它是一个用在方法表中的变长属性。</p>
 <p>MethodParameters的作用是记录方法的各个形参名称和信息。</p>
 <p>最初,基于存储空间的考虑,Class文件默认是不储存方法参数名称的,因为给参数起什么名字对计算机执行程序来说是没有任何区别的,所以只要在源码中妥当命名就可以了。随着Java的流行,这点确实为程序的传播和二次复用带来了诸多不便,由于Class文件中没有参数的名称,如果只有单独的程序包而不附加上JavaDoc的话,在IDE中编辑使用包里面的方法时是无法获得方法调用的智能提示的,这就阻碍了JAR包的传播。后来,“-g:var”就成为了Javac以及许多IDE编译Class时采用的默认值,这样会将方法参数的名称生成到LocalV ariableTable属性之中。不过此时问题仍然没有全部解决, LocalVariableTable属性是Code属性的子属性——没有方法体存在,自然就不会有局部变量表,但是对于其他情况,譬如抽象方法和接口方法,是理所当然地可以不存在方法体的,对于方法签名来说,还是没有找到一个统一完整的保留方法参数名称的地方。所以JDK 8中新增的这个属性,使得编译器可以(编译时加上-parameters参数)将方法名称也写进Class文件中,而且MethodParameters是方法表的属性,与Code属性平级的,可以运行时通过反射API获取。</p>
-<h4 id="属性结构-1"><a href="#属性结构-1" class="headerlink" title="属性结构"></a>属性结构</h4><table>
+<h4 id="属性结构-v2"><a class="header-anchor" href="#属性结构-v2">¶</a>属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -1977,7 +2054,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -1997,8 +2075,10 @@ CONSTANT_Class_info
 <td>parameters</td>
 <td>parameters_count</td>
 </tr>
-</tbody></table>
-<h4 id="parameter结构"><a href="#parameter结构" class="headerlink" title="parameter结构"></a>parameter结构</h4><table>
+</tbody>
+</table>
+<h4 id="parameter结构"><a class="header-anchor" href="#parameter结构">¶</a>parameter结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -2006,7 +2086,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>name_index</td>
 <td>1</td>
@@ -2016,16 +2097,20 @@ CONSTANT_Class_info
 <td>access_flags</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其中,name_index是一个指向常量池CONSTANT_Utf8_info常量的索引值,代表了该参数的名称。而access_flags是参数的状态指示器,它可以包含以下三种状态中的一种或多种:</p>
 <ul>
 <li>0x0010(ACC_FINAL):表示该参数被final修饰。</li>
 <li>0x1000(ACC_SYNTHETIC):表示该参数并未出现在源文件中,是编译器自动生成的。</li>
 <li>0x8000(ACC_MANDATED):表示该参数是在源文件中隐式定义的。Java语言中的典型场景是this关键字。</li>
 </ul>
-<h3 id="模块化相关属性"><a href="#模块化相关属性" class="headerlink" title="模块化相关属性"></a>模块化相关属性</h3><p>JDK 9的一个重量级功能是Java的模块化功能,因为模块描述文件(module-info.java)最终是要编译成一个独立的Class文件来存储的,所以,Class文件格式也扩展了Module、ModulePackages和ModuleMainClass三个属性用于支持Java模块化相关功能。</p>
-<h4 id="Module属性"><a href="#Module属性" class="headerlink" title="Module属性"></a>Module属性</h4><p>Module属性是一个非常复杂的变长属性,除了表示该模块的名称、版本、标志信息以外,还存储了这个模块requires、exports、opens、uses和provides定义的全部内容。</p>
-<h5 id="属性结构-2"><a href="#属性结构-2" class="headerlink" title="属性结构"></a>属性结构</h5><table>
+<h3 id="模块化相关属性"><a class="header-anchor" href="#模块化相关属性">¶</a>模块化相关属性</h3>
+<p>JDK 9的一个重量级功能是Java的模块化功能,因为模块描述文件(module-info.java)最终是要编译成一个独立的Class文件来存储的,所以,Class文件格式也扩展了Module、ModulePackages和ModuleMainClass三个属性用于支持Java模块化相关功能。</p>
+<h4 id="Module属性"><a class="header-anchor" href="#Module属性">¶</a>Module属性</h4>
+<p>Module属性是一个非常复杂的变长属性,除了表示该模块的名称、版本、标志信息以外,还存储了这个模块requires、exports、opens、uses和provides定义的全部内容。</p>
+<h5 id="属性结构-v3"><a class="header-anchor" href="#属性结构-v3">¶</a>属性结构</h5>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -2033,7 +2118,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -2108,21 +2194,26 @@ CONSTANT_Class_info
 <td>provides</td>
 <td>provides_count</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
-<li><p>其中,module_name_index是一个指向常量池CONSTANT_Utf8_info常量的索引值,代表了该模块的名称。而module_flags是模块的状态指示器,它可以包含以下三种状态中的一种或多种:</p>
+<li>
+<p>其中,module_name_index是一个指向常量池CONSTANT_Utf8_info常量的索引值,代表了该模块的名称。而module_flags是模块的状态指示器,它可以包含以下三种状态中的一种或多种:</p>
 <ul>
 <li>0x0020(ACC_OPEN):表示该模块是开放的。</li>
 <li>0x1000(ACC_SYNTHETIC):表示该模块并未出现在源文件中,是编译器自动生成的。</li>
 <li>0x8000(ACC_MANDATED):表示该模块是在源文件中隐式定义的。</li>
 </ul>
 </li>
-<li><p>module_version_index是一个指向常量池CONSTANT_Utf8_info常量的索引值,代表了该模块的版本号。</p>
+<li>
+<p>module_version_index是一个指向常量池CONSTANT_Utf8_info常量的索引值,代表了该模块的版本号。</p>
 </li>
-<li><p>后续的几个属性分别记录了模块的requires、exports、opens、uses和provides定义。它们的结构是基本相似的</p>
+<li>
+<p>后续的几个属性分别记录了模块的requires、exports、opens、uses和provides定义。它们的结构是基本相似的</p>
 </li>
 </ul>
-<h6 id="示例：export属性结构"><a href="#示例：export属性结构" class="headerlink" title="示例：export属性结构"></a>示例：export属性结构</h6><table>
+<h6 id="示例：export属性结构"><a class="header-anchor" href="#示例：export属性结构">¶</a>示例：export属性结构</h6>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -2130,7 +2221,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>exports_index</td>
 <td>1</td>
@@ -2150,18 +2242,21 @@ CONSTANT_Class_info
 <td>exports_to_index</td>
 <td>exports_to_count</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>exports属性的每一元素都代表一个被模块所导出的包</p>
 <ul>
 <li>exports_index是一个指向常量池CONSTANT_Package_info常量的索引值,代表了被该模块导出的包</li>
-<li>exports_flags是该导出包的状态指示器,它可以包含以下两种状态中的一种或多种:<ul>
+<li>exports_flags是该导出包的状态指示器,它可以包含以下两种状态中的一种或多种:
+<ul>
 <li>0x1000(ACC_SYNTHETIC):表示该导出包并未出现在源文件中,是编译器自动生成的。</li>
 <li>0x8000(ACC_MANDATED):表示该导出包是在源文件中隐式定义的。</li>
 </ul>
 </li>
 <li>exports_to_count是该导出包的限定计数器,如果这个计数器为零,这说明该导出包是无限定的(Unqualified),即完全开放的,任何其他模块都可以访问该包中所有内容。如果该计数器不为零, 则后面的exports_to_index是以计数器值为长度的数组,每个数组元素都是一个指向常量池中CONSTANT_Module_info常量的索引值,代表着只有在这个数组范围内的模块才被允许访问该导出包的内容。</li>
 </ul>
-<h4 id="ModulePackages属性"><a href="#ModulePackages属性" class="headerlink" title="ModulePackages属性"></a>ModulePackages属性</h4><p>一个用于支持Java模块化的变长属性,它用于描述该模块中所有的包,不论是不是被export或者open的。</p>
+<h4 id="ModulePackages属性"><a class="header-anchor" href="#ModulePackages属性">¶</a>ModulePackages属性</h4>
+<p>一个用于支持Java模块化的变长属性,它用于描述该模块中所有的包,不论是不是被export或者open的。</p>
 <table>
 <thead>
 <tr>
@@ -2170,7 +2265,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -2190,9 +2286,11 @@ CONSTANT_Class_info
 <td>package_index</td>
 <td>package_count</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>package_count是package_index数组的计数器,package_index中每个元素都是指向常量池CONSTANT_Package_info常量的索引值,代表了当前模块中的一个包。</p>
-<h4 id="ModuleMainClass属性结构"><a href="#ModuleMainClass属性结构" class="headerlink" title="ModuleMainClass属性结构"></a>ModuleMainClass属性结构</h4><p>一个定长属性,用于确定该模块的主类(Main Class)</p>
+<h4 id="ModuleMainClass属性结构"><a class="header-anchor" href="#ModuleMainClass属性结构">¶</a>ModuleMainClass属性结构</h4>
+<p>一个定长属性,用于确定该模块的主类(Main Class)</p>
 <table>
 <thead>
 <tr>
@@ -2201,7 +2299,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -2216,9 +2315,11 @@ CONSTANT_Class_info
 <td>main_class_index</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其中,main_class_index是一个指向常量池CONSTANT_Class_info常量的索引值,代表了该模块的主类。</p>
-<h3 id="运行时注解相关属性"><a href="#运行时注解相关属性" class="headerlink" title="运行时注解相关属性"></a>运行时注解相关属性</h3><p>早在JDK 5时期,Java语言的语法进行了多项增强,其中之一是提供了对注解(Annotation)的支持。为了存储源码中注解信息,Class文件同步增加了：</p>
+<h3 id="运行时注解相关属性"><a class="header-anchor" href="#运行时注解相关属性">¶</a>运行时注解相关属性</h3>
+<p>早在JDK 5时期,Java语言的语法进行了多项增强,其中之一是提供了对注解(Annotation)的支持。为了存储源码中注解信息,Class文件同步增加了：</p>
 <ul>
 <li>RuntimeVisibleAnnotations</li>
 <li>RuntimeInvisibleAnnotations</li>
@@ -2232,7 +2333,8 @@ CONSTANT_Class_info
 </ul>
 <p>两个属性。由于这六个属性不论结构还是功能都比较雷同,因此把它们合并到一起,以RuntimeVisibleAnnotations为代表进行介绍。</p>
 <p>RuntimeVisibleAnnotations是一个变长属性,它记录了类、字段或方法的声明上记录运行时可见注解,当我们使用反射API来获取类、字段或方法上的注解时,返回值就是通过这个属性来取到的。</p>
-<h4 id="RuntimeVisibleAnnotations属性结构"><a href="#RuntimeVisibleAnnotations属性结构" class="headerlink" title="RuntimeVisibleAnnotations属性结构"></a>RuntimeVisibleAnnotations属性结构</h4><table>
+<h4 id="RuntimeVisibleAnnotations属性结构"><a class="header-anchor" href="#RuntimeVisibleAnnotations属性结构">¶</a>RuntimeVisibleAnnotations属性结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -2240,7 +2342,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>attribute_name_index</td>
 <td>1</td>
@@ -2260,9 +2363,11 @@ CONSTANT_Class_info
 <td>annotations</td>
 <td>num_annotations</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>num_annotations是annotations数组的计数器,annotations中每个元素都代表了一个运行时可见的注解,注解在Class文件中以annotation结构来存储</p>
-<h4 id="annotation结构"><a href="#annotation结构" class="headerlink" title="annotation结构"></a>annotation结构</h4><table>
+<h4 id="annotation结构"><a class="header-anchor" href="#annotation结构">¶</a>annotation结构</h4>
+<table>
 <thead>
 <tr>
 <th>类型</th>
@@ -2270,7 +2375,8 @@ CONSTANT_Class_info
 <th>数量</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u2</td>
 <td>type_index</td>
 <td>1</td>
@@ -2285,174 +2391,179 @@ CONSTANT_Class_info
 <td>element_value_paires</td>
 <td>num_element_value_paires</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>type_index是一个指向常量池CONSTANT_Utf8_info常量的索引值,该常量应以字段描述符的形式表示一个注解。num_element_value_pairs是element_value_pairs数组的计数器,element_value_pairs中每个元素都是一个键值对,代表该注解的参数和值。</p>
-<h1 id="Class文件结构解析及示例"><a href="#Class文件结构解析及示例" class="headerlink" title="Class文件结构解析及示例"></a>Class文件结构解析及示例</h1><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">;</span>
+<h1>Class文件结构解析及示例</h1>
+<pre class="line-numbers language-language-java"><code class="language-language-java">package john.classloader;
 
-<span class="token comment" spellcheck="true">/**
+/**
  * @author: honphan.john
  * @date: 2020/9/10 17:14
  * @description:
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassLoaderTest1</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ClassLoader systemClassLoader <span class="token operator">=</span> ClassLoader<span class="token punctuation">.</span><span class="token function">getSystemClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>systemClassLoader<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//sun.misc.Launcher$AppClassLoader@18b4aac2</span>
+ */
+public class ClassLoaderTest1 {
+    public static void main(String[] args) {
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        System.out.println(systemClassLoader); //sun.misc.Launcher$AppClassLoader@18b4aac2
 
-        ClassLoader parent <span class="token operator">=</span> systemClassLoader<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//sun.misc.Launcher$ExtClassLoader@4dc63996</span>
+        ClassLoader parent = systemClassLoader.getParent();
+        System.out.println(parent); //sun.misc.Launcher$ExtClassLoader@4dc63996
 
-        ClassLoader boostrap <span class="token operator">=</span> parent<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>boostrap<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//null</span>
+        ClassLoader boostrap = parent.getParent();
+        System.out.println(boostrap); //null
 
-        ClassLoader classLoader <span class="token operator">=</span> ClassLoaderTest1<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>classLoader<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//sun.misc.Launcher$AppClassLoader@18b4aac2</span>
+        ClassLoader classLoader = ClassLoaderTest1.class.getClassLoader();
+        System.out.println(classLoader); //sun.misc.Launcher$AppClassLoader@18b4aac2
 
-        ClassLoader strClassLoader <span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>strClassLoader<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//null</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>javap工具生成非正式的”虚拟机汇编语言”(方法中的代码转成jvm指令集中指令的”Java的汇编形式”)，格式如下：<code>&lt;index&gt;&lt;opcode&gt;[&lt;operand1&gt;[&lt;operand2&gt;...]][&lt;comment&gt;]</code></p>
+        ClassLoader strClassLoader = String.class.getClassLoader();
+        System.out.println(strClassLoader); //null
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>javap工具生成非正式的&quot;虚拟机汇编语言&quot;(方法中的代码转成jvm指令集中指令的&quot;Java的汇编形式&quot;)，格式如下：<code>&lt;index&gt;&lt;opcode&gt;[&lt;operand1&gt;[&lt;operand2&gt;...]][&lt;comment&gt;]</code></p>
 <ol>
 <li><code>&lt;index&gt;</code>是指令操作码在数组中的下标，该数组以字节形式来存储当前方法的Java虚拟机代码；也可以是相对于方法起始处的字节偏移量</li>
 <li><code>&lt;opcode&gt;</code>是指令的助记码，<code>&lt;operand&gt;</code>是操作数、<code>&lt;comment&gt;</code>是行尾的注释</li>
 </ol>
-<pre class="line-numbers language-shell"><code class="language-shell">zhonghongpeng@bogon classloader % javap -v ./ClassLoaderTest1.class <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-java"><code class="language-java">Classfile <span class="token operator">/</span>Users<span class="token operator">/</span>zhonghongpeng<span class="token operator">/</span>IdeaProjects<span class="token operator">/</span>tech<span class="token operator">-</span>learning<span class="token operator">/</span>jvm<span class="token operator">/</span>target<span class="token operator">/</span>classes<span class="token operator">/</span>john<span class="token operator">/</span>classloader<span class="token operator">/</span>ClassLoaderTest1<span class="token punctuation">.</span><span class="token keyword">class</span>
-  <span class="token class-name">Last</span> modified <span class="token number">2020</span><span class="token operator">-</span><span class="token number">9</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">;</span> size <span class="token number">988</span> bytes
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">zhonghongpeng@bogon classloader % javap -v ./ClassLoaderTest1.class 
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Classfile /Users/zhonghongpeng/IdeaProjects/tech-learning/jvm/target/classes/john/classloader/ClassLoaderTest1.class
+  Last modified 2020-9-10; size 988 bytes
   MD5 checksum 2a924364f2c3f7e3670c6bba0d4fb145
-  Compiled from <span class="token string">"ClassLoaderTest1.java"</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">john<span class="token punctuation">.</span>classloader<span class="token punctuation">.</span>ClassLoaderTest1</span>
-  minor version<span class="token operator">:</span> <span class="token number">0</span>
-  major version<span class="token operator">:</span> <span class="token number">52</span>
-  flags<span class="token operator">:</span> ACC_PUBLIC<span class="token punctuation">,</span> ACC_SUPER
-Constant pool<span class="token operator">:</span>
-   #<span class="token number">1</span> <span class="token operator">=</span> Methodref          #<span class="token number">9</span><span class="token punctuation">.</span>#<span class="token number">29</span>         <span class="token comment" spellcheck="true">// java/lang/Object."&lt;init>":()V</span>
-   #<span class="token number">2</span> <span class="token operator">=</span> Methodref          #<span class="token number">30</span><span class="token punctuation">.</span>#<span class="token number">31</span>        <span class="token comment" spellcheck="true">// java/lang/ClassLoader.getSystemClassLoader:()Ljava/lang/ClassLoader;</span>
-   #<span class="token number">3</span> <span class="token operator">=</span> Fieldref           #<span class="token number">32</span><span class="token punctuation">.</span>#<span class="token number">33</span>        <span class="token comment" spellcheck="true">// java/lang/System.out:Ljava/io/PrintStream;</span>
-   #<span class="token number">4</span> <span class="token operator">=</span> Methodref          #<span class="token number">34</span><span class="token punctuation">.</span>#<span class="token number">35</span>        <span class="token comment" spellcheck="true">// java/io/PrintStream.println:(Ljava/lang/Object;)V</span>
-   #<span class="token number">5</span> <span class="token operator">=</span> Methodref          #<span class="token number">30</span><span class="token punctuation">.</span>#<span class="token number">36</span>        <span class="token comment" spellcheck="true">// java/lang/ClassLoader.getParent:()Ljava/lang/ClassLoader;</span>
-   #<span class="token number">6</span> <span class="token operator">=</span> Class              #<span class="token number">37</span>            <span class="token comment" spellcheck="true">// john/classloader/ClassLoaderTest1</span>
-   #<span class="token number">7</span> <span class="token operator">=</span> Methodref          #<span class="token number">38</span><span class="token punctuation">.</span>#<span class="token number">39</span>        <span class="token comment" spellcheck="true">// java/lang/Class.getClassLoader:()Ljava/lang/ClassLoader;</span>
-   #<span class="token number">8</span> <span class="token operator">=</span> Class              #<span class="token number">40</span>            <span class="token comment" spellcheck="true">// java/lang/String</span>
-   #<span class="token number">9</span> <span class="token operator">=</span> Class              #<span class="token number">41</span>            <span class="token comment" spellcheck="true">// java/lang/Object</span>
-  #<span class="token number">10</span> <span class="token operator">=</span> Utf8               <span class="token operator">&lt;</span>init<span class="token operator">></span>
-  #<span class="token number">11</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">)</span>V
-  #<span class="token number">12</span> <span class="token operator">=</span> Utf8               Code
-  #<span class="token number">13</span> <span class="token operator">=</span> Utf8               LineNumberTable
-  #<span class="token number">14</span> <span class="token operator">=</span> Utf8               LocalVariableTable
-  #<span class="token number">15</span> <span class="token operator">=</span> Utf8               <span class="token keyword">this</span>
-  #<span class="token number">16</span> <span class="token operator">=</span> Utf8               Ljohn<span class="token operator">/</span>classloader<span class="token operator">/</span>ClassLoaderTest1<span class="token punctuation">;</span>
-  #<span class="token number">17</span> <span class="token operator">=</span> Utf8               main
-  #<span class="token number">18</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">[</span>Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>String<span class="token punctuation">;</span><span class="token punctuation">)</span>V
-  #<span class="token number">19</span> <span class="token operator">=</span> Utf8               args
-  #<span class="token number">20</span> <span class="token operator">=</span> Utf8               <span class="token punctuation">[</span>Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>String<span class="token punctuation">;</span>
-  #<span class="token number">21</span> <span class="token operator">=</span> Utf8               systemClassLoader
-  #<span class="token number">22</span> <span class="token operator">=</span> Utf8               Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-  #<span class="token number">23</span> <span class="token operator">=</span> Utf8               parent
-  #<span class="token number">24</span> <span class="token operator">=</span> Utf8               boostrap
-  #<span class="token number">25</span> <span class="token operator">=</span> Utf8               classLoader
-  #<span class="token number">26</span> <span class="token operator">=</span> Utf8               strClassLoader
-  #<span class="token number">27</span> <span class="token operator">=</span> Utf8               SourceFile
-  #<span class="token number">28</span> <span class="token operator">=</span> Utf8               ClassLoaderTest1<span class="token punctuation">.</span>java
-  #<span class="token number">29</span> <span class="token operator">=</span> NameAndType        #<span class="token number">10</span><span class="token operator">:</span>#<span class="token number">11</span>        <span class="token comment" spellcheck="true">// "&lt;init>":()V</span>
-  #<span class="token number">30</span> <span class="token operator">=</span> Class              #<span class="token number">42</span>            <span class="token comment" spellcheck="true">// java/lang/ClassLoader</span>
-  #<span class="token number">31</span> <span class="token operator">=</span> NameAndType        #<span class="token number">43</span><span class="token operator">:</span>#<span class="token number">44</span>        <span class="token comment" spellcheck="true">// getSystemClassLoader:()Ljava/lang/ClassLoader;</span>
-  #<span class="token number">32</span> <span class="token operator">=</span> Class              #<span class="token number">45</span>            <span class="token comment" spellcheck="true">// java/lang/System</span>
-  #<span class="token number">33</span> <span class="token operator">=</span> NameAndType        #<span class="token number">46</span><span class="token operator">:</span>#<span class="token number">47</span>        <span class="token comment" spellcheck="true">// out:Ljava/io/PrintStream;</span>
-  #<span class="token number">34</span> <span class="token operator">=</span> Class              #<span class="token number">48</span>            <span class="token comment" spellcheck="true">// java/io/PrintStream</span>
-  #<span class="token number">35</span> <span class="token operator">=</span> NameAndType        #<span class="token number">49</span><span class="token operator">:</span>#<span class="token number">50</span>        <span class="token comment" spellcheck="true">// println:(Ljava/lang/Object;)V</span>
-  #<span class="token number">36</span> <span class="token operator">=</span> NameAndType        #<span class="token number">51</span><span class="token operator">:</span>#<span class="token number">44</span>        <span class="token comment" spellcheck="true">// getParent:()Ljava/lang/ClassLoader;</span>
-  #<span class="token number">37</span> <span class="token operator">=</span> Utf8               john<span class="token operator">/</span>classloader<span class="token operator">/</span>ClassLoaderTest1
-  #<span class="token number">38</span> <span class="token operator">=</span> Class              #<span class="token number">52</span>            <span class="token comment" spellcheck="true">// java/lang/Class</span>
-  #<span class="token number">39</span> <span class="token operator">=</span> NameAndType        #<span class="token number">53</span><span class="token operator">:</span>#<span class="token number">44</span>        <span class="token comment" spellcheck="true">// getClassLoader:()Ljava/lang/ClassLoader;</span>
-  #<span class="token number">40</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>String
-  #<span class="token number">41</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>Object
-  #<span class="token number">42</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader
-  #<span class="token number">43</span> <span class="token operator">=</span> Utf8               getSystemClassLoader
-  #<span class="token number">44</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">)</span>Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-  #<span class="token number">45</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>System
-  #<span class="token number">46</span> <span class="token operator">=</span> Utf8               out
-  #<span class="token number">47</span> <span class="token operator">=</span> Utf8               Ljava<span class="token operator">/</span>io<span class="token operator">/</span>PrintStream<span class="token punctuation">;</span>
-  #<span class="token number">48</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>io<span class="token operator">/</span>PrintStream
-  #<span class="token number">49</span> <span class="token operator">=</span> Utf8               println
-  #<span class="token number">50</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span>Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>Object<span class="token punctuation">;</span><span class="token punctuation">)</span>V
-  #<span class="token number">51</span> <span class="token operator">=</span> Utf8               getParent
-  #<span class="token number">52</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>Class
-  #<span class="token number">53</span> <span class="token operator">=</span> Utf8               getClassLoader
-<span class="token punctuation">{</span>
-  <span class="token keyword">public</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">.</span><span class="token function">ClassLoaderTest1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    descriptor<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>V
-    flags<span class="token operator">:</span> ACC_PUBLIC
-    Code<span class="token operator">:</span>
-      stack<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> locals<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> args_size<span class="token operator">=</span><span class="token number">1</span>
-         <span class="token number">0</span><span class="token operator">:</span> aload_0
-         <span class="token number">1</span><span class="token operator">:</span> invokespecial #<span class="token number">1</span>                  <span class="token comment" spellcheck="true">// Method java/lang/Object."&lt;init>":()V</span>
-         <span class="token number">4</span><span class="token operator">:</span> <span class="token keyword">return</span>
-      LineNumberTable<span class="token operator">:</span>
-        line <span class="token number">8</span><span class="token operator">:</span> <span class="token number">0</span>
-      LocalVariableTable<span class="token operator">:</span>
+  Compiled from "ClassLoaderTest1.java"
+public class john.classloader.ClassLoaderTest1
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #9.#29         // java/lang/Object."<init>":()V
+   #2 = Methodref          #30.#31        // java/lang/ClassLoader.getSystemClassLoader:()Ljava/lang/ClassLoader;
+   #3 = Fieldref           #32.#33        // java/lang/System.out:Ljava/io/PrintStream;
+   #4 = Methodref          #34.#35        // java/io/PrintStream.println:(Ljava/lang/Object;)V
+   #5 = Methodref          #30.#36        // java/lang/ClassLoader.getParent:()Ljava/lang/ClassLoader;
+   #6 = Class              #37            // john/classloader/ClassLoaderTest1
+   #7 = Methodref          #38.#39        // java/lang/Class.getClassLoader:()Ljava/lang/ClassLoader;
+   #8 = Class              #40            // java/lang/String
+   #9 = Class              #41            // java/lang/Object
+  #10 = Utf8               <init>
+  #11 = Utf8               ()V
+  #12 = Utf8               Code
+  #13 = Utf8               LineNumberTable
+  #14 = Utf8               LocalVariableTable
+  #15 = Utf8               this
+  #16 = Utf8               Ljohn/classloader/ClassLoaderTest1;
+  #17 = Utf8               main
+  #18 = Utf8               ([Ljava/lang/String;)V
+  #19 = Utf8               args
+  #20 = Utf8               [Ljava/lang/String;
+  #21 = Utf8               systemClassLoader
+  #22 = Utf8               Ljava/lang/ClassLoader;
+  #23 = Utf8               parent
+  #24 = Utf8               boostrap
+  #25 = Utf8               classLoader
+  #26 = Utf8               strClassLoader
+  #27 = Utf8               SourceFile
+  #28 = Utf8               ClassLoaderTest1.java
+  #29 = NameAndType        #10:#11        // "<init>":()V
+  #30 = Class              #42            // java/lang/ClassLoader
+  #31 = NameAndType        #43:#44        // getSystemClassLoader:()Ljava/lang/ClassLoader;
+  #32 = Class              #45            // java/lang/System
+  #33 = NameAndType        #46:#47        // out:Ljava/io/PrintStream;
+  #34 = Class              #48            // java/io/PrintStream
+  #35 = NameAndType        #49:#50        // println:(Ljava/lang/Object;)V
+  #36 = NameAndType        #51:#44        // getParent:()Ljava/lang/ClassLoader;
+  #37 = Utf8               john/classloader/ClassLoaderTest1
+  #38 = Class              #52            // java/lang/Class
+  #39 = NameAndType        #53:#44        // getClassLoader:()Ljava/lang/ClassLoader;
+  #40 = Utf8               java/lang/String
+  #41 = Utf8               java/lang/Object
+  #42 = Utf8               java/lang/ClassLoader
+  #43 = Utf8               getSystemClassLoader
+  #44 = Utf8               ()Ljava/lang/ClassLoader;
+  #45 = Utf8               java/lang/System
+  #46 = Utf8               out
+  #47 = Utf8               Ljava/io/PrintStream;
+  #48 = Utf8               java/io/PrintStream
+  #49 = Utf8               println
+  #50 = Utf8               (Ljava/lang/Object;)V
+  #51 = Utf8               getParent
+  #52 = Utf8               java/lang/Class
+  #53 = Utf8               getClassLoader
+{
+  public john.classloader.ClassLoaderTest1();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 8: 0
+      LocalVariableTable:
         Start  Length  Slot  Name   Signature
-            <span class="token number">0</span>       <span class="token number">5</span>     <span class="token number">0</span>  <span class="token keyword">this</span>   Ljohn<span class="token operator">/</span>classloader<span class="token operator">/</span>ClassLoaderTest1<span class="token punctuation">;</span>
+            0       5     0  this   Ljohn/classloader/ClassLoaderTest1;
 
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    descriptor<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>String<span class="token punctuation">;</span><span class="token punctuation">)</span>V
-    flags<span class="token operator">:</span> ACC_PUBLIC<span class="token punctuation">,</span> ACC_STATIC
-    Code<span class="token operator">:</span>
-      stack<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> locals<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">,</span> args_size<span class="token operator">=</span><span class="token number">1</span>
-         <span class="token number">0</span><span class="token operator">:</span> invokestatic  #<span class="token number">2</span>                  <span class="token comment" spellcheck="true">// Method java/lang/ClassLoader.getSystemClassLoader:()Ljava/lang/ClassLoader;</span>
-         <span class="token number">3</span><span class="token operator">:</span> astore_1
-         <span class="token number">4</span><span class="token operator">:</span> getstatic     #<span class="token number">3</span>                  <span class="token comment" spellcheck="true">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
-         <span class="token number">7</span><span class="token operator">:</span> aload_1
-         <span class="token number">8</span><span class="token operator">:</span> invokevirtual #<span class="token number">4</span>                  <span class="token comment" spellcheck="true">// Method java/io/PrintStream.println:(Ljava/lang/Object;)V</span>
-        <span class="token number">11</span><span class="token operator">:</span> aload_1
-        <span class="token number">12</span><span class="token operator">:</span> invokevirtual #<span class="token number">5</span>                  <span class="token comment" spellcheck="true">// Method java/lang/ClassLoader.getParent:()Ljava/lang/ClassLoader;</span>
-        <span class="token number">15</span><span class="token operator">:</span> astore_2
-        <span class="token number">16</span><span class="token operator">:</span> getstatic     #<span class="token number">3</span>                  <span class="token comment" spellcheck="true">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
-        <span class="token number">19</span><span class="token operator">:</span> aload_2
-        <span class="token number">20</span><span class="token operator">:</span> invokevirtual #<span class="token number">4</span>                  <span class="token comment" spellcheck="true">// Method java/io/PrintStream.println:(Ljava/lang/Object;)V</span>
-        <span class="token number">23</span><span class="token operator">:</span> aload_2
-        <span class="token number">24</span><span class="token operator">:</span> invokevirtual #<span class="token number">5</span>                  <span class="token comment" spellcheck="true">// Method java/lang/ClassLoader.getParent:()Ljava/lang/ClassLoader;</span>
-        <span class="token number">27</span><span class="token operator">:</span> astore_3
-        <span class="token number">28</span><span class="token operator">:</span> getstatic     #<span class="token number">3</span>                  <span class="token comment" spellcheck="true">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
-        <span class="token number">31</span><span class="token operator">:</span> aload_3
-        <span class="token number">32</span><span class="token operator">:</span> invokevirtual #<span class="token number">4</span>                  <span class="token comment" spellcheck="true">// Method java/io/PrintStream.println:(Ljava/lang/Object;)V</span>
-        <span class="token number">35</span><span class="token operator">:</span> ldc           #<span class="token number">6</span>                  <span class="token comment" spellcheck="true">// class john/classloader/ClassLoaderTest1</span>
-        <span class="token number">37</span><span class="token operator">:</span> invokevirtual #<span class="token number">7</span>                  <span class="token comment" spellcheck="true">// Method java/lang/Class.getClassLoader:()Ljava/lang/ClassLoader;</span>
-        <span class="token number">40</span><span class="token operator">:</span> astore        <span class="token number">4</span>
-        <span class="token number">42</span><span class="token operator">:</span> getstatic     #<span class="token number">3</span>                  <span class="token comment" spellcheck="true">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
-        <span class="token number">45</span><span class="token operator">:</span> aload         <span class="token number">4</span>
-        <span class="token number">47</span><span class="token operator">:</span> invokevirtual #<span class="token number">4</span>                  <span class="token comment" spellcheck="true">// Method java/io/PrintStream.println:(Ljava/lang/Object;)V</span>
-        <span class="token number">50</span><span class="token operator">:</span> ldc           #<span class="token number">8</span>                  <span class="token comment" spellcheck="true">// class java/lang/String</span>
-        <span class="token number">52</span><span class="token operator">:</span> invokevirtual #<span class="token number">7</span>                  <span class="token comment" spellcheck="true">// Method java/lang/Class.getClassLoader:()Ljava/lang/ClassLoader;</span>
-        <span class="token number">55</span><span class="token operator">:</span> astore        <span class="token number">5</span>
-        <span class="token number">57</span><span class="token operator">:</span> getstatic     #<span class="token number">3</span>                  <span class="token comment" spellcheck="true">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
-        <span class="token number">60</span><span class="token operator">:</span> aload         <span class="token number">5</span>
-        <span class="token number">62</span><span class="token operator">:</span> invokevirtual #<span class="token number">4</span>                  <span class="token comment" spellcheck="true">// Method java/io/PrintStream.println:(Ljava/lang/Object;)V</span>
-        <span class="token number">65</span><span class="token operator">:</span> <span class="token keyword">return</span>
-      LineNumberTable<span class="token operator">:</span>
-        line <span class="token number">10</span><span class="token operator">:</span> <span class="token number">0</span>
-        line <span class="token number">11</span><span class="token operator">:</span> <span class="token number">4</span>
-        line <span class="token number">13</span><span class="token operator">:</span> <span class="token number">11</span>
-        line <span class="token number">14</span><span class="token operator">:</span> <span class="token number">16</span>
-        line <span class="token number">16</span><span class="token operator">:</span> <span class="token number">23</span>
-        line <span class="token number">17</span><span class="token operator">:</span> <span class="token number">28</span>
-        line <span class="token number">19</span><span class="token operator">:</span> <span class="token number">35</span>
-        line <span class="token number">20</span><span class="token operator">:</span> <span class="token number">42</span>
-        line <span class="token number">22</span><span class="token operator">:</span> <span class="token number">50</span>
-        line <span class="token number">23</span><span class="token operator">:</span> <span class="token number">57</span>
-        line <span class="token number">24</span><span class="token operator">:</span> <span class="token number">65</span>
-      LocalVariableTable<span class="token operator">:</span>
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=6, args_size=1
+         0: invokestatic  #2                  // Method java/lang/ClassLoader.getSystemClassLoader:()Ljava/lang/ClassLoader;
+         3: astore_1
+         4: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         7: aload_1
+         8: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        11: aload_1
+        12: invokevirtual #5                  // Method java/lang/ClassLoader.getParent:()Ljava/lang/ClassLoader;
+        15: astore_2
+        16: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        19: aload_2
+        20: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        23: aload_2
+        24: invokevirtual #5                  // Method java/lang/ClassLoader.getParent:()Ljava/lang/ClassLoader;
+        27: astore_3
+        28: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        31: aload_3
+        32: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        35: ldc           #6                  // class john/classloader/ClassLoaderTest1
+        37: invokevirtual #7                  // Method java/lang/Class.getClassLoader:()Ljava/lang/ClassLoader;
+        40: astore        4
+        42: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        45: aload         4
+        47: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        50: ldc           #8                  // class java/lang/String
+        52: invokevirtual #7                  // Method java/lang/Class.getClassLoader:()Ljava/lang/ClassLoader;
+        55: astore        5
+        57: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        60: aload         5
+        62: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        65: return
+      LineNumberTable:
+        line 10: 0
+        line 11: 4
+        line 13: 11
+        line 14: 16
+        line 16: 23
+        line 17: 28
+        line 19: 35
+        line 20: 42
+        line 22: 50
+        line 23: 57
+        line 24: 65
+      LocalVariableTable:
         Start  Length  Slot  Name   Signature
-            <span class="token number">0</span>      <span class="token number">66</span>     <span class="token number">0</span>  args   <span class="token punctuation">[</span>Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>String<span class="token punctuation">;</span>
-            <span class="token number">4</span>      <span class="token number">62</span>     <span class="token number">1</span> systemClassLoader   Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-           <span class="token number">16</span>      <span class="token number">50</span>     <span class="token number">2</span> parent   Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-           <span class="token number">28</span>      <span class="token number">38</span>     <span class="token number">3</span> boostrap   Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-           <span class="token number">42</span>      <span class="token number">24</span>     <span class="token number">4</span> classLoader   Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-           <span class="token number">57</span>       <span class="token number">9</span>     <span class="token number">5</span> strClassLoader   Ljava<span class="token operator">/</span>lang<span class="token operator">/</span>ClassLoader<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-SourceFile<span class="token operator">:</span> <span class="token string">"ClassLoaderTest1.java"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            0      66     0  args   [Ljava/lang/String;
+            4      62     1 systemClassLoader   Ljava/lang/ClassLoader;
+           16      50     2 parent   Ljava/lang/ClassLoader;
+           28      38     3 boostrap   Ljava/lang/ClassLoader;
+           42      24     4 classLoader   Ljava/lang/ClassLoader;
+           57       9     5 strClassLoader   Ljava/lang/ClassLoader;
+}
+SourceFile: "ClassLoaderTest1.java"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr />
@@ -2945,7 +3056,7 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Clas
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="04_本地方法接口及本地方法栈">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="04_本地方法接口及本地方法栈">
                         
                         <span class="card-title">04_本地方法接口及本地方法栈</span>
                     </div>
@@ -2994,7 +3105,7 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Clas
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="06_方法区">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="06_方法区">
                         
                         <span class="card-title">06_方法区</span>
                     </div>
@@ -3162,7 +3273,7 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Clas
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

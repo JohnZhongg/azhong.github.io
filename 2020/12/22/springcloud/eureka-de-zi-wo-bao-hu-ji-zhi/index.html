@@ -8,7 +8,8 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="自我保护机制介绍当检测到同时有大量已注册客户端因为非正常断开连接然后准备从注册列表剔除，Eureka 服务器就会进入自我保护模式(self-presevation mode)。这是为了保证大规模网络中断事件不会导致 eureka 的注册时间">
+    <meta name="description" content="自我保护机制介绍
+当检测到同时有大量已注册客户端因为非正常断开连接然后准备从注册列表剔除，Eureka 服务器就会进入自我保护模式(self-presevation mode)。这是为了保证大规模网络中断事件不会导致 eureka 的注册时">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -329,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -484,7 +485,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    860
+                    866
                 </div>
                 
 
@@ -507,11 +508,12 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="自我保护机制介绍"><a href="#自我保护机制介绍" class="headerlink" title="自我保护机制介绍"></a>自我保护机制介绍</h1><p>当检测到同时有大量已注册客户端因为非正常断开连接然后准备从注册列表剔除，Eureka 服务器就会进入自我保护模式(self-presevation mode)。这是为了保证大规模网络中断事件不会导致 eureka 的注册时间被抹掉并传播到所有客户端(消费者)。</p>
+                <h1>自我保护机制介绍</h1>
+<p>当检测到同时有大量已注册客户端因为非正常断开连接然后准备从注册列表剔除，Eureka 服务器就会进入自我保护模式(self-presevation mode)。这是为了保证大规模网络中断事件不会导致 eureka 的注册时间被抹掉并传播到所有客户端(消费者)。</p>
 <p>eureka 中已注册客户端被剔除方式：</p>
 <ol>
 <li>对于 eureka 的协议，客户端停止注册的正常流程应该使执行一个明确的动作。例如：在 java 客户端中的 <code>shutdown</code> 方法。</li>
-<li>另外，如果 eureka server 在连续 3 个 heartbeat 周期时间单位内没有收到一个客户端的心跳包，就会认为这个客户端”不明确的中断了”，将会在后台的剔除任务中从注册列表剔除这个客户端。</li>
+<li>另外，如果 eureka server 在连续 3 个 heartbeat 周期时间单位内没有收到一个客户端的心跳包，就会认为这个客户端&quot;不明确的中断了&quot;，将会在后台的剔除任务中从注册列表剔除这个客户端。</li>
 </ol>
 <p>自我保护模式针对的使第二种断开方式，当有超过 15% 已注册客户端处于这种状态的时候，自我保护模式将会被开启。自我保护模式开启后，将会停止所有客户端剔除工作，直到以下任一条件满足为止：</p>
 <ul>
@@ -519,18 +521,22 @@
 <li>自我保护模式被关闭</li>
 </ul>
 <p>自我保护模式在默认情况下使开启的，默认开启自我保护模式的阈值是当前注册客户端数量的 15%。</p>
-<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>和大多数注册中心(服务发现)一样，消费者从注册中心获取服务提供方联系信息，直接对生产者发起远程调用(k8s 的服务发现不是)。如果存在”少量”服务方不明确地不可达的时候，通常来说，注册中心同步这个消息到消费者不会出现大问题。</p>
+<h1>个人理解</h1>
+<p>和大多数注册中心(服务发现)一样，消费者从注册中心获取服务提供方联系信息，直接对生产者发起远程调用(k8s 的服务发现不是)。如果存在&quot;少量&quot;服务方不明确地不可达的时候，通常来说，注册中心同步这个消息到消费者不会出现大问题。</p>
 <p>相对的，如果使短时间内大量服务不可达的时候，这个消息如果同步到消费者，那么这个微服务构建的分布式系统将明确的进入不可响应状态。但是同时出现大量生产者 crash 的情况是较低概率的，一般是网络问题导致，即生产者到注册中心之间的链路出现了问题，但是消费者到生产者的链路可能是没问题的，所以 eureka 在这方面采用保守做法，保留自己的注册信息从而使得消费者中已经同步的生产信息不被删除。</p>
-<h1 id="相关服务端配置"><a href="#相关服务端配置" class="headerlink" title="相关服务端配置"></a>相关服务端配置</h1><ul>
+<h1>相关服务端配置</h1>
+<ul>
 <li><code>eureka.renewalPercentThreshold</code>：指定触发自我保护模式的阈值（多少已注册客户端非正常断开），范围是 [0.0, 1.0]。</li>
 <li><code>eureka.enableSelfPreservation</code>：是否开启自我保护模式，true开启、false关闭</li>
-<li><code>eureka.server.eviction-interval-timer-in-ms</code>：客户端剔除时间窗口，个人理解是一个断开连接的客户端最迟要在”确定断开的时间点”之后该时间间隔内从注册中心剔除。单位 ms 。</li>
+<li><code>eureka.server.eviction-interval-timer-in-ms</code>：客户端剔除时间窗口，个人理解是一个断开连接的客户端最迟要在&quot;确定断开的时间点&quot;之后该时间间隔内从注册中心剔除。单位 ms 。</li>
 </ul>
-<h1 id="相关客户端配置"><a href="#相关客户端配置" class="headerlink" title="相关客户端配置"></a>相关客户端配置</h1><ul>
+<h1>相关客户端配置</h1>
+<ul>
 <li><code>eureka.client.lease-renewal-interval-in-seconds</code>：客户端向服务端续约的时间间隔(发送心跳包)。单位 s。</li>
 <li><code>eureka.client.lease-expiration-duration-in-seconds</code>：告诉服务端发送的租约(心跳包)过期时间。单位 s。（检测是否需要启动自我保护机制的时间单位）</li>
 </ul>
-<h1 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h1><ul>
+<h1>参考阅读</h1>
+<ul>
 <li><a href="https://github.com/Netflix/eureka/wiki/Server-Self-Preservation-Mode" target="_blank" rel="noopener">官方介绍</a></li>
 </ul>
 
@@ -1025,7 +1031,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="vue 学习资料">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="vue 学习资料">
                         
                         <span class="card-title">vue 学习资料</span>
                     </div>
@@ -1078,7 +1084,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="nodejs 入门">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="nodejs 入门">
                         
                         <span class="card-title">nodejs 入门</span>
                     </div>
@@ -1246,7 +1252,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

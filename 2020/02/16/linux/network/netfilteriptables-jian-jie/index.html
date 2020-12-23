@@ -329,7 +329,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -508,9 +508,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>netfilter和iptables是什么关系？常说的iptables里面的表(table)、链(chain)、规则(rule)都是什么东西？本篇将带着这些疑问介绍netfilter/iptables的结构和相关概念，帮助有需要的同学更好的理解netfilter/iptables，为进一步学习使用iptables做准备。</p>
-<h2 id="什么是netfilter和iptables"><a href="#什么是netfilter和iptables" class="headerlink" title="什么是netfilter和iptables"></a>什么是netfilter和iptables</h2><p>用通俗点的话来讲:</p>
+<h2 id="什么是netfilter和iptables"><a class="header-anchor" href="#什么是netfilter和iptables">¶</a>什么是netfilter和iptables</h2>
+<p>用通俗点的话来讲:</p>
 <ul>
-<li>netfilter指整个项目，不然官网就不会叫<a href="http://www.netfilter.org了。" target="_blank" rel="noopener">www.netfilter.org了。</a></li>
+<li>netfilter指整个项目，不然官网就不会叫www.netfilter.org了。</li>
 <li>在这个项目里面，netfilter特指内核中的netfilter框架，iptables指用户空间的配置工具。</li>
 <li>netfilter在协议栈中添加了5个钩子，允许内核模块在这些钩子的地方注册回调函数，这样经过钩子的所有数据包都会被注册在相应钩子上的函数所处理，包括修改数据包内容、给数据包打标记或者丢掉数据包等。</li>
 <li>netfilter框架负责维护钩子上注册的处理函数或者模块，以及它们的优先级。</li>
@@ -520,7 +521,8 @@
 <blockquote>
 <p>在应用者的眼里，可能iptables代表了整个项目，代表了防火墙，但在开发者眼里，可能netfilter更能代表这个项目。</p>
 </blockquote>
-<h2 id="netfilter钩子（hooks）"><a href="#netfilter钩子（hooks）" class="headerlink" title="netfilter钩子（hooks）"></a>netfilter钩子（hooks）</h2><p>在内核协议栈中，有5个跟netfilter有关的钩子，数据包经过每个钩子时，都会检查上面是否注册有函数，如果有的话，就会调用相应的函数处理该数据包，它们的位置见下图：</p>
+<h2 id="netfilter钩子（hooks）"><a class="header-anchor" href="#netfilter钩子（hooks）">¶</a>netfilter钩子（hooks）</h2>
+<p>在内核协议栈中，有5个跟netfilter有关的钩子，数据包经过每个钩子时，都会检查上面是否注册有函数，如果有的话，就会调用相应的函数处理该数据包，它们的位置见下图：</p>
 <pre><code>         |
          | Incoming
          ↓
@@ -562,7 +564,9 @@
 +--------------------+
          |
          | Outgoing
-         ↓</code></pre><ul>
+         ↓
+</code></pre>
+<ul>
 <li>NF_IP_PRE_ROUTING: 接收的数据包刚进来，还没有经过路由选择，即还不知道数据包是要发给本机还是其它机器。</li>
 <li>NF_IP_LOCAL_IN: 已经经过路由选择，并且该数据包的目的IP是本机，进入本地数据包处理流程。</li>
 <li>NF_IP_FORWARD: 已经经过路由选择，但该数据包的目的IP不是本机，而是其它机器，进入forward流程。</li>
@@ -581,13 +585,20 @@
 <blockquote>
 <p>注意： netfilter所有的钩子（hooks）都是在内核协议栈的IP层，由于IPv4和IPv6用的是不同的IP层代码，所以iptables配置的rules只会影响IPv4的数据包，而IPv6相关的配置需要使用ip6tables。</p>
 </blockquote>
-<h2 id="iptables中的表（tables）"><a href="#iptables中的表（tables）" class="headerlink" title="iptables中的表（tables）"></a>iptables中的表（tables）</h2><p>iptables用表（table）来分类管理它的规则（rule），根据rule的作用分成了好几个表，比如用来过滤数据包的rule就会放到filter表中，用于处理地址转换的rule就会放到nat表中，其中rule就是应用在netfilter钩子上的函数，用来修改数据包的内容或过滤数据包。目前iptables支持的表有下面这些：</p>
-<h4 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h4><p>从名字就可以看出，这个表里面的rule主要用来过滤数据，用来控制让哪些数据可以通过，哪些数据不能通过，它是最常用的表。</p>
-<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>里面的rule都是用来处理网络地址转换的，控制要不要进行地址转换，以及怎样修改源地址或目的地址，从而影响数据包的路由，达到连通的目的，这是家用路由器必备的功能。</p>
-<h4 id="Mangle"><a href="#Mangle" class="headerlink" title="Mangle"></a>Mangle</h4><p>里面的rule主要用来修改IP数据包头，比如修改TTL值，同时也用于给数据包添加一些标记，从而便于后续其它模块对数据包进行处理（这里的添加标记是指往内核skb结构中添加标记，而不是往真正的IP数据包上加东西）。</p>
-<h4 id="Raw"><a href="#Raw" class="headerlink" title="Raw"></a>Raw</h4><p>在netfilter里面有一个叫做connection tracking的功能（后面会介绍到），主要用来追踪所有的连接，而raw表里的rule的功能是给数据包打标记，从而控制哪些数据包不被connection tracking所追踪。</p>
-<h4 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h4><p>里面的rule跟SELinux有关，主要是在数据包上设置一些SELinux的标记，便于跟SELinux相关的模块来处理该数据包。</p>
-<h2 id="chains"><a href="#chains" class="headerlink" title="chains"></a>chains</h2><p>上面我们根据不同功能将rule放到了不同的表里面之后，这些rule会注册到哪些钩子上呢？于是iptables将表中的rule继续分类，让rule属于不同的链（chain），由chain来决定什么时候触发chain上的这些rule。</p>
+<h2 id="iptables中的表（tables）"><a class="header-anchor" href="#iptables中的表（tables）">¶</a>iptables中的表（tables）</h2>
+<p>iptables用表（table）来分类管理它的规则（rule），根据rule的作用分成了好几个表，比如用来过滤数据包的rule就会放到filter表中，用于处理地址转换的rule就会放到nat表中，其中rule就是应用在netfilter钩子上的函数，用来修改数据包的内容或过滤数据包。目前iptables支持的表有下面这些：</p>
+<h4 id="Filter"><a class="header-anchor" href="#Filter">¶</a>Filter</h4>
+<p>从名字就可以看出，这个表里面的rule主要用来过滤数据，用来控制让哪些数据可以通过，哪些数据不能通过，它是最常用的表。</p>
+<h4 id="NAT"><a class="header-anchor" href="#NAT">¶</a>NAT</h4>
+<p>里面的rule都是用来处理网络地址转换的，控制要不要进行地址转换，以及怎样修改源地址或目的地址，从而影响数据包的路由，达到连通的目的，这是家用路由器必备的功能。</p>
+<h4 id="Mangle"><a class="header-anchor" href="#Mangle">¶</a>Mangle</h4>
+<p>里面的rule主要用来修改IP数据包头，比如修改TTL值，同时也用于给数据包添加一些标记，从而便于后续其它模块对数据包进行处理（这里的添加标记是指往内核skb结构中添加标记，而不是往真正的IP数据包上加东西）。</p>
+<h4 id="Raw"><a class="header-anchor" href="#Raw">¶</a>Raw</h4>
+<p>在netfilter里面有一个叫做connection tracking的功能（后面会介绍到），主要用来追踪所有的连接，而raw表里的rule的功能是给数据包打标记，从而控制哪些数据包不被connection tracking所追踪。</p>
+<h4 id="Security"><a class="header-anchor" href="#Security">¶</a>Security</h4>
+<p>里面的rule跟SELinux有关，主要是在数据包上设置一些SELinux的标记，便于跟SELinux相关的模块来处理该数据包。</p>
+<h2 id="chains"><a class="header-anchor" href="#chains">¶</a>chains</h2>
+<p>上面我们根据不同功能将rule放到了不同的表里面之后，这些rule会注册到哪些钩子上呢？于是iptables将表中的rule继续分类，让rule属于不同的链（chain），由chain来决定什么时候触发chain上的这些rule。</p>
 <p>iptables里面有5个内置的chains，分别对应5个钩子：</p>
 <ul>
 <li>PREROUTING: 数据包经过NF_IP_PRE_ROUTING时会触发该chain上的rule.</li>
@@ -601,7 +612,8 @@
 <blockquote>
 <p>提示：可以通过命令<code>iptables -L -t nat|grep policy|grep Chain</code>查看到nat表所支持的chain，其它的表也可以用类似的方式查看到，比如修改nat为raw即可看到raw表所支持的chain。</p>
 </blockquote>
-<h2 id="每个表（table）都包含哪些chain，表之间的优先级是怎样的？"><a href="#每个表（table）都包含哪些chain，表之间的优先级是怎样的？" class="headerlink" title="每个表（table）都包含哪些chain，表之间的优先级是怎样的？"></a>每个表（table）都包含哪些chain，表之间的优先级是怎样的？</h2><p>下图在上面那张图的基础上，详细的标识出了各个表的rule可以注册在哪个钩子上（即各个表里面支持哪些chain），以及它们的优先级。</p>
+<h2 id="每个表（table）都包含哪些chain，表之间的优先级是怎样的？"><a class="header-anchor" href="#每个表（table）都包含哪些chain，表之间的优先级是怎样的？">¶</a>每个表（table）都包含哪些chain，表之间的优先级是怎样的？</h2>
+<p>下图在上面那张图的基础上，详细的标识出了各个表的rule可以注册在哪个钩子上（即各个表里面支持哪些chain），以及它们的优先级。</p>
 <blockquote>
 <ol>
 <li>图中每个钩子关联的表按照优先级高低，从上到下排列；</li>
@@ -650,14 +662,19 @@
                            +--------------------+           || nat (SNAT) ||
                                     |                       ++------------++
                                     | Outgoing
-                                    ↓</code></pre><ul>
+                                    ↓
+</code></pre>
+<ul>
 <li>以NF_IP_PRE_ROUTING为例，数据包到了这个点之后，会先执行raw表中PREROUTING(chain)里的rule，然后执行connection tracking，接着再执行mangle表中PREROUTING(chain)里的rule，最后执行nat (DNAT)表中PREROUTING(chain)里的rule。</li>
 <li>以filter表为例，它只能注册在NF_IP_LOCAL_IN、NF_IP_FORWARD和NF_IP_LOCAL_OUT上，所以它只支持INPUT、FORWARD和OUTPUT这三个chain。</li>
 <li>以收到目的IP是本机的数据包为例，它的传输路径为：NF_IP_PRE_ROUTING -&gt; NF_IP_LOCAL_IN，那么它首先要依次经过NF_IP_PRE_ROUTING上注册的raw、connection tracking 、mangle和nat (DNAT)，然后经过NF_IP_LOCAL_IN上注册的mangle、filter、security和nat (SNAT)。</li>
 </ul>
-<h2 id="iptables中的规则（Rules）"><a href="#iptables中的规则（Rules）" class="headerlink" title="iptables中的规则（Rules）"></a>iptables中的规则（Rules）</h2><p>rule存放在特定表的特定chain上，每条rule包含下面两部分信息：</p>
-<h4 id="Matching"><a href="#Matching" class="headerlink" title="Matching"></a>Matching</h4><p>Matching就是如何匹配一个数据包，匹配条件很多，比如协议类型、源/目的IP、源/目的端口、in/out接口、包头里面的数据以及连接状态等，这些条件可以任意组合从而实现复杂情况下的匹配。详情请参考<a href="https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#MATCHES" target="_blank" rel="noopener">Iptables matches</a></p>
-<h4 id="Targets"><a href="#Targets" class="headerlink" title="Targets"></a>Targets</h4><p>Targets就是找到匹配的数据包之后怎么办，常见的有下面几种：</p>
+<h2 id="iptables中的规则（Rules）"><a class="header-anchor" href="#iptables中的规则（Rules）">¶</a>iptables中的规则（Rules）</h2>
+<p>rule存放在特定表的特定chain上，每条rule包含下面两部分信息：</p>
+<h4 id="Matching"><a class="header-anchor" href="#Matching">¶</a>Matching</h4>
+<p>Matching就是如何匹配一个数据包，匹配条件很多，比如协议类型、源/目的IP、源/目的端口、in/out接口、包头里面的数据以及连接状态等，这些条件可以任意组合从而实现复杂情况下的匹配。详情请参考<a href="https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#MATCHES" target="_blank" rel="noopener">Iptables matches</a></p>
+<h4 id="Targets"><a class="header-anchor" href="#Targets">¶</a>Targets</h4>
+<p>Targets就是找到匹配的数据包之后怎么办，常见的有下面几种：</p>
 <ul>
 <li>DROP：直接将数据包丢弃，不再进行后续的处理</li>
 <li>RETURN： 跳出当前chain，该chain里后续的rule不再执行</li>
@@ -665,9 +682,12 @@
 <li>ACCEPT： 同意数据包通过，继续执行后续的rule</li>
 <li>跳转到其它用户自定义的chain继续执行</li>
 </ul>
-<p>当然iptables包含的targets很多很多，但并不是每个表都支持所有的targets，<br>rule所支持的target由它所在的表和chain以及所开启的扩展功能来决定，具体每个表支持的targets请参考<a href="https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#TARGETS" target="_blank" rel="noopener">Iptables targets and jumps</a>。</p>
-<h2 id="用户自定义Chains"><a href="#用户自定义Chains" class="headerlink" title="用户自定义Chains"></a>用户自定义Chains</h2><p>除了iptables预定义的5个chain之外，用户还可以在表中定义自己的chain，用户自定义的chain中的rule和预定义chain里的rule没有区别，不过由于自定义的chain没有和netfilter里面的钩子进行绑定，所以它不会自动触发，只能从其它chain的rule中跳转过来。</p>
-<h2 id="连接追踪（Connection-Tracking）"><a href="#连接追踪（Connection-Tracking）" class="headerlink" title="连接追踪（Connection Tracking）"></a>连接追踪（Connection Tracking）</h2><p>Connection Tracking发生在NF_IP_PRE_ROUTING和NF_IP_LOCAL_OUT这两个地方，一旦开启该功能，Connection Tracking模块将会追踪每个数据包（被raw表中的rule标记过的除外），维护所有的连接状态，然后这些状态可以供其它表中的rule引用，用户空间的程序也可以通过/proc/net/ip_conntrack来获取连接信息。下面是所有的连接状态：</p>
+<p>当然iptables包含的targets很多很多，但并不是每个表都支持所有的targets，<br>
+rule所支持的target由它所在的表和chain以及所开启的扩展功能来决定，具体每个表支持的targets请参考<a href="https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#TARGETS" target="_blank" rel="noopener">Iptables targets and jumps</a>。</p>
+<h2 id="用户自定义Chains"><a class="header-anchor" href="#用户自定义Chains">¶</a>用户自定义Chains</h2>
+<p>除了iptables预定义的5个chain之外，用户还可以在表中定义自己的chain，用户自定义的chain中的rule和预定义chain里的rule没有区别，不过由于自定义的chain没有和netfilter里面的钩子进行绑定，所以它不会自动触发，只能从其它chain的rule中跳转过来。</p>
+<h2 id="连接追踪（Connection-Tracking）"><a class="header-anchor" href="#连接追踪（Connection-Tracking）">¶</a>连接追踪（Connection Tracking）</h2>
+<p>Connection Tracking发生在NF_IP_PRE_ROUTING和NF_IP_LOCAL_OUT这两个地方，一旦开启该功能，Connection Tracking模块将会追踪每个数据包（被raw表中的rule标记过的除外），维护所有的连接状态，然后这些状态可以供其它表中的rule引用，用户空间的程序也可以通过/proc/net/ip_conntrack来获取连接信息。下面是所有的连接状态：</p>
 <blockquote>
 <p>这里的连接不仅仅是TCP的连接，两台设备的进程用UDP和ICMP（ping）通信也会被认为是一个连接</p>
 </blockquote>
@@ -678,8 +698,10 @@
 <li>INVALID: 数据包不和任何现有连接关联，并且不是一个合法的建立连接的数据包，对于这种连接，将会被标记为INVALID，一般这种都是垃圾数据包，比如收到一个TCP的RST包，但实际上没有任何相关的TCP连接，或者别的地方误发过来的ICMP包。</li>
 <li>UNTRACKED: 被raw表里面的rule标记为不需要tracking的数据包，这种连接将会标记成UNTRACKED。</li>
 </ul>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本篇介绍了netfilter/iptables的基本结构和一些相关概念，了解这些只是一个开始，要想熟练的配置iptables规则，还需要对计算机网络知识非常熟悉，下次有机会的话再介绍如何使用iptables。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>本篇介绍了netfilter/iptables的基本结构和一些相关概念，了解这些只是一个开始，要想熟练的配置iptables规则，还需要对计算机网络知识非常熟悉，下次有机会的话再介绍如何使用iptables。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html" target="_blank" rel="noopener">Iptables Tutorial</a></li>
 <li><a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture" target="_blank" rel="noopener">A Deep Dive into Iptables and Netfilter Architecture</a></li>
 </ul>
@@ -1171,13 +1193,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-tuntap/">
+                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux虚拟网络设备之tuntap">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux虚拟网络设备之veth">
                         
-                        <span class="card-title">Linux虚拟网络设备之tuntap</span>
+                        <span class="card-title">Linux虚拟网络设备之veth</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1220,19 +1242,19 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/">
+                <a href="/2020/02/16/mq/rabbitmq/untitled/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux虚拟网络设备之veth">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="rabbit mq 学习总结记录">
                         
-                        <span class="card-title">Linux虚拟网络设备之veth</span>
+                        <span class="card-title">rabbit mq 学习总结记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            linux
+                            rabbit mq 学习记录
                         
                     </div>
                     <div class="publish-info">
@@ -1243,8 +1265,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/rabbit-mq/" class="post-category" target="_blank">
+                                    rabbit mq
                                 </a>
                             
                             
@@ -1254,8 +1276,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/network/" target="_blank">
-                        <span class="chip bg-color">network</span>
+                    <a href="/tags/mq/" target="_blank">
+                        <span class="chip bg-color">mq</span>
+                    </a>
+                    
+                    <a href="/tags/rabbit-mq/" target="_blank">
+                        <span class="chip bg-color">rabbit mq</span>
                     </a>
                     
                 </div>
@@ -1392,7 +1418,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

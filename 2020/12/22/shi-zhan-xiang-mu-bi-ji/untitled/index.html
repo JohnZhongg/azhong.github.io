@@ -9,17 +9,20 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="
+
 数据库外键去除
 
 外键检查降低性能
 耦合性太高，有时候两个关系表不一定在同一个库
 
 
+
 SpringBoot自动装配：
 
 @SpringBootApplication
+
 @SpringBootConfiguration
-@ComponentS">
+@Compone">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -340,7 +343,7 @@ SpringBoot自动装配：
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -519,22 +522,29 @@ SpringBoot自动装配：
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <ol>
-<li><p>数据库外键去除</p>
+<li>
+<p>数据库外键去除</p>
 <ol>
 <li>外键检查降低性能</li>
 <li>耦合性太高，有时候两个关系表不一定在同一个库</li>
 </ol>
 </li>
-<li><p>SpringBoot自动装配：</p>
+<li>
+<p>SpringBoot自动装配：</p>
 <ol>
-<li>@SpringBootApplication<ol>
+<li>@SpringBootApplication
+<ol>
 <li>@SpringBootConfiguration</li>
 <li>@ComponentScan：排除一些bean</li>
-<li>@EnableAutoConfiguration<ol>
+<li>@EnableAutoConfiguration
+<ol>
 <li>@AutoConfigurationPacakge</li>
-<li>@Import(AutoConfigurationImportSelector.class)<ol>
-<li>META-INF/spring.factories<ol>
-<li>AutoConfig<ol>
+<li>@Import(AutoConfigurationImportSelector.class)
+<ol>
+<li>META-INF/spring.factories
+<ol>
+<li>AutoConfig
+<ol>
 <li>@EnableConfigurationProperties</li>
 <li>@ConditionalOnXxx</li>
 <li>@AutoConfigureAfterXxx</li>
@@ -551,23 +561,32 @@ SpringBoot自动装配：
 </li>
 </ol>
 </li>
-<li><p>Spring事务传播</p>
+<li>
+<p>Spring事务传播</p>
 <ul>
-<li><p>REQUIRED</p>
+<li>
+<p>REQUIRED</p>
 </li>
-<li><p>REQUIRES_NEW：调用方(上层)发生异常不会影响被调用方</p>
+<li>
+<p>REQUIRES_NEW：调用方(上层)发生异常不会影响被调用方</p>
 </li>
-<li><p>MANDATORY</p>
+<li>
+<p>MANDATORY</p>
 </li>
-<li><p>SUPPORTS</p>
+<li>
+<p>SUPPORTS</p>
 </li>
-<li><p>NEVER</p>
+<li>
+<p>NEVER</p>
 </li>
-<li><p>NOT_SUPPORTED</p>
+<li>
+<p>NOT_SUPPORTED</p>
 </li>
-<li><p>NESTED</p>
+<li>
+<p>NESTED</p>
 <ul>
-<li>如果当前已有事务，则挂起当前事务，然后开启一个子事务(SAVEPOINT)<ul>
+<li>如果当前已有事务，则挂起当前事务，然后开启一个子事务(SAVEPOINT)
+<ul>
 <li>调用者(父事务)提交，所有子事务(savepoint)提交</li>
 <li>调用者(父事务)回滚，所有子事务(savepoint)回滚</li>
 <li>子事务(savepoint)提交和回滚，不影响父事务(其它子事务)的提交和回滚</li>
@@ -579,23 +598,32 @@ SpringBoot自动装配：
 </li>
 </ul>
 </li>
-<li><p>SpringBoot 默认提供的 spring.factories 里面包含了事务配置(TransactionAutoConfiguration)，无需 @EnableTransactionManager</p>
+<li>
+<p>SpringBoot 默认提供的 spring.factories 里面包含了事务配置(TransactionAutoConfiguration)，无需 @EnableTransactionManager</p>
 </li>
-<li><p>AOP 实现每个调用记录调用时间与日志打印</p>
+<li>
+<p>AOP 实现每个调用记录调用时间与日志打印</p>
 </li>
-<li><p>分类连接查询的一对多关系使用 MyBatis 的 ResultMap 直接实现</p>
+<li>
+<p>分类连接查询的一对多关系使用 MyBatis 的 ResultMap 直接实现</p>
 </li>
-<li><p>用延时队列替换springboot scheduler 实现订单超时关闭</p>
+<li>
+<p>用延时队列替换springboot scheduler 实现订单超时关闭</p>
 </li>
-<li><p>nginx</p>
+<li>
+<p>nginx</p>
 <ol>
-<li><p>模型：master-workers-connections</p>
+<li>
+<p>模型：master-workers-connections</p>
 </li>
-<li><p>信号通信</p>
+<li>
+<p>信号通信</p>
 </li>
-<li><p>IO多路复用、非阻塞</p>
+<li>
+<p>IO多路复用、非阻塞</p>
 </li>
-<li><p>配置文件</p>
+<li>
+<p>配置文件</p>
 <pre><code>                     nginx.conf 配置结构
 +----------------------------------------------------------------------+
 | main全局配置                                                          |
@@ -622,32 +650,42 @@ SpringBoot自动装配：
 | | +-------------------------------------------------------------+ |  |
 | +-----------------------------------------------------------------+  |
 +----------------------------------------------------------------------+
-</code></pre><ul>
+
+</code></pre>
+<ul>
 <li>location：静态资源</li>
 </ul>
 </li>
-<li><p>nginx -s stop 暴力停止</p>
+<li>
+<p>nginx -s stop 暴力停止</p>
 </li>
-<li><p>nginx -s quit 优雅停止</p>
+<li>
+<p>nginx -s quit 优雅停止</p>
 </li>
-<li><p>nginx -t 检查配置文件格式</p>
+<li>
+<p>nginx -t 检查配置文件格式</p>
 </li>
-<li><p>nginx -c <code>file-path</code> 设置配置文件</p>
+<li>
+<p>nginx -c <code>file-path</code> 设置配置文件</p>
 </li>
-<li><p>利用linux定时任务定时切割日志</p>
+<li>
+<p>利用linux定时任务定时切割日志</p>
 </li>
-<li><p>指令</p>
+<li>
+<p>指令</p>
 <ul>
 <li>include：将指定文件内容拷贝到当前配置文件中替换当前include</li>
 </ul>
 </li>
 </ol>
 </li>
-<li><p>redis</p>
+<li>
+<p>redis</p>
 <ul>
 <li>无磁盘主从赋值，直接写socket，不写RDB文件</li>
 <li>max memory 选项设置最大内存</li>
-<li>MAXMEMORY POLICY 设置淘汰策略<ul>
+<li>MAXMEMORY POLICY 设置淘汰策略
+<ul>
 <li>valatile-lru：在设置了超时时间的key里进行lru删除</li>
 <li>allkeys-lru：在所有key里进行lru</li>
 <li>valatile-lfu</li>
@@ -1154,7 +1192,7 @@ SpringBoot自动装配：
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java 并发编程艺术读书草稿">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java 并发编程艺术读书草稿">
                         
                         <span class="card-title">Java 并发编程艺术读书草稿</span>
                     </div>
@@ -1203,7 +1241,7 @@ SpringBoot自动装配：
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="测试文章">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="测试文章">
                         
                         <span class="card-title">测试文章</span>
                     </div>
@@ -1371,7 +1409,7 @@ SpringBoot自动装配：
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

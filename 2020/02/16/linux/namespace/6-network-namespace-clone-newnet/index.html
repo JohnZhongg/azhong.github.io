@@ -330,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,13 +511,16 @@
                 <p>network namespace用来隔离网络设备, IP地址, 端口等. 每个namespace将会有自己独立的网络栈，路由表，防火墙规则，socket等。</p>
 <p>每个新的network namespace默认有一个本地环回接口，除了lo接口外，所有的其他网络设备（物理/虚拟网络接口，网桥等）只能属于一个network namespace。每个socket也只能属于一个network namespace。</p>
 <p>当新的network namespace被创建时，lo接口默认是关闭的，需要自己手动启动起</p>
-<p>标记为”local devices”的设备不能从一个namespace移动到另一个namespace，比如loopback, bridge, ppp等，我们可以通过ethtool -k命令来查看设备的netns-local属性。</p>
+<p>标记为&quot;local devices&quot;的设备不能从一个namespace移动到另一个namespace，比如loopback, bridge, ppp等，我们可以通过ethtool -k命令来查看设备的netns-local属性。</p>
 <pre><code>#这里“on”表示该设备不能被移动到其他network namespace
 dev@ubuntu:~$ ethtool -k lo|grep netns-local
-netns-local: on [fixed]</code></pre><blockquote>
+netns-local: on [fixed]
+</code></pre>
+<blockquote>
 <p>本篇所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
 </blockquote>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>本示例将演示如何创建新的network namespace并同外面的namespace进行通信。</p>
+<h2 id="示例"><a class="header-anchor" href="#示例">¶</a>示例</h2>
+<p>本示例将演示如何创建新的network namespace并同外面的namespace进行通信。</p>
 <pre><code>#--------------------------第一个shell窗口----------------------
 #记录默认network namespace ID
 dev@ubuntu:~$ readlink /proc/$$/ns/net
@@ -594,7 +597,9 @@ veth1     Link encap:Ethernet  HWaddr 6a:dc:59:79:3c:8b
 root@container001:~# ping 192.168.8.1
 PING 192.168.8.1 (192.168.8.1) 56(84) bytes of data.
 64 bytes from 192.168.8.1: icmp_seq=1 ttl=64 time=0.098 ms
-64 bytes from 192.168.8.1: icmp_seq=2 ttl=64 time=0.023 ms</code></pre><p>到目前为止，两个namespace之间可以网络通信了，但在container001里还是不能访问外网。下面将通过NAT的方式让container001能够上外网。这部分内容完全是网络相关的知识，跟namespace已经没什么关系了。</p>
+64 bytes from 192.168.8.1: icmp_seq=2 ttl=64 time=0.023 ms
+</code></pre>
+<p>到目前为止，两个namespace之间可以网络通信了，但在container001里还是不能访问外网。下面将通过NAT的方式让container001能够上外网。这部分内容完全是网络相关的知识，跟namespace已经没什么关系了。</p>
 <pre><code>#--------------------------第二个shell窗口----------------------
 #回到上面示例中的第二个窗口
 
@@ -621,8 +626,11 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 #如果网络没有什么限制的话，随便ping一个外部的IP测试就可以了
 root@container001:~# curl -I www.google.com
 HTTP/1.1 200 OK
-Date: Fri, 15 Jul 2016 08:12:03 GMT</code></pre><p>network namespace的概念比较简单，但如何做好网络的隔离和连通却比较难，包括性能和安全相关的考虑，需要很好的Linux网络知识。后续在介绍docker网络管理的时候会对Linux网络做一个更详细的介绍。</p>
-<h2 id="ip-netns"><a href="#ip-netns" class="headerlink" title="ip netns"></a>ip netns</h2><p>在单独操作network namespace时，ip netns是一个很方便的工具，并且它可以给namespace取一个名字，然后根据名字来操作namespace。那么给namespace取名字并且根据名字来管理namespace里面的进程是怎么实现的呢？请看下面的脚本(也可以直接看它的<a href="https://github.com/shemminger/iproute2/blob/master/ip/ipnetns.c" target="_blank" rel="noopener">源代码</a>)：</p>
+Date: Fri, 15 Jul 2016 08:12:03 GMT
+</code></pre>
+<p>network namespace的概念比较简单，但如何做好网络的隔离和连通却比较难，包括性能和安全相关的考虑，需要很好的Linux网络知识。后续在介绍docker网络管理的时候会对Linux网络做一个更详细的介绍。</p>
+<h2 id="ip-netns"><a class="header-anchor" href="#ip-netns">¶</a>ip netns</h2>
+<p>在单独操作network namespace时，ip netns是一个很方便的工具，并且它可以给namespace取一个名字，然后根据名字来操作namespace。那么给namespace取名字并且根据名字来管理namespace里面的进程是怎么实现的呢？请看下面的脚本(也可以直接看它的<a href="https://github.com/shemminger/iproute2/blob/master/ip/ipnetns.c" target="_blank" rel="noopener">源代码</a>)：</p>
 <pre><code>#开始之前，获取一下默认network namespace的ID
 dev@ubuntu:~$ readlink /proc/$$/ns/net
 net:[4026531957]
@@ -659,9 +667,12 @@ dev@ubuntu:~$ ls -i /var/run/netns/netnamespace1
 #我们可以通过nsenter命令再创建一个新的bash，并将它加入netnamespace1所关联的namespace（net:[4026532448]）
 dev@ubuntu:~$ sudo nsenter --net=/var/run/netns/netnamespace1 bash
 root@ubuntu:~# readlink /proc/$$/ns/net
-net:[4026532448]</code></pre><p>从上面可以看出，给namespace取名字其实就是创建一个文件，然后通过mount –bind将新创建的namespace文件和该文件绑定，就算该namespace里的所有进程都退出了，内核还是会保留该namespace，以后我们还可以通过这个绑定的文件来加入该namespace。</p>
+net:[4026532448]
+</code></pre>
+<p>从上面可以看出，给namespace取名字其实就是创建一个文件，然后通过mount --bind将新创建的namespace文件和该文件绑定，就算该namespace里的所有进程都退出了，内核还是会保留该namespace，以后我们还可以通过这个绑定的文件来加入该namespace。</p>
 <p>通过这种办法，我们也可以给其他类型的namespace取名字（有些类型的 namespace可能有些特殊，本人没有一个一个的试过）。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://lwn.net/Articles/580893/" target="_blank" rel="noopener">Namespaces in operation, part 7: Network namespaces</a></li>
 </ul>
 
@@ -1152,13 +1163,13 @@ net:[4026532448]</code></pre><p>从上面可以看出，给namespace取名字其
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/8-user-namespace-clone-newuser-di-er-bu-fen/">
+                <a href="/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="8、user namespace (CLONE_NEWUSER) (第二部分)">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="5、pid namespace (CLONE_NEWPID)">
                         
-                        <span class="card-title">8、user namespace (CLONE_NEWUSER) (第二部分)</span>
+                        <span class="card-title">5、pid namespace (CLONE_NEWPID)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1201,13 +1212,13 @@ net:[4026532448]</code></pre><p>从上面可以看出，给namespace取名字其
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/">
+                <a href="/2020/02/16/linux/namespace/7-user-namespace-clone-newuser-di-yi-bu-fen/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="5、pid namespace (CLONE_NEWPID)">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="7、user namespace (CLONE_NEWUSER) (第一部分)">
                         
-                        <span class="card-title">5、pid namespace (CLONE_NEWPID)</span>
+                        <span class="card-title">7、user namespace (CLONE_NEWUSER) (第一部分)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1373,7 +1384,7 @@ net:[4026532448]</code></pre><p>从上面可以看出，给namespace取名字其
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

@@ -335,7 +335,7 @@ Controller：控制，如维持 pods 的期望部署数量和">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -535,173 +535,196 @@ Controller：控制，如维持 pods 的期望部署数量和">
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203130.png" alt="image-20201022152735696"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203137.png" alt="image-20201022153122051"></p>
-<h1 id="k8s安装"><a href="#k8s安装" class="headerlink" title="k8s安装"></a>k8s安装</h1><ul>
-<li><p>从0一步一步手动搭建 k8s 集群的<a href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank" rel="noopener">步骤</a>，最困难，最容易熟悉 k8s</p>
+<h1>k8s安装</h1>
+<ul>
+<li>
+<p>从0一步一步手动搭建 k8s 集群的<a href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank" rel="noopener">步骤</a>，最困难，最容易熟悉 k8s</p>
 </li>
-<li><p>快速创建有一个单节点的集群的 <a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener">minikube 工具</a></p>
+<li>
+<p>快速创建有一个单节点的集群的 <a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener">minikube 工具</a></p>
 </li>
-<li><p>方便地安装一个多节点的集群的 <a href="https://github.com/kubernetes/kubeadm" target="_blank" rel="noopener">kubeadm 工具</a></p>
+<li>
+<p>方便地安装一个多节点的集群的 <a href="https://github.com/kubernetes/kubeadm" target="_blank" rel="noopener">kubeadm 工具</a></p>
 </li>
-<li><p>使用 coreos 公司的 <a href="https://coreos.com/tectonic/docs/latest/" target="_blank" rel="noopener">tectonic</a> 安装，这个软件也是基于 vagrant 和 virtualbox 的，不过现在 coreos 公司被 RedHat 收购了， tectonic 被移植到 <a href="https://www.openshift.com/try" target="_blank" rel="noopener">OpenShift</a> 上面了</p>
+<li>
+<p>使用 coreos 公司的 <a href="https://coreos.com/tectonic/docs/latest/" target="_blank" rel="noopener">tectonic</a> 安装，这个软件也是基于 vagrant 和 virtualbox 的，不过现在 coreos 公司被 RedHat 收购了， tectonic 被移植到 <a href="https://www.openshift.com/try" target="_blank" rel="noopener">OpenShift</a> 上面了</p>
 </li>
-<li><p>在云上安装多节点集群的 <a href="https://github.com/kubernetes/kops" target="_blank" rel="noopener">kops 工具</a></p>
+<li>
+<p>在云上安装多节点集群的 <a href="https://github.com/kubernetes/kops" target="_blank" rel="noopener">kops 工具</a></p>
 </li>
-<li><p><a href="https://labs.play-with-k8s.com/" target="_blank" rel="noopener">别人提供的资源供web页面操作</a></p>
+<li>
+<p><a href="https://labs.play-with-k8s.com/" target="_blank" rel="noopener">别人提供的资源供web页面操作</a></p>
 </li>
 </ul>
-<h2 id="minikube-安装"><a href="#minikube-安装" class="headerlink" title="minikube 安装"></a>minikube 安装</h2><p><a href="https://kubernetes.io/docs/tasks/tools/" target="_blank" rel="noopener">官网安装工具页面</a>：</p>
+<h2 id="minikube-安装"><a class="header-anchor" href="#minikube-安装">¶</a>minikube 安装</h2>
+<p><a href="https://kubernetes.io/docs/tasks/tools/" target="_blank" rel="noopener">官网安装工具页面</a>：</p>
 <ol>
-<li><p>依赖一个虚拟化技术，可以使用 virtual box，先安装 <a href="https://www.virtualbox.org/" target="_blank" rel="noopener">virtual box</a></p>
+<li>
+<p>依赖一个虚拟化技术，可以使用 virtual box，先安装 <a href="https://www.virtualbox.org/" target="_blank" rel="noopener">virtual box</a></p>
 </li>
-<li><p>先安装 <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" target="_blank" rel="noopener">kubectl</a> ，注意<a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#enable-kubectl-autocompletion" target="_blank" rel="noopener">页面的最后</a>有介绍 kubectl 命令的自动补全功能，目前只支持 bash shell 和 zsh shell。</p>
+<li>
+<p>先安装 <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" target="_blank" rel="noopener">kubectl</a> ，注意<a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#enable-kubectl-autocompletion" target="_blank" rel="noopener">页面的最后</a>有介绍 kubectl 命令的自动补全功能，目前只支持 bash shell 和 zsh shell。</p>
 </li>
-<li><p>安装 <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">minikube</a></p>
+<li>
+<p>安装 <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">minikube</a></p>
 <ul>
 <li>minikube 类似 vagrant 和 docker machine，会依赖虚拟化技术创建一个 VM，然后安装一系列的 docker 和 k8s 的软件，在安装过程中会拉取镜像，官方的 minikube 可能会去拉取一些在 google 服务器中的镜像，会遇到网络问题，这是阿里云提供<a href="https://developer.aliyun.com/article/221687" target="_blank" rel="noopener">的解决方案</a> 。</li>
 </ul>
 </li>
-<li><p>使用 minikube 创建一个 k8s 集群</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">minikube <span class="token function">start</span> <span class="token operator">--</span>registry<span class="token operator">-</span>mirror=https:<span class="token operator">/</span><span class="token operator">/</span>8awf7z4n<span class="token punctuation">.</span>mirror<span class="token punctuation">.</span>aliyuncs<span class="token punctuation">.</span>com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li>
+<p>使用 minikube 创建一个 k8s 集群</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">minikube start --registry-mirror=https://8awf7z4n.mirror.aliyuncs.com
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li><p>使用 <code>kubectl</code> 查看集群的上下文(context)信息：</p>
+<li>
+<p>使用 <code>kubectl</code> 查看集群的上下文(context)信息：</p>
 <p>查看集群详细信息：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\k8s>kubectl config view
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\k8s>kubectl config view
 apiVersion: v1
 clusters:
-<span class="token operator">-</span> cluster:
-    certificate<span class="token operator">-</span>authority: C:\Users\john\<span class="token punctuation">.</span>minikube\ca<span class="token punctuation">.</span>crt
-    server: https:<span class="token operator">/</span><span class="token operator">/</span>192<span class="token punctuation">.</span>168<span class="token punctuation">.</span>99<span class="token punctuation">.</span>100:8443
+- cluster:
+    certificate-authority: C:\Users\john\.minikube\ca.crt
+    server: https://192.168.99.100:8443
   name: minikube
 contexts:
-<span class="token operator">-</span> context:
+- context:
     cluster: minikube
     user: minikube
   name: minikube
-current<span class="token operator">-</span>context: minikube
+current-context: minikube
 kind: Config
-preferences: <span class="token punctuation">{</span><span class="token punctuation">}</span>
+preferences: {}
 users:
-<span class="token operator">-</span> name: minikube
+- name: minikube
   user:
-    client<span class="token operator">-</span>certificate: C:\Users\john\<span class="token punctuation">.</span>minikube\profiles\minikube\client<span class="token punctuation">.</span>crt
-    client<span class="token operator">-</span>key: C:\Users\john\<span class="token punctuation">.</span>minikube\profiles\minikube\client<span class="token punctuation">.</span>key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    client-certificate: C:\Users\john\.minikube\profiles\minikube\client.crt
+    client-key: C:\Users\john\.minikube\profiles\minikube\client.key
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>列出所有集群</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\k8s>kubectl config get<span class="token operator">-</span>contexts
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\k8s>kubectl config get-contexts
 CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
-<span class="token operator">*</span>         minikube   minikube   minikube<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+*         minikube   minikube   minikube
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>查看集群状态：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\k8s>kubectl cluster<span class="token operator">-</span>info
-Kubernetes master is running at https:<span class="token operator">/</span><span class="token operator">/</span>192<span class="token punctuation">.</span>168<span class="token punctuation">.</span>99<span class="token punctuation">.</span>100:8443
-KubeDNS is running at https:<span class="token operator">/</span><span class="token operator">/</span>192<span class="token punctuation">.</span>168<span class="token punctuation">.</span>99<span class="token punctuation">.</span>100:8443<span class="token operator">/</span>api<span class="token operator">/</span>v1<span class="token operator">/</span>namespaces<span class="token operator">/</span>kube<span class="token operator">-</span>system<span class="token operator">/</span>services<span class="token operator">/</span>kube<span class="token operator">-</span>dns:dns<span class="token operator">/</span>proxy
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\k8s>kubectl cluster-info
+Kubernetes master is running at https://192.168.99.100:8443
+KubeDNS is running at https://192.168.99.100:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
-To further debug and diagnose cluster problems<span class="token punctuation">,</span> use <span class="token string">'kubectl cluster-info dump'</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>获取集群节点简要信息和详细信息：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl get node
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl get node
 NAME       STATUS   ROLES    AGE   VERSION
-minikube   Ready    master   14h   v1<span class="token punctuation">.</span>19<span class="token punctuation">.</span>2
+minikube   Ready    master   14h   v1.19.2
 
-D:\docker\docker\chapter9\labs\deployment>kubectl get node <span class="token operator">-</span>o wide
-NAME       STATUS   ROLES    AGE   VERSION   INTERNAL<span class="token operator">-</span>IP      EXTERNAL<span class="token operator">-</span>IP   OS<span class="token operator">-</span>IMAGE               KERNEL<span class="token operator">-</span>VERSION   CONTAINER<span class="token operator">-</span>RUNTIME
-minikube   Ready    master   14h   v1<span class="token punctuation">.</span>19<span class="token punctuation">.</span>2   192<span class="token punctuation">.</span>168<span class="token punctuation">.</span>99<span class="token punctuation">.</span>100   &lt;none>        Buildroot 2019<span class="token punctuation">.</span>02<span class="token punctuation">.</span>11   4<span class="token punctuation">.</span>19<span class="token punctuation">.</span>114         docker:<span class="token operator">/</span><span class="token operator">/</span>19<span class="token punctuation">.</span>3<span class="token punctuation">.</span>12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+D:\docker\docker\chapter9\labs\deployment>kubectl get node -o wide
+NAME       STATUS   ROLES    AGE   VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE               KERNEL-VERSION   CONTAINER-RUNTIME
+minikube   Ready    master   14h   v1.19.2   192.168.99.100   <none>        Buildroot 2019.02.11   4.19.114         docker://19.3.12
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></code></pre>
 </li>
-<li><p>通过 <code>minikube ssh</code> 进入集群虚拟机，类似 vagrant</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\k8s>minikube ssh
+<li>
+<p>通过 <code>minikube ssh</code> 进入集群虚拟机，类似 vagrant</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\k8s>minikube ssh
                          _             _
-            _         _ <span class="token punctuation">(</span> <span class="token punctuation">)</span>           <span class="token punctuation">(</span> <span class="token punctuation">)</span>
-  ___ ___  <span class="token punctuation">(</span>_<span class="token punctuation">)</span>  ___  <span class="token punctuation">(</span>_<span class="token punctuation">)</span><span class="token punctuation">|</span> <span class="token punctuation">|</span><span class="token operator">/</span><span class="token string">')  _   _ | |_      __
-/'</span> _ ` _ `\<span class="token punctuation">|</span> <span class="token punctuation">|</span><span class="token operator">/</span><span class="token string">' _ `\| || , &lt;  ( ) ( )| '</span>_`\  <span class="token operator">/</span><span class="token string">'__`\
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
 | ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
-(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'</span><span class="token punctuation">(</span>_<span class="token punctuation">,</span>__<span class="token operator">/</span>'`\____<span class="token punctuation">)</span>
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
 
 $ docker version
-Client: Docker Engine <span class="token operator">-</span> Community
- Version:           19<span class="token punctuation">.</span>03<span class="token punctuation">.</span>12
- API version:       1<span class="token punctuation">.</span>40
- Go version:        go1<span class="token punctuation">.</span>13<span class="token punctuation">.</span>10
+Client: Docker Engine - Community
+ Version:           19.03.12
+ API version:       1.40
+ Go version:        go1.13.10
  Git commit:        48a66213fe
  Built:             Mon Jun 22 15:42:53 2020
- OS<span class="token operator">/</span>Arch:           linux<span class="token operator">/</span>amd64
+ OS/Arch:           linux/amd64
  Experimental:      false
 
-Server: Docker Engine <span class="token operator">-</span> Community
+Server: Docker Engine - Community
  Engine:
-  Version:          19<span class="token punctuation">.</span>03<span class="token punctuation">.</span>12
-  API version:      1<span class="token punctuation">.</span>40 <span class="token punctuation">(</span>minimum version 1<span class="token punctuation">.</span>12<span class="token punctuation">)</span>
-  Go version:       go1<span class="token punctuation">.</span>13<span class="token punctuation">.</span>10
+  Version:          19.03.12
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.13.10
   Git commit:       48a66213fe
   Built:            Mon Jun 22 15:49:35 2020
-  OS<span class="token operator">/</span>Arch:          linux<span class="token operator">/</span>amd64
+  OS/Arch:          linux/amd64
   Experimental:     false
  containerd:
-  Version:          v1<span class="token punctuation">.</span>2<span class="token punctuation">.</span>13
+  Version:          v1.2.13
   GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
  runc:
-  Version:          1<span class="token punctuation">.</span>0<span class="token punctuation">.</span>0<span class="token operator">-</span>rc10
+  Version:          1.0.0-rc10
   GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
- docker<span class="token operator">-</span>init:
-  Version:          0<span class="token punctuation">.</span>18<span class="token punctuation">.</span>0
+ docker-init:
+  Version:          0.18.0
   GitCommit:        fec3683
-$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
-<h2 id="kubeadm-安装"><a href="#kubeadm-安装" class="headerlink" title="kubeadm 安装"></a>kubeadm 安装</h2><h3 id="vagrabt-创建-VM"><a href="#vagrabt-创建-VM" class="headerlink" title="vagrabt 创建 VM"></a>vagrabt 创建 VM</h3><p>分别创建一个 master 节点和两个 node 节点，以下是 vagrant 的 <code>.Vagrantfile</code> 文件：</p>
-<pre class="line-numbers language-ruby"><code class="language-ruby"><span class="token comment" spellcheck="true"># -*- mode: ruby -*-</span>
-<span class="token comment" spellcheck="true"># vi: set ft=ruby :</span>
+<h2 id="kubeadm-安装"><a class="header-anchor" href="#kubeadm-安装">¶</a>kubeadm 安装</h2>
+<h3 id="vagrabt-创建-VM"><a class="header-anchor" href="#vagrabt-创建-VM">¶</a>vagrabt 创建 VM</h3>
+<p>分别创建一个 master 节点和两个 node 节点，以下是 vagrant 的 <code>.Vagrantfile</code> 文件：</p>
+<pre class="line-numbers language-language-ruby"><code class="language-language-ruby"># -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-<span class="token constant">Vagrant</span><span class="token punctuation">.</span>require_version <span class="token string">">= 1.6.0"</span>
+Vagrant.require_version ">= 1.6.0"
 
-boxes <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        <span class="token symbol">:name</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"k8s-master"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:eth1</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"192.168.205.120"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:mem</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2048"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:cpu</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:ssh_port</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2213"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token symbol">:name</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"k8s-node1"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:eth1</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"192.168.205.11"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:mem</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2048"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:cpu</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:ssh_port</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2214"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token symbol">:name</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"k8s-node2"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:eth1</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"192.168.205.12"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:mem</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2048"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:cpu</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"1"</span><span class="token punctuation">,</span>
-        <span class="token symbol">:ssh_port</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"2215"</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">]</span>
+boxes = [
+    {
+        :name => "k8s-master",
+        :eth1 => "192.168.205.120",
+        :mem => "2048",
+        :cpu => "2",
+        :ssh_port => "2213"
+    },
+    {
+        :name => "k8s-node1",
+        :eth1 => "192.168.205.11",
+        :mem => "2048",
+        :cpu => "1",
+        :ssh_port => "2214"
+    },
+    {
+        :name => "k8s-node2",
+        :eth1 => "192.168.205.12",
+        :mem => "2048",
+        :cpu => "1",
+        :ssh_port => "2215"
+    }
+]
 
-<span class="token constant">Vagrant</span><span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">do</span> <span class="token operator">|</span>config<span class="token operator">|</span>
+Vagrant.configure(2) do |config|
 
-  config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>box <span class="token operator">=</span> <span class="token string">"centos/7"</span>
+  config.vm.box = "centos/7"
 
-  boxes<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>opts<span class="token operator">|</span>
-      config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>define opts<span class="token punctuation">[</span><span class="token symbol">:name</span><span class="token punctuation">]</span> <span class="token keyword">do</span> <span class="token operator">|</span>config<span class="token operator">|</span>
-        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>hostname <span class="token operator">=</span> opts<span class="token punctuation">[</span><span class="token symbol">:name</span><span class="token punctuation">]</span>
-        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>provider <span class="token string">"vmware_fusion"</span> <span class="token keyword">do</span> <span class="token operator">|</span>v<span class="token operator">|</span>
-          v<span class="token punctuation">.</span>vmx<span class="token punctuation">[</span><span class="token string">"memsize"</span><span class="token punctuation">]</span> <span class="token operator">=</span> opts<span class="token punctuation">[</span><span class="token symbol">:mem</span><span class="token punctuation">]</span>
-          v<span class="token punctuation">.</span>vmx<span class="token punctuation">[</span><span class="token string">"numvcpus"</span><span class="token punctuation">]</span> <span class="token operator">=</span> opts<span class="token punctuation">[</span><span class="token symbol">:cpu</span><span class="token punctuation">]</span>
-        <span class="token keyword">end</span>
+  boxes.each do |opts|
+      config.vm.define opts[:name] do |config|
+        config.vm.hostname = opts[:name]
+        config.vm.provider "vmware_fusion" do |v|
+          v.vmx["memsize"] = opts[:mem]
+          v.vmx["numvcpus"] = opts[:cpu]
+        end
 
-        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>provider <span class="token string">"virtualbox"</span> <span class="token keyword">do</span> <span class="token operator">|</span>v<span class="token operator">|</span>
-          v<span class="token punctuation">.</span>customize <span class="token punctuation">[</span><span class="token string">"modifyvm"</span><span class="token punctuation">,</span> <span class="token symbol">:id</span><span class="token punctuation">,</span> <span class="token string">"--memory"</span><span class="token punctuation">,</span> opts<span class="token punctuation">[</span><span class="token symbol">:mem</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-          v<span class="token punctuation">.</span>customize <span class="token punctuation">[</span><span class="token string">"modifyvm"</span><span class="token punctuation">,</span> <span class="token symbol">:id</span><span class="token punctuation">,</span> <span class="token string">"--cpus"</span><span class="token punctuation">,</span> opts<span class="token punctuation">[</span><span class="token symbol">:cpu</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-        <span class="token keyword">end</span>
+        config.vm.provider "virtualbox" do |v|
+          v.customize ["modifyvm", :id, "--memory", opts[:mem]]
+          v.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
+        end
+        
+        config.vm.network :forwarded_port, guest: 22, host: opts[:ssh_port]
+        config.vm.network :private_network, ip: opts[:eth1]
+      end
+  end
 
-        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>network <span class="token symbol">:forwarded_port</span><span class="token punctuation">,</span> guest<span class="token punctuation">:</span> <span class="token number">22</span><span class="token punctuation">,</span> host<span class="token punctuation">:</span> opts<span class="token punctuation">[</span><span class="token symbol">:ssh_port</span><span class="token punctuation">]</span>
-        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>network <span class="token symbol">:private_network</span><span class="token punctuation">,</span> ip<span class="token punctuation">:</span> opts<span class="token punctuation">[</span><span class="token symbol">:eth1</span><span class="token punctuation">]</span>
-      <span class="token keyword">end</span>
-  <span class="token keyword">end</span>
+  config.vm.synced_folder "./labs", "/home/vagrant/labs"
+  config.vm.provision "shell", privileged: true, path: "./setup.sh"
 
-  config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>synced_folder <span class="token string">"./labs"</span><span class="token punctuation">,</span> <span class="token string">"/home/vagrant/labs"</span>
-  config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>provision <span class="token string">"shell"</span><span class="token punctuation">,</span> privileged<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span> path<span class="token punctuation">:</span> <span class="token string">"./setup.sh"</span>
-
-<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+end
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>.Vagrantfile</code> 中指定的 <code>setup.sh</code> 文件</p>
-<pre class="line-numbers language-shell"><code class="language-shell">#/bin/sh
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">#/bin/sh
 
 sudo yum install wget -y
 
@@ -748,11 +771,12 @@ sudo setenforce 0
 
 sudo yum install -y kubelet kubeadm kubectl
 
-cat <<eof | sudo tee etc sysctl.d k8s.conf net.bridge.bridge-nf-call-ip6tables="1" net.bridge.bridge-nf-call-iptables="1" eof sysctl --system systemctl stop firewalld disable swapoff -a enable docker.service kubelet.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></eof></-'eof'></code></pre>
+cat <<eof | sudo tee etc sysctl.d k8s.conf net.bridge.bridge-nf-call-ip6tables="1" net.bridge.bridge-nf-call-iptables="1" eof sysctl --system systemctl stop firewalld disable swapoff -a enable docker.service kubelet.service <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></eof></-'eof'></code></pre>
 <p>运行 vagrant 创建：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">vagrant up<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">vagrant up
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>运行完成后，分别进入三个 VM，使用以下命令查看是否安装完成</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# which kubelet
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# which kubelet
 /usr/bin/kubelet
 [root@k8s-master ~]# which kubeadm
 /usr/bin/kubeadm
@@ -785,9 +809,11 @@ Server: Docker Engine - Community
   GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
  docker-init:
   Version:          0.18.0
-  GitCommit:        fec3683<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="kubeadm-初始化集群"><a href="#kubeadm-初始化集群" class="headerlink" title="kubeadm 初始化集群"></a>kubeadm 初始化集群</h3><p><code>--pod-network-cidr</code> 指定集群创建的 pod 的网段；<code>--apiserver-advertise-addressv</code> 指定集群公告的地址，也就是当前这台主机作为 master 可以被其它节点以及 API 访问到的地址，所以这个地址要选用和其它节点同网段的网络节点的地址；<code>--v=5</code> 指定打印日志的等级；<code>--image-repository</code> 指定拉取镜像的地址，这里指定阿里云的地址，不然默认会拉谷歌的</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubeadm init --pod-network-cidr 172.100.0.0/16 --apiserver-advertise-address 192.168.205.120 --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' --v=5
+  GitCommit:        fec3683
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="kubeadm-初始化集群"><a class="header-anchor" href="#kubeadm-初始化集群">¶</a>kubeadm 初始化集群</h3>
+<p><code>--pod-network-cidr</code> 指定集群创建的 pod 的网段；<code>--apiserver-advertise-addressv</code> 指定集群公告的地址，也就是当前这台主机作为 master 可以被其它节点以及 API 访问到的地址，所以这个地址要选用和其它节点同网段的网络节点的地址；<code>--v=5</code> 指定打印日志的等级；<code>--image-repository</code> 指定拉取镜像的地址，这里指定阿里云的地址，不然默认会拉谷歌的</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubeadm init --pod-network-cidr 172.100.0.0/16 --apiserver-advertise-address 192.168.205.120 --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' --v=5
 I1023 04:32:50.960205     889 initconfiguration.go:103] detected and using CRI socket: /var/run/dockershim.sock
 I1023 04:32:51.080327     889 version.go:183] fetching Kubernetes version from URL: https://dl.k8s.io/release/stable-1.txt
 W1023 04:32:52.697343     889 configset.go:348] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
@@ -812,13 +838,15 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 Then you can join any number of worker nodes by running the following on each as root:
 
 kubeadm join 192.168.205.120:6443 --token eaxpot.07q5bn1h6etqawca \
-    --discovery-token-ca-cert-hash sha256:7445ed26891dd725b679b837cd2752563672c12f671a61d23f8f513efd805877<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]#   mkdir -p $HOME/.kube
+    --discovery-token-ca-cert-hash sha256:7445ed26891dd725b679b837cd2752563672c12f671a61d23f8f513efd805877
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]#   mkdir -p $HOME/.kube
 [root@k8s-master ~]#   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 [root@k8s-master ~]#   sudo chown $(id -u):$(id -g) $HOME/.kube/config
-[root@k8s-master ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-master ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>检查 pods</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod --all-namespaces
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get pod --all-namespaces
 NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE
 kube-system   coredns-6c76c8bb89-c5dcd             0/1     Pending   0          12m
 kube-system   coredns-6c76c8bb89-n5hqc             0/1     Pending   0          12m
@@ -827,16 +855,20 @@ kube-system   kube-apiserver-k8s-master            1/1     Running   0          
 kube-system   kube-controller-manager-k8s-master   1/1     Running   0          12m
 kube-system   kube-proxy-ctz76                     1/1     Running   0          92s
 kube-system   kube-proxy-qbjjx                     1/1     Running   0          12m
-kube-system   kube-scheduler-k8s-master            1/1     Running   0          12m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kube-system   kube-scheduler-k8s-master            1/1     Running   0          12m
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>安装网络插件</p>
-<pre class="line-numbers language-shell"><code class="language-shell">kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="加入-node-节点"><a href="#加入-node-节点" class="headerlink" title="加入 node 节点"></a>加入 node 节点</h3><p>在 node 节点上运行以下命令加入集群：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="加入-node-节点"><a class="header-anchor" href="#加入-node-节点">¶</a>加入 node 节点</h3>
+<p>在 node 节点上运行以下命令加入集群：</p>
 <ul>
-<li><p>node1</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-node1 ~]# kubeadm join 192.168.205.120:6443 --token eaxpot.07q5bn1h6etqawca \
+<li>
+<p>node1</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-node1 ~]# kubeadm join 192.168.205.120:6443 --token eaxpot.07q5bn1h6etqawca \
 >     --discovery-token-ca-cert-hash sha256:7445ed26891dd725b679b837cd2752563672c12f671a61d23f8f513efd805877
 [preflight] Running pre-flight checks
-    [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
 [preflight] Reading configuration from the cluster...
 [preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
 [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
@@ -850,13 +882,15 @@ This node has joined the cluster:
 
 Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
-[root@k8s-node1 ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@k8s-node1 ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>node2</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-node2 ~]# kubeadm join 192.168.205.120:6443 --token eaxpot.07q5bn1h6etqawca \
+<li>
+<p>node2</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-node2 ~]# kubeadm join 192.168.205.120:6443 --token eaxpot.07q5bn1h6etqawca \
 >     --discovery-token-ca-cert-hash sha256:7445ed26891dd725b679b837cd2752563672c12f671a61d23f8f513efd805877
 [preflight] Running pre-flight checks
-    [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
 [preflight] Reading configuration from the cluster...
 [preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
 [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
@@ -868,24 +902,30 @@ This node has joined the cluster:
 * Certificate signing request was sent to apiserver and a response was received.
 * The Kubelet was informed of the new secure connection details.
 
-Run 'kubectl get nodes' on the control-plane to see this node join the cluster.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <p>回到 master 节点查看集群节点状态：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get nodes
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get nodes
 NAME         STATUS     ROLES    AGE     VERSION
 k8s-master   Ready      master   16m     v1.19.3
 k8s-node1    Ready      <none>   5m10s   v1.19.3
-k8s-node2    NotReady   <none>   20s     v1.19.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
-<h2 id="其它参考安装"><a href="#其它参考安装" class="headerlink" title="其它参考安装"></a><a href="https://gist.github.com/islishude/231659cec0305ace090b933ce851994a" target="_blank" rel="noopener">其它参考安装</a></h2><blockquote>
+k8s-node2    NotReady   <none>   20s     v1.19.3
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
+<h2 id="其它参考安装"><a class="header-anchor" href="#其它参考安装">¶</a><a href="https://gist.github.com/islishude/231659cec0305ace090b933ce851994a" target="_blank" rel="noopener">其它参考安装</a></h2>
+<blockquote>
 <p>注意以下命令，需要切换到 root 后运行</p>
 </blockquote>
-<h3 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h3><p>首先确定已经安装完成 docker，如果没有安装可以使用以下脚本快速安装并配置：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">curl -fsSL https://get.docker.com | sudo sh -s -- --mirror Aliyun
+<h3 id="安装-docker"><a class="header-anchor" href="#安装-docker">¶</a>安装 docker</h3>
+<p>首先确定已经安装完成 docker，如果没有安装可以使用以下脚本快速安装并配置：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">curl -fsSL https://get.docker.com | sudo sh -s -- --mirror Aliyun
 sudo usermod -aG docker $USER
 sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json <<-'eof' { "exec-opts": ["native.cgroupdriver="systemd"]," "log-driver": "json-file", "log-opts": "max-size": "100m" }, "storage-driver": "overlay2", "registry-mirrors": ["https: t9ab0rkd.mirror.aliyuncs.com"] } eof sudo systemctl daemon-reload restart docker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></-'eof'></code></pre>
-<h3 id="kubeadm"><a href="#kubeadm" class="headerlink" title="kubeadm"></a>kubeadm</h3><h4 id="安装-k8s-套件"><a href="#安装-k8s-套件" class="headerlink" title="安装 k8s 套件"></a>安装 k8s 套件</h4><pre class="line-numbers language-shell"><code class="language-shell"># 添加并信任APT证书
+sudo tee /etc/docker/daemon.json <<-'eof' { "exec-opts": ["native.cgroupdriver="systemd"]," "log-driver": "json-file", "log-opts": "max-size": "100m" }, "storage-driver": "overlay2", "registry-mirrors": ["https: t9ab0rkd.mirror.aliyuncs.com"] } eof sudo systemctl daemon-reload restart docker <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></-'eof'></code></pre>
+<h3 id="kubeadm"><a class="header-anchor" href="#kubeadm">¶</a>kubeadm</h3>
+<h4 id="安装-k8s-套件"><a class="header-anchor" href="#安装-k8s-套件">¶</a>安装 k8s 套件</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 添加并信任APT证书
 curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
 
 # 添加源地址
@@ -895,40 +935,59 @@ add-apt-repository "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xe
 sudo apt update && apt install -y kubelet kubeadm kubectl
 
 # 添加 completion，最好放入 .bashrc 中
-source <(kubectl completion bash) source <(kubeadm bash)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></(kubectl></code></pre>
-<h4 id="关闭-swap"><a href="#关闭-swap" class="headerlink" title="关闭 swap"></a>关闭 swap</h4><p>为了性能考虑，k8s 需要关闭 swap 功能，然后重启主机。</p>
+source <(kubectl completion bash) source <(kubeadm <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></(kubectl></code></pre>
+<h4 id="关闭-swap"><a class="header-anchor" href="#关闭-swap">¶</a>关闭 swap</h4>
+<p>为了性能考虑，k8s 需要关闭 swap 功能，然后重启主机。</p>
 <p>在 <code>/etc/fstab</code> 中找到带有 <code>swap</code> 的那一行，注释掉。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ vim /etc/fstab
-# UUID=9224d95f-cd87-4b56-b249-3dc7de4491d3 none            swap    sw              0       0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="启动-master-节点："><a href="#启动-master-节点：" class="headerlink" title="启动 master 节点："></a>启动 master 节点：</h4><pre class="line-numbers language-shell"><code class="language-shell">kubeadm init --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><code>--image-repository</code> 指定控制平面容器镜像地址，这里使用aliyun镜像，而不是默认的 k8s.gcr.io，这样就能避免下载失败。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ vim /etc/fstab
+# UUID=9224d95f-cd87-4b56-b249-3dc7de4491d3 none            swap    sw              0       0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="启动-master-节点："><a class="header-anchor" href="#启动-master-节点：">¶</a>启动 master 节点：</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">kubeadm init --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>--image-repository</code> 指定控制平面容器镜像地址，这里使用aliyun镜像，而不是默认的 <a href="http://k8s.gcr.io" target="_blank" rel="noopener">k8s.gcr.io</a>，这样就能避免下载失败。</p>
 <p>如果 init 失败，检查是否关闭 swap、 用户是否为 root 以及是否下载好核心组件镜像（可能得网络的问题）、是否为至少 2G 内存，然后运行 <code>kubeadm reset</code> 接着再 <code>kubeadm init</code>。</p>
-<h4 id="配置读取路径"><a href="#配置读取路径" class="headerlink" title="配置读取路径"></a>配置读取路径</h4><pre class="line-numbers language-shell"><code class="language-shell"># append to .bashrc
-export KUBECONFIG=/etc/kubernetes/admin.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="安装网络插件"><a href="#安装网络插件" class="headerlink" title="安装网络插件"></a>安装网络插件</h4><pre class="line-numbers language-shell"><code class="language-shell">kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="加入-worker"><a href="#加入-worker" class="headerlink" title="加入 worker"></a>加入 worker</h4><p>worker 节点加入 master，使用 kubeadm init 最后提示的命令在 worker 上运行</p>
-<pre class="line-numbers language-shell"><code class="language-shell">kubeadm join 192.168.199.117:6443 --token y8l6qv.oj2hxua9szguei23 \
---discovery-token-ca-cert-hash sha256:bae71d8fb4a26c5f29a6df2db037e08e581fcb344ff85089a603e3eeb9d6d26f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="配置读取路径"><a class="header-anchor" href="#配置读取路径">¶</a>配置读取路径</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># append to .bashrc
+export KUBECONFIG=/etc/kubernetes/admin.conf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="安装网络插件"><a class="header-anchor" href="#安装网络插件">¶</a>安装网络插件</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="加入-worker"><a class="header-anchor" href="#加入-worker">¶</a>加入 worker</h4>
+<p>worker 节点加入 master，使用 kubeadm init 最后提示的命令在 worker 上运行</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">kubeadm join 192.168.199.117:6443 --token y8l6qv.oj2hxua9szguei23 \
+--discovery-token-ca-cert-hash sha256:bae71d8fb4a26c5f29a6df2db037e08e581fcb344ff85089a603e3eeb9d6d26f
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>其中 <code>--token</code> 是临时的生成，可以通过下面命令获取</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ kubeadm token list
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ kubeadm token list
 TOKEN                     TTL       EXPIRES                     USAGES                   DESCRIPTION                                                EXTRA GROUPS
-y8l6qv.oj2hxua9szguei23   23h      2019-09-09T12:04:27+08:00   authentication,signing   The default bootstrap token generated by 'kubeadm init'.   system:bootstrappers:kubeadm:default-node-token<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+y8l6qv.oj2hxua9szguei23   23h      2019-09-09T12:04:27+08:00   authentication,signing   The default bootstrap token generated by 'kubeadm init'.   system:bootstrappers:kubeadm:default-node-token
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>而 <code>--discovery-token-ca-cert-hash</code> 指的是 CA 证书的哈希值，那么可以使用这种方式获取：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | sha256sum | awk '{print $1}'
-3e77f845edf944d76234a6d78dde3e5bae3e50261362b1d8cc8d025ac97136b0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="查看-nodes"><a href="#查看-nodes" class="headerlink" title="查看 nodes"></a>查看 nodes</h4><p>在 master 节点上运行</p>
-<pre class="line-numbers language-shell"><code class="language-shell">kubectl get nodes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="minikube"><a href="#minikube" class="headerlink" title="minikube"></a>minikube</h3><h4 id="国内源"><a href="#国内源" class="headerlink" title="国内源"></a>国内源</h4><p>在<a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">minikube</a>文档页面，选择操作系统，然后下载 minikube，注意版本号。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | sha256sum | awk '{print $1}'
+3e77f845edf944d76234a6d78dde3e5bae3e50261362b1d8cc8d025ac97136b0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="查看-nodes"><a class="header-anchor" href="#查看-nodes">¶</a>查看 nodes</h4>
+<p>在 master 节点上运行</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">kubectl get nodes
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="minikube"><a class="header-anchor" href="#minikube">¶</a>minikube</h3>
+<h4 id="国内源"><a class="header-anchor" href="#国内源">¶</a>国内源</h4>
+<p>在<a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener">minikube</a>文档页面，选择操作系统，然后下载 minikube，注意版本号。</p>
 <p>在<a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" target="_blank" rel="noopener">k8s-kubectl</a>页面下载 kubectl 并放在$PATH下，注意版本号。</p>
 <p>下载安装 virtualbox。</p>
 <p>启动命令：</p>
 <pre><code>minikube start \
 --vm-driver=virtualbox \
 --image-mirror-country=cn \
---registry-mirror=&#39;https://t9ab0rkd.mirror.aliyuncs.com&#39; \
---image-repository=&#39;registry.cn-hangzhou.aliyuncs.com/google_containers&#39; \
---iso-url=&#39;https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.5.1.iso&#39;</code></pre><p>–image-mirror-country cn 将缺省利用 registry.cn-hangzhou.aliyuncs.com/google_containers 作为安装Kubernetes的容器镜像仓库， –iso-url= 利用阿里云的镜像地址下载相应的 .iso 文件 –cpus=2: 为minikube虚拟机分配CPU核数 –memory=2000mb: 为minikube虚拟机分配内存数 –kubernetes-version= : minikube 虚拟机将使用的 kubernetes 版本</p>
-<h4 id="官方源"><a href="#官方源" class="headerlink" title="官方源"></a>官方源</h4><pre><code># k8s
+--registry-mirror='https://t9ab0rkd.mirror.aliyuncs.com' \
+--image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers' \
+--iso-url='https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.5.1.iso'
+</code></pre>
+<p>–image-mirror-country cn 将缺省利用 <a href="http://registry.cn-hangzhou.aliyuncs.com/google_containers" target="_blank" rel="noopener">registry.cn-hangzhou.aliyuncs.com/google_containers</a> 作为安装Kubernetes的容器镜像仓库， --iso-url= 利用阿里云的镜像地址下载相应的 .iso 文件 --cpus=2: 为minikube虚拟机分配CPU核数 --memory=2000mb: 为minikube虚拟机分配内存数 --kubernetes-version= : minikube 虚拟机将使用的 kubernetes 版本</p>
+<h4 id="官方源"><a class="header-anchor" href="#官方源">¶</a>官方源</h4>
+<pre><code># k8s
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 apt-add-repository &quot;deb http://apt.kubernetes.io/ kubernetes-xenial main&quot;
 
@@ -953,42 +1012,51 @@ EOF
 mkdir -p /etc/systemd/system/docker.service.d
 
 systemctl daemon-reload
-systemctl restart docker</code></pre><h3 id="其它阅读参考"><a href="#其它阅读参考" class="headerlink" title="其它阅读参考"></a>其它阅读参考</h3><p><a href="https://juejin.im/post/6844903668269973511" target="_blank" rel="noopener">https://juejin.im/post/6844903668269973511</a></p>
+systemctl restart docker
+</code></pre>
+<h3 id="其它阅读参考"><a class="header-anchor" href="#其它阅读参考">¶</a>其它阅读参考</h3>
+<p><a href="https://juejin.im/post/6844903668269973511" target="_blank" rel="noopener">https://juejin.im/post/6844903668269973511</a></p>
 <p><a href="https://cloud.tencent.com/developer/article/1525487" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1525487</a></p>
-<h2 id="配置-kubectl-操作多个-k8s-集群"><a href="#配置-kubectl-操作多个-k8s-集群" class="headerlink" title="配置 kubectl 操作多个 k8s 集群"></a>配置 kubectl 操作多个 k8s 集群</h2><p>参考 <a href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/" target="_blank" rel="noopener">官方说明</a> 。</p>
+<h2 id="配置-kubectl-操作多个-k8s-集群"><a class="header-anchor" href="#配置-kubectl-操作多个-k8s-集群">¶</a>配置 kubectl 操作多个 k8s 集群</h2>
+<p>参考 <a href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/" target="_blank" rel="noopener">官方说明</a> 。</p>
 <p>可以看到 kubectl 主要通过类似以下格式的文件读取 k8s 集群的联系信息的：</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">contexts</span><span class="token punctuation">:</span>
-<span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span>
-    <span class="token key atrule">cluster</span><span class="token punctuation">:</span> development
-    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> frontend
-    <span class="token key atrule">user</span><span class="token punctuation">:</span> developer
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> dev<span class="token punctuation">-</span>frontend
-<span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span>
-    <span class="token key atrule">cluster</span><span class="token punctuation">:</span> development
-    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> ramp
-    <span class="token key atrule">user</span><span class="token punctuation">:</span> developer
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> dev<span class="token punctuation">-</span>ramp<span class="token punctuation">-</span>up
-<span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span>
-    <span class="token key atrule">cluster</span><span class="token punctuation">:</span> development
-    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> storage
-    <span class="token key atrule">user</span><span class="token punctuation">:</span> developer
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> dev<span class="token punctuation">-</span>storage
-<span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span>
-    <span class="token key atrule">cluster</span><span class="token punctuation">:</span> scratch
-    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> default
-    <span class="token key atrule">user</span><span class="token punctuation">:</span> experimenter
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> exp<span class="token punctuation">-</span>scratch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">contexts:
+- context:
+    cluster: development
+    namespace: frontend
+    user: developer
+  name: dev-frontend
+- context:
+    cluster: development
+    namespace: ramp
+    user: developer
+  name: dev-ramp-up
+- context:
+    cluster: development
+    namespace: storage
+    user: developer
+  name: dev-storage
+- context:
+    cluster: scratch
+    namespace: default
+    user: experimenter
+  name: exp-scratch
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li><p>使用 minikube 和 kubeadm 安装集群之后，分别会在 minikube 所在主机以及 kubeadm 所在主机的当前用户 <code>$HOME</code> 下创建 <code>.kube/config</code> 文件，这个就是默认创建给 kubectl 读取的文件，里面包含了集群的连接信息。也就是说 kubectl 默认是会读取这个路径文件的</p>
+<li>
+<p>使用 minikube 和 kubeadm 安装集群之后，分别会在 minikube 所在主机以及 kubeadm 所在主机的当前用户 <code>$HOME</code> 下创建 <code>.kube/config</code> 文件，这个就是默认创建给 kubectl 读取的文件，里面包含了集群的连接信息。也就是说 kubectl 默认是会读取这个路径文件的</p>
 </li>
-<li><p>另外我们可以通过指定环境变量 <code>KUBECONFIG</code> 来修改它的默认行为，将集群配置文件所在目录指定给这个环境变量，如果是多个配置文件，在 linux 和 macos 下用冒号隔开，在 windows 下用分号隔开。</p>
+<li>
+<p>另外我们可以通过指定环境变量 <code>KUBECONFIG</code> 来修改它的默认行为，将集群配置文件所在目录指定给这个环境变量，如果是多个配置文件，在 linux 和 macos 下用冒号隔开，在 windows 下用分号隔开。</p>
 </li>
-<li><p>同时还可以通过 <code>kubectl config</code> 命令设置的方式生成该配置文件。</p>
+<li>
+<p>同时还可以通过 <code>kubectl config</code> 命令设置的方式生成该配置文件。</p>
 </li>
 </ul>
 <p>在经过以上步骤使得 kubectl 可以读取多个集群信息后，通过 <code>kubectl config use-context &lt;context-name&gt;</code> 即可在多个集群的不同上下文之间进行上下文切换。</p>
-<h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><p>每个 cluster 下面有多个 context ，一个 context 可能会涉及多个 Node，一个 Node 就是一个物理主机或者虚机。kubectl 切换到一个 context 之后，可以查看它涉及的节点：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get node
+<h1>Node</h1>
+<p>每个 cluster 下面有多个 context ，一个 context 可能会涉及多个 Node，一个 Node 就是一个物理主机或者虚机。kubectl 切换到一个 context 之后，可以查看它涉及的节点：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get node
 NAME         STATUS     ROLES    AGE   VERSION
 k8s-master   Ready      master   9h    v1.19.3
 k8s-node1    NotReady   <none>   9h    v1.19.3
@@ -997,9 +1065,10 @@ k8s-node2    NotReady   <none>   9h    v1.19.3
 NAME         STATUS     ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION           CONTAINER-RUNTIME
 k8s-master   Ready      master   20h   v1.19.3   10.0.2.15     <none>        CentOS Linux 7 (Core)   3.10.0-1127.el7.x86_64   docker://19.3.13
 k8s-node1    NotReady   <none>   20h   v1.19.3   10.0.2.15     <none>        CentOS Linux 7 (Core)   3.10.0-1127.el7.x86_64   docker://19.3.13
-k8s-node2    NotReady   <none>   20h   v1.19.3   10.0.2.15     <none>        CentOS Linux 7 (Core)   3.10.0-1127.el7.x86_64   docker://19.3.13<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></none></none></none></none></code></pre>
+k8s-node2    NotReady   <none>   20h   v1.19.3   10.0.2.15     <none>        CentOS Linux 7 (Core)   3.10.0-1127.el7.x86_64   docker://19.3.13
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></none></none></none></none></code></pre>
 <p>通过 <code>kubectl get node -o yaml</code> 以 yaml 格式输出更多信息（也支持 json 格式输出这些信息，<code>-o json</code>）：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get node -o yaml
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get node -o yaml
 apiVersion: v1
 items:
 - apiVersion: v1
@@ -1097,9 +1166,10 @@ items:
             .: {}
             f:cpu: {}
             f:ephemeral-storage: {}
-... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过 <code>kubectl describe node &lt;node-name&gt;</code> 查看详细信息：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl describe node k8s-master
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl describe node k8s-master
 Name:               k8s-master
 Roles:              master
 Labels:             beta.kubernetes.io/arch=amd64
@@ -1247,21 +1317,26 @@ Allocated resources:
   memory             340Mi (19%)  340Mi (19%)
   ephemeral-storage  0 (0%)       0 (0%)
   hugepages-2Mi      0 (0%)       0 (0%)
-Events:              <none><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></unset></none></unset></code></pre>
-<h3 id="Labels"><a href="#Labels" class="headerlink" title="Labels"></a>Labels</h3><p>在上面的 <code>describe</code> 命令中可以看到 node 的 Labels 属性：</p>
+Events:              <none>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></unset></none></unset></code></pre>
+<h3 id="Labels"><a class="header-anchor" href="#Labels">¶</a>Labels</h3>
+<p>在上面的 <code>describe</code> 命令中可以看到 node 的 Labels 属性：</p>
 <pre><code>Labels:             beta.kubernetes.io/arch=amd64
                     beta.kubernetes.io/os=linux
                     kubernetes.io/arch=amd64
                     kubernetes.io/hostname=k8s-master
                     kubernetes.io/os=linux
-                    node-role.kubernetes.io/master=</code></pre><p>Labels 以键值对的形式存在，可以利用这些 Labels 做过滤条件，<code>kubectl get node --show-labels</code> 可以获取 lables</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get node --show-labels
+                    node-role.kubernetes.io/master=
+</code></pre>
+<p>Labels 以键值对的形式存在，可以利用这些 Labels 做过滤条件，<code>kubectl get node --show-labels</code> 可以获取 lables</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get node --show-labels
 NAME         STATUS     ROLES    AGE   VERSION   LABELS
 k8s-master   Ready      master   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-master,kubernetes.io/os=linux,node-role.kubernetes.io/master=
 k8s-node1    NotReady   <none>   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node1,kubernetes.io/os=linux
-k8s-node2    NotReady   <none>   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node2,kubernetes.io/os=linux<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
+k8s-node2    NotReady   <none>   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node2,kubernetes.io/os=linux
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
 <p>添加 label、删除 label</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl label node k8s-master
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl label node k8s-master
 .bash_history    .bash_logout     .bash_profile    .bashrc          .cshrc           .kube/           .pki/            .tcshrc          .viminfo         anaconda-ks.cfg  original-ks.cfg
 [root@k8s-master ~]# kubectl label node k8s-master env=test
 node/k8s-master labeled
@@ -1277,9 +1352,11 @@ NAME         STATUS     ROLES    AGE   VERSION   LABELS
 k8s-master   Ready      master   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-master,kubernetes.io/os=linux,node-role.kubernetes.io/master=
 k8s-node1    NotReady   <none>   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node1,kubernetes.io/os=linux
 k8s-node2    NotReady   <none>   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node2,kubernetes.io/os=linux
-[root@k8s-master ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></none></code></pre>
-<h3 id="node-role"><a href="#node-role" class="headerlink" title="node-role"></a>node-role</h3><p>ROLES 是一个特殊的 label “node-role.kubernetes.io”。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get node --show-labels
+[root@k8s-master ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></none></code></pre>
+<h3 id="node-role"><a class="header-anchor" href="#node-role">¶</a>node-role</h3>
+<p>ROLES 是一个特殊的 label “<a href="http://node-role.kubernetes.io" target="_blank" rel="noopener">node-role.kubernetes.io</a>”。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get node --show-labels
 NAME         STATUS     ROLES    AGE   VERSION   LABELS
 k8s-master   Ready      master   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-master,kubernetes.io/os=linux,node-role.kubernetes.io/master=
 k8s-node1    NotReady   <none>   20h   v1.19.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=k8s-node1,kubernetes.io/os=linux
@@ -1292,40 +1369,49 @@ node/k8s-node2 labeled
 NAME         STATUS     ROLES    AGE   VERSION
 k8s-master   Ready      master   20h   v1.19.3
 k8s-node1    NotReady   worker   20h   v1.19.3
-k8s-node2    NotReady   worker   20h   v1.19.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
-<h1 id="调度的最小单位：Pod"><a href="#调度的最小单位：Pod" class="headerlink" title="调度的最小单位：Pod"></a>调度的最小单位：Pod</h1><p>一个 Pod 里面一个或者多个 Container，一个 Pod 只有一个 namespace，所有 Container 共享这个 namespace 。</p>
+k8s-node2    NotReady   worker   20h   v1.19.3
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
+<h1>调度的最小单位：Pod</h1>
+<p>一个 Pod 里面一个或者多个 Container，一个 Pod 只有一个 namespace，所有 Container 共享这个 namespace 。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203203.png" alt="image-20201022191526685"></p>
-<h3 id="创建-pod"><a href="#创建-pod" class="headerlink" title="创建 pod"></a>创建 pod</h3><p>下面是一个 k8s 格式的 yml 文件，通过这个文件可以创建一个资源</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod <span class="token comment" spellcheck="true"># 资源类型是 pod</span>
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">containers</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 可以包含多个容器</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx <span class="token comment" spellcheck="true"># 命名</span>
-    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx <span class="token comment" spellcheck="true"># 镜像</span>
-    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 容器暴露的端口</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> 使用 <code>kubectl create</code> 命令创建资源，根据 <code>-f</code> 指定的文件里面的指定资源类型按需创建，使用 <code>kubectl get pods</code> 命令查看 pods 的状态，显示正在创建中：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl create <span class="token operator">-</span>f pod_nginx<span class="token punctuation">.</span>yml
-pod<span class="token operator">/</span>nginx created
+<h3 id="创建-pod"><a class="header-anchor" href="#创建-pod">¶</a>创建 pod</h3>
+<p>下面是一个 k8s 格式的 yml 文件，通过这个文件可以创建一个资源</p>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">apiVersion: v1
+kind: Pod # 资源类型是 pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  containers: # 可以包含多个容器
+  - name: nginx # 命名
+    image: nginx # 镜像
+    ports: # 容器暴露的端口
+    - containerPort: 80
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用 <code>kubectl create</code> 命令创建资源，根据 <code>-f</code> 指定的文件里面的指定资源类型按需创建，使用 <code>kubectl get pods</code> 命令查看 pods 的状态，显示正在创建中：</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\pod-basic>kubectl create -f pod_nginx.yml
+pod/nginx created
 
-D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl get pods
+D:\docker\docker\chapter9\labs\pod-basic>kubectl get pods
 NAME    READY   STATUS              RESTARTS   AGE
-nginx   0<span class="token operator">/</span>1     ContainerCreating   0          13s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+nginx   0/1     ContainerCreating   0          13s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>过一会儿，创建完成</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl get pods
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\pod-basic>kubectl get pods
 NAME    READY   STATUS    RESTARTS   AGE
-nginx   1<span class="token operator">/</span>1     Running   0          10m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+nginx   1/1     Running   0          10m
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>查看更详细的信息，可以看到名为 nginx 的 pod 的 ip 地址 “172.17.0.2” 和所在的主机节点 “minikube”</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl get pods <span class="token operator">-</span>o wide
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\pod-basic>kubectl get pods -o wide
 NAME    READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
-nginx   1<span class="token operator">/</span>1     Running   0          12m   172<span class="token punctuation">.</span>17<span class="token punctuation">.</span>0<span class="token punctuation">.</span>2   minikube   &lt;none>           &lt;none><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="进入容器的两种方式"><a href="#进入容器的两种方式" class="headerlink" title="进入容器的两种方式"></a>进入容器的两种方式</h3><ul>
-<li><p><code>minikube ssh</code> 进入 minikube 主机进行操作：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">D:\docker\docker\chapter9\labs\pod-basic>minikube ssh
+nginx   1/1     Running   0          12m   172.17.0.2   minikube   <none>           <none>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></none></none></code></pre>
+<h3 id="进入容器的两种方式"><a class="header-anchor" href="#进入容器的两种方式">¶</a>进入容器的两种方式</h3>
+<ul>
+<li>
+<p><code>minikube ssh</code> 进入 minikube 主机进行操作：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">D:\docker\docker\chapter9\labs\pod-basic>minikube ssh
                          _             _
             _         _ ( )           ( )
   ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
@@ -1343,9 +1429,10 @@ nginx   1<span class="token operator">/</span>1     Running   0          12m   1
 $ docker ps | grep nginx # 查看 nginx 容器的 id
 701409f023de        nginx                  "/docker-entrypoint.…"   7 minutes ago       Up 7 minutes                            k8s_nginx_nginx_default_d94d0dba-f5c4-42a6-ac43-ac58d1f9afe0_0
 $ docker exec -it 701409f023de sh # 这样就进来了
-# exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+# exit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过 inspect 查看容器的 ip 得到 “172.17.0.2/16”，正是上面 <code>kubectl get pods -o wide</code> 得到的 ip：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ docker network ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 f557efad83b5        bridge              bridge              local
 532631c87d8b        host                host                local
@@ -1402,16 +1489,20 @@ $ docker network inspect f557efad83b5
         },
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>直接使用 <code>kubectl exec -it</code> 进入容器</p>
-<pre class="line-numbers language-shell"><code class="language-shell">D:\docker\docker\chapter9\labs\pod-basic>kubectl exec -it nginx -- sh
-#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<li>
+<p>直接使用 <code>kubectl exec -it</code> 进入容器</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">D:\docker\docker\chapter9\labs\pod-basic>kubectl exec -it nginx -- sh
+#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>通过 <code>-c=&lt;Container namme&gt;</code> 指定要进入的 pod 的容器，如果不指定，默认进入第一个容器</p>
 </li>
 </ul>
-<h3 id="查看-pod-的更详细信息"><a href="#查看-pod-的更详细信息" class="headerlink" title="查看 pod 的更详细信息"></a>查看 pod 的更详细信息</h3><p>通过 <code>kubectl describe</code> 命令查看</p>
-<pre class="line-numbers language-shell"><code class="language-shell">D:\docker\docker\chapter9\labs\pod-basic>kubectl describe pods nginx
+<h3 id="查看-pod-的更详细信息"><a class="header-anchor" href="#查看-pod-的更详细信息">¶</a>查看 pod 的更详细信息</h3>
+<p>通过 <code>kubectl describe</code> 命令查看</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">D:\docker\docker\chapter9\labs\pod-basic>kubectl describe pods nginx
 Name:         nginx
 Namespace:    default
 Priority:     0
@@ -1464,9 +1555,11 @@ Events:
   Normal   Pulling         17m (x2 over 24m)  kubelet, minikube  Pulling image "nginx"
   Normal   Pulled          17m                kubelet, minikube  Successfully pulled image "nginx" in 8.817994182s
   Normal   Created         17m                kubelet, minikube  Created container nginx
-  Normal   Started         17m                kubelet, minikube  Started container nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></code></pre>
-<h3 id="端口映射"><a href="#端口映射" class="headerlink" title="端口映射"></a>端口映射</h3><p>在 minikube 内部可以根据 nginx 容器的 ip 地址进行访问的</p>
-<pre class="line-numbers language-shell"><code class="language-shell">D:\docker\docker\chapter9\labs\pod-basic>minikube ssh
+  Normal   Started         17m                kubelet, minikube  Started container nginx
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></code></pre>
+<h3 id="端口映射"><a class="header-anchor" href="#端口映射">¶</a>端口映射</h3>
+<p>在 minikube 内部可以根据 nginx 容器的 ip 地址进行访问的</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">D:\docker\docker\chapter9\labs\pod-basic>minikube ssh
                          _             _
             _         _ ( )           ( )
   ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
@@ -1509,9 +1602,10 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面我们要实现在 minikube 外面访问这个容器没，先查看 minikube  的 ip ，kuku 可以在外面访问</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ ip a | grep inet
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ ip a | grep inet
     inet 127.0.0.1/8 scope host lo
     inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic eth0
     inet 192.168.99.100/24 brd 192.168.99.255 scope global dynamic eth1
@@ -1523,283 +1617,326 @@ ssh: exit status 127
 D:\docker\docker\chapter9\labs\pod-basic>ping 192.168.99.100
 
 正在 Ping 192.168.99.100 具有 32 字节的数据:
-来自 192.168.99.100 的回复: 字节=32 时间<1ms ttl="64" 来自 192.168.99.100 的回复: 字节="32" 时间<1ms 的 ping 统计信息: 数据包: 已发送="2，已接收" = 2，丢失="0" (0% 丢失)， 往返行程的估计时间(以毫秒为单位): 最短="0ms，最长" 0ms，平均="0ms" control-c ^c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></1ms></code></pre>
-<p> 通过 <code>kubectl port-forward &lt;pod-name&gt; &lt;local-port&gt;:&lt;container-port&gt;</code> 命令可以对指定 pod 做端口映射，下面命令将 nginx 的80 端口映射到 <code>kubectl</code> 所在主机(<strong>不是 minikube 主机</strong>)的 8080 端口：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl port<span class="token operator">-</span>forward nginx 8080:80
-Forwarding <span class="token keyword">from</span> 127<span class="token punctuation">.</span>0<span class="token punctuation">.</span>0<span class="token punctuation">.</span>1:8080 <span class="token operator">-</span>> 80
-Forwarding <span class="token keyword">from</span> <span class="token punctuation">[</span>::1<span class="token punctuation">]</span>:8080 <span class="token operator">-</span>> 80
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+来自 192.168.99.100 的回复: 字节=32 时间<1ms ttl="64" 来自 192.168.99.100 的回复: 字节="32" 时间<1ms 的 ping 统计信息: 数据包: 已发送="2，已接收" = 2，丢失="0" (0% 丢失)， 往返行程的估计时间(以毫秒为单位): 最短="0ms，最长" 0ms，平均="0ms" control-c ^c <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></1ms></code></pre>
+<p>通过 <code>kubectl port-forward &lt;pod-name&gt; &lt;local-port&gt;:&lt;container-port&gt;</code> 命令可以对指定 pod 做端口映射，下面命令将 nginx 的80 端口映射到 <code>kubectl</code> 所在主机(<strong>不是 minikube 主机</strong>)的 8080 端口：</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\pod-basic>kubectl port-forward nginx 8080:80
+Forwarding from 127.0.0.1:8080 -> 80
+Forwarding from [::1]:8080 -> 80
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时在 <code>kubectl</code> 所在主机访问 “127.0.0.1:8080” 就可以访问到 nginx 了：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203214.png" alt="image-20201022201832158"></p>
 <p>可以看到这种映射方式会导致当前终端阻塞，如果中断阻塞，就会导致映射结束。</p>
-<h3 id="删除-pod"><a href="#删除-pod" class="headerlink" title="删除 pod"></a>删除 pod</h3><pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl delete <span class="token operator">-</span>f pod_nginx<span class="token punctuation">.</span>yml
-pod <span class="token string">"nginx"</span> deleted
+<h3 id="删除-pod"><a class="header-anchor" href="#删除-pod">¶</a>删除 pod</h3>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\pod-basic>kubectl delete -f pod_nginx.yml
+pod "nginx" deleted
 
-D:\docker\docker\chapter9\labs\pod<span class="token operator">-</span>basic>kubectl get pods
-No resources found in default namespace<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="pod-横向扩展"><a href="#pod-横向扩展" class="headerlink" title="pod 横向扩展"></a>pod 横向扩展</h3><h4 id="ReplicationController"><a href="#ReplicationController" class="headerlink" title="ReplicationController"></a>ReplicationController</h4><p>以下是一个类型是 ReplicationController 的资源，他会创建 3 个 pods，在 v1 版本的配置文件中，支持扩展 pod 副本的资源类型为 ReplicationController 。</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ReplicationController 
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h5><p>使用 <code>kubectl create</code> 创建一个 ReplicationController 资源，<code>kubectl get rc</code> 获取资源创建情况：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl create <span class="token operator">-</span>f rc_nginx<span class="token punctuation">.</span>yml
-replicationcontroller<span class="token operator">/</span>nginx created
+D:\docker\docker\chapter9\labs\pod-basic>kubectl get pods
+No resources found in default namespace.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="pod-横向扩展"><a class="header-anchor" href="#pod-横向扩展">¶</a>pod 横向扩展</h3>
+<h4 id="ReplicationController"><a class="header-anchor" href="#ReplicationController">¶</a>ReplicationController</h4>
+<p>以下是一个类型是 ReplicationController 的资源，他会创建 3 个 pods，在 v1 版本的配置文件中，支持扩展 pod 副本的资源类型为 ReplicationController 。</p>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">apiVersion: v1
+kind: ReplicationController 
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="创建"><a class="header-anchor" href="#创建">¶</a>创建</h5>
+<p>使用 <code>kubectl create</code> 创建一个 ReplicationController 资源，<code>kubectl get rc</code> 获取资源创建情况：</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl create -f rc_nginx.yml
+replicationcontroller/nginx created
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rc
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rc
 NAME    DESIRED   CURRENT   READY   AGE
 nginx   3         3         1       12s
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get pods
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get pods
 NAME          READY   STATUS    RESTARTS   AGE
-nginx<span class="token operator">-</span>9m8br   1<span class="token operator">/</span>1     Running   0          26s
-nginx<span class="token operator">-</span>h97jg   1<span class="token operator">/</span>1     Running   0          26s
-nginx<span class="token operator">-</span>ntjcb   1<span class="token operator">/</span>1     Running   0          26s
+nginx-9m8br   1/1     Running   0          26s
+nginx-h97jg   1/1     Running   0          26s
+nginx-ntjcb   1/1     Running   0          26s
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rc
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rc
 NAME    DESIRED   CURRENT   READY   AGE
 nginx   3         3         3       30s
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="自愈"><a href="#自愈" class="headerlink" title="自愈"></a>自愈</h5><p>下面尝试删除一个 pod，和 docker swarm 一样具有自动恢复的功能：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl delete pods nginx<span class="token operator">-</span>9m8br
-pod <span class="token string">"nginx-9m8br"</span> deleted
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get pods
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="自愈"><a class="header-anchor" href="#自愈">¶</a>自愈</h5>
+<p>下面尝试删除一个 pod，和 docker swarm 一样具有自动恢复的功能：</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl delete pods nginx-9m8br
+pod "nginx-9m8br" deleted
+
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get pods
 NAME          READY   STATUS    RESTARTS   AGE
-nginx<span class="token operator">-</span>h97jg   1<span class="token operator">/</span>1     Running   0          3m18s
-nginx<span class="token operator">-</span>ntjcb   1<span class="token operator">/</span>1     Running   0          3m18s
-nginx<span class="token operator">-</span>schc7   1<span class="token operator">/</span>1     Running   0          8s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h5><p>使用 <code>kubectl scale rc</code> 命令可以对 ReplicationController 进行横向扩展</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl scale rc nginx <span class="token operator">--</span>replicas=2
-replicationcontroller<span class="token operator">/</span>nginx scaled
+nginx-h97jg   1/1     Running   0          3m18s
+nginx-ntjcb   1/1     Running   0          3m18s
+nginx-schc7   1/1     Running   0          8s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="扩展"><a class="header-anchor" href="#扩展">¶</a>扩展</h5>
+<p>使用 <code>kubectl scale rc</code> 命令可以对 ReplicationController 进行横向扩展</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl scale rc nginx --replicas=2
+replicationcontroller/nginx scaled
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rc
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rc
 NAME    DESIRED   CURRENT   READY   AGE
 nginx   2         2         2       6m35s
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl scale rc nginx <span class="token operator">--</span>replicas=4
-replicationcontroller<span class="token operator">/</span>nginx scaled
+D:\docker\docker\chapter9\labs\replicas-set>kubectl scale rc nginx --replicas=4
+replicationcontroller/nginx scaled
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rc
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rc
 NAME    DESIRED   CURRENT   READY   AGE
 nginx   4         4         4       6m53s
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h5><pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl delete <span class="token operator">-</span>f rc_nginx<span class="token punctuation">.</span>yml
-replicationcontroller <span class="token string">"nginx"</span> deleted
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get pods
-No resources found in default namespace<span class="token punctuation">.</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="删除"><a class="header-anchor" href="#删除">¶</a>删除</h5>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl delete -f rc_nginx.yml
+replicationcontroller "nginx" deleted
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rc
-No resources found in default namespace<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h4><p>ReplicaSet 是用来替换 ReplictionController 的，它在 apps/v1 版本配置文件中开始支持，它比 ReplicationController 多了一个 new set-based selector requirement 的功能，以下是它的一个 yml 文件配置：</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ReplicaSet
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">tier</span><span class="token punctuation">:</span> frontend
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">tier</span><span class="token punctuation">:</span> frontend
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">tier</span><span class="token punctuation">:</span> frontend
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h5><p><code>kubectl create rs</code> 创建 ReplicaSet</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl create <span class="token operator">-</span>f rs_nginx<span class="token punctuation">.</span>yml
-replicaset<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx created
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get pods
+No resources found in default namespace.
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rs
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rc
+No resources found in default namespace.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="ReplicaSet"><a class="header-anchor" href="#ReplicaSet">¶</a>ReplicaSet</h4>
+<p>ReplicaSet 是用来替换 ReplictionController 的，它在 apps/v1 版本配置文件中开始支持，它比 ReplicationController 多了一个 new set-based selector requirement 的功能，以下是它的一个 yml 文件配置：</p>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+  labels:
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: nginx
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="创建-v2"><a class="header-anchor" href="#创建-v2">¶</a>创建</h5>
+<p><code>kubectl create rs</code> 创建 ReplicaSet</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl create -f rs_nginx.yml
+replicaset.apps/nginx created
+
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rs
 NAME    DESIRED   CURRENT   READY   AGE
 nginx   3         3         3       15s
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get pods
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get pods
 NAME          READY   STATUS    RESTARTS   AGE
-nginx<span class="token operator">-</span>5ddz7   1<span class="token operator">/</span>1     Running   0          21s
-nginx<span class="token operator">-</span>7gfjk   1<span class="token operator">/</span>1     Running   0          21s
-nginx<span class="token operator">-</span>t4k5l   1<span class="token operator">/</span>1     Running   0          21s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="自愈-1"><a href="#自愈-1" class="headerlink" title="自愈"></a>自愈</h5><p>… …</p>
-<h5 id="扩展-1"><a href="#扩展-1" class="headerlink" title="扩展"></a>扩展</h5><p><code>kubectl scale rs</code> 横向扩展</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl scale rs nginx <span class="token operator">--</span>replicas=2
-replicaset<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx scaled
+nginx-5ddz7   1/1     Running   0          21s
+nginx-7gfjk   1/1     Running   0          21s
+nginx-t4k5l   1/1     Running   0          21s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="自愈-v2"><a class="header-anchor" href="#自愈-v2">¶</a>自愈</h5>
+<p>… …</p>
+<h5 id="扩展-v2"><a class="header-anchor" href="#扩展-v2">¶</a>扩展</h5>
+<p><code>kubectl scale rs</code> 横向扩展</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl scale rs nginx --replicas=2
+replicaset.apps/nginx scaled
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rs
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rs
 NAME    DESIRED   CURRENT   READY   AGE
 nginx   2         2         2       42s
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h5><pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl delete <span class="token operator">-</span>f rs_nginx<span class="token punctuation">.</span>yml
-replicaset<span class="token punctuation">.</span>apps <span class="token string">"nginx"</span> deleted
 
-D:\docker\docker\chapter9\labs\replicas<span class="token operator">-</span><span class="token function">set</span>>kubectl get rs
-No resources found in default namespace<span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h4><p>deployment 是比 replicas set 更抽象的资源，使用它可以创建 replicas set 的同时还可以对 replicas set 进行更新操作，例如镜像更新，端口更新等，类似 docker swarm 的 docker service update 和 docker deploy。下面是它的一个配置文件：</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.12.2
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h5><p><code>kubectl create</code> 指定 deployment 类型的配置文件创建 deployment，使用 <code>kubectl get deployment</code> 获取创建的 deployment 信息：</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl create <span class="token operator">-</span>f deployment_nginx<span class="token punctuation">.</span>yml
-deployment<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx<span class="token operator">-</span>deployment created
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="删除-v2"><a class="header-anchor" href="#删除-v2">¶</a>删除</h5>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\replicas-set>kubectl delete -f rs_nginx.yml
+replicaset.apps "nginx" deleted
+
+D:\docker\docker\chapter9\labs\replicas-set>kubectl get rs
+No resources found in default namespace.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Deployment"><a class="header-anchor" href="#Deployment">¶</a>Deployment</h4>
+<p>deployment 是比 replicas set 更抽象的资源，使用它可以创建 replicas set 的同时还可以对 replicas set 进行更新操作，例如镜像更新，端口更新等，类似 docker swarm 的 docker service update 和 docker deploy。下面是它的一个配置文件：</p>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.12.2
+        ports:
+        - containerPort: 80
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="创建-v3"><a class="header-anchor" href="#创建-v3">¶</a>创建</h5>
+<p><code>kubectl create</code> 指定 deployment 类型的配置文件创建 deployment，使用 <code>kubectl get deployment</code> 获取创建的 deployment 信息：</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl create -f deployment_nginx.yml
+deployment.apps/nginx-deployment created
 
 D:\docker\docker\chapter9\labs\deployment>kubectl get deployment
-NAME               READY   UP<span class="token operator">-</span>TO<span class="token operator">-</span>DATE   AVAILABLE   AGE
-nginx<span class="token operator">-</span>deployment   0<span class="token operator">/</span>3     3            0           9s
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   0/3     3            0           9s
 
 D:\docker\docker\chapter9\labs\deployment>kubectl get deployment
-NAME               READY   UP<span class="token operator">-</span>TO<span class="token operator">-</span>DATE   AVAILABLE   AGE
-nginx<span class="token operator">-</span>deployment   3<span class="token operator">/</span>3     3            3           23s
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3/3     3            3           23s
 
 D:\docker\docker\chapter9\labs\deployment>kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>84b8bdb667   3         3         3       32s
+nginx-deployment-84b8bdb667   3         3         3       32s
 
 D:\docker\docker\chapter9\labs\deployment>kubectl get pods
 NAME                                READY   STATUS    RESTARTS   AGE
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>84b8bdb667<span class="token operator">-</span>tfsfr   1<span class="token operator">/</span>1     Running   0          39s
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>84b8bdb667<span class="token operator">-</span>tr9dm   1<span class="token operator">/</span>1     Running   0          39s
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>84b8bdb667<span class="token operator">-</span>xp8pm   1<span class="token operator">/</span>1     Running   0          39s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="查看详细信息"><a href="#查看详细信息" class="headerlink" title="查看详细信息"></a>查看详细信息</h5><pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl get deployment <span class="token operator">-</span>o wide
-NAME               READY   UP<span class="token operator">-</span>TO<span class="token operator">-</span>DATE   AVAILABLE   AGE     CONTAINERS   IMAGES         SELECTOR
-nginx<span class="token operator">-</span>deployment   3<span class="token operator">/</span>3     3            3           3m36s   nginx        nginx:1<span class="token punctuation">.</span>12<span class="token punctuation">.</span>2   app=nginx
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h5 id="更新-deployment"><a href="#更新-deployment" class="headerlink" title="更新 deployment"></a>更新 deployment</h5><ul>
-<li><p>使用 <code>kubectl set image deployment</code> 更新镜像</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl <span class="token function">set</span> image deployment nginx<span class="token operator">-</span>deployment nginx=nginx:1<span class="token punctuation">.</span>13
-deployment<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx<span class="token operator">-</span>deployment image updated
+nginx-deployment-84b8bdb667-tfsfr   1/1     Running   0          39s
+nginx-deployment-84b8bdb667-tr9dm   1/1     Running   0          39s
+nginx-deployment-84b8bdb667-xp8pm   1/1     Running   0          39s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="查看详细信息"><a class="header-anchor" href="#查看详细信息">¶</a>查看详细信息</h5>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl get deployment -o wide
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES         SELECTOR
+nginx-deployment   3/3     3            3           3m36s   nginx        nginx:1.12.2   app=nginx
 
-D:\docker\docker\chapter9\labs\deployment>kubectl get deployment <span class="token operator">-</span>o wide
-NAME               READY   UP<span class="token operator">-</span>TO<span class="token operator">-</span>DATE   AVAILABLE   AGE    CONTAINERS   IMAGES       SELECTOR
-nginx<span class="token operator">-</span>deployment   3<span class="token operator">/</span>3     3            3           8m8s   nginx        nginx:1<span class="token punctuation">.</span>13   app=nginx
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="更新-deployment"><a class="header-anchor" href="#更新-deployment">¶</a>更新 deployment</h5>
+<ul>
+<li>
+<p>使用 <code>kubectl set image deployment</code> 更新镜像</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl set image deployment nginx-deployment nginx=nginx:1.13
+deployment.apps/nginx-deployment image updated
+
+D:\docker\docker\chapter9\labs\deployment>kubectl get deployment -o wide
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES       SELECTOR
+nginx-deployment   3/3     3            3           8m8s   nginx        nginx:1.13   app=nginx
 
 D:\docker\docker\chapter9\labs\deployment>kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>687d765c64   3         3         3       29s
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>84b8bdb667   0         0         0       8m18s
+nginx-deployment-687d765c64   3         3         3       29s
+nginx-deployment-84b8bdb667   0         0         0       8m18s
 
 D:\docker\docker\chapter9\labs\deployment>kubectl get pods
 NAME                                READY   STATUS    RESTARTS   AGE
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>687d765c64<span class="token operator">-</span>24s72   1<span class="token operator">/</span>1     Running   0          36s
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>687d765c64<span class="token operator">-</span>pzz7w   1<span class="token operator">/</span>1     Running   0          27s
-nginx<span class="token operator">-</span>deployment<span class="token operator">-</span>687d765c64<span class="token operator">-</span>tm68b   1<span class="token operator">/</span>1     Running   0          29s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+nginx-deployment-687d765c64-24s72   1/1     Running   0          36s
+nginx-deployment-687d765c64-pzz7w   1/1     Running   0          27s
+nginx-deployment-687d765c64-tm68b   1/1     Running   0          29s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>使用 <code>kubectl apply -f &lt;resource-yml&gt;</code> 指定一个对某个现有资源的配置做了更改的 yml 文件，也会对正在运行的资源进行更新，apply 相当于 create or update。而 create 只会 create ，如果资源已存在，就会报错。</p>
+<li>
+<p>使用 <code>kubectl apply -f &lt;resource-yml&gt;</code> 指定一个对某个现有资源的配置做了更改的 yml 文件，也会对正在运行的资源进行更新，apply 相当于 create or update。而 create 只会 create ，如果资源已存在，就会报错。</p>
 </li>
-<li><p><code>kubectl edit deployment &lt;deployment-name&gt;</code> 也可以对资源进行更新，它会打开资源的 yaml 文件编辑界面，我们对 yml 文件更新后保存即可。</p>
+<li>
+<p><code>kubectl edit deployment &lt;deployment-name&gt;</code> 也可以对资源进行更新，它会打开资源的 yaml 文件编辑界面，我们对 yml 文件更新后保存即可。</p>
 </li>
 </ul>
-<h5 id="滚动发布"><a href="#滚动发布" class="headerlink" title="滚动发布"></a>滚动发布</h5><p>deployment 的更新是滚动的，使用 <code>kubectl describe deployment</code> 可以看到它的策略：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master deployment]# kubectl describe deployment nginx-deployment
+<h5 id="滚动发布"><a class="header-anchor" href="#滚动发布">¶</a>滚动发布</h5>
+<p>deployment 的更新是滚动的，使用 <code>kubectl describe deployment</code> 可以看到它的策略：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master deployment]# kubectl describe deployment nginx-deployment
 ... ...
 StrategyType:           RollingUpdate
 MinReadySeconds:        0
 RollingUpdateStrategy:  25% max unavailable, 25% max surge
-... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h5><p><code>kubectl rollout history</code> 查看 deployment 的历史记录</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl rollout history deployment nginx<span class="token operator">-</span>deployment
-deployment<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx<span class="token operator">-</span>deployment
-REVISION  CHANGE<span class="token operator">-</span>CAUSE
-1         &lt;none>
-2         &lt;none>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="回滚"><a class="header-anchor" href="#回滚">¶</a>回滚</h5>
+<p><code>kubectl rollout history</code> 查看 deployment 的历史记录</p>
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl rollout history deployment nginx-deployment
+deployment.apps/nginx-deployment
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
 <p>查看版本1 和版本 2 的详细：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master deployment]# kubectl rollout history deployment nginx-deployment --revision 1
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master deployment]# kubectl rollout history deployment nginx-deployment --revision 1
 deployment.apps/nginx-deployment with revision #1
 Pod Template:
-  Labels:    app=nginx
-    pod-template-hash=84b8bdb667
+  Labels:	app=nginx
+	pod-template-hash=84b8bdb667
   Containers:
    nginx:
-    Image:    nginx:1.12.2
-    Port:    80/TCP
-    Host Port:    0/TCP
-    Environment:    <none>
-    Mounts:    <none>
-  Volumes:    <none>
+    Image:	nginx:1.12.2
+    Port:	80/TCP
+    Host Port:	0/TCP
+    Environment:	<none>
+    Mounts:	<none>
+  Volumes:	<none>
 
 [root@k8s-master deployment]# kubectl rollout history deployment nginx-deployment --revision 2
 deployment.apps/nginx-deployment with revision #2
 Pod Template:
-  Labels:    app=nginx
-    pod-template-hash=687d765c64
+  Labels:	app=nginx
+	pod-template-hash=687d765c64
   Containers:
    nginx:
-    Image:    nginx:1.13
-    Port:    80/TCP
-    Host Port:    0/TCP
-    Environment:    <none>
-    Mounts:    <none>
-  Volumes:    <none>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></none></none></none></code></pre>
+    Image:	nginx:1.13
+    Port:	80/TCP
+    Host Port:	0/TCP
+    Environment:	<none>
+    Mounts:	<none>
+  Volumes:	<none>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></none></none></none></none></code></pre>
 <p><code>kubectl rollout undo</code> 对 deployment 进行回滚；另外加 <code>--to-revision &lt;revision num&gt;</code> 可以回滚到指定版本</p>
-<pre class="line-numbers language-powershell"><code class="language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl rollout undo deployment nginx<span class="token operator">-</span>deployment
-deployment<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx<span class="token operator">-</span>deployment rolled back
+<pre class="line-numbers language-language-powershell"><code class="language-language-powershell">D:\docker\docker\chapter9\labs\deployment>kubectl rollout undo deployment nginx-deployment
+deployment.apps/nginx-deployment rolled back
 
-D:\docker\docker\chapter9\labs\deployment>kubectl get deployment <span class="token operator">-</span>o wide
-NAME               READY   UP<span class="token operator">-</span>TO<span class="token operator">-</span>DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
-nginx<span class="token operator">-</span>deployment   3<span class="token operator">/</span>3     3            3           10m   nginx        nginx:1<span class="token punctuation">.</span>12<span class="token punctuation">.</span>2   app=nginx
+D:\docker\docker\chapter9\labs\deployment>kubectl get deployment -o wide
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+nginx-deployment   3/3     3            3           10m   nginx        nginx:1.12.2   app=nginx
 
-D:\docker\docker\chapter9\labs\deployment>kubectl rollout history deployment nginx<span class="token operator">-</span>deployment
-deployment<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx<span class="token operator">-</span>deployment
-REVISION  CHANGE<span class="token operator">-</span>CAUSE
-2         &lt;none>
-3         &lt;none>
+D:\docker\docker\chapter9\labs\deployment>kubectl rollout history deployment nginx-deployment
+deployment.apps/nginx-deployment
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
 
 
-D:\docker\docker\chapter9\labs\deployment>kubectl <span class="token function">set</span> image deployment nginx<span class="token operator">-</span>deployment nginx=nginx:1<span class="token punctuation">.</span>13
-deployment<span class="token punctuation">.</span>apps<span class="token operator">/</span>nginx<span class="token operator">-</span>deployment image updated<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="自愈-2"><a href="#自愈-2" class="headerlink" title="自愈"></a>自愈</h5><p>deployment 包装了 ReplicasSet，依赖 ReplicasSet 实现 。</p>
-<h1 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a>Namespace</h1><p>Namespace 用来隔离资源，可以在不同的 Namespace 下同时存在两个同类型同名的资源，不能在一个 Namespace 下存在这种情况。即以 pod 为例，现在的 k8s 资源结构层级为：cluster - context - namespace - pod。</p>
+D:\docker\docker\chapter9\labs\deployment>kubectl set image deployment nginx-deployment nginx=nginx:1.13
+deployment.apps/nginx-deployment image updated
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></none></none></code></pre>
+<h5 id="自愈-v3"><a class="header-anchor" href="#自愈-v3">¶</a>自愈</h5>
+<p>deployment 包装了 ReplicasSet，依赖 ReplicasSet 实现 。</p>
+<h1>Namespace</h1>
+<p>Namespace 用来隔离资源，可以在不同的 Namespace 下同时存在两个同类型同名的资源，不能在一个 Namespace 下存在这种情况。即以 pod 为例，现在的 k8s 资源结构层级为：cluster - context - namespace - pod。</p>
 <p><code>kubectl get namespaces</code> 查看命名空间：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get namespaces
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get namespaces
 NAME              STATUS   AGE
 default           Active   21h
 kube-node-lease   Active   21h
 kube-public       Active   21h
-kube-system       Active   21h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kube-system       Active   21h
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>获取指定 namespace 下面的 pods；获取所有 namespace 下的资源使用参数 <code>--all-namespaces</code> ：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get pod --namespace kube-system
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get pod --namespace kube-system
 NAME                                 READY   STATUS    RESTARTS   AGE
 coredns-6c76c8bb89-c5dcd             1/1     Running   1          21h
 coredns-6c76c8bb89-n5hqc             1/1     Running   1          21h
@@ -1812,9 +1949,10 @@ kube-proxy-qbjjx                     1/1     Running   1          21h
 kube-scheduler-k8s-master            1/1     Running   2          21h
 weave-net-k777j                      2/2     Running   3          21h
 weave-net-m88vt                      2/2     Running   0          21h
-weave-net-w6krt                      2/2     Running   1          21h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+weave-net-w6krt                      2/2     Running   1          21h
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>创建 namespace</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl create namespace demo
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl create namespace demo
 namespace/demo created
 [root@k8s-master ~]# kubectl get namespaces
 NAME              STATUS   AGE
@@ -1822,33 +1960,42 @@ default           Active   21h
 demo              Active   3s
 kube-node-lease   Active   21h
 kube-public       Active   21h
-kube-system       Active   21h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kube-system       Active   21h
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在创建 pod 的 yml 文件中，在顶级属性 metadata 下的子属性 namespace 指定命名空间：</p>
-<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">namesapce</span><span class="token punctuation">:</span> demo
-    <span class="token punctuation">...</span> <span class="token punctuation">...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">kind: Pod
+metadata:
+	name: nginx
+	namesapce: demo
+	... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>删除当前上下文中的命名空间：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl delete namespaces demo
-namespace "demo" deleted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="k8s-自带命名空间"><a href="#k8s-自带命名空间" class="headerlink" title="k8s 自带命名空间"></a>k8s 自带命名空间</h3><pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get ns
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl delete namespaces demo
+namespace "demo" deleted
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="k8s-自带命名空间"><a class="header-anchor" href="#k8s-自带命名空间">¶</a>k8s 自带命名空间</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get ns
 NAME              STATUS   AGE
 default           Active   27h
 kube-node-lease   Active   27h
 kube-public       Active   27h
-kube-system       Active   27h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+kube-system       Active   27h
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中 kube-system 中运行着 kubernetes 提供的服务的 pod ，如 etcd、controller、apiserver等等，其中还有一个提供 DNS 服务 的 service ：kube-dns。</p>
-<h4 id="内置-DNS-服务"><a href="#内置-DNS-服务" class="headerlink" title="内置 DNS 服务"></a>内置 DNS 服务</h4><p>如下就是内置 DNS 服务的信息，它的 ip 地址是 10.96.0.10，kubernetes 通过在每个容器内的 <code>/etc/resolv.conf</code> 文件中增加这个 ip 地址为 DNS 服务器地址，从而实现每个容器进行 DNS 查询的时候就会访问这个 ip 。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl get services -n kube-system -o wide
+<h4 id="内置-DNS-服务"><a class="header-anchor" href="#内置-DNS-服务">¶</a>内置 DNS 服务</h4>
+<p>如下就是内置 DNS 服务的信息，它的 ip 地址是 10.96.0.10，kubernetes 通过在每个容器内的 <code>/etc/resolv.conf</code> 文件中增加这个 ip 地址为 DNS 服务器地址，从而实现每个容器进行 DNS 查询的时候就会访问这个 ip 。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl get services -n kube-system -o wide
 NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
-kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   27h   k8s-app=kube-dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></none></code></pre>
-<h1 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h1><p><strong>default 是所有上下文中默认的缺省命名空间，创建上下文的时候如果没有指定 namespace ，后续创建资源的时候如果没有创建自定义的命名空间或者创建资源没有指定命名空间，新创建的资源就会位于这个命名空间下面</strong> :</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl config get-contexts
+kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   27h   k8s-app=kube-dns
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></none></code></pre>
+<h1>Context</h1>
+<p><strong>default 是所有上下文中默认的缺省命名空间，创建上下文的时候如果没有指定 namespace ，后续创建资源的时候如果没有创建自定义的命名空间或者创建资源没有指定命名空间，新创建的资源就会位于这个命名空间下面</strong> :</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl config get-contexts
 CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
-*         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+*         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>另外我们可以创建自己的上下文并指定该上下文的默认命名空间，如下所示，在 demo 上下文中创建资源没有指定命名空间，就会放到 demo 命名空间中：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl config set-context demo --user=john --cluster=kubernetes --namespace=demo
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl config set-context demo --user=john --cluster=kubernetes --namespace=demo
 Context "demo" created.
 [root@k8s-master ~]# kubectl config get-contexts
 CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
@@ -1878,62 +2025,94 @@ users:
 - name: kubernetes-admin
   user:
     client-certificate-data: REDACTED
-    client-key-data: REDACTED<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    client-key-data: REDACTED
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>删除上下文：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@k8s-master ~]# kubectl config delete-context demo
-deleted context demo from /root/.kube/config<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>反向代理、负载均衡。</p>
-<h3 id="Selector、Label"><a href="#Selector、Label" class="headerlink" title="Selector、Label"></a>Selector、Label</h3><p>Service 使用 Selector 组件获取 pods 的标签并根据 Selector 的条件标签进行流量定向。</p>
-<h3 id="Service-Type"><a href="#Service-Type" class="headerlink" title="Service Type"></a>Service Type</h3><h4 id="ClusterIP"><a href="#ClusterIP" class="headerlink" title="ClusterIP"></a>ClusterIP</h4><p>k8s 内部服务暴露</p>
-<h4 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h4><p>k8s 服务暴露给外部</p>
-<h4 id="LoadBalancer"><a href="#LoadBalancer" class="headerlink" title="LoadBalancer"></a>LoadBalancer</h4><p>暴露服务到公网（只监听公网ip，NodePort 监听内网 ip？）</p>
-<h3 id="网络转发模式"><a href="#网络转发模式" class="headerlink" title="网络转发模式"></a>网络转发模式</h3><ul>
-<li><p>用户空间代理模式：路由信息存储在 kube-proxy 中，转发逻辑需要切换到 kube-proxy 用户态然后再切回内核态</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@k8s-master ~]# kubectl config delete-context demo
+deleted context demo from /root/.kube/config
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1>Service</h1>
+<p>反向代理、负载均衡。</p>
+<h3 id="Selector、Label"><a class="header-anchor" href="#Selector、Label">¶</a>Selector、Label</h3>
+<p>Service 使用 Selector 组件获取 pods 的标签并根据 Selector 的条件标签进行流量定向。</p>
+<h3 id="Service-Type"><a class="header-anchor" href="#Service-Type">¶</a>Service Type</h3>
+<h4 id="ClusterIP"><a class="header-anchor" href="#ClusterIP">¶</a>ClusterIP</h4>
+<p>k8s 内部服务暴露</p>
+<h4 id="NodePort"><a class="header-anchor" href="#NodePort">¶</a>NodePort</h4>
+<p>k8s 服务暴露给外部</p>
+<h4 id="LoadBalancer"><a class="header-anchor" href="#LoadBalancer">¶</a>LoadBalancer</h4>
+<p>暴露服务到公网（只监听公网ip，NodePort 监听内网 ip？）</p>
+<h3 id="网络转发模式"><a class="header-anchor" href="#网络转发模式">¶</a>网络转发模式</h3>
+<ul>
+<li>
+<p>用户空间代理模式：路由信息存储在 kube-proxy 中，转发逻辑需要切换到 kube-proxy 用户态然后再切回内核态</p>
 </li>
-<li><p>iptables：每一个 pod 一条 netfilter(iptables 接口操作的内核程序) 规则，负载均衡由转发表实现，负载均衡算法较简单，且一个 pod 一条规则在大规模 k8s 集群下会导致规则过多，频繁更新 linux 内核的 netfilter。</p>
+<li>
+<p>iptables：每一个 pod 一条 netfilter(iptables 接口操作的内核程序) 规则，负载均衡由转发表实现，负载均衡算法较简单，且一个 pod 一条规则在大规模 k8s 集群下会导致规则过多，频繁更新 linux 内核的 netfilter。</p>
 </li>
-<li><p>IPVS：一个 service 一条 netfilter 规则，这条规则会将流量转发到 LVS，由 LVS 实现负载均衡，性能更高，算法更多。</p>
+<li>
+<p>IPVS：一个 service 一条 netfilter 规则，这条规则会将流量转发到 LVS，由 LVS 实现负载均衡，性能更高，算法更多。</p>
 </li>
 </ul>
-<h3 id="蓝绿发布"><a href="#蓝绿发布" class="headerlink" title="蓝绿发布"></a>蓝绿发布</h3><p>先发布新版本 pod，与旧版本 pod 并存，修改 Service Selector Label 指向新版本，待新版本稳定后删除旧版本；如果新版本出现问题，则改回旧版本。</p>
-<h1 id="k8s-ingress"><a href="#k8s-ingress" class="headerlink" title="k8s ingress"></a>k8s ingress</h1><p>本质上也是一种 service，相当于微服务网关，可以实现流量路由(根据域名、路径、端口等路由到不同 pod)、安全认证、日志监控、流量治理等功能。k8s 的 ingress 和网络一样也是提供了一个标准，有不同的实现，流行的是 nginx-ingress。</p>
-<h1 id="ConfigMap"><a href="#ConfigMap" class="headerlink" title="ConfigMap"></a>ConfigMap</h1><p>通过发布一个 ConfigMap 对象，然后在其它对象如 Pod、Service 等中引用这个 ConfigMap 对象。</p>
+<h3 id="蓝绿发布"><a class="header-anchor" href="#蓝绿发布">¶</a>蓝绿发布</h3>
+<p>先发布新版本 pod，与旧版本 pod 并存，修改 Service Selector Label 指向新版本，待新版本稳定后删除旧版本；如果新版本出现问题，则改回旧版本。</p>
+<h1>k8s ingress</h1>
+<p>本质上也是一种 service，相当于微服务网关，可以实现流量路由(根据域名、路径、端口等路由到不同 pod)、安全认证、日志监控、流量治理等功能。k8s 的 ingress 和网络一样也是提供了一个标准，有不同的实现，流行的是 nginx-ingress。</p>
+<h1>ConfigMap</h1>
+<p>通过发布一个 ConfigMap 对象，然后在其它对象如 Pod、Service 等中引用这个 ConfigMap 对象。</p>
 <ul>
 <li>通过环境变量的形式注入配置到容器：<code>envFrom</code> 属性的 <code>configMapRef</code> 子属性</li>
 <li>挂载一个 volume 到容器，并将配置以文件的形式放到 volume 中</li>
 </ul>
-<h3 id="变更传播"><a href="#变更传播" class="headerlink" title="变更传播"></a>变更传播</h3><p>更新一个已经发布的 ConfigMap，并不会将更新传播到正在运行的之前引用了该 ConfigMap 的 Pod 中。需要以下做法：</p>
+<h3 id="变更传播"><a class="header-anchor" href="#变更传播">¶</a>变更传播</h3>
+<p>更新一个已经发布的 ConfigMap，并不会将更新传播到正在运行的之前引用了该 ConfigMap 的 Pod 中。需要以下做法：</p>
 <ul>
 <li>重启 pod</li>
 <li>修改被更新的 ConfigMap 的名称，或者创建一个新的配置文件填入新的内容和名称，然后修改引用了该 ConfigMap 的资源中的 ConfigMap 名称，重新发布该资源，利用滚动更新的机制相较上面直接重启的方式更平滑</li>
 </ul>
-<h1 id="Secret"><a href="#Secret" class="headerlink" title="Secret"></a>Secret</h1><p>Secret 和 ConfigMap 一样也是一个键值对的配置存储对象，也是有环境变量注入和 volume 挂载的方式进行使用。区别是使用 <code>kubectl describe</code> 的时候 ConfigMap 会显示配置信息，Secret 不会显示。不过使用 <code>kubectl get secret &lt;secret-name&gt; -o yaml</code> 的时候就会显示了，包括配置值的 base64 编码，如果在 yml 文件中填写的是明文，那么也会显示明文信息。而且 base64 也是不安全的，很容器解码。</p>
-<h1 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h1><p>k8s 的 volume 有多种类型，hostPath 表示本地文件。在 <code>containers</code> 的子属性 <code>volumeMounts</code> 的子属性 <code>name</code> 引用 <code>containers</code> 的兄弟属性 <code>volumes</code> 的子属性 <code>name</code> 即可对 pod 的路径进行 volume 挂载。挂载的本地文件路径需要是共享的。</p>
-<h1 id="PV、PVC"><a href="#PV、PVC" class="headerlink" title="PV、PVC"></a>PV、PVC</h1><p>将在 <code>volumes</code> 中定义的具体 volume 类型进行解耦，改成引用一个 PVC 对象，而 PVC 对象定义 yml 中引用一个 PV。PVC 表示一个申请动作，PV 中定义了具体的 volume 类型和持久化路径。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">kubectl get pv
-kubectl get pvc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h1><p><code>containers</code> 的子属性 <code>resources</code> 进行设置。</p>
-<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><p>最小需求，如果 k8s 中的资源不能满足，pod 发布就会 pending（如果一个 deployment 发布多个 pod，则会先发布满足资源的 pod，剩下的如果资源不足就 pending），直到资源满足才会启动。</p>
-<h3 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h3><p>最大可使用量。如果 pod 在运行过程中内存申请超过了 limit，会被 OOM kil 然后重启（CrashLoopBackOff），重启达到一定次数还不能成功就停止；CPU 资源则会被硬性限制。</p>
-<h3 id="三种设置"><a href="#三种设置" class="headerlink" title="三种设置"></a>三种设置</h3><ol>
+<h1>Secret</h1>
+<p>Secret 和 ConfigMap 一样也是一个键值对的配置存储对象，也是有环境变量注入和 volume 挂载的方式进行使用。区别是使用 <code>kubectl describe</code> 的时候 ConfigMap 会显示配置信息，Secret 不会显示。不过使用 <code>kubectl get secret &lt;secret-name&gt; -o yaml</code> 的时候就会显示了，包括配置值的 base64 编码，如果在 yml 文件中填写的是明文，那么也会显示明文信息。而且 base64 也是不安全的，很容器解码。</p>
+<h1>volume</h1>
+<p>k8s 的 volume 有多种类型，hostPath 表示本地文件。在 <code>containers</code> 的子属性 <code>volumeMounts</code> 的子属性 <code>name</code> 引用 <code>containers</code> 的兄弟属性 <code>volumes</code> 的子属性 <code>name</code> 即可对 pod 的路径进行 volume 挂载。挂载的本地文件路径需要是共享的。</p>
+<h1>PV、PVC</h1>
+<p>将在 <code>volumes</code> 中定义的具体 volume 类型进行解耦，改成引用一个 PVC 对象，而 PVC 对象定义 yml 中引用一个 PV。PVC 表示一个申请动作，PV 中定义了具体的 volume 类型和持久化路径。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">kubectl get pv
+kubectl get pvc
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1>resources</h1>
+<p><code>containers</code> 的子属性 <code>resources</code> 进行设置。</p>
+<h3 id="request"><a class="header-anchor" href="#request">¶</a>request</h3>
+<p>最小需求，如果 k8s 中的资源不能满足，pod 发布就会 pending（如果一个 deployment 发布多个 pod，则会先发布满足资源的 pod，剩下的如果资源不足就 pending），直到资源满足才会启动。</p>
+<h3 id="limit"><a class="header-anchor" href="#limit">¶</a>limit</h3>
+<p>最大可使用量。如果 pod 在运行过程中内存申请超过了 limit，会被 OOM kil 然后重启（CrashLoopBackOff），重启达到一定次数还不能成功就停止；CPU 资源则会被硬性限制。</p>
+<h3 id="三种设置"><a class="header-anchor" href="#三种设置">¶</a>三种设置</h3>
+<ol>
 <li>Guaranteed：request=limit，只有内存使用超出 limit 才会被kill</li>
 <li>Burstable：request &lt; limit，在 k8s 集群资源不足的时候可能会 kill</li>
 <li>Best Effor：两个值都不设置，在 k8s 资源不足的时候会被 kiil</li>
 </ol>
-<h1 id="查看资源情况"><a href="#查看资源情况" class="headerlink" title="查看资源情况"></a>查看资源情况</h1><h2 id="metrics-server"><a href="#metrics-server" class="headerlink" title="metrics-server"></a>metrics-server</h2><p>需要安装，安装之后通过 <code>kubectl top</code> 命令可以查看各维度、资源的 metrics。</p>
-<h2 id="kubernetes-dashboard"><a href="#kubernetes-dashboard" class="headerlink" title="kubernetes-dashboard"></a>kubernetes-dashboard</h2><p>也需要安装，安装之后有一个图形化界面可以查看各指标信息。</p>
-<h1 id="k8s-Java-pod-内存限制"><a href="#k8s-Java-pod-内存限制" class="headerlink" title="k8s Java pod 内存限制"></a>k8s Java pod 内存限制</h1><p>需要开启容器识别，这样 k8s 的 resource request/limit 才能生效，然后设置 JVM 相应的内存参数。</p>
-<h1 id="k8s-就绪和存活探针"><a href="#k8s-就绪和存活探针" class="headerlink" title="k8s 就绪和存活探针"></a>k8s 就绪和存活探针</h1><p>防止在 pod 实际上不可用的情况下向它发送流量发生错误。</p>
+<h1>查看资源情况</h1>
+<h2 id="metrics-server"><a class="header-anchor" href="#metrics-server">¶</a>metrics-server</h2>
+<p>需要安装，安装之后通过 <code>kubectl top</code> 命令可以查看各维度、资源的 metrics。</p>
+<h2 id="kubernetes-dashboard"><a class="header-anchor" href="#kubernetes-dashboard">¶</a>kubernetes-dashboard</h2>
+<p>也需要安装，安装之后有一个图形化界面可以查看各指标信息。</p>
+<h1>k8s Java pod 内存限制</h1>
+<p>需要开启容器识别，这样 k8s 的 resource request/limit 才能生效，然后设置 JVM 相应的内存参数。</p>
+<h1>k8s 就绪和存活探针</h1>
+<p>防止在 pod 实际上不可用的情况下向它发送流量发生错误。</p>
 <ul>
-<li><p>就绪探针：在 pod 启动时期检测是否就绪，就绪才会发送流量。</p>
+<li>
+<p>就绪探针：在 pod 启动时期检测是否就绪，就绪才会发送流量。</p>
 </li>
-<li><p>存活探针：在 pod 运行时期检测，如果没有存活则会 kill 掉 pod 重启。</p>
+<li>
+<p>存活探针：在 pod 运行时期检测，如果没有存活则会 kill 掉 pod 重启。</p>
 </li>
 </ul>
 <blockquote>
 <p>另外在容器依赖的情况下应该也有用到</p>
 </blockquote>
-<h1 id="helm-charts"><a href="#helm-charts" class="headerlink" title="helm/charts"></a>helm/charts</h1><p>k8s 插件、安装包管理。</p>
+<h1>helm/charts</h1>
+<p>k8s 插件、安装包管理。</p>
 
             </div>
             <hr>
@@ -2422,7 +2601,7 @@ kubectl get pvc<span aria-hidden="true" class="line-numbers-rows"><span></span><
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="2、安装Docker">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="2、安装Docker">
                         
                         <span class="card-title">2、安装Docker</span>
                     </div>
@@ -2471,7 +2650,7 @@ kubectl get pvc<span aria-hidden="true" class="line-numbers-rows"><span></span><
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="docker概述">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="docker概述">
                         
                         <span class="card-title">docker概述</span>
                     </div>
@@ -2639,7 +2818,7 @@ kubectl get pvc<span aria-hidden="true" class="line-numbers-rows"><span></span><
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

@@ -9,7 +9,8 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="在现在的云时代，到处都是虚拟机和容器，它们背后的网络管理都离不开虚拟网络设备，所以了解虚拟网络设备有利于我们更好的理解云时代的网络结构。从本篇开始，将介绍Linux下的虚拟网络设备。
-虚拟设备和物理设备的区别在Linux网络数据包的接收过程">
+¶虚拟设备和物理设备的区别
+在Linux网络数据包的接收">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -330,7 +331,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -509,11 +510,13 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>在现在的云时代，到处都是虚拟机和容器，它们背后的网络管理都离不开虚拟网络设备，所以了解虚拟网络设备有利于我们更好的理解云时代的网络结构。从本篇开始，将介绍Linux下的虚拟网络设备。</p>
-<h2 id="虚拟设备和物理设备的区别"><a href="#虚拟设备和物理设备的区别" class="headerlink" title="虚拟设备和物理设备的区别"></a>虚拟设备和物理设备的区别</h2><p>在<a href="https://segmentfault.com/a/1190000008836467" target="_blank" rel="noopener">Linux网络数据包的接收过程</a>和<a href="https://segmentfault.com/a/1190000008926093" target="_blank" rel="noopener">数据包的发送过程</a>这两篇文章中，介绍了数据包的收发流程，知道了Linux内核中有一个网络设备管理层，处于网络设备驱动和协议栈之间，负责衔接它们之间的数据交互。驱动不需要了解协议栈的细节，协议栈也不需要了解设备驱动的细节。</p>
+<h2 id="虚拟设备和物理设备的区别"><a class="header-anchor" href="#虚拟设备和物理设备的区别">¶</a>虚拟设备和物理设备的区别</h2>
+<p>在<a href="https://segmentfault.com/a/1190000008836467" target="_blank" rel="noopener">Linux网络数据包的接收过程</a>和<a href="https://segmentfault.com/a/1190000008926093" target="_blank" rel="noopener">数据包的发送过程</a>这两篇文章中，介绍了数据包的收发流程，知道了Linux内核中有一个网络设备管理层，处于网络设备驱动和协议栈之间，负责衔接它们之间的数据交互。驱动不需要了解协议栈的细节，协议栈也不需要了解设备驱动的细节。</p>
 <p>对于一个网络设备来说，就像一个管道（pipe）一样，有两端，从其中任意一端收到的数据将从另一端发送出去。</p>
 <p>比如一个物理网卡eth0，它的两端分别是内核协议栈（通过内核网络设备管理模块间接的通信）和外面的物理网络，从物理网络收到的数据，会转发给内核协议栈，而应用程序从协议栈发过来的数据将会通过物理网络发送出去。</p>
 <p>那么对于一个虚拟网络设备呢？首先它也归内核的网络设备管理子系统管理，对于Linux内核网络设备管理模块来说，虚拟设备和物理设备没有区别，都是网络设备，都能配置IP，从网络设备来的数据，都会转发给协议栈，协议栈过来的数据，也会交由网络设备发送出去，至于是怎么发送出去的，发到哪里去，那是设备驱动的事情，跟Linux内核就没关系了，所以说虚拟网络设备的一端也是协议栈，而另一端是什么取决于虚拟网络设备的驱动实现。</p>
-<h2 id="tun-tap的另一端是什么？"><a href="#tun-tap的另一端是什么？" class="headerlink" title="tun/tap的另一端是什么？"></a>tun/tap的另一端是什么？</h2><p>先看图再说话：</p>
+<h2 id="tun-tap的另一端是什么？"><a class="header-anchor" href="#tun-tap的另一端是什么？">¶</a>tun/tap的另一端是什么？</h2>
+<p>先看图再说话：</p>
 <pre><code>+----------------------------------------------------------------+
 |                                                                |
 |  +--------------------+      +--------------------+            |
@@ -542,7 +545,9 @@
 |                |                                               |
 +----------------|-----------------------------------------------+
                  ↓
-         Physical Network</code></pre><p>上图中有两个应用程序A和B，都在用户层，而其它的socket、协议栈（Newwork Protocol Stack）和网络设备（eth0和tun0）部分都在内核层，其实socket是协议栈的一部分，这里分开来的目的是为了看的更直观。</p>
+         Physical Network
+</code></pre>
+<p>上图中有两个应用程序A和B，都在用户层，而其它的socket、协议栈（Newwork Protocol Stack）和网络设备（eth0和tun0）部分都在内核层，其实socket是协议栈的一部分，这里分开来的目的是为了看的更直观。</p>
 <p>tun0是一个Tun/Tap虚拟设备，从上图中可以看出它和物理设备eth0的差别，它们的一端虽然都连着协议栈，但另一端不一样，eth0的另一端是物理网络，这个物理网络可能就是一个交换机，而tun0的另一端是一个用户层的程序，协议栈发给tun0的数据包能被这个应用程序读取到，并且应用程序能直接向tun0写数据。</p>
 <p>这里假设eth0配置的IP是10.32.0.11，而tun0配置的IP是192.168.3.11.</p>
 <blockquote>
@@ -564,9 +569,13 @@
 <p>这里不讨论Tun/Tap设备tun0是怎么和用户层的进程B进行通信的，对于Linux内核来说，有很多种办法来让内核空间和用户空间的进程交换数据。</p>
 </blockquote>
 <p>从上面的流程中可以看出，数据包选择走哪个网络设备完全由路由表控制，所以如果我们想让某些网络流量走应用程序B的转发流程，就需要配置路由表让这部分数据走tun0。</p>
-<h2 id="tun-tap设备有什么用？"><a href="#tun-tap设备有什么用？" class="headerlink" title="tun/tap设备有什么用？"></a>tun/tap设备有什么用？</h2><p>从上面介绍过的流程可以看出来，tun/tap设备的用处是将协议栈中的部分数据包转发给用户空间的应用程序，给用户空间的程序一个处理数据包的机会。于是比较常用的数据压缩，加密等功能就可以在应用程序B里面做进去，tun/tap设备最常用的场景是VPN，包括tunnel以及应用层的IPSec等，比较有名的项目是<a href="http://vtun.sourceforge.net/" target="_blank" rel="noopener">VTun</a>，有兴趣可以去了解一下。</p>
-<h2 id="tun和tap的区别"><a href="#tun和tap的区别" class="headerlink" title="tun和tap的区别"></a>tun和tap的区别</h2><p>用户层程序通过tun设备只能读写IP数据包，而通过tap设备能读写链路层数据包，类似于普通socket和raw socket的差别一样，处理数据包的格式不一样。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><p>这里写了一个程序，它收到tun设备的数据包之后，只打印出收到了多少字节的数据包，其它的什么都不做，如何编程请参考后面的参考链接。</p>
+<h2 id="tun-tap设备有什么用？"><a class="header-anchor" href="#tun-tap设备有什么用？">¶</a>tun/tap设备有什么用？</h2>
+<p>从上面介绍过的流程可以看出来，tun/tap设备的用处是将协议栈中的部分数据包转发给用户空间的应用程序，给用户空间的程序一个处理数据包的机会。于是比较常用的数据压缩，加密等功能就可以在应用程序B里面做进去，tun/tap设备最常用的场景是VPN，包括tunnel以及应用层的IPSec等，比较有名的项目是<a href="http://vtun.sourceforge.net/" target="_blank" rel="noopener">VTun</a>，有兴趣可以去了解一下。</p>
+<h2 id="tun和tap的区别"><a class="header-anchor" href="#tun和tap的区别">¶</a>tun和tap的区别</h2>
+<p>用户层程序通过tun设备只能读写IP数据包，而通过tap设备能读写链路层数据包，类似于普通socket和raw socket的差别一样，处理数据包的格式不一样。</p>
+<h2 id="示例"><a class="header-anchor" href="#示例">¶</a>示例</h2>
+<h3 id="示例程序"><a class="header-anchor" href="#示例程序">¶</a>示例程序</h3>
+<p>这里写了一个程序，它收到tun设备的数据包之后，只打印出收到了多少字节的数据包，其它的什么都不做，如何编程请参考后面的参考链接。</p>
 <pre><code>#include &lt;net/if.h&gt;
 #include &lt;sys/ioctl.h&gt;
 #include &lt;sys/stat.h&gt;
@@ -629,7 +638,10 @@ int main()
         printf(&quot;Read %d bytes from tun/tap device\n&quot;, nread);
     }
     return 0;
-}</code></pre><h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><pre><code>#--------------------------第一个shell窗口----------------------
+}
+</code></pre>
+<h3 id="演示"><a class="header-anchor" href="#演示">¶</a>演示</h3>
+<pre><code>#--------------------------第一个shell窗口----------------------
 #将上面的程序保存成tun.c，然后编译
 dev@debian:~$ gcc tun.c -o tun
 
@@ -671,8 +683,12 @@ dev@debian:~$ ping -c 4 192.168.3.12
 PING 192.168.3.12 (192.168.3.12) 56(84) bytes of data.
 
 --- 192.168.3.12 ping statistics ---
-4 packets transmitted, 0 received, 100% packet loss, time 3023ms</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>平时我们用到tun/tap设备的机会不多，不过由于其结构比较简单，拿它来了解一下虚拟网络设备还不错，为后续理解Linux下更复杂的虚拟网络设备（比如网桥）做个铺垫。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+4 packets transmitted, 0 received, 100% packet loss, time 3023ms
+</code></pre>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>平时我们用到tun/tap设备的机会不多，不过由于其结构比较简单，拿它来了解一下虚拟网络设备还不错，为后续理解Linux下更复杂的虚拟网络设备（比如网桥）做个铺垫。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://www.kernel.org/doc/Documentation/networking/tuntap.txt" target="_blank" rel="noopener">Universal TUN/TAP device driver</a></li>
 <li><a href="http://backreference.org/2010/03/26/tuntap-interface-tutorial/" target="_blank" rel="noopener">Tun/Tap interface tutorial</a></li>
 </ul>
@@ -1164,13 +1180,13 @@ PING 192.168.3.12 (192.168.3.12) 56(84) bytes of data.
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/">
+                <a href="/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux网络-数据包发送过程">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux网络-数据包接收过程">
                         
-                        <span class="card-title">Linux网络-数据包发送过程</span>
+                        <span class="card-title">Linux网络-数据包接收过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1213,13 +1229,13 @@ PING 192.168.3.12 (192.168.3.12) 56(84) bytes of data.
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/netfilteriptables-jian-jie/">
+                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="netfilteriptables简介">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux虚拟网络设备之bridge(桥)">
                         
-                        <span class="card-title">netfilteriptables简介</span>
+                        <span class="card-title">Linux虚拟网络设备之bridge(桥)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1385,7 +1401,7 @@ PING 192.168.3.12 (192.168.3.12) 56(84) bytes of data.
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

@@ -8,9 +8,10 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:共享内存和消息传递^1。
+    <meta name="description" content="在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:共享内存和消息传递[1]。
 
-在共享内存的并发模型里,线程之间共享程序的公共状态,通过写-">
+
+在共享内存的并发模型里,线程之间共享程序的公共状态,通过">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -331,7 +332,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -486,7 +487,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.8k
+                    4.9k
                 </div>
                 
 
@@ -509,30 +510,37 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:<strong>共享内存和消息传递</strong><a href="消息传递是怎么做？不应该是进程通信吗？何来线程通信，同一进程之内的线程本身就是共享进程资源，仅是其线程域内资源独享，跨进程线程通信不就是进程通信么？">^1</a>。</p>
+                <p>在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:<strong>共享内存和消息传递</strong><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
 <ul>
-<li><p>在共享内存的并发模型里,线程之间共享程序的公共状态,通过写-读内存中的公共状态进行隐式通信。</p>
+<li>
+<p>在共享内存的并发模型里,线程之间共享程序的公共状态,通过写-读内存中的公共状态进行隐式通信。</p>
 </li>
-<li><p>在消息传递的并发模型里,线程之间没有公共状态,线程之间必须通过发送消息来显式进行通信<a href="需要复习下进程间通信知识">^2</a>。</p>
+<li>
+<p>在消息传递的并发模型里,线程之间没有公共状态,线程之间必须通过发送消息来显式进行通信<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>。</p>
 </li>
 </ul>
-<p>同步是指程序中用于控制不同线程间操作发生相对顺序的机制。在共享内存并发模型里,同步是显式进行的。程序员必须显式指定某个方法或某段代码需要在线程之间互斥执行。在消息传递的并发模型里,由于消息的发送必须在消息的接收之前,因此同步是隐式进行的<a href="不懂什么意思">^3</a>。</p>
+<p>同步是指程序中用于控制不同线程间操作发生相对顺序的机制。在共享内存并发模型里,同步是显式进行的。程序员必须显式指定某个方法或某段代码需要在线程之间互斥执行。在消息传递的并发模型里,由于消息的发送必须在消息的接收之前,因此同步是隐式进行的<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。</p>
 <p>Java的并发采用的是共享内存模型。</p>
-<h1 id="Java内存模型的抽象结构"><a href="#Java内存模型的抽象结构" class="headerlink" title="Java内存模型的抽象结构"></a>Java内存模型的抽象结构</h1><p>在Java中,所有实例域、静态域和数组元素(统称共享变量)都存储在堆内存中,堆内存在线程之间共享。局部变量(Local Variables),方法定义参数(Java语言规范称之为Formal Method Parameters)和异常处理器参数(Exception Handler Parameters)不会在线程之间共享,它们不会有内存可见性问题,也不受内存模型的影响。</p>
+<h1>Java内存模型的抽象结构</h1>
+<p>在Java中,所有实例域、静态域和数组元素(统称共享变量)都存储在堆内存中,堆内存在线程之间共享。局部变量(Local Variables),方法定义参数(Java语言规范称之为Formal Method Parameters)和异常处理器参数(Exception Handler Parameters)不会在线程之间共享,它们不会有内存可见性问题,也不受内存模型的影响。</p>
 <p>Java内存模型(JMM)旨在定义一个线程如何对共享变量进行访问以及共享变量对于各线程的可见性。JMM在抽象的角度定义了共享变量存储在主内存(Main Memory)中，每一个线程都有一个本地内存(Local Memory)，线程每次对主存中共享变量的访问、操作都必须加载一份副本到本地内存中进行。<strong>所以不同线程之间的通信必须基于某一个主存中的共享变量进行</strong>。本地内存是JMM的一个抽象概念,并不真实存在。它涵盖了缓存、写缓冲区、寄存器以及其他的硬件和编译器优化。</p>
-<h3 id="指令重排序"><a href="#指令重排序" class="headerlink" title="指令重排序"></a>指令重排序</h3><p>在执行程序时,为了提高性能,编译器和处理器常常会对指令做重排序。重排序分3种类型。</p>
+<h3 id="指令重排序"><a class="header-anchor" href="#指令重排序">¶</a>指令重排序</h3>
+<p>在执行程序时,为了提高性能,编译器和处理器常常会对指令做重排序。重排序分3种类型。</p>
 <ol>
 <li>编译器优化的重排序(可以理解为各种编译器: javac、JIT、C++)。编译器在不改变单线程程序语义的前提下,可以重新安排语句的执行顺序。</li>
 <li>指令级并行的重排序。现代处理器采用了指令级并行技术(Instruction-Level Parallelism,ILP)来将多条指令重叠执行。如果不存在数据依赖性,处理器可以改变语句对应机器指令的执行顺序。</li>
-<li>内存系统的重排序。由于处理器使用缓存和读/写缓冲区,这使得加载和存储操作看上去可能是在乱序执行。<br>从Java源代码到最终实际执行的指令序列,会分别经历下面3种重排序,</li>
+<li>内存系统的重排序。由于处理器使用缓存和读/写缓冲区,这使得加载和存储操作看上去可能是在乱序执行。<br>
+从Java源代码到最终实际执行的指令序列,会分别经历下面3种重排序,</li>
 </ol>
 <p>从Java源代码到最终实际执行的指令序列,会分别经历下面3种重排序</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202613.png" alt="image-20200924195705355"></p>
 <p>上述的1属于编译器重排序,2和3属于处理器重排序。这些重排序可能会导致多线程程序出现内存可见性问题。</p>
 <ul>
-<li><p>对于编译器,JMM的<strong>编译器重排序规则</strong>会禁止特定类型的编译器重排序(不是所有的编译器重排序都要禁止)。</p>
+<li>
+<p>对于编译器,JMM的<strong>编译器重排序规则</strong>会禁止特定类型的编译器重排序(不是所有的编译器重排序都要禁止)。</p>
 </li>
-<li><p>对于处理器重排序,JMM的处理器重排序规则会要求Java编译器在生成指令序列时,插入特定类型的内存屏障(Memory Barriers,Intel称之为Memory Fence)指令,通过内存屏障指令来禁止特定类型的处理器重排序。</p>
+<li>
+<p>对于处理器重排序,JMM的处理器重排序规则会要求Java编译器在生成指令序列时,插入特定类型的内存屏障(Memory Barriers,Intel称之为Memory Fence)指令,通过内存屏障指令来禁止特定类型的处理器重排序。</p>
 </li>
 </ul>
 <p>JMM属于语言级的内存模型,它确保在不同的编译器和不同的处理器平台之上,通过禁止特定类型的编译器重排序和处理器重排序,为程序员提供一致的内存可见性保证。</p>
@@ -545,45 +553,55 @@
 <li>此时B开始写b=2到写缓冲区，然后直接从主存加载a的值，此时A的写缓冲区还没刷，所以得到是0，直接将y=a=0写入到写缓冲区</li>
 <li>此时A和B才开始刷写缓冲区，最终主存中的值：a=1、b=2、x=y=0</li>
 </ol>
-<p>需要注意，这里的操作对于处理器A、B的视角来说都是没问题的，但是对于主存来说、或者对于我们程序员来说，明显数据错乱了，在直观上发生了指令的重排序，即原本<code>a=1</code>、<code>b=2</code>要先于<code>x=b</code>、<code>y=a</code>执行的，虽然开始顺序是这样的，但是实际顺序却反过来了。另外这种重排序还和处理器使用旁路实现的重排序还不一样，对于使用旁路实现的重排序即使遇到控制条件的时候也是可以进行的，此时处理器会做出分支预测，先根据经验预测出哪个条件会成立然后先执行该条件分支指令，然后把计算结果临时保存到一个名为重排序缓冲(Reorder Buffer,ROB)的硬件缓存中，如果等待控制条件真正计算出来之后进行比较，如果预测正确则将之前计算的结果取出来正常往下走，如果预测错误了，需要进行回退重新执行<a href="复习指令级并行下对指令重排序的部分知识">^5</a>。</p>
+<p>需要注意，这里的操作对于处理器A、B的视角来说都是没问题的，但是对于主存来说、或者对于我们程序员来说，明显数据错乱了，在直观上发生了指令的重排序，即原本<code>a=1</code>、<code>b=2</code>要先于<code>x=b</code>、<code>y=a</code>执行的，虽然开始顺序是这样的，但是实际顺序却反过来了。另外这种重排序还和处理器使用旁路实现的重排序还不一样，对于使用旁路实现的重排序即使遇到控制条件的时候也是可以进行的，此时处理器会做出分支预测，先根据经验预测出哪个条件会成立然后先执行该条件分支指令，然后把计算结果临时保存到一个名为重排序缓冲(Reorder Buffer,ROB)的硬件缓存中，如果等待控制条件真正计算出来之后进行比较，如果预测正确则将之前计算的结果取出来正常往下走，如果预测错误了，需要进行回退重新执行<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。</p>
 <p>由于现代的处理器都会使用写缓冲区,因此现代的处理器都会允许对写-读操作进行重排序。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202626.png" alt="image-20200924201714088"></p>
 <p>常见的处理器都允许Store-Load重排序;常见的处理器都不允许对存在数据依赖的操作做重排序。sparc-TSO和X86拥有相对较强的处理器内存模型,它们仅允许对写-读操作做重排序(因为它们都使用了写缓冲区)。</p>
-<h4 id="as-if-serial语义和数据依赖"><a href="#as-if-serial语义和数据依赖" class="headerlink" title="as-if-serial语义和数据依赖"></a>as-if-serial语义和数据依赖</h4><p>as-if-serial语义的意思是:不管怎么重排序(编译器和处理器为了提高并行度),(单线程) 程序的执行结果不能被改变。编译器、runtime和处理器都必须遵守as-if-serial语义。</p>
+<h4 id="as-if-serial语义和数据依赖"><a class="header-anchor" href="#as-if-serial语义和数据依赖">¶</a>as-if-serial语义和数据依赖</h4>
+<p>as-if-serial语义的意思是:不管怎么重排序(编译器和处理器为了提高并行度),(单线程) 程序的执行结果不能被改变。编译器、runtime和处理器都必须遵守as-if-serial语义。</p>
 <p>为了遵守as-if-serial语义,编译器和处理器不会对在单个处理器中执行的指令序列和单个线程中存在数据依赖关系的操作做重排序,因为这种重排序会改变执行结果。但是,如果操作之间不存在数据依赖关系或者是不同处理器之间和不同线程之间的数据依赖操作, 就可能被编译器和处理器重排序。</p>
 <p>如果两个操作访问同一个变量,且这两个操作中有一个为写操作,此时这两个操作之间就存在数据依赖性。数据依赖分为下列3种类型</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202632.png" alt="image-20200924203424014"></p>
 <p>上面3种情况,只要重排序两个操作的执行顺序,程序的执行结果就会被改变。编译器和处理器在重排序时,会遵守数据依赖性,编译器和处理器不会改变存在数据依赖关系的两个操作的执行顺序。</p>
-<h4 id="happen-before和内存屏障"><a href="#happen-before和内存屏障" class="headerlink" title="happen-before和内存屏障"></a>happen-before和内存屏障</h4><p>在JMM中,如果一个操作执行的结果需要对另一个操作可见,那么这两个操作之间必须要存在happens-before关系：参考<a href="file:///Users/zhonghongpeng/笔记/并发编程/艺术.md" target="_blank" rel="noopener">^4</a></p>
-<p>为了保证内存可见性,Java编译器在生成指令序列的适当位置会插入内存屏障指令来禁止特定类型的处理器重排序。JMM把内存屏障指令分为4类：参考<a href="file:///Users/zhonghongpeng/笔记/并发编程/艺术.md" target="_blank" rel="noopener">^4</a></p>
-<h4 id="顺序一致性内存模型"><a href="#顺序一致性内存模型" class="headerlink" title="顺序一致性内存模型"></a>顺序一致性内存模型</h4><p>顺序一致性内存模型是一个理论参考模型,在设计的时候,处理器的内存模型和编程语言的内存模型都会以顺序一致性内存模型作为参照。</p>
+<h4 id="happen-before和内存屏障"><a class="header-anchor" href="#happen-before和内存屏障">¶</a>happen-before和内存屏障</h4>
+<p>在JMM中,如果一个操作执行的结果需要对另一个操作可见,那么这两个操作之间必须要存在happens-before关系：参考<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup></p>
+<p>为了保证内存可见性,Java编译器在生成指令序列的适当位置会插入内存屏障指令来禁止特定类型的处理器重排序。JMM把内存屏障指令分为4类：参考<sup class="footnote-ref"><a href="#fn5" id="fnref5:1">[5:1]</a></sup></p>
+<h4 id="顺序一致性内存模型"><a class="header-anchor" href="#顺序一致性内存模型">¶</a>顺序一致性内存模型</h4>
+<p>顺序一致性内存模型是一个理论参考模型,在设计的时候,处理器的内存模型和编程语言的内存模型都会以顺序一致性内存模型作为参照。</p>
 <p>JMM会在退出临界区和进入临界区这两个关键时间点做一些特别处理,使得线程在这两个时间点具有与顺序一致性模型相同的内存视图(具体细节后文会说明)。虽然线程A在临界区内做了重排序,但由于监视器互斥执行的特性,这里的线程B根本无法“观察”到线程A在临界区内的重排序。这种重排序既提高了执行效率,又没有改变程序的执行结果。</p>
-<h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><ul>
+<h4 id="volatile"><a class="header-anchor" href="#volatile">¶</a>volatile</h4>
+<ul>
 <li>可见性。对一个volatile变量的读,总是能看到(任意线程)对这个volatile变量最后的写入(例如64位操作数)。</li>
 <li>原子性:对任意单个volatile变量的读/写具有原子性,但类似于volatile++这种复合操作不具有原子性。</li>
 </ul>
-<h5 id="volatile内存语义"><a href="#volatile内存语义" class="headerlink" title="volatile内存语义"></a>volatile内存语义</h5><p>volatile写的内存语义如下：当写一个volatile变量时,JMM会把该线程对应的本地内存中的共享变量值刷新到主内存。</p>
+<h5 id="volatile内存语义"><a class="header-anchor" href="#volatile内存语义">¶</a>volatile内存语义</h5>
+<p>volatile写的内存语义如下：当写一个volatile变量时,JMM会把该线程对应的本地内存中的共享变量值刷新到主内存。</p>
 <p>volatile读的内存语义如下：当读一个volatile变量时,JMM会把该线程对应的本地内存置为无效。线程接下来将从主内存中读取共享变量。</p>
 <p>如果我们把volatile写和volatile读两个步骤综合起来看的话：在绝对时间上来说，在读线程B读一个volatile变量发生之前，如果写线程A对这个volatile变量发生了写操作，那么线程A中该操作及之前(在代码定义上的顺序)所有可见的共享变量的值都在将读线程B读取volatile变量之后立即变得对读线程B可见。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">volatile</span> <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-language-java"><code class="language-language-java">volatile int a = 0;
+int b = 1;
 
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">compute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="volatile内存语义的实现"><a href="#volatile内存语义的实现" class="headerlink" title="volatile内存语义的实现"></a>volatile内存语义的实现</h5><p>重排序分为编译器重排序和处理器重排序。为了实现volatile内存语义,JMM 会分别限制这两种类型的重排序类型。</p>
+public void compute() {
+	
+	
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="volatile内存语义的实现"><a class="header-anchor" href="#volatile内存语义的实现">¶</a>volatile内存语义的实现</h5>
+<p>重排序分为编译器重排序和处理器重排序。为了实现volatile内存语义,JMM 会分别限制这两种类型的重排序类型。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202638.png" alt="image-20200925090341636"></p>
 <ol>
-<li><p>当第二个操作是volatile写时,不管第一个操作是什么,都不能重排序。这个规则确保volatile写之前的操作不会被编译器重排序到volatile写之后。</p>
+<li>
+<p>当第二个操作是volatile写时,不管第一个操作是什么,都不能重排序。这个规则确保volatile写之前的操作不会被编译器重排序到volatile写之后。</p>
 <ol>
 <li>对于写操作的限制很明显，任何线程对于一个volatile的写都会导致它的写缓冲区原子地刷新到主存，无论写缓冲区是否由于CPU的乱序执行导致写入顺序和代码不一致，但是对于单线程来说，CPU的乱序执行的前提是不会破坏as-if-serial语义，所以保证了进行volatile写操作的线程之前的所有写操作对于其它线程都变得可见</li>
 <li>对于读操作的限制是</li>
 </ol>
 </li>
-<li><p>当第一个操作是volatile读时,不管第二个操作是什么,都不能重排序。这个规则确保volatile读之后的操作不会被编译器重排序到volatile读之前。</p>
+<li>
+<p>当第一个操作是volatile读时,不管第二个操作是什么,都不能重排序。这个规则确保volatile读之后的操作不会被编译器重排序到volatile读之前。</p>
 </li>
-<li><p>当第一个操作是volatile写,第二个操作是volatile读时,不能重排序。</p>
+<li>
+<p>当第一个操作是volatile写,第二个操作是volatile读时,不能重排序。</p>
 </li>
 </ol>
 <p>为了实现volatile的内存语义,编译器在生成字节码时,会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。对于编译器来说,发现一个最优布置来最小化插入屏障的总数几乎不可能。为此,JMM采取保守策略。下面是基于<strong>保守</strong>策略的JMM内存屏障插入策略。</p>
@@ -600,31 +618,53 @@
 <p>这里比较有意思的是,volatile写后面的StoreLoad屏障。此屏障的作用是避免volatile写与后面可能有的volatile读/写操作重排序。因为编译器常常无法准确判断在一个volatile写的后面是否需要插入一个StoreLoad屏障(比如,一个volatile写之后方法立即return)。为了保证能正确实现volatile的内存语义,JMM在采取了保守策略:在每个volatile写的后面,或者在每个volatile 读的前面插入一个StoreLoad屏障。从整体执行效率的角度考虑,JMM最终选择了在每个volatile写的后面插入一个StoreLoad屏障。因为volatile写-读内存语义的常见使用模式是:一个写线程写volatile变量,多个读线程读同一个volatile变量。当读线程的数量大大超过写线程时, 选择在volatile写之后插入StoreLoad屏障将带来可观的执行效率的提升。从这里可以看到JMM 在实现上的一个特点:首先确保正确性,然后再去追求执行效率。</p>
 <p>下面是在保守策略下,volatile读插入内存屏障后生成的指令序列示意图</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202650.png" alt="image-20200925091029135"></p>
-<p>LoadLoad屏障用来禁止处理器把上面的volatile读与下面的普通读重排序。<br>LoadStore屏障用来禁止处理器把上面的volatile读与下面的普通写重排序。<br>上述volatile写和volatile读的内存屏障插入策略非常保守。在实际执行时,只要不改变volatile写-读的内存语义,编译器可以根据具体情况省略不必要的屏障。下面通过具体的示例代码进行说明。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">VolatileBarrierExample</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
-    <span class="token keyword">volatile</span> <span class="token keyword">int</span> v1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">volatile</span> <span class="token keyword">int</span> v2 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<p>LoadLoad屏障用来禁止处理器把上面的volatile读与下面的普通读重排序。<br>
+LoadStore屏障用来禁止处理器把上面的volatile读与下面的普通写重排序。<br>
+上述volatile写和volatile读的内存屏障插入策略非常保守。在实际执行时,只要不改变volatile写-读的内存语义,编译器可以根据具体情况省略不必要的屏障。下面通过具体的示例代码进行说明。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">class VolatileBarrierExample {
+    int a;
+    volatile int v1 = 1;
+    volatile int v2 = 2;
 
-    <span class="token keyword">void</span> <span class="token function">readAndWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> i <span class="token operator">=</span> v1<span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">// 第一个volatile读</span>
-        <span class="token keyword">int</span> j <span class="token operator">=</span> v2<span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">// 第二个volatile读</span>
-        a <span class="token operator">=</span> i <span class="token operator">+</span> j<span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">// 普通写</span>
-        v1 <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">// 第一个volatile写</span>
-        v2 <span class="token operator">=</span> j <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">// 第二个 volatile写</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//…               // 其他方法</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    void readAndWrite() {
+        int i = v1;      // 第一个volatile读
+        int j = v2;       // 第二个volatile读
+        a = i + j;         // 普通写
+        v1 = i + 1;       // 第一个volatile写
+        v2 = j * 2;       // 第二个 volatile写
+    }
+    //…               // 其他方法
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202657.png" alt="image-20200925091729146"></p>
-<p>注意,最后的StoreLoad屏障不能省略。因为第二个volatile写之后,方法立即return。此时编译器可能无法准确断定后面是否会有volatile读或写,为了安全起见,编译器通常会在这里插入一个StoreLoad屏障。<br>上面的优化针对任意处理器平台,由于不同的处理器有不同“松紧度”的处理器内存模型,内存屏障的插入还可以根据具体的处理器内存模型继续优化。以X86处理器为例,图3-21 中除最后的StoreLoad屏障外,其他的屏障都会被省略。<br>前面保守策略下的volatile读和写,在X86处理器平台可以优化成如图3-22所示。<br>前文提到过,X86处理器仅会对写-读操作做重排序。X86不会对读-读、读-写和写-写操作做重排序,因此在X86处理器中会省略掉这3种操作类型对应的内存屏障。在X86中,JMM仅需在volatile写后面插入一个StoreLoad屏障即可正确实现volatile写-读的内存语义。这意味着在X86处理器中,volatile写的开销比volatile读的开销会大很多(因为执行StoreLoad屏障开销会比较大)。</p>
+<p>注意,最后的StoreLoad屏障不能省略。因为第二个volatile写之后,方法立即return。此时编译器可能无法准确断定后面是否会有volatile读或写,为了安全起见,编译器通常会在这里插入一个StoreLoad屏障。<br>
+上面的优化针对任意处理器平台,由于不同的处理器有不同“松紧度”的处理器内存模型,内存屏障的插入还可以根据具体的处理器内存模型继续优化。以X86处理器为例,图3-21 中除最后的StoreLoad屏障外,其他的屏障都会被省略。<br>
+前面保守策略下的volatile读和写,在X86处理器平台可以优化成如图3-22所示。<br>
+前文提到过,X86处理器仅会对写-读操作做重排序。X86不会对读-读、读-写和写-写操作做重排序,因此在X86处理器中会省略掉这3种操作类型对应的内存屏障。在X86中,JMM仅需在volatile写后面插入一个StoreLoad屏障即可正确实现volatile写-读的内存语义。这意味着在X86处理器中,volatile写的开销比volatile读的开销会大很多(因为执行StoreLoad屏障开销会比较大)。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202704.png" alt="image-20200925091926612"></p>
-<h4 id="JSR-133为什么要增强volatile的内存语义"><a href="#JSR-133为什么要增强volatile的内存语义" class="headerlink" title="JSR-133为什么要增强volatile的内存语义"></a>JSR-133为什么要增强volatile的内存语义</h4><p>在JSR-133之前的旧Java内存模型中,虽然不允许volatile变量之间重排序,但旧的Java内存模型允许volatile变量与普通变量重排序。在旧的内存模型中,VolatileExample示例程序可能被重排序成下列时序来执行,如图3-23所示。</p>
+<h4 id="JSR-133为什么要增强volatile的内存语义"><a class="header-anchor" href="#JSR-133为什么要增强volatile的内存语义">¶</a>JSR-133为什么要增强volatile的内存语义</h4>
+<p>在JSR-133之前的旧Java内存模型中,虽然不允许volatile变量之间重排序,但旧的Java内存模型允许volatile变量与普通变量重排序。在旧的内存模型中,VolatileExample示例程序可能被重排序成下列时序来执行,如图3-23所示。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221202709.png" alt="image-20200925092200374"></p>
 <p>在旧的内存模型中,当1和2之间没有数据依赖关系时,1和2之间就可能被重排序(3和4类似)。其结果就是:读线程B执行4时,不一定能看到写线程A在执行1时对共享变量的修改。</p>
 <p>因此,在旧的内存模型中,volatile的写-读没有锁的释放-获所具有的内存语义。为了提供一种比锁更轻量级的线程之间通信的机制,JSR-133专家组决定增强volatile的内存语义:严格限制编译器和处理器对volatile变量与普通变量的重排序,确保volatile的写-读和锁的释放-获取具有相同的内存语义。从编译器重排序规则和处理器内存屏障插入策略来看,只要volatile 变量与普通变量之间的重排序可能会破坏volatile的内存语义,这种重排序就会被编译器重排序规则和处理器内存屏障插入策略禁止。</p>
 <p>由于volatile仅仅保证对单个volatile变量的读/写具有原子性,而锁的互斥执行的特性可以确保对整个临界区代码的执行具有原子性。在功能上,锁比volatile更强大;在可伸缩性和执行性能上,volatile更有优势。如果读者想在程序中用volatile代替锁,请一定谨慎</p>
-<h1 id="疑问集合"><a href="#疑问集合" class="headerlink" title="疑问集合"></a>疑问集合</h1><p>[^6]: notify、wait api实现了管程机制，要复习下管程的知识，管程是怎么实现一个线程被notify之后还可以进行加锁的</p>
+<h1>疑问集合</h1>
 <p><a href="https://zhuanlan.zhihu.com/p/43526907" target="_blank" rel="noopener">知乎：volatile与内存屏障总结</a></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>消息传递是怎么做？不应该是进程通信吗？何来线程通信，同一进程之内的线程本身就是共享进程资源，仅是其线程域内资源独享，跨进程线程通信不就是进程通信么？ <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>需要复习下进程间通信知识 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>不懂什么意思 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>复习指令级并行下对指令重排序的部分知识 <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>file:///Users/zhonghongpeng/笔记/并发编程/艺术.md <a href="#fnref5" class="footnote-backref">↩︎</a> <a href="#fnref5:1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
             </div>
             <hr />
@@ -1117,7 +1157,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 和 synchronized">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="volatile 和 synchronized">
                         
                         <span class="card-title">volatile 和 synchronized</span>
                     </div>
@@ -1166,7 +1206,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="项目笔记草稿">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="项目笔记草稿">
                         
                         <span class="card-title">项目笔记草稿</span>
                     </div>
@@ -1334,7 +1374,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

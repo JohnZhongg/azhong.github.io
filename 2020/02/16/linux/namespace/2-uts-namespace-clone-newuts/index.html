@@ -330,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -510,13 +510,14 @@
             <div id="articleContent">
                 <p>UTS namespace用来隔离系统的hostname以及NIS domain name。</p>
 <p>这两个资源可以通过sethostname(2)和setdomainname(2)函数来设置，以及通过uname(2), gethostname(2)和getdomainname(2)函数来获取.（这里括号中的2表示这个函数是system call，具体其他数字的含义请参看man的帮助文件）</p>
-<p>术语UTS来自于调用函数uname()时用到的结构体: struct utsname. 而这个结构体的名字源自于”UNIX Time-sharing System”.</p>
+<p>术语UTS来自于调用函数uname()时用到的结构体: struct utsname. 而这个结构体的名字源自于&quot;UNIX Time-sharing System&quot;.</p>
 <p>由于UTS namespace最简单，所以放在最前面介绍，在这篇文章中我们将会熟悉UTS namespace以及和namespace相关的三个系统调用的使用。</p>
 <blockquote>
 <p>注意： NIS domain name和DNS没有关系，关于他的介绍可以看<a href="https://www.freebsd.org/doc/handbook/network-nis.html" target="_blank" rel="noopener">这里</a>，由于本人对它不太了解，所以在本文中不做介绍。</p>
 <p>下面的所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
 </blockquote>
-<h2 id="创建新的UTS-namespace"><a href="#创建新的UTS-namespace" class="headerlink" title="创建新的UTS namespace"></a>创建新的UTS namespace</h2><p>多说无益，直接上代码，我尽量将注释写的足够详细，请仔细看代码和输出结果</p>
+<h2 id="创建新的UTS-namespace"><a class="header-anchor" href="#创建新的UTS-namespace">¶</a>创建新的UTS namespace</h2>
+<p>多说无益，直接上代码，我尽量将注释写的足够详细，请仔细看代码和输出结果</p>
 <blockquote>
 <p><strong>注意:</strong></p>
 <ol>
@@ -576,7 +577,9 @@ int main(int argc, char *argv[])
     waitpid(child_pid, NULL, 0); //等待子进程结束
 
     return 0;    //这行执行完之后，父进程结束
-}</code></pre><p>在上面的代码中：</p>
+}
+</code></pre>
+<p>在上面的代码中：</p>
 <ul>
 <li>父进程创建新的子进程，并且设置CLONE_NEWUTS，这样就会创建新的UTS namespace并且让子进程属于这个新的namespace，然后父进程一直等待子进程退出</li>
 <li>子进程在设置好新的hostname后被bash替换掉</li>
@@ -678,7 +681,10 @@ root@container002:~/code# exit
 exit
 root@container001:~/code#
 root@container001:~/code# hostname
-container001</code></pre><h2 id="将当前进程加入指定的namespace"><a href="#将当前进程加入指定的namespace" class="headerlink" title="将当前进程加入指定的namespace"></a>将当前进程加入指定的namespace</h2><p>还是直接上代码，有了前面的铺垫，这里的代码就非常简单了，请仔细看代码和输出结果</p>
+container001
+</code></pre>
+<h2 id="将当前进程加入指定的namespace"><a class="header-anchor" href="#将当前进程加入指定的namespace">¶</a>将当前进程加入指定的namespace</h2>
+<p>还是直接上代码，有了前面的铺垫，这里的代码就非常简单了，请仔细看代码和输出结果</p>
 <pre><code>#define _GNU_SOURCE
 #include &lt;fcntl.h&gt;
 #include &lt;sched.h&gt;
@@ -710,7 +716,9 @@ int main(int argc, char *argv[])
     execlp(&quot;bash&quot;, &quot;bash&quot;, (char *) NULL);
 
     return 0;
-}</code></pre><p>在上面的代码中，程序通过setns调用让自己加入到参数指定的namespace中，然后用bash替换掉自己，开始执行bash。</p>
+}
+</code></pre>
+<p>在上面的代码中，程序通过setns调用让自己加入到参数指定的namespace中，然后用bash替换掉自己，开始执行bash。</p>
 <p>再来看结果</p>
 <pre><code>#--------------------------第一个shell窗口----------------------
 #重用上面创建的namespace container001
@@ -747,7 +755,10 @@ root@container001:~/code#
 root@container001:~/code# hostname
 container001
 root@container001:~/code# readlink /proc/$$/ns/uts
-uts:[4026532445]</code></pre><h2 id="退出当前namespace并加入新创建的namespace"><a href="#退出当前namespace并加入新创建的namespace" class="headerlink" title="退出当前namespace并加入新创建的namespace"></a>退出当前namespace并加入新创建的namespace</h2><p>继续看代码</p>
+uts:[4026532445]
+</code></pre>
+<h2 id="退出当前namespace并加入新创建的namespace"><a class="header-anchor" href="#退出当前namespace并加入新创建的namespace">¶</a>退出当前namespace并加入新创建的namespace</h2>
+<p>继续看代码</p>
 <pre><code>#define _GNU_SOURCE
 #include &lt;sched.h&gt;
 #include &lt;unistd.h&gt;
@@ -777,13 +788,13 @@ int main(int argc, char *argv[])
     //解析命令行参数，用来决定退出哪个类型的namespace
     while ((opt = getopt(argc, argv, &quot;imnpuUh&quot;)) != -1) {
         switch (opt) {
-            case &#39;i&#39;: flags |= CLONE_NEWIPC;        break;
-            case &#39;m&#39;: flags |= CLONE_NEWNS;         break;
-            case &#39;n&#39;: flags |= CLONE_NEWNET;        break;
-            case &#39;p&#39;: flags |= CLONE_NEWPID;        break;
-            case &#39;u&#39;: flags |= CLONE_NEWUTS;        break;
-            case &#39;U&#39;: flags |= CLONE_NEWUSER;       break;
-            case &#39;h&#39;: usage(argv[0]);               break;
+            case 'i': flags |= CLONE_NEWIPC;        break;
+            case 'm': flags |= CLONE_NEWNS;         break;
+            case 'n': flags |= CLONE_NEWNET;        break;
+            case 'p': flags |= CLONE_NEWPID;        break;
+            case 'u': flags |= CLONE_NEWUTS;        break;
+            case 'U': flags |= CLONE_NEWUSER;       break;
+            case 'h': usage(argv[0]);               break;
             default:  usage(argv[0]);
         }
     }
@@ -801,7 +812,9 @@ int main(int argc, char *argv[])
     execlp(&quot;bash&quot;, &quot;bash&quot;, (char *) NULL);
 
     return 0;
-}</code></pre><p>看运行效果：</p>
+}
+</code></pre>
+<p>看运行效果：</p>
 <pre><code>#将上面的代码保存为文件namespace_leave.c并编译
 dev@ubuntu:~/code$ gcc namespace_leave.c -o namespace_leave
 
@@ -828,7 +841,10 @@ root@ubuntu:~/code# readlink /proc/$$/ns/uts
 uts:[4026532457]
 root@ubuntu:~/code# ./namespace_leave -u
 root@ubuntu:~/code# readlink /proc/$$/ns/uts
-uts:[4026532458]</code></pre><h2 id="内核中的实现"><a href="#内核中的实现" class="headerlink" title="内核中的实现"></a>内核中的实现</h2><p>上面演示了这三个函数的功能，那么UTS namespace在内核中又是怎么实现的呢？</p>
+uts:[4026532458]
+</code></pre>
+<h2 id="内核中的实现"><a class="header-anchor" href="#内核中的实现">¶</a>内核中的实现</h2>
+<p>上面演示了这三个函数的功能，那么UTS namespace在内核中又是怎么实现的呢？</p>
 <p>在老版本中，UTS相关的信息保存在一个全局变量中，所有进程都共享这个全局变量，gethostname()的实现大概如下</p>
 <pre><code>asmlinkage long sys_gethostname(char __user *name, int len)
 {
@@ -836,7 +852,9 @@ uts:[4026532458]</code></pre><h2 id="内核中的实现"><a href="#内核中的�
   if (copy_to_user(name, system_utsname.nodename, i))
     errno = -EFAULT;
   ...
-}</code></pre><p>在新的Linux内核中，在每个进程对应的task结构体<a href="https://github.com/torvalds/linux/blob/master/include/linux/sched.h" target="_blank" rel="noopener">struct task_struct</a>中，增加了一个叫nsproxy的字段，类型是<a href="https://github.com/torvalds/linux/blob/master/include/linux/nsproxy.h" target="_blank" rel="noopener">struct nsproxy</a></p>
+}
+</code></pre>
+<p>在新的Linux内核中，在每个进程对应的task结构体<a href="https://github.com/torvalds/linux/blob/master/include/linux/sched.h" target="_blank" rel="noopener">struct task_struct</a>中，增加了一个叫nsproxy的字段，类型是<a href="https://github.com/torvalds/linux/blob/master/include/linux/nsproxy.h" target="_blank" rel="noopener">struct nsproxy</a></p>
 <pre><code>struct task_struct {
   ...
   /* namespaces */
@@ -852,7 +870,9 @@ struct nsproxy {
   struct pid_namespace *pid_ns_for_children;
   struct net       *net_ns;
   struct cgroup_namespace *cgroup_ns;
-};</code></pre><p>于是新的gethostname()的实现大概就是这样</p>
+};
+</code></pre>
+<p>于是新的gethostname()的实现大概就是这样</p>
 <pre><code>static inline struct new_utsname *utsname(void)
 {
   //current指向当前进程的task结构体
@@ -868,20 +888,25 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
     errno = -EFAULT;
   }
   ...
-}</code></pre><p>处于不同UTS namespace中的进程，它task结构体里面的nsproxy-&gt;uts_ns所指向的结构体是不一样的，于是达到了隔离UTS的目的。</p>
+}
+</code></pre>
+<p>处于不同UTS namespace中的进程，它task结构体里面的nsproxy-&gt;uts_ns所指向的结构体是不一样的，于是达到了隔离UTS的目的。</p>
 <p>其他类型的namespace基本上也是差不多的原理。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<ul>
 <li>namespace的本质就是把原来所有进程全局共享的资源拆分成了很多个一组一组进程共享的资源</li>
 <li>当一个namespace里面的所有进程都退出时，namespace也会被销毁，所以抛开进程谈namespace没有意义</li>
 <li>UTS namespace就是进程的一个属性，属性值相同的一组进程就属于同一个namespace，跟这组进程之间有没有亲戚关系无关</li>
-<li>clone和unshare都有创建并加入新的namespace的功能，他们的主要区别是：<ul>
+<li>clone和unshare都有创建并加入新的namespace的功能，他们的主要区别是：
+<ul>
 <li>unshare是使当前进程加入新创建的namespace</li>
 <li>clone是创建一个新的子进程，然后让子进程加入新的namespace</li>
 </ul>
 </li>
 <li>UTS namespace没有嵌套关系，即不存在说一个namespace是另一个namespace的父namespace</li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://lwn.net/Articles/531114/" target="_blank" rel="noopener">Namespaces in operation, part 2: the namespaces API</a></li>
 <li><a href="http://www.haifux.org/lectures/299/netLec7.pdf" target="_blank" rel="noopener">Resource management:Linux kernel Namespaces and cgroups</a></li>
 </ul>
@@ -1373,13 +1398,13 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/cgroup/3-xian-zhi-cgroup-de-jin-cheng-shu-subsystem-zhi-pids/">
+                <a href="/2020/02/16/linux/namespace/1-namespace-gai-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="3、限制cgroup的进程数（subsystem之pids）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="1、namespace概述">
                         
-                        <span class="card-title">3、限制cgroup的进程数（subsystem之pids）</span>
+                        <span class="card-title">1、namespace概述</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1407,8 +1432,8 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/cgroup/" target="_blank">
-                        <span class="chip bg-color">cgroup</span>
+                    <a href="/tags/namespace/" target="_blank">
+                        <span class="chip bg-color">namespace</span>
                     </a>
                     
                 </div>
@@ -1422,13 +1447,13 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/cgroup/5-xian-zhi-cgroup-de-cpu-shi-yong-subsystem-zhi-cpu/">
+                <a href="/2020/02/16/linux/namespace/3-ipc-namespace-clone-newipc/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="5、限制cgroup的CPU使用（subsystem之cpu）">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="3、IPC namespace (CLONE_NEWIPC)">
                         
-                        <span class="card-title">5、限制cgroup的CPU使用（subsystem之cpu）</span>
+                        <span class="card-title">3、IPC namespace (CLONE_NEWIPC)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1456,8 +1481,8 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/cgroup/" target="_blank">
-                        <span class="chip bg-color">cgroup</span>
+                    <a href="/tags/namespace/" target="_blank">
+                        <span class="chip bg-color">namespace</span>
                     </a>
                     
                 </div>
@@ -1594,7 +1619,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

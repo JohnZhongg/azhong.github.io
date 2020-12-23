@@ -9,10 +9,18 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="
-title: 3、Docker容器top: truecover: falsetoc: truemathjax: truedate:password:summary: 3、Docker容器tags:
+title: 3、Docker容器
+top: true
+cover: false
+toc: true
+mathjax: true
+date:
+password:
+summary: 3、Docker容器
+tags:
 
-dockercategories:
-d">
+docker
+cate">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -333,7 +341,7 @@ d">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -488,7 +496,7 @@ d">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.5k
+                    8.6k
                 </div>
                 
 
@@ -512,17 +520,29 @@ d">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <hr>
-<p>title: 3、Docker容器<br>top: true<br>cover: false<br>toc: true<br>mathjax: true<br>date:<br>password:<br>summary: 3、Docker容器<br>tags:</p>
+<p>title: 3、Docker容器<br>
+top: true<br>
+cover: false<br>
+toc: true<br>
+mathjax: true<br>
+date:<br>
+password:<br>
+summary: 3、Docker容器<br>
+tags:</p>
 <ul>
-<li>docker<br>categories:</li>
+<li>docker<br>
+categories:</li>
 <li>docker</li>
 </ul>
 <hr>
 <p>[TOC]</p>
-<h1 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h1><p>官方文档列出了完整的 Docker 命令列表，也可以使用 <code>docker help</code> 获取这些命令。此外，还可以使用 Docker 的 man 页（man docker）。另外，对于二级命令，这些操作同样适用：<code>docker help run</code>、<code>man docker-run</code>、<code>docker run --help</code></p>
-<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="docker-run"><a href="#docker-run" class="headerlink" title="docker run"></a>docker run</h2><p><code>docker run</code>命令提供了 Docker 容器的创建到启动的功能：</p>
+<h1>帮助</h1>
+<p>官方文档列出了完整的 Docker 命令列表，也可以使用 <code>docker help</code> 获取这些命令。此外，还可以使用 Docker 的 man 页（man docker）。另外，对于二级命令，这些操作同样适用：<code>docker help run</code>、<code>man docker-run</code>、<code>docker run --help</code></p>
+<h1>命令</h1>
+<h2 id="docker-run"><a class="header-anchor" href="#docker-run">¶</a>docker run</h2>
+<p><code>docker run</code>命令提供了 Docker 容器的创建到启动的功能：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker run -it ubuntu /bin/bash
-Unable to find image &#39;ubuntu:latest&#39; locally
+Unable to find image 'ubuntu:latest' locally
 Trying to pull repository docker.io/library/ubuntu ...
 latest: Pulling from docker.io/library/ubuntu
 5bed26d33875: Pull complete
@@ -531,31 +551,63 @@ f11b29a9c730: Pull complete
 78bf9a5ad49e: Pull complete
 Digest: sha256:bec5a2727be7fff3d308193cfde3491f8fba1a2ba392b7546b43a051853a341d
 Status: Downloaded newer image for docker.io/ubuntu:latest
-root@6e73587e0ffe:/#</code></pre><p>下面我们来解析上面这条命令</p>
-<pre><code>$ docker run -it ubuntu /bin/bash</code></pre><h3 id="i-t-参数"><a href="#i-t-参数" class="headerlink" title="-i -t 参数"></a>-i -t 参数</h3><p>首先,我们告诉 Docker执行 docker run命令,并指定了-i和-t两个命令行参数。 <strong>-i标志保证容器中STDIN是开启的,尽管我们并没有附着到容器中。持久的标准输入是交互式shel的“半边天”,-t标志则是另外“半边天”,它告诉Docker为要创建的容器分配一个伪tty终端</strong> 。这样,新创建的容器才能提供一个交互式 shell若要在命令行下创建一个我们能与之进行交互的容器,而不是一个运行后台服务的容器,则这两个参数己经是最基本的参数了</p>
-<h3 id="指定容器的基础镜像"><a href="#指定容器的基础镜像" class="headerlink" title="指定容器的基础镜像"></a>指定容器的基础镜像</h3><p>接下来,我们告诉Docker基于什么镜像来创建容器,示例中使用的是 <code>ubuntu</code>镜像。<code>ubuntu</code>镜像是一个常备镜像,也可以称为“基础”(base)镜像,它由 Docker公司提供, 保存在Docker Hub Registry上。<br>你可以用ubuntu基础镜像(以及类似的fedora、 debian、 centos等镜像)为基础,在你选择的操作系统上构建自己的镜像。这里,我们基于此基础镜像启动了一个容器, 并且没有对容器进行任何改动。</p>
-<h3 id="容器创建流程"><a href="#容器创建流程" class="headerlink" title="容器创建流程"></a>容器创建流程</h3><p>那么,在这一切的背后又都发生了什么呢?首先Docker会检査本地是否存在 <code>ubuntu</code> 镜像,如果本地还没有该镜像的话,那么 Docker就会连接官方维护的 Docker Hub Registry 查看 Docker Hub中是否有该镜像。Docker一旦找到该镜像,就会下载该镜像并将其保存到本地宿主机中。<br>随后,Docker<strong>在文件系统内部</strong>用这个镜像创建了一个新容器。该容器拥有自己的网络、IP地址,以及一个用来和宿主机进行通信的桥接网络接口。</p>
-<h3 id="指定容器创建后执行的命令"><a href="#指定容器创建后执行的命令" class="headerlink" title="指定容器创建后执行的命令"></a>指定容器创建后执行的命令</h3><p>最后,我们告诉Docker在新容器中要运行什么命令,在本例中我们在容器中运行/bin/bash命令启动了一个 Bash shell 当容器创建完毕之后, Docker就会执行容器中的/bin/bash命令,这时我们就可以看到容器内的shell了：</p>
-<pre><code>root@6e73587e0ffe:/#</code></pre><h3 id="–name-参数"><a href="#–name-参数" class="headerlink" title="–name 参数"></a>–name 参数</h3><p>我们在创建容器的时候可以使用<code>--name</code>参数指定容器的名称而不使用 Docker 为我们随机生成的名称：</p>
+root@6e73587e0ffe:/#
+</code></pre>
+<p>下面我们来解析上面这条命令</p>
+<pre><code>$ docker run -it ubuntu /bin/bash
+</code></pre>
+<h3 id="i-t-参数"><a class="header-anchor" href="#i-t-参数">¶</a>-i -t 参数</h3>
+<p>首先,我们告诉 Docker执行 docker run命令,并指定了-i和-t两个命令行参数。 <strong>-i标志保证容器中STDIN是开启的,尽管我们并没有附着到容器中。持久的标准输入是交互式shel的“半边天”,-t标志则是另外“半边天”,它告诉Docker为要创建的容器分配一个伪tty终端</strong> 。这样,新创建的容器才能提供一个交互式 shell若要在命令行下创建一个我们能与之进行交互的容器,而不是一个运行后台服务的容器,则这两个参数己经是最基本的参数了</p>
+<h3 id="指定容器的基础镜像"><a class="header-anchor" href="#指定容器的基础镜像">¶</a>指定容器的基础镜像</h3>
+<p>接下来,我们告诉Docker基于什么镜像来创建容器,示例中使用的是 <code>ubuntu</code>镜像。<code>ubuntu</code>镜像是一个常备镜像,也可以称为“基础”(base)镜像,它由 Docker公司提供, 保存在Docker Hub Registry上。<br>
+你可以用ubuntu基础镜像(以及类似的fedora、 debian、 centos等镜像)为基础,在你选择的操作系统上构建自己的镜像。这里,我们基于此基础镜像启动了一个容器, 并且没有对容器进行任何改动。</p>
+<h3 id="容器创建流程"><a class="header-anchor" href="#容器创建流程">¶</a>容器创建流程</h3>
+<p>那么,在这一切的背后又都发生了什么呢?首先Docker会检査本地是否存在 <code>ubuntu</code> 镜像,如果本地还没有该镜像的话,那么 Docker就会连接官方维护的 Docker Hub Registry 查看 Docker Hub中是否有该镜像。Docker一旦找到该镜像,就会下载该镜像并将其保存到本地宿主机中。<br>
+随后,Docker<strong>在文件系统内部</strong>用这个镜像创建了一个新容器。该容器拥有自己的网络、IP地址,以及一个用来和宿主机进行通信的桥接网络接口。</p>
+<h3 id="指定容器创建后执行的命令"><a class="header-anchor" href="#指定容器创建后执行的命令">¶</a>指定容器创建后执行的命令</h3>
+<p>最后,我们告诉Docker在新容器中要运行什么命令,在本例中我们在容器中运行/bin/bash命令启动了一个 Bash shell 当容器创建完毕之后, Docker就会执行容器中的/bin/bash命令,这时我们就可以看到容器内的shell了：</p>
+<pre><code>root@6e73587e0ffe:/#
+</code></pre>
+<h3 id="–name-参数"><a class="header-anchor" href="#–name-参数">¶</a>–name 参数</h3>
+<p>我们在创建容器的时候可以使用<code>--name</code>参数指定容器的名称而不使用 Docker 为我们随机生成的名称：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker run --name the_container_of_john -it ubuntu /bin/bash
-root@9b69de862ea9:/#</code></pre><p>上述命令将会创建一个名为<code>the_container_of_john</code>的容器。一个合法的容器名称只能包含以下字符:小写字母a<del>z、大写字母A</del>Z、数字0-9、下划线、圆点、横线(如果用正则表达式来表示这些符号,就是(a-zA-z0-9_.-])。<br>在很多Docker命令中,我们都可以用容器的名称来替代容器ID,后面我们将会看到。容器名称有助于分辨容器,当构建容器和应用程序之间的逻辑连接时,容器的名称也有助于从逻辑上理解连接关系。具体的名称(如web、db)比容器ID和随机容器名好记多了。我推荐大家都使用容器名称,以更加方便地管理容器。<br>容器的命名必须是唯一的。如果我们试图创建两个名称相同的容器,则命令将会失败。<br>如果要使用的容器名称己经存在,可以先用<code>docker rm</code>命令删除已有的同名容器后,再来创建新的容器。</p>
-<h3 id="d-参数运行守护式容器"><a href="#d-参数运行守护式容器" class="headerlink" title="-d 参数运行守护式容器"></a>-d 参数运行守护式容器</h3><p><code>docker run</code>在默认下创建的容器是交互式运行的(Interactive container),我们也可以创建长期运行的容器。守护式容器(demonized container)没有交互式会话,非常适合运行应用程序和服务。大多数时候我们都需要以守护式来运行我们的容器。下面我们就来启动一个守护式容器</p>
+root@9b69de862ea9:/#
+</code></pre>
+<p>上述命令将会创建一个名为<code>the_container_of_john</code>的容器。一个合法的容器名称只能包含以下字符:小写字母a<sub>z、大写字母A</sub>Z、数字0-9、下划线、圆点、横线(如果用正则表达式来表示这些符号,就是(a-zA-z0-9_.-])。<br>
+在很多Docker命令中,我们都可以用容器的名称来替代容器ID,后面我们将会看到。容器名称有助于分辨容器,当构建容器和应用程序之间的逻辑连接时,容器的名称也有助于从逻辑上理解连接关系。具体的名称(如web、db)比容器ID和随机容器名好记多了。我推荐大家都使用容器名称,以更加方便地管理容器。<br>
+容器的命名必须是唯一的。如果我们试图创建两个名称相同的容器,则命令将会失败。<br>
+如果要使用的容器名称己经存在,可以先用<code>docker rm</code>命令删除已有的同名容器后,再来创建新的容器。</p>
+<h3 id="d-参数运行守护式容器"><a class="header-anchor" href="#d-参数运行守护式容器">¶</a>-d 参数运行守护式容器</h3>
+<p><code>docker run</code>在默认下创建的容器是交互式运行的(Interactive container),我们也可以创建长期运行的容器。守护式容器(demonized container)没有交互式会话,非常适合运行应用程序和服务。大多数时候我们都需要以守护式来运行我们的容器。下面我们就来启动一个守护式容器</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker run --name daemon_container -d ubuntu /bin/sh -c &quot;while true;do echo hello world;sleep 1;done&quot;
-e9436bfe00334d3ac0883621fa6ae92f679839fc82a0c76c315cf97dab513258</code></pre><p>我们在上面的<code>docker run</code>命令使用了<code>-d</code>参数，因此 Docker 会将容器放到后台运行；另外我们还在容器里运行的命令使用了一个<code>while</code>循环，该循环会一直打印 hello workd，直到容器或者其进程停止运行。上面的命令执行之后会发现 docker 并不会将主机的控制台附着到新的 shell 会话上，而是仅仅返回了一个容器 id，通过 <code>docker ps</code> 命令我们可以找到刚刚创建的容器在运行</p>
+e9436bfe00334d3ac0883621fa6ae92f679839fc82a0c76c315cf97dab513258
+</code></pre>
+<p>我们在上面的<code>docker run</code>命令使用了<code>-d</code>参数，因此 Docker 会将容器放到后台运行；另外我们还在容器里运行的命令使用了一个<code>while</code>循环，该循环会一直打印 hello workd，直到容器或者其进程停止运行。上面的命令执行之后会发现 docker 并不会将主机的控制台附着到新的 shell 会话上，而是仅仅返回了一个容器 id，通过 <code>docker ps</code> 命令我们可以找到刚刚创建的容器在运行</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                       PORTS               NAMES
-e9436bfe0033        ubuntu              &quot;/bin/sh -c &#39;while...&quot;   3 minutes ago       Up 3 minutes                                     daemon_container</code></pre><ul>
+e9436bfe0033        ubuntu              &quot;/bin/sh -c 'while...&quot;   3 minutes ago       Up 3 minutes                                     daemon_container
+</code></pre>
+<ul>
 <li>此时我们可以通过<code>docker logs</code>命令获取容器的打印的日志</li>
 <li>另外还可以通过<code>docker top</code>查看容器内部运行的进程</li>
 <li>使用<code>docker exec</code>还可以在容器内运行进程</li>
 <li>使用<code>docker stop</code>停止容器</li>
 </ul>
-<h3 id="–restart-参数"><a href="#–restart-参数" class="headerlink" title="–restart 参数"></a>–restart 参数</h3><p>如果由于某种错误而导致容器停止运行,我们还可以通过<code>--restart</code>标志,让Docker自动重新启动该容器。<code>--restart</code>标志会检査容器的退出代码,并据此来决定是否要重启容器。默认的行为是Docker不会重启容器。</p>
+<h3 id="–restart-参数"><a class="header-anchor" href="#–restart-参数">¶</a>–restart 参数</h3>
+<p>如果由于某种错误而导致容器停止运行,我们还可以通过<code>--restart</code>标志,让Docker自动重新启动该容器。<code>--restart</code>标志会检査容器的退出代码,并据此来决定是否要重启容器。默认的行为是Docker不会重启容器。</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker run --restart always --name daemon_always -d ubuntu /bin/sh -c &quot;while true;echo hello world;sleep 1;done&quot;
-37101230a80ebf66f1def575f2d5094ea3161bcde5a3002c4e7c22c8bb9d9a7c</code></pre><p>在本例中, <code>--restart</code>标志被设置为a1ways。无论容器的退出代码是什么, Docker都会自动重启该容器。除了a1ways,我们还可以将这个标志设为on-fai1ure,这样,只有当容器的退出代码为非0值的时候,才会自动重启。另外,on-failure还接受一个可选的重启次数参数：</p>
-<pre><code>--restart=on-failure:5</code></pre><h3 id="p-参数"><a href="#p-参数" class="headerlink" title="-p 参数"></a>-p 参数</h3><p>该标志用来控制Docker在运行时应该公开哪些网络端口给外部(宿主机)。</p>
-<h4 id="1-指定容器对外暴露的端口"><a href="#1-指定容器对外暴露的端口" class="headerlink" title="1. 指定容器对外暴露的端口"></a>1. 指定容器对外暴露的端口</h4><pre><code>[root@izwz920kp0myp15p982vp4z test]# docker run -d -p 80 --name web_test john/test_web nginx -g &quot;daemon off;&quot;
-6b564a193037976f219bd76a6ef94f27a7daa48103d1bd0d01846a3e8c37de2c</code></pre><p>运行一个容器时, 如果该容器被指定要向外暴露一个端口，则Docker可以通过两种方法来在宿主机上分配端口:</p>
+37101230a80ebf66f1def575f2d5094ea3161bcde5a3002c4e7c22c8bb9d9a7c
+</code></pre>
+<p>在本例中, <code>--restart</code>标志被设置为a1ways。无论容器的退出代码是什么, Docker都会自动重启该容器。除了a1ways,我们还可以将这个标志设为on-fai1ure,这样,只有当容器的退出代码为非0值的时候,才会自动重启。另外,on-failure还接受一个可选的重启次数参数：</p>
+<pre><code>--restart=on-failure:5
+</code></pre>
+<h3 id="p-参数"><a class="header-anchor" href="#p-参数">¶</a>-p 参数</h3>
+<p>该标志用来控制Docker在运行时应该公开哪些网络端口给外部(宿主机)。</p>
+<h4 id="1-指定容器对外暴露的端口"><a class="header-anchor" href="#1-指定容器对外暴露的端口">¶</a>1. 指定容器对外暴露的端口</h4>
+<pre><code>[root@izwz920kp0myp15p982vp4z test]# docker run -d -p 80 --name web_test john/test_web nginx -g &quot;daemon off;&quot;
+6b564a193037976f219bd76a6ef94f27a7daa48103d1bd0d01846a3e8c37de2c
+</code></pre>
+<p>运行一个容器时, 如果该容器被指定要向外暴露一个端口，则Docker可以通过两种方法来在宿主机上分配端口:</p>
 <ul>
 <li>Docker可以在宿主机上随机选择一个位于49153~6553的一个比较大的端口号来映射到容器中的80端口上。</li>
 <li>可以根据用户的指定（可以通过<code>-p</code>指定）Docker宿主机中指定一个具体的端口号来映射到容器中的80端口上。</li>
@@ -563,25 +615,44 @@ e9436bfe0033        ubuntu              &quot;/bin/sh -c &#39;while...&quot;   3
 <p>上面的命令明显是第一种方式，因为我们并没有指定宿主机中的映射端口，我们使用<code>docker ps</code>命令来看一下容器的端口分配情况：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker ps -l
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                   NAMES
-6b564a193037        john/test_web       &quot;nginx -g &#39;daemon ...&quot;   6 minutes ago       Up 6 minutes        0.0.0.0:32768-&gt;80/tcp   web_test</code></pre><p>可以看到容器中的80端口被映射到了宿主机的32768端口上。另外我们还可以通过<code>docker port</code>或者<code>docker inspect</code>来查看容器的端口映射情况</p>
-<h4 id="2-指定容器暴露的端口的同时并指定映射关系"><a href="#2-指定容器暴露的端口的同时并指定映射关系" class="headerlink" title="2. 指定容器暴露的端口的同时并指定映射关系"></a>2. 指定容器暴露的端口的同时并指定映射关系</h4><pre><code>-p 80:80</code></pre><p>上面的命令会将容器内的80端口绑定到本地宿主机的80端口上。（肯定不推荐啦）</p>
-<pre><code>-p 127.0.0.1:80:80</code></pre><p>上面的参数将容器的80端口绑定到了一个”ip:port”对应的网络接口上，即还能指定 ip</p>
-<pre><code>-p 127.0.0.1::80</code></pre><p>上面仅仅指定了 ip，所以 docker 还是取随机接口进行映射</p>
-<pre><code>-p 127.0.0.1::80/udp</code></pre><p>上面还指定了协议</p>
+6b564a193037        john/test_web       &quot;nginx -g 'daemon ...&quot;   6 minutes ago       Up 6 minutes        0.0.0.0:32768-&gt;80/tcp   web_test
+</code></pre>
+<p>可以看到容器中的80端口被映射到了宿主机的32768端口上。另外我们还可以通过<code>docker port</code>或者<code>docker inspect</code>来查看容器的端口映射情况</p>
+<h4 id="2-指定容器暴露的端口的同时并指定映射关系"><a class="header-anchor" href="#2-指定容器暴露的端口的同时并指定映射关系">¶</a>2. 指定容器暴露的端口的同时并指定映射关系</h4>
+<pre><code>-p 80:80
+</code></pre>
+<p>上面的命令会将容器内的80端口绑定到本地宿主机的80端口上。（肯定不推荐啦）</p>
+<pre><code>-p 127.0.0.1:80:80
+</code></pre>
+<p>上面的参数将容器的80端口绑定到了一个&quot;ip:port&quot;对应的网络接口上，即还能指定 ip</p>
+<pre><code>-p 127.0.0.1::80
+</code></pre>
+<p>上面仅仅指定了 ip，所以 docker 还是取随机接口进行映射</p>
+<pre><code>-p 127.0.0.1::80/udp
+</code></pre>
+<p>上面还指定了协议</p>
 <blockquote>
 <p>可以从<a href="http://docs.docker.com/userguide/dockerlinks/#network-port-mapping-refresher" target="_blank" rel="noopener">http://docs.docker.com/userguide/dockerlinks/#network-port-mapping-refresher</a>获得更多关于端口重定向的信息。</p>
 </blockquote>
-<h3 id="P-参数"><a href="#P-参数" class="headerlink" title="-P 参数"></a>-P 参数</h3><p>大 P 参数会将容器中程序绑定的容器端口随机映射到宿主机的一个端口进行开放，并将用来构建该镜像的 Dockerfile 文件中 <code>EXPOSE</code> 指令指定的其他端口也一并公开。</p>
-<h3 id="–entrypoint、-w-参数"><a href="#–entrypoint、-w-参数" class="headerlink" title="–entrypoint、-w 参数"></a>–entrypoint、-w 参数</h3><p><code>--entrypoint</code>覆盖构建镜像的时候 Dockerfile 中<code>ENTRYPOINT</code>指令指定的命令<br><code>-w</code>覆盖构建镜像的时候 Dockerfile 中<code>WORDIR</code>指令指定的命令</p>
-<h3 id="e-参数"><a href="#e-参数" class="headerlink" title="-e 参数"></a>-e 参数</h3><p>传递环境变量:</p>
+<h3 id="P-参数"><a class="header-anchor" href="#P-参数">¶</a>-P 参数</h3>
+<p>大 P 参数会将容器中程序绑定的容器端口随机映射到宿主机的一个端口进行开放，并将用来构建该镜像的 Dockerfile 文件中 <code>EXPOSE</code> 指令指定的其他端口也一并公开。</p>
+<h3 id="–entrypoint、-w-参数"><a class="header-anchor" href="#–entrypoint、-w-参数">¶</a>–entrypoint、-w 参数</h3>
+<p><code>--entrypoint</code>覆盖构建镜像的时候 Dockerfile 中<code>ENTRYPOINT</code>指令指定的命令<br>
+<code>-w</code>覆盖构建镜像的时候 Dockerfile 中<code>WORDIR</code>指令指定的命令</p>
+<h3 id="e-参数"><a class="header-anchor" href="#e-参数">¶</a>-e 参数</h3>
+<p>传递环境变量:</p>
 <pre><code>$ sudo docker run -ti -e &quot;WEB_PORT=8080&quot; ubuntu env 
 HOME=/ 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin: /bin 
 HOSTNAME=792b171c5e9f 
 TERM=xterm 
-WEB_PORT=8080</code></pre><p>我们可以看到,在容器中<code>WEB_PORT</code>环境变量被设为了8080。</p>
-<h3 id="u-参数"><a href="#u-参数" class="headerlink" title="-u 参数"></a>-u 参数</h3><p>指定容器以什么用户去执行，可以指定用户、用户 id、用户组、用户组 id、或者两两组合，和 Dockerfile 中的<code>USER</code>指令一致，不过当前参数会覆盖 Dockerfile 中可能设置了的<code>USER</code>指令</p>
-<h3 id="v-参数"><a href="#v-参数" class="headerlink" title="-v 参数"></a>-v 参数</h3><p><code>-v</code> 选项允许我们将宿主机的目录作为卷，挂载到容器里。卷在 Docker里非常重要,也很有用。卷是在一个或者多个容器内被选定的目录, 可以绕过<strong>分层的</strong>联合文件系统(Union File System), 为Docker提供持久数据或者共享数据。这意味着对卷的修改会直接生效, 并绕过镜像。<strong>当提交或者创建镜像（其实是层）时, 卷中的内容不被包含在镜像里（其实是层）。</strong></p>
+WEB_PORT=8080
+</code></pre>
+<p>我们可以看到,在容器中<code>WEB_PORT</code>环境变量被设为了8080。</p>
+<h3 id="u-参数"><a class="header-anchor" href="#u-参数">¶</a>-u 参数</h3>
+<p>指定容器以什么用户去执行，可以指定用户、用户 id、用户组、用户组 id、或者两两组合，和 Dockerfile 中的<code>USER</code>指令一致，不过当前参数会覆盖 Dockerfile 中可能设置了的<code>USER</code>指令</p>
+<h3 id="v-参数"><a class="header-anchor" href="#v-参数">¶</a>-v 参数</h3>
+<p><code>-v</code> 选项允许我们将宿主机的目录作为卷，挂载到容器里。卷在 Docker里非常重要,也很有用。卷是在一个或者多个容器内被选定的目录, 可以绕过<strong>分层的</strong>联合文件系统(Union File System), 为Docker提供持久数据或者共享数据。这意味着对卷的修改会直接生效, 并绕过镜像。<strong>当提交或者创建镜像（其实是层）时, 卷中的内容不被包含在镜像里（其实是层）。</strong></p>
 <blockquote>
 <p>卷可以在容器间共享。即便容器停止,卷里的内容依旧存在。</p>
 </blockquote>
@@ -593,30 +664,39 @@ WEB_PORT=8080</code></pre><p>我们可以看到,在容器中<code>WEB_PORT</code
 <li>… …</li>
 </ul>
 <p>参数<code>-v</code>指定了卷的源目录(本地宿主机的目录)和容器里的目的目录, 这两个目录通过<code>:</code>来分隔。如果目的目录不存在, Docker会自动创建一个。也可以通过在目的目录后面加上<code>rw</code>(read&amp;write)或者<code>ro</code>(read-only)。来指定目的目录的读写状态。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">docker run -d -p 80 --name website -v $PWD/website:/var/www/html/website:ro 707845008/nginx nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">docker run -d -p 80 --name website -v $PWD/website:/var/www/html/website:ro 707845008/nginx nginx
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>以上命令将<code>$PWD/website</code>(<code>$PWD</code>会被用来执行<code>echo $PWD</code>，和<code>pwd</code>命令得到的结果一样，然后拼接上<code>/website</code>)挂载到容器的<code>/var/www/html/website</code>目录，并且<code>:ro</code>使得目的目录<code>/var/www/html/website</code>变成只读状态。</p>
-<h3 id="–link"><a href="#–link" class="headerlink" title="–link"></a>–link</h3><p>该选项可以把一个或者多个 Docker容器连接起来,让其互相通信。<br>先启动一个 redis 容器，注意到，我们启动的时候并没有对外暴露这个容器的任何接口</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker run -d --name redis 707845008/redis
-b223886418744665e39431346e49533f88d6105feb070658ef4d5aaa4354fa41<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="–link"><a class="header-anchor" href="#–link">¶</a>–link</h3>
+<p>该选项可以把一个或者多个 Docker容器连接起来,让其互相通信。<br>
+先启动一个 redis 容器，注意到，我们启动的时候并没有对外暴露这个容器的任何接口</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker run -d --name redis 707845008/redis
+b223886418744665e39431346e49533f88d6105feb070658ef4d5aaa4354fa41
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>现在我们启动一个要连接该 redis 的 web 程序</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker run -p 4567 --name webapp --link redis:db -it -v $PWD/webapp:/opt/webapp 707845008/sinatra /bin/bash
-root@55e0a4c82d37:/#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>可以看到我们使用了一个<code>--link</code>参数，<code>--1ink</code> 标志创建了两个容器间的父子连接。这个标志需要两个参数:一个是要连接的容器名字,另一个是连接后容器的别名。这个例子中, 我们把新容器连接到redis容器,并使用<code>db</code>作为别名。别名让我们可以访问公开的信息, 而无须关注底层容器的名字。连接让父容器有能力访问子容器,并且把子容器的一些连接细节分享给父容器, 这些细节有助于配置应用程序并使用这个连接。<br>连接也能得到一些安全上的好处。注意到启动 Redis容器时,并没有使用<code>-p</code>标志公开Redis的端口。因为不需要这么做。通过把容器连接在一起,可以让父容器直接访问任意子容器的公开端口(比如,父容器 webapp可以连接到子容器 redis的6379端口)。更妙的是,只有使用<code>--1ink</code>标志连接到这个容器的容器才能连接到这个端口。容器的端口不需要对本地宿主机公开,现在我们己经拥有一个非常安全的模型。通过这个安全模型,就可以限制容器化应用程序的被攻击面,减少应用暴露的网络。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker run -p 4567 --name webapp --link redis:db -it -v $PWD/webapp:/opt/webapp 707845008/sinatra /bin/bash
+root@55e0a4c82d37:/#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>可以看到我们使用了一个<code>--link</code>参数，<code>--1ink</code> 标志创建了两个容器间的父子连接。这个标志需要两个参数:一个是要连接的容器名字,另一个是连接后容器的别名。这个例子中, 我们把新容器连接到redis容器,并使用<code>db</code>作为别名。别名让我们可以访问公开的信息, 而无须关注底层容器的名字。连接让父容器有能力访问子容器,并且把子容器的一些连接细节分享给父容器, 这些细节有助于配置应用程序并使用这个连接。<br>
+连接也能得到一些安全上的好处。注意到启动 Redis容器时,并没有使用<code>-p</code>标志公开Redis的端口。因为不需要这么做。通过把容器连接在一起,可以让父容器直接访问任意子容器的公开端口(比如,父容器 webapp可以连接到子容器 redis的6379端口)。更妙的是,只有使用<code>--1ink</code>标志连接到这个容器的容器才能连接到这个端口。容器的端口不需要对本地宿主机公开,现在我们己经拥有一个非常安全的模型。通过这个安全模型,就可以限制容器化应用程序的被攻击面,减少应用暴露的网络。</p>
 <p>也可以把多个容器连接在一起。比如,如果想让这个Redis实例服务于多个Web应用程序可以把每个Web应用程序的容器和同一个 redis容器连接在一起</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ docker run -p 4567 --name webapp2 --link redis:db ... ...
-$ docker run -p 4567 --name webapp3 --link redis:db ... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ docker run -p 4567 --name webapp2 --link redis:db ... ...
+$ docker run -p 4567 --name webapp3 --link redis:db ... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <blockquote>
 <p>被连接的容器必须运行在同一个Docker宿主机上。不同Docker宿主机上运行的容器无法连接？</p>
 </blockquote>
 <p>接下来我们再看一下连接了 Redis 容器的 webapp 容器内部的 <strong>hosts 文件和环境变量</strong>有什么变化：</p>
-<h4 id="1-hosts-文件"><a href="#1-hosts-文件" class="headerlink" title="1. hosts 文件"></a>1. hosts 文件</h4><pre class="line-numbers language-shell"><code class="language-shell">root@55e0a4c82d37:/# cat /etc/hosts
-127.0.0.1    localhost
-::1    localhost ip6-localhost ip6-loopback
+<h4 id="1-hosts-文件"><a class="header-anchor" href="#1-hosts-文件">¶</a>1. hosts 文件</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">root@55e0a4c82d37:/# cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
 ... ...
-172.17.0.2    db b22388641874 redis
-172.17.0.3    55e0a4c82d37<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+172.17.0.2	db b22388641874 redis
+172.17.0.3	55e0a4c82d37
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里可以看到一些有用的项。第一项是由该连接指令创建的,它是 redis容器的IP地址和从该连接的别名衍生的主机名db。第二项是容器自己的IP地址和主机名(主机名是容器ID 的一部分)。我们如果 <code>ping</code> 一下 db 和 redis，是可以 ping 通的：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">root@55e0a4c82d37:/# ping redis
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">root@55e0a4c82d37:/# ping redis
 PING db (172.17.0.2) 56(84) bytes of data.
 64 bytes from db (172.17.0.2): icmp_seq=1 ttl=64 time=0.113 ms
 64 bytes from db (172.17.0.2): icmp_seq=2 ttl=64 time=0.079 ms
@@ -625,11 +705,13 @@ root@55e0a4c82d37:/# ping db
 PING db (172.17.0.2) 56(84) bytes of data.
 64 bytes from db (172.17.0.2): icmp_seq=1 ttl=64 time=0.062 ms
 64 bytes from db (172.17.0.2): icmp_seq=2 ttl=64 time=0.072 ms
-... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>如果被连接容器重启了，连接容器 hosts 文件中的 ip 地址就会更新成被连接容器重启之后获得的 ip 地址。</p>
 </blockquote>
-<h4 id="2-环境变量"><a href="#2-环境变量" class="headerlink" title="2. 环境变量"></a>2. 环境变量</h4><pre class="line-numbers language-shell"><code class="language-shell">root@55e0a4c82d37:/# env
+<h4 id="2-环境变量"><a class="header-anchor" href="#2-环境变量">¶</a>2. 环境变量</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">root@55e0a4c82d37:/# env
 HOSTNAME=55e0a4c82d37
 DB_NAME=/webapp/db
 DB_PORT=tcp://172.17.0.2:6379
@@ -644,38 +726,65 @@ HOME=/root
 REFRESEHED_AT=2020-04-03
 LESSOPEN=| /usr/bin/lesspipe %s
 LESSCLOSE=/usr/bin/lesspipe %s %s
-_=/usr/bin/env<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到不少环境变量,其中一些以DB开头。 Docker在连接 webapp和 redis容器时,自动创建了这些以DB开头的环境变量。以DB开头是因为DB是创建连接时使用的别名。<br>这些自动创建的环境变量包含以下信息</p>
+_=/usr/bin/env
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到不少环境变量,其中一些以DB开头。 Docker在连接 webapp和 redis容器时,自动创建了这些以DB开头的环境变量。以DB开头是因为DB是创建连接时使用的别名。<br>
+这些自动创建的环境变量包含以下信息</p>
 <ul>
 <li>子容器的名字。</li>
 <li>子容器里运行的服务所使用的协议、IP和端口号。</li>
 <li>容器里由Docker设置的环境变量的值。</li>
 </ul>
 <p>此时用户可以使用这些连接信息来让容器内的应用程序使用相同的方法与别的容器进行连接,而不用关心被连接的容器的具体细节。</p>
-<h3 id="h、–hostname-参数"><a href="#h、–hostname-参数" class="headerlink" title="-h、–hostname 参数"></a>-h、–hostname 参数</h3><p>该选项可以为容器设定主机名</p>
-<h3 id="–dns、–dns-search-参数"><a href="#–dns、–dns-search-参数" class="headerlink" title="–dns、–dns-search 参数"></a>–dns、–dns-search 参数</h3><p>该参数可以为容器单独配置 DNS。你可以设置本地DNS解析的路径和搜索城。在<a href="https://docs.docker.com/articles/networking/" target="_blank" rel="noopener">https://docs.docker.com/articles/networking/</a>上可以找到更详细的配置信息。如果没有这两个标志, Docker会根据宿主机的信息来配置DNS解析。可以在<code>/etc/resolv.conf</code>文件中查看DNS解析的配置情況。</p>
-<h3 id="–memory-参数"><a href="#–memory-参数" class="headerlink" title="–memory 参数"></a>–memory 参数</h3><p>限制容器可以使用的内存资源</p>
-<h3 id="–cpu-shares"><a href="#–cpu-shares" class="headerlink" title="–cpu-shares"></a>–cpu-shares</h3><p>限制容器的可使用 CPU 相对权重，例如有一个容器设置 <code>--cpu-shares 10</code>，另一个容器设置 <code>--cpu-shares 5</code>，此时两个容器启动，现在宿主机上有两个容器运行，它们的 CPU 权重比是 10 比 5，也就是 2 比 1，那么第一个容器的 CPU 时间片占比就是总的 2/3，另一个是 1/3 。</p>
-<h2 id="docker-port"><a href="#docker-port" class="headerlink" title="docker port"></a>docker port</h2><p>该指令可以查看容器的端口映射情况，例如下面例子是查看容器<code>web_test</code>中80端口映射到宿主机的端口是哪个，这里是32768</p>
+<h3 id="h、–hostname-参数"><a class="header-anchor" href="#h、–hostname-参数">¶</a>-h、–hostname 参数</h3>
+<p>该选项可以为容器设定主机名</p>
+<h3 id="–dns、–dns-search-参数"><a class="header-anchor" href="#–dns、–dns-search-参数">¶</a>–dns、–dns-search 参数</h3>
+<p>该参数可以为容器单独配置 DNS。你可以设置本地DNS解析的路径和搜索城。在<a href="https://docs.docker.com/articles/networking/" target="_blank" rel="noopener">https://docs.docker.com/articles/networking/</a>上可以找到更详细的配置信息。如果没有这两个标志, Docker会根据宿主机的信息来配置DNS解析。可以在<code>/etc/resolv.conf</code>文件中查看DNS解析的配置情況。</p>
+<h3 id="–memory-参数"><a class="header-anchor" href="#–memory-参数">¶</a>–memory 参数</h3>
+<p>限制容器可以使用的内存资源</p>
+<h3 id="–cpu-shares"><a class="header-anchor" href="#–cpu-shares">¶</a>–cpu-shares</h3>
+<p>限制容器的可使用 CPU 相对权重，例如有一个容器设置 <code>--cpu-shares 10</code>，另一个容器设置 <code>--cpu-shares 5</code>，此时两个容器启动，现在宿主机上有两个容器运行，它们的 CPU 权重比是 10 比 5，也就是 2 比 1，那么第一个容器的 CPU 时间片占比就是总的 2/3，另一个是 1/3 。</p>
+<h2 id="docker-port"><a class="header-anchor" href="#docker-port">¶</a>docker port</h2>
+<p>该指令可以查看容器的端口映射情况，例如下面例子是查看容器<code>web_test</code>中80端口映射到宿主机的端口是哪个，这里是32768</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker port web_test 80
-0.0.0.0:32768</code></pre><h2 id="docker-stop"><a href="#docker-stop" class="headerlink" title="docker stop"></a>docker stop</h2><p>该命令可以停止一个容器（特比是守护式容器）</p>
+0.0.0.0:32768
+</code></pre>
+<h2 id="docker-stop"><a class="header-anchor" href="#docker-stop">¶</a>docker stop</h2>
+<p>该命令可以停止一个容器（特比是守护式容器）</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker stop daemon_container
-daemon_container</code></pre><p>当然，我们也可以通过容器 id 进行停止。<br>此时我们通过<code>docker ps</code>命令即可查看当前容器的状态：</p>
+daemon_container
+</code></pre>
+<p>当然，我们也可以通过容器 id 进行停止。<br>
+此时我们通过<code>docker ps</code>命令即可查看当前容器的状态：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps -n 1
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                       PORTS               NAMES
-e9436bfe0033        ubuntu              &quot;/bin/sh -c &#39;while...&quot;   55 minutes ago      Exited (137) 2 minutes ago                       daemon_container</code></pre><blockquote>
+e9436bfe0033        ubuntu              &quot;/bin/sh -c 'while...&quot;   55 minutes ago      Exited (137) 2 minutes ago                       daemon_container
+</code></pre>
+<blockquote>
 <p><code>docker stop</code>命令会向 docker 容器进程发送 <code>SIGTERM</code> 信号。如果你想快速停止某个容器，也可以用<code>docker kill</code>命令来向容器进程发送<code>SIGKILL</code>信号。</p>
 </blockquote>
-<h2 id="docker-kill"><a href="#docker-kill" class="headerlink" title="docker kill"></a>docker kill</h2><h2 id="docker-exec"><a href="#docker-exec" class="headerlink" title="docker exec"></a>docker exec</h2><p>在 Docker1.3之后,我们也可以通过<code>docker exec</code>命令在容器内部额外启动新进程。可以在容器内运行的进程有两种类型:后台任务和交互式任务。后台任务在容器内运行且没有交互需求,而交互式任务则保持在前台运行。<br>该命令默认是启动一个前台运行的交互式任务，下面我们可以在 daemon_container 容器中启动一个诸如打开 shell 的交互式任务：</p>
+<h2 id="docker-kill"><a class="header-anchor" href="#docker-kill">¶</a>docker kill</h2>
+<h2 id="docker-exec"><a class="header-anchor" href="#docker-exec">¶</a>docker exec</h2>
+<p>在 Docker1.3之后,我们也可以通过<code>docker exec</code>命令在容器内部额外启动新进程。可以在容器内运行的进程有两种类型:后台任务和交互式任务。后台任务在容器内运行且没有交互需求,而交互式任务则保持在前台运行。<br>
+该命令默认是启动一个前台运行的交互式任务，下面我们可以在 daemon_container 容器中启动一个诸如打开 shell 的交互式任务：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker exec -it daemon_container /bin/bash
-root@e9436bfe0033:/#</code></pre><p>和<code>docker run</code>交互式容器一样，这里的<code>-t</code>和<code>-i</code>参数为我们执行的进程创建了 TTY 并捕捉了 STDIN。命令的后面我们分别指定了容器的名字和要执行的命令，此时这条<code>docker exec</code>指令就会在容器内创建一个新的 bash 会话，有了这个会话，我们就可以在该容器中运行其他命令了。</p>
-<h3 id="d参数"><a href="#d参数" class="headerlink" title="-d参数"></a>-d参数</h3><p><code>-d</code>参数可以在容器内部启动一个后台任务：</p>
-<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker exec -d daemon_container touch /etc/new_config_file</code></pre><p>以上指令在”daemon_container”容器内部创建了一个空文本</p>
-<h2 id="docker-top"><a href="#docker-top" class="headerlink" title="docker top"></a>docker top</h2><p>该命令可以看到容器内的所有进程、运行的进程的用户及进程 ID：</p>
+root@e9436bfe0033:/#
+</code></pre>
+<p>和<code>docker run</code>交互式容器一样，这里的<code>-t</code>和<code>-i</code>参数为我们执行的进程创建了 TTY 并捕捉了 STDIN。命令的后面我们分别指定了容器的名字和要执行的命令，此时这条<code>docker exec</code>指令就会在容器内创建一个新的 bash 会话，有了这个会话，我们就可以在该容器中运行其他命令了。</p>
+<h3 id="d参数"><a class="header-anchor" href="#d参数">¶</a>-d参数</h3>
+<p><code>-d</code>参数可以在容器内部启动一个后台任务：</p>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker exec -d daemon_container touch /etc/new_config_file
+</code></pre>
+<p>以上指令在&quot;daemon_container&quot;容器内部创建了一个空文本</p>
+<h2 id="docker-top"><a class="header-anchor" href="#docker-top">¶</a>docker top</h2>
+<p>该命令可以看到容器内的所有进程、运行的进程的用户及进程 ID：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker top daemon_container
 UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
 root                16420               16371               0                   13:32               ?                   00:00:00            /bin/sh -c while true;do echo hello world;sleep 1;done
-root                18103               16420               0                   13:58               ?                   00:00:00            sleep 1</code></pre><h2 id="docker-logs"><a href="#docker-logs" class="headerlink" title="docker logs"></a>docker logs</h2><p>该命令可以打印容器正在打印输出的日志</p>
+root                18103               16420               0                   13:58               ?                   00:00:00            sleep 1
+</code></pre>
+<h2 id="docker-logs"><a class="header-anchor" href="#docker-logs">¶</a>docker logs</h2>
+<p>该命令可以打印容器正在打印输出的日志</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker logs daemon_container
 hello world
 hello world
@@ -684,8 +793,11 @@ hello world
 hello world
 hello world
 hello world
-...</code></pre><p>Docker 会输出最后几条日志项并返回。</p>
-<h3 id="f-参数"><a href="#f-参数" class="headerlink" title="-f 参数"></a>-f 参数</h3><p>该参数可以来监控 Docker 的日志，和 <code>tail -f</code> 命令非常相似:</p>
+...
+</code></pre>
+<p>Docker 会输出最后几条日志项并返回。</p>
+<h3 id="f-参数"><a class="header-anchor" href="#f-参数">¶</a>-f 参数</h3>
+<p>该参数可以来监控 Docker 的日志，和 <code>tail -f</code> 命令非常相似:</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker logs -f daemon_container
 hello world
 hello world
@@ -695,8 +807,11 @@ hello world
 hello world
 hello world
 hello world
-...</code></pre><p><code>ctrl+c</code>即可退出日志追踪</p>
-<h3 id="–tail-参数"><a href="#–tail-参数" class="headerlink" title="–tail 参数"></a>–tail 参数</h3><p>该参数获取日志的最后 x 行内容，如下命令获取最后10行内容。</p>
+...
+</code></pre>
+<p><code>ctrl+c</code>即可退出日志追踪</p>
+<h3 id="–tail-参数"><a class="header-anchor" href="#–tail-参数">¶</a>–tail 参数</h3>
+<p>该参数获取日志的最后 x 行内容，如下命令获取最后10行内容。</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker logs --tail 10 daemon_container
 hello world
 hello world
@@ -707,39 +822,69 @@ hello world
 hello world
 hello world
 hello world
-hello world</code></pre><p><code>--tail</code> 加上 <code>-f</code> 即可进行组合使用，例如以下例子就是监控后三行日志并打印输出</p>
+hello world
+</code></pre>
+<p><code>--tail</code> 加上 <code>-f</code> 即可进行组合使用，例如以下例子就是监控后三行日志并打印输出</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker logs -f --tail 3 daemon_container
 hello world
 hello world
 hello world
 hello world
-...</code></pre><h3 id="t-参数"><a href="#t-参数" class="headerlink" title="-t 参数"></a>-t 参数</h3><p>该参数会打印时间戳<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205355.png" alt="cd5db3c16964450b12e46688e6d1d245"></p>
-<h2 id="docker-start"><a href="#docker-start" class="headerlink" title="docker start"></a>docker start</h2><p><code>the_container_of_john</code>容器已经停止了，我们可以使用<code>docker start</code>命令重新启动已经停止的容器（ <strong>注意，容器启动之后会再执行创建容器的时候指定的那个命令，如上例就是”/bin/bash”</strong> ）</p>
+...
+</code></pre>
+<h3 id="t-参数"><a class="header-anchor" href="#t-参数">¶</a>-t 参数</h3>
+<p>该参数会打印时间戳<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205355.png" alt="cd5db3c16964450b12e46688e6d1d245"></p>
+<h2 id="docker-start"><a class="header-anchor" href="#docker-start">¶</a>docker start</h2>
+<p><code>the_container_of_john</code>容器已经停止了，我们可以使用<code>docker start</code>命令重新启动已经停止的容器（ <strong>注意，容器启动之后会再执行创建容器的时候指定的那个命令，如上例就是&quot;/bin/bash&quot;</strong> ）</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker start the_container_of_john
-the_container_of_john</code></pre><p>此时<code>docker ps</code>即可看到这个启动的容器了</p>
+the_container_of_john
+</code></pre>
+<p>此时<code>docker ps</code>即可看到这个启动的容器了</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-9b69de862ea9        ubuntu              &quot;/bin/bash&quot;         About an hour ago   Up 2 minutes                            the_container_of_john</code></pre><h2 id="docker-restart"><a href="#docker-restart" class="headerlink" title="docker restart"></a>docker restart</h2><p><code>docker restart</code>命令也可以重启容器</p>
-<h2 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a>docker attach</h2><p>Docker容器在创建的时候指定了<code>-it</code>参数并且停止之后又开启的时候，虽然如上例该 Docker 容器内部照样执行了”/bin/bash”，但是我们的 ssh 终端并没有立即附着到该容器，此时我们可以使用<code>docker attach</code>重启附着到该容器</p>
+9b69de862ea9        ubuntu              &quot;/bin/bash&quot;         About an hour ago   Up 2 minutes                            the_container_of_john
+</code></pre>
+<h2 id="docker-restart"><a class="header-anchor" href="#docker-restart">¶</a>docker restart</h2>
+<p><code>docker restart</code>命令也可以重启容器</p>
+<h2 id="docker-attach"><a class="header-anchor" href="#docker-attach">¶</a>docker attach</h2>
+<p>Docker容器在创建的时候指定了<code>-it</code>参数并且停止之后又开启的时候，虽然如上例该 Docker 容器内部照样执行了&quot;/bin/bash&quot;，但是我们的 ssh 终端并没有立即附着到该容器，此时我们可以使用<code>docker attach</code>重启附着到该容器</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker attach the_container_of_john
-root@9b69de862ea9:/#</code></pre><p>可以看到，我们又进入到了容器的<a href="https://baike.baidu.com/item/bash/6367661?fr=aladdin" target="_blank" rel="noopener">bash</a>会话界面，当然，指定容器的 id 也是可以的。</p>
-<h2 id="docker-ps"><a href="#docker-ps" class="headerlink" title="docker ps"></a>docker ps</h2><p>默认情况下，当执行<code>docker ps</code>命令时，<strong>只能看到正在运行的容器</strong>。</p>
+root@9b69de862ea9:/#
+</code></pre>
+<p>可以看到，我们又进入到了容器的<a href="https://baike.baidu.com/item/bash/6367661?fr=aladdin" target="_blank" rel="noopener">bash</a>会话界面，当然，指定容器的 id 也是可以的。</p>
+<h2 id="docker-ps"><a class="header-anchor" href="#docker-ps">¶</a>docker ps</h2>
+<p>默认情况下，当执行<code>docker ps</code>命令时，<strong>只能看到正在运行的容器</strong>。</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</code></pre><p>可以看到，当前没有正在运行的容器</p>
-<h3 id="a-all-参数"><a href="#a-all-参数" class="headerlink" title="-a (all)参数"></a>-a (all)参数</h3><p><code>-a</code> 参数可以查看所有的容器的列表</p>
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+</code></pre>
+<p>可以看到，当前没有正在运行的容器</p>
+<h3 id="a-all-参数"><a class="header-anchor" href="#a-all-参数">¶</a>-a (all)参数</h3>
+<p><code>-a</code> 参数可以查看所有的容器的列表</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES
-6e73587e0ffe        ubuntu              &quot;/bin/bash&quot;         53 minutes ago      Exited (127) 32 seconds ago                       determined_davinci</code></pre><h3 id="l-last-参数"><a href="#l-last-参数" class="headerlink" title="-l (last)参数"></a>-l (last)参数</h3><p><code>-l</code> 参数会列出最后一次运行的容器，包括正在运行和已经停止的。</p>
+6e73587e0ffe        ubuntu              &quot;/bin/bash&quot;         53 minutes ago      Exited (127) 32 seconds ago                       determined_davinci
+</code></pre>
+<h3 id="l-last-参数"><a class="header-anchor" href="#l-last-参数">¶</a>-l (last)参数</h3>
+<p><code>-l</code> 参数会列出最后一次运行的容器，包括正在运行和已经停止的。</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps -l
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                       PORTS               NAMES
-6e73587e0ffe        ubuntu              &quot;/bin/bash&quot;         56 minutes ago      Exited (127) 4 minutes ago                       determined_davinci</code></pre><h3 id="n-参数"><a href="#n-参数" class="headerlink" title="-n 参数"></a>-n 参数</h3><p>该参数会显示最后 x 个容器，不论这些容器正在运行还是已经停止：</p>
+6e73587e0ffe        ubuntu              &quot;/bin/bash&quot;         56 minutes ago      Exited (127) 4 minutes ago                       determined_davinci
+</code></pre>
+<h3 id="n-参数"><a class="header-anchor" href="#n-参数">¶</a>-n 参数</h3>
+<p>该参数会显示最后 x 个容器，不论这些容器正在运行还是已经停止：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker ps -n 3
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                           PORTS               NAMES
-e9436bfe0033        ubuntu              &quot;/bin/sh -c &#39;while...&quot;   57 minutes ago      Exited (137) 5 minutes ago                           daemon_container
+e9436bfe0033        ubuntu              &quot;/bin/sh -c 'while...&quot;   57 minutes ago      Exited (137) 5 minutes ago                           daemon_container
 9b69de862ea9        ubuntu              &quot;/bin/bash&quot;              4 hours ago         Exited (127) About an hour ago                       the_container_of_john
-6e73587e0ffe        ubuntu              &quot;/bin/bash&quot;              5 hours ago         Exited (127) 4 hours ago                             determined_davinci</code></pre><h3 id="q-参数"><a href="#q-参数" class="headerlink" title="-q 参数"></a>-q 参数</h3><p>只返回 docker 容器的 id</p>
-<h3 id="命令输出参数列表"><a href="#命令输出参数列表" class="headerlink" title="命令输出参数列表"></a>命令输出参数列表</h3><p>从该命令的输出结果中我们可以看到关于这个容器的很多有用信息:短 UUID、用于创建该容器的镜像、容器最后执行的命令、创建时间以及容器的退出状态。</p>
-<h2 id="docker-inspect"><a href="#docker-inspect" class="headerlink" title="docker inspect"></a>docker inspect</h2><p>除了通过<code>docker ps</code> 命令获取容器的信息，我们还可以使用<code>docker inspect</code>来获取更多的容器信息（<strong>注意：该命令也可以用来获取镜像的详细信息</strong>）：</p>
+6e73587e0ffe        ubuntu              &quot;/bin/bash&quot;              5 hours ago         Exited (127) 4 hours ago                             determined_davinci
+</code></pre>
+<h3 id="q-参数"><a class="header-anchor" href="#q-参数">¶</a>-q 参数</h3>
+<p>只返回 docker 容器的 id</p>
+<h3 id="命令输出参数列表"><a class="header-anchor" href="#命令输出参数列表">¶</a>命令输出参数列表</h3>
+<p>从该命令的输出结果中我们可以看到关于这个容器的很多有用信息:短 UUID、用于创建该容器的镜像、容器最后执行的命令、创建时间以及容器的退出状态。</p>
+<h2 id="docker-inspect"><a class="header-anchor" href="#docker-inspect">¶</a>docker inspect</h2>
+<p>除了通过<code>docker ps</code> 命令获取容器的信息，我们还可以使用<code>docker inspect</code>来获取更多的容器信息（<strong>注意：该命令也可以用来获取镜像的详细信息</strong>）：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker inspect daemon_container
 [
     {
@@ -761,33 +906,56 @@ e9436bfe0033        ubuntu              &quot;/bin/sh -c &#39;while...&quot;   5
             &quot;ExitCode&quot;: 137,
             &quot;Error&quot;: &quot;&quot;,
             &quot;StartedAt&quot;: &quot;2020-04-02T05:32:46.963093293Z&quot;,
-            ... ...</code></pre><p><code>docker inspect</code>命令会对容器进行详细的检查，然后返回其配置信息，包括名称、命令、网络配置以及很多有用的数据。</p>
-<h3 id="f、–format-参数"><a href="#f、–format-参数" class="headerlink" title="-f、–format 参数"></a>-f、–format 参数</h3><p>我们也可以用<code>-f</code>或者<code>--format</code>参数来查看其中的一些项目，例如下面这条命令会返回容器的运行状态</p>
-<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker inspect -f &#39;{{.State.Running}}&#39; daemon_container
-false</code></pre><p>此外，我们还能获取 IP 地址：</p>
-<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker inspect -f &#39;{{.NetworkSettings.IPAddress}}&#39; the_container_of_john
-172.17.0.2</code></pre><p>我们还可以同时指定多个容器，并显示每个容器的输出结果：</p>
+            ... ...
+</code></pre>
+<p><code>docker inspect</code>命令会对容器进行详细的检查，然后返回其配置信息，包括名称、命令、网络配置以及很多有用的数据。</p>
+<h3 id="f、–format-参数"><a class="header-anchor" href="#f、–format-参数">¶</a>-f、–format 参数</h3>
+<p>我们也可以用<code>-f</code>或者<code>--format</code>参数来查看其中的一些项目，例如下面这条命令会返回容器的运行状态</p>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker inspect -f '{{.State.Running}}' daemon_container
+false
+</code></pre>
+<p>此外，我们还能获取 IP 地址：</p>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker inspect -f '{{.NetworkSettings.IPAddress}}' the_container_of_john
+172.17.0.2
+</code></pre>
+<p>我们还可以同时指定多个容器，并显示每个容器的输出结果：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker inspect -f &quot;{{.Name}} {{.State.Running}}&quot; the_container_of_john daemon_container
 /the_container_of_john true
-/daemon_container false</code></pre><blockquote>
+/daemon_container false
+</code></pre>
+<blockquote>
 <p><code>--format</code> 或者 <code>-f</code> 标志远非表面看上去那么简单。该标志实际上支持完整的Go语言模板。用它进行查询时,可以充分利用Go语言模板的优势。</p>
 </blockquote>
-<h2 id="docker-rm"><a href="#docker-rm" class="headerlink" title="docker rm"></a>docker rm</h2><p>如果容器已经不再使用,可以使用<code>docker rm</code>命令来删除它们：</p>
+<h2 id="docker-rm"><a class="header-anchor" href="#docker-rm">¶</a>docker rm</h2>
+<p>如果容器已经不再使用,可以使用<code>docker rm</code>命令来删除它们：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker rm daemon_container
-daemon_container</code></pre><p>目前，还没有办法一次删除所有容器，不过可以通过以下小技巧来删除全部容器：</p>
-<pre><code>docker rm `docker ps -a -q`</code></pre><p>上面的<code>docker ps</code>命令会列出所有的全部容器，<code>-a</code>表示列出所有容器，<code>-q</code>表示只需要返回容器的 id 而不会返回容器的其他信息。这样我们就得到了容器 id 的列表，并作为参数传给了<code>docker rm</code>命令，从而达到删除所有容器的目的。</p>
-<h1 id="容器知识"><a href="#容器知识" class="headerlink" title="容器知识"></a>容器知识</h1><p>下面我们基于上面创建的容器来研究以下这个容器：</p>
-<h2 id="容器内部结构"><a href="#容器内部结构" class="headerlink" title="容器内部结构"></a>容器内部结构</h2><h3 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h3><pre><code>root@6e73587e0ffe:/# hostname
-6e73587e0ffe</code></pre><p>可以看到，容器的主机名就是该容器的短 id</p>
-<h3 id="hosts-文件"><a href="#hosts-文件" class="headerlink" title="hosts 文件"></a>hosts 文件</h3><pre><code>root@6e73587e0ffe:/# cat /etc/hosts
-127.0.0.1    localhost
-::1    localhost ip6-localhost ip6-loopback
-fe00::0    ip6-localnet
-ff00::0    ip6-mcastprefix
-ff02::1    ip6-allnodes
-ff02::2    ip6-allrouters
-172.17.0.2    6e73587e0ffe</code></pre><p>Docker 已在 hosts 文件中为该容器的 IP 地址添加了一条主机配置项<code>172.17.0.2    6e73587e0ffe</code></p>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><p>当我们想查看容器的网卡情况的时候，发现没有 ifconfig 命令，此时通过以下命令进行安装：</p>
+daemon_container
+</code></pre>
+<p>目前，还没有办法一次删除所有容器，不过可以通过以下小技巧来删除全部容器：</p>
+<pre><code>docker rm `docker ps -a -q`
+</code></pre>
+<p>上面的<code>docker ps</code>命令会列出所有的全部容器，<code>-a</code>表示列出所有容器，<code>-q</code>表示只需要返回容器的 id 而不会返回容器的其他信息。这样我们就得到了容器 id 的列表，并作为参数传给了<code>docker rm</code>命令，从而达到删除所有容器的目的。</p>
+<h1>容器知识</h1>
+<p>下面我们基于上面创建的容器来研究以下这个容器：</p>
+<h2 id="容器内部结构"><a class="header-anchor" href="#容器内部结构">¶</a>容器内部结构</h2>
+<h3 id="hostname"><a class="header-anchor" href="#hostname">¶</a>hostname</h3>
+<pre><code>root@6e73587e0ffe:/# hostname
+6e73587e0ffe
+</code></pre>
+<p>可以看到，容器的主机名就是该容器的短 id</p>
+<h3 id="hosts-文件"><a class="header-anchor" href="#hosts-文件">¶</a>hosts 文件</h3>
+<pre><code>root@6e73587e0ffe:/# cat /etc/hosts
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+ff00::0	ip6-mcastprefix
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters
+172.17.0.2	6e73587e0ffe
+</code></pre>
+<p>Docker 已在 hosts 文件中为该容器的 IP 地址添加了一条主机配置项<code>172.17.0.2	6e73587e0ffe</code></p>
+<h3 id="安装软件"><a class="header-anchor" href="#安装软件">¶</a>安装软件</h3>
+<p>当我们想查看容器的网卡情况的时候，发现没有 ifconfig 命令，此时通过以下命令进行安装：</p>
 <pre><code>root@6e73587e0ffe:/# apt-get update &amp;&amp; apt-get install net-tools
 Hit:1 http://archive.ubuntu.com/ubuntu bionic InRelease
 Hit:2 http://security.ubuntu.com/ubuntu bionic-security InRelease
@@ -809,7 +977,10 @@ Selecting previously unselected package net-tools.
 (Reading database ... 4046 files and directories currently installed.)
 Preparing to unpack .../net-tools_1.60+git20161116.90da8a0-1ubuntu1_amd64.deb ...
 Unpacking net-tools (1.60+git20161116.90da8a0-1ubuntu1) ...
-Setting up net-tools (1.60+git20161116.90da8a0-1ubuntu1) ...</code></pre><h3 id="查看网卡情况"><a href="#查看网卡情况" class="headerlink" title="查看网卡情况"></a>查看网卡情况</h3><pre><code>root@6e73587e0ffe:/# ifconfig
+Setting up net-tools (1.60+git20161116.90da8a0-1ubuntu1) ...
+</code></pre>
+<h3 id="查看网卡情况"><a class="header-anchor" href="#查看网卡情况">¶</a>查看网卡情况</h3>
+<pre><code>root@6e73587e0ffe:/# ifconfig
 eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 172.17.0.2  netmask 255.255.0.0  broadcast 0.0.0.0
         inet6 fe80::42:acff:fe11:2  prefixlen 64  scopeid 0x20&lt;link&gt;
@@ -826,18 +997,33 @@ lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
         RX packets 0  bytes 0 (0.0 B)
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre><p>我们可以看到,这里有10的环回接口,还有IP为172.17.0.2的标准eth0网络接口,和普通宿主机是完全一样的。</p>
-<h3 id="查看容器中的进程"><a href="#查看容器中的进程" class="headerlink" title="查看容器中的进程"></a>查看容器中的进程</h3><pre><code>root@6e73587e0ffe:/# ps -aux
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre>
+<p>我们可以看到,这里有10的环回接口,还有IP为172.17.0.2的标准eth0网络接口,和普通宿主机是完全一样的。</p>
+<h3 id="查看容器中的进程"><a class="header-anchor" href="#查看容器中的进程">¶</a>查看容器中的进程</h3>
+<pre><code>root@6e73587e0ffe:/# ps -aux
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.0  18496  2028 ?        Ss   01:02   0:00 /bin/bash
-root       486  0.0  0.0  34392  1460 ?        R+   01:46   0:00 ps -aux</code></pre><h3 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h3><p>你可以继续在容器中做任何自己想做的事情。当所有工作都结束时,输入exit,就可以返回到Ubuntu宿主机的命令行提示符了。</p>
+root       486  0.0  0.0  34392  1460 ?        R+   01:46   0:00 ps -aux
+</code></pre>
+<h3 id="退出容器"><a class="header-anchor" href="#退出容器">¶</a>退出容器</h3>
+<p>你可以继续在容器中做任何自己想做的事情。当所有工作都结束时,输入exit,就可以返回到Ubuntu宿主机的命令行提示符了。</p>
 <pre><code>root@6e73587e0ffe:/# exit
 exit
-[root@izwz920kp0myp15p982vp4z ~]#</code></pre><p>这个容器现在怎样了?容器现在已经停止运行了!<strong>只有在指定的/bin/bash命令处于运行状态的时候,我们容器也才会相应地处于运行状态。一旦退出容器,/bin/bash命令也就结束了，这时容器也随之停止了运行。</strong><br>但容器仍然是存在的，我们可以用<code>docker ps -a</code>命令查看当前系统中容器的列表。</p>
-<h2 id="容器本身的知识"><a href="#容器本身的知识" class="headerlink" title="容器本身的知识"></a>容器本身的知识</h2><h3 id="唯一标识"><a href="#唯一标识" class="headerlink" title="唯一标识"></a>唯一标识</h3><p>有三种方式可以指代唯一容器:短UID(如6e73587e0ffe)、长UUID(如6e73587e0ffee03c9438c729345e54db9d20cfa2ac1fc3494b6eb60872e74778)或者名称(如determined_davinci)。<br>如果我们在创建容器的时候没有指定容器的名称，Docker 会为我们创建的每一个容器自动生成一个随机的名称。例如我们上面创建的容器就被命名为<code>determined_davinci</code>。</p>
-<h3 id="容器目录"><a href="#容器目录" class="headerlink" title="容器目录"></a>容器目录</h3><p><code>/var/lib/docker</code>目录存放着 Docker 镜像、容器以及容器的配置。所有容器都保存在<code>/var/lib/docker/containers</code>目录下。我们可以通过浏览这些目录来深入了解 docker 的工作原理。</p>
-<h3 id="在容器中运行Docker"><a href="#在容器中运行Docker" class="headerlink" title="在容器中运行Docker"></a>在容器中运行Docker</h3><p>可以在<a href="https://github.com/jpetazzo/dind" target="_blank" rel="noopener">https://github.com/jpetazzo/dind</a>读到更多关于在Docker中运行Docker的细节。</p>
-<h2 id="容器网络"><a href="#容器网络" class="headerlink" title="容器网络"></a>容器网络</h2><p>在安装 Docker 时,会创建一个新的网络接口,名字是<code>docker0</code>。每个 Docker容器都会在这个接口上分配一个IP地址。来看看目前 Docker宿主机上这个网络接口的信息:</p>
+[root@izwz920kp0myp15p982vp4z ~]#
+</code></pre>
+<p>这个容器现在怎样了?容器现在已经停止运行了!<strong>只有在指定的/bin/bash命令处于运行状态的时候,我们容器也才会相应地处于运行状态。一旦退出容器,/bin/bash命令也就结束了，这时容器也随之停止了运行。</strong><br>
+但容器仍然是存在的，我们可以用<code>docker ps -a</code>命令查看当前系统中容器的列表。</p>
+<h2 id="容器本身的知识"><a class="header-anchor" href="#容器本身的知识">¶</a>容器本身的知识</h2>
+<h3 id="唯一标识"><a class="header-anchor" href="#唯一标识">¶</a>唯一标识</h3>
+<p>有三种方式可以指代唯一容器:短UID(如6e73587e0ffe)、长UUID(如6e73587e0ffee03c9438c729345e54db9d20cfa2ac1fc3494b6eb60872e74778)或者名称(如determined_davinci)。<br>
+如果我们在创建容器的时候没有指定容器的名称，Docker 会为我们创建的每一个容器自动生成一个随机的名称。例如我们上面创建的容器就被命名为<code>determined_davinci</code>。</p>
+<h3 id="容器目录"><a class="header-anchor" href="#容器目录">¶</a>容器目录</h3>
+<p><code>/var/lib/docker</code>目录存放着 Docker 镜像、容器以及容器的配置。所有容器都保存在<code>/var/lib/docker/containers</code>目录下。我们可以通过浏览这些目录来深入了解 docker 的工作原理。</p>
+<h3 id="在容器中运行Docker"><a class="header-anchor" href="#在容器中运行Docker">¶</a>在容器中运行Docker</h3>
+<p>可以在<a href="https://github.com/jpetazzo/dind" target="_blank" rel="noopener">https://github.com/jpetazzo/dind</a>读到更多关于在Docker中运行Docker的细节。</p>
+<h2 id="容器网络"><a class="header-anchor" href="#容器网络">¶</a>容器网络</h2>
+<p>在安装 Docker 时,会创建一个新的网络接口,名字是<code>docker0</code>。每个 Docker容器都会在这个接口上分配一个IP地址。来看看目前 Docker宿主机上这个网络接口的信息:</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z redis]# ifconfig
 docker0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 172.17.0.1  netmask 255.255.0.0  broadcast 0.0.0.0
@@ -875,16 +1061,21 @@ vethbacb313: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         RX packets 49  bytes 10915 (10.6 KiB)
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 71  bytes 5328 (5.2 KiB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre><p><code>docker0</code>接口有符合<code>RFC1918</code>的私有IP地址,范围是172.16~172.30。接口本身的地址172.17.0.1是这个Docker网络的网关地址,也是所有Docker容器的网关地址。</p>
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre>
+<p><code>docker0</code>接口有符合<code>RFC1918</code>的私有IP地址,范围是172.16~172.30。接口本身的地址172.17.0.1是这个Docker网络的网关地址,也是所有Docker容器的网关地址。</p>
 <blockquote>
 <p>Docker会默认使用172.17.x,x作为子网地址,除非已经有别人占用了这个子网。如果这个子网被占用了, Docker会在172.16~172.30这个范国内尝试创建子网。</p>
 </blockquote>
-<p>接口<code>docker0</code>是一个虚拟的以太网桥,用于连接容器和本地宿主网络。如果进一步查看Docker宿主机的其他网络接口,会发现一系列名字以”veth”开头的接口：</p>
+<p>接口<code>docker0</code>是一个虚拟的以太网桥,用于连接容器和本地宿主网络。如果进一步查看Docker宿主机的其他网络接口,会发现一系列名字以&quot;veth&quot;开头的接口：</p>
 <pre><code>... ...
 veth74b3a7f: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 ... ...
 vethbacb313: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
-... ...</code></pre><p>Docker每创建一个容器就会创建一组互联的网络接口。这组接口就像管道的两端(就是说,从一端发送的数据会在另一端接收到)。这组接口其中一端作为容器里的<code>eth0</code>接口, 而另一端统一命名为类似 <code>vethexxxx</code> 这种名字, 作为宿主机的一个端口。你可以把<code>veth</code>接口认为是虚拟网线的一端。这个虚拟网线一端插在名为<code>docker0</code>的网桥上, 另一端插到容器里。把每个<code>veth</code>接口绑定到<code>docker0</code>网桥, 这样Docker就创建了一个虚拟子网,这个子网由宿主机和所有的Docker容器共享。<br>进入容器里面,看看这个子网管道的另一端:</p>
+... ...
+</code></pre>
+<p>Docker每创建一个容器就会创建一组互联的网络接口。这组接口就像管道的两端(就是说,从一端发送的数据会在另一端接收到)。这组接口其中一端作为容器里的<code>eth0</code>接口, 而另一端统一命名为类似 <code>vethexxxx</code> 这种名字, 作为宿主机的一个端口。你可以把<code>veth</code>接口认为是虚拟网线的一端。这个虚拟网线一端插在名为<code>docker0</code>的网桥上, 另一端插到容器里。把每个<code>veth</code>接口绑定到<code>docker0</code>网桥, 这样Docker就创建了一个虚拟子网,这个子网由宿主机和所有的Docker容器共享。<br>
+进入容器里面,看看这个子网管道的另一端:</p>
 <pre><code>root@317e82905350:/# ifconfig
 eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         inet 172.17.0.4  netmask 255.255.0.0  broadcast 0.0.0.0
@@ -902,7 +1093,10 @@ lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
         RX packets 0  bytes 0 (0.0 B)
         RX errors 0  dropped 0  overruns 0  frame 0
         TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</code></pre><p>可以看到，Docker 给容器分配了 IP 地址172.17.0.4作为宿主接口的另一端，这样就能够让宿主网络和容器互相通信了。<br>让我们从容器内跟踪对外通信的路由,看看是如何建立连接的</p>
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre>
+<p>可以看到，Docker 给容器分配了 IP 地址172.17.0.4作为宿主接口的另一端，这样就能够让宿主网络和容器互相通信了。<br>
+让我们从容器内跟踪对外通信的路由,看看是如何建立连接的</p>
 <pre><code>root@317e82905350:/# traceroute baidu.com
 traceroute to baidu.com (39.156.69.79), 30 hops max, 60 byte packets
  1  172.17.0.1 (172.17.0.1)  0.027 ms  0.010 ms  0.008 ms
@@ -912,7 +1106,9 @@ traceroute to baidu.com (39.156.69.79), 30 hops max, 60 byte packets
  5  11.217.38.202 (11.217.38.202)  0.425 ms 11.217.38.250 (11.217.38.250)  0.389 ms 11.217.38.218 (11.217.38.218)  0.364 ms
  6  42.120.253.9 (42.120.253.9)  1.123 ms 117.49.35.198 (117.49.35.198)  1.267 ms 116.251.117.158 (116.251.117.158)  1.212 ms
  7  42.120.242.229 (42.120.242.229)  2.024 ms 117.49.38.34 (117.49.38.34)  2.471 ms 117.49.38.30 (117.49.38.30)  2.167 ms
- ... ...</code></pre><p>可以看到，容器地址后的下一跳就是宿主网络上<code>docker0</code>接口的网关 IP 172.17.0.1。</p>
+ ... ...
+</code></pre>
+<p>可以看到，容器地址后的下一跳就是宿主网络上<code>docker0</code>接口的网关 IP 172.17.0.1。</p>
 <p>不过 Docker网络还有另一个部分配置才能允许建立连接: 防火墙规则和NAT配置。这些配置允许 Docker在宿主网络和容器间路由。现在来査看一下宿主机上的 Iptables NAT 配置：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# sudo iptables -t nat -L -n
 Chain PREROUTING (policy ACCEPT)
@@ -936,7 +1132,9 @@ Chain DOCKER (2 references)
 target     prot opt source               destination
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:32770 to:172.17.0.2:4567
-DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:32771 to:172.17.0.3:6379</code></pre><p>这里有几个值得注意的 Iptables 规则。首先,我们注意到,容器默认是无法访问的。从宿主网络与容器通信时, 必须明确指定打开的端口。下面我们以DNAT(即目标NAT)这个规则为例, 这个规则把容器里的访问路由到 Docker宿主机的32770端口</p>
+DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:32771 to:172.17.0.3:6379
+</code></pre>
+<p>这里有几个值得注意的 Iptables 规则。首先,我们注意到,容器默认是无法访问的。从宿主网络与容器通信时, 必须明确指定打开的端口。下面我们以DNAT(即目标NAT)这个规则为例, 这个规则把容器里的访问路由到 Docker宿主机的32770端口</p>
 <blockquote>
 <p>关于更多的 Docker 的高级网络配置，可以参考:<a href="https://docs.docker.com/articles/networking" target="_blank" rel="noopener">https://docs.docker.com/articles/networking</a></p>
 </blockquote>
@@ -1432,7 +1630,7 @@ DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:32771 to:1
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="docker概述">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="docker概述">
                         
                         <span class="card-title">docker概述</span>
                     </div>
@@ -1481,7 +1679,7 @@ DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:32771 to:1
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="HTML简述序言">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="HTML简述序言">
                         
                         <span class="card-title">HTML简述序言</span>
                     </div>
@@ -1649,7 +1847,7 @@ DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:32771 to:1
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

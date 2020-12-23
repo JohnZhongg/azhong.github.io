@@ -62,7 +62,8 @@
       
         
         
-          &lt;h2 id=&quot;依赖&quot;&gt;&lt;a href=&quot;#依赖&quot; class=&quot;headerlink&quot; title=&quot;依赖&quot;&gt;&lt;/a&gt;依赖&lt;/h2&gt;&lt;ul&gt;
+          &lt;h2 id=&quot;依赖&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#依赖&quot;&gt;¶&lt;/a&gt;依赖&lt;/h2&gt;
+&lt;ul&gt;
 &lt;li&gt;Elasticsearch&lt;/li&gt;
 &lt;li&gt;ISO8601 or Unix timestamped
         
@@ -95,9 +96,11 @@
         
         
           &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;config.yaml 文件中的&lt;code&gt;max_aggregation&lt;/code&gt;配置项不太理解&lt;/p&gt;
+&lt;li&gt;
+&lt;p&gt;config.yaml 文件中的&lt;code&gt;max_aggregation&lt;/code&gt;配置项不太理解&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;config.yaml
+&lt;li&gt;
+&lt;p&gt;config.yaml
         
       
     
@@ -124,7 +127,8 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id=&quot;1、概述&quot;&gt;&lt;a href=&quot;#1、概述&quot; class=&quot;headerlink&quot; title=&quot;1、概述&quot;&gt;&lt;/a&gt;1、概述&lt;/h1&gt;&lt;p&gt;Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节
+&lt;h1&gt;1、概述&lt;/h1&gt;
+&lt;p&gt;Java代码在编译后会变成Java字节码，字节码被类加载器加载到JVM里，JVM执行字节 码，最终需要转化为汇编指令在CPU上执行，Java中所使用的并发机制依赖于JVM的实现和
         
       
     
@@ -150,7 +154,7 @@
       
         
         
-          &lt;p&gt;在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:&lt;strong&gt;共享内存和消息传递&lt;/strong&gt;&lt;a
+          &lt;p&gt;在并发编程中,需要处理两个关键问题:线程之间如何通信及线程之间如何同步。通信是指线程之间以何种机制来交换信息。在命令式编程中,线程之间的通信机制有两种:&lt;strong&gt;共享内存和消息传递&lt;/strong&gt;&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a
         
       
     
@@ -177,15 +181,17 @@
         
         
           &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;数据库外键去除&lt;/p&gt;
+&lt;li&gt;
+&lt;p&gt;数据库外键去除&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;外键检查降低性能&lt;/li&gt;
 &lt;li&gt;耦合性太高，有时候两个关系表不一定在同一个库&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;SpringBoot自动装配：&lt;/p&gt;
+&lt;li&gt;
+&lt;p&gt;SpringBoot自动装配：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;@SpringBootAp
+&lt;li&gt;@SpringBoot
         
       
     
@@ -239,7 +245,8 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id=&quot;JDK、JRE、JVM&quot;&gt;&lt;a href=&quot;#JDK、JRE、JVM&quot; class=&quot;headerlink&quot; title=&quot;JDK、JRE、JVM&quot;&gt;&lt;/a&gt;JDK、JRE、JVM&lt;/h1&gt;&lt;p&gt;&lt;img
+&lt;h1&gt;JDK、JRE、JVM&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232754.png&quot;
         
       
     
@@ -265,7 +272,8 @@
       
         
         
-          &lt;h1 id=&quot;堆的核心概述&quot;&gt;&lt;a href=&quot;#堆的核心概述&quot; class=&quot;headerlink&quot; title=&quot;堆的核心概述&quot;&gt;&lt;/a&gt;堆的核心概述&lt;/h1&gt;&lt;p&gt;&lt;img
+          &lt;h1&gt;堆的核心概述&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234342.png&quot;
         
       
     
@@ -291,7 +299,8 @@
       
         
         
-          &lt;h1 id=&quot;什么是本地方法&quot;&gt;&lt;a href=&quot;#什么是本地方法&quot; class=&quot;headerlink&quot; title=&quot;什么是本地方法&quot;&gt;&lt;/a&gt;什么是本地方法&lt;/h1&gt;&lt;p&gt;简单地讲，一个Native Method就是一个Java调用非Java代码的接口。一个Native
+          &lt;h1&gt;什么是本地方法&lt;/h1&gt;
+&lt;p&gt;简单地讲，一个Native Method就是一个Java调用非Java代码的接口。一个Native
         
       
     
@@ -318,7 +327,10 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;
+&lt;h1&gt;介绍&lt;/h1&gt;
+&lt;p&gt;Class文件是JVM的输入，Java虚拟机规范中定义了Class文件的结构。Class文件是JVM实现平台无关、技术无关的基础。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Class文件是一组以8字节为单位的字节流，各个数据项目按顺序紧凑
         
       
     
@@ -344,7 +356,8 @@
       
         
         
-          &lt;h1 id=&quot;栈、堆、方法区的交互关系&quot;&gt;&lt;a href=&quot;#栈、堆、方法区的交互关系&quot; class=&quot;headerlink&quot; title=&quot;栈、堆、方法区的交互关系&quot;&gt;&lt;/a&gt;栈、堆、方法区的交互关系&lt;/h1&gt;&lt;p&gt;&lt;img
+          &lt;h1&gt;栈、堆、方法区的交互关系&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234504.png&quot;
         
       
     
@@ -370,7 +383,8 @@
       
         
         
-          &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
+          &lt;h1&gt;概述&lt;/h1&gt;
+&lt;p&gt;内存是非常重要的资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM内存布局规定了Java在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。不同的JVM对于内存的划分方式和管理机制存在着部分差异。&lt;/p&gt;
         
       
     
@@ -396,7 +410,8 @@
       
         
         
-          &lt;h1 id=&quot;JVM类加载的特性&quot;&gt;&lt;a href=&quot;#JVM类加载的特性&quot; class=&quot;headerlink&quot;
+          &lt;h1&gt;JVM类加载的特性&lt;/h1&gt;
+&lt;p&gt;那些在编译时需要进行连接的语言不同,在Java语言里面,类型的加载、连接和初始化过程都是在程序运行期间完成的,这种策略让Java语言进行提前编译会面临额外的困难,也会让类加载时稍微增加一些性能开销,
         
       
     
@@ -422,7 +437,8 @@
       
         
         
-          &lt;h1 id=&quot;直接内存概述&quot;&gt;&lt;a href=&quot;#直接内存概述&quot; class=&quot;headerlink&quot;
+          &lt;h1&gt;直接内存概述&lt;/h1&gt;
+&lt;p&gt;不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。直接内存是在Java堆外的、直接向系统申请的内存空间。它来源于NIO，通过存在堆中的DirectByteBuffer操作Native内存(底层都是调用unsafe包
         
       
     
@@ -448,7 +464,8 @@
       
         
         
-          &lt;h1 id=&quot;Java内存模型与线程&quot;&gt;&lt;a href=&quot;#Java内存模型与线程&quot; class=&quot;headerlink&quot; title=&quot;Java内存模型与线程&quot;&gt;&lt;/a&gt;Java内存模型与线程&lt;/h1&gt;&lt;h2 id=&quot;硬件的效率与一致性&quot;&gt;&lt;a
+          &lt;h1&gt;Java内存模型与线程&lt;/h1&gt;
+&lt;h2 id=&quot;硬件的效率与一致性&quot;&gt;&lt;a class=&quot;header-anchor&quot;
         
       
     
@@ -474,7 +491,9 @@
       
         
         
-          &lt;h1 id=&quot;虚拟机栈概述&quot;&gt;&lt;a href=&quot;#虚拟机栈概述&quot; class=&quot;headerlink&quot;
+          &lt;h1&gt;虚拟机栈概述&lt;/h1&gt;
+&lt;p&gt;由于跨平台性的设计，Java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。&lt;/p&gt;
+&lt;p&gt;栈是运行时的单位(线程绑定、方法相
         
       
     
@@ -519,7 +538,9 @@
         
         
           &lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;附录&quot;&gt;&lt;a href=&quot;#附录&quot; class=&quot;headerlink&quot; title=&quot;附录&quot;&gt;&lt;/a&gt;附录&lt;/h1&gt;&lt;h2 id=&quot;JVM大图&quot;&gt;&lt;a href=&quot;#JVM大图&quot; class=&quot;headerlink&quot;
+&lt;h1&gt;附录&lt;/h1&gt;
+&lt;h2 id=&quot;JVM大图&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#JVM大图&quot;&gt;¶&lt;/a&gt;JVM大图&lt;/h2&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -545,7 +566,8 @@
       
         
         
-          &lt;h1 id=&quot;一、编译原理&quot;&gt;&lt;a href=&quot;#一、编译原理&quot; class=&quot;headerlink&quot;
+          &lt;h1&gt;一、编译原理&lt;/h1&gt;
+&lt;p&gt;如今,基于物理机、Java虚拟机,或者是非Java的其他高级语言虚拟机(HLLVM)的代码执行过程,大体上都会遵循这种符合现代经典编译原理的思路,在执行前先对程序源码进行词法分析和语法分析处理,把源码转化为抽象语法树(Abstract
         
       
     

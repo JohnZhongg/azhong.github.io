@@ -9,12 +9,15 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[toc]
-一、基本概念：索引、文档和 REST API文档
+一、基本概念：索引、文档和 REST API
+¶文档
+
+
 Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位，以下都可以理解为一个文档
 
 日志文件中的日志项
 一本电影的具体信息、一张唱片的详细信息
-MP3播放器里的">
+MP3播">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -335,7 +338,7 @@ MP3播放器里的">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -490,14 +493,14 @@ MP3播放器里的">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    12.1k
+                    12.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    51 分
+                    52 分
                 </div>
                 
                 
@@ -514,8 +517,11 @@ MP3播放器里的">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h1 id="一、基本概念：索引、文档和-REST-API"><a href="#一、基本概念：索引、文档和-REST-API" class="headerlink" title="一、基本概念：索引、文档和 REST API"></a>一、基本概念：索引、文档和 REST API</h1><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><ol>
-<li><p>Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位，以下都可以理解为一个文档</p>
+<h1>一、基本概念：索引、文档和 REST API</h1>
+<h2 id="文档"><a class="header-anchor" href="#文档">¶</a>文档</h2>
+<ol>
+<li>
+<p>Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位，以下都可以理解为一个文档</p>
 <ul>
 <li>日志文件中的日志项</li>
 <li>一本电影的具体信息、一张唱片的详细信息</li>
@@ -523,7 +529,8 @@ MP3播放器里的">
 </ul>
 <p>从数据结构的定位上来讲可以类比到关系型数据库中的行或者记录(row/record)。</p>
 </li>
-<li><p>文档会被序列化成 JSON 格式，保存在 Elasticsearch 中</p>
+<li>
+<p>文档会被序列化成 JSON 格式，保存在 Elasticsearch 中</p>
 <ul>
 <li>JSON 对象由字段组成</li>
 <li>每个字段都有对应的字段类型（字符串、数值、布尔、日期、二进制、范围类型）</li>
@@ -534,13 +541,15 @@ MP3播放器里的">
 </ul>
 <p>下面是一个  CSV 文件的一行数据导入 Es 之后转换成的一个 JSON 文档:<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210942.png" alt="image-20200424004733019"></p>
 </li>
-<li><p>每个文档都有一个 Unique ID</p>
+<li>
+<p>每个文档都有一个 Unique ID</p>
 <ul>
 <li>可以自己指定 ID</li>
 <li>或者通过 Elasticsearch 自动生成</li>
 </ul>
 </li>
-<li><p>文档的元数据，用于标注文档的相关信息</p>
+<li>
+<p>文档的元数据，用于标注文档的相关信息</p>
 <ul>
 <li>_index：文档所属的索引名</li>
 <li>_type：文档的类型的名称</li>
@@ -552,66 +561,81 @@ MP3播放器里的">
 </ul>
 </li>
 </ol>
-<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ol>
-<li><p>Index：索引是文档的容器，是一类相似文档的集合</p>
+<h2 id="索引"><a class="header-anchor" href="#索引">¶</a>索引</h2>
+<ol>
+<li>
+<p>Index：索引是文档的容器，是一类相似文档的集合</p>
 <ul>
 <li>Index 体现了逻辑空间的概念：每个索引都有自己的 Mapping 定义，用于定义包含的文档的字段名和字段类型</li>
 <li>Shard 体现了物理空间的概念：索引中的数据分散在 Shard 上。</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210950.png" alt="image-20200424005500809"></p>
 </li>
-<li><p>索引的 Mapping 和 Settings</p>
+<li>
+<p>索引的 Mapping 和 Settings</p>
 <ul>
 <li>Mapping 定义文档字段的类型</li>
 <li>Setting 定义不同的数据分布（Shard）</li>
 </ul>
 </li>
-<li><p>索引的不同语意</p>
+<li>
+<p>索引的不同语意</p>
 <ul>
 <li>名称：一个 Elasticsearch 集群中，可以创建很多不同的索引</li>
-<li>动词：保存一个文档到 Elasticsearch 的过程也叫索引（indexing）<ul>
+<li>动词：保存一个文档到 Elasticsearch 的过程也叫索引（indexing）
+<ul>
 <li>ES 中，创建一个倒排索引的过程</li>
 </ul>
 </li>
 <li>名称：一个 B 树索引，一个倒排索引</li>
 </ul>
 </li>
-<li><p>Type</p>
+<li>
+<p>Type</p>
 <ul>
 <li>在7.0之前，一个 Index 可以设置多个 Type，每个 Type 下面拥有一些相同结构的文档</li>
-<li>6.0开始，Type 已经被 Deprecated。7.0开始，一个索引只能创建一个 Type–”_doc”。</li>
+<li>6.0开始，Type 已经被 Deprecated。7.0开始，一个索引只能创建一个 Type–“_doc”。</li>
 </ul>
 <blockquote>
 <p><a href="https://www.elastic.co/cn/blog/moving-from-types-to-typeless-apis-in-elasticsearch-7-0" target="_blank" rel="noopener">为什么不再支持单个Index下，多个Types</a></p>
 </blockquote>
 </li>
 </ol>
-<h2 id="抽象与类比"><a href="#抽象与类比" class="headerlink" title="抽象与类比"></a>抽象与类比</h2><ul>
-<li><p>传统关系型数据库和 ES概念类比<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210956.png" alt="image-20200424010237527"></p>
+<h2 id="抽象与类比"><a class="header-anchor" href="#抽象与类比">¶</a>抽象与类比</h2>
+<ul>
+<li>
+<p>传统关系型数据库和 ES概念类比<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210956.png" alt="image-20200424010237527"></p>
 </li>
-<li><p>两者区别：</p>
+<li>
+<p>两者区别：</p>
 <ul>
 <li>Elasticsearch：Schemaless、相关性、高性能全文检索</li>
 <li>RDBMS：事务性、Join</li>
 </ul>
 </li>
 </ul>
-<h2 id="REST-API"><a href="#REST-API" class="headerlink" title="REST API"></a>REST API</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211001.png" alt="image-20200424010449342"></p>
+<h2 id="REST-API"><a class="header-anchor" href="#REST-API">¶</a>REST API</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211001.png" alt="image-20200424010449342"></p>
 <p>Elasticsearch 支持 Transport API 和 REST API，推荐使用 REST API。</p>
-<h3 id="一些基本的-API"><a href="#一些基本的-API" class="headerlink" title="一些基本的 API"></a>一些基本的 API</h3><ul>
-<li><p>Indices</p>
+<h3 id="一些基本的-API"><a class="header-anchor" href="#一些基本的-API">¶</a>一些基本的 API</h3>
 <ul>
-<li>创建 Index<ul>
+<li>
+<p>Indices</p>
+<ul>
+<li>创建 Index
+<ul>
 <li>PUT Movies</li>
 </ul>
 </li>
-<li>查看所有 Index<ul>
+<li>查看所有 Index
+<ul>
 <li>_cat/indices</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>API 尝试</p>
+<li>
+<p>API 尝试</p>
 <pre><code>#查看索引相关信息
 GET kibana_sample_data_ecommerce
 
@@ -637,38 +661,50 @@ GET /_cat/indices?v&amp;s=docs.count:desc
 GET /_cat/indices/kibana*?pri&amp;v&amp;h=health,index,pri,rep,docs.count,mt
 
 #How much memory is used per index?
-GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc</code></pre></li>
+GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc
+</code></pre>
+</li>
 </ul>
 <blockquote>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/cat-indices.html" target="_blank" rel="noopener">CAT Index API</a></p>
 </blockquote>
-<h3 id="索引管理功能"><a href="#索引管理功能" class="headerlink" title="索引管理功能"></a>索引管理功能</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211007.png" alt="image-20200424010738677"></p>
-<h1 id="二、基本概念：节点、集群、分片及副本"><a href="#二、基本概念：节点、集群、分片及副本" class="headerlink" title="二、基本概念：节点、集群、分片及副本"></a>二、基本概念：节点、集群、分片及副本</h1><h2 id="分布式系统的可用性与扩展性"><a href="#分布式系统的可用性与扩展性" class="headerlink" title="分布式系统的可用性与扩展性"></a>分布式系统的可用性与扩展性</h2><ol>
-<li>高可用性<ul>
+<h3 id="索引管理功能"><a class="header-anchor" href="#索引管理功能">¶</a>索引管理功能</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211007.png" alt="image-20200424010738677"></p>
+<h1>二、基本概念：节点、集群、分片及副本</h1>
+<h2 id="分布式系统的可用性与扩展性"><a class="header-anchor" href="#分布式系统的可用性与扩展性">¶</a>分布式系统的可用性与扩展性</h2>
+<ol>
+<li>高可用性
+<ul>
 <li>服务可用性：允许有节点停止服务</li>
 <li>数据可用性：部分节点丢失，不会丢失数据</li>
 </ul>
 </li>
-<li>可扩展性<ul>
+<li>可扩展性
+<ul>
 <li>请求量提升、数据的不断增长（将数据分布到所有节点上，实现水平扩展）</li>
 </ul>
 </li>
 </ol>
-<h2 id="分布式特性"><a href="#分布式特性" class="headerlink" title="分布式特性"></a>分布式特性</h2><ol>
-<li>Elasticsearch 的分布式架构的好处<ul>
+<h2 id="分布式特性"><a class="header-anchor" href="#分布式特性">¶</a>分布式特性</h2>
+<ol>
+<li>Elasticsearch 的分布式架构的好处
+<ul>
 <li>存储的水平扩容</li>
 <li>提高系统的可用性，部分节点停止服务，整个集群的服务不受影响</li>
 </ul>
 </li>
-<li>Elasticsearach 的分布式架构<ul>
-<li>不同的集群通过不同的名字来区分，默认名称”elasticsearch”</li>
+<li>Elasticsearach 的分布式架构
+<ul>
+<li>不同的集群通过不同的名字来区分，默认名称&quot;elasticsearch&quot;</li>
 <li>通过配置文件修改，或者在命令行<code>-E cluster.name=geektime</code> 进行设定</li>
 <li>一个集群可以有一个或者多个节点</li>
 </ul>
 </li>
 </ol>
-<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><ol>
-<li>节点是一个 Elasticsearch 的实例<ul>
+<h2 id="节点"><a class="header-anchor" href="#节点">¶</a>节点</h2>
+<ol>
+<li>节点是一个 Elasticsearch 的实例
+<ul>
 <li>本质上就是一个 JAVA 进程</li>
 <li>一台机器上可以运行多个 Elasticsearch 进程，但是生产环境一般建议一台机器上只运行一个 Elasticsearch 实例</li>
 </ul>
@@ -676,15 +712,19 @@ GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc</code></pre></li>
 <li>每一个节点都有名字，通过配置文件配置，或者启动的时候<code>-E node.name=node1</code>指定</li>
 <li>每一个节点在启动之后，会分配一个 UID，保存在 data 目录下</li>
 </ol>
-<h3 id="Master-eligible-nodes-和-Master-Node"><a href="#Master-eligible-nodes-和-Master-Node" class="headerlink" title="Master-eligible nodes 和 Master Node"></a>Master-eligible nodes 和 Master Node</h3><ul>
-<li>每个节点启动后，默认就是一个 Master eligible 节点<ul>
+<h3 id="Master-eligible-nodes-和-Master-Node"><a class="header-anchor" href="#Master-eligible-nodes-和-Master-Node">¶</a>Master-eligible nodes 和 Master Node</h3>
+<ul>
+<li>每个节点启动后，默认就是一个 Master eligible 节点
+<ul>
 <li>可以设置<code>node.master:false</code>禁止</li>
 </ul>
 </li>
 <li>Master-eligible 节点可以参加选主流程，称为 Master 节点</li>
 <li>当第一个节点启动的时候，它会将自己选举成 Master 节点</li>
-<li>每个节点上都保存了集群的状态，只有 Master 节点才能修改集群的状态信息<ul>
-<li>集群状态（Cluster State），维护了一个集群中必要的信息<ul>
+<li>每个节点上都保存了集群的状态，只有 Master 节点才能修改集群的状态信息
+<ul>
+<li>集群状态（Cluster State），维护了一个集群中必要的信息
+<ul>
 <li>所有的节点信息</li>
 <li>所有的索引和其相关的 Mapping 与 Setting 信息</li>
 <li>分片的路由信息</li>
@@ -694,35 +734,44 @@ GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc</code></pre></li>
 </ul>
 </li>
 </ul>
-<h3 id="Data-Node-amp-Coordinating-Node"><a href="#Data-Node-amp-Coordinating-Node" class="headerlink" title="Data Node &amp; Coordinating Node"></a>Data Node &amp; Coordinating Node</h3><ul>
-<li>Data Node<ul>
+<h3 id="Data-Node-Coordinating-Node"><a class="header-anchor" href="#Data-Node-Coordinating-Node">¶</a>Data Node &amp; Coordinating Node</h3>
+<ul>
+<li>Data Node
+<ul>
 <li>可以保存数据的节点，叫做 Data Node。负责保存分片数据。在数据扩展是起到了至关重要的作用</li>
 <li>当集群无法再分配数据的时候，可以增加一个数据节点来解决</li>
 </ul>
 </li>
-<li>Coordinating Node<ul>
+<li>Coordinating Node
+<ul>
 <li>负责接受 Client 的请求，将请求分发到合适的节点，最终把结果汇集到一起进行响应给调用的客户端</li>
 <li>每个节点默认都起到了 Coordinating Node 的职责</li>
 </ul>
 </li>
 </ul>
-<h3 id="其他类型的节点"><a href="#其他类型的节点" class="headerlink" title="其他类型的节点"></a>其他类型的节点</h3><ul>
-<li>Hot &amp; Warm Node<ul>
+<h3 id="其他类型的节点"><a class="header-anchor" href="#其他类型的节点">¶</a>其他类型的节点</h3>
+<ul>
+<li>Hot &amp; Warm Node
+<ul>
 <li>不同硬件配置的 Data Node，用来实现 Hot &amp; Warm 架构，热数据存储在 Hot 节点（高配），冷数据存储在 Warm 节点（低配），降低集群部署的成本</li>
 </ul>
 </li>
-<li>Machine Learning Node<ul>
+<li>Machine Learning Node
+<ul>
 <li>负责跑机器学习的 Job，用来做异常检测及告警</li>
 </ul>
 </li>
-<li>Tribe Node<ul>
+<li>Tribe Node
+<ul>
 <li>（5.3开始使用 Cross Cluster Search）Tribe Node 连接到不同的 Elasticsearch 集群，并且支持将这些集群当成一个单独的集群处理</li>
 </ul>
 </li>
 </ul>
-<h3 id="配置节点类型"><a href="#配置节点类型" class="headerlink" title="配置节点类型"></a>配置节点类型</h3><ul>
+<h3 id="配置节点类型"><a class="header-anchor" href="#配置节点类型">¶</a>配置节点类型</h3>
+<ul>
 <li>开发环境中一个节点可以承担多种角色</li>
-<li>生产环境中，应该设置单一的角色的节点（dedicated node）<ul>
+<li>生产环境中，应该设置单一的角色的节点（dedicated node）
+<ul>
 <li>可以有更好的性能</li>
 <li>职责明确，根据不同节点配置不同硬件</li>
 </ul>
@@ -736,7 +785,8 @@ GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc</code></pre></li>
 <th>默认值</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Master eligible</td>
 <td>node.master</td>
 <td>true</td>
@@ -758,69 +808,84 @@ GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc</code></pre></li>
 </tr>
 <tr>
 <td>Machine learning</td>
-<td>node.ml</td>
+<td><a href="http://node.ml" target="_blank" rel="noopener">node.ml</a></td>
 <td>True（需要 enable x=pack）</td>
 </tr>
-</tbody></table>
-<h2 id="分片（Primary-Shard-amp-Replica-Shard）"><a href="#分片（Primary-Shard-amp-Replica-Shard）" class="headerlink" title="分片（Primary Shard &amp; Replica Shard）"></a>分片（Primary Shard &amp; Replica Shard）</h2><ol>
-<li><p>主分片</p>
+</tbody>
+</table>
+<h2 id="分片（Primary-Shard-Replica-Shard）"><a class="header-anchor" href="#分片（Primary-Shard-Replica-Shard）">¶</a>分片（Primary Shard &amp; Replica Shard）</h2>
+<ol>
+<li>
+<p>主分片</p>
 <p>用来解决数据水平扩展的问题。通过主分片，可以将数据分布到集群内的所有节点之上</p>
 <ul>
 <li>一个分片是一个运行的 Lucene 的实例（索引）</li>
 <li>主分片数在索引创建时指定，后续不允许修改，除非 Reindex</li>
 </ul>
 </li>
-<li><p>副本分片</p>
+<li>
+<p>副本分片</p>
 <p>用来解决数据高可用的问题，避免部分节点不可用导致数据丢失。分片是主分片的拷贝</p>
 <ul>
 <li>副本分片数，可以动态调整</li>
 <li>增加副本数，还可以在一定程度上提高服务的可用性（读取的吞吐）</li>
 </ul>
 </li>
-<li><p>举例</p>
+<li>
+<p>举例</p>
 <p>一个3节点的集群中，blogs 索引的分片分布情况</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211020.png" alt="image-20200424070058325"></p>
 </li>
-<li><p>分片的设定</p>
+<li>
+<p>分片的设定</p>
+</li>
+</ol>
 <p>对于生产环境中分片的设定，需要提前做好容量规划</p>
 <ul>
-<li>分片数设置过小<ul>
+<li>分片数设置过小
+<ul>
 <li>导致后续无法增加节点实现水平扩展</li>
 <li>单个分片的数据量太大，导致数据重新分配耗时</li>
 </ul>
 </li>
-<li>分片数设置过大，7.0开始，默认主分片从5改成1，解决了 over-sharding 的问题<ul>
+<li>分片数设置过大，7.0开始，默认主分片从5改成1，解决了 over-sharding 的问题
+<ul>
 <li>影响搜索结果的相关性打分，影响统计结果的准确性</li>
 <li>单个节点上过多的分片，会导致资源浪费，同时也会影响性能</li>
 </ul>
 </li>
 </ul>
-</li>
-</ol>
-<h2 id="查看集群的健康状态"><a href="#查看集群的健康状态" class="headerlink" title="查看集群的健康状态"></a>查看集群的健康状态</h2><ol>
-<li><p>REST API: <code>GET _cluster/health</code></p>
+<h2 id="查看集群的健康状态"><a class="header-anchor" href="#查看集群的健康状态">¶</a>查看集群的健康状态</h2>
+<ol>
+<li>
+<p>REST API: <code>GET _cluster/health</code></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211026.png" alt="image-20200424070550671"></p>
 <ul>
 <li>Green：主分片与副本都正常分配</li>
 <li>Yellow：主分片全部正常分配，有副本分片未正常分配</li>
-<li>Red：有主分片未能分配<ul>
+<li>Red：有主分片未能分配
+<ul>
 <li>例如，当服务器的磁盘容量超过85%时，去创建了一个新的索引</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>通过 Kibana 查看集群状态</p>
+<li>
+<p>通过 Kibana 查看集群状态</p>
 <ul>
-<li><p>查看一个集群的健康状态</p>
+<li>
+<p>查看一个集群的健康状态</p>
 <p><a href="http://myecs.com:9200/_cluster/health" target="_blank" rel="noopener">http://myecs.com:9200/_cluster/health</a></p>
 </li>
-<li><p>CAT API</p>
+<li>
+<p>CAT API</p>
 <ul>
 <li>httpL//myecs.com:9200/_cat/nodes</li>
 <li>查看索引和分片</li>
 </ul>
 </li>
-<li><p>设置分片数</p>
+<li>
+<p>设置分片数</p>
 </li>
 </ul>
 <blockquote>
@@ -833,285 +898,414 @@ GET /_nodes/es7_01,es7_02
 GET /_cat/nodes?v
 GET /_cat/nodes?v&amp;h=id,ip,port,v,m
 
-</code></pre></li>
+
+GET _cluster/health
+GET _cluster/health?level=shards
+GET /_cluster/health/kibana_sample_data_ecommerce,kibana_sample_data_flights
+GET /_cluster/health/kibana_sample_data_flights?level=shards
+
+#### cluster state
+The cluster state API allows access to metadata representing the state of the whole cluster. This includes information such as
+GET /_cluster/state
+
+#cluster get settings
+GET /_cluster/settings
+GET /_cluster/settings?include_defaults=true
+
+GET _cat/shards
+GET _cat/shards?h=index,shard,prirep,state,unassigned.reason
+</code></pre>
+</li>
+<li>
+<p>通过 Cerebro 查看集群状态</p>
+</li>
 </ol>
-<p>   GET _cluster/health<br>   GET _cluster/health?level=shards<br>   GET /_cluster/health/kibana_sample_data_ecommerce,kibana_sample_data_flights<br>   GET /_cluster/health/kibana_sample_data_flights?level=shards</p>
-<h4 id="cluster-state"><a href="#cluster-state" class="headerlink" title="cluster state"></a>cluster state</h4><p>   The cluster state API allows access to metadata representing the state of the whole cluster. This includes information such as<br>   GET /_cluster/state</p>
-<p>   #cluster get settings<br>   GET /_cluster/settings<br>   GET /_cluster/settings?include_defaults=true</p>
-<p>   GET _cat/shards<br>   GET _cat/shards?h=index,shard,prirep,state,unassigned.reason</p>
-<pre><code>
-3.  通过 Cerebro 查看集群状态
-
-   ![image-20200424072047317](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211033.png)
-
-   当我们尝试停掉一个节点的时候，发现上面的长条变成了黄色
-
-![image-20200424072222820](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211041.png)
-
-# 三、文档的 CRUD与批量操作
-
-## 文档的 CRUD
-
-* Type名，约定都用_doc
-* Create：如果 ID 已经存在，会失败
-* Index：如果 ID 不存在，创建新的文档；否则，先删除现有的文档，再创建新的文档，版本会增加
-* Update：文档必须已经存在，然后对相应字段做增量修改，版本号增加
-
-&gt; [Document API](https://www.elastic.co/guide/en/elasticsearch/reference/7.1/docs.html)
-
-![image-20200424073808066](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211048.png)
-
-### create
-
-* 支持自动生成文档 id 和指定文档 id 两种方式
-* 通过调用`post /users/_doc`
-  * 系统会自动生成 document id
-* 使用 HTTP PUT user/\_create/1 创建时，URI中显示指定\_create，此时如果该 ID 的文档已经存在，操作失败
-
-![image-20200424074516551](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211054.png)
-
-### get
-
-*  找到文档，返回 HTTP 200
-  * 文档元信息
-    * \_index、\_type
-    *  版本信息，同一个 id 的文档，被删除，version 号不断增加
-    * \_source 中默认包含了了文档的所有原始信息
-* 找不到文档，返回 HTTP 404
-
-![image-20200424074539766](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211103.png)
-
-### index
-
-* index 和 create 区别：如果文档(ID)已存在，前者会删除然后重建然后版本+1；后者会报错
-
-![image-20200424074731377](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211109.png)
-
-### update
-
-* update 方法不会删除原来的文档，要求文档必须存在，否则失败。是实现真正的数据更新
-
-* post 方法，在请求体中将信息包含在&quot;doc&quot;中
-
-  ![image-20200424074841642](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211116.png)
-
-### Bulk API
-
-*  支持在一次 API 调用中，对不同的索引进行操作，减少网络请求
-* 支持4种操作类型
-  * index
-  * create
-  * update
-  * delete
-* 可以在 URI 中指定 index，也可以在请求的 payload 中进行
-*  操作中单挑操作失败，并不会影响其他操作
-* 返回结果包含了每一条操作执行的结果
-
-![image-20200424075319487](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211123.png)
-
-### mget-批量读取
-
-批量操作，可以减少网络连接所产生的开销，提高性能
-
-![image-20200424075501736](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211130.png)
-
-![image-20200424075508922](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211136.png)
-
-### msearch-批量查询
-
-![image-20200424075601707](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211143.png)
-
-&gt; 注意，虽然上面介绍了批量查询API，但是单次批量查询的数据过大也会引发性能问题。
-
-### 操作的 API demo
-</code></pre><p>############Create Document############</p>
-<p>#create document. 自动生成 _id<br>POST users/_doc<br>{<br>    “user” : “Mike”,<br>    “post_date” : “2019-04-15T14:12:12”,<br>    “message” : “trying out Kibana”<br>}</p>
-<p>#create document. 指定Id。如果id已经存在，报错<br>PUT users/_doc/1?op_type=create<br>{<br>    “user” : “Jack”,<br>    “post_date” : “2019-05-15T14:12:12”,<br>    “message” : “trying out Elasticsearch”<br>}</p>
-<p>#create document. 指定 ID 如果已经存在，就报错<br>PUT users/_create/1<br>{<br>     “user” : “Jack”,<br>    “post_date” : “2019-05-15T14:12:12”,<br>    “message” : “trying out Elasticsearch”<br>}</p>
-<h3 id="Get-Document-by-ID"><a href="#Get-Document-by-ID" class="headerlink" title="Get Document by ID"></a>Get Document by ID</h3><p>#Get the document by ID<br>GET users/_doc/1</p>
-<h3 id="Index-amp-Update"><a href="#Index-amp-Update" class="headerlink" title="Index &amp; Update"></a>Index &amp; Update</h3><p>#Update 指定 ID  (先删除，在写入)<br>GET users/_doc/1</p>
-<p>PUT users/_doc/1<br>{<br>    “user” : “Mike”</p>
-<p>}</p>
-<p>#GET users/_doc/1</p>
-<p>#在原文档上增加字段<br>POST users/_update/1/<br>{<br>    “doc”:{<br>        “post_date” : “2019-05-15T14:12:12”,<br>        “message” : “trying out Elasticsearch”<br>    }<br>}</p>
-<h3 id="Delete-by-Id"><a href="#Delete-by-Id" class="headerlink" title="Delete by Id"></a>Delete by Id</h3><h1 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h1><p>DELETE users/_doc/1</p>
-<h3 id="Bulk-操作"><a href="#Bulk-操作" class="headerlink" title="Bulk 操作"></a>Bulk 操作</h3><p>#执行两次，查看每次的结果</p>
-<p>#执行第1次<br>POST _bulk<br>{ “index” : { “_index” : “test”, “_id” : “1” } }<br>{ “field1” : “value1” }<br>{ “delete” : { “_index” : “test”, “_id” : “2” } }<br>{ “create” : { “_index” : “test2”, “_id” : “3” } }<br>{ “field1” : “value3” }<br>{ “update” : {“_id” : “1”, “_index” : “test”} }<br>{ “doc” : {“field2” : “value2”} }</p>
-<p>#执行第2次<br>POST _bulk<br>{ “index” : { “_index” : “test”, “_id” : “1” } }<br>{ “field1” : “value1” }<br>{ “delete” : { “_index” : “test”, “_id” : “2” } }<br>{ “create” : { “_index” : “test2”, “_id” : “3” } }<br>{ “field1” : “value3” }<br>{ “update” : {“_id” : “1”, “_index” : “test”} }<br>{ “doc” : {“field2” : “value2”} }</p>
-<h3 id="mget-操作"><a href="#mget-操作" class="headerlink" title="mget 操作"></a>mget 操作</h3><p>GET /_mget<br>{<br>    “docs” : [<br>        {<br>            “_index” : “test”,<br>            “_id” : “1”<br>        },<br>        {<br>            “_index” : “test”,<br>            “_id” : “2”<br>        }<br>    ]<br>}</p>
-<p>#URI中指定index<br>GET /test/_mget<br>{<br>    “docs” : [<br>        {</p>
-<pre><code>        &quot;_id&quot; : &quot;1&quot;
-    },
-    {
-
-        &quot;_id&quot; : &quot;2&quot;
-    }
-]</code></pre><p>}</p>
-<p>GET /_mget<br>{<br>    “docs” : [<br>        {<br>            “_index” : “test”,<br>            “_id” : “1”,<br>            “_source” : false<br>        },<br>        {<br>            “_index” : “test”,<br>            “_id” : “2”,<br>            “_source” : [“field3”, “field4”]<br>        },<br>        {<br>            “_index” : “test”,<br>            “_id” : “3”,<br>            “_source” : {<br>                “include”: [“user”],<br>                “exclude”: [“user.location”]<br>            }<br>        }<br>    ]<br>}</p>
-<h3 id="msearch-操作"><a href="#msearch-操作" class="headerlink" title="msearch 操作"></a>msearch 操作</h3><p>POST kibana_sample_data_ecommerce/_msearch<br>{}<br>{“query” : {“match_all” : {}},”size”:1}<br>{“index” : “kibana_sample_data_flights”}<br>{“query” : {“match_all” : {}},”size”:2}</p>
-<h3 id="清除测试数据"><a href="#清除测试数据" class="headerlink" title="清除测试数据"></a>清除测试数据</h3><p>#清除数据<br>DELETE users<br>DELETE test<br>DELETE test2</p>
-<pre><code>
-
-
-###  常见错误返回
-
-![image-20200424075635645](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211151.png)
-
-# 四、倒排索引介绍
-
-## 正排索引和倒排索引
-
-### 类比理解
-
-假设现在有一本关于 Elasticsearch 的书籍，书籍中的每一页可以类比为 Elasticsearch 中的document，文档中所有字段从第一个到最后一个形成一个链条列表，拥有唯一的位置索引。
-
-书籍的目录上记录了页码以及对应的内容名称，整本书可以理解为一个物理存储介质，页码让我们可以快速定位到我们想要找的文档。所以这个目录就是一个索引，而从 id 指向一个文档就是一个正排索引。
-
-另外一些技术书籍会在最后几页放一些技术术语(单词，term)的列表，并标注了它在哪几页出现，这个将文档中的内容指向文档 id 再找到文档进行加载文档内容的过程就是一个倒排索引。
-
-看下表，右边就是一个倒排索引。
-
-![image-20200424094916737](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211158.png)
-
-### 倒排索引的核心组成
-
-倒排索引包含两个部分
-
-* 单词词典(Term Directory)，记录所有文档的单词，记录单词到倒排列表的关联关系（**另外，需要注意，文档下面还有 Field 的概念，它是由 Field 构成的，而 Field 则由 Term 构成**）。单词词典一般比较大，可以通过 B+树或者哈希拉链实现存储，以满足高性能的插入与查询
-* 倒排列表(Posting Lisrt)，记录了单词对应的文档集合，由**倒排索引项**组成：
-  * 文档 ID
-  * 词频 TF：该单词在文档中出现的次数，用于相关性评分
-  * 位置（Position）：单词在文档中分词的位置。用于语句搜索（phrase query）
-  * 偏移（Offset）：记录单词的开始结束位置，实现高亮显示
-
-![image-20200424140003886](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211204.png)
-
-### 一个例子
-
-Term：&quot;Elasticsearch&quot;
-
-![image-20200424101338760](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211210.png)
-
-&gt; [维基百科倒排索引](https://zh.wikipedia.org/wiki/倒排索引)
-&gt;
-&gt; [Elasticsearch 官方倒排索引介绍](https://www.elastic.co/guide/cn/elasticsearch/guide/current/inverted-index.html)
-
-### Elasticsearch 的倒排索引
-
-* Elasticsearch 的 JSON 文档中的每个字段，都有自己的倒排索引
-* 可以指定对**某些字段**不做索引
-  * 优点：节省存储空间
-  * 缺点：字段无法被搜索
-
-# 五、通过 Analyzer 进行分词
-
-## Analysis 与 Analyzer
-
-1. Analyses（动词）：文本分析是把全文本转换一系列单次（term/token）的过程，也叫分词。
-
-2. Analysis 是通过 Analyzer 来实现的， Analyzer 叫分析器也叫分词器，可以使用 Elasticsearch 内置的分词器，或者按需定制化分词器。
-
-   在数据写入的时候，Es 对所有需要进行索引的字段或者字符串进行分词转换成词条（Term）并建立倒排索引，在匹配 Query 语句（例如用户搜索）的时候也需要用相同的分词器对查询语句进行分析
-
-## Analyzer 的组成
-
-分词器时专门处理分词的组件，Analyzer 由三部分组成
-
-* Character Filters：针对原始文本处理，例如去除 html 标签等
-* Tokenizer：按照规则切分为单词
-* Token Filter：将切分的单词进行加工，例如转小写、删除`stopwords`、增加同义词等。
-
-![image-20200424102801647](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211217.png)
-
-## Elasticsearch 的内置分词器
-
-
-
-* Standard Analyzer：默认分词器，按词切分，小写处理
-
-  ![image-20200424103654570](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211222.png)
-
-* Simple Analyzer：按照非字母切分（非字母字符被过滤），小写处理
-
-  ![image-20200424103757386](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211230.png)
-
-* Stop Analyzer：小写处理，过滤停用词（the，a，is 等）
-
-  ![image-20200424103910533](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211235.png)
-
-* Whitespace Analyzer：按照空格切分，不转小写
-
-  ![image-20200424103844356](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211242.png)
-
-* Keyword Analyzer：不分词，直接将输入当做输出
-
-  ![image-20200424103930169](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211248.png)
-
-* Patter Analyzer：按照正则表达式作为词条匹配进行分词，默认&quot;\W+&quot;（非字符分割）
-
-  ![image-20200424103949168](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211254.png)
-
-* Customer Analyzer：自定义分词器
-
-* Language：提供了30多种常见语言的分词器
-
-  ![image-20200424104052168](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211301.png)
-
-## 特别的中文分词与非官方分词器
-
-1. 中文分词的难点：
-   - 中文句子不像英文这样单词之间有自然的空格作为分隔，也不能直接将一个句子直接切分一个个字。
-   - 一句中文，在不同的上下文，有不同的理解。（&quot;这个苹果，不大好吃&quot;与&quot;这个苹果不大，好吃&quot;、&quot;他说的确实在理&quot;和&quot;这事的确定不下来&quot;的&quot;确实&quot;怎么分词）
-
-2. ICU Analyzer：提供了 Unicode 的支持，更好的支持亚洲语言。它是一个插件，需要额外安装`Elasticsearch-plugin install analysis-icu`
-
-   ![image-20200424104737117](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211308.png)
-
-   docker 容器安装 ICU Analyzer：
-
-   ```shell
-   [root@izwz920kp0myp15p982vp4z ~]# docker ps
-   CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                              NAMES
-   d9b19ed43e4c        kibana:7.1.0             &quot;/usr/local/bin/ki...&quot;   12 hours ago        Up 12 hours         0.0.0.0:5601-&gt;5601/tcp             kibana7
-   d5e50115e6ad        elasticsearch:7.1.0      &quot;/usr/local/bin/do...&quot;   12 hours ago        Up 12 hours         0.0.0.0:9200-&gt;9200/tcp, 9300/tcp   es7_01
-   cc44536c68b5        elasticsearch:7.1.0      &quot;/usr/local/bin/do...&quot;   12 hours ago        Up 12 hours         9200/tcp, 9300/tcp                 es7_02
-   e99e24660b33        lmenezes/cerebro:0.8.3   &quot;/opt/cerebro/bin/...&quot;   12 hours ago        Up 12 hours         0.0.0.0:9000-&gt;9000/tcp             cerebro
-   [root@izwz920kp0myp15p982vp4z ~]# docker exec -it es7_01 bash
-   [root@d5e50115e6ad elasticsearch]# ./bin/elasticsearch-plugin install analysis-icu
-   -&gt; Downloading analysis-icu from elastic
-   [=================================================] 100%??
-   WARNING: An illegal reflective access operation has occurred
-   WARNING: Illegal reflective access by org.bouncycastle.jcajce.provider.drbg.DRBG (file:/usr/share/elasticsearch/lib/tools/plugin-cli/bcprov-jdk15on-1.61.jar) to constructor sun.security.provider.Sun()
-   WARNING: Please consider reporting this to the maintainers of org.bouncycastle.jcajce.provider.drbg.DRBG
-   WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
-   WARNING: All illegal access operations will be denied in a future release
-   -&gt; Installed analysis-icu
-   [root@d5e50115e6ad elasticsearch]# exit
-   exit
-   [root@izwz920kp0myp15p982vp4z ~]# docker exec -it es7_02 bash
-   [root@cc44536c68b5 elasticsearch]# ./bin/elasticsearch-plugin install analysis-icu
-   -&gt; Downloading analysis-icu from elastic
-   [=================================================] 100%??
-   WARNING: An illegal reflective access operation has occurred
-   WARNING: Illegal reflective access by org.bouncycastle.jcajce.provider.drbg.DRBG (file:/usr/share/elasticsearch/lib/tools/plugin-cli/bcprov-jdk15on-1.61.jar) to constructor sun.security.provider.Sun()
-   WARNING: Please consider reporting this to the maintainers of org.bouncycastle.jcajce.provider.drbg.DRBG
-   WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
-   WARNING: All illegal access operations will be denied in a future release
-   -&gt; Installed analysis-icu
-   [root@cc44536c68b5 elasticsearch]# exit
-   exit
-   [root@izwz920kp0myp15p982vp4z ~]# cd /usr/local/software/elasticsearch/docker-es-7.x/
-   [root@izwz920kp0myp15p982vp4z docker-es-7.x]# docker-compose restart
-   Restarting kibana7 ... done
-   Restarting es7_01  ... done
-   Restarting es7_02  ... done
-   Restarting cerebro ... done</code></pre><p>   <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211315.png" alt="image-20200424110740213"></p>
-<p>   安装成功！</p>
-<ol start="3">
-<li><p>更多的中文分词器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211033.png" alt="image-20200424072047317"></p>
+<p>当我们尝试停掉一个节点的时候，发现上面的长条变成了黄色</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211041.png" alt="image-20200424072222820"></p>
+<h1>三、文档的 CRUD与批量操作</h1>
+<h2 id="文档的-CRUD"><a class="header-anchor" href="#文档的-CRUD">¶</a>文档的 CRUD</h2>
 <ul>
-<li><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">IK</a>：支持自定义词库，支持热更新分词字典。安装方法参考上面的<code>AnalysisICU</code>。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@cc44536c68b5 elasticsearch]# bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.1.0/elasticsearch-analysis-ik-7.1.0.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li>Type名，约定都用_doc</li>
+<li>Create：如果 ID 已经存在，会失败</li>
+<li>Index：如果 ID 不存在，创建新的文档；否则，先删除现有的文档，再创建新的文档，版本会增加</li>
+<li>Update：文档必须已经存在，然后对相应字段做增量修改，版本号增加</li>
+</ul>
+<blockquote>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/docs.html" target="_blank" rel="noopener">Document API</a></p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211048.png" alt="image-20200424073808066"></p>
+<h3 id="create"><a class="header-anchor" href="#create">¶</a>create</h3>
+<ul>
+<li>支持自动生成文档 id 和指定文档 id 两种方式</li>
+<li>通过调用<code>post /users/_doc</code>
+<ul>
+<li>系统会自动生成 document id</li>
+</ul>
+</li>
+<li>使用 HTTP PUT user/_create/1 创建时，URI中显示指定_create，此时如果该 ID 的文档已经存在，操作失败</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211054.png" alt="image-20200424074516551"></p>
+<h3 id="get"><a class="header-anchor" href="#get">¶</a>get</h3>
+<ul>
+<li>找到文档，返回 HTTP 200</li>
+<li>文档元信息
+<ul>
+<li>_index、_type</li>
+<li>版本信息，同一个 id 的文档，被删除，version 号不断增加</li>
+<li>_source 中默认包含了了文档的所有原始信息</li>
+</ul>
+</li>
+<li>找不到文档，返回 HTTP 404</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211103.png" alt="image-20200424074539766"></p>
+<h3 id="index"><a class="header-anchor" href="#index">¶</a>index</h3>
+<ul>
+<li>index 和 create 区别：如果文档(ID)已存在，前者会删除然后重建然后版本+1；后者会报错</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211109.png" alt="image-20200424074731377"></p>
+<h3 id="update"><a class="header-anchor" href="#update">¶</a>update</h3>
+<ul>
+<li>
+<p>update 方法不会删除原来的文档，要求文档必须存在，否则失败。是实现真正的数据更新</p>
+</li>
+<li>
+<p>post 方法，在请求体中将信息包含在&quot;doc&quot;中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211116.png" alt="image-20200424074841642"></p>
+</li>
+</ul>
+<h3 id="Bulk-API"><a class="header-anchor" href="#Bulk-API">¶</a>Bulk API</h3>
+<ul>
+<li>支持在一次 API 调用中，对不同的索引进行操作，减少网络请求</li>
+<li>支持4种操作类型
+<ul>
+<li>index</li>
+<li>create</li>
+<li>update</li>
+<li>delete</li>
+</ul>
+</li>
+<li>可以在 URI 中指定 index，也可以在请求的 payload 中进行</li>
+<li>操作中单挑操作失败，并不会影响其他操作</li>
+<li>返回结果包含了每一条操作执行的结果</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211123.png" alt="image-20200424075319487"></p>
+<h3 id="mget-批量读取"><a class="header-anchor" href="#mget-批量读取">¶</a>mget-批量读取</h3>
+<p>批量操作，可以减少网络连接所产生的开销，提高性能</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211130.png" alt="image-20200424075501736"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211136.png" alt="image-20200424075508922"></p>
+<h3 id="msearch-批量查询"><a class="header-anchor" href="#msearch-批量查询">¶</a>msearch-批量查询</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211143.png" alt="image-20200424075601707"></p>
+<blockquote>
+<p>注意，虽然上面介绍了批量查询API，但是单次批量查询的数据过大也会引发性能问题。</p>
+</blockquote>
+<h3 id="操作的-API-demo"><a class="header-anchor" href="#操作的-API-demo">¶</a>操作的 API demo</h3>
+<pre><code>############Create Document############
+#create document. 自动生成 _id
+POST users/_doc
+{
+	&quot;user&quot; : &quot;Mike&quot;,
+    &quot;post_date&quot; : &quot;2019-04-15T14:12:12&quot;,
+    &quot;message&quot; : &quot;trying out Kibana&quot;
+}
+
+#create document. 指定Id。如果id已经存在，报错
+PUT users/_doc/1?op_type=create
+{
+    &quot;user&quot; : &quot;Jack&quot;,
+    &quot;post_date&quot; : &quot;2019-05-15T14:12:12&quot;,
+    &quot;message&quot; : &quot;trying out Elasticsearch&quot;
+}
+
+#create document. 指定 ID 如果已经存在，就报错
+PUT users/_create/1
+{
+     &quot;user&quot; : &quot;Jack&quot;,
+    &quot;post_date&quot; : &quot;2019-05-15T14:12:12&quot;,
+    &quot;message&quot; : &quot;trying out Elasticsearch&quot;
+}
+
+### Get Document by ID
+#Get the document by ID
+GET users/_doc/1
+
+
+###  Index &amp; Update
+#Update 指定 ID  (先删除，在写入)
+GET users/_doc/1
+
+PUT users/_doc/1
+{
+	&quot;user&quot; : &quot;Mike&quot;
+
+}
+
+
+#GET users/_doc/1
+#在原文档上增加字段
+POST users/_update/1/
+{
+    &quot;doc&quot;:{
+        &quot;post_date&quot; : &quot;2019-05-15T14:12:12&quot;,
+        &quot;message&quot; : &quot;trying out Elasticsearch&quot;
+    }
+}
+
+
+
+### Delete by Id
+# 删除文档
+DELETE users/_doc/1
+
+
+### Bulk 操作
+#执行两次，查看每次的结果
+
+#执行第1次
+POST _bulk
+{ &quot;index&quot; : { &quot;_index&quot; : &quot;test&quot;, &quot;_id&quot; : &quot;1&quot; } }
+{ &quot;field1&quot; : &quot;value1&quot; }
+{ &quot;delete&quot; : { &quot;_index&quot; : &quot;test&quot;, &quot;_id&quot; : &quot;2&quot; } }
+{ &quot;create&quot; : { &quot;_index&quot; : &quot;test2&quot;, &quot;_id&quot; : &quot;3&quot; } }
+{ &quot;field1&quot; : &quot;value3&quot; }
+{ &quot;update&quot; : {&quot;_id&quot; : &quot;1&quot;, &quot;_index&quot; : &quot;test&quot;} }
+{ &quot;doc&quot; : {&quot;field2&quot; : &quot;value2&quot;} }
+
+
+#执行第2次
+POST _bulk
+{ &quot;index&quot; : { &quot;_index&quot; : &quot;test&quot;, &quot;_id&quot; : &quot;1&quot; } }
+{ &quot;field1&quot; : &quot;value1&quot; }
+{ &quot;delete&quot; : { &quot;_index&quot; : &quot;test&quot;, &quot;_id&quot; : &quot;2&quot; } }
+{ &quot;create&quot; : { &quot;_index&quot; : &quot;test2&quot;, &quot;_id&quot; : &quot;3&quot; } }
+{ &quot;field1&quot; : &quot;value3&quot; }
+{ &quot;update&quot; : {&quot;_id&quot; : &quot;1&quot;, &quot;_index&quot; : &quot;test&quot;} }
+{ &quot;doc&quot; : {&quot;field2&quot; : &quot;value2&quot;} }
+
+### mget 操作
+GET /_mget
+{
+    &quot;docs&quot; : [
+        {
+            &quot;_index&quot; : &quot;test&quot;,
+            &quot;_id&quot; : &quot;1&quot;
+        },
+        {
+            &quot;_index&quot; : &quot;test&quot;,
+            &quot;_id&quot; : &quot;2&quot;
+        }
+    ]
+}
+
+
+#URI中指定index
+GET /test/_mget
+{
+    &quot;docs&quot; : [
+        {
+
+            &quot;_id&quot; : &quot;1&quot;
+        },
+        {
+
+            &quot;_id&quot; : &quot;2&quot;
+        }
+    ]
+}
+
+
+GET /_mget
+{
+    &quot;docs&quot; : [
+        {
+            &quot;_index&quot; : &quot;test&quot;,
+            &quot;_id&quot; : &quot;1&quot;,
+            &quot;_source&quot; : false
+        },
+        {
+            &quot;_index&quot; : &quot;test&quot;,
+            &quot;_id&quot; : &quot;2&quot;,
+            &quot;_source&quot; : [&quot;field3&quot;, &quot;field4&quot;]
+        },
+        {
+            &quot;_index&quot; : &quot;test&quot;,
+            &quot;_id&quot; : &quot;3&quot;,
+            &quot;_source&quot; : {
+                &quot;include&quot;: [&quot;user&quot;],
+                &quot;exclude&quot;: [&quot;user.location&quot;]
+            }
+        }
+    ]
+}
+
+### msearch 操作
+POST kibana_sample_data_ecommerce/_msearch
+{}
+{&quot;query&quot; : {&quot;match_all&quot; : {}},&quot;size&quot;:1}
+{&quot;index&quot; : &quot;kibana_sample_data_flights&quot;}
+{&quot;query&quot; : {&quot;match_all&quot; : {}},&quot;size&quot;:2}
+
+
+### 清除测试数据
+#清除数据
+DELETE users
+DELETE test
+DELETE test2
+</code></pre>
+<h3 id="常见错误返回"><a class="header-anchor" href="#常见错误返回">¶</a>常见错误返回</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211151.png" alt="image-20200424075635645"></p>
+<h1>四、倒排索引介绍</h1>
+<h2 id="正排索引和倒排索引"><a class="header-anchor" href="#正排索引和倒排索引">¶</a>正排索引和倒排索引</h2>
+<h3 id="类比理解"><a class="header-anchor" href="#类比理解">¶</a>类比理解</h3>
+<p>假设现在有一本关于 Elasticsearch 的书籍，书籍中的每一页可以类比为 Elasticsearch 中的document，文档中所有字段从第一个到最后一个形成一个链条列表，拥有唯一的位置索引。</p>
+<p>书籍的目录上记录了页码以及对应的内容名称，整本书可以理解为一个物理存储介质，页码让我们可以快速定位到我们想要找的文档。所以这个目录就是一个索引，而从 id 指向一个文档就是一个正排索引。</p>
+<p>另外一些技术书籍会在最后几页放一些技术术语(单词，term)的列表，并标注了它在哪几页出现，这个将文档中的内容指向文档 id 再找到文档进行加载文档内容的过程就是一个倒排索引。</p>
+<p>看下表，右边就是一个倒排索引。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211158.png" alt="image-20200424094916737"></p>
+<h3 id="倒排索引的核心组成"><a class="header-anchor" href="#倒排索引的核心组成">¶</a>倒排索引的核心组成</h3>
+<p>倒排索引包含两个部分</p>
+<ul>
+<li>单词词典(Term Directory)，记录所有文档的单词，记录单词到倒排列表的关联关系（<strong>另外，需要注意，文档下面还有 Field 的概念，它是由 Field 构成的，而 Field 则由 Term 构成</strong>）。单词词典一般比较大，可以通过 B+树或者哈希拉链实现存储，以满足高性能的插入与查询</li>
+<li>倒排列表(Posting Lisrt)，记录了单词对应的文档集合，由<strong>倒排索引项</strong>组成：
+<ul>
+<li>文档 ID</li>
+<li>词频 TF：该单词在文档中出现的次数，用于相关性评分</li>
+<li>位置（Position）：单词在文档中分词的位置。用于语句搜索（phrase query）</li>
+<li>偏移（Offset）：记录单词的开始结束位置，实现高亮显示</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211204.png" alt="image-20200424140003886"></p>
+<h3 id="一个例子"><a class="header-anchor" href="#一个例子">¶</a>一个例子</h3>
+<p>Term：“Elasticsearch”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211210.png" alt="image-20200424101338760"></p>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95" target="_blank" rel="noopener">维基百科倒排索引</a></p>
+<p><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/inverted-index.html" target="_blank" rel="noopener">Elasticsearch 官方倒排索引介绍</a></p>
+</blockquote>
+<h3 id="Elasticsearch-的倒排索引"><a class="header-anchor" href="#Elasticsearch-的倒排索引">¶</a>Elasticsearch 的倒排索引</h3>
+<ul>
+<li>Elasticsearch 的 JSON 文档中的每个字段，都有自己的倒排索引</li>
+<li>可以指定对<strong>某些字段</strong>不做索引
+<ul>
+<li>优点：节省存储空间</li>
+<li>缺点：字段无法被搜索</li>
+</ul>
+</li>
+</ul>
+<h1>五、通过 Analyzer 进行分词</h1>
+<h2 id="Analysis-与-Analyzer"><a class="header-anchor" href="#Analysis-与-Analyzer">¶</a>Analysis 与 Analyzer</h2>
+<ol>
+<li>
+<p>Analyses（动词）：文本分析是把全文本转换一系列单次（term/token）的过程，也叫分词。</p>
+</li>
+<li>
+<p>Analysis 是通过 Analyzer 来实现的， Analyzer 叫分析器也叫分词器，可以使用 Elasticsearch 内置的分词器，或者按需定制化分词器。</p>
+<p>在数据写入的时候，Es 对所有需要进行索引的字段或者字符串进行分词转换成词条（Term）并建立倒排索引，在匹配 Query 语句（例如用户搜索）的时候也需要用相同的分词器对查询语句进行分析</p>
+</li>
+</ol>
+<h2 id="Analyzer-的组成"><a class="header-anchor" href="#Analyzer-的组成">¶</a>Analyzer 的组成</h2>
+<p>分词器时专门处理分词的组件，Analyzer 由三部分组成</p>
+<ul>
+<li>Character Filters：针对原始文本处理，例如去除 html 标签等</li>
+<li>Tokenizer：按照规则切分为单词</li>
+<li>Token Filter：将切分的单词进行加工，例如转小写、删除<code>stopwords</code>、增加同义词等。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211217.png" alt="image-20200424102801647"></p>
+<h2 id="Elasticsearch-的内置分词器"><a class="header-anchor" href="#Elasticsearch-的内置分词器">¶</a>Elasticsearch 的内置分词器</h2>
+<ul>
+<li>
+<p>Standard Analyzer：默认分词器，按词切分，小写处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211222.png" alt="image-20200424103654570"></p>
+</li>
+<li>
+<p>Simple Analyzer：按照非字母切分（非字母字符被过滤），小写处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211230.png" alt="image-20200424103757386"></p>
+</li>
+<li>
+<p>Stop Analyzer：小写处理，过滤停用词（the，a，is 等）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211235.png" alt="image-20200424103910533"></p>
+</li>
+<li>
+<p>Whitespace Analyzer：按照空格切分，不转小写</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211242.png" alt="image-20200424103844356"></p>
+</li>
+<li>
+<p>Keyword Analyzer：不分词，直接将输入当做输出</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211248.png" alt="image-20200424103930169"></p>
+</li>
+<li>
+<p>Patter Analyzer：按照正则表达式作为词条匹配进行分词，默认&quot;\W+&quot;（非字符分割）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211254.png" alt="image-20200424103949168"></p>
+</li>
+<li>
+<p>Customer Analyzer：自定义分词器</p>
+</li>
+<li>
+<p>Language：提供了30多种常见语言的分词器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211301.png" alt="image-20200424104052168"></p>
+</li>
+</ul>
+<h2 id="特别的中文分词与非官方分词器"><a class="header-anchor" href="#特别的中文分词与非官方分词器">¶</a>特别的中文分词与非官方分词器</h2>
+<ol>
+<li>
+<p>中文分词的难点：</p>
+<ul>
+<li>中文句子不像英文这样单词之间有自然的空格作为分隔，也不能直接将一个句子直接切分一个个字。</li>
+<li>一句中文，在不同的上下文，有不同的理解。（“这个苹果，不大好吃&quot;与&quot;这个苹果不大，好吃”、&quot;他说的确实在理&quot;和&quot;这事的确定不下来&quot;的&quot;确实&quot;怎么分词）</li>
+</ul>
+</li>
+<li>
+<p>ICU Analyzer：提供了 Unicode 的支持，更好的支持亚洲语言。它是一个插件，需要额外安装<code>Elasticsearch-plugin install analysis-icu</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211308.png" alt="image-20200424104737117"></p>
+<p>docker 容器安装 ICU Analyzer：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker ps
+CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                              NAMES
+d9b19ed43e4c        kibana:7.1.0             "/usr/local/bin/ki..."   12 hours ago        Up 12 hours         0.0.0.0:5601->5601/tcp             kibana7
+d5e50115e6ad        elasticsearch:7.1.0      "/usr/local/bin/do..."   12 hours ago        Up 12 hours         0.0.0.0:9200->9200/tcp, 9300/tcp   es7_01
+cc44536c68b5        elasticsearch:7.1.0      "/usr/local/bin/do..."   12 hours ago        Up 12 hours         9200/tcp, 9300/tcp                 es7_02
+e99e24660b33        lmenezes/cerebro:0.8.3   "/opt/cerebro/bin/..."   12 hours ago        Up 12 hours         0.0.0.0:9000->9000/tcp             cerebro
+[root@izwz920kp0myp15p982vp4z ~]# docker exec -it es7_01 bash
+[root@d5e50115e6ad elasticsearch]# ./bin/elasticsearch-plugin install analysis-icu
+-> Downloading analysis-icu from elastic
+[=================================================] 100%??
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.bouncycastle.jcajce.provider.drbg.DRBG (file:/usr/share/elasticsearch/lib/tools/plugin-cli/bcprov-jdk15on-1.61.jar) to constructor sun.security.provider.Sun()
+WARNING: Please consider reporting this to the maintainers of org.bouncycastle.jcajce.provider.drbg.DRBG
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+-> Installed analysis-icu
+[root@d5e50115e6ad elasticsearch]# exit
+exit
+[root@izwz920kp0myp15p982vp4z ~]# docker exec -it es7_02 bash
+[root@cc44536c68b5 elasticsearch]# ./bin/elasticsearch-plugin install analysis-icu
+-> Downloading analysis-icu from elastic
+[=================================================] 100%??
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.bouncycastle.jcajce.provider.drbg.DRBG (file:/usr/share/elasticsearch/lib/tools/plugin-cli/bcprov-jdk15on-1.61.jar) to constructor sun.security.provider.Sun()
+WARNING: Please consider reporting this to the maintainers of org.bouncycastle.jcajce.provider.drbg.DRBG
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+-> Installed analysis-icu
+[root@cc44536c68b5 elasticsearch]# exit
+exit
+[root@izwz920kp0myp15p982vp4z ~]# cd /usr/local/software/elasticsearch/docker-es-7.x/
+[root@izwz920kp0myp15p982vp4z docker-es-7.x]# docker-compose restart
+Restarting kibana7 ... done
+Restarting es7_01  ... done
+Restarting es7_02  ... done
+Restarting cerebro ... done
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211315.png" alt="image-20200424110740213"></p>
+<p>安装成功！</p>
+</li>
+<li>
+<p>更多的中文分词器</p>
+<ul>
+<li>
+<p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">IK</a>：支持自定义词库，支持热更新分词字典。安装方法参考上面的<code>AnalysisICU</code>。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@cc44536c68b5 elasticsearch]# bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.1.0/elasticsearch-analysis-ik-7.1.0.zip
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211321.png" alt="image-20200424111035461"></p>
 <p>分词效果测试：</p>
 <pre><code>POST _analyze
@@ -1124,27 +1318,36 @@ POST _analyze
 {
   &quot;analyzer&quot;: &quot;ik_max_word&quot;
   , &quot;text&quot;: &quot;中华人民共和国国歌&quot;
-}</code></pre><p>结果：</p>
+}
+</code></pre>
+<p>结果：</p>
 <ul>
-<li><p>ik_max_word：会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；</p>
+<li>
+<p>ik_max_word：会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；</p>
 </li>
-<li><p>ik_smart：会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。</p>
+<li>
+<p>ik_smart：会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。</p>
 </li>
 </ul>
 </li>
-<li><p><a href="https://github.com/microbun/elasticsearch-thulac-plugin" target="_blank" rel="noopener">THULAC</a>：THU Lexucal Analyzer for Chinese，清华大学自然语言处理和社会人文计算实验室的一套中文分词器</p>
+<li>
+<p><a href="https://github.com/microbun/elasticsearch-thulac-plugin" target="_blank" rel="noopener">THULAC</a>：THU Lexucal Analyzer for Chinese，清华大学自然语言处理和社会人文计算实验室的一套中文分词器</p>
 </li>
 </ul>
 </li>
 </ol>
-<h3 id="使用-analyzer-API"><a href="#使用-analyzer-API" class="headerlink" title="使用_analyzer API"></a>使用_analyzer API</h3><ol>
-<li><p>直接指定 Analyzer 进行测试，并传入一个字符串看分词器对字符串的分词结果</p>
+<h3 id="使用-analyzer-API"><a class="header-anchor" href="#使用-analyzer-API">¶</a>使用_analyzer API</h3>
+<ol>
+<li>
+<p>直接指定 Analyzer 进行测试，并传入一个字符串看分词器对字符串的分词结果</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211326.png" alt="image-20200424103412283"></p>
 </li>
-<li><p>指定索引的字段进行测试</p>
+<li>
+<p>指定索引的字段进行测试</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211331.png" alt="image-20200424103444135"></p>
 </li>
-<li><p>自定义分词器进行测试（例如自定义它的”tokenizer”和”filter”）</p>
+<li>
+<p>自定义分词器进行测试（例如自定义它的&quot;tokenizer&quot;和&quot;filter&quot;）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211337.png" alt="image-20200424103504473"></p>
 <p>测试请求：</p>
 </li>
@@ -1239,14 +1442,19 @@ POST _analyze
 {
   &quot;analyzer&quot;: &quot;ik_max_word&quot;
   , &quot;text&quot;: &quot;中华人民共和国国歌&quot;
-}</code></pre><h1 id="六、Search-API"><a href="#六、Search-API" class="headerlink" title="六、Search API"></a>六、Search API</h1><h2 id="API-URI"><a href="#API-URI" class="headerlink" title="API URI"></a>API URI</h2><table>
+}
+</code></pre>
+<h1>六、Search API</h1>
+<h2 id="API-URI"><a class="header-anchor" href="#API-URI">¶</a>API URI</h2>
+<table>
 <thead>
 <tr>
 <th>语法</th>
 <th>范围</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>/_search</td>
 <td>集群上所有的索引</td>
 </tr>
@@ -1262,27 +1470,36 @@ POST _analyze
 <td>/index*/_search</td>
 <td>以index 开头的索引</td>
 </tr>
-</tbody></table>
-<h2 id="API-请求方式"><a href="#API-请求方式" class="headerlink" title="API 请求方式"></a>API 请求方式</h2><ol>
-<li><p>URI Search（GET）</p>
+</tbody>
+</table>
+<h2 id="API-请求方式"><a class="header-anchor" href="#API-请求方式">¶</a>API 请求方式</h2>
+<ol>
+<li>
+<p>URI Search（GET）</p>
 <p>在 URL 中使用查询参数</p>
 <ul>
-<li><p>“q”为 http get 作为参数，”query string syntax”为 http get 参数值，内容为”key:value”</p>
+<li>
+<p>&quot;q&quot;为 http get 作为参数，“query string syntax&quot;为 http get 参数值，内容为&quot;key:value”</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211345.png" alt="image-20200424113906460"></p>
 </li>
 </ul>
 </li>
-<li><p>Request Body Search（GET、POST）</p>
+<li>
+<p>Request Body Search（GET、POST）</p>
 <p>使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的 Query Domain Specific Language（DSL）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211353.png" alt="image-20200424113930239"></p>
 </li>
 </ol>
-<h2 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211400.png" alt="image-20200424114052223"></p>
-<h3 id="文档元信息：-score"><a href="#文档元信息：-score" class="headerlink" title="文档元信息：_score"></a>文档元信息：_score</h3><p>这个字段表示了这个文档的匹配打分，表示了其与搜索关键字的相关性（Relevance）。</p>
+<h2 id="返回结果"><a class="header-anchor" href="#返回结果">¶</a>返回结果</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211400.png" alt="image-20200424114052223"></p>
+<h3 id="文档元信息：-score"><a class="header-anchor" href="#文档元信息：-score">¶</a>文档元信息：_score</h3>
+<p>这个字段表示了这个文档的匹配打分，表示了其与搜索关键字的相关性（Relevance）。</p>
 <ul>
-<li><p>搜索是用户和搜索引擎的对话</p>
+<li>
+<p>搜索是用户和搜索引擎的对话</p>
 </li>
-<li><p>用户关心的是搜索结果的相关性：</p>
+<li>
+<p>用户关心的是搜索结果的相关性：</p>
 <ol>
 <li>是否可以找到所有相关的内容</li>
 <li>有多少不相关的内容被返回了</li>
@@ -1293,8 +1510,10 @@ POST _analyze
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211409.png" alt="image-20200424114432782"></p>
 </li>
 </ul>
-<h3 id="Web搜索"><a href="#Web搜索" class="headerlink" title="Web搜索"></a>Web搜索</h3><ul>
-<li><p>Page Rank算法</p>
+<h3 id="Web搜索"><a class="header-anchor" href="#Web搜索">¶</a>Web搜索</h3>
+<ul>
+<li>
+<p>Page Rank算法</p>
 <ul>
 <li>不仅仅是内容相关性</li>
 <li>更重要的是内容的可信度</li>
@@ -1302,8 +1521,10 @@ POST _analyze
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211416.png" alt="image-20200424114907945"></p>
 </li>
 </ul>
-<h3 id="电商搜索"><a href="#电商搜索" class="headerlink" title="电商搜索"></a>电商搜索</h3><ul>
-<li><p>搜索引擎扮演-销售的角色</p>
+<h3 id="电商搜索"><a class="header-anchor" href="#电商搜索">¶</a>电商搜索</h3>
+<ul>
+<li>
+<p>搜索引擎扮演-销售的角色</p>
 <ul>
 <li>提高用户购物体验</li>
 <li>提升网站销售业绩</li>
@@ -1312,14 +1533,16 @@ POST _analyze
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211424.png" alt="image-20200424114954157"></p>
 </li>
 </ul>
-<h3 id="衡量相关性（Information-Retrieval）"><a href="#衡量相关性（Information-Retrieval）" class="headerlink" title="衡量相关性（Information Retrieval）"></a>衡量相关性（Information Retrieval）</h3><ul>
+<h3 id="衡量相关性（Information-Retrieval）"><a class="header-anchor" href="#衡量相关性（Information-Retrieval）">¶</a>衡量相关性（Information Retrieval）</h3>
+<ul>
 <li>Precision（查准率）：尽可能返回较少的无关文档</li>
 <li>Recall（查全率）：尽量返回较多的相关文档</li>
 <li>Ranking：是否能够按照相关度进行排序</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211432.png" alt="image-20200424115313132"></p>
 <p>Elasticsearch 提供了很多参数来调整 Precision 和 Recall。</p>
-<h2 id="URI-search-详解"><a href="#URI-search-详解" class="headerlink" title="URI search 详解"></a>URI search 详解</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211439.png" alt="image-20200424123444164"></p>
+<h2 id="URI-search-详解"><a class="header-anchor" href="#URI-search-详解">¶</a>URI search 详解</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211439.png" alt="image-20200424123444164"></p>
 <ul>
 <li>q指定查询语句，使用 Query String Syntax</li>
 <li>df 默认字段，不指定时，会对所有字段进行查询</li>
@@ -1327,57 +1550,72 @@ POST _analyze
 <li>from、size 用于分页</li>
 <li>Profile 可以查看查询是如何被执行的</li>
 </ul>
-<h3 id="Query-String-Syntax"><a href="#Query-String-Syntax" class="headerlink" title="Query String Syntax"></a>Query String Syntax</h3><ol>
-<li><p>指定字段 v.s. 泛查询(DisjunctionMaxQuery)</p>
+<h3 id="Query-String-Syntax"><a class="header-anchor" href="#Query-String-Syntax">¶</a>Query String Syntax</h3>
+<ol>
+<li>
+<p>指定字段 v.s. 泛查询(DisjunctionMaxQuery)</p>
 <p>q=title:2012、q=2012&amp;df=title</p>
 <p>q=2012、没有指定字段，会对所有字段进行查询</p>
 </li>
-<li><p>TermQuery v.s. PhraseQuery（最严格的规则求尽量准的合集）</p>
+<li>
+<p>TermQuery v.s. PhraseQuery（最严格的规则求尽量准的合集）</p>
 <ul>
-<li><p>TermQuery：最松懈的规则匹配的求尽量大的合集，也就是将查询字符串尽可能地拆分成最多的 Term 进行到倒排索引中检索文档，示例：</p>
+<li>
+<p>TermQuery：最松懈的规则匹配的求尽量大的合集，也就是将查询字符串尽可能地拆分成最多的 Term 进行到倒排索引中检索文档，示例：</p>
 <p>Beautiful Mind（等效于 Beautiful OR Mind）</p>
 </li>
-<li><p>PhraseQuery：最严格的规则求尽量准的合集，示例：</p>
+<li>
+<p>PhraseQuery：最严格的规则求尽量准的合集，示例：</p>
 <p>“Beautiful Mind”（<strong>用双引号包住</strong>，等效于 Beautiful AND Mind。还要求前后顺序保持一致）</p>
 </li>
 </ul>
 </li>
-<li><p>分组（圆括号）与引号</p>
+<li>
+<p>分组（圆括号）与引号</p>
 <ul>
-<li><p>title:Beautiful Mind</p>
-<p>会对”Beautiful”做”title”字段的 TremQuery，对”Mind”做所有字段的 DisjunctionMaxQuery，和我们预计的对 title 字段做”Beautiful OR Mind”的操作不一致，此时需要用到 Elasticsearch 的分组的概念，就是用圆括号括住</p>
+<li>
+<p>title:Beautiful Mind</p>
+<p>会对&quot;Beautiful&quot;做&quot;title&quot;字段的 TremQuery，对&quot;Mind&quot;做所有字段的 DisjunctionMaxQuery，和我们预计的对 title 字段做&quot;Beautiful OR Mind&quot;的操作不一致，此时需要用到 Elasticsearch 的分组的概念，就是用圆括号括住</p>
 </li>
-<li><p>title:(Beautiful Mind)</p>
-<p>对字段 title 做”Beautiful OR Mind”的查询</p>
+<li>
+<p>title:(Beautiful Mind)</p>
+<p>对字段 title 做&quot;Beautiful OR Mind&quot;的查询</p>
 </li>
-<li><p>title:(Beautilful AND Mind)</p>
+<li>
+<p>title:(Beautilful AND Mind)</p>
 </li>
-<li><p>tile=”Beautiful Mind”（PhraseQuery）</p>
+<li>
+<p>tile=“Beautiful Mind”（PhraseQuery）</p>
 </li>
 </ul>
 </li>
-<li><p>布尔操作</p>
+<li>
+<p>布尔操作</p>
 <p>AND、OR、NOT 或者 &amp;&amp;、||、!</p>
 <ul>
 <li>必须大写</li>
 <li>title:(matrix NOT reloaded)</li>
 </ul>
 </li>
-<li><p>是否必须</p>
+<li>
+<p>是否必须</p>
 <ul>
-<li>+表示 MUST（URI 编码之后为”%2B”）</li>
+<li>+表示 MUST（URI 编码之后为&quot;%2B&quot;）</li>
 <li>-表示 MUST_NOT（同样也可以使用 URI 编码）</li>
 <li>title:(+matrix -reloaded)</li>
 </ul>
 </li>
-<li><p>范围查询</p>
+<li>
+<p>范围查询</p>
 <ul>
-<li>[]：闭区间；{}开区间<ul>
+<li>[]：闭区间；{}开区间
+<ul>
 <li>year:[2019 TO 2018]</li>
 <li>year:[* TO 2018]</li>
 </ul>
 </li>
-<li>算术符号<ul>
+<li>算术符号
+<ul>
 <li>year:&gt;2010</li>
 <li>year:(&gt;2010 &amp;&amp; &lt;=2018)</li>
 <li>year:(+&gt;2010 +&lt;=2018)</li>
@@ -1385,7 +1623,8 @@ POST _analyze
 </li>
 </ul>
 </li>
-<li><p>通配符查询</p>
+<li>
+<p>通配符查询</p>
 <p>通配符查询效率低，占用内存大，不建议使用，特别是放查询条件在最前面</p>
 <ul>
 <li>? 表示 i个字符：title:mi?d</li>
@@ -1400,11 +1639,13 @@ POST _analyze
 <li>title:befutifl~1</li>
 </ul>
 </li>
-<li><p>相关阅读</p>
+<li>
+<p>相关阅读</p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-uri-request.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-uri-request.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-search.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.0/search-search.html</a></p>
 </li>
-<li><p>Kibana请求示例：</p>
+<li>
+<p>Kibana请求示例：</p>
 </li>
 </ol>
 <pre><code>#基本查询
@@ -1413,46 +1654,46 @@ GET /movies/_search?q=2012&amp;df=title&amp;sort=year:desc&amp;from=0&amp;size=1
 #带profile
 GET /movies/_search?q=2012&amp;df=title
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 # 指定字段
 GET /movies/_search?q=title:2012
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 
 #泛查询，正对_all,所有字段
 GET /movies/_search?q=2012
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 #指定字段
 GET /movies/_search?q=title:2012&amp;sort=year:desc&amp;from=0&amp;size=10&amp;timeout=1s
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 
 # 查找美丽心灵, Mind为泛查询
 GET /movies/_search?q=title:Beautiful Mind
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 
 #使用引号，Phrase查询
 GET /movies/_search?q=title:&quot;Beautiful Mind&quot;
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 #分组，Bool查询
 GET /movies/_search?q=title:(Beautiful Mind)
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 
@@ -1460,77 +1701,87 @@ GET /movies/_search?q=title:(Beautiful Mind)
 # 查找美丽心灵
 GET /movies/_search?q=title:(Beautiful AND Mind)
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 # 查找美丽心灵
 GET /movies/_search?q=title:(Beautiful NOT Mind)
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 # 查找美丽心灵
 GET /movies/_search?q=title:(Beautiful %2BMind)
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 
 #范围查询 ,区间写法
 GET /movies/_search?q=title:beautiful AND year:[2002 TO 2018%7D
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 
 #通配符查询
 GET /movies/_search?q=title:[bt]oy
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 //模糊匹配&amp;近似度匹配
 GET /movies/_search?q=title:beatifl~2
 {
-    &quot;profile&quot;:&quot;true&quot;
+	&quot;profile&quot;:&quot;true&quot;
 }
 
 GET /movies/_search?q=title:&quot;Lord Rings&quot;~6
 {
-    &quot;profile&quot;:&quot;true&quot;
-}</code></pre><h2 id="Request-Body-与-Query-DSL-简介"><a href="#Request-Body-与-Query-DSL-简介" class="headerlink" title="Request Body 与 Query DSL 简介"></a>Request Body 与 Query DSL 简介</h2><p>前面介绍了 URI 的 search 方式，另外我们还可以将查询语句（<strong>Query DSL</strong>）通过 HTTP 将 Request Body 发送给 Elasticsearch 进行 query。在 Elasticsearch 中，一些高阶的 search 操作只能在 Request Body 中做，所以建议使用 Request Body 的方式进行query 。</p>
+	&quot;profile&quot;:&quot;true&quot;
+}
+</code></pre>
+<h2 id="Request-Body-与-Query-DSL-简介"><a class="header-anchor" href="#Request-Body-与-Query-DSL-简介">¶</a>Request Body 与 Query DSL 简介</h2>
+<p>前面介绍了 URI 的 search 方式，另外我们还可以将查询语句（<strong>Query DSL</strong>）通过 HTTP 将 Request Body 发送给 Elasticsearch 进行 query。在 Elasticsearch 中，一些高阶的 search 操作只能在 Request Body 中做，所以建议使用 Request Body 的方式进行query 。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211449.png" alt="image-20200424140444451"></p>
-<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><p>在请求体第一层属性设置 from 和 size，from 从0开始，默认 size 是10。<strong>另外获取靠后的翻页成本较高</strong></p>
+<h3 id="分页"><a class="header-anchor" href="#分页">¶</a>分页</h3>
+<p>在请求体第一层属性设置 from 和 size，from 从0开始，默认 size 是10。<strong>另外获取靠后的翻页成本较高</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211455.png" alt="image-20200424140545527"></p>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>在请求体第一层属性设置 sort 属性。<strong>最好在”数字型”与”日期型”字段上排序</strong></p>
+<h3 id="排序"><a class="header-anchor" href="#排序">¶</a>排序</h3>
+<p>在请求体第一层属性设置 sort 属性。<strong>最好在&quot;数字型&quot;与&quot;日期型&quot;字段上排序</strong></p>
 <p>因为由于多值类型或分析过的字段排序，系统会选一个值，无法得知该值？</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211500.png" alt="image-20200424140745331"></p>
-<h3 id="source-filtering"><a href="#source-filtering" class="headerlink" title="_source filtering"></a>_source filtering</h3><p>Es 默认返回的是匹配的文档的所有 Field，如果我们只需要特定的 Field，可以在请求体第一层设置_source属性</p>
+<h3 id="source-filtering"><a class="header-anchor" href="#source-filtering">¶</a>_source filtering</h3>
+<p>Es 默认返回的是匹配的文档的所有 Field，如果我们只需要特定的 Field，可以在请求体第一层设置_source属性</p>
 <ul>
 <li>如果设置_source为空 ，那就只返回匹配的文档的元数据</li>
 <li>_source 支持使用通配符：_source[“name*, desc*”]</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211507.png" alt="image-20200424140924145"></p>
-<h3 id="脚本字段"><a href="#脚本字段" class="headerlink" title="脚本字段"></a>脚本字段</h3><p>我们根据提供的脚本计算得到一个值作为一个新字段进行输出，示例：</p>
-<p>订单中有不同的汇率，需要结合汇率对，订单价格进行排序。下面通过 Es 的”painless”脚本对文档中的订单日期字段拼接上一个 hello：</p>
+<h3 id="脚本字段"><a class="header-anchor" href="#脚本字段">¶</a>脚本字段</h3>
+<p>我们根据提供的脚本计算得到一个值作为一个新字段进行输出，示例：</p>
+<p>订单中有不同的汇率，需要结合汇率对，订单价格进行排序。下面通过 Es 的&quot;painless&quot;脚本对文档中的订单日期字段拼接上一个 hello：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211517.png" alt="image-20200424141519876"></p>
-<h3 id="使用查询表达式：Match"><a href="#使用查询表达式：Match" class="headerlink" title="使用查询表达式：Match"></a>使用查询表达式：Match</h3><p>如下所示：</p>
+<h3 id="使用查询表达式：Match"><a class="header-anchor" href="#使用查询表达式：Match">¶</a>使用查询表达式：Match</h3>
+<p>如下所示：</p>
 <ul>
 <li>第一个示例中 comment 直接输入一个字符串，则会默认对该字符串进行分词之后得到的 term 进行 or 匹配。</li>
 <li>如果想进行 AND 匹配，则看第二个示例，comment 需要传入一个 JSON 对象，这个对象的 query 属性是要查询的字符串，operator 属性指定了 AND 逻辑。</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211523.png" alt="image-20200424141832507"></p>
-<h3 id="短语搜索：Match-Phrase"><a href="#短语搜索：Match-Phrase" class="headerlink" title="短语搜索：Match Phrase"></a>短语搜索：Match Phrase</h3><p>这里会导致 query 属性进行 Phrase Query，所有 Term 都要匹配并且顺序一致。</p>
+<h3 id="短语搜索：Match-Phrase"><a class="header-anchor" href="#短语搜索：Match-Phrase">¶</a>短语搜索：Match Phrase</h3>
+<p>这里会导致 query 属性进行 Phrase Query，所有 Term 都要匹配并且顺序一致。</p>
 <p>另外通过指定一个 slop 字段来指定 Term 之间可以插入的字符数量</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211530.png" alt="image-20200424142153515"></p>
-<h3 id="Kibana-测试请求"><a href="#Kibana-测试请求" class="headerlink" title="Kibana 测试请求"></a>Kibana 测试请求</h3><pre><code>#ignore_unavailable=true，可以忽略尝试访问不存在的索引“404_idx”导致的报错
+<h3 id="Kibana-测试请求"><a class="header-anchor" href="#Kibana-测试请求">¶</a>Kibana 测试请求</h3>
+<pre><code>#ignore_unavailable=true，可以忽略尝试访问不存在的索引“404_idx”导致的报错
 #查询movies分页
 POST /movies,404_idx/_search?ignore_unavailable=true
 {
   &quot;profile&quot;: true,
-    &quot;query&quot;: {
-        &quot;match_all&quot;: {}
-    }
+	&quot;query&quot;: {
+		&quot;match_all&quot;: {}
+	}
 }
 
 POST /kibana_sample_data_ecommerce/_search
@@ -1570,7 +1821,7 @@ GET kibana_sample_data_ecommerce/_search
     &quot;new_field&quot;: {
       &quot;script&quot;: {
         &quot;lang&quot;: &quot;painless&quot;,
-        &quot;source&quot;: &quot;doc[&#39;order_date&#39;].value+&#39;hello&#39;&quot;
+        &quot;source&quot;: &quot;doc['order_date'].value+'hello'&quot;
       }
     }
   },
@@ -1624,11 +1875,16 @@ POST movies/_search
       }
     }
   }
-}</code></pre><h3 id="Query-String-amp-Simple-Query-String-查询"><a href="#Query-String-amp-Simple-Query-String-查询" class="headerlink" title="Query String &amp; Simple Query String 查询"></a>Query String &amp; Simple Query String 查询</h3><ul>
-<li><p>Query String：类似 URI Query</p>
+}
+</code></pre>
+<h3 id="Query-String-Simple-Query-String-查询"><a class="header-anchor" href="#Query-String-Simple-Query-String-查询">¶</a>Query String &amp; Simple Query String 查询</h3>
+<ul>
+<li>
+<p>Query String：类似 URI Query</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211537.png" alt="image-20200424143218072"></p>
 </li>
-<li><p>Simple Query String</p>
+<li>
+<p>Simple Query String</p>
 <ul>
 <li>类似 Query String，但是会忽略错误的语法，同时只支持部分查询语法</li>
 <li>不支持 AND、OR、NOT，会当成字符串处理</li>
@@ -1637,7 +1893,8 @@ POST movies/_search
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211543.png" alt="image-20200424143404916"></p>
 </li>
-<li><p>Kibana测试请求</p>
+<li>
+<p>Kibana测试请求</p>
 <pre><code>PUT /users/_doc/1
 {
   &quot;name&quot;:&quot;Ruan Yiming&quot;,
@@ -1650,359 +1907,781 @@ PUT /users/_doc/2
   &quot;about&quot;:&quot;Hadoop&quot;
 }
 
-</code></pre></li>
-</ul>
-<p>  POST users/_search<br>  {<br>    “query”: {<br>      “query_string”: {<br>        “default_field”: “name”,<br>        “query”: “Ruan AND Yiming”<br>      }<br>    }<br>  }</p>
-<p>  POST users/_search<br>  {<br>    “query”: {<br>      “query_string”: {<br>        “fields”:[“name”,”about”],<br>        “query”: “(Ruan AND Yiming) OR (Java AND Elasticsearch)”<br>      }<br>    }<br>  }</p>
-<p>  #Simple Query 默认的operator是 Or<br>  POST users/_search<br>  {<br>    “query”: {<br>      “simple_query_string”: {<br>        “query”: “Ruan AND Yiming”,<br>        “fields”: [“name”]<br>      }<br>    }<br>  }</p>
-<p>  POST users/_search<br>  {<br>    “query”: {<br>      “simple_query_string”: {<br>        “query”: “Ruan Yiming”,<br>        “fields”: [“name”],<br>        “default_operator”: “AND”<br>      }<br>    }<br>  }</p>
-<p>  GET /movies/_search<br>  {<br>      “profile”: true,<br>      “query”:{<br>          “query_string”:{<br>              “default_field”: “title”,<br>              “query”: “Beafiful AND Mind”<br>          }<br>      }<br>  }</p>
-<h1 id="多fields"><a href="#多fields" class="headerlink" title="多fields"></a>多fields</h1><p>  GET /movies/_search<br>  {<br>      “profile”: true,<br>      “query”:{<br>          “query_string”:{<br>              “fields”:[<br>                  “title”,<br>                  “year”<br>              ],<br>              “query”: “2012”<br>          }<br>      }<br>  }</p>
-<p>  GET /movies/_search<br>  {<br>      “profile”:true,<br>      “query”:{<br>          “simple_query_string”:{<br>              “query”:”Beautiful +mind”,<br>              “fields”:[“title”]<br>          }<br>      }<br>  }</p>
-<pre><code>
-# 七、Dynamic Mapping 和常见字段类型
 
-## 1、什么是 Mapping
-
-Mapping 类似数据库中的 schema 的定义，作用如下：
-
-* 定义索引中包含的字段名称（即哪些字段可以被索引）
-* 定义可索引字段的数据类型，例如字符串，数字，布尔... ...
-* 字段，倒排索引的相关配置（ Analyzed or Not Analyzed、分词器）
-
-Mapping 会把 JSON 文档映射成 Lucene 所需要的扁平格式
-
-在第一节中提到，在7.0之前，一个索引可以有多个 Type，每一个 Type 对应一个 Mapping 定义，Mapping 定义了这个 Type 下面被索引的文档需要满足的结构（文档只会属于一个 type），所以文档在索引中被 Type 进行了分组。（也就说，在以前应该是可以同一个字段可以定义多种类型在一个 Index 下多个 Type 中的 Mapping 的，这样是的索引更加抽象，可以兼容更多结构的数据）
-
-但是在7.0之后，一个索引只会有一个 Type，即&quot;_DOC&quot;，这样就会导致一个字段在一个索引中只能是一种类型。也因为只有一个Type，所以不需要在 Mapping 定义中指定 type 信息。
-
-## 2、字段的数据类型
-
-简单类型
-
-- Text、Keyword
-- Date
-- Integer、Floating
-- Boolean
-- IPv4 &amp; IPv6
-
-复杂类型（对象和嵌套对象）
-
-* 对象类型、嵌套类型
-
-特殊类型
-
-* geo_point &amp; geo_shape、percolator(过滤器？)
-
-## 3、Dynamic Mapping
-
-1. 在写入文档时，如果索引不存在，会自动创建索引
-2. Dynamic Mapping 的机制，使得我们无需手动定义 Mappinigs。Elasticsearch 会自动根据文档信息，推算出字段类型
-3. 但是有时候会推算得不对，例如地理位置信息
-4. 当类型如果设置不对时，会导致一些功能无法正常运行，例如 Range 查询。
-
-##  4、类型识别
-
-| JSON 类型 | Elasticsearch 类型                                           |
-| --------- | ------------------------------------------------------------ |
-| 字符串    | 1. 匹配日期格式，设置成 Date，这个也是可以配置的，默认是开启的；2. 通过配置是的其识别数字设置成 float 或者 long，该选项默认关闭；3. 设置为 Text，并且增加 keyword 子字段 |
-| 布尔值    | boolean                                                      |
-| 浮点型    | float                                                        |
-| 整数      | long                                                         |
-| 对象      | Object                                                       |
-| 数组      | 由第一个非空数字得类型所决定                                 |
-| 空值      | 忽略                                                         |
-|           |                                                              |
-
-我们看一下下面的示例：uid 和 isAdmin 字段都将被设置成 text，因为默认下是没有开启自动识别数字字符串的，而对于 boolean 值字符串是更加不会自动转换了
-![image-20200424152015964](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211551.png)
-
-## 5、能否更改 Mapping 的字段类型
-
-### 新增字段
-
-* 如果 Dynamic 设置为 true时，一旦有新增字段的文档写入，Mapping 也同时被更新
-* Dynamic 设为 false，Mapping 不会被更新，新增字段不会被索引，如果用户根据指定这个字段来搜索信息，就会报错（如果不指定该字段搜索，不会报错，但是不会检索该字段内容）；但是字段的信息会被随着文档存储到 Elasticsearch 中，如果这个文档其他字段被索引了，那么这个文档还是可以被搜索出来，该字段也会出现在文档的\_source 中
-* Dynamic 设置为 Strict，这个文档写入动作将直接抛出错误 400
-
-![image-20200424152951556](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211557.png)
-
-### 已有字段
-
-* 对已有字段，**一旦已经有数据写入**，就不再支持修改字段定义（Lucene 实现的倒排索引，一旦生成后，就不允许修改）
-* 如果希望修改字段类型，必须 ReIndex API，重新索引
-
-### 原因
-
-* 如果修改了字段的数据类型，会导致已被索引的索引无法被搜索
-* 但是如果是增加新的字段，就不会有这样的影响
-
-### Kibana 测试请求数据
-</code></pre><p>#写入文档，查看 Mapping<br>PUT mapping_test/_doc/1<br>{<br>  “firstName”:”Chan”,<br>  “lastName”: “Jackie”,<br>  “loginDate”:”2018-07-24T10:29:48.103Z”<br>}</p>
-<p>#查看 Mapping文件<br>GET mapping_test/_mapping</p>
-<p>#Delete index<br>DELETE mapping_test</p>
-<p>#dynamic mapping，推断字段的类型<br>PUT mapping_test/_doc/1<br>{<br>    “uid” : “123”,<br>    “isVip” : false,<br>    “isAdmin”: “true”,<br>    “age”:19,<br>    “heigh”:180<br>}</p>
-<p>#查看 Dynamic<br>GET mapping_test/_mapping</p>
-<p>#默认Mapping支持dynamic，写入的文档中加入新的字段<br>PUT dynamic_mapping_test/_doc/1<br>{<br>  “newField”:”someValue”<br>}</p>
-<p>#该字段可以被搜索，数据也在_source中出现<br>POST dynamic_mapping_test/_search<br>{<br>  “query”:{<br>    “match”:{<br>      “newField”:”someValue”<br>    }<br>  }<br>}</p>
-<p>#修改为dynamic false<br>PUT dynamic_mapping_test/_mapping<br>{<br>  “dynamic”: false<br>}</p>
-<p>#新增 anotherField<br>PUT dynamic_mapping_test/_doc/10<br>{<br>  “anotherField”:”someValue”<br>}</p>
-<p>#该字段不可以被搜索，因为dynamic已经被设置为false<br>POST dynamic_mapping_test/_search<br>{<br>  “query”:{<br>    “match”:{<br>      “anotherField”:”someValue”<br>    }<br>  }<br>}</p>
-<p>get dynamic_mapping_test/_doc/10</p>
-<p>#修改为strict<br>PUT dynamic_mapping_test/_mapping<br>{<br>  “dynamic”: “strict”<br>}</p>
-<p>#写入数据出错，HTTP Code 400<br>PUT dynamic_mapping_test/_doc/12<br>{<br>  “lastField”:”value”<br>}</p>
-<p>DELETE dynamic_mapping_test</p>
-<pre><code>
-## 6、显式 Mapping 设置与常见参数介绍
-
-### 如何定义一个 Mapping
-
-![image-20200424154409744](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211609.png)
-
-1. 可以参考 API 手册，纯手写
-
-   [https://www.elastic.co/guide/en/elasticsearch/reference/7.1/dynamic-mapping.html](https://www.elastic.co/guide/en/elasticsearch/reference/7.1/dynamic-mapping.html)
-
-2. 为了减少输入的工作量，减少出错率，可以依照以下步骤
-
-   - 创建一个临时的 index，写入一些样本数据
-   - 通过访问 Mapping API获得临时文件的动态 Mapping 定义
-   - 修改后用，使用该配置创建你的索引
-   - 删除临时索引
-
-### Mapping 参数设置([官网介绍](https://www.elastic.co/guide/en/elasticsearch/reference/7.1/mapping-params.html))
-
-* 通过字段的 index 属性设置控制当前字段是否被索引，默认为 true，即可被索引
-
-  ![image-20200424154722660](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211616.png)
-
-  设置为 false 之后，如果还指定该字段进行索引，将会遇到以下报错
-
-  ![image-20200424154820530](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211621.png)
-
-* 通过 index_options 属性设置字段索引的级别
-
-  1. docs：记录 doc id
-  2. freqs：记录 doc id 和 term frequencies
-  3. position：记录 doc id 、term frequencies 和 term position
-  4. offsets：记录 doc id、term frequencies、term position 和 character offsets
-
-  Text 类型默认记录 positions，其他默认为 docs。（记录内容越多，占用存储空间越大）
-
-* 实现对字段进行 null 值搜索
-
-  通过设定索引字段的&quot;null_value&quot;属性为字符串&quot;NULL&quot;，即可进行 NULL 值搜索。（**注意：只有 Keyword 类型支持设定 Null_value**）
-
-  ![image-20200424155413611](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211628.png)
-
-* 通过 copy_to 属性指定一个字段表示将当前字段的索引映射到该字段，从而可以实现一个字段索引其他多个字段的内容
-
-  1. copy_to 将字段的数值拷贝到目标字段，实现类似\_all的作用
-  2. 之前的\_all 字段，在7中已经被 copy_to 所替代
-  3. 满足一些特定的搜索需求
-  4. copy_to 的目标字段不出现在\_source 中
-
-  ![image-20200424155747257](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211634.png)
-
-### 数组类型
-
-Elasticsearch 中不提供专门的数组类型。但是任何字段，都可以包含多个相同类型的数据。可以看下以下测试内容，第一个请求执行之后，插入了一个 text 类型的 interests 的字段，第二个请求也是可以执行成功，我们看一下此时的 Mapping 定义，发现这个字段的类型还是 text，并不是一个数组，同时也符合我们前面讲到的，Mapping 的字段类型在该字段已经有数据被索引之后是不可以被修改的
-
-![image-20200424155935807](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211642.png)
-
-![image-20200424160319336](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211648.png)
-
-### 多字段类型
-
-当我们为一个索引定义 mapping的时候，可以为索引字段定义子字段，而 Elasticsearch 本身对于 text 类型的字段都会加上一个&quot;keyword&quot;类型的子字段。
-
-这个多字段的特性使得我们可以为一个字段定制更多其他的索引以及检索方式（通过指定不同的 analyzer）：
-
-* 例如一个字段同时支持不同语言的搜索
-* 对字段支持 pinyin 的搜索
-* 还支持设置在搜索和索引的时候使用不同的 analyzer
-
-![image-20200424163132903](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211656.png)
-
-### Exact Values v.s. Full Text
-
-精确值与全文本
-
-* Exact Value：包括数字、日期、具体一个字符串（例如&quot;App Store&quot;，这是一个业务意义上的最小单元短语，**这在 Elasticsearch 中类型为 keyword**）
-* Full Text：非结构化的文本数据（**Elasticsearch 中的 text**）
-
-对于 keyword 类型的数据来说，是没有必要再进行分词处理的了，在 Elasticsearch 中定义了 keyword 类型就是为了避免不必要的分词处理，所以 Elasticsearch 在对每一个字段进行检索的时候如果遇到 Exact Value（如果是创建的时候遇到了自定义了 keyword 类型的字段呢？），不需要做特殊的分词处理，较少性能的浪费。
-
-![image-20200424171205492](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211703.png)
-
-### 自定义分词
-
-当 Elasticsearch 自带的分词器无法满足时，可以自定义分词器。通过自组合不同的组件实现：
-
-* Character Filter
-
-  在 Tokenizer 之前对文本进行处理，例如增加删除及替换字符。可以配置多个 Character Filters。会影响 Tokenizer 的 position 和 offset 信息。以下是一些 Es 自带的 Character FIlters：
-
-  * HTML strip：去掉 html 标签
-  * Mapping：字符串替换
-  * Pattern replace：正则匹配替换
-
-* Tokenizer
-
-  将原始文本按照一定的规则，切分为词（Term or token），以下是一些 Es 内置的 Tokenizer，当然也可以自己使用 Java 开发实现自己的 Tokenizer：
-
-  * whitespace
-  * standard
-  * uax_url_email
-  * pattern
-  * keyword：不做任何处理
-  * path hierarchy
-
-* Token Filter
-
-  将 Tokenizer 输出的单词（term）进行增加修改删除，以下时自带的一些 Token FIlters：
-
-  - Lowercase
-  - stop
-  - synonym（添加同义词）
-
-在定义索引的 mapping 的时候通过组合以上三种组件定义自己想要的分词器
-
-![image-20200424172350477](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211712.png)
-
-Kibana 请求参数测试：
-</code></pre><p>PUT logs/_doc/1<br>{“level”:”DEBUG”}</p>
-<p>GET /logs/_mapping</p>
-<p>POST _analyze<br>{<br>  “tokenizer”:”keyword”,<br>  “char_filter”:[“html_strip”],<br>  “text”: “<b>hello world</b>“<br>}</p>
-<p>POST _analyze<br>{<br>  “tokenizer”:”path_hierarchy”,<br>  “text”:”/user/ymruan/a/b/c/d/e”<br>}</p>
-<p>#使用char filter进行替换<br>POST _analyze<br>{<br>  “tokenizer”: “standard”,<br>  “char_filter”: [<br>      {<br>        “type” : “mapping”,<br>        “mappings” : [ “- =&gt; _”]<br>      }<br>    ],<br>  “text”: “123-456, I-test! test-990 650-555-1234”<br>}</p>
-<p>//char filter 替换表情符号<br>POST _analyze<br>{<br>  “tokenizer”: “standard”,<br>  “char_filter”: [<br>      {<br>        “type” : “mapping”,<br>        “mappings” : [ “:) =&gt; happy”, “:( =&gt; sad”]<br>      }<br>    ],<br>    “text”: [“I am felling :)”, “Feeling :( today”]<br>}</p>
-<p>// white space and snowball<br>GET _analyze<br>{<br>  “tokenizer”: “whitespace”,<br>  “filter”: [“stop”,”snowball”],<br>  “text”: [“The gilrs in China are playing this game!”]<br>}</p>
-<p>// whitespace与stop<br>GET _analyze<br>{<br>  “tokenizer”: “whitespace”,<br>  “filter”: [“stop”,”snowball”],<br>  “text”: [“The rain in Spain falls mainly on the plain.”]<br>}</p>
-<p>//remove 加入lowercase后，The被当成 stopword删除<br>GET _analyze<br>{<br>  “tokenizer”: “whitespace”,<br>  “filter”: [“lowercase”,”stop”,”snowball”],<br>  “text”: [“The gilrs in China are playing this game!”]<br>}</p>
-<p>//正则表达式<br>GET _analyze<br>{<br>  “tokenizer”: “standard”,<br>  “char_filter”: [<br>      {<br>        “type” : “pattern_replace”,<br>        “pattern” : “http://(.*)”,<br>        “replacement” : “$1”<br>      }<br>    ],<br>    “text” : “<a href="http://www.elastic.co&quot;" target="_blank" rel="noopener">http://www.elastic.co&quot;</a><br>}</p>
-<pre><code>
-## 7、Index Template和 Dynamic Template
-
-### [Index Template](https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-templates.html)
-
-帮助你设定 Mappings 和 Settings，并按照一定的规则，自动匹配到新创建的索引之上（**其匹配属性是一个数组，即可以设定多个匹配规则**）
-
-* 模板仅在一个索引被新创建之前存在，才会对这个准备新建的索引产生作用。修改模板不会影响已创建的索引。
-* 你可以设定多个索引模板，这些设置会被&quot;merge&quot;在一起
-* 你可以指定&quot;order&quot;的数值，控制&quot;merging&quot;的过程
-
-#### 两个 Index Templates 例子：
-
-* 第一个例子中设定了所有索引的创建都设定主分片和副本分片数量是1
-* 第二个例子中设定了以test 开头的索引的主分片数量是1，副本分片数量是2；另外我们将 Es 自动识别日期字符串且转换类型的功能关闭，然后把自动识别数值字符串且转换类型的功能启用。
-
-![image-20200424180915555](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211720.png)
-
-####  Index Template 的工作方式
-
-当一个索引被新创建时，会按照一下步骤设置 Mappings：
-
-1. 应用 Elasticsearch 默认的 settings 和 mappings
-2. 应用 order 数值低的 index template 中的设定，之前的设定会被覆盖
-3. 应用 order 高的 index template 中的设定，之前的设定会被覆盖
-4. 如果用户创建索引的时候自己指定了 Settings 和 Mappings，则覆盖其设置的设定到之前的设定中。
-
-### [Dynamic Template](https://www.elastic.co/guide/en/elasticsearch/reference/7.1/dynamic-mapping.html)
-
-上面提到的 Index Template 是应用在所有索引上面的，它是定义在一个_template 的命名空间的，index_patterns 是它的其中一个匹配属性（**其匹配属性也是一个数组，即可以设定多个匹配规则**），该属性匹配的是索引对象；
-
-而 Dynamic Template 是定义在一个具体的索引上的，同样它也有匹配属性，但是它的匹配属性匹配的是当前这个 Mapping 的字段，也就是说 Dynamic Template 是直接应用在当前 Index 的字段上的，所以我们可以使用 Dynamic Template 设置字段匹配规则对特定的字段进行特定 mapping 设定，从而实现一个&quot;动态的索引&quot;。例如可以实现以下需求：
-
-* 所有的字符串类型都设定成 Keyword，或者关闭 keyword 字段。
-* is 开头的字段都设置成 boolean
-* long_开头的都设置成 long 类型
-
-下面是三个 Dynamic Template 的例子：
-
-* 第一个 Index 中定义了两个 Dynamic Template，它们的名字分别是&quot;strings_as_boolean&quot;和&quot;strings_as_keywords&quot;，前者将所有 is 开头的字符串设置成 boolean 类型，后者将其他类型转成 keyword 类型（所以 templates 的应用优先顺序应该是和定义顺序是一样的）
-* 第二个 Index 定义了一个 Dynamic Template，将 name.开头，非.middle 结尾的字段设置为 text 类型并链接索引到一个 full_name 字段
-
-![image-20200424182832139](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211741.png)
-
-![image-20200424182839704](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211752.png)
-
-### Kibana 测试请求
-</code></pre><p>#数字字符串被映射成text，日期字符串被映射成日期<br>PUT ttemplate/_doc/1<br>{<br>    “someNumber”:”1”,<br>    “someDate”:”2019/01/01”<br>}<br>GET ttemplate/_mapping</p>
-<p>#Create a default template<br>PUT _template/template_default<br>{<br>  “index_patterns”: [“*”],<br>  “order” : 0,<br>  “version”: 1,<br>  “settings”: {<br>    “number_of_shards”: 1,<br>    “number_of_replicas”:1<br>  }<br>}</p>
-<p>PUT /_template/template_test<br>{<br>    “index_patterns” : [“test*”],<br>    “order” : 1,<br>    “settings” : {<br>        “number_of_shards”: 1,<br>        “number_of_replicas” : 2<br>    },<br>    “mappings” : {<br>        “date_detection”: false,<br>        “numeric_detection”: true<br>    }<br>}</p>
-<p>#查看template信息<br>GET /_template/template_default<br>GET /_template/temp*</p>
-<p>#写入新的数据，index以test开头<br>PUT testtemplate/_doc/1<br>{<br>    “someNumber”:”1”,<br>    “someDate”:”2019/01/01”<br>}<br>GET testtemplate/_mapping<br>get testtemplate/_settings</p>
-<p>PUT testmy<br>{<br>    “settings”:{<br>        “number_of_replicas”:5<br>    }<br>}</p>
-<p>put testmy/_doc/1<br>{<br>  “key”:”value”<br>}</p>
-<p>get testmy/_settings<br>DELETE testmy<br>DELETE /_template/template_default<br>DELETE /_template/template_test</p>
-<p>#Dynaminc Mapping 根据类型和字段名<br>DELETE my_index</p>
-<p>PUT my_index/_doc/1<br>{<br>  “firstName”:”Ruan”,<br>  “isVIP”:”true”<br>}</p>
-<p>GET my_index/_mapping<br>DELETE my_index<br>PUT my_index<br>{<br>  “mappings”: {<br>    “dynamic_templates”: [<br>            {<br>        “strings_as_boolean”: {<br>          “match_mapping_type”:   “string”,<br>          “match”:”is*”,<br>          “mapping”: {<br>            “type”: “boolean”<br>          }<br>        }<br>      },<br>      {<br>        “strings_as_keywords”: {<br>          “match_mapping_type”:   “string”,<br>          “mapping”: {<br>            “type”: “keyword”<br>          }<br>        }<br>      }<br>    ]<br>  }<br>}</p>
-<p>DELETE my_index</p>
-<p>#结合路径<br>PUT my_index<br>{<br>  “mappings”: {<br>    “dynamic_templates”: [<br>      {<br>        “full_name”: {<br>          “path_match”:   “name.<em>“,<br>          “path_unmatch”: “</em>.middle”,<br>          “mapping”: {<br>            “type”:       “text”,<br>            “copy_to”:    “full_name”<br>          }<br>        }<br>      }<br>    ]<br>  }<br>}</p>
-<p>PUT my_index/_doc/1<br>{<br>  “name”: {<br>    “first”:  “John”,<br>    “middle”: “Winston”,<br>    “last”:   “Lennon”<br>  }<br>}</p>
-<p>GET my_index/_search?q=full_name:John</p>
-<pre><code>
-# 八、Elasticsearch 聚合分析简介（[官方介绍地址](https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations.html)）
-
-Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析的功能
-
-- 实时性高
-- Hadoop（T+1）
-
-通过聚合，我们会得到一个数据的概览，是分析和总结全套的数据，而不是寻找单个文档
-
-- 尖沙咀和香港岛的客户数量
-- 不同的价格区间，可预定的经济型酒店和五星级酒店的数量
-
-高性能，只需要一条语句，就可以从 Elasticsearch 得到分析结果，无需在客户端自己去实现分析逻辑
-
-![image-20200424185029724](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211800.png)
-
-## 集合的分类
-
-### Bucket 和 Metric
-
-1. Bucket Aggregation：一系列满足特定条件的文档的集合
-
-  * 一些例子：
-    * 杭州属于浙江、一个演员属于男性或者女性
-    * 嵌套关系：杭州属于浙江属于中国属于亚洲
-  * Elasticsearch 提供了很多类型的 Bucket，帮助你用多种方式划分文档。（如 Term 或者 Range，按照时间、年龄区间、地理位置进行划分等）
-
-  ![image-20200424185849559](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211806.png)
-
-  ![image-20200424190233006](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211812.png)
-
-2. Metric Aggregation：一些数学运算，可以对文档字段进行统计分析
-
-  * Metric 会基于数据集计算结果，除了支持在字段上进行计算，同样也支持在脚本（painless script）产生的结果之上进行计算
-  * 大多数 Metric 是数学计算，仅输出一个值：min、max、sum、avg、cardinlity
-  * 部分 Metric 支持输出多个数值：stats、percentiles、precentille_ranks
-
-3. 两者类比
-
-![image-20200424185407354](https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211819.png)
-
-4. Kibana 测试请求
-</code></pre><p>#按照目的地进行分桶统计<br>GET kibana_sample_data_flights/_search<br>{<br>    “size”: 0,<br>    “aggs”:{<br>        “flight_dest”:{<br>            “terms”:{<br>                “field”:”DestCountry”<br>            }<br>        }<br>    }<br>}</p>
-<p>#查看航班目的地的统计信息，增加平均，最高最低价格<br>GET kibana_sample_data_flights/_search<br>{<br>    “size”: 0,<br>    “aggs”:{<br>        “flight_dest”:{<br>            “terms”:{<br>                “field”:”DestCountry”<br>            },<br>            “aggs”:{<br>                “avg_price”:{<br>                    “avg”:{<br>                        “field”:”AvgTicketPrice”<br>                    }<br>                },<br>                “max_price”:{<br>                    “max”:{<br>                        “field”:”AvgTicketPrice”<br>                    }<br>                },<br>                “min_price”:{<br>                    “min”:{<br>                        “field”:”AvgTicketPrice”<br>                    }<br>                }<br>            }<br>        }<br>    }<br>}</p>
-<p>#价格统计信息+天气信息<br>GET kibana_sample_data_flights/_search<br>{<br>    “size”: 0,<br>    “aggs”:{<br>        “flight_dest”:{<br>            “terms”:{<br>                “field”:”DestCountry”<br>            },<br>            “aggs”:{<br>                “stats_price”:{<br>                    “stats”:{<br>                        “field”:”AvgTicketPrice”<br>                    }<br>                },<br>                “wather”:{<br>                  “terms”: {<br>                    “field”: “DestWeather”,<br>                    “size”: 5<br>                  }<br>                }</p>
-<pre><code>        }
+POST users/_search
+{
+  &quot;query&quot;: {
+    &quot;query_string&quot;: {
+      &quot;default_field&quot;: &quot;name&quot;,
+      &quot;query&quot;: &quot;Ruan AND Yiming&quot;
     }
-}</code></pre><p>}</p>
-<pre><code>
+  }
+}
 
 
-* Pipeline Aggregation：对其他的聚合结果进行二次聚合
+POST users/_search
+{
+  &quot;query&quot;: {
+    &quot;query_string&quot;: {
+      &quot;fields&quot;:[&quot;name&quot;,&quot;about&quot;],
+      &quot;query&quot;: &quot;(Ruan AND Yiming) OR (Java AND Elasticsearch)&quot;
+    }
+  }
+}
+
+
+#Simple Query 默认的operator是 Or
+POST users/_search
+{
+  &quot;query&quot;: {
+    &quot;simple_query_string&quot;: {
+      &quot;query&quot;: &quot;Ruan AND Yiming&quot;,
+      &quot;fields&quot;: [&quot;name&quot;]
+    }
+  }
+}
+
+
+POST users/_search
+{
+  &quot;query&quot;: {
+    &quot;simple_query_string&quot;: {
+      &quot;query&quot;: &quot;Ruan Yiming&quot;,
+      &quot;fields&quot;: [&quot;name&quot;],
+      &quot;default_operator&quot;: &quot;AND&quot;
+    }
+  }
+}
+
+
+GET /movies/_search
+{
+	&quot;profile&quot;: true,
+	&quot;query&quot;:{
+		&quot;query_string&quot;:{
+			&quot;default_field&quot;: &quot;title&quot;,
+			&quot;query&quot;: &quot;Beafiful AND Mind&quot;
+		}
+	}
+}
+
+
+# 多fields
+GET /movies/_search
+{
+	&quot;profile&quot;: true,
+	&quot;query&quot;:{
+		&quot;query_string&quot;:{
+			&quot;fields&quot;:[
+				&quot;title&quot;,
+				&quot;year&quot;
+			],
+			&quot;query&quot;: &quot;2012&quot;
+		}
+	}
+}
 
 
 
-* Matrix Aggregation：支持对多个字段的操作并提供一个结果矩阵
-
-
+GET /movies/_search
+{
+	&quot;profile&quot;:true,
+	&quot;query&quot;:{
+		&quot;simple_query_string&quot;:{
+			&quot;query&quot;:&quot;Beautiful +mind&quot;,
+			&quot;fields&quot;:[&quot;title&quot;]
+		}
+	}
+}
 </code></pre>
+</li>
+</ul>
+<h1>七、Dynamic Mapping 和常见字段类型</h1>
+<h2 id="1、什么是-Mapping"><a class="header-anchor" href="#1、什么是-Mapping">¶</a>1、什么是 Mapping</h2>
+<p>Mapping 类似数据库中的 schema 的定义，作用如下：</p>
+<ul>
+<li>定义索引中包含的字段名称（即哪些字段可以被索引）</li>
+<li>定义可索引字段的数据类型，例如字符串，数字，布尔… …</li>
+<li>字段，倒排索引的相关配置（ Analyzed or Not Analyzed、分词器）</li>
+</ul>
+<p>Mapping 会把 JSON 文档映射成 Lucene 所需要的扁平格式</p>
+<p>在第一节中提到，在7.0之前，一个索引可以有多个 Type，每一个 Type 对应一个 Mapping 定义，Mapping 定义了这个 Type 下面被索引的文档需要满足的结构（文档只会属于一个 type），所以文档在索引中被 Type 进行了分组。（也就说，在以前应该是可以同一个字段可以定义多种类型在一个 Index 下多个 Type 中的 Mapping 的，这样是的索引更加抽象，可以兼容更多结构的数据）</p>
+<p>但是在7.0之后，一个索引只会有一个 Type，即&quot;_DOC&quot;，这样就会导致一个字段在一个索引中只能是一种类型。也因为只有一个Type，所以不需要在 Mapping 定义中指定 type 信息。</p>
+<h2 id="2、字段的数据类型"><a class="header-anchor" href="#2、字段的数据类型">¶</a>2、字段的数据类型</h2>
+<p>简单类型</p>
+<ul>
+<li>Text、Keyword</li>
+<li>Date</li>
+<li>Integer、Floating</li>
+<li>Boolean</li>
+<li>IPv4 &amp; IPv6</li>
+</ul>
+<p>复杂类型（对象和嵌套对象）</p>
+<ul>
+<li>对象类型、嵌套类型</li>
+</ul>
+<p>特殊类型</p>
+<ul>
+<li>geo_point &amp; geo_shape、percolator(过滤器？)</li>
+</ul>
+<h2 id="3、Dynamic-Mapping"><a class="header-anchor" href="#3、Dynamic-Mapping">¶</a>3、Dynamic Mapping</h2>
+<ol>
+<li>在写入文档时，如果索引不存在，会自动创建索引</li>
+<li>Dynamic Mapping 的机制，使得我们无需手动定义 Mappinigs。Elasticsearch 会自动根据文档信息，推算出字段类型</li>
+<li>但是有时候会推算得不对，例如地理位置信息</li>
+<li>当类型如果设置不对时，会导致一些功能无法正常运行，例如 Range 查询。</li>
+</ol>
+<h2 id="4、类型识别"><a class="header-anchor" href="#4、类型识别">¶</a>4、类型识别</h2>
+<table>
+<thead>
+<tr>
+<th>JSON 类型</th>
+<th>Elasticsearch 类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串</td>
+<td>1. 匹配日期格式，设置成 Date，这个也是可以配置的，默认是开启的；2. 通过配置是的其识别数字设置成 float 或者 long，该选项默认关闭；3. 设置为 Text，并且增加 keyword 子字段</td>
+</tr>
+<tr>
+<td>布尔值</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>浮点型</td>
+<td>float</td>
+</tr>
+<tr>
+<td>整数</td>
+<td>long</td>
+</tr>
+<tr>
+<td>对象</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>数组</td>
+<td>由第一个非空数字得类型所决定</td>
+</tr>
+<tr>
+<td>空值</td>
+<td>忽略</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>我们看一下下面的示例：uid 和 isAdmin 字段都将被设置成 text，因为默认下是没有开启自动识别数字字符串的，而对于 boolean 值字符串是更加不会自动转换了<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211551.png" alt="image-20200424152015964"></p>
+<h2 id="5、能否更改-Mapping-的字段类型"><a class="header-anchor" href="#5、能否更改-Mapping-的字段类型">¶</a>5、能否更改 Mapping 的字段类型</h2>
+<h3 id="新增字段"><a class="header-anchor" href="#新增字段">¶</a>新增字段</h3>
+<ul>
+<li>如果 Dynamic 设置为 true时，一旦有新增字段的文档写入，Mapping 也同时被更新</li>
+<li>Dynamic 设为 false，Mapping 不会被更新，新增字段不会被索引，如果用户根据指定这个字段来搜索信息，就会报错（如果不指定该字段搜索，不会报错，但是不会检索该字段内容）；但是字段的信息会被随着文档存储到 Elasticsearch 中，如果这个文档其他字段被索引了，那么这个文档还是可以被搜索出来，该字段也会出现在文档的_source 中</li>
+<li>Dynamic 设置为 Strict，这个文档写入动作将直接抛出错误 400</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211557.png" alt="image-20200424152951556"></p>
+<h3 id="已有字段"><a class="header-anchor" href="#已有字段">¶</a>已有字段</h3>
+<ul>
+<li>对已有字段，<strong>一旦已经有数据写入</strong>，就不再支持修改字段定义（Lucene 实现的倒排索引，一旦生成后，就不允许修改）</li>
+<li>如果希望修改字段类型，必须 ReIndex API，重新索引</li>
+</ul>
+<h3 id="原因"><a class="header-anchor" href="#原因">¶</a>原因</h3>
+<ul>
+<li>如果修改了字段的数据类型，会导致已被索引的索引无法被搜索</li>
+<li>但是如果是增加新的字段，就不会有这样的影响</li>
+</ul>
+<h3 id="Kibana-测试请求数据"><a class="header-anchor" href="#Kibana-测试请求数据">¶</a>Kibana 测试请求数据</h3>
+<pre><code>#写入文档，查看 Mapping
+PUT mapping_test/_doc/1
+{
+  &quot;firstName&quot;:&quot;Chan&quot;,
+  &quot;lastName&quot;: &quot;Jackie&quot;,
+  &quot;loginDate&quot;:&quot;2018-07-24T10:29:48.103Z&quot;
+}
+
+#查看 Mapping文件
+GET mapping_test/_mapping
+
+
+#Delete index
+DELETE mapping_test
+
+#dynamic mapping，推断字段的类型
+PUT mapping_test/_doc/1
+{
+    &quot;uid&quot; : &quot;123&quot;,
+    &quot;isVip&quot; : false,
+    &quot;isAdmin&quot;: &quot;true&quot;,
+    &quot;age&quot;:19,
+    &quot;heigh&quot;:180
+}
+
+#查看 Dynamic
+GET mapping_test/_mapping
+
+
+#默认Mapping支持dynamic，写入的文档中加入新的字段
+PUT dynamic_mapping_test/_doc/1
+{
+  &quot;newField&quot;:&quot;someValue&quot;
+}
+
+#该字段可以被搜索，数据也在_source中出现
+POST dynamic_mapping_test/_search
+{
+  &quot;query&quot;:{
+    &quot;match&quot;:{
+      &quot;newField&quot;:&quot;someValue&quot;
+    }
+  }
+}
+
+
+#修改为dynamic false
+PUT dynamic_mapping_test/_mapping
+{
+  &quot;dynamic&quot;: false
+}
+
+#新增 anotherField
+PUT dynamic_mapping_test/_doc/10
+{
+  &quot;anotherField&quot;:&quot;someValue&quot;
+}
+
+
+#该字段不可以被搜索，因为dynamic已经被设置为false
+POST dynamic_mapping_test/_search
+{
+  &quot;query&quot;:{
+    &quot;match&quot;:{
+      &quot;anotherField&quot;:&quot;someValue&quot;
+    }
+  }
+}
+
+get dynamic_mapping_test/_doc/10
+
+#修改为strict
+PUT dynamic_mapping_test/_mapping
+{
+  &quot;dynamic&quot;: &quot;strict&quot;
+}
+
+
+
+#写入数据出错，HTTP Code 400
+PUT dynamic_mapping_test/_doc/12
+{
+  &quot;lastField&quot;:&quot;value&quot;
+}
+
+DELETE dynamic_mapping_test
+</code></pre>
+<h2 id="6、显式-Mapping-设置与常见参数介绍"><a class="header-anchor" href="#6、显式-Mapping-设置与常见参数介绍">¶</a>6、显式 Mapping 设置与常见参数介绍</h2>
+<h3 id="如何定义一个-Mapping"><a class="header-anchor" href="#如何定义一个-Mapping">¶</a>如何定义一个 Mapping</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211609.png" alt="image-20200424154409744"></p>
+<ol>
+<li>
+<p>可以参考 API 手册，纯手写</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/dynamic-mapping.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.1/dynamic-mapping.html</a></p>
+</li>
+<li>
+<p>为了减少输入的工作量，减少出错率，可以依照以下步骤</p>
+<ul>
+<li>创建一个临时的 index，写入一些样本数据</li>
+<li>通过访问 Mapping API获得临时文件的动态 Mapping 定义</li>
+<li>修改后用，使用该配置创建你的索引</li>
+<li>删除临时索引</li>
+</ul>
+</li>
+</ol>
+<h3 id="Mapping-参数设置-官网介绍"><a class="header-anchor" href="#Mapping-参数设置-官网介绍">¶</a>Mapping 参数设置(<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/mapping-params.html" target="_blank" rel="noopener">官网介绍</a>)</h3>
+<ul>
+<li>
+<p>通过字段的 index 属性设置控制当前字段是否被索引，默认为 true，即可被索引</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211616.png" alt="image-20200424154722660"></p>
+<p>设置为 false 之后，如果还指定该字段进行索引，将会遇到以下报错</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211621.png" alt="image-20200424154820530"></p>
+</li>
+<li>
+<p>通过 index_options 属性设置字段索引的级别</p>
+<ol>
+<li>docs：记录 doc id</li>
+<li>freqs：记录 doc id 和 term frequencies</li>
+<li>position：记录 doc id 、term frequencies 和 term position</li>
+<li>offsets：记录 doc id、term frequencies、term position 和 character offsets</li>
+</ol>
+<p>Text 类型默认记录 positions，其他默认为 docs。（记录内容越多，占用存储空间越大）</p>
+</li>
+<li>
+<p>实现对字段进行 null 值搜索</p>
+<p>通过设定索引字段的&quot;null_value&quot;属性为字符串&quot;NULL&quot;，即可进行 NULL 值搜索。（<strong>注意：只有 Keyword 类型支持设定 Null_value</strong>）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211628.png" alt="image-20200424155413611"></p>
+</li>
+<li>
+<p>通过 copy_to 属性指定一个字段表示将当前字段的索引映射到该字段，从而可以实现一个字段索引其他多个字段的内容</p>
+<ol>
+<li>copy_to 将字段的数值拷贝到目标字段，实现类似_all的作用</li>
+<li>之前的_all 字段，在7中已经被 copy_to 所替代</li>
+<li>满足一些特定的搜索需求</li>
+<li>copy_to 的目标字段不出现在_source 中</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211634.png" alt="image-20200424155747257"></p>
+</li>
+</ul>
+<h3 id="数组类型"><a class="header-anchor" href="#数组类型">¶</a>数组类型</h3>
+<p>Elasticsearch 中不提供专门的数组类型。但是任何字段，都可以包含多个相同类型的数据。可以看下以下测试内容，第一个请求执行之后，插入了一个 text 类型的 interests 的字段，第二个请求也是可以执行成功，我们看一下此时的 Mapping 定义，发现这个字段的类型还是 text，并不是一个数组，同时也符合我们前面讲到的，Mapping 的字段类型在该字段已经有数据被索引之后是不可以被修改的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211642.png" alt="image-20200424155935807"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211648.png" alt="image-20200424160319336"></p>
+<h3 id="多字段类型"><a class="header-anchor" href="#多字段类型">¶</a>多字段类型</h3>
+<p>当我们为一个索引定义 mapping的时候，可以为索引字段定义子字段，而 Elasticsearch 本身对于 text 类型的字段都会加上一个&quot;keyword&quot;类型的子字段。</p>
+<p>这个多字段的特性使得我们可以为一个字段定制更多其他的索引以及检索方式（通过指定不同的 analyzer）：</p>
+<ul>
+<li>例如一个字段同时支持不同语言的搜索</li>
+<li>对字段支持 pinyin 的搜索</li>
+<li>还支持设置在搜索和索引的时候使用不同的 analyzer</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211656.png" alt="image-20200424163132903"></p>
+<h3 id="Exact-Values-v-s-Full-Text"><a class="header-anchor" href="#Exact-Values-v-s-Full-Text">¶</a>Exact Values v.s. Full Text</h3>
+<p>精确值与全文本</p>
+<ul>
+<li>Exact Value：包括数字、日期、具体一个字符串（例如&quot;App Store&quot;，这是一个业务意义上的最小单元短语，<strong>这在 Elasticsearch 中类型为 keyword</strong>）</li>
+<li>Full Text：非结构化的文本数据（<strong>Elasticsearch 中的 text</strong>）</li>
+</ul>
+<p>对于 keyword 类型的数据来说，是没有必要再进行分词处理的了，在 Elasticsearch 中定义了 keyword 类型就是为了避免不必要的分词处理，所以 Elasticsearch 在对每一个字段进行检索的时候如果遇到 Exact Value（如果是创建的时候遇到了自定义了 keyword 类型的字段呢？），不需要做特殊的分词处理，较少性能的浪费。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211703.png" alt="image-20200424171205492"></p>
+<h3 id="自定义分词"><a class="header-anchor" href="#自定义分词">¶</a>自定义分词</h3>
+<p>当 Elasticsearch 自带的分词器无法满足时，可以自定义分词器。通过自组合不同的组件实现：</p>
+<ul>
+<li>
+<p>Character Filter</p>
+<p>在 Tokenizer 之前对文本进行处理，例如增加删除及替换字符。可以配置多个 Character Filters。会影响 Tokenizer 的 position 和 offset 信息。以下是一些 Es 自带的 Character FIlters：</p>
+<ul>
+<li>HTML strip：去掉 html 标签</li>
+<li>Mapping：字符串替换</li>
+<li>Pattern replace：正则匹配替换</li>
+</ul>
+</li>
+<li>
+<p>Tokenizer</p>
+<p>将原始文本按照一定的规则，切分为词（Term or token），以下是一些 Es 内置的 Tokenizer，当然也可以自己使用 Java 开发实现自己的 Tokenizer：</p>
+<ul>
+<li>whitespace</li>
+<li>standard</li>
+<li>uax_url_email</li>
+<li>pattern</li>
+<li>keyword：不做任何处理</li>
+<li>path hierarchy</li>
+</ul>
+</li>
+<li>
+<p>Token Filter</p>
+<p>将 Tokenizer 输出的单词（term）进行增加修改删除，以下时自带的一些 Token FIlters：</p>
+<ul>
+<li>Lowercase</li>
+<li>stop</li>
+<li>synonym（添加同义词）</li>
+</ul>
+</li>
+</ul>
+<p>在定义索引的 mapping 的时候通过组合以上三种组件定义自己想要的分词器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211712.png" alt="image-20200424172350477"></p>
+<p>Kibana 请求参数测试：</p>
+<pre><code>PUT logs/_doc/1
+{&quot;level&quot;:&quot;DEBUG&quot;}
+
+GET /logs/_mapping
+
+POST _analyze
+{
+  &quot;tokenizer&quot;:&quot;keyword&quot;,
+  &quot;char_filter&quot;:[&quot;html_strip&quot;],
+  &quot;text&quot;: &quot;&lt;b&gt;hello world&lt;/b&gt;&quot;
+}
+
+
+POST _analyze
+{
+  &quot;tokenizer&quot;:&quot;path_hierarchy&quot;,
+  &quot;text&quot;:&quot;/user/ymruan/a/b/c/d/e&quot;
+}
+
+
+
+#使用char filter进行替换
+POST _analyze
+{
+  &quot;tokenizer&quot;: &quot;standard&quot;,
+  &quot;char_filter&quot;: [
+      {
+        &quot;type&quot; : &quot;mapping&quot;,
+        &quot;mappings&quot; : [ &quot;- =&gt; _&quot;]
+      }
+    ],
+  &quot;text&quot;: &quot;123-456, I-test! test-990 650-555-1234&quot;
+}
+
+//char filter 替换表情符号
+POST _analyze
+{
+  &quot;tokenizer&quot;: &quot;standard&quot;,
+  &quot;char_filter&quot;: [
+      {
+        &quot;type&quot; : &quot;mapping&quot;,
+        &quot;mappings&quot; : [ &quot;:) =&gt; happy&quot;, &quot;:( =&gt; sad&quot;]
+      }
+    ],
+    &quot;text&quot;: [&quot;I am felling :)&quot;, &quot;Feeling :( today&quot;]
+}
+
+// white space and snowball
+GET _analyze
+{
+  &quot;tokenizer&quot;: &quot;whitespace&quot;,
+  &quot;filter&quot;: [&quot;stop&quot;,&quot;snowball&quot;],
+  &quot;text&quot;: [&quot;The gilrs in China are playing this game!&quot;]
+}
+
+
+// whitespace与stop
+GET _analyze
+{
+  &quot;tokenizer&quot;: &quot;whitespace&quot;,
+  &quot;filter&quot;: [&quot;stop&quot;,&quot;snowball&quot;],
+  &quot;text&quot;: [&quot;The rain in Spain falls mainly on the plain.&quot;]
+}
+
+
+//remove 加入lowercase后，The被当成 stopword删除
+GET _analyze
+{
+  &quot;tokenizer&quot;: &quot;whitespace&quot;,
+  &quot;filter&quot;: [&quot;lowercase&quot;,&quot;stop&quot;,&quot;snowball&quot;],
+  &quot;text&quot;: [&quot;The gilrs in China are playing this game!&quot;]
+}
+
+//正则表达式
+GET _analyze
+{
+  &quot;tokenizer&quot;: &quot;standard&quot;,
+  &quot;char_filter&quot;: [
+      {
+        &quot;type&quot; : &quot;pattern_replace&quot;,
+        &quot;pattern&quot; : &quot;http://(.*)&quot;,
+        &quot;replacement&quot; : &quot;$1&quot;
+      }
+    ],
+    &quot;text&quot; : &quot;http://www.elastic.co&quot;
+}
+</code></pre>
+<h2 id="7、Index-Template和-Dynamic-Template"><a class="header-anchor" href="#7、Index-Template和-Dynamic-Template">¶</a>7、Index Template和 Dynamic Template</h2>
+<h3 id="Index-Template"><a class="header-anchor" href="#Index-Template">¶</a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/indices-templates.html" target="_blank" rel="noopener">Index Template</a></h3>
+<p>帮助你设定 Mappings 和 Settings，并按照一定的规则，自动匹配到新创建的索引之上（<strong>其匹配属性是一个数组，即可以设定多个匹配规则</strong>）</p>
+<ul>
+<li>模板仅在一个索引被新创建之前存在，才会对这个准备新建的索引产生作用。修改模板不会影响已创建的索引。</li>
+<li>你可以设定多个索引模板，这些设置会被&quot;merge&quot;在一起</li>
+<li>你可以指定&quot;order&quot;的数值，控制&quot;merging&quot;的过程</li>
+</ul>
+<h4 id="两个-Index-Templates-例子："><a class="header-anchor" href="#两个-Index-Templates-例子：">¶</a>两个 Index Templates 例子：</h4>
+<ul>
+<li>第一个例子中设定了所有索引的创建都设定主分片和副本分片数量是1</li>
+<li>第二个例子中设定了以test 开头的索引的主分片数量是1，副本分片数量是2；另外我们将 Es 自动识别日期字符串且转换类型的功能关闭，然后把自动识别数值字符串且转换类型的功能启用。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211720.png" alt="image-20200424180915555"></p>
+<h4 id="Index-Template-的工作方式"><a class="header-anchor" href="#Index-Template-的工作方式">¶</a>Index Template 的工作方式</h4>
+<p>当一个索引被新创建时，会按照一下步骤设置 Mappings：</p>
+<ol>
+<li>应用 Elasticsearch 默认的 settings 和 mappings</li>
+<li>应用 order 数值低的 index template 中的设定，之前的设定会被覆盖</li>
+<li>应用 order 高的 index template 中的设定，之前的设定会被覆盖</li>
+<li>如果用户创建索引的时候自己指定了 Settings 和 Mappings，则覆盖其设置的设定到之前的设定中。</li>
+</ol>
+<h3 id="Dynamic-Template"><a class="header-anchor" href="#Dynamic-Template">¶</a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/dynamic-mapping.html" target="_blank" rel="noopener">Dynamic Template</a></h3>
+<p>上面提到的 Index Template 是应用在所有索引上面的，它是定义在一个_template 的命名空间的，index_patterns 是它的其中一个匹配属性（<strong>其匹配属性也是一个数组，即可以设定多个匹配规则</strong>），该属性匹配的是索引对象；</p>
+<p>而 Dynamic Template 是定义在一个具体的索引上的，同样它也有匹配属性，但是它的匹配属性匹配的是当前这个 Mapping 的字段，也就是说 Dynamic Template 是直接应用在当前 Index 的字段上的，所以我们可以使用 Dynamic Template 设置字段匹配规则对特定的字段进行特定 mapping 设定，从而实现一个&quot;动态的索引&quot;。例如可以实现以下需求：</p>
+<ul>
+<li>所有的字符串类型都设定成 Keyword，或者关闭 keyword 字段。</li>
+<li>is 开头的字段都设置成 boolean</li>
+<li>long_开头的都设置成 long 类型</li>
+</ul>
+<p>下面是三个 Dynamic Template 的例子：</p>
+<ul>
+<li>第一个 Index 中定义了两个 Dynamic Template，它们的名字分别是&quot;strings_as_boolean&quot;和&quot;strings_as_keywords&quot;，前者将所有 is 开头的字符串设置成 boolean 类型，后者将其他类型转成 keyword 类型（所以 templates 的应用优先顺序应该是和定义顺序是一样的）</li>
+<li>第二个 Index 定义了一个 Dynamic Template，将 name.开头，非.middle 结尾的字段设置为 text 类型并链接索引到一个 full_name 字段</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211741.png" alt="image-20200424182832139"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211752.png" alt="image-20200424182839704"></p>
+<h3 id="Kibana-测试请求-v2"><a class="header-anchor" href="#Kibana-测试请求-v2">¶</a>Kibana 测试请求</h3>
+<pre><code>#数字字符串被映射成text，日期字符串被映射成日期
+PUT ttemplate/_doc/1
+{
+	&quot;someNumber&quot;:&quot;1&quot;,
+	&quot;someDate&quot;:&quot;2019/01/01&quot;
+}
+GET ttemplate/_mapping
+
+
+#Create a default template
+PUT _template/template_default
+{
+  &quot;index_patterns&quot;: [&quot;*&quot;],
+  &quot;order&quot; : 0,
+  &quot;version&quot;: 1,
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 1,
+    &quot;number_of_replicas&quot;:1
+  }
+}
+
+
+PUT /_template/template_test
+{
+    &quot;index_patterns&quot; : [&quot;test*&quot;],
+    &quot;order&quot; : 1,
+    &quot;settings&quot; : {
+    	&quot;number_of_shards&quot;: 1,
+        &quot;number_of_replicas&quot; : 2
+    },
+    &quot;mappings&quot; : {
+    	&quot;date_detection&quot;: false,
+    	&quot;numeric_detection&quot;: true
+    }
+}
+
+#查看template信息
+GET /_template/template_default
+GET /_template/temp*
+
+
+#写入新的数据，index以test开头
+PUT testtemplate/_doc/1
+{
+	&quot;someNumber&quot;:&quot;1&quot;,
+	&quot;someDate&quot;:&quot;2019/01/01&quot;
+}
+GET testtemplate/_mapping
+get testtemplate/_settings
+
+PUT testmy
+{
+	&quot;settings&quot;:{
+		&quot;number_of_replicas&quot;:5
+	}
+}
+
+put testmy/_doc/1
+{
+  &quot;key&quot;:&quot;value&quot;
+}
+
+get testmy/_settings
+DELETE testmy
+DELETE /_template/template_default
+DELETE /_template/template_test
+
+
+
+#Dynaminc Mapping 根据类型和字段名
+DELETE my_index
+
+PUT my_index/_doc/1
+{
+  &quot;firstName&quot;:&quot;Ruan&quot;,
+  &quot;isVIP&quot;:&quot;true&quot;
+}
+
+GET my_index/_mapping
+DELETE my_index
+PUT my_index
+{
+  &quot;mappings&quot;: {
+    &quot;dynamic_templates&quot;: [
+            {
+        &quot;strings_as_boolean&quot;: {
+          &quot;match_mapping_type&quot;:   &quot;string&quot;,
+          &quot;match&quot;:&quot;is*&quot;,
+          &quot;mapping&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        }
+      },
+      {
+        &quot;strings_as_keywords&quot;: {
+          &quot;match_mapping_type&quot;:   &quot;string&quot;,
+          &quot;mapping&quot;: {
+            &quot;type&quot;: &quot;keyword&quot;
+          }
+        }
+      }
+    ]
+  }
+}
+
+
+DELETE my_index
+#结合路径
+PUT my_index
+{
+  &quot;mappings&quot;: {
+    &quot;dynamic_templates&quot;: [
+      {
+        &quot;full_name&quot;: {
+          &quot;path_match&quot;:   &quot;name.*&quot;,
+          &quot;path_unmatch&quot;: &quot;*.middle&quot;,
+          &quot;mapping&quot;: {
+            &quot;type&quot;:       &quot;text&quot;,
+            &quot;copy_to&quot;:    &quot;full_name&quot;
+          }
+        }
+      }
+    ]
+  }
+}
+
+
+PUT my_index/_doc/1
+{
+  &quot;name&quot;: {
+    &quot;first&quot;:  &quot;John&quot;,
+    &quot;middle&quot;: &quot;Winston&quot;,
+    &quot;last&quot;:   &quot;Lennon&quot;
+  }
+}
+
+GET my_index/_search?q=full_name:John
+</code></pre>
+<h1>八、Elasticsearch 聚合分析简介（<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.1/search-aggregations.html" target="_blank" rel="noopener">官方介绍地址</a>）</h1>
+<p>Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析的功能</p>
+<ul>
+<li>实时性高</li>
+<li>Hadoop（T+1）</li>
+</ul>
+<p>通过聚合，我们会得到一个数据的概览，是分析和总结全套的数据，而不是寻找单个文档</p>
+<ul>
+<li>尖沙咀和香港岛的客户数量</li>
+<li>不同的价格区间，可预定的经济型酒店和五星级酒店的数量</li>
+</ul>
+<p>高性能，只需要一条语句，就可以从 Elasticsearch 得到分析结果，无需在客户端自己去实现分析逻辑</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211800.png" alt="image-20200424185029724"></p>
+<h2 id="集合的分类"><a class="header-anchor" href="#集合的分类">¶</a>集合的分类</h2>
+<h3 id="Bucket-和-Metric"><a class="header-anchor" href="#Bucket-和-Metric">¶</a>Bucket 和 Metric</h3>
+<ol>
+<li>Bucket Aggregation：一系列满足特定条件的文档的集合</li>
+</ol>
+<ul>
+<li>一些例子：
+<ul>
+<li>杭州属于浙江、一个演员属于男性或者女性</li>
+<li>嵌套关系：杭州属于浙江属于中国属于亚洲</li>
+</ul>
+</li>
+<li>Elasticsearch 提供了很多类型的 Bucket，帮助你用多种方式划分文档。（如 Term 或者 Range，按照时间、年龄区间、地理位置进行划分等）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211806.png" alt="image-20200424185849559"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211812.png" alt="image-20200424190233006"></p>
+<ol start="2">
+<li>Metric Aggregation：一些数学运算，可以对文档字段进行统计分析</li>
+</ol>
+<ul>
+<li>Metric 会基于数据集计算结果，除了支持在字段上进行计算，同样也支持在脚本（painless script）产生的结果之上进行计算</li>
+<li>大多数 Metric 是数学计算，仅输出一个值：min、max、sum、avg、cardinlity</li>
+<li>部分 Metric 支持输出多个数值：stats、percentiles、precentille_ranks</li>
+</ul>
+<ol start="3">
+<li>两者类比</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221211819.png" alt="image-20200424185407354"></p>
+<ol start="4">
+<li>Kibana 测试请求</li>
+</ol>
+<pre><code>#按照目的地进行分桶统计
+GET kibana_sample_data_flights/_search
+{
+	&quot;size&quot;: 0,
+	&quot;aggs&quot;:{
+		&quot;flight_dest&quot;:{
+			&quot;terms&quot;:{
+				&quot;field&quot;:&quot;DestCountry&quot;
+			}
+		}
+	}
+}
+
+
+
+#查看航班目的地的统计信息，增加平均，最高最低价格
+GET kibana_sample_data_flights/_search
+{
+	&quot;size&quot;: 0,
+	&quot;aggs&quot;:{
+		&quot;flight_dest&quot;:{
+			&quot;terms&quot;:{
+				&quot;field&quot;:&quot;DestCountry&quot;
+			},
+			&quot;aggs&quot;:{
+				&quot;avg_price&quot;:{
+					&quot;avg&quot;:{
+						&quot;field&quot;:&quot;AvgTicketPrice&quot;
+					}
+				},
+				&quot;max_price&quot;:{
+					&quot;max&quot;:{
+						&quot;field&quot;:&quot;AvgTicketPrice&quot;
+					}
+				},
+				&quot;min_price&quot;:{
+					&quot;min&quot;:{
+						&quot;field&quot;:&quot;AvgTicketPrice&quot;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+#价格统计信息+天气信息
+GET kibana_sample_data_flights/_search
+{
+	&quot;size&quot;: 0,
+	&quot;aggs&quot;:{
+		&quot;flight_dest&quot;:{
+			&quot;terms&quot;:{
+				&quot;field&quot;:&quot;DestCountry&quot;
+			},
+			&quot;aggs&quot;:{
+				&quot;stats_price&quot;:{
+					&quot;stats&quot;:{
+						&quot;field&quot;:&quot;AvgTicketPrice&quot;
+					}
+				},
+				&quot;wather&quot;:{
+				  &quot;terms&quot;: {
+				    &quot;field&quot;: &quot;DestWeather&quot;,
+				    &quot;size&quot;: 5
+				  }
+				}
+
+			}
+		}
+	}
+}
+</code></pre>
+<ul>
+<li>
+<p>Pipeline Aggregation：对其他的聚合结果进行二次聚合</p>
+</li>
+<li>
+<p>Matrix Aggregation：支持对多个字段的操作并提供一个结果矩阵</p>
+</li>
+</ul>
+
             </div>
             <hr />
 
@@ -2494,7 +3173,7 @@ Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析的�
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="010_logstash">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="010_logstash">
                         
                         <span class="card-title">010_logstash</span>
                     </div>
@@ -2543,7 +3222,7 @@ Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析的�
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="008_数据建模">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="008_数据建模">
                         
                         <span class="card-title">008_数据建模</span>
                     </div>
@@ -2711,7 +3390,7 @@ Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析的�
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

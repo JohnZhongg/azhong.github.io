@@ -8,8 +8,9 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="Redis Sentinel(哨兵) 文档Redis Sentinel提供了 redis 的高可用方案。即你可以使用 Sentinel 实施一个 redis 部署从而在一些灾难发生的时候不用人为地进行故障转移(failover)。
-Redi">
+    <meta name="description" content="¶Redis Sentinel(哨兵) 文档
+Redis Sentinel提供了 redis 的高可用方案。即你可以使用 Sentinel 实施一个 redis 部署从而在一些灾难发生的时候不用人为地进行故障转移(failover)。
+Re">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -330,7 +331,7 @@ Redi">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -508,32 +509,40 @@ Redi">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Redis-Sentinel-哨兵-文档"><a href="#Redis-Sentinel-哨兵-文档" class="headerlink" title="Redis Sentinel(哨兵) 文档"></a>Redis Sentinel(哨兵) 文档</h3><p>Redis Sentinel提供了 redis 的高可用方案。即你可以使用 Sentinel 实施一个 redis 部署从而在一些灾难发生的时候不用人为地进行故障转移(failover)。</p>
+                <h3 id="Redis-Sentinel-哨兵-文档"><a class="header-anchor" href="#Redis-Sentinel-哨兵-文档">¶</a>Redis Sentinel(哨兵) 文档</h3>
+<p>Redis Sentinel提供了 redis 的高可用方案。即你可以使用 Sentinel 实施一个 redis 部署从而在一些灾难发生的时候不用人为地进行故障转移(failover)。</p>
 <p>Redis Sentinel还提供了一些相关的能力如：监控、通知、作为客户端的配置供给者。以下是 Sentinel 的所有能力的一个概述：</p>
 <ul>
-<li><strong>监控(Monitoring)。</strong>Sentinel 周期地检查你的主从(master and replicas)实例是否在正常地运行。</li>
-<li><strong>通知(Notification)。</strong>当某个被监控的 redis 实例发生异常的时候，Sentinel 可以通过一个 API 通知系统管理员或者其他计算机程序。</li>
-<li><strong>自动故障转移(Automatic failover)。</strong>当一个主节点不能正常工作的时候，Sentinel 会开始一个故障转移处理：将一个从节点提升为主节点，其他从节点被指令复制新的主节点，那些正在连接着 redis 服务的程序将被通知连接新的主节点。</li>
-<li><strong>配置供给者(Configuration provider)。</strong>Sentinel 作为客户端的服务发现中心：客户端连接到 Sentinels 以获取当前可用的 redis 主节点的地址。如果一个故障转移发生，Sentinels 会返回新的地址。</li>
+<li>**监控(Monitoring)。**Sentinel 周期地检查你的主从(master and replicas)实例是否在正常地运行。</li>
+<li>**通知(Notification)。**当某个被监控的 redis 实例发生异常的时候，Sentinel 可以通过一个 API 通知系统管理员或者其他计算机程序。</li>
+<li>**自动故障转移(Automatic failover)。**当一个主节点不能正常工作的时候，Sentinel 会开始一个故障转移处理：将一个从节点提升为主节点，其他从节点被指令复制新的主节点，那些正在连接着 redis 服务的程序将被通知连接新的主节点。</li>
+<li>**配置供给者(Configuration provider)。**Sentinel 作为客户端的服务发现中心：客户端连接到 Sentinels 以获取当前可用的 redis 主节点的地址。如果一个故障转移发生，Sentinels 会返回新的地址。</li>
 </ul>
-<h4 id="天然支持分布式的-Sentinel"><a href="#天然支持分布式的-Sentinel" class="headerlink" title="天然支持分布式的 Sentinel"></a>天然支持分布式的 Sentinel</h4><p>Redis Sentinel 是一个分布式系统：</p>
+<h4 id="天然支持分布式的-Sentinel"><a class="header-anchor" href="#天然支持分布式的-Sentinel">¶</a>天然支持分布式的 Sentinel</h4>
+<p>Redis Sentinel 是一个分布式系统：</p>
 <p>Sentinel 本身的设计出发点就是有多个 Sentinel 进程同时在合作运行的。以下是有多个 Sentinel 实例进行合作的优点：</p>
 <ol>
 <li>当有多个 Sentinels 同时认为一个主节点不再可用的时候才会认为一个故障发生了。降低误报的可能性。</li>
 <li>即使有一些 Sentinel 进程出现故障 Sentinel 也能正常工作，提高系统的健壮性。毕竟，拥有故障转移系统本身就是一个单点故障，这没有任何乐趣？（这句翻译软件翻的，看不太懂：There is no fun in having a failover system which is itself a single point of failure, after all.）</li>
 </ol>
 <p>所有的 Sentinel 节点、Redis 实例(所有主从节点)以及那些连接着 Sentinel 和 Redis 的客户端，也是一个拥有特定属性的大分布式系统。本文档将从一些为了理解 Sentinel 的基本属性而必要的基础信息，到那些为了深入理解 Sentinel 工作机制的更复杂的信息(非必要)，渐进地对一些概念进行介绍。</p>
-<h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><h4 id="获取-Sentinel"><a href="#获取-Sentinel" class="headerlink" title="获取 Sentinel"></a>获取 Sentinel</h4><p>Sentinel 的当前版本是 Sentinel 2。它使用了更强大、易于预测的算法对 Sentinel 的原始版本进行了重写(本文档将会进行介绍)。</p>
+<h3 id="快速开始"><a class="header-anchor" href="#快速开始">¶</a>快速开始</h3>
+<h4 id="获取-Sentinel"><a class="header-anchor" href="#获取-Sentinel">¶</a>获取 Sentinel</h4>
+<p>Sentinel 的当前版本是 Sentinel 2。它使用了更强大、易于预测的算法对 Sentinel 的原始版本进行了重写(本文档将会进行介绍)。</p>
 <p>它的稳定版本从 Redis 2.8 开始提供。</p>
 <p>新的开发在<code>unstable</code>(不稳定)分支中开发，新特性一旦被认为是稳定的将会被移到最新的稳定分支中。Redis Sentinel 版本1，从 Redis 2.6开始发布，现在已经被废弃，不建议使用。</p>
-<h4 id="运行-Sentinel"><a href="#运行-Sentinel" class="headerlink" title="运行 Sentinel"></a>运行 Sentinel</h4><p>如果你正在使用可运行的<code>redis-sentinel</code>程序(或者你有一个可运行<code>redis-server</code>程序的<a href="https://blog.csdn.net/qq_28897525/article/details/80657465" target="_blank" rel="noopener">软链接</a>)，你可以使用以下命令来运行 Sentinel：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">redis-sentinel /path/to/sentinel.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="运行-Sentinel"><a class="header-anchor" href="#运行-Sentinel">¶</a>运行 Sentinel</h4>
+<p>如果你正在使用可运行的<code>redis-sentinel</code>程序(或者你有一个可运行<code>redis-server</code>程序的<a href="https://blog.csdn.net/qq_28897525/article/details/80657465" target="_blank" rel="noopener">软链接</a>)，你可以使用以下命令来运行 Sentinel：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">redis-sentinel /path/to/sentinel.conf
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>或者你可以直接使用<code>redis-server</code> 可执行程序以 Sentinel 的模式启动：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">redis-server /path/to/sentinel.conf --sentinel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">redis-server /path/to/sentinel.conf --sentinel
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>以上的两种方式其实工作机制是一样的。</p>
 <p>当要启动 Sentinel 的时候一定要指定一个配置文件，因为系统在重启时需要将当时的系统状态进行保存以及重载的时候使用这个配置文件。如果没有指定配置文件或者文件路径不可写，Sentinel 会拒绝启动。</p>
 <p>Sentinels 默认监听 TCP 26379 端口，所以为了 Sentinels 正常工作，你的服务器的 26379 端口一定要打开以接收其他 Sentinel 实例的连接。(可以修改？)否则 Sentinels 无法沟通，无法投票，故而故障转移将无法进行。</p>
-<h4 id="部署-Sentinel-须知"><a href="#部署-Sentinel-须知" class="headerlink" title="部署 Sentinel 须知"></a>部署 Sentinel 须知</h4><ol>
+<h4 id="部署-Sentinel-须知"><a class="header-anchor" href="#部署-Sentinel-须知">¶</a>部署 Sentinel 须知</h4>
+<ol>
 <li>你至少需要3个 Sentinel 实例才会使得部署具备健壮性。</li>
 <li>这3个 Sentinel 实例的部署位置如服务器或者虚拟机应该保证它们的故障不会互相影响。例如不同的物理机或者运行在不同可用分区上的虚拟机。</li>
 <li>Sentinel+Redis分布式系统并不能保证在故障期间保留已确认的写入，因为Redis使用异步复制。然而有一些部署Sentinel的方法，使得丢失写入的窗口限制在某些时刻，同时还有其他不太安全的部署方式。</li>
@@ -541,8 +550,9 @@ Redi">
 <li>你需要在开发环境中不时地测试你的 HA (高可用 High Availability)配置(如果允许的话，尽量在生产环境也要测试)是否可行，不然无法保证该配置是否安全。你可能只有在为时已晚的时候才发现配置错误（凌晨3点你的主节点宕掉了）</li>
 <li>Sentinel、Docker、或者其他形式的 NAT(Network Address Translation) 或者端口映射(Port Mapping)同时使用的时候需要注意：Docker 使用了端口映射，阻断了 Sentinel 自动发现其他 Sentinel 进程和主节点的从节点们。请参考下面的关于 Sentinel 和 Dcoker 的章节。</li>
 </ol>
-<h4 id="配置-Sentinel"><a href="#配置-Sentinel" class="headerlink" title="配置 Sentinel"></a>配置 Sentinel</h4><p>Redis 源码发行版包含一个名为<code>sentinel.conf</code>的文件，它是一个带有解释的配置文件示例，你可以使用它来配置 Sentinel。一个典型的最小的配置文件如下所示：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">sentinel monitor mymaster 127.0.0.1 6379 2
+<h4 id="配置-Sentinel"><a class="header-anchor" href="#配置-Sentinel">¶</a>配置 Sentinel</h4>
+<p>Redis 源码发行版包含一个名为<code>sentinel.conf</code>的文件，它是一个带有解释的配置文件示例，你可以使用它来配置 Sentinel。一个典型的最小的配置文件如下所示：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sentinel monitor mymaster 127.0.0.1 6379 2
 sentinel down-after-milliseconds mymaster 60000
 sentinel failover-timeout mymaster 180000
 sentinel parallel-syncs mymaster 1
@@ -550,10 +560,12 @@ sentinel parallel-syncs mymaster 1
 sentinel monitor resque 192.168.1.3 6380 4
 sentinel down-after-milliseconds resque 10000
 sentinel failover-timeout resque 180000
-sentinel parallel-syncs resque 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+sentinel parallel-syncs resque 5
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>你只需要定义需要监控的 master 节点们，为每个不同的主实例 (可能拥有一些从实例)提供一个唯一的名字。你无需定义从实例，Sentinel 会根据主实例自动发现从实例。Sentinel 将会自动地在配置中更新关于从服务器的这些额外信息(为了在重启的时候保存信息)。该配置在每次故障转移中从实例提升为主实例以及每次一个新 Sentinel 进程被发现的时候都会被重写。</p>
 <p>上面的配置示例简单地监控着两组 Redis 实例，每组由一个主实例和未知数量的从实例组成。其中一组实例被命名为<code>mymaster</code>，另外一组为<code>resque</code>。<code>sentinel monitor</code> 语句的各个参数的意义如下所示：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">sentinel monitor <master-group-name> <ip> <port> <quorum><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sentinel monitor <master-group-name> <ip> <port> <quorum>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>为了清晰起见，让我们逐行地来解析配置选项地意义：</p>
 <p>第一行是用来指示 Redis 监控一个主实例，命名为<code>mymaster</code>，其地址为<code>127.0.0.1</code>，端口为<code>6379</code>，<code>quorum</code>为2。除了<code>quorum</code> 参数之外其他都是清晰明了的：</p>
 <ul>
@@ -566,8 +578,10 @@ sentinel parallel-syncs resque 5<span aria-hidden="true" class="line-numbers-row
 <li>如果至少总计有3个 Sentinels 可访问，该故障转移将会被授权并执行。</li>
 </ul>
 <p>实际上这意味着在故障期间如果大多数的 Sentinel 进程无法通信故障转移将不会进行（也称在少数分区不会执行故障转移）。</p>
-<h4 id="其他-Sentinel-选项"><a href="#其他-Sentinel-选项" class="headerlink" title="其他 Sentinel 选项"></a>其他 Sentinel 选项</h4><p>其他的选项几乎都是这样的形式：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">sentinel <option_name> <master_name> <option_value><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="其他-Sentinel-选项"><a class="header-anchor" href="#其他-Sentinel-选项">¶</a>其他 Sentinel 选项</h4>
+<p>其他的选项几乎都是这样的形式：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sentinel <option_name> <master_name> <option_value>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>以及被用在以下场景：</p>
 <ul>
 <li><code>down-after-milliseconds</code>：当一个 Sentinel 经过了<code>down-after-milliseconds</code>个毫秒也无法和一个实例进行通信（无论是该实例没有恢复我们的<code>PING</code>命令还是回复了一个错误），该 Sentinel 就会主观地认为该实例已经下线。（之后会进入判断客观下线阶段，即向其他 Sentinels 确认它们是否也认为该实例主观下线，有<code>quorum</code>个 Sentinels 同意，当前 Sentinel 将会认为该实例已经客观下线）。</li>
@@ -575,23 +589,32 @@ sentinel parallel-syncs resque 5<span aria-hidden="true" class="line-numbers-row
 </ul>
 <p>其他选项在下面进行介绍，同时在 Redis 发行版中携带的<code>sentinel.conf</code>文件也进行了描述。</p>
 <p>所有的配置参数都可以在运行时通过<code>sentinel set</code>命令进行修改。请参考<strong>在运行时修改 Sentinel 配置</strong>章节。</p>
-<h4 id="Sentinel-部署方案示例"><a href="#Sentinel-部署方案示例" class="headerlink" title="Sentinel 部署方案示例"></a>Sentinel 部署方案示例</h4><p>现在你已经了解了 Sentinel 的基本信息，你可能会对于你应该将 Sentinel 进程部署在哪里、应该部署多少个 Sentinel 进程等等问题产生疑惑。本章节展示了几个部示例。我们使用 ASCII 码以图形的形式向你展示配置的样例，以下我们对一些图案进行了定义：</p>
+<h4 id="Sentinel-部署方案示例"><a class="header-anchor" href="#Sentinel-部署方案示例">¶</a>Sentinel 部署方案示例</h4>
+<p>现在你已经了解了 Sentinel 的基本信息，你可能会对于你应该将 Sentinel 进程部署在哪里、应该部署多少个 Sentinel 进程等等问题产生疑惑。本章节展示了几个部示例。我们使用 ASCII 码以图形的形式向你展示配置的样例，以下我们对一些图案进行了定义：</p>
 <pre><code>+--------------------+
 | This is a computer |
 | or VM that fails   |
 | independently. We  |
 | call it a &quot;box&quot;    |
-+--------------------+</code></pre><p>我们在盒子中写的内容正在其中运行：</p>
++--------------------+
+</code></pre>
+<p>我们在盒子中写的内容正在其中运行：</p>
 <pre><code>+-------------------+
 | Redis master M1   |
 | Redis Sentinel S1 |
-+-------------------+</code></pre><p>不同的盒子使用线条进行连接，表示它们是可以通信的：</p>
++-------------------+
+</code></pre>
+<p>不同的盒子使用线条进行连接，表示它们是可以通信的：</p>
 <pre><code>+-------------+               +-------------+
 | Sentinel S1 |---------------| Sentinel S2 |
-+-------------+               +-------------+</code></pre><p>网络分区(Network partitions)以两个斜杠断开线条来表示：</p>
++-------------+               +-------------+
+</code></pre>
+<p>网络分区(Network partitions)以两个斜杠断开线条来表示：</p>
 <pre><code>+-------------+                +-------------+
 | Sentinel S1 |------ // ------| Sentinel S2 |
-+-------------+                +-------------+</code></pre><p>以及：</p>
++-------------+                +-------------+
+</code></pre>
+<p>以及：</p>
 <ul>
 <li>Masters（主实例）被命名为 M1，M2，M3，…，Mn。</li>
 <li>Replicas（从实例）被命名为 R1，R2，R3，…，Rn。</li>
@@ -599,22 +622,29 @@ sentinel parallel-syncs resque 5<span aria-hidden="true" class="line-numbers-row
 <li>Clients 被命名为 C1，C2，C3，…，Cn。</li>
 <li>当一个实例由于 Seneinel 的一系列动作发生了角色变更，我们使用中括号将其包裹起来，所以 [M1] 表示一个实例现在由于 Sentinel 的干涉称为了一个主实例。</li>
 </ul>
-<h4 id="示例1：仅部署两个-Sentinels，不要这样做！"><a href="#示例1：仅部署两个-Sentinels，不要这样做！" class="headerlink" title="示例1：仅部署两个 Sentinels，不要这样做！"></a>示例1：仅部署两个 Sentinels，<strong>不要这样做！</strong></h4><pre><code>+----+         +----+
+<h4 id="示例1：仅部署两个-Sentinels，不要这样做！"><a class="header-anchor" href="#示例1：仅部署两个-Sentinels，不要这样做！">¶</a>示例1：仅部署两个 Sentinels，<strong>不要这样做！</strong></h4>
+<pre><code>+----+         +----+
 | M1 |---------| R1 |
 | S1 |         | S2 |
 +----+         +----+
 
-Configuration: quorum = 1</code></pre><ul>
+Configuration: quorum = 1
+</code></pre>
+<ul>
 <li>在该配置中，如果主实例 M1 故障，在两个 Sentinels 可以通信并认为其已经客观下线（<code>quorum</code>被设置为1）的情况下，R1 将被提升为主实例并可以被授权进行故障转移，因为2个Sentinel 都可以进行通信(并进行故障转移领头 Sentinel 选举)。所以目前看来它是可行的，但是请看下面的描述介绍了该配置为什么不可行。</li>
-<li>如果 M1 所在的盒子故障了，当然 S1 也就故障了。运行在另外一个盒子中的 Sentinel S2将不能被授权(2/2+1=2，至少2个 Sentinel 才是”大多数”)发起故障转移，所以整个系统将无法访问(无法选举出新的 master，整个 redis 系统无法提供正常服务)。</li>
+<li>如果 M1 所在的盒子故障了，当然 S1 也就故障了。运行在另外一个盒子中的 Sentinel S2将不能被授权(2/2+1=2，至少2个 Sentinel 才是&quot;大多数&quot;)发起故障转移，所以整个系统将无法访问(无法选举出新的 master，整个 redis 系统无法提供正常服务)。</li>
 </ul>
 <p>请注意多数投票对于不同的故障转移动作是必须的，并在之后会传播最新的配置到所有的 Sentinels。同时还要注意基于上面的配置，如果允许不经过多数投票的单点故障转移，将是非常危险的：</p>
 <pre><code>+----+           +------+
 | M1 |----//-----| [M1] |
 | S1 |           | S2   |
-+----+           +------+</code></pre><p>在以上的配置我们以非常对称的方式创建了两个主实例（假设 S2 可以在未经授权的情况进行故障转移）。客户端们分别向这两个主实例一直写入数据，然后在分区恢复的时候将无法判断出哪个才是主实例（以及哪边才是正确的配置）。所以为了<em>防止永久脑裂</em>，请至少分别在3个不同的盒子中部署3个 Sentinels。</p>
-<h4 id="示例2：基于3个盒子的基本配置"><a href="#示例2：基于3个盒子的基本配置" class="headerlink" title="示例2：基于3个盒子的基本配置"></a>示例2：基于3个盒子的基本配置</h4><p>这是一个非常简单的配置，它拥有</p>
-<h4 id="在运行时修改-Sentinel-配置"><a href="#在运行时修改-Sentinel-配置" class="headerlink" title="在运行时修改 Sentinel 配置"></a>在运行时修改 Sentinel 配置</h4>
++----+           +------+
+</code></pre>
+<p>在以上的配置我们以非常对称的方式创建了两个主实例（假设 S2 可以在未经授权的情况进行故障转移）。客户端们分别向这两个主实例一直写入数据，然后在分区恢复的时候将无法判断出哪个才是主实例（以及哪边才是正确的配置）。所以为了<em>防止永久脑裂</em>，请至少分别在3个不同的盒子中部署3个 Sentinels。</p>
+<h4 id="示例2：基于3个盒子的基本配置"><a class="header-anchor" href="#示例2：基于3个盒子的基本配置">¶</a>示例2：基于3个盒子的基本配置</h4>
+<p>这是一个非常简单的配置，它拥有</p>
+<h4 id="在运行时修改-Sentinel-配置"><a class="header-anchor" href="#在运行时修改-Sentinel-配置">¶</a>在运行时修改 Sentinel 配置</h4>
+
             </div>
             <hr />
 
@@ -1102,19 +1132,19 @@ Configuration: quorum = 1</code></pre><ul>
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/">
+                <a href="/2020/02/16/mq/rabbitmq/untitled/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="《redis实战》读书笔记">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="rabbit mq 学习总结记录">
                         
-                        <span class="card-title">《redis实战》读书笔记</span>
+                        <span class="card-title">rabbit mq 学习总结记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            《redis实战》读书笔记
+                            rabbit mq 学习记录
                         
                     </div>
                     <div class="publish-info">
@@ -1125,8 +1155,8 @@ Configuration: quorum = 1</code></pre><ul>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/redis/" class="post-category" target="_blank">
-                                    redis
+                            <a href="/categories/rabbit-mq/" class="post-category" target="_blank">
+                                    rabbit mq
                                 </a>
                             
                             
@@ -1136,8 +1166,12 @@ Configuration: quorum = 1</code></pre><ul>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/redis实战/" target="_blank">
-                        <span class="chip bg-color">redis实战</span>
+                    <a href="/tags/mq/" target="_blank">
+                        <span class="chip bg-color">mq</span>
+                    </a>
+                    
+                    <a href="/tags/rabbit-mq/" target="_blank">
+                        <span class="chip bg-color">rabbit mq</span>
                     </a>
                     
                 </div>
@@ -1148,22 +1182,22 @@ Configuration: quorum = 1</code></pre><ul>
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/redis/redis-guan-fang-wen-dang/shao-bing/">
+                <a href="/2020/02/16/redis/redis-shi-zhan/001-chu-shi-redis/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Redis Sentinel(哨兵) 文档">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="《redis实战》读书笔记">
                         
-                        <span class="card-title">Redis Sentinel(哨兵) 文档</span>
+                        <span class="card-title">《redis实战》读书笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Redis Sentinel(哨兵) 文档
+                            《redis实战》读书笔记
                         
                     </div>
                     <div class="publish-info">
@@ -1182,12 +1216,11 @@ Configuration: quorum = 1</code></pre><ul>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/哨兵/" target="_blank">
-                        <span class="chip bg-color">哨兵</span>
+                    <a href="/tags/redis实战/" target="_blank">
+                        <span class="chip bg-color">redis实战</span>
                     </a>
                     
                 </div>
@@ -1324,7 +1357,7 @@ Configuration: quorum = 1</code></pre><ul>
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

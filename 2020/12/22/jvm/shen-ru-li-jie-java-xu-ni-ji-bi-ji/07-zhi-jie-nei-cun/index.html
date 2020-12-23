@@ -8,7 +8,8 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="直接内存概述不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。直接内存是在Java堆外的、直接向系统申请的内存空间。它来源于NIO，通过存在堆中的DirectByteBuffer操作Native内存(底层都是调用">
+    <meta name="description" content="直接内存概述
+不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。直接内存是在Java堆外的、直接向系统申请的内存空间。它来源于NIO，通过存在堆中的DirectByteBuffer操作Native内存(底层都是调">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -329,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -484,7 +485,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    626
+                    628
                 </div>
                 
 
@@ -507,31 +508,41 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="直接内存概述"><a href="#直接内存概述" class="headerlink" title="直接内存概述"></a>直接内存概述</h1><p>不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。直接内存是在Java堆外的、直接向系统申请的内存空间。它来源于NIO，通过存在堆中的DirectByteBuffer操作Native内存(底层都是调用unsafe包的api)。</p>
+                <h1>直接内存概述</h1>
+<p>不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。直接内存是在Java堆外的、直接向系统申请的内存空间。它来源于NIO，通过存在堆中的DirectByteBuffer操作Native内存(底层都是调用unsafe包的api)。</p>
 <p>通常，访问直接内存的速度会优于Java堆。即读写性能高。</p>
 <ul>
-<li><p>因此出于性能考虑，读写频繁的场合可能会考虑使用直接内存。</p>
+<li>
+<p>因此出于性能考虑，读写频繁的场合可能会考虑使用直接内存。</p>
 </li>
-<li><p>Java的NIO库允许Java程序使用直接内存，用于数据缓冲区。</p>
-<pre class="line-numbers language-Java"><code class="language-Java">ByteBuffer buffer = ByteBuffer.allocateDirect(1024);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li>
+<p>Java的NIO库允许Java程序使用直接内存，用于数据缓冲区。</p>
+<pre class="line-numbers language-language-Java"><code class="language-language-Java">ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>另外这里申请的直接内存也会被GC</p>
-<pre class="line-numbers language-java"><code class="language-java">System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">System.gc();
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ul>
-<h2 id="在读写文件中直接内存的好处"><a href="#在读写文件中直接内存的好处" class="headerlink" title="在读写文件中直接内存的好处"></a>在读写文件中直接内存的好处</h2><p>在普通IO的情况下，使用的是JVM进程的内存，这是用户态的内存空间。读写文件，需要与磁盘交互，涉及用户态和内核态之间的切换。如果不是使用直接内存，则会发生内核态与用户态直接的内存拷贝（读一次，写一次）。</p>
+<h2 id="在读写文件中直接内存的好处"><a class="header-anchor" href="#在读写文件中直接内存的好处">¶</a>在读写文件中直接内存的好处</h2>
+<p>在普通IO的情况下，使用的是JVM进程的内存，这是用户态的内存空间。读写文件，需要与磁盘交互，涉及用户态和内核态之间的切换。如果不是使用直接内存，则会发生内核态与用户态直接的内存拷贝（读一次，写一次）。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234739.png" alt="image-20200917094412411"></p>
 <p>但是，如果使用直接内存，JVM则可以利用操作系统的<a href="https://mp.weixin.qq.com/s/8J3Hnr7PX7YBX4hbK8oAQQ" target="_blank" rel="noopener">零拷贝</a>特性减少内存复制带来的消耗。</p>
-<h1 id="直接内存异常"><a href="#直接内存异常" class="headerlink" title="直接内存异常"></a>直接内存异常</h1><p>直接内存也可能导致<code>OutOfMemoryError:Direct Memory Buffer</code>或者<code>OutOfMemoryError:null</code>异常。由于直接内存在Java堆外，因此它的大小不会直接受限于<code>-Xmx</code>指定的最大堆大小，但是系统内存是有限的，Java堆和直接内存的总和依然受限于操作系统能给出的最大内存。</p>
+<h1>直接内存异常</h1>
+<p>直接内存也可能导致<code>OutOfMemoryError:Direct Memory Buffer</code>或者<code>OutOfMemoryError:null</code>异常。由于直接内存在Java堆外，因此它的大小不会直接受限于<code>-Xmx</code>指定的最大堆大小，但是系统内存是有限的，Java堆和直接内存的总和依然受限于操作系统能给出的最大内存。</p>
 <p>缺点：</p>
 <ul>
-<li><p>分配回收成本较高</p>
+<li>
+<p>分配回收成本较高</p>
 </li>
-<li><p>垃圾收集进行时,虚拟机虽然会对直接内存进行回收,但是直接内存却不能像新生代、老年代那样,发现空间不足了就主动通知收集器进行垃圾回收,它只能等待老年代满后Full GC出现后,“顺便”帮它清理掉内存的废弃对象。</p>
-<p>所以如果JVM”本身申请管理的内存”没有很大消耗，反而直接内存消耗很大的时候，将直接抛出OOM。除非手动调用<code>System.gc()</code>进行Full GC，但是该方法可以通过<code>-XX:+DisableExplicitGC</code>禁用。</p>
+<li>
+<p>垃圾收集进行时,虚拟机虽然会对直接内存进行回收,但是直接内存却不能像新生代、老年代那样,发现空间不足了就主动通知收集器进行垃圾回收,它只能等待老年代满后Full GC出现后,“顺便”帮它清理掉内存的废弃对象。</p>
+<p>所以如果JVM&quot;本身申请管理的内存&quot;没有很大消耗，反而直接内存消耗很大的时候，将直接抛出OOM。除非手动调用<code>System.gc()</code>进行Full GC，但是该方法可以通过<code>-XX:+DisableExplicitGC</code>禁用。</p>
 </li>
 </ul>
-<p>直接内存大小可以通过<code>MaxDirectMemorySize</code>设置，如果不指定，默认与堆的最大值<code>-Xmx</code>一致。（注意，元空间占用的内存不在这里讲的直接内存中）  </p>
-<h1 id="内存分布图示"><a href="#内存分布图示" class="headerlink" title="内存分布图示"></a>内存分布图示</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234752.png" alt="image-20200917100817936"></p>
+<p>直接内存大小可以通过<code>MaxDirectMemorySize</code>设置，如果不指定，默认与堆的最大值<code>-Xmx</code>一致。（注意，元空间占用的内存不在这里讲的直接内存中）</p>
+<h1>内存分布图示</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234752.png" alt="image-20200917100817936"></p>
 
             </div>
             <hr />
@@ -1024,7 +1035,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="12_类加载子系统">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="12_类加载子系统">
                         
                         <span class="card-title">12_类加载子系统</span>
                     </div>
@@ -1073,7 +1084,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="16_高效并发">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="16_高效并发">
                         
                         <span class="card-title">16_高效并发</span>
                     </div>
@@ -1241,7 +1252,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

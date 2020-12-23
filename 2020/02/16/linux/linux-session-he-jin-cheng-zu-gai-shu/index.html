@@ -12,7 +12,8 @@
 
 本篇主要目的是澄清一些概念，不涉及细节
 
-sessionsession就是一组进程的集合，session id就是这个session中leader的进">
+¶session
+session就是一组进程的集合，session id就是这个session中leader">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -333,7 +334,7 @@ sessionsession就是一组进程的集合，session id就是这个session中lead
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -495,7 +496,7 @@ sessionsession就是一组进程的集合，session id就是这个session中lead
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    9 分
                 </div>
                 
                 
@@ -515,23 +516,30 @@ sessionsession就是一组进程的集合，session id就是这个session中lead
 <blockquote>
 <p>本篇主要目的是澄清一些概念，不涉及细节</p>
 </blockquote>
-<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>session就是一组进程的集合，session id就是这个session中leader的进程ID。</p>
-<h3 id="session的特点"><a href="#session的特点" class="headerlink" title="session的特点"></a>session的特点</h3><p>session的主要特点是当session的leader退出后，session中的所有其它进程将会收到SIGHUP信号，其默认行为是终止进程，即session的leader退出后，session中的其它进程也会退出。</p>
+<h2 id="session"><a class="header-anchor" href="#session">¶</a>session</h2>
+<p>session就是一组进程的集合，session id就是这个session中leader的进程ID。</p>
+<h3 id="session的特点"><a class="header-anchor" href="#session的特点">¶</a>session的特点</h3>
+<p>session的主要特点是当session的leader退出后，session中的所有其它进程将会收到SIGHUP信号，其默认行为是终止进程，即session的leader退出后，session中的其它进程也会退出。</p>
 <p>如果session和tty关联的话，它们之间只能一一对应，一个tty只能属于一个session，一个session只能打开一个tty。当然session也可以不和任何tty关联。</p>
-<h3 id="session的创建"><a href="#session的创建" class="headerlink" title="session的创建"></a>session的创建</h3><p>session可以在任何时候创建，调用setsid函数即可，session中的第一个进程即为这个session的leader，leader是不能变的。常见的创建session的场景是：</p>
+<h3 id="session的创建"><a class="header-anchor" href="#session的创建">¶</a>session的创建</h3>
+<p>session可以在任何时候创建，调用setsid函数即可，session中的第一个进程即为这个session的leader，leader是不能变的。常见的创建session的场景是：</p>
 <ul>
 <li>用户登录后，启动shell时将会创建新的session，shell会作为session的leader，随后shell里面运行的进程都将属于这个session，当shell退出后，所有该用户运行的进程将退出。这类session一般都会和一个特定的tty关联，session的leader会成为tty的控制进程，当session的前端进程组发生变化时，控制进程负责更新tty上关联的前端进程组，当tty要关闭的时候，控制进程所在session的所有进程都会收到SIGHUP信号。</li>
 <li>启动deamon进程，这类进程需要和父进程划清界限，所以需要启动一个新的session。这类session一般不会和任何tty关联。</li>
 </ul>
-<h2 id="进程组"><a href="#进程组" class="headerlink" title="进程组"></a>进程组</h2><p>进程组（process group）也是一组进程的集合，进程组id就是这个进程组中leader的进程ID。</p>
-<h3 id="进程组的特点"><a href="#进程组的特点" class="headerlink" title="进程组的特点"></a>进程组的特点</h3><p>进程组的主要特点是可以以进程组为单位通过函数<a href="http://man7.org/linux/man-pages/man3/killpg.3.html" target="_blank" rel="noopener">killpg</a>发送信号</p>
-<h3 id="进程组的创建"><a href="#进程组的创建" class="headerlink" title="进程组的创建"></a>进程组的创建</h3><p>进程组主要用在shell里面，shell负责进程组的管理，包括创建、销毁等。（这里shell就是session的leader）</p>
+<h2 id="进程组"><a class="header-anchor" href="#进程组">¶</a>进程组</h2>
+<p>进程组（process group）也是一组进程的集合，进程组id就是这个进程组中leader的进程ID。</p>
+<h3 id="进程组的特点"><a class="header-anchor" href="#进程组的特点">¶</a>进程组的特点</h3>
+<p>进程组的主要特点是可以以进程组为单位通过函数<a href="http://man7.org/linux/man-pages/man3/killpg.3.html" target="_blank" rel="noopener">killpg</a>发送信号</p>
+<h3 id="进程组的创建"><a class="header-anchor" href="#进程组的创建">¶</a>进程组的创建</h3>
+<p>进程组主要用在shell里面，shell负责进程组的管理，包括创建、销毁等。（这里shell就是session的leader）</p>
 <ul>
 <li>对大部分进程来说，它自己就是进程组的leader，并且进程组里面就只有它自己一个进程</li>
 <li>shell里面执行类似<code>ls|more</code>这样的以管道连接起来的命令时，两个进程就属于同一个进程组，ls是进程组的leader。</li>
 <li>shell里面启动一个进程后，一般都会将该进程放到一个单独的进程组，然后该进程fork的所有进程都会属于该进程组，比如多进程的程序，它的所有进程都会属于同一个进程组，当在shell里面按下CTRL+C时，该程序的所有进程都会收到SIGINT而退出。</li>
 </ul>
-<h3 id="后台进程组"><a href="#后台进程组" class="headerlink" title="后台进程组"></a>后台进程组</h3><p>shell中启动一个进程时，默认情况下，该进程就是一个前端进程组的leader，可以收到用户的输入，并且可以将输出打印到终端，只有当该进程组退出后，shell才可以再响应用户的输入。</p>
+<h3 id="后台进程组"><a class="header-anchor" href="#后台进程组">¶</a>后台进程组</h3>
+<p>shell中启动一个进程时，默认情况下，该进程就是一个前端进程组的leader，可以收到用户的输入，并且可以将输出打印到终端，只有当该进程组退出后，shell才可以再响应用户的输入。</p>
 <p>但我们也可以将该进程组运行在后台，这样shell就可以继续相应用户的输入，常见的方法如下：</p>
 <ul>
 <li>启动程序时，在后面加&amp;，如<code>sleep 1000 &amp;</code>，进程将会进入后台继续运行</li>
@@ -572,7 +580,10 @@ sleep 1000
 [1]+  Stopped                 sleep 1000
 #Stopped状态表示进程在后台已经暂停执行了
 dev@debian:~$ jobs
-[1]+  Stopped                 sleep 1000</code></pre><h2 id="session和进程组的关系"><a href="#session和进程组的关系" class="headerlink" title="session和进程组的关系"></a>session和进程组的关系</h2><p>deamon程序虽然也是一个session的leader，但一般它不会创建新的进程组，也没有job的管理功能，所以这种情况下一个session就只有一个进程组，所有的进程都属于同样的进程组和session。</p>
+[1]+  Stopped                 sleep 1000
+</code></pre>
+<h2 id="session和进程组的关系"><a class="header-anchor" href="#session和进程组的关系">¶</a>session和进程组的关系</h2>
+<p>deamon程序虽然也是一个session的leader，但一般它不会创建新的进程组，也没有job的管理功能，所以这种情况下一个session就只有一个进程组，所有的进程都属于同样的进程组和session。</p>
 <p>我们这里看一下shell作为session leader的情况，假设我们在shell里面执行了这些命令：</p>
 <pre><code>dev@debian:~$ sleep 1000 &amp;
 [1] 1646
@@ -580,7 +591,9 @@ dev@debian:~$ cat | wc -l &amp;
 [2] 1648
 dev@debian:~$ jobs
 [1]-  Running                 sleep 1000 &amp;
-[2]+  Stopped                 cat | wc -l</code></pre><p>下面这张图标明了这种情况下它们之间的关系：</p>
+[2]+  Stopped                 cat | wc -l
+</code></pre>
+<p>下面这张图标明了这种情况下它们之间的关系：</p>
 <pre><code>+--------------------------------------------------------------+
 |                                                              |
 |      pg1             pg2             pg3            pg4      |
@@ -591,7 +604,9 @@ dev@debian:~$ jobs
 |                                    +-----+                   |
 |                                                              |
 +--------------------------------------------------------------+
-                            session</code></pre><blockquote>
+                            session
+</code></pre>
+<blockquote>
 <p>pg = process group(进程组)</p>
 </blockquote>
 <ul>
@@ -600,7 +615,8 @@ dev@debian:~$ jobs
 <li>bash会为自己启动的每个进程都创建一个新的进程组，所以这里sleep和jobs进程属于自己单独的进程组</li>
 <li>对于用管道符号“|”连接起来的命令，bash会将它们放到一个进程组中</li>
 </ul>
-<h2 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h2><p>nohup是咋回事呢？nohup干了这么几件事：</p>
+<h2 id="nohup"><a class="header-anchor" href="#nohup">¶</a>nohup</h2>
+<p>nohup是咋回事呢？nohup干了这么几件事：</p>
 <ul>
 <li>将stdin重定向到/dev/null，于是程序读标准输入将会返回EOF</li>
 <li>将stdout和stderr重定向到nohup.out或者用户通过参数指定的文件，程序所有输出到stdout和stderr的内容将会写入该文件（有时在文件中看不到输出，有可能是程序没有调用flush）</li>
@@ -617,7 +633,8 @@ dev@debian:~$ jobs
 <li>由于session leader已经退出，而nohup启动的进程属于该session，于是出现了一种情况，那就是通过nohup启动的这个进程组所在的session没有leader，这是一种特殊的情况，内核会帮我们处理这种特殊情况，这里就不再深入介绍</li>
 </ul>
 <p>通过nohup，我们最后达到了就算session leader（一般是shell）退出后，进程还可以照常运行的目的。</p>
-<h2 id="deamon"><a href="#deamon" class="headerlink" title="deamon"></a>deamon</h2><p>通过nohup，就可以实现让进程在后台一直执行的功能，为什么我们还要写deamon进程呢？</p>
+<h2 id="deamon"><a class="header-anchor" href="#deamon">¶</a>deamon</h2>
+<p>通过nohup，就可以实现让进程在后台一直执行的功能，为什么我们还要写deamon进程呢？</p>
 <p>从上面的nohup的介绍中可以看出来，虽然进程是在后台执行，但进程跟当前session还是有着千丝万缕的关系，至少其父进程还是被session管着的，所以我们还是需要一个跟任何session都没有关系的进程来实现deamon的功能。实现deamon进程的大概步骤如下：</p>
 <ul>
 <li>调用fork生成一个新进程，然后原来的进程退出，这样新进程就变成了孤儿进程，于是被init进程接收，这样新进程就和调用进程没有父子关系了。</li>
@@ -626,7 +643,8 @@ dev@debian:~$ jobs
 <li>关闭一些从父进程继承过来而自己不需要的fd，避免不小心读写这些fd。</li>
 <li>重定向stdin、stdout和stderr，避免读写它们出现错误。</li>
 </ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://www.win.tue.nl/~aeb/linux/lk/lk-10.html" target="_blank" rel="noopener">Processes</a></li>
 <li><a href="https://www.gnu.org/savannah-checkouts/gnu/libc/manual/html_node/Job-Control.html" target="_blank" rel="noopener">Job Control</a></li>
 <li><a href="https://www.ibm.com/developerworks/cn/linux/1702_zhangym_demo/index.html" target="_blank" rel="noopener">那些永不消逝的进程</a></li>
@@ -1119,13 +1137,13 @@ dev@debian:~$ jobs
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/linux-mount-di-yi-bu-fen/">
+                <a href="/2020/02/16/linux/linux-mount-di-er-bu-fen-shared-subtrees/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux mount （第一部分）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux mount （第二部分 - Shared subtrees）">
                         
-                        <span class="card-title">Linux mount （第一部分）</span>
+                        <span class="card-title">Linux mount （第二部分 - Shared subtrees）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1168,13 +1186,13 @@ dev@debian:~$ jobs
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/linux-mount-di-er-bu-fen-shared-subtrees/">
+                <a href="/2020/02/16/linux/linux-xia-chang-jian-wen-jian-xi-tong-dui-bi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux mount （第二部分 - Shared subtrees）">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux下常见文件系统对比">
                         
-                        <span class="card-title">Linux mount （第二部分 - Shared subtrees）</span>
+                        <span class="card-title">Linux下常见文件系统对比</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1340,7 +1358,7 @@ dev@debian:~$ jobs
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

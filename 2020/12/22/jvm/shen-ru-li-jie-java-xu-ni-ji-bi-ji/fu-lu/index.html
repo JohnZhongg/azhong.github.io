@@ -9,11 +9,15 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[TOC]
-附录JVM大图
-JVM参数在jvm中有很多的参数可以进行设置,这样可以让JVM在各种环境中都能够高效的运行。绝大部分的参数保持默认即可。
-参数类型JVM的参数类型分为三类,分别是: 
+附录
+¶JVM大图
 
--前缀标准参数，如-help、-versi">
+¶JVM参数
+在jvm中有很多的参数可以进行设置,这样可以让JVM在各种环境中都能够高效的运行。绝大部分的参数保持默认即可。
+¶参数类型
+JVM的参数类型分为三类,分别是:
+
+-前缀标准参数，如-help、">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -334,7 +338,7 @@ JVM参数在jvm中有很多的参数可以进行设置,这样可以让JVM在各�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -513,16 +517,21 @@ JVM参数在jvm中有很多的参数可以进行设置,这样可以让JVM在各�
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[TOC]</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="JVM大图"><a href="#JVM大图" class="headerlink" title="JVM大图"></a>JVM大图</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232740.png" alt="Java-jvm"></p>
-<h2 id="JVM参数"><a href="#JVM参数" class="headerlink" title="JVM参数"></a>JVM参数</h2><p>在jvm中有很多的参数可以进行设置,这样可以让JVM在各种环境中都能够高效的运行。绝大部分的参数保持默认即可。</p>
-<h3 id="参数类型"><a href="#参数类型" class="headerlink" title="参数类型"></a>参数类型</h3><p>JVM的参数类型分为三类,分别是: </p>
+<h1>附录</h1>
+<h2 id="JVM大图"><a class="header-anchor" href="#JVM大图">¶</a>JVM大图</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232740.png" alt="Java-jvm"></p>
+<h2 id="JVM参数"><a class="header-anchor" href="#JVM参数">¶</a>JVM参数</h2>
+<p>在jvm中有很多的参数可以进行设置,这样可以让JVM在各种环境中都能够高效的运行。绝大部分的参数保持默认即可。</p>
+<h3 id="参数类型"><a class="header-anchor" href="#参数类型">¶</a>参数类型</h3>
+<p>JVM的参数类型分为三类,分别是:</p>
 <ol>
 <li><code>-</code>前缀标准参数，如<code>-help</code>、<code>-version</code></li>
-<li><code>-X</code>前缀参数 (非标准参数)，如：<code>-Xint</code>、<code>-Xcomp</code></li>
-<li><code>-XX:</code>前缀参数(使用率较高)，如：<code>-XX:newSize</code>、<code>-XX:+UseSerialGC</code></li>
+<li><code>-X</code>前缀参数 (非标准参数)，如：<code> -Xint</code>、<code>-Xcomp</code></li>
+<li><code>-XX:</code>前缀参数(使用率较高)，如：<code>-XX:newSize</code>、<code> -XX:+UseSerialGC</code></li>
 </ol>
-<h4 id="标准参数"><a href="#标准参数" class="headerlink" title="标准参数"></a>标准参数</h4><p>jvm的标准参数,一般都是很稳定的,在未来的JVM版本中不会改变,可以使用<code>java -help</code>检索出所有的标准参数。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">zhonghongpeng@bogon classes % java -help                             
+<h4 id="标准参数"><a class="header-anchor" href="#标准参数">¶</a>标准参数</h4>
+<p>jvm的标准参数,一般都是很稳定的,在未来的JVM版本中不会改变,可以使用<code>java -help</code>检索出所有的标准参数。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">zhonghongpeng@bogon classes % java -help                             
 用法: java [-options] class [args...]
            (执行类)
    或  java [-options] -jar jarfile [args...]
@@ -574,66 +583,73 @@ JVM参数在jvm中有很多的参数可以进行设置,这样可以让JVM在各�
                   加载 Java 编程语言代理, 请参阅 java.lang.instrument
     -splash:<imagepath>
                   使用指定的图像显示启动屏幕
-有关详细信息, 请参阅 http://www.oracle.com/technetwork/java/javase/documentation/index.html。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="X参数"><a href="#X参数" class="headerlink" title="-X参数"></a>-X参数</h4><p>JVM的<code>-X</code>参数是非标准参数,在不同版本的JVM中,参数可能会有所不同,可以通过<code>java -X</code>查看非标准参数。</p>
-<pre class="line-numbers language-java"><code class="language-java">zhonghongpeng<span class="token annotation punctuation">@bogon</span> classes <span class="token operator">%</span> java <span class="token operator">-</span>X                                
-    <span class="token operator">-</span>Xmixed           混合模式执行 <span class="token punctuation">(</span>默认<span class="token punctuation">)</span>
-    <span class="token operator">-</span>Xint             仅解释模式执行
-    <span class="token operator">-</span>Xbootclasspath<span class="token operator">:</span><span class="token operator">&lt;</span>用 <span class="token operator">:</span> 分隔的目录和 zip<span class="token operator">/</span>jar 文件<span class="token operator">></span>
+有关详细信息, 请参阅 http://www.oracle.com/technetwork/java/javase/documentation/index.html。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="X参数"><a class="header-anchor" href="#X参数">¶</a>-X参数</h4>
+<p>JVM的<code>-X</code>参数是非标准参数,在不同版本的JVM中,参数可能会有所不同,可以通过<code>java -X</code>查看非标准参数。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">zhonghongpeng@bogon classes % java -X                                
+    -Xmixed           混合模式执行 (默认)
+    -Xint             仅解释模式执行
+    -Xbootclasspath:<用 : 分隔的目录和 zip/jar 文件>
                       设置搜索路径以引导类和资源
-    <span class="token operator">-</span>Xbootclasspath<span class="token operator">/</span>a<span class="token operator">:</span><span class="token operator">&lt;</span>用 <span class="token operator">:</span> 分隔的目录和 zip<span class="token operator">/</span>jar 文件<span class="token operator">></span>
+    -Xbootclasspath/a:<用 : 分隔的目录和 zip/jar 文件>
                       附加在引导类路径末尾
-    <span class="token operator">-</span>Xbootclasspath<span class="token operator">/</span>p<span class="token operator">:</span><span class="token operator">&lt;</span>用 <span class="token operator">:</span> 分隔的目录和 zip<span class="token operator">/</span>jar 文件<span class="token operator">></span>
+    -Xbootclasspath/p:<用 : 分隔的目录和 zip/jar 文件>
                       置于引导类路径之前
-    <span class="token operator">-</span>Xdiag            显示附加诊断消息
-    <span class="token operator">-</span>Xnoclassgc       禁用类垃圾收集
-    <span class="token operator">-</span>Xincgc           启用增量垃圾收集
-    <span class="token operator">-</span>Xloggc<span class="token operator">:</span><span class="token operator">&lt;</span>file<span class="token operator">></span>    将 GC 状态记录在文件中 <span class="token punctuation">(</span>带时间戳<span class="token punctuation">)</span>
-    <span class="token operator">-</span>Xbatch           禁用后台编译
-    <span class="token operator">-</span>Xms<span class="token operator">&lt;</span>size<span class="token operator">></span>        设置初始 Java 堆大小
-    <span class="token operator">-</span>Xmx<span class="token operator">&lt;</span>size<span class="token operator">></span>        设置最大 Java 堆大小
-    <span class="token operator">-</span>Xss<span class="token operator">&lt;</span>size<span class="token operator">></span>        设置 Java 线程堆栈大小
-    <span class="token operator">-</span>Xprof            输出 cpu 配置文件数据
-    <span class="token operator">-</span>Xfuture          启用最严格的检查<span class="token punctuation">,</span> 预期将来的默认值
-    <span class="token operator">-</span>Xrs              减少 Java<span class="token operator">/</span>VM 对操作系统信号的使用 <span class="token punctuation">(</span>请参阅文档<span class="token punctuation">)</span>
-    <span class="token operator">-</span>Xcheck<span class="token operator">:</span>jni       对 JNI 函数执行其他检查
-    <span class="token operator">-</span>Xshare<span class="token operator">:</span>off       不尝试使用共享类数据
-    <span class="token operator">-</span>Xshare<span class="token operator">:</span>auto      在可能的情况下使用共享类数据 <span class="token punctuation">(</span>默认<span class="token punctuation">)</span>
-    <span class="token operator">-</span>Xshare<span class="token operator">:</span>on        要求使用共享类数据<span class="token punctuation">,</span> 否则将失败。
-    <span class="token operator">-</span>XshowSettings    显示所有设置并继续
-    <span class="token operator">-</span>XshowSettings<span class="token operator">:</span>all
+    -Xdiag            显示附加诊断消息
+    -Xnoclassgc       禁用类垃圾收集
+    -Xincgc           启用增量垃圾收集
+    -Xloggc:<file>    将 GC 状态记录在文件中 (带时间戳)
+    -Xbatch           禁用后台编译
+    -Xms<size>        设置初始 Java 堆大小
+    -Xmx<size>        设置最大 Java 堆大小
+    -Xss<size>        设置 Java 线程堆栈大小
+    -Xprof            输出 cpu 配置文件数据
+    -Xfuture          启用最严格的检查, 预期将来的默认值
+    -Xrs              减少 Java/VM 对操作系统信号的使用 (请参阅文档)
+    -Xcheck:jni       对 JNI 函数执行其他检查
+    -Xshare:off       不尝试使用共享类数据
+    -Xshare:auto      在可能的情况下使用共享类数据 (默认)
+    -Xshare:on        要求使用共享类数据, 否则将失败。
+    -XshowSettings    显示所有设置并继续
+    -XshowSettings:all
                       显示所有设置并继续
-    <span class="token operator">-</span>XshowSettings<span class="token operator">:</span>vm 显示所有与 vm 相关的设置并继续
-    <span class="token operator">-</span>XshowSettings<span class="token operator">:</span>properties
+    -XshowSettings:vm 显示所有与 vm 相关的设置并继续
+    -XshowSettings:properties
                       显示所有属性设置并继续
-    <span class="token operator">-</span>XshowSettings<span class="token operator">:</span>locale
+    -XshowSettings:locale
                       显示所有与区域设置相关的设置并继续
 
-<span class="token operator">-</span>X 选项是非标准选项<span class="token punctuation">,</span> 如有更改<span class="token punctuation">,</span> 恕不另行通知。
+-X 选项是非标准选项, 如有更改, 恕不另行通知。
 
 
-以下选项为 Mac OS X 特定的选项<span class="token operator">:</span>
-    <span class="token operator">-</span>XstartOnFirstThread
-                      在第一个 <span class="token punctuation">(</span>AppKit<span class="token punctuation">)</span> 线程上运行 <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 方法
-    <span class="token operator">-</span>Xdock<span class="token operator">:</span>name<span class="token operator">=</span><span class="token operator">&lt;</span>应用程序名称<span class="token operator">></span>"
+以下选项为 Mac OS X 特定的选项:
+    -XstartOnFirstThread
+                      在第一个 (AppKit) 线程上运行 main() 方法
+    -Xdock:name=<应用程序名称>"
                       覆盖停靠栏中显示的默认应用程序名称
-    <span class="token operator">-</span>Xdock<span class="token operator">:</span>icon<span class="token operator">=</span><span class="token operator">&lt;</span>图标文件的路径<span class="token operator">></span>
-                      覆盖停靠栏中显示的默认图标<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="XX参数"><a href="#XX参数" class="headerlink" title="-XX参数"></a>-XX参数</h4><p><code>-XX</code>参数也是非标准参数,主要用于JVM的调优和debug操作。</p>
+    -Xdock:icon=<图标文件的路径>
+                      覆盖停靠栏中显示的默认图标
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="XX参数"><a class="header-anchor" href="#XX参数">¶</a>-XX参数</h4>
+<p><code>-XX</code>参数也是非标准参数,主要用于JVM的调优和debug操作。</p>
 <p><code>-XX</code>参数的使用有2种方式,一种是boolean类型,一种是非boolean类型:</p>
 <ul>
-<li>boolean类型<ul>
+<li>boolean类型
+<ul>
 <li>格式：<code>-XX:[+-]</code></li>
-<li>如：<code>-XX:+DisableExplicitGC</code>表示禁用手动调用gc操作,也就是说调用<code>System.gc()</code>无效 </li>
+<li>如：<code>-XX:+DisableExplicitGC</code>表示禁用手动调用gc操作,也就是说调用<code>System.gc()</code>无效</li>
 </ul>
 </li>
-<li>非boolean类型<ul>
+<li>非boolean类型
+<ul>
 <li>格式：<code>-XX:</code></li>
 <li>如：<code>-XX:NewRatio=1</code> 表示新生代和老年代的比值</li>
 </ul>
 </li>
 </ul>
-<h3 id="常用参数参考附录"><a href="#常用参数参考附录" class="headerlink" title="常用参数参考附录"></a>常用参数参考附录</h3><pre class="line-numbers language-shell"><code class="language-shell">指定虚拟机以解释模式运行
+<h3 id="常用参数参考附录"><a class="header-anchor" href="#常用参数参考附录">¶</a>常用参数参考附录</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">指定虚拟机以解释模式运行
 -Xint
 指定虚拟机以编译模式运行
 -Xcomp
@@ -741,7 +757,7 @@ jvm 启动自旋锁立即激活
 
 # 解锁诊断性质的VM参数、打印汇编代码
 -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly
-
+ 
 # 出现 OOME 时生成堆 dump:
 -XX:+HeapDumpOnOutOfMemoryError
 # 生成堆文件地址: 
@@ -760,15 +776,18 @@ jvm 启动自旋锁立即激活
 -Xverify:none
 
 # JDK6开启分层编译
--XX:+TieredCompilation<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="JDK-9前后日志参数变化"><a href="#JDK-9前后日志参数变化" class="headerlink" title="JDK 9前后日志参数变化"></a>JDK 9前后日志参数变化</h3><table>
+-XX:+TieredCompilation
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="JDK-9前后日志参数变化"><a class="header-anchor" href="#JDK-9前后日志参数变化">¶</a>JDK 9前后日志参数变化</h3>
+<table>
 <thead>
 <tr>
 <th>JDK9前日志参数</th>
 <th>JDK9后配置形式</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>G1PrintHeapRegions</td>
 <td>Xlog: gc+region=trace</td>
 </tr>
@@ -900,15 +919,18 @@ jvm 启动自旋锁立即激活
 <td></td>
 <td></td>
 </tr>
-</tbody></table>
-<h3 id="垃圾收集器相关参数"><a href="#垃圾收集器相关参数" class="headerlink" title="垃圾收集器相关参数"></a>垃圾收集器相关参数</h3><table>
+</tbody>
+</table>
+<h3 id="垃圾收集器相关参数"><a class="header-anchor" href="#垃圾收集器相关参数">¶</a>垃圾收集器相关参数</h3>
+<table>
 <thead>
 <tr>
 <th>参数</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>UseSerialGC</td>
 <td>虚拟机运行在 Client模式下的默认值,打开此开关后.使用 Serial+ Serial Old的收集器组合进行内存回收</td>
 </tr>
@@ -918,7 +940,7 @@ jvm 启动自旋锁立即激活
 </tr>
 <tr>
 <td>UseConcMarkSweepGC</td>
-<td>打开此开关后,使用 Pardew+CMS+ Serial Old的收集器组合进行内存 回收。Serial Old收集器将作为CMS收集器出现“Concurrent Mode Failure” 失败后的后备收集器使用</td>
+<td>打开此开关后,使用 Pardew+CMS+ Serial Old的收集器组合进行内存 回收。Serial Old收集器将作为CMS收集器出现“Concurrent Mode Failure&quot; 失败后的后备收集器使用</td>
 </tr>
 <tr>
 <td>UseParallelGC</td>
@@ -1020,8 +1042,10 @@ jvm 启动自旋锁立即激活
 <td>UseNUMA</td>
 <td>启用NUMA内存分配支持,目前只有 Parallel和ZGC支持,以后G1收 集器可能也会支持该选项</td>
 </tr>
-</tbody></table>
-<h3 id="官方网址"><a href="#官方网址" class="headerlink" title="官方网址"></a>官方网址</h3><blockquote>
+</tbody>
+</table>
+<h3 id="官方网址"><a class="header-anchor" href="#官方网址">¶</a>官方网址</h3>
+<blockquote>
 <p><a href="https://docs.oracle.com/en/java/javase/11/tools/java.html#GUID-3B1CE181-CD30-4178-9602-230B800D4FAE" target="_blank" rel="noopener">https://docs.oracle.com/en/java/javase/11/tools/java.html#GUID-3B1CE181-CD30-4178-9602-230B800D4FAE</a></p>
 <p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</a></p>
 </blockquote>
@@ -1517,7 +1541,7 @@ jvm 启动自旋锁立即激活
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java-JVM-操作系统线程模型">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java-JVM-操作系统线程模型">
                         
                         <span class="card-title">Java-JVM-操作系统线程模型</span>
                     </div>
@@ -1566,7 +1590,7 @@ jvm 启动自旋锁立即激活
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="08_执行引擎">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="08_执行引擎">
                         
                         <span class="card-title">08_执行引擎</span>
                     </div>
@@ -1734,7 +1758,7 @@ jvm 启动自旋锁立即激活
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

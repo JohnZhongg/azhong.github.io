@@ -10,7 +10,8 @@
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="继前两篇介绍了tun/tap和veth之后，本篇将介绍Linux下常用的一种虚拟网络设备，那就是bridge(桥)。
 本篇将通过实际的例子来一步一步解释bridge是如何工作的。
-什么是bridge？首先，bridge是一个虚拟网络设备，所">
+¶什么是bridge？
+首先，bridge是一个虚拟网络设备">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -331,7 +332,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,12 +512,16 @@
             <div id="articleContent">
                 <p>继前两篇介绍了<a href="https://segmentfault.com/a/1190000009249039" target="_blank" rel="noopener">tun/tap</a>和<a href="https://segmentfault.com/a/1190000009251098" target="_blank" rel="noopener">veth</a>之后，本篇将介绍Linux下常用的一种虚拟网络设备，那就是bridge(桥)。</p>
 <p>本篇将通过实际的例子来一步一步解释bridge是如何工作的。</p>
-<h2 id="什么是bridge？"><a href="#什么是bridge？" class="headerlink" title="什么是bridge？"></a>什么是bridge？</h2><p>首先，bridge是一个虚拟网络设备，所以具有网络设备的特征，可以配置IP、MAC地址等；其次，bridge是一个虚拟交换机，和物理交换机有类似的功能。</p>
+<h2 id="什么是bridge？"><a class="header-anchor" href="#什么是bridge？">¶</a>什么是bridge？</h2>
+<p>首先，bridge是一个虚拟网络设备，所以具有网络设备的特征，可以配置IP、MAC地址等；其次，bridge是一个虚拟交换机，和物理交换机有类似的功能。</p>
 <p>对于普通的网络设备来说，只有两端，从一端进来的数据会从另一端出去，如物理网卡从外面网络中收到的数据会转发给内核协议栈，而从协议栈过来的数据会转发到外面的物理网络中。</p>
 <p>而bridge不同，bridge有多个端口，数据可以从任何端口进来，进来之后从哪个口出去和物理交换机的原理差不多，要看mac地址。</p>
-<h2 id="创建bridge"><a href="#创建bridge" class="headerlink" title="创建bridge"></a>创建bridge</h2><p>我们先用iproute2创建一个bridge：</p>
+<h2 id="创建bridge"><a class="header-anchor" href="#创建bridge">¶</a>创建bridge</h2>
+<p>我们先用iproute2创建一个bridge：</p>
 <pre><code>dev@debian:~$ sudo ip link add name br0 type bridge
-dev@debian:~$ sudo ip link set br0 up</code></pre><p>当刚创建一个bridge时，它是一个独立的网络设备，只有一个端口连着协议栈，其它的端口啥都没连，这样的bridge没有任何实际功能，如下图所示：</p>
+dev@debian:~$ sudo ip link set br0 up
+</code></pre>
+<p>当刚创建一个bridge时，它是一个独立的网络设备，只有一个端口连着协议栈，其它的端口啥都没连，这样的bridge没有任何实际功能，如下图所示：</p>
 <pre><code>+----------------------------------------------------------------+
 |                                                                |
 |       +------------------------------------------------+       |
@@ -533,19 +538,26 @@ dev@debian:~$ sudo ip link set br0 up</code></pre><p>当刚创建一个bridge时
 |              |                                                 |
 +--------------|-------------------------------------------------+
                ↓
-         Physical Network</code></pre><blockquote>
+         Physical Network
+</code></pre>
+<blockquote>
 <p>这里假设eth0是我们的物理网卡，IP地址是192.168.3.21，网关是192.168.3.1</p>
 </blockquote>
-<h2 id="将bridge和veth设备相连"><a href="#将bridge和veth设备相连" class="headerlink" title="将bridge和veth设备相连"></a>将bridge和veth设备相连</h2><p>创建一对veth设备，并配置上IP</p>
+<h2 id="将bridge和veth设备相连"><a class="header-anchor" href="#将bridge和veth设备相连">¶</a>将bridge和veth设备相连</h2>
+<p>创建一对veth设备，并配置上IP</p>
 <pre><code>dev@debian:~$ sudo ip link add veth0 type veth peer name veth1
 dev@debian:~$ sudo ip addr add 192.168.3.101/24 dev veth0
 dev@debian:~$ sudo ip addr add 192.168.3.102/24 dev veth1
 dev@debian:~$ sudo ip link set veth0 up
-dev@debian:~$ sudo ip link set veth1 up</code></pre><p>将veth0连上br0</p>
+dev@debian:~$ sudo ip link set veth1 up
+</code></pre>
+<p>将veth0连上br0</p>
 <pre><code>dev@debian:~$ sudo ip link set dev veth0 master br0
 #通过bridge link命令可以看到br0上连接了哪些设备
 dev@debian:~$ sudo bridge link
-6: veth0 state UP : &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 master br0 state forwarding priority 32 cost 2</code></pre><p>这时候，网络就变成了这个样子:</p>
+6: veth0 state UP : &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 master br0 state forwarding priority 32 cost 2
+</code></pre>
+<p>这时候，网络就变成了这个样子:</p>
 <pre><code>+----------------------------------------------------------------+
 |                                                                |
 |       +------------------------------------------------+       |
@@ -565,7 +577,9 @@ dev@debian:~$ sudo bridge link
 |            |                                                   |
 +------------|---------------------------------------------------+
              ↓
-     Physical Network</code></pre><blockquote>
+     Physical Network
+</code></pre>
+<blockquote>
 <p>这里为了画图方便，省略了IP地址前面的192.168，比如.3.21就表示192.168.3.21</p>
 </blockquote>
 <p>br0和veth0相连之后，发生了几个变化：</p>
@@ -582,7 +596,9 @@ PING 192.168.2.1 (192.168.2.1) from 192.168.2.11 veth0: 56(84) bytes of data.
 From 192.168.2.11 icmp_seq=1 Destination Host Unreachable
 
 --- 192.168.2.1 ping statistics ---
-1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms</code></pre><p>为什么veth0加入了bridge之后，就ping不通veth2了呢？ 先抓包看看：</p>
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+</code></pre>
+<p>为什么veth0加入了bridge之后，就ping不通veth2了呢？ 先抓包看看：</p>
 <pre><code>#由于veth0的arp缓存里面没有veth1的mac地址，所以ping之前先发arp请求
 #从veth1上抓包来看，veth1收到了arp请求，并且返回了应答
 dev@debian:~$ sudo tcpdump -n -i veth1
@@ -602,10 +618,15 @@ listening on veth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 dev@debian:~$ sudo tcpdump -n -i br0
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on br0, link-type EN10MB (Ethernet), capture size 262144 bytes
-21:45:48.225459 ARP, Reply 192.168.3.102 is-at 26:58:a2:57:37:e9, length 28</code></pre><p>从上面的抓包可以看出，去和回来的流程都没有问题，问题就出在veth0收到应答包后没有给协议栈，而是给了br0，于是协议栈得不到veth1的mac地址，从而通信失败。</p>
-<h2 id="给bridge配上IP"><a href="#给bridge配上IP" class="headerlink" title="给bridge配上IP"></a>给bridge配上IP</h2><p>通过上面的分析可以看出，给veth0配置IP没有意义，因为就算协议栈传数据包给veth0，应答包也回不来。这里我们就将veth0的IP让给bridge。</p>
+21:45:48.225459 ARP, Reply 192.168.3.102 is-at 26:58:a2:57:37:e9, length 28
+</code></pre>
+<p>从上面的抓包可以看出，去和回来的流程都没有问题，问题就出在veth0收到应答包后没有给协议栈，而是给了br0，于是协议栈得不到veth1的mac地址，从而通信失败。</p>
+<h2 id="给bridge配上IP"><a class="header-anchor" href="#给bridge配上IP">¶</a>给bridge配上IP</h2>
+<p>通过上面的分析可以看出，给veth0配置IP没有意义，因为就算协议栈传数据包给veth0，应答包也回不来。这里我们就将veth0的IP让给bridge。</p>
 <pre><code>dev@debian:~$ sudo ip addr del 192.168.3.101/24 dev veth0
-dev@debian:~$ sudo ip addr add 192.168.3.101/24 dev br0</code></pre><p>于是网络变成了这样子：</p>
+dev@debian:~$ sudo ip addr add 192.168.3.101/24 dev br0
+</code></pre>
+<p>于是网络变成了这样子：</p>
 <pre><code>+----------------------------------------------------------------+
 |                                                                |
 |       +------------------------------------------------+       |
@@ -625,8 +646,11 @@ dev@debian:~$ sudo ip addr add 192.168.3.101/24 dev br0</code></pre><p>于是网
 |            |                                                   |
 +------------|---------------------------------------------------+
              ↓
-     Physical Network</code></pre><blockquote>
-<p>其实veth0和协议栈之间还是有联系的，但由于veth0没有配置IP，所以协议栈在路由的时候不会将数据包发给veth0，就算强制要求数据包通过veth0发送出去，但由于veth0从另一端收到的数据包只会给br0，所以协议栈还是没法收到相应的arp应答包，导致通信失败。<br>这里为了表达更直观，将协议栈和veth0之间的联系去掉了，veth0相当于一根网线。</p>
+     Physical Network
+</code></pre>
+<blockquote>
+<p>其实veth0和协议栈之间还是有联系的，但由于veth0没有配置IP，所以协议栈在路由的时候不会将数据包发给veth0，就算强制要求数据包通过veth0发送出去，但由于veth0从另一端收到的数据包只会给br0，所以协议栈还是没法收到相应的arp应答包，导致通信失败。<br>
+这里为了表达更直观，将协议栈和veth0之间的联系去掉了，veth0相当于一根网线。</p>
 </blockquote>
 <p>再通过br0 ping一下veth1，结果成功</p>
 <pre><code>dev@debian:~$ ping -c 1 -I br0 192.168.3.102
@@ -635,17 +659,24 @@ PING 192.168.3.102 (192.168.3.102) from 192.168.3.101 br0: 56(84) bytes of data.
 
 --- 192.168.3.102 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.121/0.121/0.121/0.000 ms</code></pre><p>但ping网关还是失败，因为这个bridge上只有两个网络设备，分别是192.168.3.101和192.168.3.102，br0不知道192.168.3.1在哪。</p>
+rtt min/avg/max/mdev = 0.121/0.121/0.121/0.000 ms
+</code></pre>
+<p>但ping网关还是失败，因为这个bridge上只有两个网络设备，分别是192.168.3.101和192.168.3.102，br0不知道192.168.3.1在哪。</p>
 <pre><code>dev@debian:~$ ping -c 1 -I br0 192.168.3.1
 PING 192.168.3.1 (192.168.3.1) from 192.168.3.101 br0: 56(84) bytes of data.
 From 192.168.3.101 icmp_seq=1 Destination Host Unreachable
 
 --- 192.168.3.1 ping statistics ---
-1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms</code></pre><h2 id="将物理网卡添加到bridge"><a href="#将物理网卡添加到bridge" class="headerlink" title="将物理网卡添加到bridge"></a>将物理网卡添加到bridge</h2><p>将eth0添加到br0上：</p>
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+</code></pre>
+<h2 id="将物理网卡添加到bridge"><a class="header-anchor" href="#将物理网卡添加到bridge">¶</a>将物理网卡添加到bridge</h2>
+<p>将eth0添加到br0上：</p>
 <pre><code>dev@debian:~$ sudo ip link set dev eth0 master br0
 dev@debian:~$ sudo bridge link
 2: eth0 state UP : &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 master br0 state forwarding priority 32 cost 4
-6: veth0 state UP : &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 master br0 state forwarding priority 32 cost 2</code></pre><p>br0根本不区分接入进来的是物理设备还是虚拟设备，对它来说都一样的，都是网络设备，所以当eth0加入br0之后，落得和上面veth0一样的下场，从外面网络收到的数据包将无条件的转发给br0，自己变成了一根网线。</p>
+6: veth0 state UP : &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 master br0 state forwarding priority 32 cost 2
+</code></pre>
+<p>br0根本不区分接入进来的是物理设备还是虚拟设备，对它来说都一样的，都是网络设备，所以当eth0加入br0之后，落得和上面veth0一样的下场，从外面网络收到的数据包将无条件的转发给br0，自己变成了一根网线。</p>
 <p>这时通过eth0来ping网关失败，但由于br0通过eth0这根网线连上了外面的物理交换机，所以连在br0上的设备都能ping通网关，这里连上的设备就是veth1和br0自己，veth1是通过veth0这根网线连上去的，而br0可以理解为自己有一块自带的网卡。</p>
 <pre><code>#通过eth0来ping网关失败
 dev@debian:~$ ping -c 1 -I eth0 192.168.3.1
@@ -671,7 +702,9 @@ PING 192.168.3.1 (192.168.3.1) from 192.168.3.102 veth1: 56(84) bytes of data.
 
 --- 192.168.3.1 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 68.806/68.806/68.806/0.000 ms</code></pre><p>由于eth0已经变成了和网线差不多的功能，所以在eth0上配置IP已经没有什么意义了，并且还会影响协议栈的路由选择，比如如果上面ping的时候不指定网卡的话，协议栈有可能优先选择eth0，导致ping不通，所以这里需要将eth0上的IP去掉。</p>
+rtt min/avg/max/mdev = 68.806/68.806/68.806/0.000 ms
+</code></pre>
+<p>由于eth0已经变成了和网线差不多的功能，所以在eth0上配置IP已经没有什么意义了，并且还会影响协议栈的路由选择，比如如果上面ping的时候不指定网卡的话，协议栈有可能优先选择eth0，导致ping不通，所以这里需要将eth0上的IP去掉。</p>
 <pre><code>#在本人的测试机器上，由于eth0上有IP，
 #访问192.168.3.0/24网段时，会优先选择eth0
 dev@debian:~$ sudo route -v
@@ -721,7 +754,9 @@ PING baidu.com (111.13.101.208) 56(84) bytes of data.
 
 --- baidu.com ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 30.690/30.690/30.690/0.000 ms</code></pre><p>经过上面一系列的操作后，网络变成了这个样子：</p>
+rtt min/avg/max/mdev = 30.690/30.690/30.690/0.000 ms
+</code></pre>
+<p>经过上面一系列的操作后，网络变成了这个样子：</p>
 <pre><code>+----------------------------------------------------------------+
 |                                                                |
 |       +------------------------------------------------+       |
@@ -741,22 +776,32 @@ rtt min/avg/max/mdev = 30.690/30.690/30.690/0.000 ms</code></pre><p>经过上面
 |            |                                                   |
 +------------|---------------------------------------------------+
              ↓
-     Physical Network</code></pre><p>上面的操作中有几点需要注意：</p>
+     Physical Network
+</code></pre>
+<p>上面的操作中有几点需要注意：</p>
 <ul>
-<li><p>如果是在虚拟机上做上述操作，记得打开网卡的混杂模式（不是在Linux里面，而是在虚拟机的配置上面，如VirtualBox上相应虚拟机的网卡配置项里面），不然veth1的网络会不通，因为eth0不在混杂模式的话，会丢掉目的mac地址是veth1的数据包</p>
+<li>
+<p>如果是在虚拟机上做上述操作，记得打开网卡的混杂模式（不是在Linux里面，而是在虚拟机的配置上面，如VirtualBox上相应虚拟机的网卡配置项里面），不然veth1的网络会不通，因为eth0不在混杂模式的话，会丢掉目的mac地址是veth1的数据包</p>
 </li>
-<li><p>上面虽然通了，但由于<a href="https://lwn.net/Articles/45373/" target="_blank" rel="noopener">Linux下arp的特性</a>，当协议栈收到外面的arp请求时，不管是问101还是102，都会回复两个arp应答，分别包含br0和veth1的mac地址，也即Linux觉得外面发给101和102的数据包从br0和veth1进协议栈都一样，没有区别。由于回复了两个arp应答，而外面的设备只会用其中的一个，并且具体用哪个会随着时间发生变化，于是导致一个问题，就是外面回复给102的数据包可能从101的br0上进来，即通过102 ping外面时，可能在veth1抓不到回复包，而在br0上能抓到回复包。说明数据流在交换机那层没有完全的隔离开，br0和veth1会收到对方的IP应答包。为了解决上述问题，可以配置rp_filter, arp_filter, arp_ignore, arp_announce等参数，但不建议这么做，容易出错，调试比较麻烦。</p>
+<li>
+<p>上面虽然通了，但由于<a href="https://lwn.net/Articles/45373/" target="_blank" rel="noopener">Linux下arp的特性</a>，当协议栈收到外面的arp请求时，不管是问101还是102，都会回复两个arp应答，分别包含br0和veth1的mac地址，也即Linux觉得外面发给101和102的数据包从br0和veth1进协议栈都一样，没有区别。由于回复了两个arp应答，而外面的设备只会用其中的一个，并且具体用哪个会随着时间发生变化，于是导致一个问题，就是外面回复给102的数据包可能从101的br0上进来，即通过102 ping外面时，可能在veth1抓不到回复包，而在br0上能抓到回复包。说明数据流在交换机那层没有完全的隔离开，br0和veth1会收到对方的IP应答包。为了解决上述问题，可以配置rp_filter, arp_filter, arp_ignore, arp_announce等参数，但不建议这么做，容易出错，调试比较麻烦。</p>
 </li>
-<li><p>在无线网络环境中，情况会变得比较复杂，因为无线网络需要登录，登陆后无线路由器只认一个mac地址，所有从这台机器出去的mac地址都必须是那一个，于是通过无线网卡上网的机器上的所有虚拟机想要上网的话，都必须依赖虚拟机管理软件（如VirtualBox）将每个虚拟机的网卡mac地址转成出口的mac地址（即无线网卡的mac地址），数据包回来的时候还要转回来，所以如果一个IP有两个ARP应答包的话，有可能导致mac地址的转换有问题，导致网络不通，或者有时通有时不通。解决办法就是将连接进br0的所有设备的mac地址都改成和eth0一样的mac地址，因为eth0的mac地址会被虚拟机正常的做转换。在上面的例子中，执行下面的命令即可：</p>
+<li>
+<p>在无线网络环境中，情况会变得比较复杂，因为无线网络需要登录，登陆后无线路由器只认一个mac地址，所有从这台机器出去的mac地址都必须是那一个，于是通过无线网卡上网的机器上的所有虚拟机想要上网的话，都必须依赖虚拟机管理软件（如VirtualBox）将每个虚拟机的网卡mac地址转成出口的mac地址（即无线网卡的mac地址），数据包回来的时候还要转回来，所以如果一个IP有两个ARP应答包的话，有可能导致mac地址的转换有问题，导致网络不通，或者有时通有时不通。解决办法就是将连接进br0的所有设备的mac地址都改成和eth0一样的mac地址，因为eth0的mac地址会被虚拟机正常的做转换。在上面的例子中，执行下面的命令即可：</p>
 <pre><code>dev@debian:~$ sudo ip link set dev veth1 down
 #08:00:27:3b:0d:b9是eth0的mac地址
 dev@debian:~$ sudo ip link set dev veth1 address 08:00:27:3b:0d:b9
-dev@debian:~$ sudo ip link set dev veth1 up</code></pre></li>
+dev@debian:~$ sudo ip link set dev veth1 up
+</code></pre>
+</li>
 </ul>
-<h2 id="bridge必须要配置IP吗？"><a href="#bridge必须要配置IP吗？" class="headerlink" title="bridge必须要配置IP吗？"></a>bridge必须要配置IP吗？</h2><p>在我们常见的物理交换机中，有可以配置IP和不能配置IP两种，不能配置IP的交换机一般通过com口连上去做配置（更简单的交换机连com口的没有，不支持任何配置），而能配置IP的交换机可以在配置好IP之后，通过该IP远程连接上去做配置，从而更方便。</p>
+<h2 id="bridge必须要配置IP吗？"><a class="header-anchor" href="#bridge必须要配置IP吗？">¶</a>bridge必须要配置IP吗？</h2>
+<p>在我们常见的物理交换机中，有可以配置IP和不能配置IP两种，不能配置IP的交换机一般通过com口连上去做配置（更简单的交换机连com口的没有，不支持任何配置），而能配置IP的交换机可以在配置好IP之后，通过该IP远程连接上去做配置，从而更方便。</p>
 <p>bridge就属于后一种交换机，自带虚拟网卡，可以配置IP，该虚拟网卡一端连在bridge上，另一端跟协议栈相连。和物理交换机一样，bridge的工作不依赖于该虚拟网卡，但bridge工作不代表机器能连上网，要看组网方式。</p>
 <p>删除br0上的IP:</p>
-<pre><code>dev@debian:~$ sudo ip addr del 192.168.3.101/24 dev br0</code></pre><p>于是网络变成了这样子，相当于br0的一个端口通过eth0连着交换机，另一个端口通过veth0连着veth1：</p>
+<pre><code>dev@debian:~$ sudo ip addr del 192.168.3.101/24 dev br0
+</code></pre>
+<p>于是网络变成了这样子，相当于br0的一个端口通过eth0连着交换机，另一个端口通过veth0连着veth1：</p>
 <pre><code>+----------------------------------------------------------------+
 |                                                                |
 |       +------------------------------------------------+       |
@@ -776,18 +821,24 @@ dev@debian:~$ sudo ip link set dev veth1 up</code></pre></li>
 |            |                                                   |
 +------------|---------------------------------------------------+
              ↓
-     Physical Network</code></pre><p>ping网关成功，说明这种情况下br0不配置IP对通信没有影响，数据包还能从veth1出去：</p>
+     Physical Network
+</code></pre>
+<p>ping网关成功，说明这种情况下br0不配置IP对通信没有影响，数据包还能从veth1出去：</p>
 <pre><code>dev@debian:~$ ping -c 1 192.168.3.1
 PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.
 64 bytes from 192.168.3.1: icmp_seq=1 ttl=64 time=1.24 ms
 
 --- 192.168.3.1 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
+rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms
+</code></pre>
+<blockquote>
 <p>上面如果没有veth0和veth1的话，删除br0上的IP后，网络将会不通，因为没有设备和协议栈完全相连</p>
 </blockquote>
-<h3 id="bridge常用场景"><a href="#bridge常用场景" class="headerlink" title="bridge常用场景"></a>bridge常用场景</h3><p>上面通过例子展示了bridge的功能，但例子中的那种部署方式没有什么实际用途，还不如在一个网卡上配置多个IP地址来的直接。这里来介绍两种常见的部署方式。</p>
-<h4 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h4><p>虚拟机通过tun/tap或者其它类似的虚拟网络设备，将虚拟机内的网卡同br0连接起来，这样就达到和真实交换机一样的效果，虚拟机发出去的数据包先到达br0，然后由br0交给eth0发送出去，数据包都不需要经过host机器的协议栈，效率高。</p>
+<h3 id="bridge常用场景"><a class="header-anchor" href="#bridge常用场景">¶</a>bridge常用场景</h3>
+<p>上面通过例子展示了bridge的功能，但例子中的那种部署方式没有什么实际用途，还不如在一个网卡上配置多个IP地址来的直接。这里来介绍两种常见的部署方式。</p>
+<h4 id="虚拟机"><a class="header-anchor" href="#虚拟机">¶</a>虚拟机</h4>
+<p>虚拟机通过tun/tap或者其它类似的虚拟网络设备，将虚拟机内的网卡同br0连接起来，这样就达到和真实交换机一样的效果，虚拟机发出去的数据包先到达br0，然后由br0交给eth0发送出去，数据包都不需要经过host机器的协议栈，效率高。</p>
 <pre><code>+----------------------------------------------------------------+-----------------------------------------+-----------------------------------------+
 |                          Host                                  |              VirtualMachine1            |              VirtualMachine2            |
 |                                                                |                                         |                                         |
@@ -815,7 +866,10 @@ rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
 |            |                                                   |                                         |                                         |
 +------------|---------------------------------------------------+-----------------------------------------+-----------------------------------------+
              ↓
-     Physical Network  (192.168.3.0/24)</code></pre><h4 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h4><p>由于容器运行在自己单独的network namespace里面，所以都有自己单独的协议栈，情况和上面的虚拟机差不多，但它采用了另一种方式来和外界通信：</p>
+     Physical Network  (192.168.3.0/24)
+</code></pre>
+<h4 id="docker"><a class="header-anchor" href="#docker">¶</a>docker</h4>
+<p>由于容器运行在自己单独的network namespace里面，所以都有自己单独的协议栈，情况和上面的虚拟机差不多，但它采用了另一种方式来和外界通信：</p>
 <pre><code>+----------------------------------------------------------------+-----------------------------------------+-----------------------------------------+
 |                          Host                                  |              Container 1                |              Container 2                |
 |                                                                |                                         |                                         |
@@ -843,11 +897,14 @@ rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
 |            |                                                   |                                         |                                         |
 +------------|---------------------------------------------------+-----------------------------------------+-----------------------------------------+
              ↓
-     Physical Network  (192.168.3.0/24)</code></pre><p>容器中配置网关为.9.1，发出去的数据包先到达br0，然后交给host机器的协议栈，由于目的IP是外网IP，且host机器开启了IP forward功能，于是数据包会通过eth0发送出去，由于.9.1是内网IP，所以一般发出去之前会先做NAT转换（NAT转换和IP forward功能都需要自己配置）。由于要经过host机器的协议栈，并且还要做NAT转换，所以性能没有上面虚拟机那种方案好，优点是容器处于内网中，安全性相对要高点。（由于数据包统一由IP层从eth0转发出去，所以不存在mac地址的问题，在无线网络环境下也工作良好）</p>
+     Physical Network  (192.168.3.0/24)
+</code></pre>
+<p>容器中配置网关为.9.1，发出去的数据包先到达br0，然后交给host机器的协议栈，由于目的IP是外网IP，且host机器开启了IP forward功能，于是数据包会通过eth0发送出去，由于.9.1是内网IP，所以一般发出去之前会先做NAT转换（NAT转换和IP forward功能都需要自己配置）。由于要经过host机器的协议栈，并且还要做NAT转换，所以性能没有上面虚拟机那种方案好，优点是容器处于内网中，安全性相对要高点。（由于数据包统一由IP层从eth0转发出去，所以不存在mac地址的问题，在无线网络环境下也工作良好）</p>
 <blockquote>
 <p>上面两种部署方案中，同一网段的每个网卡都有自己单独的协议栈，所以不存在上面说的多个ARP的问题</p>
 </blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://www.ibm.com/developerworks/cn/linux/1310_xiawc_networkdevice/" target="_blank" rel="noopener">Linux 上的基础网络设备详解</a></li>
 <li><a href="https://lwn.net/Articles/45373/" target="_blank" rel="noopener">Harping on ARP</a></li>
 <li><a href="https://wiki.archlinux.org/index.php/MAC_address_spoofing" target="_blank" rel="noopener">MAC address spoofing</a></li>
@@ -1341,13 +1398,13 @@ rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/7-user-namespace-clone-newuser-di-yi-bu-fen/">
+                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-tuntap/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="7、user namespace (CLONE_NEWUSER) (第一部分)">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux虚拟网络设备之tuntap">
                         
-                        <span class="card-title">7、user namespace (CLONE_NEWUSER) (第一部分)</span>
+                        <span class="card-title">Linux虚拟网络设备之tuntap</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1375,8 +1432,8 @@ rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/namespace/" target="_blank">
-                        <span class="chip bg-color">namespace</span>
+                    <a href="/tags/network/" target="_blank">
+                        <span class="chip bg-color">network</span>
                     </a>
                     
                 </div>
@@ -1390,13 +1447,13 @@ rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-jie-shou-guo-cheng/">
+                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-veth/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux网络-数据包接收过程">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux虚拟网络设备之veth">
                         
-                        <span class="card-title">Linux网络-数据包接收过程</span>
+                        <span class="card-title">Linux虚拟网络设备之veth</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1562,7 +1619,7 @@ rtt min/avg/max/mdev = 1.242/1.242/1.242/0.000 ms</code></pre><blockquote>
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

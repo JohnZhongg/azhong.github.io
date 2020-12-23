@@ -11,11 +11,13 @@
     <meta name="description" content="
 
 
-docker 安装自主安装docker安装
+docker 安装
+¶自主安装
+docker安装
 VM工具：virtualbox
 VM自动构建工具：Vagrant
 # 创建一个文件夹，这个文件夹就是一个 VM 的家，每一个VM一个家目录，家目录下有一个配置文件
-vagrant --hel">
+vagrant --">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -336,7 +338,7 @@ vagrant --hel">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -517,10 +519,12 @@ vagrant --hel">
                 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203409.png" alt="什么是docker"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203414.png" alt="docker能干什么"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203420.png" alt="持续集成架构"></p>
-<h1 id="docker-安装"><a href="#docker-安装" class="headerlink" title="docker 安装"></a>docker 安装</h1><h3 id="自主安装"><a href="#自主安装" class="headerlink" title="自主安装"></a>自主安装</h3><p><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener">docker安装</a></p>
+<h1>docker 安装</h1>
+<h3 id="自主安装"><a class="header-anchor" href="#自主安装">¶</a>自主安装</h3>
+<p><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener">docker安装</a></p>
 <p>VM工具：virtualbox</p>
 <p>VM自动构建工具：<a href="https://www.vagrantup.com/" target="_blank" rel="noopener">Vagrant</a></p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 创建一个文件夹，这个文件夹就是一个 VM 的家，每一个VM一个家目录，家目录下有一个配置文件
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 创建一个文件夹，这个文件夹就是一个 VM 的家，每一个VM一个家目录，家目录下有一个配置文件
 vagrant --help
 vagrant version
 vagrant init centos/7 # 初始化一个centos7的配置文件
@@ -528,69 +532,101 @@ vagrant up # 基于当前目录中的配置文件进行安装VM
 vagrant ssh # 进入刚创建的虚拟机里面
 vagrant status # 查看VM运行状态
 vagrant halt # 停止刚创建的虚机
-vargrant destroy # 删除刚创建的虚机<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+vargrant destroy # 删除刚创建的虚机
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>一般想安装某个版本的VM直接google可以找到已经写好的配置文件，例如可以安转 CentOS 7，直接 google “vagrant centos7”，一般第一个网页就是 “<a href="https://app.vagrantup.com/&quot;" target="_blank" rel="noopener">https://app.vagrantup.com/&quot;</a> 的URL，点进去就可以得到相关的信息：</p>
+<p>一般想安装某个版本的VM直接google可以找到已经写好的配置文件，例如可以安转 CentOS 7，直接 google “vagrant centos7”，一般第一个网页就是 “<a href="https://app.vagrantup.com/" target="_blank" rel="noopener">https://app.vagrantup.com/</a>” 的URL，点进去就可以得到相关的信息：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203428.png" alt="image-20201017150151057"></p>
 </blockquote>
-<h3 id="docker-machine"><a href="#docker-machine" class="headerlink" title="docker machine"></a>docker machine</h3><p>mac 和 windows 安装之后自带了 docker machine，他是一个自动管理 docker 自身安装的工具，同时像阿里云，微软云等厂商都基于 docker machine 提供了自动创建一台带有 docker 云主机的功能，搜索 “docker machine aliyun” 相关即可。</p>
-<h3 id="docker-playground"><a href="#docker-playground" class="headerlink" title="docker playground"></a>docker playground</h3><p>有一个组织在维护的很多已经装了 docker 的云主机，用户在 web 上可以临时地申请一台通过 web 终端连接使用。</p>
-<h1 id="vagrant问题"><a href="#vagrant问题" class="headerlink" title="vagrant问题"></a>vagrant问题</h1><h3 id="无法切换到-root-用户"><a href="#无法切换到-root-用户" class="headerlink" title="无法切换到 root 用户"></a>无法切换到 root 用户</h3><pre class="line-numbers language-shell"><code class="language-shell">sudo su # vagrant默认没有设置root用户密码，使用这个命令可以切换到root用户然后修改root密码
-passwd root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="无法远程-ssh"><a href="#无法远程-ssh" class="headerlink" title="无法远程 ssh"></a>无法远程 ssh</h3><p>遇到报错</p>
-<pre><code>ssh failed Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</code></pre><p>配置 <code>/etc/ssh/sshd_config</code></p>
-<pre class="line-numbers language-shell"><code class="language-shell">PasswordAuthentication yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="docker-machine"><a class="header-anchor" href="#docker-machine">¶</a>docker machine</h3>
+<p>mac 和 windows 安装之后自带了 docker machine，他是一个自动管理 docker 自身安装的工具，同时像阿里云，微软云等厂商都基于 docker machine 提供了自动创建一台带有 docker 云主机的功能，搜索 “docker machine aliyun” 相关即可。</p>
+<h3 id="docker-playground"><a class="header-anchor" href="#docker-playground">¶</a>docker playground</h3>
+<p>有一个组织在维护的很多已经装了 docker 的云主机，用户在 web 上可以临时地申请一台通过 web 终端连接使用。</p>
+<h1>vagrant问题</h1>
+<h3 id="无法切换到-root-用户"><a class="header-anchor" href="#无法切换到-root-用户">¶</a>无法切换到 root 用户</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">sudo su # vagrant默认没有设置root用户密码，使用这个命令可以切换到root用户然后修改root密码
+passwd root
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="无法远程-ssh"><a class="header-anchor" href="#无法远程-ssh">¶</a>无法远程 ssh</h3>
+<p>遇到报错</p>
+<pre><code>ssh failed Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+</code></pre>
+<p>配置 <code>/etc/ssh/sshd_config</code></p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">PasswordAuthentication yes
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后 <code>service sshd restart</code></p>
-<h3 id="mount-目录失败"><a href="#mount-目录失败" class="headerlink" title="mount 目录失败"></a>mount 目录失败</h3><p>配置<code>config.vm.synced_folder &quot;labs&quot;, &quot;/home/vagrant/labs&quot;</code>报以下错误：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">mount: unknown filesystem type 'vboxsf'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="mount-目录失败"><a class="header-anchor" href="#mount-目录失败">¶</a>mount 目录失败</h3>
+<p>配置<code>config.vm.synced_folder &quot;labs&quot;, &quot;/home/vagrant/labs&quot;</code>报以下错误：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">mount: unknown filesystem type 'vboxsf'
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>解决方案：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">vagrant plugin install vagrant-vbguest
-vagrant destroy && vagrant up<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="guest-additions-问题"><a href="#guest-additions-问题" class="headerlink" title="guest additions 问题"></a>guest additions 问题</h3><p>因为下载的 centos box 里面没有 virtualbox guest additions，需要下载一个携带该软件的 box ：<a href="https://app.vagrantup.com/geerlingguy/boxes/centos7/versions/1.2.24" target="_blank" rel="noopener">https://app.vagrantup.com/geerlingguy/boxes/centos7/versions/1.2.24</a></p>
-<h1 id="安装-docker-的问题"><a href="#安装-docker-的问题" class="headerlink" title="安装 docker 的问题"></a>安装 docker 的问题</h1><h3 id="解决官网yum安装docker慢"><a href="#解决官网yum安装docker慢" class="headerlink" title="解决官网yum安装docker慢"></a>解决官网yum安装docker慢</h3><p>替换</p>
-<pre class="line-numbers language-shell"><code class="language-shell">$ sudo yum-config-manager \
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">vagrant plugin install vagrant-vbguest
+vagrant destroy && vagrant up
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="guest-additions-问题"><a class="header-anchor" href="#guest-additions-问题">¶</a>guest additions 问题</h3>
+<p>因为下载的 centos box 里面没有 virtualbox guest additions，需要下载一个携带该软件的 box ：<a href="https://app.vagrantup.com/geerlingguy/boxes/centos7/versions/1.2.24" target="_blank" rel="noopener">https://app.vagrantup.com/geerlingguy/boxes/centos7/versions/1.2.24</a></p>
+<h1>安装 docker 的问题</h1>
+<h3 id="解决官网yum安装docker慢"><a class="header-anchor" href="#解决官网yum安装docker慢">¶</a>解决官网yum安装docker慢</h3>
+<p>替换</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">$ sudo yum-config-manager \
     --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    https://download.docker.com/linux/centos/docker-ce.repo
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>为</p>
-<pre class="line-numbers language-shell"><code class="language-shell">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="宿主机和容器突然都不能联网"><a href="#宿主机和容器突然都不能联网" class="headerlink" title="宿主机和容器突然都不能联网"></a>宿主机和容器突然都不能联网</h3><p>发现是 DNS 服务有问题，无法解析域名，ip可以 ping 通。修改 <code>/etc/resolv.conf</code> 文件，把以下插入到最前面：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">nameserver 223.5.5.5
-nameserver 223.6.6.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1 id="Docker-架构"><a href="#Docker-架构" class="headerlink" title="Docker 架构"></a>Docker 架构</h1><p>Docker 提供了一个开发、打包、运行 app 的平台，把 app 和底层 infrastructure 隔离开来。其中 Docker Engine 就是核心组件。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="宿主机和容器突然都不能联网"><a class="header-anchor" href="#宿主机和容器突然都不能联网">¶</a>宿主机和容器突然都不能联网</h3>
+<p>发现是 DNS 服务有问题，无法解析域名，ip可以 ping 通。修改 <code>/etc/resolv.conf</code> 文件，把以下插入到最前面：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">nameserver 223.5.5.5
+nameserver 223.6.6.6
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1>Docker 架构</h1>
+<p>Docker 提供了一个开发、打包、运行 app 的平台，把 app 和底层 infrastructure 隔离开来。其中 Docker Engine 就是核心组件。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203439.png" alt="image-20201018104953048"></p>
-<h3 id="Docker-Engine"><a href="#Docker-Engine" class="headerlink" title="Docker Engine"></a>Docker Engine</h3><p>Docker Engine 为 C/S 架构，分为三部分：</p>
+<h3 id="Docker-Engine"><a class="header-anchor" href="#Docker-Engine">¶</a>Docker Engine</h3>
+<p>Docker Engine 为 C/S 架构，分为三部分：</p>
 <ul>
 <li>后台进程(dockerd)</li>
 <li>REST API Server</li>
 <li>CLI 接口(docker)，通过 REST API Server 和 dockerd 通信</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203445.png" alt="image-20201018105154795"></p>
-<h3 id="Docker-总体架构图"><a href="#Docker-总体架构图" class="headerlink" title="Docker 总体架构图"></a>Docker 总体架构图</h3><p>一个 Client 连接到一个安装了 Dockerd 的 DOCKER_HOST 主机上进行相关操作，如拉取镜像，运行容器等。</p>
+<h3 id="Docker-总体架构图"><a class="header-anchor" href="#Docker-总体架构图">¶</a>Docker 总体架构图</h3>
+<p>一个 Client 连接到一个安装了 Dockerd 的 DOCKER_HOST 主机上进行相关操作，如拉取镜像，运行容器等。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203451.png" alt="image-20201018105405189"></p>
-<h3 id="底层技术支持"><a href="#底层技术支持" class="headerlink" title="底层技术支持"></a>底层技术支持</h3><ul>
-<li><p>Namespaces：做隔离 pid、net、ipc、mnt、uts</p>
+<h3 id="底层技术支持"><a class="header-anchor" href="#底层技术支持">¶</a>底层技术支持</h3>
+<ul>
+<li>
+<p>Namespaces：做隔离 pid、net、ipc、mnt、uts</p>
 </li>
-<li><p>Control groups：做资源限制</p>
+<li>
+<p>Control groups：做资源限制</p>
 </li>
-<li><p>Union file systems：Container 和 image 的分层</p>
+<li>
+<p>Union file systems：Container 和 image 的分层</p>
 </li>
 </ul>
-<h3 id="Docker-Image"><a href="#Docker-Image" class="headerlink" title="Docker Image"></a>Docker Image</h3><ul>
+<h3 id="Docker-Image"><a class="header-anchor" href="#Docker-Image">¶</a>Docker Image</h3>
+<ul>
 <li>文件和 meta data 的集合</li>
 <li>分层的，并且每一层都可以添加改变删除文件，称为一个新的image</li>
 <li>不同的image可以共享相同的基础layer</li>
 <li>Image 本身是 read-only 的</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203459.png" alt="image-20201018143658992"></p>
-<h3 id="Docker-Container"><a href="#Docker-Container" class="headerlink" title="Docker Container"></a>Docker Container</h3><ul>
+<h3 id="Docker-Container"><a class="header-anchor" href="#Docker-Container">¶</a>Docker Container</h3>
+<ul>
 <li>通过 Image 创建（copy）</li>
 <li>在 Image layer 之上建立一个 container layer（可读写）</li>
 <li>类比面向对象：类和实例</li>
 <li>Image 负责 app 的存储和分发，Container 负责运行 app</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203505.png" alt="image-20201018144042167"></p>
-<h1 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h1><h3 id="Linux-网络命令空间-network-namespace"><a href="#Linux-网络命令空间-network-namespace" class="headerlink" title="Linux 网络命令空间(network namespace)"></a>Linux 网络命令空间(network namespace)</h3><h4 id="查看-docker-容器的网络接口"><a href="#查看-docker-容器的网络接口" class="headerlink" title="查看 docker 容器的网络接口"></a>查看 docker 容器的网络接口</h4><p>先创建两个容器，test1和test2：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker run -d --name test1 busybox /bin/sh -c "while true;do sleep 3600; done"
+<h1>Docker 网络</h1>
+<h3 id="Linux-网络命令空间-network-namespace"><a class="header-anchor" href="#Linux-网络命令空间-network-namespace">¶</a>Linux 网络命令空间(network namespace)</h3>
+<h4 id="查看-docker-容器的网络接口"><a class="header-anchor" href="#查看-docker-容器的网络接口">¶</a>查看 docker 容器的网络接口</h4>
+<p>先创建两个容器，test1和test2：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker run -d --name test1 busybox /bin/sh -c "while true;do sleep 3600; done"
 Unable to find image 'busybox:latest' locally
 latest: Pulling from library/busybox
 9758c28807f2: Already exists
@@ -598,9 +634,10 @@ Digest: sha256:a9286defaba7b3a519d585ba0e37d0b2cbee74ebfe590960b0b1d6a5e97d1e1d
 Status: Downloaded newer image for busybox:latest
 040676f4f47f3fb22bc657099e017a884cc79b045cc67ba1732c3681042568b8
 [root@docker-node1 ~]# docker run -d --name test2 busybox /bin/sh -c "while true;do sleep 3600; done"
-2c38e69e55e481683c79eceda32f033e5c34e028581f203189671fdf32ace443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+2c38e69e55e481683c79eceda32f033e5c34e028581f203189671fdf32ace443
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>进入容器 test1，执行 <code>ip a</code> 查看网络接口情况，可以看到回环端口和一个名为 <code>eth0@if6</code>的端口。序号分别为1和5：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker exec -it test1 /bin/sh
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker exec -it test1 /bin/sh
 / # ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -609,9 +646,10 @@ Status: Downloaded newer image for busybox:latest
 5: eth0@if6: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue
     link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
     inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>进入容器 test2，执行 <code>ip a</code> 查看网络接口情况，可以看到回环端口和一个名为 <code>eth0@if8</code>的端口。序号分别为1和7：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">/ # exit
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">/ # exit
 [root@docker-node1 ~]# docker exec -it test2 /bin/sh
 / # ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
@@ -621,9 +659,10 @@ Status: Downloaded newer image for busybox:latest
 7: eth0@if8: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue
     link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff
     inet 172.17.0.3/16 brd 172.17.255.255 scope global eth0
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>两个容器的 <code>eth</code> 端口网段是一样的，可以相互 <code>ping</code> 通</p>
-<pre class="line-numbers language-shell"><code class="language-shell">/ # ping 172.17.0.2
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">/ # ping 172.17.0.2
 PING 172.17.0.2 (172.17.0.2): 56 data bytes
 64 bytes from 172.17.0.2: seq=0 ttl=64 time=0.141 ms
 64 bytes from 172.17.0.2: seq=1 ttl=64 time=0.685 ms
@@ -632,9 +671,10 @@ PING 172.17.0.2 (172.17.0.2): 56 data bytes
 2 packets transmitted, 2 packets received, 0% packet loss
 round-trip min/avg/max = 0.141/0.413/0.685 ms
 / # exit
-[root@docker-node1 ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@docker-node1 ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>退出后在宿主机执行 <code>ip a</code> 查看网络端口，发现看不到两个容器中的 <code>eth</code> 端口 5 和 7。同时看到 docker0 端口的网段和两个容器是一样的：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -666,9 +706,11 @@ round-trip min/avg/max = 0.141/0.413/0.685 ms
 8: vethf1db1bd@if7: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP group default
     link/ether 62:b7:11:da:66:56 brd ff:ff:ff:ff:ff:ff link-netnsid 1
     inet6 fe80::60b7:11ff:feda:6656/64 scope link
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="使用-linux-命令操作网络命名空间"><a href="#使用-linux-命令操作网络命名空间" class="headerlink" title="使用 linux 命令操作网络命名空间"></a>使用 linux 命令操作网络命名空间</h4><p>添加、查看、删除网络命名空间</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip netns add test1
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用-linux-命令操作网络命名空间"><a class="header-anchor" href="#使用-linux-命令操作网络命名空间">¶</a>使用 linux 命令操作网络命名空间</h4>
+<p>添加、查看、删除网络命名空间</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip netns add test1
 [root@docker-node1 ~]# ip netns add test2
 [root@docker-node1 ~]# ip netns add test3
 [root@docker-node1 ~]# ip netns list
@@ -678,17 +720,20 @@ test1
 [root@docker-node1 ~]# ip netns delete test3
 [root@docker-node1 ~]# ip netns list
 test2
-test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+test1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看 test1 命名空间下的网络接口，发现只有一个回环接口，而且状态是 <code>DOWN</code> 的，也没有 ip 地址：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip netns exec test1 ip a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip netns exec test1 ip a
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>查看 test1 命名空间下的 link</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip netns exec test1 ip link
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip netns exec test1 ip link
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>查看宿主机下的 link</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip link
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip link
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
@@ -700,10 +745,11 @@ test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 6: veth2aaf7ce@if5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
     link/ether ea:87:9c:ff:2b:ae brd ff:ff:ff:ff:ff:ff link-netnsid 0
 8: vethf1db1bd@if7: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
-    link/ether 62:b7:11:da:66:56 brd ff:ff:ff:ff:ff:ff link-netnsid 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    link/ether 62:b7:11:da:66:56 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203512.png" alt="image-20201019152312515"></p>
 <p>添加一对 <code>Veth</code> 设备，<code>veth-test1</code> 和 <code>veth-test2</code>，它们的序号为 12 和 13，都有MAC地址，分别为<code>3e:c1:1a:1d:37:3c</code>和<code>2a:d1:1d:4b:9f:6c</code>，状态<code>state</code>都是<code>DOWN</code>。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip link add veth-test1 type veth peer name veth-test2
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip link add veth-test1 type veth peer name veth-test2
 [root@docker-node1 ~]# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -740,9 +786,10 @@ test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 12: veth-test2@veth-test1: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
     link/ether 3e:c1:1a:1d:37:3c brd ff:ff:ff:ff:ff:ff
 13: veth-test1@veth-test2: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether 2a:d1:1d:4b:9f:6c brd ff:ff:ff:ff:ff:ff<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    link/ether 2a:d1:1d:4b:9f:6c brd ff:ff:ff:ff:ff:ff
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>把这对 <code>Veth</code> 设备的两端分别添加到命名空间 test1 和 test2 中，可以看到两个命名空间中分别多了一条link，而宿主机中的12和13号设备看不到了。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip link set veth-test1 netns test1
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip link set veth-test1 netns test1
 [root@docker-node1 ~]# ip netns exec test1 ip link
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -766,9 +813,10 @@ test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 6: veth2aaf7ce@if5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
     link/ether ea:87:9c:ff:2b:ae brd ff:ff:ff:ff:ff:ff link-netnsid 0
 8: vethf1db1bd@if7: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
-    link/ether 62:b7:11:da:66:56 brd ff:ff:ff:ff:ff:ff link-netnsid 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    link/ether 62:b7:11:da:66:56 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>给两个 <code>Veth</code> 设备分别添加 ip 地址</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip netns exec test1 ip addr add 192.168.1.1/24 dev veth-test1
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip netns exec test1 ip addr add 192.168.1.1/24 dev veth-test1
 [root@docker-node1 ~]# ip netns exec test2 ip addr add 192.168.1.2/24 dev veth-test2
 [root@docker-node1 ~]# ip netns exec test1 ip a
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
@@ -783,9 +831,10 @@ test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 12: veth-test2@if13: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
     link/ether 3e:c1:1a:1d:37:3c brd ff:ff:ff:ff:ff:ff link-netnsid 0
     inet 192.168.1.2/24 scope global veth-test2
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>启用两个 <code>Veth</code> 设备：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip netns exec test1 ip link set dev veth-test1 up
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip netns exec test1 ip link set dev veth-test1 up
 [root@docker-node1 ~]# ip netns exec test2 ip link set dev veth-test2 up
 [root@docker-node1 ~]# ip netns exec test1 ip a
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
@@ -804,9 +853,10 @@ test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
     inet 192.168.1.2/24 scope global veth-test2
        valid_lft forever preferred_lft forever
     inet6 fe80::3cc1:1aff:fe1d:373c/64 scope link
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 test1 命名空间中 ping test2 的ip 地址，是连通的：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip netns exec test1 ping 192.168.1.2
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip netns exec test1 ping 192.168.1.2
 PING 192.168.1.2 (192.168.1.2) 56(84) bytes of data.
 64 bytes from 192.168.1.2: icmp_seq=1 ttl=64 time=0.065 ms
 64 bytes from 192.168.1.2: icmp_seq=2 ttl=64 time=0.058 ms
@@ -814,20 +864,24 @@ PING 192.168.1.2 (192.168.1.2) 56(84) bytes of data.
 --- 192.168.1.2 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 999ms
 rtt min/avg/max/mdev = 0.058/0.061/0.065/0.008 ms
-[root@docker-node1 ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="容器互通和连接公网"><a href="#容器互通和连接公网" class="headerlink" title="容器互通和连接公网"></a>容器互通和连接公网</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203519.png" alt="image-20201019155447457"></p>
+[root@docker-node1 ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="容器互通和连接公网"><a class="header-anchor" href="#容器互通和连接公网">¶</a>容器互通和连接公网</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203519.png" alt="image-20201019155447457"></p>
 <p>查看 docker 网络情况，有名为 bridge、host、none 的网络，DRIVER 分别为 bridge、host、null</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker network ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 c89adfd37eb3        bridge              bridge              local
 dac2514ae55c        host                host                local
-10ac2277dbd2        none                null                local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+10ac2277dbd2        none                null                local
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>目前有一个 docker 容器在运行</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker ps -a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker ps -a
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-040676f4f47f        busybox             "/bin/sh -c 'while t…"   2 hours ago         Up 2 hours                              test1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+040676f4f47f        busybox             "/bin/sh -c 'while t…"   2 hours ago         Up 2 hours                              test1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>然后我们通过 <code>inspect</code> 命令查看上面的 bridge 网络，可以发现在 Containers 条目中，包含了上面列举的唯一的容器，也就是说这个容器的网络是连接在 bridge 上面的。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker network inspect c89adfd37eb3
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker network inspect c89adfd37eb3
 [
     {
         "Name": "bridge",
@@ -872,9 +926,10 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
         },
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再次在宿主机上查询网络接口，可以看到 4 号设备名为 <code>docker0</code>，6 号设备名为 <code>veth2aaf7ce@if5</code>，其实 <code>docker0</code> 就是一个 bridge 设备，而 <code>veth2aaf7ce@if5</code> 是一个 <code>Veth</code> 设备，一对 <code>Veth</code> 是通过连接到同一个 <code>bridge</code> 上实现互通的（类比现实世界中两条主机的物理接口通过网线连接到同一个路由器或者交换机），所以可以推测，该 <code>Veth</code> 设备的另一端就是位于 test1 容器的 network namespace 中的 <code>eth0@if6</code>。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# ip a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -903,7 +958,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
     link/ether ea:87:9c:ff:2b:ae brd ff:ff:ff:ff:ff:ff link-netnsid 0
     inet6 fe80::e887:9cff:feff:2bae/64 scope link
        valid_lft forever preferred_lft forever
-
+       
 [root@docker-node1 ~]# docker exec test1 ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -912,14 +967,16 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 5: eth0@if6: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue
     link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
     inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过 <code>brctl</code> 工具证实 <code>veth2aaf7ce@if5</code> 是连接在 <code>docker0</code> 上的：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# yum install bridge-utils
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# yum install bridge-utils
 [root@docker-node1 ~]# brctl show
-bridge name    bridge id        STP enabled    interfaces
-docker0        8000.024225db4963    no        veth2aaf7ce<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+bridge name	bridge id		STP enabled	interfaces
+docker0		8000.024225db4963	no		veth2aaf7ce
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再增加一个容器的时候，可以看到 <code>docker network inspect bridge</code> 的 Containers 条目多了一个容器信息， <code>ip a</code> 也多了一个 <code>Veth</code> 设备 <code>veth3811212@if14</code>，<code>brctl show</code> 也看到了 bridge 多了一个端口。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker run -d --name test2 busybox /bin/sh -c "while true;do sleep 3600; done"
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker run -d --name test2 busybox /bin/sh -c "while true;do sleep 3600; done"
 97c2b77265324f16be66f5ae02eaed3c8175ebc78acc9d5e0e7c3ea0f3d271bd
 [root@docker-node1 ~]# docker network inspect bridge
 [
@@ -1008,16 +1065,20 @@ docker0        8000.024225db4963    no        veth2aaf7ce<span aria-hidden="true
     inet6 fe80::acbf:e2ff:feb8:d5af/64 scope link
        valid_lft forever preferred_lft forever
 [root@docker-node1 ~]# brctl show
-bridge name    bridge id        STP enabled    interfaces
-docker0        8000.024225db4963    no        veth2aaf7ce
-                                                                    veth3811212<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="–link-和自定义-bridge-网络"><a href="#–link-和自定义-bridge-网络" class="headerlink" title="–link 和自定义 bridge 网络"></a>–link 和自定义 bridge 网络</h4><h5 id="–link"><a href="#–link" class="headerlink" title="–link"></a>–link</h5><p>运行两个容器，test2 link 到 test1 上</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker run -d --name test1 busybox /bin/sh -c "while true;do sleep 3600;done"
+bridge name	bridge id		STP enabled	interfaces
+docker0		8000.024225db4963	no		veth2aaf7ce
+																	veth3811212
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="–link-和自定义-bridge-网络"><a class="header-anchor" href="#–link-和自定义-bridge-网络">¶</a>–link 和自定义 bridge 网络</h4>
+<h5 id="–link"><a class="header-anchor" href="#–link">¶</a>–link</h5>
+<p>运行两个容器，test2 link 到 test1 上</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker run -d --name test1 busybox /bin/sh -c "while true;do sleep 3600;done"
 401c4b231a5dbe1ea66e44152b08b15aab088fb1551ccdb447658b8b61cb9892
 [root@docker-node1 ~]# docker run -d --name test2 --link test1:alias  busybox /bin/sh -c "while true;do sleep 3600;done"
-7c531b6d6cde4bc5578c73867a3667acdc09a2ae49583f69a1a528b5246b1a4f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+7c531b6d6cde4bc5578c73867a3667acdc09a2ae49583f69a1a528b5246b1a4f
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看 ip 地址</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker exec test1 ip a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker exec test1 ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1034,9 +1095,10 @@ docker0        8000.024225db4963    no        veth2aaf7ce
 32: eth0@if33: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue
     link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff
     inet 172.17.0.3/16 brd 172.17.255.255 scope global eth0
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 test1 上可以 ping 通 test2 的ip，但是不能 ping 它的名称：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker exec -it test1 /bin/sh
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker exec -it test1 /bin/sh
 / # ping 172.17.0.3
 PING 172.17.0.3 (172.17.0.3): 56 data bytes
 64 bytes from 172.17.0.3: seq=0 ttl=64 time=0.217 ms
@@ -1047,9 +1109,10 @@ PING 172.17.0.3 (172.17.0.3): 56 data bytes
 round-trip min/avg/max = 0.084/0.150/0.217 ms
 / # ping test2
 ping: bad address 'test2'
-/ # exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+/ # exit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 test2 上可以 ping 通 test1 的名称和 link 指定的别名 “alias”</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker exec -it test2 /bin/sh
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker exec -it test2 /bin/sh
 / # ping test1
 PING test1 (172.17.0.2): 56 data bytes
 64 bytes from 172.17.0.2: seq=0 ttl=64 time=0.075 ms
@@ -1066,10 +1129,12 @@ PING alias (172.17.0.2): 56 data bytes
 1 packets transmitted, 1 packets received, 0% packet loss
 round-trip min/avg/max = 0.108/0.108/0.108 ms
 / # exit
-[root@docker-node1 ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@docker-node1 ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其实就是在 test2 中加入了关于 test1 的 DNS 信息到 test2 的本地中，方便 ip 不固定的时候进行访问。</p>
-<h5 id="自定义-bridge-网络"><a href="#自定义-bridge-网络" class="headerlink" title="自定义 bridge 网络"></a>自定义 bridge 网络</h5><p>通过 <code>docker network create</code> 创建一个 driver 是 bridge 的网络，也就是 bridge 类型的网络设备，名称为 my-bridge。通过 <code>brctl show</code> 可以看到当前没有任何 <code>Veth</code> 接口连接到该设备</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker network create -d bridge my-bridge
+<h5 id="自定义-bridge-网络"><a class="header-anchor" href="#自定义-bridge-网络">¶</a>自定义 bridge 网络</h5>
+<p>通过 <code>docker network create</code> 创建一个 driver 是 bridge 的网络，也就是 bridge 类型的网络设备，名称为 my-bridge。通过 <code>brctl show</code> 可以看到当前没有任何 <code>Veth</code> 接口连接到该设备</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker network create -d bridge my-bridge
 d3699cfbd400293e08c6c5a4d2da2f6d7226981b875d092bafd6f7d455f38921
 [root@docker-node1 ~]# docker network list
 NETWORK ID          NAME                DRIVER              SCOPE
@@ -1078,18 +1143,19 @@ dac2514ae55c        host                host                local
 d3699cfbd400        my-bridge           bridge              local
 10ac2277dbd2        none                null                local
 [root@docker-node1 ~]# brctl show
-bridge name    bridge id        STP enabled    interfaces
-br-d3699cfbd400        8000.0242432c6ca4    no
-docker0        8000.024225db4963    no        veth6ad4611
-                            vethddc0a25<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+bridge name	bridge id		STP enabled	interfaces
+br-d3699cfbd400		8000.0242432c6ca4	no
+docker0		8000.024225db4963	no		veth6ad4611
+							vethddc0a25
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过 <code>--network</code> 参数指定自建网络运行容器，此时自建 bridge 网络上多了一个接口 <code>veth151f6f7</code>，inspect network 上也出现了新运行的容器信息，ip 是一个和之前默认运行的两个容器网段不一样的 172.18 网段。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker run -d --name test3 --network my-bridge busybox /bin/sh -c "while true;do sleep 3600;done"
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker run -d --name test3 --network my-bridge busybox /bin/sh -c "while true;do sleep 3600;done"
 b2e3e66cad7dc1d07fa1e85961cc8bab7c74c76b3a41ec405faf437f051c2fc5
 [root@docker-node1 ~]# brctl show
-bridge name    bridge id        STP enabled    interfaces
-br-d3699cfbd400        8000.0242432c6ca4    no        veth151f6f7
-docker0        8000.024225db4963    no        veth6ad4611
-                                                                    vethddc0a25
+bridge name	bridge id		STP enabled	interfaces
+br-d3699cfbd400		8000.0242432c6ca4	no		veth151f6f7
+docker0		8000.024225db4963	no		veth6ad4611
+																	vethddc0a25
 [root@docker-node1 ~]# docker network inspect my-bridge
 [
     {
@@ -1128,9 +1194,10 @@ docker0        8000.024225db4963    no        veth6ad4611
         "Options": {},
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过 <code>docker network connect</code> 命令将已有容器连接到新增的网络中，如下例子将 test2 容器也连接到了 my-bridge 中，此时 test2 既在 bridge 网络中也在 my-bridge 中。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker network connect my-bridge test2
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker network connect my-bridge test2
 [root@docker-node1 ~]# docker network inspect my-bridge
 [
     {
@@ -1176,9 +1243,10 @@ docker0        8000.024225db4963    no        veth6ad4611
         "Options": {},
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时没有使用 <code>--link</code> 参数连接 test2 和 test3，但是在 test3 中直接 ping test2 也是可以 ping 通的。这是因为连接到自定义 bridge 中所有容器都是可以通过容器名称 ping 通的，而在默认 bridge 中就不行。即 test2 也可以 ping 通 test3，test3 无法 ping 通 test1 。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker exec -it test3 /bin/sh
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker exec -it test3 /bin/sh
 / # ping test2
 PING test2 (172.18.0.3): 56 data bytes
 64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.083 ms
@@ -1186,9 +1254,11 @@ PING test2 (172.18.0.3): 56 data bytes
 --- test2 ping statistics ---
 1 packets transmitted, 1 packets received, 0% packet loss
 round-trip min/avg/max = 0.083/0.083/0.083 ms
-/ # exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="host-和-none-网络"><a href="#host-和-none-网络" class="headerlink" title="host 和 none 网络"></a>host 和 none 网络</h4><p>指定 <code>--network</code> 为 none 的容器只有回环端口，不会创建其它端口，所以只能通过 <code>docker exec</code> 的方式进入容器内部访问容器，无法在宿主机内或者外通过网络端口进行访问。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 ~]# docker run -d --name test1 --network none busybox /bin/sh -c "while true; do sleep 60; done"
+/ # exit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="host-和-none-网络"><a class="header-anchor" href="#host-和-none-网络">¶</a>host 和 none 网络</h4>
+<p>指定 <code>--network</code> 为 none 的容器只有回环端口，不会创建其它端口，所以只能通过 <code>docker exec</code> 的方式进入容器内部访问容器，无法在宿主机内或者外通过网络端口进行访问。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 ~]# docker run -d --name test1 --network none busybox /bin/sh -c "while true; do sleep 60; done"
 ac33d31a6b32e04e6927cb1d91b21cb6acf83e6df850d404d7845f25249c60c0
 [root@docker-node1 ~]# docker network inspect none
 [
@@ -1228,9 +1298,10 @@ ac33d31a6b32e04e6927cb1d91b21cb6acf83e6df850d404d7845f25249c60c0
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>host 网络的容器和宿主机在同一 network namespace，使用同一套网络接口，所以 host 网络的容器很容易产生端口冲突，例如起了两个 host 网络的 nginx 容器的时候，默认端口都是 80 ，此时就冲突了。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 flask-redis]# docker run -d --name test2 --network host busybox /bin/sh -c "while true; do sleep 60; done"
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 flask-redis]# docker run -d --name test2 --network host busybox /bin/sh -c "while true; do sleep 60; done"
 4ce2ee17282361b97498ae84276e452561257536fc2b6972bdb7bc1095a23778
 [root@docker-node1 flask-redis]# docker inspect host
 [
@@ -1327,15 +1398,19 @@ ac33d31a6b32e04e6927cb1d91b21cb6acf83e6df850d404d7845f25249c60c0
     inet 172.18.0.1/16 brd 172.18.255.255 scope global br-d3699cfbd400
        valid_lft forever preferred_lft forever
     inet6 fe80::42:43ff:fe2c:6ca4/64 scope link
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="overlay：多机通信网络"><a href="#overlay：多机通信网络" class="headerlink" title="overlay：多机通信网络"></a>overlay：多机通信网络</h4><p>如下所示，现在在同一个宿主机上有一个 python 的 flask web 程序和 redis 容器，此时它们是可以通信的，网络类型是 bridge。</p>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="overlay：多机通信网络"><a class="header-anchor" href="#overlay：多机通信网络">¶</a>overlay：多机通信网络</h4>
+<p>如下所示，现在在同一个宿主机上有一个 python 的 flask web 程序和 redis 容器，此时它们是可以通信的，网络类型是 bridge。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203530.png" alt="image-20201019175752528"></p>
-<p>但是如果这两个容器分别位于不同的宿主机上，应该如何通信呢？如下所示，两个容器被分隔在不同的宿主机当前，假设当前宿主机的 local 域就是一个最大的内网域，那么它们发出的报文在当前宿主机的网络栈解析后发现目标地址是一个 local 域的内网地址，还不在当前主机路由表中，此时就会拒绝访问。 </p>
+<p>但是如果这两个容器分别位于不同的宿主机上，应该如何通信呢？如下所示，两个容器被分隔在不同的宿主机当前，假设当前宿主机的 local 域就是一个最大的内网域，那么它们发出的报文在当前宿主机的网络栈解析后发现目标地址是一个 local 域的内网地址，还不在当前主机路由表中，此时就会拒绝访问。</p>
 <p>这种情况(跨网络的不同内网主机通信)一般是通过隧道的方式进行通信的，即将最原始的数据包封装到一个数据包中，从 192.168.205.10 发送到 192.168.205.11，接收方对数据包解析后得到真正的网络四要素进行处理，处理完后，再对响应报文进行封装回传… …原始数据包称为 underlay，封装后的数据包称为 overlay。docker 基于这种方案实现了多级网络通信。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203537.png" alt="image-20201019180427290"></p>
-<h5 id="配置-overlay-网络："><a href="#配置-overlay-网络：" class="headerlink" title="配置 overlay 网络："></a>配置 overlay 网络：</h5><h5 id="1-gt-下载-etcd-并启动"><a href="#1-gt-下载-etcd-并启动" class="headerlink" title="1&gt;下载 etcd 并启动"></a>1&gt;下载 etcd 并启动</h5><p>docker engine 内部基于 overlay 的实现了分布式网络，使用了分布式存储 etcd 来存储分布式网络中的节点(容器)信息，所以我们要在各个宿主机上安装 etcd 并启动：</p>
+<h5 id="配置-overlay-网络："><a class="header-anchor" href="#配置-overlay-网络：">¶</a>配置 overlay 网络：</h5>
+<h5 id="1-下载-etcd-并启动"><a class="header-anchor" href="#1-下载-etcd-并启动">¶</a>1&gt;下载 etcd 并启动</h5>
+<p>docker engine 内部基于 overlay 的实现了分布式网络，使用了分布式存储 etcd 来存储分布式网络中的节点(容器)信息，所以我们要在各个宿主机上安装 etcd 并启动：</p>
 <p>在 docker-node1 宿主机上安装 etcd 并启动：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 /]# wget https://github.com/etcd-io/etcd/releases/download/v3.3.25/etcd-v3.3.25-linux-amd64.tar.gz
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 /]# wget https://github.com/etcd-io/etcd/releases/download/v3.3.25/etcd-v3.3.25-linux-amd64.tar.gz
 [root@docker-node1 /]# tar -zxf etcd-v3.3.25-linux-amd64.tar.gz
 [root@docker-node1 /]# cd etcd-v3.3.25-linux-amd64
 [root@docker-node1 etcd-v3.3.25-linux-amd64]# nohup ./etcd --name docker-node1 --initial-advertise-peer-urls http://192.168.205.10:2380 \
@@ -1346,9 +1421,10 @@ ac33d31a6b32e04e6927cb1d91b21cb6acf83e6df850d404d7845f25249c60c0
 > --initial-cluster docker-node1=http://192.168.205.10:2380,docker-node2=http://192.168.205.11:2380 \
 > --initial-cluster-state new&
 [1] 32761
-[root@docker-node1 etcd-v3.3.25-linux-amd64]# nohup: ignoring input and appending output to 'nohup.out'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@docker-node1 etcd-v3.3.25-linux-amd64]# nohup: ignoring input and appending output to 'nohup.out'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 docker-node2 宿主机上安装 etcd 并启动：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 /]# wget https://github.com/etcd-io/etcd/releases/download/v3.3.25/etcd-v3.3.25-linux-amd64.tar.gz
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 /]# wget https://github.com/etcd-io/etcd/releases/download/v3.3.25/etcd-v3.3.25-linux-amd64.tar.gz
 [root@docker-node1 /]# tar -zxf etcd-v3.3.25-linux-amd64.tar.gz
 [root@docker-node1 /]# cd etcd-v3.3.25-linux-amd64
 [root@docker-node2 etcd-v3.3.25-linux-amd64]# nohup ./etcd --name docker-node2 --initial-advertise-peer-urls http://192.168.205.11:2380 \
@@ -1359,26 +1435,33 @@ ac33d31a6b32e04e6927cb1d91b21cb6acf83e6df850d404d7845f25249c60c0
 > --initial-cluster docker-node1=http://192.168.205.10:2380,docker-node2=http://192.168.205.11:2380 \
 > --initial-cluster-state new&
 [1] 29667
-[root@docker-node2 etcd-v3.3.25-linux-amd64]# nohup: ignoring input and appending output to 'nohup.out'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@docker-node2 etcd-v3.3.25-linux-amd64]# nohup: ignoring input and appending output to 'nohup.out'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 docker-node1 宿主机上查看 etcd 分布式存储健康状态：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# ./etcdctl cluster-health
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# ./etcdctl cluster-health
 member 21eca106efe4caee is healthy: got healthy result from http://192.168.205.10:2379
 member 8614974c83d1cc6d is healthy: got healthy result from http://192.168.205.11:2379
-cluster is healthy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+cluster is healthy
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 docker-node2 宿主机上查看 etcd 分布式存储健康状态：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# ./etcdctl cluster-health
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# ./etcdctl cluster-health
 member 21eca106efe4caee is healthy: got healthy result from http://192.168.205.10:2379
 member 8614974c83d1cc6d is healthy: got healthy result from http://192.168.205.11:2379
-cluster is healthy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="2-gt-重新启动-dockerd"><a href="#2-gt-重新启动-dockerd" class="headerlink" title="2&gt;重新启动 dockerd"></a>2&gt;重新启动 dockerd</h5><p>etcd 安装好后，重启 dockerd 引擎连接 etcd：</p>
+cluster is healthy
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="2-重新启动-dockerd"><a class="header-anchor" href="#2-重新启动-dockerd">¶</a>2&gt;重新启动 dockerd</h5>
+<p>etcd 安装好后，重启 dockerd 引擎连接 etcd：</p>
 <p>docker-node1主机重启：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# systemctl stop docker
-[root@docker-node1 etcd-v3.3.25-linux-amd64]# /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=etcd://192.168.205.10:2379 --cluster-advertise=192.168.205.10:2375&<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# systemctl stop docker
+[root@docker-node1 etcd-v3.3.25-linux-amd64]# /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=etcd://192.168.205.10:2379 --cluster-advertise=192.168.205.10:2375&
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>docker-node2主机重启：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# systemctl stop docker
-[root@docker-node2 etcd-v3.3.25-linux-amd64]# /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=etcd://192.168.205.11:2379 --cluster-advertise=192.168.205.11:2375&<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h5 id="3-gt-创建-overlay-网络"><a href="#3-gt-创建-overlay-网络" class="headerlink" title="3&gt;创建 overlay 网络"></a>3&gt;创建 overlay 网络</h5><p>在其中一台宿主机上创建一个名为 demo 的 overlay 类型的网络：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# docker network ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# systemctl stop docker
+[root@docker-node2 etcd-v3.3.25-linux-amd64]# /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-store=etcd://192.168.205.11:2379 --cluster-advertise=192.168.205.11:2375&
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="3-创建-overlay-网络"><a class="header-anchor" href="#3-创建-overlay-网络">¶</a>3&gt;创建 overlay 网络</h5>
+<p>在其中一台宿主机上创建一个名为 demo 的 overlay 类型的网络：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 0209d911ddf0        bridge              bridge              local
 093639f6808b        host                host                local
@@ -1390,9 +1473,10 @@ NETWORK ID          NAME                DRIVER              SCOPE
 0209d911ddf0        bridge              bridge              local
 042b9fe68816        demo                overlay             global
 093639f6808b        host                host                local
-917d8e6230b0        none                null                local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+917d8e6230b0        none                null                local
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在另一台宿主机上也能查到这个网络的信息，可以知道两个安装了 etcd 的宿主机的信息是同步的：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker network ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 7929f7d4a27a        bridge              bridge              local
 042b9fe68816        demo                overlay             global
@@ -1428,21 +1512,25 @@ NETWORK ID          NAME                DRIVER              SCOPE
         "Options": {},
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>而同步信息就是基于 etcd 来实现的，可以直接通过 <code>etcdctl</code> 工具查看具体存储的内容：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# ./etcdctl ls /docker/nodes
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# ./etcdctl ls /docker/nodes
 /docker/nodes/192.168.205.10:2375
 /docker/nodes/192.168.205.11:2375
 [root@docker-node2 etcd-v3.3.25-linux-amd64]# ./etcdctl ls /docker/network/v1.0/network
-/docker/network/v1.0/network/042b9fe688167f5263372dffddaff7cf1712bbf68e2bf5e276af0470707d02bd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+/docker/network/v1.0/network/042b9fe688167f5263372dffddaff7cf1712bbf68e2bf5e276af0470707d02bd
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 node1 宿主机 run 一个 demo overlay 网络的名为 test1 的容器：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# docker run -d --name test1 --network demo busybox /bin/sh -c "while true;do sleep 60;done"
-83bf9479fbabce2fa3297fbe469749cefec0ff6586dc5ac919ddebcab5bc96a3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node1 etcd-v3.3.25-linux-amd64]# docker run -d --name test1 --network demo busybox /bin/sh -c "while true;do sleep 60;done"
+83bf9479fbabce2fa3297fbe469749cefec0ff6586dc5ac919ddebcab5bc96a3
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>此时再在 node2 宿主机上 run 一个同网络同名的容器会报已存在：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker run -d --name test1 --network demo busybox /bin/sh -c "while true;do sleep 60;done"
-docker: Error response from daemon: endpoint with name test1 already exists in network demo.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker run -d --name test1 --network demo busybox /bin/sh -c "while true;do sleep 60;done"
+docker: Error response from daemon: endpoint with name test1 already exists in network demo.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>然后 run 一个 demo overlay 网络的名为 test2 的容器，查看 demo 中包含了 test1 和 test2 的两个容器节点，ip 分别为 10.0.0.2 和 10.0.0.3</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker run -d --name test2 --network demo busybox /bin/sh -c "while true;do sleep 60;done"
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker run -d --name test2 --network demo busybox /bin/sh -c "while true;do sleep 60;done"
 7749fd634491a1bf7636cb693466b40bf04ea3559cd00784e898ffa24fac32ed
 [root@docker-node2 etcd-v3.3.25-linux-amd64]# docker inspect demo
 [
@@ -1489,14 +1577,16 @@ docker: Error response from daemon: endpoint with name test1 already exists in n
         "Options": {},
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> 这时候两个容器就可以互通了：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker exec test2 ping test1
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这时候两个容器就可以互通了：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker exec test2 ping test1
 PING test1 (10.0.0.2): 56 data bytes
 64 bytes from 10.0.0.2: seq=0 ttl=64 time=0.860 ms
-64 bytes from 10.0.0.2: seq=1 ttl=64 time=1.102 ms<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+64 bytes from 10.0.0.2: seq=1 ttl=64 time=1.102 ms
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>另外，我们再以 test2 容器为例，可以看到它的网络接口不只一个 10.0.0.3，还有一个 172.18.0.2，而 node2 宿主机的 docker 网络也增加了一个名为 docker_gwbridge 的 bridge 网络，通过 <code>ip a</code> 可以看到在宿主机上 docker_gwbridge 网桥的 ip 地址，而 15 号 <code>vethf2fc083@if14</code> 设备就是和 test2 的 14 号设备 <code>eth1@if15</code> 是一对 Veth。即在创建一个 overlay 网络的容器的时候，每个容器都创建了两个 Veth 设备，一个连接到宿主机的单独创建的网桥上，和宿主机进行通信，一个连接到他自己创建的一个虚拟设备上 。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker exec test2 ip a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-node2 etcd-v3.3.25-linux-amd64]# docker exec test2 ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1550,17 +1640,22 @@ f780bd743e0a        docker_gwbridge     bridge              local
 15: vethf2fc083@if14: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker_gwbridge state UP group default
     link/ether 62:e4:1c:73:ba:0a brd ff:ff:ff:ff:ff:ff link-netnsid 1
     inet6 fe80::60e4:1cff:fe73:ba0a/64 scope link
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Docker-持久化存储"><a href="#Docker-持久化存储" class="headerlink" title="Docker 持久化存储"></a>Docker 持久化存储</h1><p>写入容器的读写层的数据在容器删除后就没有了。</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203555.png" alt="image-20201018144042167"></p>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1>Docker 持久化存储</h1>
+<p>写入容器的读写层的数据在容器删除后就没有了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203555.png" alt="image-20201018144042167"></p>
 <p>通过一个特殊的方式将宿主机的一块磁盘 mount 到容器上，实现数据持久化</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203600.png" alt="image-20201020144507540"></p>
-<h3 id="Docker-持久化数据方案"><a href="#Docker-持久化数据方案" class="headerlink" title="Docker 持久化数据方案"></a>Docker 持久化数据方案</h3><ul>
-<li><p>基于本地文件的 Volume。可以在执行 Docker create 或 Docker run 时，通过 <code>-v</code> 参数将主机的目录作为容器的数据卷。这部分功能便是基于本地文件系统的 volume 管理。</p>
+<h3 id="Docker-持久化数据方案"><a class="header-anchor" href="#Docker-持久化数据方案">¶</a>Docker 持久化数据方案</h3>
 <ul>
-<li><p>Data Mounting：受管理的 data Volume，由 docker 后台自动创建，mount 到宿主机的随机路径</p>
+<li>
+<p>基于本地文件的 Volume。可以在执行 Docker create 或 Docker run 时，通过 <code>-v</code> 参数将主机的目录作为容器的数据卷。这部分功能便是基于本地文件系统的 volume 管理。</p>
+<ul>
+<li>
+<p>Data Mounting：受管理的 data Volume，由 docker 后台自动创建，mount 到宿主机的随机路径</p>
 <p>以 MySQL 官方提供的 Dockerfile 为例，以 VOLUME 指令指定了 <code>/var/lib/mysql</code> 为容器的 volume，指的是容器中的 <code>/var/lib/mysql</code> 路径会 mount 到宿主机中的一个路径。我们先 run 一个 MySQL 容器：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-host ~]# sudo docker run -d --name mysql1 -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-host ~]# sudo docker run -d --name mysql1 -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql
 Unable to find image 'mysql:latest' locally
 latest: Pulling from library/mysql
 bb79b6b2107f: Pull complete
@@ -1580,9 +1675,10 @@ Status: Downloaded newer image for mysql:latest
 27e7c2dc9827d3dc485a97e36b71384abea77e634fc424f08b43865f52c989e3
 [root@docker-host ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
-27e7c2dc9827        mysql               "docker-entrypoint.s…"   12 seconds ago      Up 11 seconds       3306/tcp, 33060/tcp   mysql1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+27e7c2dc9827        mysql               "docker-entrypoint.s…"   12 seconds ago      Up 11 seconds       3306/tcp, 33060/tcp   mysql1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看 docker 的 volume 可以看到没有通过 <code>-v</code> 参数指定 volume 的时候，volume 的名称是一个随机 ID，每创建一个 mysql 容器就会新增一个 volume，此时我们停止删除容器后 volume 还在；通过 <code>docker volume inspect</code> 可以查看 volume mount 到了宿主机的哪一个路径；通过 <code>docker volume rm</code> 删除 volume：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-host ~]# docker volume ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-host ~]# docker volume ls
 DRIVER              VOLUME NAME
 local               d8d22755a81cef64966748478352b3fc807f013f90d44ced2b586bc3850007ed
 [root@docker-host ~]# docker volume inspect d8d22755a81cef64966748478352b3fc807f013f90d44ced2b586bc3850007ed
@@ -1627,9 +1723,10 @@ local               d8d22755a81cef64966748478352b3fc807f013f90d44ced2b586bc38500
 local               fec2daa7b61f5eef6ccc130fb76191374d65c18844d547afd384a69e7868b368
 [root@docker-host ~]# docker volume rm d8d22755a81cef64966748478352b3fc807f013f90d44ced2b586bc3850007ed fec2daa7b61f5eef6ccc130fb76191374d65c18844d547afd384a69e7868b368
 d8d22755a81cef64966748478352b3fc807f013f90d44ced2b586bc3850007ed
-fec2daa7b61f5eef6ccc130fb76191374d65c18844d547afd384a69e7868b368<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fec2daa7b61f5eef6ccc130fb76191374d65c18844d547afd384a69e7868b368
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们通过 <code>-v</code> 参数指定 volume 的名称为 mysql，此时就可以实现 volume 的复用，删除 mysql1 容器后，新运行的 mysql2 可以基于 mysql1 的volume 继续运行，数据不会丢失，例如我们在 mysql1 中创建的数据库 docker 可以在 mysql2 中看到：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-host ~]# docker run -d -v mysql:/var/lib/mysql --name mysql1 -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-host ~]# docker run -d -v mysql:/var/lib/mysql --name mysql1 -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql
 0b02325ec880a7c37dfb482e12279bd4a9ef36d52622489cb024d7972cee12ee
 [root@docker-host ~]# docker volume ls
 DRIVER              VOLUME NAME
@@ -1703,11 +1800,13 @@ mysql> show databases;
 5 rows in set (0.01 sec)
 
 mysql> exit
-Bye<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Bye
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>Bind Mouting：绑定挂载的 Volume，具体挂载位置可以由用户指定，即 mount 到用户指定路径。<code>-v</code> 参数有三个字段，字段之间由”:”冒号分隔</p>
+<li>
+<p>Bind Mouting：绑定挂载的 Volume，具体挂载位置可以由用户指定，即 mount 到用户指定路径。<code>-v</code> 参数有三个字段，字段之间由&quot;:&quot;冒号分隔</p>
 <ul>
-<li>第一个字段表示 mount 到宿主机中的路径，如果以”/“斜杠开头，则表示绝对路径，此时就是 Bind Mouting 模式，宿主机中的 mount 路径由用户指定；如果不以斜杠开头或者省略为空，此时表示相对路径，如果省略没写，docker就会生成一个随机的ID作为该相对路径，此时就是上面介绍的 Data Mounting 模式。记相对路径为<code>${related_path}</code>，此时会 Mount 到宿主机的 <code>var/lib/docker/volumes/${related_path}</code> 上，并以 <code>${related_path}</code> 作为该 volume 的命名。</li>
+<li>第一个字段表示 mount 到宿主机中的路径，如果以&quot;/&quot;斜杠开头，则表示绝对路径，此时就是 Bind Mouting 模式，宿主机中的 mount 路径由用户指定；如果不以斜杠开头或者省略为空，此时表示相对路径，如果省略没写，docker就会生成一个随机的ID作为该相对路径，此时就是上面介绍的 Data Mounting 模式。记相对路径为<code>${related_path}</code>，此时会 Mount 到宿主机的 <code>var/lib/docker/volumes/${related_path}</code> 上，并以 <code>${related_path}</code> 作为该 volume 的命名。</li>
 <li>第二个字段表示容器中要 mount 的路径</li>
 <li>第三个字段表示容器中该路径的操作权限，如只读</li>
 </ul>
@@ -1715,10 +1814,12 @@ Bye<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 </li>
 </ul>
 </li>
-<li><p>基于 plugin 的 Volume，支持第三方的存储方案，比如 NAS，aws。</p>
+<li>
+<p>基于 plugin 的 Volume，支持第三方的存储方案，比如 NAS，aws。</p>
 </li>
 </ul>
-<h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1><ul>
+<h1>Docker Compose</h1>
+<ul>
 <li>Docker Compose 是一个工具</li>
 <li>这个工具可以通过一个 yml 文件定义多容器的 docker 应用</li>
 <li>通过一条命令就可以根据 yml 文件的定义去创建或者管理这多个容器\</li>
@@ -1726,54 +1827,74 @@ Bye<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 </ul>
 <p>yml 文件默认名字 <code>docker-compose.yml</code>，可以改。它有三大关键概念：</p>
 <ul>
-<li><p>Services</p>
+<li>
+<p>Services</p>
 <ul>
-<li><p>一个 service 代表一个 container，这个 container 可以用从 dockerhub 的 image 来创建，或者从本地的 Dockerfile build 出来的 image 来创建</p>
+<li>
+<p>一个 service 代表一个 container，这个 container 可以用从 dockerhub 的 image 来创建，或者从本地的 Dockerfile build 出来的 image 来创建</p>
 </li>
-<li><p>Service 的启动类似 docker run，我们可以给其指定 network 和 volume，所以可以给 service 指定 network 和 volume 的引用</p>
+<li>
+<p>Service 的启动类似 docker run，我们可以给其指定 network 和 volume，所以可以给 service 指定 network 和 volume 的引用</p>
 </li>
-<li><p>例子：</p>
+<li>
+<p>例子：</p>
 <ul>
-<li><p>下面是一个名为 db 的 service，image 表示从 docker hub 拉取镜像</p>
+<li>
+<p>下面是一个名为 db 的 service，image 表示从 docker hub 拉取镜像</p>
 <pre><code>services:
-    db:
-        image: postgres:9.4
-        volume:
-            - &quot;db-data:/var/lib/postgresql/data&quot; # 引用一个名为 db-data 的 volume
-        networks:
-            - back-tier # 引用一个名为 back-tier 的network</code></pre><p>类似</p>
-<pre class="line-numbers language-shell"><code class="language-shell">docker run -d --network back-tier -v db-data:/var/lib/postgresql/data postgres:9.4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+	db:
+		image: postgres:9.4
+		volume:
+			- &quot;db-data:/var/lib/postgresql/data&quot; # 引用一个名为 db-data 的 volume
+		networks:
+			- back-tier # 引用一个名为 back-tier 的network
+</code></pre>
+<p>类似</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">docker run -d --network back-tier -v db-data:/var/lib/postgresql/data postgres:9.4
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li><p>services 包含一个 worker 的service，build 指定 Dockerfile 所在目录，表示要自己 build 镜像，不去 docker hub 拉取。另外，还有一个 links，表示的就是 <code>--link</code> 参数</p>
+<li>
+<p>services 包含一个 worker 的service，build 指定 Dockerfile 所在目录，表示要自己 build 镜像，不去 docker hub 拉取。另外，还有一个 links，表示的就是 <code>--link</code> 参数</p>
 <pre><code>services:
-        worker:
-        build: ./worker
-        links:
-            - db
-            - redis
+		worker:
+		build: ./worker
+		links:
+			- db
+			- redis
     networks:
-        - back-tier</code></pre></li>
-</ul>
+    	- back-tier
+</code></pre>
 </li>
 </ul>
 </li>
-<li><p>Networks</p>
+</ul>
+</li>
+<li>
+<p>Networks</p>
 <pre><code>volumes:
-        db-data:</code></pre><p>类似</p>
-<pre class="line-numbers language-shell"><code class="language-shell">docker volume create db-data<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+		db-data:
+</code></pre>
+<p>类似</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">docker volume create db-data
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li><p>Volumes</p>
+<li>
+<p>Volumes</p>
 <pre><code>networks:
-    front-tier:
-        driver: bridge
-    back-tier:
-        driver: bridge</code></pre><p>类似</p>
-<pre class="line-numbers language-shell"><code class="language-shell">docker network create -d bridge front-tier
-docker network create -d bridge back-tier<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+	front-tier:
+		driver: bridge
+	back-tier:
+		driver: bridge
+</code></pre>
+<p>类似</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">docker network create -d bridge front-tier
+docker network create -d bridge back-tier
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<h3 id="整体例子"><a href="#整体例子" class="headerlink" title="整体例子"></a>整体例子</h3><p>下面是一个启动 wordpress 博客服务的 docker compose yml 文件</p>
-<pre><code>version: &#39;3&#39; # 指定 version 3 的 docker compose 格式
+<h3 id="整体例子"><a class="header-anchor" href="#整体例子">¶</a>整体例子</h3>
+<p>下面是一个启动 wordpress 博客服务的 docker compose yml 文件</p>
+<pre><code>version: '3' # 指定 version 3 的 docker compose 格式
 
 services:
 
@@ -1802,8 +1923,10 @@ volumes:
 
 networks:
   my-bridge:
-    driver: bridge # 网络类型</code></pre><p>它的作用类似于以下 docker 命令，不过它们的网络构建方式不一样，docker compose 文件里面使用了自定义 bridge 网络，下面的 docker 命令使用了 <code>--link</code>：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-host docker-nginx]# docker run -d --name mysql -v mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=wordpress mysql
+    driver: bridge # 网络类型
+</code></pre>
+<p>它的作用类似于以下 docker 命令，不过它们的网络构建方式不一样，docker compose 文件里面使用了自定义 bridge 网络，下面的 docker 命令使用了 <code>--link</code>：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-host docker-nginx]# docker run -d --name mysql -v mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=wordpress mysql
 4a37f84fe3e870df8e3959c00f118ca6b858f7aa820b56fb3e9410add47240e3
 [root@docker-host docker-nginx]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
@@ -1813,36 +1936,48 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 [root@docker-host docker-nginx]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
 1eb7f0c302c7        wordpress           "docker-entrypoint.s…"   4 seconds ago       Up 4 seconds        0.0.0.0:8080->80/tcp   confident_chaplygin
-4a37f84fe3e8        mysql               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        3306/tcp, 33060/tcp    mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>需要注意的是 docker compose 指定必须基于一个 yml 文件执行，也就是说如果没有通过 <code>-f</code> 指定 yml 文件，就必须 <code>cd</code> 到 yml 文件所在目录执行 <code>docker-compose</code> 命令；另外 <code>docker-compose</code> 创建的容器的名称是会拼接一定前缀保证唯一的，所以使用 <code>docker-compose</code> 直接对 yml 文件中定义的名称进行操作是可以的，但是使用 <code>docker</code> 的命令就不行了，此时需要完全名称。</p>
+4a37f84fe3e8        mysql               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        3306/tcp, 33060/tcp    mysql
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="命令"><a class="header-anchor" href="#命令">¶</a>命令</h3>
+<p>需要注意的是 docker compose 指定必须基于一个 yml 文件执行，也就是说如果没有通过 <code>-f</code> 指定 yml 文件，就必须 <code>cd</code> 到 yml 文件所在目录执行 <code>docker-compose</code> 命令；另外 <code>docker-compose</code> 创建的容器的名称是会拼接一定前缀保证唯一的，所以使用 <code>docker-compose</code> 直接对 yml 文件中定义的名称进行操作是可以的，但是使用 <code>docker</code> 的命令就不行了，此时需要完全名称。</p>
 <ul>
-<li><p><code>docker-compose up</code> 执行该 yml 文件</p>
+<li>
+<p><code>docker-compose up</code> 执行该 yml 文件</p>
 <ul>
 <li><code>-d</code> 后台运行，不输出日志到终端</li>
 <li><code>--scale &lt;service-name&gt;=&lt;run-num-of-container&gt;</code> 来运行指定数量的指定 service 容器，相当于水平扩展，需要注意该 service 的 yml 定义中是否硬编码绑定到了宿主机中的同一端口，会产生冲突。<code>docker-compose</code> 的 <code>scale</code> 只能在单机上做水平扩展。</li>
 </ul>
 </li>
-<li><p><code>docker-compose ps</code> 列出指定容器状态</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@docker-host wordpress]# docker-compose ps
+<li>
+<p><code>docker-compose ps</code> 列出指定容器状态</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@docker-host wordpress]# docker-compose ps
         Name                       Command               State          Ports
 -------------------------------------------------------------------------------------
 wordpress_mysql_1       docker-entrypoint.sh mysqld      Up      3306/tcp, 33060/tcp
-wordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8080->80/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+wordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8080->80/tcp
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p><code>docker-compose stop</code> 停止</p>
+<li>
+<p><code>docker-compose stop</code> 停止</p>
 </li>
-<li><p><code>docker-compose down</code> 停止并删除容器、网络、volume等，不删除 image</p>
+<li>
+<p><code>docker-compose down</code> 停止并删除容器、网络、volume等，不删除 image</p>
 </li>
-<li><p><code>docker-compose start</code> 启动</p>
+<li>
+<p><code>docker-compose start</code> 启动</p>
 </li>
-<li><p><code>docker-compose images</code> 列举出 yml 文件中容器用到的 images</p>
+<li>
+<p><code>docker-compose images</code> 列举出 yml 文件中容器用到的 images</p>
 </li>
-<li><p><code>docker-compose exec</code> 和 docker 的 exec 基本一致</p>
+<li>
+<p><code>docker-compose exec</code> 和 docker 的 exec 基本一致</p>
 </li>
-<li><p><code>docker-compose build</code> 拉取和 build services 需要的镜像；当镜像更新的时候也要使用这个命令然后再 <code>docker-compose up</code>。</p>
+<li>
+<p><code>docker-compose build</code> 拉取和 build services 需要的镜像；当镜像更新的时候也要使用这个命令然后再 <code>docker-compose up</code>。</p>
 </li>
 </ul>
-<h1 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h1><p>在单机情况下使用<code>Docker run</code>和<code>Docker-compose</code>：</p>
+<h1>Docker Swarm</h1>
+<p>在单机情况下使用<code>Docker run</code>和<code>Docker-compose</code>：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203616.png" alt="image-20201021094647857"></p>
 <p>此时会遇到以下问题：</p>
 <ul>
@@ -1854,34 +1989,45 @@ wordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8080->8
 <li>怎么去调度容器的创建？</li>
 <li>如何保护隐私数据？</li>
 </ul>
-<h3 id="SWARM-模式"><a href="#SWARM-模式" class="headerlink" title="SWARM 模式"></a>SWARM 模式</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203621.png" alt="image-20201021094741226"></p>
-<h4 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203631.png" alt="image-20201021094932725"></p>
+<h3 id="SWARM-模式"><a class="header-anchor" href="#SWARM-模式">¶</a>SWARM 模式</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203621.png" alt="image-20201021094741226"></p>
+<h4 id="架构图"><a class="header-anchor" href="#架构图">¶</a>架构图</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203631.png" alt="image-20201021094932725"></p>
 <ul>
 <li>Manager 节点至少有两个，内置分布式存储数据库，通过 Raft 协议同步数据，不会出现脑裂。</li>
 <li>Worker 节点是实际工作节点，通过 Gossip Work 同步数据。</li>
 </ul>
-<h4 id="service-和-replica"><a href="#service-和-replica" class="headerlink" title="service 和 replica"></a>service 和 replica</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203637.png" alt="image-20201021095239081"></p>
+<h4 id="service-和-replica"><a class="header-anchor" href="#service-和-replica">¶</a>service 和 replica</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203637.png" alt="image-20201021095239081"></p>
 <p>一个服务可以创建多个副本进行水平横向扩展，根据实际资源调度到不同的 Worker 节点中运行。</p>
-<h4 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203646.png" alt="image-20201021095423706"></p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h4><p><code>docker</code></p>
+<h4 id="执行流程"><a class="header-anchor" href="#执行流程">¶</a>执行流程</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203646.png" alt="image-20201021095423706"></p>
+<h3 id="使用"><a class="header-anchor" href="#使用">¶</a>使用</h3>
+<h4 id="命令-v2"><a class="header-anchor" href="#命令-v2">¶</a>命令</h4>
+<p><code>docker</code></p>
 <ul>
-<li><code>swam</code>：操作 swarm 集群<ul>
-<li><code>init</code>：初始化一个 swam 集群，当前节点称为一个 manager 节点<ul>
+<li><code>swam</code>：操作 swarm 集群
+<ul>
+<li><code>init</code>：初始化一个 swam 集群，当前节点称为一个 manager 节点
+<ul>
 <li><code>--advertise-addr &lt;addr_string&gt;</code>：向别的 swam 节点公告自己的地址，以这个地址为自己的沟通方式</li>
 </ul>
 </li>
-<li><code>join</code>：当前节点作为 worker 节点加入一个 swam 集群<ul>
+<li><code>join</code>：当前节点作为 worker 节点加入一个 swam 集群
+<ul>
 <li><code>--token &lt;token_string&gt;</code>：指定要加入集群的 token</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><code>node</code>：查看 swam 集群信息<ul>
+<li><code>node</code>：查看 swam 集群信息
+<ul>
 <li><code>ls</code>：查看 swarm 集群中的所有节点，只能在 manager 节点运行</li>
 </ul>
 </li>
-<li><code>service</code>：service 相关操作<ul>
-<li><code>create</code>：创建一个 service，不一定运行在本地，根据实际调度 </li>
+<li><code>service</code>：service 相关操作
+<ul>
+<li><code>create</code>：创建一个 service，不一定运行在本地，根据实际调度</li>
 <li><code>ls</code>：查看所有 services 的概览信息</li>
 <li><code>ps &lt;container-name-or-id&gt;</code>：查看指定 service 的详细信息，包括运行在哪个节点</li>
 <li><code>scale &lt;service-name&gt;=&lt;replicas-num&gt; [&lt;service-name&gt;=&lt;replicas-num&gt;...]</code>：可以对多个服务进行横向扩展，指定它们的副本数量，默认副本数量就是 1，即不会扩展。<code>scale</code> 可以自动恢复。</li>
@@ -1889,28 +2035,34 @@ wordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8080->8
 </ul>
 </li>
 </ul>
-<h4 id="创建一个3个节点的集群"><a href="#创建一个3个节点的集群" class="headerlink" title="创建一个3个节点的集群"></a>创建一个3个节点的集群</h4><p>在 swarm-manager 主机上初始化一个 swarm 集群</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker swarm init --advertise-addr=192.168.205.10
+<h4 id="创建一个3个节点的集群"><a class="header-anchor" href="#创建一个3个节点的集群">¶</a>创建一个3个节点的集群</h4>
+<p>在 swarm-manager 主机上初始化一个 swarm 集群</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker swarm init --advertise-addr=192.168.205.10
 Swarm initialized: current node (16le9my05jir8fjagatlcxx2c) is now a manager.
 
 To add a worker to this swarm, run the following command:
 
     docker swarm join --token SWMTKN-1-5ftx7ja9b2c20rhkheu2dnms06j4t646rkiwjbkcns1hhwa4rk-6l0kapgwbsea66pih6cvxmu3k 192.168.205.10:2377
 
-To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>分别在 swarm-worker1 和 swarm-worker2 上作为 worker 节点加入到集群</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker1 ~]# docker swarm join --token SWMTKN-1-5ftx7ja9b2c20rhkheu2dnms06j4t646rkiwjbkcns1hhwa4rk-6l0kapgwbsea66pih6cvxmu3k 192.168.205.10:2377
-This node joined a swarm as a worker.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker2 ~]# docker swarm join --token SWMTKN-1-5ftx7ja9b2c20rhkheu2dnms06j4t646rkiwjbkcns1hhwa4rk-6l0kapgwbsea66pih6cvxmu3k 192.168.205.10:2377
-This node joined a swarm as a worker.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker1 ~]# docker swarm join --token SWMTKN-1-5ftx7ja9b2c20rhkheu2dnms06j4t646rkiwjbkcns1hhwa4rk-6l0kapgwbsea66pih6cvxmu3k 192.168.205.10:2377
+This node joined a swarm as a worker.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker2 ~]# docker swarm join --token SWMTKN-1-5ftx7ja9b2c20rhkheu2dnms06j4t646rkiwjbkcns1hhwa4rk-6l0kapgwbsea66pih6cvxmu3k 192.168.205.10:2377
+This node joined a swarm as a worker.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>回到 swarm-manager 主机上查看集群节点</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker node ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker node ls
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 16le9my05jir8fjagatlcxx2c *   swarm-manager       Ready               Active              Leader              19.03.13
 p9026oe5ws78l7vpoj2b342q0     swarm-worker1       Ready               Active                                  19.03.13
-3zilh3e4keprghwftsv3g7doi     swarm-worker2       Ready               Active                                  19.03.13<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="在-manager-上创建-service"><a href="#在-manager-上创建-service" class="headerlink" title="在 manager 上创建 service"></a>在 manager 上创建 service</h4><p>通过<code>docker service create</code>创建一个 service，通过 <code>docker service ps</code> 命令看到这个 service 运行在当前 manager 节点上，通过 <code>docker ps</code> 看到创建的容器名称并不是我们指定的 service 名称，而是做了一些拼接保证唯一。<code>docker service ls</code>可以看到这个节点的模式是可扩展的，副本只有一份，也就是还没有扩展。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service create --name demo busybox sh -c "while true;do sleep 60;done"
+3zilh3e4keprghwftsv3g7doi     swarm-worker2       Ready               Active                                  19.03.13
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="在-manager-上创建-service"><a class="header-anchor" href="#在-manager-上创建-service">¶</a>在 manager 上创建 service</h4>
+<p>通过<code>docker service create</code>创建一个 service，通过 <code>docker service ps</code> 命令看到这个 service 运行在当前 manager 节点上，通过 <code>docker ps</code> 看到创建的容器名称并不是我们指定的 service 名称，而是做了一些拼接保证唯一。<code>docker service ls</code>可以看到这个节点的模式是可扩展的，副本只有一份，也就是还没有扩展。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service create --name demo busybox sh -c "while true;do sleep 60;done"
  vtfjx1iw3mdfwdwakqs5jyxep
 overall progress: 1 out of 1 tasks
 1/1: running   [==================================================>]
@@ -1923,9 +2075,11 @@ ID                  NAME                IMAGE               NODE                
 9oaa1o7f0fb5        demo.1              busybox:latest      swarm-manager       Running             Running about a minute ago
 [root@swarm-manager ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-050d6438f24d        busybox:latest      "sh -c 'while true;d…"   2 minutes ago       Up 2 minutes                            demo.1.9oaa1o7f0fb5l1mjmovv6fxyd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="动态横向扩展"><a href="#动态横向扩展" class="headerlink" title="动态横向扩展"></a>动态横向扩展</h4><p>上面已经运行了一个 service，再次通过 <code>docker service scale</code> 命令指定副本数量为5，即再扩展4个service。<code>docker service ls</code>的 <code>REPLICAS</code> 的分子表示 ready 的副本数量，分母表示 <code>scale</code> 指令指定的副本数量：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service scale demo=5
+050d6438f24d        busybox:latest      "sh -c 'while true;d…"   2 minutes ago       Up 2 minutes                            demo.1.9oaa1o7f0fb5l1mjmovv6fxyd
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="动态横向扩展"><a class="header-anchor" href="#动态横向扩展">¶</a>动态横向扩展</h4>
+<p>上面已经运行了一个 service，再次通过 <code>docker service scale</code> 命令指定副本数量为5，即再扩展4个service。<code>docker service ls</code>的 <code>REPLICAS</code> 的分子表示 ready 的副本数量，分母表示 <code>scale</code> 指令指定的副本数量：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service scale demo=5
 demo scaled to 5
 overall progress: 5 out of 5 tasks
 1/5: running   [==================================================>]
@@ -1943,24 +2097,30 @@ ID                  NAME                IMAGE               NODE                
 kfevbmud5rlo        demo.2              busybox:latest      swarm-worker2       Running             Running 2 minutes ago
 0c9ol7s99ajw        demo.3              busybox:latest      swarm-worker2       Running             Running 2 minutes ago
 id6r217b847s        demo.4              busybox:latest      swarm-manager       Running             Running 2 minutes ago
-z3nk7cethkao        demo.5              busybox:latest      swarm-worker1       Running             Running 2 minutes ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="自动恢复"><a href="#自动恢复" class="headerlink" title="自动恢复"></a>自动恢复</h4><p>先在随意一个节点删除一个 service：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker2 ~]# docker ps
+z3nk7cethkao        demo.5              busybox:latest      swarm-worker1       Running             Running 2 minutes ago
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="自动恢复"><a class="header-anchor" href="#自动恢复">¶</a>自动恢复</h4>
+<p>先在随意一个节点删除一个 service：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker2 ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 9c21a650f557        busybox:latest      "sh -c 'while true;d…"   5 minutes ago       Up 5 minutes                            demo.3.0c9ol7s99ajwc80uz224lwew8
 4938879da7fe        busybox:latest      "sh -c 'while true;d…"   5 minutes ago       Up 5 minutes                            demo.2.kfevbmud5rlotwmn7xmdk1q2a
 [root@swarm-worker2 ~]# docker rm -f 4938879da7fe
-4938879da7fe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+4938879da7fe
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以看到 REPLICAS 的 ready 数量减 1：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
-vtfjx1iw3mdf        demo                replicated          4/5                 busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+vtfjx1iw3mdf        demo                replicated          4/5                 busybox:latest
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>再次查看的时候，发现恢复成 5 了</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
-vtfjx1iw3mdf        demo                replicated          5/5                 busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h4 id="swarm-模式的多机网络"><a href="#swarm-模式的多机网络" class="headerlink" title="swarm 模式的多机网络"></a>swarm 模式的多机网络</h4><p>先使用 <code>docker network create</code> 创建一个 overlay 网络</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker network create -d overlay demo
+vtfjx1iw3mdf        demo                replicated          5/5                 busybox:latest
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="swarm-模式的多机网络"><a class="header-anchor" href="#swarm-模式的多机网络">¶</a>swarm 模式的多机网络</h4>
+<p>先使用 <code>docker network create</code> 创建一个 overlay 网络</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker network create -d overlay demo
 88eid380la4nk4cbm4j6fg7ji
 [root@swarm-manager ~]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
@@ -1969,17 +2129,19 @@ NETWORK ID          NAME                DRIVER              SCOPE
 7c337a10f364        docker_gwbridge     bridge              local
 7e166669d3c0        host                host                local
 id0v0fnkkaz6        ingress             overlay             swarm
-1f203646282a        none                null                local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+1f203646282a        none                null                local
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时在其它节点上还没能看到这个网络：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker2 ~]# docker network ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker2 ~]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 fa22d819b3a6        bridge              bridge              local
 1852f7d5af51        docker_gwbridge     bridge              local
 bebcfcafd9b1        host                host                local
 id0v0fnkkaz6        ingress             overlay             swarm
-c47aacb76a84        none                null                local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+c47aacb76a84        none                null                local
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 manager 上启动 mysql service 和 wordpress service，其中可以看到 wordpress service 被分配到了 worker2 主机上：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service create --name mysql --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=wordpress --network demo --mount type=volume,source=mysql,destination=/var/lib/mysql mysql[root@swarm-manager ~]# docker service create --name mysql --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=wordpress --network demo --mount type=volume,source=mysql,destination=/var/lib/mysql mysql
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service create --name mysql --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=wordpress --network demo --mount type=volume,source=mysql,destination=/var/lib/mysql mysql[root@swarm-manager ~]# docker service create --name mysql --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=wordpress --network demo --mount type=volume,source=mysql,destination=/var/lib/mysql mysql
 9iq09p6da4vbmeu1mvdmzrl2n
 overall progress: 1 out of 1 tasks
 1/1: running   [==================================================>]
@@ -1998,21 +2160,24 @@ ID                  NAME                MODE                REPLICAS            
 lm7s3n6oaw47        wordpress           replicated          1/1                 wordpress:latest    *:80->80/tcp
 [root@swarm-manager ~]# docker service ps wordpress
 ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE                ERROR               PORTS
-b5n9cnap232j        wordpress.1         wordpress:latest    swarm-worker2       Running             Running about a minute ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+b5n9cnap232j        wordpress.1         wordpress:latest    swarm-worker2       Running             Running about a minute ago
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时到 worker2 节点上查看网络已经可以看到 demo overlay 网络：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker2 ~]# docker network ls
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker2 ~]# docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 fa22d819b3a6        bridge              bridge              local
 88eid380la4n        demo                overlay             swarm
 1852f7d5af51        docker_gwbridge     bridge              local
 bebcfcafd9b1        host                host                local
 id0v0fnkkaz6        ingress             overlay             swarm
-c47aacb76a84        none                null                local<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+c47aacb76a84        none                null                local
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>所以在 swarm 模式下实现多机通信网络已经不需要额外的分布式存储 etcd 来实现了。此外，wordpress 容器运行在 worker2 节点上，但是实际上三个节点的 ip 地址都能访问：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203656.png" alt="image-20201021112330794"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203701.png" alt="image-20201021112446081"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203708.png" alt="image-20201021112501116"></p>
-<h4 id="网络说明"><a href="#网络说明" class="headerlink" title="网络说明"></a>网络说明</h4><p>无论是 docker-compose 还是 docker swarm 创建的 service 都能通过 service 名称进行通信，这是在 Docker Engine 内部实现了一个 DNS 服务，service name 直接指向的是 service 所在 overlay 网络的虚拟 ip 地址，这个虚拟地址后面再指向容器实际的 ip 地址，因为容器的实际 ip 地址是会变化的：</p>
+<h4 id="网络说明"><a class="header-anchor" href="#网络说明">¶</a>网络说明</h4>
+<p>无论是 docker-compose 还是 docker swarm 创建的 service 都能通过 service 名称进行通信，这是在 Docker Engine 内部实现了一个 DNS 服务，service name 直接指向的是 service 所在 overlay 网络的虚拟 ip 地址，这个虚拟地址后面再指向容器实际的 ip 地址，因为容器的实际 ip 地址是会变化的：</p>
 <ul>
 <li>service down 掉重启可能会调度到不同的 host 上了，此时 ip 地址变化</li>
 <li>直接被调度到不同 host 上，ip 地址变化</li>
@@ -2020,8 +2185,9 @@ c47aacb76a84        none                null                local<span aria-hidd
 </ul>
 <p>而 service 的 ip 不会变。service 的虚拟 ip 地址和容器的实际 ip 地址是通过 LVS 实现映射和负载均衡的。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203713.png" alt="image-20201021113415018"></p>
-<h5 id="示例说明"><a href="#示例说明" class="headerlink" title="示例说明"></a>示例说明</h5><p>先启动一个 whoami 的服务，这个服务会在 8000 端口运行，当访问它的时候会返回主机名。然后再起一个名为 client 的 busybox 的服务，后续会在 busybox 里面尝试 ping whoami 服务。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service create --name whoami -p 8000:8000 --network demo -d jwilder/whoami
+<h5 id="示例说明"><a class="header-anchor" href="#示例说明">¶</a>示例说明</h5>
+<p>先启动一个 whoami 的服务，这个服务会在 8000 端口运行，当访问它的时候会返回主机名。然后再起一个名为 client 的 busybox 的服务，后续会在 busybox 里面尝试 ping whoami 服务。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service create --name whoami -p 8000:8000 --network demo -d jwilder/whoami
 j0d5g1wbfckk2jdtqb3fnt00g
 [root@swarm-manager ~]# docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                   PORTS
@@ -2037,9 +2203,10 @@ ss6z96qypr8ezsubmy51jgeej
 [root@swarm-manager ~]# docker service ls
 ID                  NAME                MODE                REPLICAS            IMAGE                   PORTS
 ss6z96qypr8e        client              replicated          1/1                 busybox:latest
-j0d5g1wbfckk        whoami              replicated          1/1                 jwilder/whoami:latest   *:8000->8000/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+j0d5g1wbfckk        whoami              replicated          1/1                 jwilder/whoami:latest   *:8000->8000/tcp
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>docker service ps</code> 查看到 busybox 服务是在本机运行的，直接进行 busybox 服务 ping whoami 服务，得到返回 ip 地址是 10.0.1.13：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service ps client
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service ps client
 ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
 we6rr1uirf0t        client.1            busybox:latest      swarm-manager       Running             Running 24 seconds ago
 [root@swarm-manager ~]# docker ps
@@ -2055,9 +2222,10 @@ PING whoami (10.0.1.13): 56 data bytes
 --- whoami ping statistics ---
 3 packets transmitted, 3 packets received, 0% packet loss
 round-trip min/avg/max = 0.187/0.238/0.339 ms
-/ #<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+/ #
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>当我们横向扩展 whoami 服务为两个容器之后，新的容器被调度在 worker2 节点，再次进入 busybox ping whoami 发现 ip 还是 10.0.0.13，也就是说服务扩展后它的 ip 没有变化：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service scale whoami=2
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service scale whoami=2
 whoami scaled to 2
 overall progress: 2 out of 2 tasks
 1/2: running   [==================================================>]
@@ -2080,9 +2248,10 @@ PING whoami (10.0.1.13): 56 data bytes
 2 packets transmitted, 2 packets received, 0% packet loss
 round-trip min/avg/max = 0.121/0.122/0.124 ms
 / # exit
-[root@swarm-manager ~]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@swarm-manager ~]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 worker1 节点中查看服务 whoami 的第一个容器，发现它没有上面 ping 返回的 10.0.0.13 ip：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker1 ~]# docker ps
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker1 ~]# docker ps
 CONTAINER ID        IMAGE                   COMMAND             CREATED             STATUS              PORTS               NAMES
 7d6a8c51c9d5        jwilder/whoami:latest   "/app/http"         2 hours ago         Up 2 hours          8000/tcp            whoami.1.ireyqp5j9gj3cu6sx61fbmie1
 [root@swarm-worker1 ~]# docker exec 7d6a8c51c9d5 ip a | grep 10.0.0.13
@@ -2090,39 +2259,42 @@ CONTAINER ID        IMAGE                   COMMAND             CREATED         
     inet 127.0.0.1/8 scope host lo
     inet 10.0.0.11/24 brd 10.0.0.255 scope global eth1
     inet 172.18.0.3/16 brd 172.18.255.255 scope global eth2
-    inet 10.0.1.14/24 brd 10.0.1.255 scope global eth0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    inet 10.0.1.14/24 brd 10.0.1.255 scope global eth0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>woker2 中的新的容器也没有：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-worker2 ~]# docker exec 1ed0b9d6310d ip a | grep 10.0.0.13
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-worker2 ~]# docker exec 1ed0b9d6310d ip a | grep 10.0.0.13
 [root@swarm-worker2 ~]# docker exec 1ed0b9d6310d ip a | grep inet
     inet 127.0.0.1/8 scope host lo
     inet 10.0.0.12/24 brd 10.0.0.255 scope global eth1
     inet 172.18.0.3/16 brd 172.18.255.255 scope global eth2
-    inet 10.0.1.19/24 brd 10.0.1.255 scope global eth0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    inet 10.0.1.19/24 brd 10.0.1.255 scope global eth0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重新进入 busybox ，使用 <code>nslookup</code> 工具进行 DNS 查找 “whoami”，发现返回的 DNS Server 地址是 127.0.0.11:53，这个就是 docker engine 内部实现的 DNS 服务；另外，当我们查找 “tasks.whoami” 的时候，发现返回了两个 ip 地址，这两个 ip 地址就是我们上面在 work1 和 work2 中分别查询到的容器的实际 ip 之一：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker ps
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
 01f1dc5f93d0        busybox:latest      "sh -c 'while true;d…"   2 hours ago         Up 2 hours                              client.1.we6rr1uirf0tbin4dr4ftt7fk
 [root@swarm-manager ~]# docker exec -it 01f1dc5f93d0 sh
 / # nslookup -type=a whoami
-Server:        127.0.0.11
-Address:    127.0.0.11:53
+Server:		127.0.0.11
+Address:	127.0.0.11:53
 
 Non-authoritative answer:
-Name:    whoami
+Name:	whoami
 Address: 10.0.1.13
 / # nslookup -type=a tasks.whoami
-Server:        127.0.0.11
-Address:    127.0.0.11:53
+Server:		127.0.0.11
+Address:	127.0.0.11:53
 
 Non-authoritative answer:
-Name:    tasks.whoami
+Name:	tasks.whoami
 Address: 10.0.1.19
-Name:    tasks.whoami
+Name:	tasks.whoami
 Address: 10.0.1.14
 
-/ # exit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+/ # exit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再扩展一个容器的时候，此时容器数量为3：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service scale whoami=3
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service scale whoami=3
 whoami scaled to 3
 overall progress: 3 out of 3 tasks
 1/3: running   [==================================================>]
@@ -2138,38 +2310,45 @@ o6qod1li5v2t        whoami.3            jwilder/whoami:latest   swarm-manager   
     inet 127.0.0.1/8 scope host lo
     inet 10.0.0.13/24 brd 10.0.0.255 scope global eth1
     inet 172.18.0.4/16 brd 172.18.255.255 scope global eth2
-    inet 10.0.1.21/24 brd 10.0.1.255 scope global eth0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    inet 10.0.1.21/24 brd 10.0.1.255 scope global eth0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后重新进入 busybox 使用 nslookup 查看 “tasks.whoami”，查找了该容器的 ip 地址 10.0.1.21：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker exec -it 01f1dc5f93d0 sh
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker exec -it 01f1dc5f93d0 sh
 / # nslookup -type=a tasks.whoami
-Server:        127.0.0.11
-Address:    127.0.0.11:53
+Server:		127.0.0.11
+Address:	127.0.0.11:53
 
 Non-authoritative answer:
-Name:    tasks.whoami
+Name:	tasks.whoami
 Address: 10.0.1.19
-Name:    tasks.whoami
+Name:	tasks.whoami
 Address: 10.0.1.21
-Name:    tasks.whoami
-Address: 10.0.1.14<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+Name:	tasks.whoami
+Address: 10.0.1.14
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后分别调用三次 whoami 服务，发现三次返回的主机名都不一样，所以这三次服务执行分别是三个不同的容器执行的，这就是由 LVS 负载均衡实现的：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">/ # wget whoami:8000 -O - -q
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">/ # wget whoami:8000 -O - -q
 I'm ee75ad6b35b8
 / # wget whoami:8000 -O - -q
 I'm 1ed0b9d6310d
 / # wget whoami:8000 -O - -q
-I'm 7d6a8c51c9d5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="Routing-Mesh-的两种体现"><a href="#Routing-Mesh-的两种体现" class="headerlink" title="Routing Mesh 的两种体现"></a>Routing Mesh 的两种体现</h5><p>通过上面例子可以看出 docker-compose 和 docker swarm 的 overlay 网络和之前通过 etcd 实现的 overlay 网络（VXLAN tuunel）是不一样的，前者是 docker engine 内部实现的。</p>
+I'm 7d6a8c51c9d5
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="Routing-Mesh-的两种体现"><a class="header-anchor" href="#Routing-Mesh-的两种体现">¶</a>Routing Mesh 的两种体现</h5>
+<p>通过上面例子可以看出 docker-compose 和 docker swarm 的 overlay 网络和之前通过 etcd 实现的 overlay 网络（VXLAN tuunel）是不一样的，前者是 docker engine 内部实现的。</p>
 <ul>
-<li><p>Internal：Container 和 Container 之间的访问通过 overlay 网络的 VIP（虚拟IP）进行，如果一个服务有做横向扩展，会实现负载均衡：</p>
+<li>
+<p>Internal：Container 和 Container 之间的访问通过 overlay 网络的 VIP（虚拟IP）进行，如果一个服务有做横向扩展，会实现负载均衡：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203725.png" alt="image-20201021142353794"></p>
 <ul>
-<li><p>DNS + VIP + iptables + LVS</p>
+<li>
+<p>DNS + VIP + iptables + LVS</p>
 <p>client 容器发起一个请求先走内部的 DNS 解析得到 VIP 后走 iptables 和 IPVS (LVS)根据要访问的服务和端口负载均衡到其中一个容器上：<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203731.png" alt="image-20201021142449489"></p>
 </li>
 </ul>
 </li>
-<li><p>Ingress：如果服务有绑定接口，则此服务可以通过任意 swarm 节点的相应接口访问（就是上面提到的 wordpress 只有一个容器但是在三个节点上都可以访问的情况）</p>
+<li>
+<p>Ingress：如果服务有绑定接口，则此服务可以通过任意 swarm 节点的相应接口访问（就是上面提到的 wordpress 只有一个容器但是在三个节点上都可以访问的情况）</p>
 <ul>
 <li>外部访问的负载均衡</li>
 <li>服务端口被暴露到各个 swarm 节点</li>
@@ -2178,17 +2357,19 @@ I'm 7d6a8c51c9d5<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203746.png" alt="image-20201021144423361"></p>
 </li>
 </ul>
-<h5 id="Ingress-Network-的示例说明"><a href="#Ingress-Network-的示例说明" class="headerlink" title="Ingress Network 的示例说明"></a>Ingress Network 的示例说明</h5><p>查看当前 swarm 中存在的 whoami 服务的容器</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service ps whoami
+<h5 id="Ingress-Network-的示例说明"><a class="header-anchor" href="#Ingress-Network-的示例说明">¶</a>Ingress Network 的示例说明</h5>
+<p>查看当前 swarm 中存在的 whoami 服务的容器</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service ps whoami
 ID                  NAME                IMAGE                   NODE                DESIRED STATE       CURRENT STATE               ERROR               PORTS
 ireyqp5j9gj3        whoami.1            jwilder/whoami:latest   swarm-worker1       Running             Running 3 hours ago
 z0prnv2sbzwz        whoami.2            jwilder/whoami:latest   swarm-worker2       Running             Running about an hour ago
 [root@swarm-manager ~]# curl 127.0.0.1:8000
 I'm 1ed0b9d6310d
 [root@swarm-manager ~]# curl 127.0.0.1:8000
-I'm 7d6a8c51c9d5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+I'm 7d6a8c51c9d5
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以看到 iptables nat 端口映射规则表中最后有一条 DOCKER-INGRESS 规则链，其中有一条 DNAT 转发规则，将访问 tcp、8000端口的数据包转发到 172.18.0.2:8000 这个接口；</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# iptables -nL -t nat
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# iptables -nL -t nat
 Chain PREROUTING (policy ACCEPT)
 target     prot opt source               destination
 DOCKER-INGRESS  all  --  0.0.0.0/0            0.0.0.0/0            ADDRTYPE match dst-type LOCAL
@@ -2216,9 +2397,10 @@ RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 Chain DOCKER-INGRESS (2 references)
 target     prot opt source               destination
 DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 to:172.18.0.2:8000
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>查看宿主机的所有接口，发现有一个名为 docker_gwbridge 的网桥，它的 ip 地址是 172.18.0.1/16，可以看出它和 172.18.0.2 是在同一个网段的，大体上可以猜到上面的 nat 转发是转发到了连接在这个网桥上的其中一端 Veth 设备：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# ip a
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -2256,13 +2438,14 @@ RETURN     all  --  0.0.0.0/0            0.0.0.0/0<span aria-hidden="true" class
 29: veth752a46e@if28: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker_gwbridge state UP group default
     link/ether 02:5d:7d:bc:31:6a brd ff:ff:ff:ff:ff:ff link-netnsid 4
     inet6 fe80::5d:7dff:febc:316a/64 scope link
-       valid_lft forever preferred_lft forever<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       valid_lft forever preferred_lft forever
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>使用 <code>brctl show</code> 可以看到这个网桥有两个接口连接着设备 veth599d221 和 veth752a46e，使用 <code>docker network inspect</code> docker_gwbridge 这个网络，可以看到在 Containers 项中存在一个 ingress-sbox 条目，它的 ip 就是上面的转发目标 ip 178.18.0.2。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# brctl show
-bridge name    bridge id        STP enabled    interfaces
-docker0        8000.024278260a2f    no
-docker_gwbridge        8000.0242feabb037    no        veth599d221
-                            veth752a46e
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# brctl show
+bridge name	bridge id		STP enabled	interfaces
+docker0		8000.024278260a2f	no
+docker_gwbridge		8000.0242feabb037	no		veth599d221
+							veth752a46e
 [root@swarm-manager ~]# docker network inspect docker_gwbridge
 [
     {
@@ -2312,9 +2495,10 @@ docker_gwbridge        8000.0242feabb037    no        veth599d221
         },
         "Labels": {}
     }
-]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>一个 Container 就有一个属于它的 network 命名空间，直接进入它的命名空间进行查看。通过 <code>ip a</code> 可以看到 172.18.0.2 就是这个命名空间里面的 <code>eth0@if11</code> 设备的 ip 地址；然后再查看这个命名空间的 iptables 的 mangle 规则表里面的 PREROUTING 规则链有一条 MARK 规则，将所有访问 8000 端口 TCP 协议的数据包的标识位设置为 0x104，这个动作就是和 LVS 联合实现负载均衡的。最后通过 <code>ipvsdm</code> 工具可以看到 <code>FWM 260 rr</code> 就是将标识位为 260 的数据包转发到 10.0.0.11 或者 10.0.0.12 地址，260 刚好就是 0x104。10.0.0.11 和 10.0.0.12 就是 whoami 两个容器的实际 ip 地址了。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# yum install ipvsadm -y # 先安装 LVS 的管理工具
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# yum install ipvsadm -y # 先安装 LVS 的管理工具
 
 [root@swarm-manager ~]ls /var/run/docker/netns
 1-88eid380la  1-id0v0fnkka  5c7efcd6a1e4  ingress_sbox  lb_88eid380l
@@ -2357,59 +2541,73 @@ Prot LocalAddress:Port Scheduler Flags
   -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
 FWM  260 rr
   -> 10.0.0.11:0                  Masq    1      0          0
-  -> 10.0.0.12:0                  Masq    1      0          0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="Ingress-Network-数据包走向详情"><a href="#Ingress-Network-数据包走向详情" class="headerlink" title="Ingress Network 数据包走向详情"></a>Ingress Network 数据包走向详情</h5><ol>
+  -> 10.0.0.12:0                  Masq    1      0          0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="Ingress-Network-数据包走向详情"><a class="header-anchor" href="#Ingress-Network-数据包走向详情">¶</a>Ingress Network 数据包走向详情</h5>
+<ol>
 <li>在本机的任何接口访问 8000 端口会被 NAT 转发到 ingress_sbox network namespace 中的一个接口</li>
 <li>ingress_sbox 中存在一条 mangle 路由规则对 8000 端口的数据包设置一些标识位，LVS 根据该标识位负载均衡到服务的其中一个容器实际地址</li>
 <li>得到的实际容器 ip 地址再发到 Ingress Network，由它对数据报文进行封装形成 overlay 报文，发送到该实际容器所在主机的网络端口，overlay 报文传播路线即为 vxlan tunnel</li>
 <li>容器所在主机收到 overlay 报文之后，根据网络四元组的目的端口将报文传给 Ingress Network 处理，再经过一系列的 NAT 转发到实际容器… …</li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203802.png" alt="image-20201021155012294"></p>
-<h4 id="使用-Docker-Compose-文件进行部署"><a href="#使用-Docker-Compose-文件进行部署" class="headerlink" title="使用 Docker Compose 文件进行部署"></a>使用 Docker Compose 文件进行部署</h4><p>上面提到的都是直接使用命令行参数配置的方式进行 swarm 部署，而对于 Docker Compose File 的 version 3 格式中加入了一个 deploy 指令（需要注意的是，此时在 docker compose 文件中的 build 指令并不能用了，只能通过 image 从 registry 拉取镜像），可以直接在文件中定义 swarm 集群信息，然后一键式部署，详情可以参考<a href="https://docs.docker.com/compose/compose-file/#deploy" target="_blank" rel="noopener">官网</a>，下面是一个示例，解释了 deploy 指令的部分子指令：</p>
+<h4 id="使用-Docker-Compose-文件进行部署"><a class="header-anchor" href="#使用-Docker-Compose-文件进行部署">¶</a>使用 Docker Compose 文件进行部署</h4>
+<p>上面提到的都是直接使用命令行参数配置的方式进行 swarm 部署，而对于 Docker Compose File 的 version 3 格式中加入了一个 deploy 指令（需要注意的是，此时在 docker compose 文件中的 build 指令并不能用了，只能通过 image 从 registry 拉取镜像），可以直接在文件中定义 swarm 集群信息，然后一键式部署，详情可以参考<a href="https://docs.docker.com/compose/compose-file/#deploy" target="_blank" rel="noopener">官网</a>，下面是一个示例，解释了 deploy 指令的部分子指令：</p>
 <ul>
-<li><code>endpoint_mode</code><ul>
+<li><code>endpoint_mode</code>
+<ul>
 <li>“vip”：使用 VIP+LVS 负载均衡实现overlay，也就是上面提到的方式，这个值是默认值</li>
 <li>“dnsrr”：不是 VIP，直接使用容器的实际 ip 地址在内部进行轮询实现负载均衡</li>
 </ul>
 </li>
 <li><code>labbels</code>：key-value的描述信息</li>
-<li><code>MODE</code>：<ul>
+<li><code>MODE</code>：
+<ul>
 <li>“global”：当前 service 在整个 swarm 集群中只有一个副本容器</li>
 <li>“replicated”：当前 service 可以扩展多个副本</li>
 </ul>
 </li>
-<li><code>PLACEMENT</code>：主要限制一些限制条件和一些喜好<ul>
-<li><code>constraints</code>：限制条件<ul>
-<li><code>node.role</code><ul>
+<li><code>PLACEMENT</code>：主要限制一些限制条件和一些喜好
+<ul>
+<li><code>constraints</code>：限制条件
+<ul>
+<li><code>node.role</code>
+<ul>
 <li>“manager”：限制当前 service 的容器只能部署到 manager 节点</li>
-<li>….</li>
+<li>…</li>
 </ul>
 </li>
 <li>…</li>
 </ul>
 </li>
-<li><code>preference</code>：喜好<ul>
+<li><code>preference</code>：喜好
+<ul>
 <li>…</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><code>REPLICAS</code>：副本数量</li>
-<li><code>RESOURCES</code>：设置资源<ul>
-<li><code>limits</code>：限制当前 service 容器最多可以使用这么多<ul>
-<li><code>cpus</code>：’0.50’</li>
+<li><code>RESOURCES</code>：设置资源
+<ul>
+<li><code>limits</code>：限制当前 service 容器最多可以使用这么多
+<ul>
+<li><code>cpus</code>：‘0.50’</li>
 <li><code>memory</code>：50M</li>
 </ul>
 </li>
-<li><code>reservations</code>：最少要预留这么多给当前 service 容器<ul>
-<li><code>cpus</code>：’0.25’</li>
+<li><code>reservations</code>：最少要预留这么多给当前 service 容器
+<ul>
+<li><code>cpus</code>：‘0.25’</li>
 <li><code>memory</code>：20M</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><code>RESTART_POLICY</code>：设置重启策略<ul>
-<li><code>condition</code>：重启条件<ul>
+<li><code>RESTART_POLICY</code>：设置重启策略
+<ul>
+<li><code>condition</code>：重启条件
+<ul>
 <li>“on=failure”</li>
 <li>…</li>
 </ul>
@@ -2419,10 +2617,12 @@ FWM  260 rr
 <li><code>window</code>：重启完成后容器持续运行多久可以认为它是重启成功了</li>
 </ul>
 </li>
-<li><code>UPDATE_CONFIG</code>：当 service 有更新的时候设置更新策略<ul>
+<li><code>UPDATE_CONFIG</code>：当 service 有更新的时候设置更新策略
+<ul>
 <li><code>parallelism</code>：设置更新的时候可以同时更新的副本数量</li>
 <li><code>delay</code>：设置前一个副本更新完成后，下个副本要间隔多少时间才能开始更新</li>
-<li><code>order</code>：更新执行顺序<ul>
+<li><code>order</code>：更新执行顺序
+<ul>
 <li>“stop-first”：先停止老版本的容器，然后再启动新版本容器</li>
 <li>“start-first”：先启动新版本容器，再停止老版本容器</li>
 </ul>
@@ -2430,18 +2630,18 @@ FWM  260 rr
 </ul>
 </li>
 </ul>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">version: "3.8"
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">version: "3.8"
 
 services:
   wordpress:
-        ...
+		...
     deploy:
       mode: replicated
       replicas: 2
       endpoint_mode: vip
-            labbels:
-                com.example.description: "This label will appear on all containers for the web service"
-            placement:
+			labbels:
+				com.example.description: "This label will appear on all containers for the web service"
+			placement:
         constraints:
           - "node.role==manager"
           - "engine.labels.operatingsystem==ubuntu 18.04"
@@ -2462,10 +2662,13 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
-        order: stop-first<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="命令-2"><a href="#命令-2" class="headerlink" title="命令"></a>命令</h5><p><code>docker stack</code></p>
+        order: stop-first
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="命令-v3"><a class="header-anchor" href="#命令-v3">¶</a>命令</h5>
+<p><code>docker stack</code></p>
 <ul>
-<li><code>deploy</code>：部署一个 stack 或者更新一个 stack，stack 就是一个 swarm 集群<ul>
+<li><code>deploy</code>：部署一个 stack 或者更新一个 stack，stack 就是一个 swarm 集群
+<ul>
 <li><code>[options] &lt;stack-name&gt; [flags]</code> ：设置选项并指定 stack 名称</li>
 <li><code>--compose-file=&lt;path-of-compose-file&gt;</code>：指定 docker compose yml 文件路径</li>
 </ul>
@@ -2475,7 +2678,9 @@ services:
 <li><code>rm</code>：删除一个或者多个 stack（包括所有服务和网络、volume）</li>
 <li><code>services</code>：列出指定 stack 中的服务</li>
 </ul>
-<h5 id="Docker-Compose-File-示例"><a href="#Docker-Compose-File-示例" class="headerlink" title="Docker Compose File 示例"></a>Docker Compose File 示例</h5><h6 id="wordpress"><a href="#wordpress" class="headerlink" title="wordpress"></a>wordpress</h6><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">version: '3'
+<h5 id="Docker-Compose-File-示例"><a class="header-anchor" href="#Docker-Compose-File-示例">¶</a>Docker Compose File 示例</h5>
+<h6 id="wordpress"><a class="header-anchor" href="#wordpress">¶</a>wordpress</h6>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">version: '3'
 
 services:
 
@@ -2521,8 +2726,10 @@ volumes:
 
 networks:
   my-network:
-    driver: overlay<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h6 id="投票系统"><a href="#投票系统" class="headerlink" title="投票系统"></a>投票系统</h6><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">version: "3"
+    driver: overlay
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h6 id="投票系统"><a class="header-anchor" href="#投票系统">¶</a>投票系统</h6>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">version: "3"
 services:
 
   redis: # 投票直接写入的是redis
@@ -2613,10 +2820,12 @@ networks:
   backend:
 
 volumes:
-  db-data:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="更新服务"><a href="#更新服务" class="headerlink" title="更新服务"></a>更新服务</h4><p>更新服务命令为 <code>docker service update</code> ，通过指定参数更新指定内容，如 <code>--publish-add &lt;port&gt;</code> 添加开放端口、<code>--publish-rm &lt;port&gt;</code>移除开放端口、<code>--secret-add &lt;secret&gt;</code> 添加 secret、<code>--secret-rm &lt;list&gt;</code> 删除 secret、<code>--image &lt;image&gt;</code> 更新 image</p>
+  db-data:
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="更新服务"><a class="header-anchor" href="#更新服务">¶</a>更新服务</h4>
+<p>更新服务命令为 <code>docker service update</code> ，通过指定参数更新指定内容，如 <code>--publish-add &lt;port&gt;</code> 添加开放端口、<code>--publish-rm &lt;port&gt;</code>移除开放端口、<code>--secret-add &lt;secret&gt;</code> 添加 secret、<code>--secret-rm &lt;list&gt;</code> 删除 secret、<code>--image &lt;image&gt;</code> 更新 image</p>
 <p>假设现在有一个 web service 在运行，这个 web 服务是 1.0 版本的，访问之后会返回 <code>hello docker, version 1.0</code>，我们要更新成 2.0 版本的image，相应的会返回 “2.0”</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service create --name web --publish 8080:5000 --network demo xiaopeng163/python-flask-demo:1.0
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service create --name web --publish 8080:5000 --network demo xiaopeng163/python-flask-demo:1.0
 zxg8ik8g07h1smge2t9mip1sl
 overall progress: 1 out of 1 tasks
 1/1: running   [==================================================>]
@@ -2625,9 +2834,10 @@ verify: Service converged
 ID                  NAME                IMAGE                               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
 rme8jr4himvz        web.1               xiaopeng163/python-flask-demo:1.0   swarm-manager       Running             Running 46 seconds ago
 [root@swarm-manager ~]# curl 127.0.0.1:8080
-hello docker, version 1.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+hello docker, version 1.0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们在更新 service 的时候必须保证 service 有多个副本，这样才能实现不停服务的更新。<code>docker service update</code> 默认会一个个容器地进行更新，更新后会看到有两个 down 的旧版本的容器，两个 up 的新版本的容器：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service scale web=2
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service scale web=2
 web scaled to 2
 overall progress: 2 out of 2 tasks
 1/2: running   [==================================================>]
@@ -2648,9 +2858,10 @@ ID                  NAME                IMAGE                               NODE
 fy51bio3ptmo        web.1               xiaopeng163/python-flask-demo:2.0   swarm-worker2       Running             Running about a minute ago
 rme8jr4himvz         \_ web.1           xiaopeng163/python-flask-demo:1.0   swarm-manager       Shutdown            Shutdown about a minute ago
 xhmljyshutbd        web.2               xiaopeng163/python-flask-demo:2.0   swarm-worker1       Running             Running about a minute ago
-h4dsfenjxcop         \_ web.2           xiaopeng163/python-flask-demo:1.0   swarm-worker1       Shutdown            Shutdown about a minute ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+h4dsfenjxcop         \_ web.2           xiaopeng163/python-flask-demo:1.0   swarm-worker1       Shutdown            Shutdown about a minute ago
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在另外一个 shell session 循环 curl service，会发现没有出现访问失败，平滑地更新了：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager labs]# while true; do curl 127.0.0.1:8080; sleep 1; done
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager labs]# while true; do curl 127.0.0.1:8080; sleep 1; done
 hello docker, version 1.0
 hello docker, version 1.0
 hello docker, version 1.0
@@ -2661,16 +2872,19 @@ hello docker, version 1.0
 hello docker, version 1.0
 hello docker, version 2.0
 hello docker, version 2.0
-hello docker, version 2.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+hello docker, version 2.0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以下是更新发布端口的例子</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager ~]# docker service update --publish-rm 8080:5000 --publish-add 8088:5000 web
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager ~]# docker service update --publish-rm 8080:5000 --publish-add 8088:5000 web
 web
 overall progress: 2 out of 2 tasks
 1/2: running   [==================================================>]
 2/2: running   [==================================================>]
-verify: Service converged<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+verify: Service converged
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果是对使用了 docker compose file 的 swarm services 更新，直接修改 yml 文件中要更新的内容，然后调用 <code>docker stack deploy  --compose-file=&lt;docker-compose-file&gt; &lt;要更新的stack name&gt;</code> 即可，docker 会自动检查文件中变化了的部分进行更新，而 compose 文件中同时也可以对更新的策略进行配置。</p>
-<h1 id="Docker-Secret"><a href="#Docker-Secret" class="headerlink" title="Docker Secret"></a>Docker Secret</h1><ul>
+<h1>Docker Secret</h1>
+<ul>
 <li>用户名密码</li>
 <li>SSH Key</li>
 <li>TLS认证</li>
@@ -2679,14 +2893,15 @@ verify: Service converged<span aria-hidden="true" class="line-numbers-rows"><spa
 <p>以上都是 secret 数据，在 docker 中也提供了一套管理 secret 数据的机制：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203828.png" alt="image-20201021174613996"></p>
 <p>如果是 docker swarm ，会将 secret 数据存储在内部的 raft 协议的分布式数据库中，对外提供一个唯一标识进行引用；如果是单机 docker，就是存储在 docker engine 中，存储形式是加密的。</p>
-<h3 id="命令-3"><a href="#命令-3" class="headerlink" title="命令"></a>命令</h3><p><code>docker secrets</code></p>
+<h3 id="命令-v4"><a class="header-anchor" href="#命令-v4">¶</a>命令</h3>
+<p><code>docker secrets</code></p>
 <ul>
 <li><code>create</code>：创建一个 secret</li>
 <li><code>inspect</code>：查询详细信息</li>
 <li><code>ls</code>：列出所有 secret</li>
 <li><code>rm</code>：删除一个或者多个 secret</li>
 </ul>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@swarm-manager example-vote-app]# cat > password << EOF
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@swarm-manager example-vote-app]# cat > password << EOF
 > admin123
 > EOF
 [root@swarm-manager example-vote-app]# cat password
@@ -2700,9 +2915,10 @@ ID                          NAME                DRIVER              CREATED     
 syswr8jsddpueg6soadrz7tdm   my-passwd                               About a minute ago   About a minute ago
 spwrwxzc0cfa507r1to43tqyl   my-passwd2                              18 seconds ago       18 seconds ago
 [root@swarm-manager example-vote-app]# docker secret rm my-passwd2
-my-passwd2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+my-passwd2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>docker service create</code>命令有一个 <code>--secret</code> 参数可以引用 secret 的唯一标识，容器引用了 secret 并创建之后，引用的 secret 保存在 <code>/run/secrets/&lt;secret-name&gt;</code> 文件中，是明文的形式，以下是在启动 mysql service 的时候设置 MySQL root 用户密码（环境变量<code>MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my-passwd</code>）的示例：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">#### manager
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">#### manager
 [root@swarm-manager example-vote-app]# docker service create --name db --secret my-passwd -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my-passwd mysql
 6ggy76hw51c9xlbf54lpzz9le
 overall progress: 1 out of 1 tasks
@@ -2733,12 +2949,14 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="在-compose-file-中使用"><a href="#在-compose-file-中使用" class="headerlink" title="在 compose file 中使用"></a>在 compose file 中使用</h3><ol>
+mysql>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="在-compose-file-中使用"><a class="header-anchor" href="#在-compose-file-中使用">¶</a>在 compose file 中使用</h3>
+<ol>
 <li>在 <code>services</code> 下定义的 service 中的 <code>secrets</code> 指令直接引用已经创建的 secret</li>
 <li>直接使用顶级 <code>secrets</code> 指令创建一个 secret 后再引用</li>
 </ol>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">version: '3'
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">version: '3'
 
 services:
 
@@ -2792,10 +3010,13 @@ networks:
 
 # secrets: # 直接创建再引用
 #   my-pw:
-#    file: ./password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Docker-Cloud"><a href="#Docker-Cloud" class="headerlink" title="Docker Cloud"></a>Docker Cloud</h1><p>CaaS，Container as a Service，基于 PaaS 提供容器的管理、编排、部署的托管服务。主要模块：</p>
+#    file: ./password
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1>Docker Cloud</h1>
+<p>CaaS，Container as a Service，基于 PaaS 提供容器的管理、编排、部署的托管服务。主要模块：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221203840.png" alt="image-20201021094251033"></p>
-<h3 id="两种模式"><a href="#两种模式" class="headerlink" title="两种模式"></a>两种模式</h3><ul>
+<h3 id="两种模式"><a class="header-anchor" href="#两种模式">¶</a>两种模式</h3>
+<ul>
 <li>Standard 模式：一个 Node 就是一个 Docker Host</li>
 <li>Swarm 模式：多个 Node 组成的 Swarm Cluster</li>
 </ul>
@@ -2828,10 +3049,13 @@ networks:
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221204030.png" alt="image-20201022085859526"></p>
 <p>原本除了自动构建还有自动部署的功能，有个 “Launch Service” 按钮在下图圈中的 “Public View” 的位置，现在没有了，不知道是不是很和 Docker Cloud 一起停掉了，还是付费用户才有。这个自动部署可以按照一定规则（例如build 了新的镜像）进行自动发布运行引用</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221204035.png" alt="image-20201022090637620"></p>
-<h1 id="Docker-EE"><a href="#Docker-EE" class="headerlink" title="Docker EE"></a>Docker EE</h1><h3 id="Mirantis"><a href="#Mirantis" class="headerlink" title="Mirantis"></a>Mirantis</h3><p>Docker 企业版已经被一家名为 MIRANTIS 的公司收购了。Docker EE 就是基于 Docker、Docker-Compose、Docker Swarm 等提供了一个 UI 界面还有一些额外的功能（如监控），主要主键是 <a href="https://docs.mirantis.com/docker-enterprise/v3.0/dockeree-products/ucp.html#" target="_blank" rel="noopener">UDP</a> (容器和本地镜像管理)和 <a href="https://docs.mirantis.com/docker-enterprise/v3.0/dockeree-products/dtr.html" target="_blank" rel="noopener">DTR</a> (registry管理，这个 registy 是trusted 的，意思是安全的，可信赖的，因为它内部有一个安全数据库，收集了很多标准安全规范，可以对上传的 images 进行安全扫描并显示 images 的哪一层为什么不安全)。</p>
+<h1>Docker EE</h1>
+<h3 id="Mirantis"><a class="header-anchor" href="#Mirantis">¶</a>Mirantis</h3>
+<p>Docker 企业版已经被一家名为 MIRANTIS 的公司收购了。Docker EE 就是基于 Docker、Docker-Compose、Docker Swarm 等提供了一个 UI 界面还有一些额外的功能（如监控），主要主键是 <a href="https://docs.mirantis.com/docker-enterprise/v3.0/dockeree-products/ucp.html#" target="_blank" rel="noopener">UDP</a> (容器和本地镜像管理)和 <a href="https://docs.mirantis.com/docker-enterprise/v3.0/dockeree-products/dtr.html" target="_blank" rel="noopener">DTR</a> (registry管理，这个 registy 是trusted 的，意思是安全的，可信赖的，因为它内部有一个安全数据库，收集了很多标准安全规范，可以对上传的 images 进行安全扫描并显示 images 的哪一层为什么不安全)。</p>
 <p>这里是 <a href="https://www.mirantis.com/software/docker/docker-enterprise-container-cloud/download/" target="_blank" rel="noopener">Docker EE 部署脚本和证书下载页面</a>  和 <a href="https://docs.mirantis.com/de-container-cloud/latest/deployment-guide/deploy-bm-mgmt/bm-mgmt-overview.html" target="_blank" rel="noopener">安装指导</a> 。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221204042.png" alt="image-20201022093034054"></p>
-<h3 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a><a href="https://cs.console.aliyun.com/index2#/k8s/cluster/list" target="_blank" rel="noopener">阿里云</a></h3><p>阿里云也提供了 docker swarm 和 k8s 的容器服务，所谓 docker swarm 的容器服务就类似 docker ee 版本，就是提供了界面操作，不过 docker swarm 已经停止技术支持。</p>
+<h3 id="阿里云"><a class="header-anchor" href="#阿里云">¶</a><a href="https://cs.console.aliyun.com/index2#/k8s/cluster/list" target="_blank" rel="noopener">阿里云</a></h3>
+<p>阿里云也提供了 docker swarm 和 k8s 的容器服务，所谓 docker swarm 的容器服务就类似 docker ee 版本，就是提供了界面操作，不过 docker swarm 已经停止技术支持。</p>
 <p>另外原本在阿里云的云市场里面也有 docker ee 的下载和安装到 ecs 的服务的，现在也没有了，估计和上面提到的 Mirantis 的收购有关。</p>
 
             </div>
@@ -3325,7 +3549,7 @@ networks:
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="k8s入门概述">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="k8s入门概述">
                         
                         <span class="card-title">k8s入门概述</span>
                     </div>
@@ -3374,7 +3598,7 @@ networks:
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="3、Docker容器">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="3、Docker容器">
                         
                         <span class="card-title">3、Docker容器</span>
                     </div>
@@ -3542,7 +3766,7 @@ networks:
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

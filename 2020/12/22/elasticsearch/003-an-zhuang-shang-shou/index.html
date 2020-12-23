@@ -8,15 +8,19 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="Elasticsearch 的安装与简单配置依赖环境
+    <meta name="description" content="Elasticsearch 的安装与简单配置
+¶依赖环境
+
 运行 ES 需要安装并配置 Java
+
 配置$JAVA_HOME
 
 
 各个版本对 Java 的依赖
+
 ES5需要 Java8以上的版本
 ES 从6.5开始支持 Java11
-http://w">
+htt">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -337,7 +341,7 @@ http://w">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -515,12 +519,16 @@ http://w">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Elasticsearch-的安装与简单配置"><a href="#Elasticsearch-的安装与简单配置" class="headerlink" title="Elasticsearch 的安装与简单配置"></a>Elasticsearch 的安装与简单配置</h1><h2 id="依赖环境"><a href="#依赖环境" class="headerlink" title="依赖环境"></a>依赖环境</h2><ul>
-<li>运行 ES 需要安装并配置 Java<ul>
+                <h1>Elasticsearch 的安装与简单配置</h1>
+<h2 id="依赖环境"><a class="header-anchor" href="#依赖环境">¶</a>依赖环境</h2>
+<ul>
+<li>运行 ES 需要安装并配置 Java
+<ul>
 <li>配置$JAVA_HOME</li>
 </ul>
 </li>
-<li>各个版本对 Java 的依赖<ul>
+<li>各个版本对 Java 的依赖
+<ul>
 <li>ES5需要 Java8以上的版本</li>
 <li>ES 从6.5开始支持 Java11</li>
 <li><a href="http://www.elastic.co/support/matrix#matrix_jvm" target="_blank" rel="noopener">http://www.elastic.co/support/matrix#matrix_jvm</a></li>
@@ -528,17 +536,21 @@ http://w">
 </ul>
 </li>
 </ul>
-<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><h3 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h3><p>我们可以到Elasticsearch 的官方<a href="https://www.elastic.co/cn/downloads?elektra=home&amp&storm=banner" target="_blank" rel="noopener">下载地址</a>下载需要的软件，也可以通过包管理器安装的方式或者 docker 容器启动：</p>
+<h2 id="下载安装"><a class="header-anchor" href="#下载安装">¶</a>下载安装</h2>
+<h3 id="1、下载"><a class="header-anchor" href="#1、下载">¶</a>1、下载</h3>
+<p>我们可以到Elasticsearch 的官方<a href="https://www.elastic.co/cn/downloads?elektra=home&amp;amp&amp;storm=banner" target="_blank" rel="noopener">下载地址</a>下载需要的软件，也可以通过包管理器安装的方式或者 docker 容器启动：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210710.png" alt="image-20200423173101180"></p>
-<h3 id="2、-安装"><a href="#2、-安装" class="headerlink" title="2、 安装"></a>2、 安装</h3><p>这里我选择下载 linux 版本然后上传到 aliyun 服务器</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# cd 
+<h3 id="2、-安装"><a class="header-anchor" href="#2、-安装">¶</a>2、 安装</h3>
+<p>这里我选择下载 linux 版本然后上传到 aliyun 服务器</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# cd 
 /usr/local/software/elasticsearch/
 [root@izwz920kp0myp15p982vp4z elasticsearch]# ll
 总用量 534476
 -rw-r--r-- 1 root root 296477546 4月  23 17:00 elasticsearch-7.6.2-linux-x86_64.tar.gz
--rw-r--r-- 1 root root 249555386 3月  31 23:38 kibana-7.6.2-linux-x86_64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+-rw-r--r-- 1 root root 249555386 3月  31 23:38 kibana-7.6.2-linux-x86_64.tar.gz
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>解压到当前目录</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch]# tar -zxvf elasticsearch-7.6.2-linux-x86_64.tar.gz
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch]# tar -zxvf elasticsearch-7.6.2-linux-x86_64.tar.gz
 [root@izwz920kp0myp15p982vp4z elasticsearch]# cd elasticsearch-7.6.2
 [root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# ll
 总用量 564
@@ -551,7 +563,8 @@ drwxr-xr-x  2 root root   4096 3月  26 14:36 logs
 drwxr-xr-x 38 root root   4096 3月  26 14:37 modules
 -rw-r--r--  1 root root 523209 3月  26 14:36 NOTICE.txt
 drwxr-xr-x  2 root root   4096 3月  26 14:36 plugins
--rw-r--r--  1 root root   8164 3月  26 14:28 README.asciidoc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+-rw-r--r--  1 root root   8164 3月  26 14:28 README.asciidoc
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>进入解压后的 ES 目录，可以看到以下目录结构：</p>
 <table>
 <thead>
@@ -561,7 +574,8 @@ drwxr-xr-x  2 root root   4096 3月  26 14:36 plugins
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>bin</td>
 <td></td>
 <td>所有运行的脚本文件，包括启动 ES，安装插件。运行统计数据等</td>
@@ -606,44 +620,54 @@ drwxr-xr-x  2 root root   4096 3月  26 14:36 plugins
 <td></td>
 <td></td>
 </tr>
-</tbody></table>
-<h3 id="3、JVM-配置"><a href="#3、JVM-配置" class="headerlink" title="3、JVM 配置"></a>3、JVM 配置</h3><ul>
-<li>修改 JVM，在 option/jvm.options<ul>
+</tbody>
+</table>
+<h3 id="3、JVM-配置"><a class="header-anchor" href="#3、JVM-配置">¶</a>3、JVM 配置</h3>
+<ul>
+<li>修改 JVM，在 option/jvm.options
+<ul>
 <li>7.1 下载的默认设置时1GB</li>
 </ul>
 </li>
-<li>配置的建议<ul>
+<li>配置的建议
+<ul>
 <li>Xmx 和 Xms设置成一样</li>
 <li>Xmx 不要超过机器内存的50%</li>
 <li>不要超过30GB - <a href="https://www.elastic.co/blog/a-heap-of-touble" target="_blank" rel="noopener">https://www.elastic.co/blog/a-heap-of-touble</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="4、尝试启动-ES"><a href="#4、尝试启动-ES" class="headerlink" title="4、尝试启动 ES"></a>4、尝试启动 ES</h3><pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# bin/elasticsearch
+<h3 id="4、尝试启动-ES"><a class="header-anchor" href="#4、尝试启动-ES">¶</a>4、尝试启动 ES</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# bin/elasticsearch
 OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
 [2020-04-23T17:47:45,074][ERROR][o.e.b.ElasticsearchUncaughtExceptionHandler] [izwz920kp0myp15p982vp4z] uncaught exception in thread [main]
 org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root
-    at ... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	at ... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>启动失败。看到 es 不能以 root 用户启动。</p>
-<h3 id="5、创建新用户"><a href="#5、创建新用户" class="headerlink" title="5、创建新用户"></a>5、创建新用户</h3><p>创建用户<code>elasticsearch</code>输入，新的密码<code>zhonghongpeng</code>并赋予权限</p>
-<pre class="line-numbers language-sh"><code class="language-sh">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# adduser elasticsearch
+<h3 id="5、创建新用户"><a class="header-anchor" href="#5、创建新用户">¶</a>5、创建新用户</h3>
+<p>创建用户<code>elasticsearch</code>输入，新的密码<code>zhonghongpeng</code>并赋予权限</p>
+<pre class="line-numbers language-language-sh"><code class="language-language-sh">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# adduser elasticsearch
 [root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# passwd elasticsearch
 更改用户 elasticsearch 的密码 。
 新的 密码：
 重新输入新的 密码：
 passwd：所有的身份验证令牌已经成功更新。
-[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="6、用户内存过小问题"><a href="#6、用户内存过小问题" class="headerlink" title="6、用户内存过小问题"></a>6、用户内存过小问题</h3><p>切换用户再次启动，还是遇到问题<code>max virtual memory areas vm.max_map_count [65530] is too low</code>用户虚拟内存太小</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# su elasticsearch
+[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="6、用户内存过小问题"><a class="header-anchor" href="#6、用户内存过小问题">¶</a>6、用户内存过小问题</h3>
+<p>切换用户再次启动，还是遇到问题<code>max virtual memory areas vm.max_map_count [65530] is too low</code>用户虚拟内存太小</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]# su elasticsearch
 [elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ bin/elasticsearch
 OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
 [2020-04-23T17:53:32,277][INFO ][o.e.e.NodeEnvironment    ] [izwz920kp0myp15p982vp4z] using [1] data paths, mounts [[/ (rootfs)]], net usable_space [32.3gb], net total_space [39.2gb], types [rootfs]
 ... ... 
 ERROR: [1] bootstrap checks failed
 [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再次切换回 root 用户，并执行以下执行进行修改，然后编辑<code>/etc/sysctl.conf</code>在最后一行添加<code>vm.max_map_count = 262144</code>保证永久生效</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z config]$ su - root
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[elasticsearch@izwz920kp0myp15p982vp4z config]$ su - root
 密码：
 上一次登录：四 4月 23 17:55:21 CST 2020从 219.137.74.3pts/0 上
 [root@izwz920kp0myp15p982vp4z ~]# sysctl -a|grep vm.max_map_count
@@ -652,9 +676,10 @@ vm.max_map_count = 65530
 vm.max_map_count = 262144
 [root@izwz920kp0myp15p982vp4z ~]# sysctl -a|grep vm.max_map_count
 vm.max_map_count = 262144
-[root@izwz920kp0myp15p982vp4z ~]# vi /etc/sysctl.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[root@izwz920kp0myp15p982vp4z ~]# vi /etc/sysctl.conf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>切换回elasticsearch用户再次启动，启动成功！</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# su elasticsearch
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# su elasticsearch
 [elasticsearch@izwz920kp0myp15p982vp4z elasticsearch]$ cd /usr/local/software/elasticsearch/elasticsearch-7.6.2
 [elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch
 OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
@@ -663,9 +688,10 @@ OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in ve
 [2020-04-23T18:32:39,461][INFO ][o.e.n.Node               ] [izwz920kp0myp15p982vp4z] node name [izwz920kp0myp15p982vp4z], node ID [AZUJJ0XhR0qwGYFxZ0O0xQ], cluster name [elasticsearch]
 [2020-04-23T18:32:39,462][INFO ][o.e.n.Node               ] [izwz920kp0myp15p982vp4z] version[7.6.2], pid[17383], build[default/tar/ef48eb35cf30adf4db14086e8aabd07ef6fb113f/2020-03-26T06:34:37.794943Z], OS[Linux/3.10.0-693.2.2.el7.x86_64/amd64], JVM[AdoptOpenJDK/OpenJDK 64-Bit Server VM/13.0.2/13.0.2+8]
 [2020-04-23T18:32:39,462][INFO ][o.e.n.Node               ] [izwz920kp0myp15p982vp4z] JVM home [/usr/local/software/elasticsearch/elasticsearch-7.6.2/jdk]
-[2020-04-23T18:32:39,463][INFO ][o.e.n.Node               ] [izwz920kp0myp15p982vp4z] JVM arguments [-Des.networkaddress.cache.ttl=60, -Des.networkaddress.cache.negative.ttl=10, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -XX:-OmitStackTraceInFastThrow, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dio.netty.allocator.numDirectArenas=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Djava.locale.providers=COMPAT, -Xms1g, -Xmx1g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -Djava.io.tmpdir=/tmp/elasticsearch-10878863762573310172, -XX:+HeapDumpOnOutOfMemoryError, -XX:HeapDumpPath=data, -XX:ErrorFile=logs/hs_err_pid%p.log, -Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m, -XX:MaxDirectMemorySize=536870912, -Des.path.home=/usr/local/software/elasticsearch/elasticsearch-7.6.2, -Des.path.conf=/usr/local/software/elasticsearch/elasticsearch-7.6.2/config, -Des.distribution.flavor=default, -Des.distribution.type=tar, -Des.bundled_jdk=true]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[2020-04-23T18:32:39,463][INFO ][o.e.n.Node               ] [izwz920kp0myp15p982vp4z] JVM arguments [-Des.networkaddress.cache.ttl=60, -Des.networkaddress.cache.negative.ttl=10, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -XX:-OmitStackTraceInFastThrow, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dio.netty.allocator.numDirectArenas=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Djava.locale.providers=COMPAT, -Xms1g, -Xmx1g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -Djava.io.tmpdir=/tmp/elasticsearch-10878863762573310172, -XX:+HeapDumpOnOutOfMemoryError, -XX:HeapDumpPath=data, -XX:ErrorFile=logs/hs_err_pid%p.log, -Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m, -XX:MaxDirectMemorySize=536870912, -Des.path.home=/usr/local/software/elasticsearch/elasticsearch-7.6.2, -Des.path.conf=/usr/local/software/elasticsearch/elasticsearch-7.6.2/config, -Des.distribution.flavor=default, -Des.distribution.type=tar, -Des.bundled_jdk=true]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 ssh 终端中测试连接，成功！</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z config]# curl localhost:9200
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z config]# curl localhost:9200
 {
   "name" : "izwz920kp0myp15p982vp4z",
   "cluster_name" : "elasticsearch",
@@ -682,31 +708,41 @@ OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in ve
     "minimum_index_compatibility_version" : "6.0.0-beta1"
   },
   "tagline" : "You Know, for Search"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="7、默认监听接口问题"><a href="#7、默认监听接口问题" class="headerlink" title="7、默认监听接口问题"></a>7、默认监听接口问题</h3><p>但是在本地电脑的浏览器中访问不成功：（myecs.com 配置本地 hosts 指向了 aliyun ecs ip）</p>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="7、默认监听接口问题"><a class="header-anchor" href="#7、默认监听接口问题">¶</a>7、默认监听接口问题</h3>
+<p>但是在本地电脑的浏览器中访问不成功：（<a href="http://myecs.com" target="_blank" rel="noopener">myecs.com</a> 配置本地 hosts 指向了 aliyun ecs ip）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210719.png" alt="image-20200423190146363"></p>
 <p>在本地电脑直接telnet 也连不上，一直无响应：</p>
 <pre><code>zhonghongpeng@bogon ~ % telnet 120.24.80.237 9200
-</code></pre><p>看了一下 ES 输出的日志，发现它在监听的接口是127.0.0.1:9200</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[2020-04-23T18:23:33,314][INFO ][o.e.t.TransportService   ] [izwz920kp0myp15p982vp4z] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+</code></pre>
+<p>看了一下 ES 输出的日志，发现它在监听的接口是127.0.0.1:9200</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[2020-04-23T18:23:33,314][INFO ][o.e.t.TransportService   ] [izwz920kp0myp15p982vp4z] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>修改配置文件./config/elasticsearch.yml</p>
-<pre class="line-numbers language-shell"><code class="language-shell">network.host: 0.0.0.0
-discovery.seed_hosts: ["0.0.0.0", "[::1]"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">network.host: 0.0.0.0
+discovery.seed_hosts: ["0.0.0.0", "[::1]"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>再次启动，绑定接口为0.0.0.0:9200：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[2020-04-23T18:23:33,314][INFO ][o.e.t.TransportService   ] [izwz920kp0myp15p982vp4z] publish_address {172.18.93.184:9200}, bound_addresses {0.0.0.0:9200}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[2020-04-23T18:23:33,314][INFO ][o.e.t.TransportService   ] [izwz920kp0myp15p982vp4z] publish_address {172.18.93.184:9200}, bound_addresses {0.0.0.0:9200}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>回到本地电脑浏览器测试，成功！</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210726.png" alt="image-20200423183357949"></p>
-<h2 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h2><p><code>elasticsearch-plugin list</code>命令可以查看插件列表</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ bin/elasticsearch-plugin list
-[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="插件安装"><a class="header-anchor" href="#插件安装">¶</a>插件安装</h2>
+<p><code>elasticsearch-plugin list</code>命令可以查看插件列表</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ bin/elasticsearch-plugin list
+[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><code>install</code>命令可以安装插件，我们来安装一个国际化的分词插件<code>analysis-icu</code></p>
-<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch-plugin install analysis-icu
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch-plugin install analysis-icu
 -> Installing analysis-icu
 -> Downloading analysis-icu from elastic
 [=================================================] 100%
 -> Installed analysis-icu
 [elasticsearch@izwz920kp0myp15p982vp4z elasticsearch-7.6.2]$ ./bin/elasticsearch-plugin list
-analysis-icu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+analysis-icu
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过浏览器输入<code>http://myecs.com:9200/_cat/plugins</code>也可以显示插件列表：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210732.png" alt="image-20200423192829097"></p>
 <p>通过插件机制用户可以自定义拓展其功能：</p>
@@ -720,23 +756,30 @@ analysis-icu<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <li>Backup Plugin</li>
 </ul>
 <p><a href="Https://elastic.co/guide/en/elasticsearch/plugins/current/intro.html" target="_blank" rel="noopener">Https://elastic.co/guide/en/elasticsearch/plugins/current/intro.html</a></p>
-<h2 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h2><p><code>elasticsearch -E node.name=节点名称 -E cluster.name=集群名称 -E path.data=节点数据文件名称 -d</code>，其中<code>-E</code>通过 name=value 形式配置参数，<code>-d</code>后台启动，启动之前我们需要配置<code>./config/elasticsearch.yml</code>以下配置包含我们需要启动的节点名称</p>
-<pre class="line-numbers language-shell"><code class="language-shell">cluster.initial_master_nodes: ["node1", "node2", "node3"]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="启动集群"><a class="header-anchor" href="#启动集群">¶</a>启动集群</h2>
+<p><code>elasticsearch -E node.name=节点名称 -E cluster.name=集群名称 -E path.data=节点数据文件名称 -d</code>，其中<code>-E</code>通过 name=value 形式配置参数，<code>-d</code>后台启动，启动之前我们需要配置<code>./config/elasticsearch.yml</code>以下配置包含我们需要启动的节点名称</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">cluster.initial_master_nodes: ["node1", "node2", "node3"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后启动</p>
-<pre class="line-numbers language-shell"><code class="language-shell">bin/elasticsearch -E node.name=node1 -E cluster.name=john -E path.data=node1_data -d
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">bin/elasticsearch -E node.name=node1 -E cluster.name=john -E path.data=node1_data -d
 bin/elasticsearch -E node.name=node2 -E cluster.name=john -E path.data=node2_data -d
-bin/elasticsearch -E node.name=node3 -E cluster.name=john -E path.data=node3_data -d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+bin/elasticsearch -E node.name=node3 -E cluster.name=john -E path.data=node3_data -d
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>浏览器访问<code>http://myecs.com:9200/_cat/nodes</code>，可以看到我们启动集群了</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210740.png" alt="image-20200423194555267"></p>
-<h1 id="Kibana-的安装"><a href="#Kibana-的安装" class="headerlink" title="Kibana 的安装"></a>Kibana 的安装</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>同 Elasticsearch 下载好安装文件，并解压（注意，如果用 root 用户进行解压，需要对解压之后的文件夹进行 chmod 授权，或者直接用 elasticsearch 用户进行解压，不然elasticsearch 用户启动 kibana 的时候就会因为 kibana需要写入一些文件没有权限导致启动失败）</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch]# tar -zxvf kibana-7.6.2-linux-x86_64.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1>Kibana 的安装</h1>
+<h2 id="安装"><a class="header-anchor" href="#安装">¶</a>安装</h2>
+<p>同 Elasticsearch 下载好安装文件，并解压（注意，如果用 root 用户进行解压，需要对解压之后的文件夹进行 chmod 授权，或者直接用 elasticsearch 用户进行解压，不然elasticsearch 用户启动 kibana 的时候就会因为 kibana需要写入一些文件没有权限导致启动失败）</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch]# tar -zxvf kibana-7.6.2-linux-x86_64.tar.gz
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>修改配置<code>${kibana_home}/config/kibana.yml</code>：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">server.host: "0.0.0.0"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">server.host: "0.0.0.0"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<p> 如果需要汉化需要配置<code>i18n.locale: &quot;zh-CN&quot;</code></p>
+<p>如果需要汉化需要配置<code>i18n.locale: &quot;zh-CN&quot;</code></p>
 </blockquote>
 <p>启动</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ ./bin/kibana
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[elasticsearch@izwz920kp0myp15p982vp4z kibana-7.6.2-linux-x86_64]$ ./bin/kibana
   log   [12:07:17.644] [info][plugins-service] Plugin "case" is disabled.
   log   [12:07:22.407] [info][plugins-system] Setting up [37] plugins: [taskManager,siem,licensing,infra,encryptedSavedObjects,code,usageCollection,metrics,canvas,timelion,features,security,apm_oss,translations,reporting,uiActions,data,navigation,status_page,share,newsfeed,kibana_legacy,management,dev_tools,inspector,expressions,visualizations,embeddable,advancedUiActions,dashboard_embeddable_container,home,spaces,cloud,apm,graph,eui_utils,bfetch]
   log   [12:07:22.408] [info][plugins][taskManager] Setting up plugin
@@ -749,71 +792,98 @@ bin/elasticsearch -E node.name=node3 -E cluster.name=john -E path.data=node3_dat
   log   [12:07:22.432] [info][plugins][usageCollection] Setting up plugin
   log   [12:07:22.434] [info][metrics][plugins] Setting up plugin
   log   [12:07:22.434] [info][canvas][plugins] Setting up plugin
-  ... ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> 访问<code>myecs.com:5601</code></p>
+  ... ...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>访问<code>myecs.com:5601</code></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210746.png" alt="image-20200423201017670"></p>
 <p>启动成功！</p>
-<h2 id="一些样例数据"><a href="#一些样例数据" class="headerlink" title="一些样例数据"></a>一些样例数据</h2><p>ES 在 Kibana 的开箱即64用的版本中加入了一些样例数据：电商网站订单、航空公司飞行记录、web 应用的日志。</p>
+<h2 id="一些样例数据"><a class="header-anchor" href="#一些样例数据">¶</a>一些样例数据</h2>
+<p>ES 在 Kibana 的开箱即64用的版本中加入了一些样例数据：电商网站订单、航空公司飞行记录、web 应用的日志。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210753.png" alt="image-20200423201345278"></p>
-<p> 我们可以点击添加这些数据来打入这些数据到 Elasticsearch 中</p>
+<p>我们可以点击添加这些数据来打入这些数据到 Elasticsearch 中</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210800.png" alt="image-20200423201447873"></p>
 <p>asd</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210807.png" alt="image-20200423201711721"></p>
-<p> 通过点击右边的 dashboard 可以发现这三份数据的 dashboard 已经构建好了，我们点击其中一个</p>
+<p>通过点击右边的 dashboard 可以发现这三份数据的 dashboard 已经构建好了，我们点击其中一个</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210814.png" alt="image-20200423201737858"></p>
 <p>进来后看到一些数据面板</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210819.png" alt="image-20200423201755072"></p>
-<h2 id="Dev-Tools"><a href="#Dev-Tools" class="headerlink" title="Dev Tools"></a>Dev Tools</h2><p>下面我们来看左边面板的一个 Dev Tools 工具</p>
+<h2 id="Dev-Tools"><a class="header-anchor" href="#Dev-Tools">¶</a>Dev Tools</h2>
+<p>下面我们来看左边面板的一个 Dev Tools 工具</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210826.png" alt="image-20200423201938833"></p>
 <p>它可以方便我们进行 Elasticsearch 的 api 的调用</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210833.png" alt="image-20200423202058260"></p>
 <p>另外它还提供了一些键盘快捷操作：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210838.png" alt="image-20200423202150145"></p>
-<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210846.png" alt="image-20200423202556262"></p>
-<h1 id="Docker-的安装"><a href="#Docker-的安装" class="headerlink" title="Docker 的安装"></a>Docker 的安装</h1><h3 id="相关阅读与安装"><a href="#相关阅读与安装" class="headerlink" title="相关阅读与安装"></a>相关阅读与安装</h3><ul>
+<h2 id="插件"><a class="header-anchor" href="#插件">¶</a>插件</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210846.png" alt="image-20200423202556262"></p>
+<h1>Docker 的安装</h1>
+<h3 id="相关阅读与安装"><a class="header-anchor" href="#相关阅读与安装">¶</a>相关阅读与安装</h3>
+<ul>
 <li><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">安装docker</a></li>
 </ul>
 <ul>
 <li><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">安装 docker-compose</a></li>
 </ul>
 <ul>
-<li><p><a href="https://www.elastic.co/cn/blog/how-to-make-a-dockerfile-for-elasticsearch" target="_blank" rel="noopener">如何创建自己的Docker Image</a></p>
+<li>
+<p><a href="https://www.elastic.co/cn/blog/how-to-make-a-dockerfile-for-elasticsearch" target="_blank" rel="noopener">如何创建自己的Docker Image</a></p>
 </li>
-<li><p><a href="https://www.elastic.co/cn/blog/elasticsearch-docker-plugin-management" target="_blank" rel="noopener">如何在为docker image安装 Elasticsearch 插件</a></p>
+<li>
+<p><a href="https://www.elastic.co/cn/blog/elasticsearch-docker-plugin-management" target="_blank" rel="noopener">如何在为docker image安装 Elasticsearch 插件</a></p>
 </li>
-<li><p><a href="https://www.elastic.co/cn/blog/docker-networking" target="_blank" rel="noopener">如何设置 Docker 网络</a></p>
+<li>
+<p><a href="https://www.elastic.co/cn/blog/docker-networking" target="_blank" rel="noopener">如何设置 Docker 网络</a></p>
 </li>
-<li><p><a href="https://github.com/lmenezes/cerebro" target="_blank" rel="noopener">Cerebro 源码</a></p>
+<li>
+<p><a href="https://github.com/lmenezes/cerebro" target="_blank" rel="noopener">Cerebro 源码</a></p>
 </li>
-<li><p><a href="https://github.com/deviantony/docker-elk" target="_blank" rel="noopener">一个开源的 ELK（Elasticsearch + Logstash + Kibana） docker-compose 配置</a></p>
+<li>
+<p><a href="https://github.com/deviantony/docker-elk" target="_blank" rel="noopener">一个开源的 ELK（Elasticsearch + Logstash + Kibana） docker-compose 配置</a></p>
 </li>
-<li><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.2/docker.html" target="_blank" rel="noopener">Install Elasticsearch with Docker</a></p>
-</li>
-</ul>
-<h3 id="docker-compose命令"><a href="#docker-compose命令" class="headerlink" title="docker-compose命令"></a>docker-compose命令</h3><ul>
-<li><p>启动<code>docker-compose up</code></p>
-</li>
-<li><p>停止容器<code>docker-compose down</code></p>
-</li>
-<li><p>停止容器并且移除数据<code>docker-compose down -v</code></p>
+<li>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.2/docker.html" target="_blank" rel="noopener">Install Elasticsearch with Docker</a></p>
 </li>
 </ul>
-<h3 id="docker-命令"><a href="#docker-命令" class="headerlink" title="docker 命令"></a>docker 命令</h3><ul>
-<li><p><code>docker ps</code></p>
+<h3 id="docker-compose命令"><a class="header-anchor" href="#docker-compose命令">¶</a>docker-compose命令</h3>
+<ul>
+<li>
+<p>启动<code>docker-compose up</code></p>
 </li>
-<li><p><code>docker stop Name/ContainerId</code></p>
+<li>
+<p>停止容器<code>docker-compose down</code></p>
 </li>
-<li><p><code>docker start Name/ContainerId</code></p>
-</li>
-<li><p>删除单个容器 <code>docker rm Name/ID -f, –force=false; -l, –link=false Remove the specified link and not the underlying container; -v, –volumes=false Remove the volumes associated to the container</code></p>
-</li>
-<li><p>删除所有容器 docker rm <code>docker ps -a -q</code></p>
-</li>
-<li><p>停止、启动、杀死、重启一个容器<br><code>​docker stop Name/ID</code><br><code>docker start Name/ID</code></p>
-<p><code>docker kill Name/ID</code><br><code>docker restart name/ID</code></p>
+<li>
+<p>停止容器并且移除数据<code>docker-compose down -v</code></p>
 </li>
 </ul>
-<h3 id="Docker-compse-配置文件"><a href="#Docker-compse-配置文件" class="headerlink" title="Docker-compse 配置文件"></a>Docker-compse 配置文件</h3><pre class="line-numbers language-shell"><code class="language-shell">version: '2.2'
+<h3 id="docker-命令"><a class="header-anchor" href="#docker-命令">¶</a>docker 命令</h3>
+<ul>
+<li>
+<p><code>docker ps</code></p>
+</li>
+<li>
+<p><code>docker stop Name/ContainerId</code></p>
+</li>
+<li>
+<p><code>docker start Name/ContainerId</code></p>
+</li>
+<li>
+<p>删除单个容器 <code>docker rm Name/ID -f, –force=false; -l, –link=false Remove the specified link and not the underlying container; -v, –volumes=false Remove the volumes associated to the container</code></p>
+</li>
+<li>
+<p>删除所有容器 docker rm <code>docker ps -a -q</code></p>
+</li>
+<li>
+<p>停止、启动、杀死、重启一个容器<br>
+<code>​docker stop Name/ID</code><br>
+<code>docker start Name/ID </code></p>
+<p><code>docker kill Name/ID</code><br>
+<code>docker restart name/ID</code></p>
+</li>
+</ul>
+<h3 id="Docker-compse-配置文件"><a class="header-anchor" href="#Docker-compse-配置文件">¶</a>Docker-compse 配置文件</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">version: '2.2'
 services:
   cerebro:
     image: lmenezes/cerebro:0.8.3
@@ -884,45 +954,58 @@ volumes:
 
 networks:
   es72net:
-    driver: bridge<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="docker-阿里云镜像加速器"><a href="#docker-阿里云镜像加速器" class="headerlink" title="docker 阿里云镜像加速器"></a><a href="https://cr.console.aliyun.com/undefined/instances/mirrors" target="_blank" rel="noopener">docker 阿里云镜像加速器</a></h3><h3 id="docker-中的服务"><a href="#docker-中的服务" class="headerlink" title="docker 中的服务"></a>docker 中的服务</h3><p> 以上准备工作就绪之后执行以下指令启动 docker 容器</p>
-<pre class="line-numbers language-shell"><code class="language-shell">/usr/local/software/elasticsearch/docker-es-7.2
+    driver: bridge
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="docker-阿里云镜像加速器"><a class="header-anchor" href="#docker-阿里云镜像加速器">¶</a><a href="https://cr.console.aliyun.com/undefined/instances/mirrors" target="_blank" rel="noopener">docker 阿里云镜像加速器</a></h3>
+<h3 id="docker-中的服务"><a class="header-anchor" href="#docker-中的服务">¶</a>docker 中的服务</h3>
+<p>以上准备工作就绪之后执行以下指令启动 docker 容器</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">/usr/local/software/elasticsearch/docker-es-7.2
 [root@izwz920kp0myp15p982vp4z docker-es-7.2]# ls
 docker-compose.yaml
-[root@izwz920kp0myp15p982vp4z docker-es-7.2]# docker-compose up<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+[root@izwz920kp0myp15p982vp4z docker-es-7.2]# docker-compose up
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>启动完成后。我们一共启动了以下三个服务</p>
 <ol>
-<li><p>kibana</p>
+<li>
+<p>kibana</p>
 <p>端口:5601</p>
 </li>
-<li><p>elasticsearch</p>
+<li>
+<p>elasticsearch</p>
 <p>端口:9200</p>
 </li>
-<li><p>cerebro</p>
+<li>
+<p>cerebro</p>
 <p>端口:9000</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221210855.png" alt="image-20200423231524850"></p>
 <p>可以看到上面6行信息分别表示有一个 elasticsearch集群叫 geektime，有两个节点，有2个索引，分布在4个分片上，有6个文档，总共存储消耗了123.50KB 的磁盘空间。</p>
 </li>
 </ol>
-<h1 id="Logstash-安装"><a href="#Logstash-安装" class="headerlink" title="Logstash 安装"></a>Logstash 安装</h1><h3 id="Logstash-下载安装"><a href="#Logstash-下载安装" class="headerlink" title="Logstash 下载安装"></a><a href="https://www.elastic.co/cn/downloads/logstash" target="_blank" rel="noopener">Logstash 下载安装</a></h3><p>同上面的 Elasticsearch 和 Kibana到官网进行下载，注意 Logstash 并没有集成 Jdk，所以需要先安装 Jdk 并配置$JAVA_HOME 环境变量</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z logstash-7.1.0]# pwd
+<h1>Logstash 安装</h1>
+<h3 id="Logstash-下载安装"><a class="header-anchor" href="#Logstash-下载安装">¶</a><a href="https://www.elastic.co/cn/downloads/logstash" target="_blank" rel="noopener">Logstash 下载安装</a></h3>
+<p>同上面的 Elasticsearch 和 Kibana到官网进行下载，注意 Logstash 并没有集成 Jdk，所以需要先安装 Jdk 并配置$JAVA_HOME 环境变量</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z logstash-7.1.0]# pwd
 /usr/local/software/elasticsearch/logstash-7.1.0
 [root@izwz920kp0myp15p982vp4z logstash-7.1.0]# ./bin/logstash --version
-logstash 7.1.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+logstash 7.1.0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>附：<a href="https://www.elastic.co/guide/en/logstash/current/index.html" target="_blank" rel="noopener">Logstash 参考文档</a></p>
 </blockquote>
-<h3 id="下载最MovieLens最小测试数据集"><a href="#下载最MovieLens最小测试数据集" class="headerlink" title="下载最MovieLens最小测试数据集"></a><a href="https://grouplens.org/datasets/movielens/" target="_blank" rel="noopener">下载最MovieLens最小测试数据集</a></h3><p>下载完毕：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z movielens]# pwd
+<h3 id="下载最MovieLens最小测试数据集"><a class="header-anchor" href="#下载最MovieLens最小测试数据集">¶</a><a href="https://grouplens.org/datasets/movielens/" target="_blank" rel="noopener">下载最MovieLens最小测试数据集</a></h3>
+<p>下载完毕：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z movielens]# pwd
 /usr/local/software/elasticsearch/movielens
 [root@izwz920kp0myp15p982vp4z movielens]# ll
 总用量 980
 drwxr-xr-x 2 root root   4096 4月  24 00:09 ml-latest-small
 -rw-r--r-- 1 root root   9703 4月  24 00:09 ml-latest-small-README.html
 -rw-r--r-- 1 root root 978202 4月  24 00:09 ml-latest-small.zip
--rw-r--r-- 1 root root    166 4月  24 00:09 movies_settings.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Logstash-配置文件"><a href="#Logstash-配置文件" class="headerlink" title="Logstash 配置文件"></a>Logstash 配置文件</h3><p>logstash.conf</p>
-<pre class="line-numbers language-shell"><code class="language-shell">input {
+-rw-r--r-- 1 root root    166 4月  24 00:09 movies_settings.json
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Logstash-配置文件"><a class="header-anchor" href="#Logstash-配置文件">¶</a>Logstash 配置文件</h3>
+<p>logstash.conf</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">input {
   file {
     # 指向测试数据csv文件
     path => "/usr/local/software/elasticsearch/movielens/ml-latest-small/movies.csv"
@@ -964,10 +1047,13 @@ output {
      document_id => "%{id}"
    }
   stdout {}
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="启动-Logstash-抓取测试数据"><a href="#启动-Logstash-抓取测试数据" class="headerlink" title="启动 Logstash 抓取测试数据"></a>启动 Logstash 抓取测试数据</h3><pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z logstash-7.1.0]# pwd
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="启动-Logstash-抓取测试数据"><a class="header-anchor" href="#启动-Logstash-抓取测试数据">¶</a>启动 Logstash 抓取测试数据</h3>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z logstash-7.1.0]# pwd
 /usr/local/software/elasticsearch/logstash-7.1.0
-[root@izwz920kp0myp15p982vp4z logstash-7.1.0]# ./bin/logstash -f ../movielens/logstash.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+[root@izwz920kp0myp15p982vp4z logstash-7.1.0]# ./bin/logstash -f ../movielens/logstash.conf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr />
@@ -1460,7 +1546,7 @@ output {
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="011_beats">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="011_beats">
                         
                         <span class="card-title">011_beats</span>
                     </div>
@@ -1509,7 +1595,7 @@ output {
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="005_深入搜索">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="005_深入搜索">
                         
                         <span class="card-title">005_深入搜索</span>
                     </div>
@@ -1677,7 +1763,7 @@ output {
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

@@ -10,12 +10,14 @@
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="堆的核心概述
 
+
 一个JVM实例只存在一个堆内存，堆也是Java内存管理的核心区域
 Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。是JVM管理的最大一块内存空间。
+
 堆内存的大小是可以调节的
 
 
-《Java虚拟机规范》规定，堆可">
+《Java虚拟机规范》规定，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -336,7 +338,7 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -491,7 +493,7 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.2k
+                    4.3k
                 </div>
                 
 
@@ -514,51 +516,62 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="堆的核心概述"><a href="#堆的核心概述" class="headerlink" title="堆的核心概述"></a>堆的核心概述</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234342.png" alt="image-20200916075349717"></p>
+                <h1>堆的核心概述</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234342.png" alt="image-20200916075349717"></p>
 <ul>
 <li>一个JVM实例只存在一个堆内存，堆也是Java内存管理的核心区域</li>
-<li>Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。是JVM管理的最大一块内存空间。<ul>
+<li>Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。是JVM管理的最大一块内存空间。
+<ul>
 <li>堆内存的大小是可以调节的</li>
 </ul>
 </li>
 <li>《Java虚拟机规范》规定，堆可以处于物理上不连续的内存空间中，但在逻辑上它应该被视为连续的。所有的线程共享Java堆，<strong>在这里还可以划分线程私有的缓冲区</strong>（Thread Local Allocation Buffer，TLAB）</li>
-<li>《Java虚拟机规范》中对Java堆的描述是：所有的对象实例以及数组都应该在运行时分配在堆上。<ul>
-<li>实际上，是”几乎”所有的对象实例都在这里分配内存</li>
+<li>《Java虚拟机规范》中对Java堆的描述是：所有的对象实例以及数组都应该在运行时分配在堆上。
+<ul>
+<li>实际上，是&quot;几乎&quot;所有的对象实例都在这里分配内存</li>
 </ul>
 </li>
 <li>数组和对象可能永远不会存储在栈上，因为栈帧中保存引用，这个引用指向对象或者数组在堆中的位置。</li>
 <li>在方法结束后，堆中的对象不会马上被移除，仅仅在垃圾收集的时候才会被移除</li>
 <li>堆，是GC（Garbage Collection，垃圾收集器）执行垃圾回收的重点区域。</li>
 </ul>
-<h2 id="内存细分"><a href="#内存细分" class="headerlink" title="内存细分"></a>内存细分</h2><p>现代垃圾收集器大部分都基于分代收集理论设计：</p>
+<h2 id="内存细分"><a class="header-anchor" href="#内存细分">¶</a>内存细分</h2>
+<p>现代垃圾收集器大部分都基于分代收集理论设计：</p>
 <p>堆和方法区是一组从功能上定义的内存区域名称；分代命名是从垃圾回收的角度进行内存区域划分和命名，方便垃圾收集器对不同分代区域进行特定的针对性内存分配及回收逻辑。</p>
 <ul>
-<li><p>Java 7及之前堆内存逻辑上分为两部分：新生代、老年代</p>
+<li>
+<p>Java 7及之前堆内存逻辑上分为两部分：新生代、老年代</p>
 <ul>
-<li>Young(New) Generation Space<ul>
+<li>Young(New) Generation Space
+<ul>
 <li>Eden、Survivor(from、to)</li>
 </ul>
 </li>
 <li>Tenure(Old) generation space</li>
 </ul>
 </li>
-<li><p>方法区被划为永久代（在Java虚拟机规范中没有定义方法区的实际位置，在7及之前它和堆共用一块内存，它所占用的内存空间称为非堆内存）：Permanent Space</p>
+<li>
+<p>方法区被划为永久代（在Java虚拟机规范中没有定义方法区的实际位置，在7及之前它和堆共用一块内存，它所占用的内存空间称为非堆内存）：Permanent Space</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234348.png" alt="image-20200916082710521"></p>
 </li>
-<li><p>Java8及之后堆内存逻辑上分为三部分：新生代、老年代</p>
+<li>
+<p>Java8及之后堆内存逻辑上分为三部分：新生代、老年代</p>
 <ul>
-<li>Young(New) Generation Space<ul>
+<li>Young(New) Generation Space
+<ul>
 <li>Eden、Survivor</li>
 </ul>
 </li>
 <li>Tenure(Old) generation space</li>
 </ul>
 </li>
-<li><p>永久代移除，使用元空间替代(在8之后出现，不占用堆内存，使用直接内存/又叫堆外内存，很蹩脚的命名)：Meta Spoce</p>
+<li>
+<p>永久代移除，使用元空间替代(在8之后出现，不占用堆内存，使用直接内存/又叫堆外内存，很蹩脚的命名)：Meta Spoce</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234355.png" alt="image-20200916082818919"></p>
 </li>
 </ul>
-<h1 id="设置堆内存大小与OOM"><a href="#设置堆内存大小与OOM" class="headerlink" title="设置堆内存大小与OOM"></a>设置堆内存大小与OOM</h1><p>Java堆区用于存储Java对象实例，那么堆的大小在JVM启动时就已经设定好了，可以通过选项<code>-Xmx</code>和<code>-Xms</code>来进行设置</p>
+<h1>设置堆内存大小与OOM</h1>
+<p>Java堆区用于存储Java对象实例，那么堆的大小在JVM启动时就已经设定好了，可以通过选项<code>-Xmx</code>和<code>-Xms</code>来进行设置</p>
 <ul>
 <li><code>-Xms</code>用于表示堆区的起始内存，等价于<code>-XX:InitialHeapSize</code></li>
 <li><code>-Xmx</code>则用于表示堆区的最大内存，等价于<code>-XX:MaxHeapSize</code></li>
@@ -575,8 +588,10 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <li><code>jps</code>查看Java进程，<code>jstat -gc 进程id</code>查看内存使用情况和GC次数等</li>
 <li><code>-XX:+PrintGCDetails</code></li>
 </ul>
-<h3 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234403.png" alt="image-20200916085807115"></p>
-<h1 id="年轻代与老年代"><a href="#年轻代与老年代" class="headerlink" title="年轻代与老年代"></a>年轻代与老年代</h1><p>存储在JVM中的Java对象可以被划分为两类：</p>
+<h3 id="OOM"><a class="header-anchor" href="#OOM">¶</a>OOM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234403.png" alt="image-20200916085807115"></p>
+<h1>年轻代与老年代</h1>
+<p>存储在JVM中的Java对象可以被划分为两类：</p>
 <ul>
 <li>一类是生命周期较短的瞬时对象，这类对象的创建和消亡都非常迅速</li>
 <li>另外一类对象的生命周期却非常长，在某些极端的情况下还能够与JVM的生命周期保持一致</li>
@@ -584,27 +599,33 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <p>Java堆区进一步细分的话，可以划分为年轻代（YoungGen）和老年代（OldGen）</p>
 <p>其中年轻代又可以划分为Eden空间、Survivor0空间和Survivor1空间（有时也叫做form区、to区）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234410.png" alt="image-20200916090311825"></p>
-<h3 id="相关参数设置"><a href="#相关参数设置" class="headerlink" title="相关参数设置"></a>相关参数设置</h3><ul>
-<li><p>配置新生代与老年代在堆结构的占比</p>
+<h3 id="相关参数设置"><a class="header-anchor" href="#相关参数设置">¶</a>相关参数设置</h3>
+<ul>
+<li>
+<p>配置新生代与老年代在堆结构的占比</p>
 <ul>
 <li>默认<code>-XX:NewRatio=2</code>，表示新生代占1，老年代占2，新生代占整个堆的1/3</li>
 <li>可以根据需要进行修改，一般开发中不会修改</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234416.png" alt="image-20200916090614423"></p>
 </li>
-<li><p>在Hotspot中，Eden空间和另外两个Survivor空间空间缺省所占的比例是8:1:1。可以通过以下参数进行设置：</p>
+<li>
+<p>在Hotspot中，Eden空间和另外两个Survivor空间空间缺省所占的比例是8:1:1。可以通过以下参数进行设置：</p>
 <ul>
 <li>设置新生代中Eden区与Survivor区的比例：<code>-XX:SurvivorRatio=8</code>。默认是8（from和to平分Survivor区域）</li>
 </ul>
 </li>
-<li><p><code>-XX:-UseAdaptiveSizePolicy</code>：关闭自适应的内存分配策略（否则新生代中分区可能和SurvivorRatio参数是不匹配的）</p>
+<li>
+<p><code>-XX:-UseAdaptiveSizePolicy</code>：关闭自适应的内存分配策略（否则新生代中分区可能和SurvivorRatio参数是不匹配的）</p>
 </li>
 </ul>
 <p>几乎所有的Java对象都是在Eden区被new出来的。绝大部分的Java对象的销毁都在新生代进行了（IBM公司的专门研究表明，新生代中的80%的对象都是朝生夕死的）。</p>
 <ul>
 <li>可以使用选项<code>-Xmn</code>设置新生代最大内存大小，这个参数一般使用默认值即可。</li>
 </ul>
-<h1 id="图解对象分配过程"><a href="#图解对象分配过程" class="headerlink" title="图解对象分配过程"></a>图解对象分配过程</h1><h2 id="对象分配过程：概述"><a href="#对象分配过程：概述" class="headerlink" title="对象分配过程：概述"></a>对象分配过程：概述</h2><p>为新对象分配内存是一件非常严谨和复杂的任务，JVM的设计者们不仅需要考虑内存如何分配、在哪里分配等问题，并且由于内存分配算法与内存回收算法密切相关，所以还需要考虑GC执行完内存回收后是否会在内存空间中产生碎片。</p>
+<h1>图解对象分配过程</h1>
+<h2 id="对象分配过程：概述"><a class="header-anchor" href="#对象分配过程：概述">¶</a>对象分配过程：概述</h2>
+<p>为新对象分配内存是一件非常严谨和复杂的任务，JVM的设计者们不仅需要考虑内存如何分配、在哪里分配等问题，并且由于内存分配算法与内存回收算法密切相关，所以还需要考虑GC执行完内存回收后是否会在内存空间中产生碎片。</p>
 <ol>
 <li>new的对象先放在Eden区。此区有大小限制</li>
 <li>当伊甸园的空间填满时，程序又需要创建对象，JVM的垃圾回收器将对Eden区和from区进行垃圾回收（Minor GC/YGC），将Eden区中的不再被其他对象所引用的对象进行销毁。再加载新的对象放到Eden区</li>
@@ -616,12 +637,14 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <li>若老年代执行了Major GC之后发现依然无法进行对象的保存，就会产生OOM异常：<code>java.lang.OutOfMemoryError: Java heap space</code></li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234422.png" alt="image-20200916093717986"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<ul>
 <li>针对幸存者s0和s1区，复制之后有交换，谁空谁是to</li>
 <li>关于垃圾回收：频繁在新生区收集，很少在老年区收集，几乎不在永久区/元空间收集</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234428.png" alt="image-20200916094118286"></p>
-<h2 id="常用调优工具"><a href="#常用调优工具" class="headerlink" title="常用调优工具"></a>常用调优工具</h2><ul>
+<h2 id="常用调优工具"><a class="header-anchor" href="#常用调优工具">¶</a>常用调优工具</h2>
+<ul>
 <li>JDK命令行：jstat、jinfo、jmap、jps、jstack等</li>
 <li>Eclipse：Memory Analyzer Tool</li>
 <li>Jconsole</li>
@@ -631,17 +654,21 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <li>GCViewer</li>
 <li>GC Easy</li>
 </ul>
-<h1 id="Minor-GC、Major-GC、Full-GC"><a href="#Minor-GC、Major-GC、Full-GC" class="headerlink" title="Minor GC、Major GC、Full GC"></a>Minor GC、Major GC、Full GC</h1><p>JVM在进行GC时，并非每次都对三个内存区域(新生代、老年代、方法区)一起回收的，大部分时候回收的都是指新生代。</p>
+<h1>Minor GC、Major GC、Full GC</h1>
+<p>JVM在进行GC时，并非每次都对三个内存区域(新生代、老年代、方法区)一起回收的，大部分时候回收的都是指新生代。</p>
 <p>针对HotSpot VM的实现，它的垃圾收集按照回收区域又分为两大种类：一种是部分收集（Partial GC），另一种是整堆收集（Full GC）</p>
 <ul>
-<li>部分收集：不是完整收集整个Java堆的垃圾收集。其中又分为：<ul>
+<li>部分收集：不是完整收集整个Java堆的垃圾收集。其中又分为：
+<ul>
 <li>新生代收集（Minor GC/Young GC）：只是新生代的垃圾收集</li>
-<li>老年代收集（Major GC/Old GC）：只是老年代的垃圾收集<ul>
+<li>老年代收集（Major GC/Old GC）：只是老年代的垃圾收集
+<ul>
 <li>目前，只有CMS收集器会有单独收集老年代的行为</li>
 <li>注意，很多时候Major GC和Full GC混淆使用，需要具体分辨是老年代回收还是整堆回收（根据使用的垃圾收集器区分）</li>
 </ul>
 </li>
-<li>混合收集（Mixed GC）：收集整个新生代以及部分老年代的垃圾收集。<ul>
+<li>混合收集（Mixed GC）：收集整个新生代以及部分老年代的垃圾收集。
+<ul>
 <li>目前，只有G1收集器会有这种行为</li>
 </ul>
 </li>
@@ -649,18 +676,22 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 </li>
 <li>整堆收集（Full GC）：收集整个Java堆和方法区的垃圾收集。</li>
 </ul>
-<h2 id="最简单的分代式GC策略的触发条件"><a href="#最简单的分代式GC策略的触发条件" class="headerlink" title="最简单的分代式GC策略的触发条件"></a>最简单的分代式GC策略的触发条件</h2><ul>
-<li><p>年轻代GC（Minor GC）触发机制：</p>
+<h2 id="最简单的分代式GC策略的触发条件"><a class="header-anchor" href="#最简单的分代式GC策略的触发条件">¶</a>最简单的分代式GC策略的触发条件</h2>
+<ul>
+<li>
+<p>年轻代GC（Minor GC）触发机制：</p>
 <ul>
 <li>当年轻代空间不足时，就会触发Minor GC，这里的年轻代指的是Eden+from。</li>
 <li>因为Java对象大多都具备朝生夕灭的特性，所以Minor GC非常频繁，一般回收速度也比较快。这一定义既清晰又易于理解。</li>
 <li>Minor GC会引发STW，暂停其它用户的线程，等垃圾回收结束，用户线程才恢复运行</li>
 </ul>
 </li>
-<li><p>老年代GC（Major GC/Full GC）触发机制：</p>
+<li>
+<p>老年代GC（Major GC/Full GC）触发机制：</p>
 <ul>
-<li>指发生在老年代的GC，对象从老年代消失时，我们说”Major GC”或者”Full GC”发生了。</li>
-<li>出现了Major GC，经常会伴随至少一次的Minor GC（但非绝对的，在Parallel Scavenge收集器的收集策略里就有直接进行Major GC的策略选择过程）。<ul>
+<li>指发生在老年代的GC，对象从老年代消失时，我们说&quot;Major GC&quot;或者&quot;Full GC&quot;发生了。</li>
+<li>出现了Major GC，经常会伴随至少一次的Minor GC（但非绝对的，在Parallel Scavenge收集器的收集策略里就有直接进行Major GC的策略选择过程）。
+<ul>
 <li>也就是在老年代空间不足时，会先尝试触发Minor GC。如果之后空间还不足，会触发Major GC</li>
 </ul>
 </li>
@@ -668,7 +699,8 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <li>如果Major GC后，内存还不足，就报OOM了。</li>
 </ul>
 </li>
-<li><p>Full GC触发机制：</p>
+<li>
+<p>Full GC触发机制：</p>
 <p>触发Full GC执行的情况有如下五种：</p>
 <ol>
 <li>调用<code>System.gc()</code>时，系统建议执行Full GC，但是不必然执行</li>
@@ -680,11 +712,11 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 </li>
 </ul>
 <ol start="6">
-<li><p>CMS 因为资源不足无法进行多线程回收发生 Concurrent mode failed</p>
-<p>说明：Full GC是开发或调优中尽量要避免的。这样暂停时间会短一些。</p>
-</li>
+<li>CMS 因为资源不足无法进行多线程回收发生 Concurrent mode failed</li>
 </ol>
-<h1 id="堆空间分代思想"><a href="#堆空间分代思想" class="headerlink" title="堆空间分代思想"></a>堆空间分代思想</h1><p>为什么需要把Java堆分代？不分代就不能正常工作了吗？经研究，不同对象的生命周期不同。70%-99%的对象是临时对象。</p>
+<p>说明：Full GC是开发或调优中尽量要避免的。这样暂停时间会短一些。</p>
+<h1>堆空间分代思想</h1>
+<p>为什么需要把Java堆分代？不分代就不能正常工作了吗？经研究，不同对象的生命周期不同。70%-99%的对象是临时对象。</p>
 <ul>
 <li>新生代：有Eden、两块大小相同的Survivor（又称为from/to、s0/s1）构成，to总为空。</li>
 <li>老年代：存放新生代中经历多次GC仍然存活的对象。</li>
@@ -692,33 +724,41 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234437.png" alt="image-20200916105218715"></p>
 <p>分代的最大作用就是优化GC性能，对对象进行提前打标，在垃圾收集的时候就可以针对不同标识进行相关收集动作，防止在收集阶段才进行全对象的打标，会导致GC时间过长。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234442.png" alt="image-20200916105519846"></p>
-<h1 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h1><p>如果对象在Eden出生并经过第一次MinorGC后依然存货，并且能被Survivor容纳的话，将被移动到Survivor空间中，并将对象年龄设为1.对象在Survivor区中每熬过一次MinorGC，年龄就增加1岁，当它的年龄增加到一定程度（默认为15岁，其实每个JVM、每个GC都有所不同）时，就会被晋升到老年代中。</p>
+<h1>内存分配策略</h1>
+<p>如果对象在Eden出生并经过第一次MinorGC后依然存货，并且能被Survivor容纳的话，将被移动到Survivor空间中，并将对象年龄设为1.对象在Survivor区中每熬过一次MinorGC，年龄就增加1岁，当它的年龄增加到一定程度（默认为15岁，其实每个JVM、每个GC都有所不同）时，就会被晋升到老年代中。</p>
 <p>对象晋升老年代的年龄阈值，可以通过选项<code>-XX:MaxTenuringThresold</code>来设置。</p>
 <p>针对不同年龄段的对象分配原则如下所示：</p>
 <ul>
-<li><p>优先分配到Eden</p>
+<li>
+<p>优先分配到Eden</p>
 </li>
-<li><p>大于<code>-XX:PretenureSizeThreshold</code>的大对象直接分配到老年代</p>
+<li>
+<p>大于<code>-XX:PretenureSizeThreshold</code>的大对象直接分配到老年代</p>
 <ul>
 <li>尽量避免程序中出现过多的大对象，尤其是小于该阈值的大对象，因为它会先放在新生代，新生代的空间较小，很容易引发GC</li>
 </ul>
 </li>
-<li><p>长期存活的对象分配到老年代</p>
+<li>
+<p>长期存活的对象分配到老年代</p>
 <ul>
 <li>每在年轻代经过一次Minor GC，对象年龄+1，年龄超过<code>-XX: MaxTenuringThreshold</code>的对象为长期存活</li>
 </ul>
 </li>
-<li><p>动态对象年龄判断</p>
+<li>
+<p>动态对象年龄判断</p>
 <ul>
 <li>如果Survivor区中<strong>相同年龄的所有对象大小的总和</strong>大于<strong>Survivor空间的一半</strong>，<strong>年龄大于或等于该年龄的对象</strong>可以直接进入老年代，无须等到<code>MaxTenuringThreshold</code>中要求的年龄</li>
 </ul>
 </li>
-<li><p>空间分配担保：<code>-XX:HandlePromotionFailure</code></p>
+<li>
+<p>空间分配担保：<code>-XX:HandlePromotionFailure</code></p>
 <p>在发生Minor GC之前，虚拟机会检查老年代最大可用的连续空间是否大于新生代所有对象的总空间。</p>
 <ul>
 <li>如果大于，则此次Minor GC是安全的。（所有新生代对象都不能被收集且年龄满足晋升到老年代的极端情况下）</li>
-<li>如果小于，则虚拟机会查看<code>-XX:HandlePromotionFailure</code>设置值是否允许担保小范围GC带来的风险（例如MinorGC之后可能老年代内存还是不足以存放新生代幸存下来且要晋升到老年代的对象，此时还是要进行FullGC。所以此时相较于一开始就进行FullGC多了一次MinorGC）。<ul>
-<li>如果该值为true，那么会继续检查老年代最大可用连续空间是否大于历次晋升到老年代的对象的平均大小<ul>
+<li>如果小于，则虚拟机会查看<code>-XX:HandlePromotionFailure</code>设置值是否允许担保小范围GC带来的风险（例如MinorGC之后可能老年代内存还是不足以存放新生代幸存下来且要晋升到老年代的对象，此时还是要进行FullGC。所以此时相较于一开始就进行FullGC多了一次MinorGC）。
+<ul>
+<li>如果该值为true，那么会继续检查老年代最大可用连续空间是否大于历次晋升到老年代的对象的平均大小
+<ul>
 <li>如果大于，则尝试进行一次Minor GC，但这次Minor GC依然是有风险的，因为参考的是一个平均值</li>
 <li>如果小于，则改为进行一次Full GC</li>
 </ul>
@@ -730,7 +770,8 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <p>在JDK6 Update24之后，<code>HandlePromotionFailure</code>参数不会再影响到虚拟机的空间分配担保策略，虽然源码中还定义了该参数，但是代码中已经不会再使用它了。JDK6 Update24之后的规则变为只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小就会进行Minor GC，否则将会进行Full GC。</p>
 </li>
 </ul>
-<h1 id="为对象分配内存：TLAB"><a href="#为对象分配内存：TLAB" class="headerlink" title="为对象分配内存：TLAB"></a>为对象分配内存：TLAB</h1><p>为什么有TLAB（Thread Local Allocation Buffer）？</p>
+<h1>为对象分配内存：TLAB</h1>
+<p>为什么有TLAB（Thread Local Allocation Buffer）？</p>
 <ul>
 <li>堆区是线程共享区域，任何线程都可以访问到堆区中的共享数据</li>
 <li>由于对象实例的创建在JVM中非常频繁，因此在并发环境下从堆区中划分内存空间是线程不安全的</li>
@@ -738,8 +779,9 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 </ul>
 <p>什么是TLAB？</p>
 <ul>
-<li><p>TLAB全称<code>ThreadLocalAllocBuffer</code>，是线程的一块私有内存，如果设置了虚拟机参数 <code>-XX:UseTLAB</code>，<strong>在线程初始化时</strong>，同时也会申请一块指定大小的内存，只给当前线程使用，这样每个线程都单独拥有一个Buffer，如果需要分配内存，就在自己的Buffer上分配，这样就不存在竞争的情况，可以大大提升分配效率，当Buffer容量不够的时候，再重新从Eden区域申请一块继续使用，这个申请动作还是需要原子操作的。</p>
-<p>TLAB的目的是在为新对象分配内存空间时，让每个Java应用线程能在使用自己专属的分配指针来分配空间，均摊对GC堆（eden区）里共享的分配指针做更新而带来的同步开销，提升内存分配的吞吐量，因此可以将这种内存分配方式称之为快速分配策略。  </p>
+<li>
+<p>TLAB全称<code>ThreadLocalAllocBuffer</code>，是线程的一块私有内存，如果设置了虚拟机参数 <code>-XX:UseTLAB</code>，<strong>在线程初始化时</strong>，同时也会申请一块指定大小的内存，只给当前线程使用，这样每个线程都单独拥有一个Buffer，如果需要分配内存，就在自己的Buffer上分配，这样就不存在竞争的情况，可以大大提升分配效率，当Buffer容量不够的时候，再重新从Eden区域申请一块继续使用，这个申请动作还是需要原子操作的。</p>
+<p>TLAB的目的是在为新对象分配内存空间时，让每个Java应用线程能在使用自己专属的分配指针来分配空间，均摊对GC堆（eden区）里共享的分配指针做更新而带来的同步开销，提升内存分配的吞吐量，因此可以将这种内存分配方式称之为快速分配策略。</p>
 </li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234449.png" alt="image-20200916113105504"></p>
@@ -751,7 +793,8 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 <li>默认情况下，TLAB空间的内存非常小（所以线程创建的时候Eden中的TLAB空间如果用完了，就不会给这个线程初始化TLAB），仅占有整个Eden空间的1%，当然我们可以通过选项<code>-XX:TLABWasteTargetPercent</code>设置TLAB空间所占用Eden空间的百分比大小。</li>
 <li>一旦对象在TLAB空间分配内存失败时，JVM就会尝试着通过使用加锁机制确保数据操作的原子性到Eden空间中再申请内存。</li>
 </ul>
-<h1 id="小结堆空间的参数设置"><a href="#小结堆空间的参数设置" class="headerlink" title="小结堆空间的参数设置"></a>小结堆空间的参数设置</h1><pre><code>打印所有的参数默认初始值
+<h1>小结堆空间的参数设置</h1>
+<pre><code>打印所有的参数默认初始值
 -XX:+PrintFlagsInitial
 打印所有的参数的实际值
 -XX:+PrintFlagsFinal
@@ -776,7 +819,9 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 打印GC简要信息
 -XX:+PrintGC、-verbose:gc
 设置是否空间分配担保
--XX:HandlePromotionFailure</code></pre>
+-XX:HandlePromotionFailure
+</code></pre>
+
             </div>
             <hr />
 
@@ -1268,7 +1313,7 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="00_前言">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="00_前言">
                         
                         <span class="card-title">00_前言</span>
                     </div>
@@ -1317,7 +1362,7 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="04_本地方法接口及本地方法栈">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="04_本地方法接口及本地方法栈">
                         
                         <span class="card-title">04_本地方法接口及本地方法栈</span>
                     </div>
@@ -1485,7 +1530,7 @@ Java堆区在JVM启动的时候即被创建，其空间大小也就确定了。�
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

@@ -11,9 +11,11 @@
     <meta name="description" content="栈、堆、方法区的交互关系
 
 
+
 方法区的理解
+
 方法区看作是一块独立于Java堆的内存空间，在HotSpotJVM中它有一个别名叫做Non-Heap（非堆），目的就是要和堆分开。
-方法区（Method Area）与Java堆一样，是各个线程共享">
+方法区（Method Area）与Java堆一样，是各个线程">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -334,7 +336,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -512,10 +514,12 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="栈、堆、方法区的交互关系"><a href="#栈、堆、方法区的交互关系" class="headerlink" title="栈、堆、方法区的交互关系"></a>栈、堆、方法区的交互关系</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234504.png" alt="image-20200916164449831"></p>
+                <h1>栈、堆、方法区的交互关系</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234504.png" alt="image-20200916164449831"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234511.png" alt="image-20200916164505074"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234517.png" alt="image-20200916164613255"></p>
-<h1 id="方法区的理解"><a href="#方法区的理解" class="headerlink" title="方法区的理解"></a>方法区的理解</h1><ul>
+<h1>方法区的理解</h1>
+<ul>
 <li>方法区看作是一块独立于Java堆的内存空间，在HotSpotJVM中它有一个别名叫做Non-Heap（非堆），目的就是要和堆分开。</li>
 <li>方法区（Method Area）与Java堆一样，是各个线程共享的内存区域。</li>
 <li>方法区在JVM启动的时候被创建，并且它的实际的物理内存空间中和Java堆区一样都可以是不连续的。</li>
@@ -523,40 +527,50 @@
 <li>方法区的大小决定了系统可以保存多少个类，如果系统定义了太多的类，导致方法区溢出，虚拟机同样会抛出内存溢出错误：<code>java.lang.OutOfMeoryError: PermGen space</code>或者<code>java.lang.OutOfMemoryError: Metaspace</code></li>
 <li>关闭JVM就会释放这个区域的内存</li>
 </ul>
-<h1 id="方法区的内部结构"><a href="#方法区的内部结构" class="headerlink" title="方法区的内部结构"></a>方法区的内部结构</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234527.png" alt="image-20200916173238733"></p>
-<h2 id="存储内容"><a href="#存储内容" class="headerlink" title="存储内容"></a>存储内容</h2><p>它用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等。</p>
+<h1>方法区的内部结构</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234527.png" alt="image-20200916173238733"></p>
+<h2 id="存储内容"><a class="header-anchor" href="#存储内容">¶</a>存储内容</h2>
+<p>它用于存储已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234538.png" alt="image-20200916173331932"></p>
-<h3 id="类型信息"><a href="#类型信息" class="headerlink" title="类型信息"></a>类型信息</h3><p>对每个加载的类型（类class、接口interface、枚举enum、注解annotation），JVM必须在方法区中存储以下类型信息：</p>
+<h3 id="类型信息"><a class="header-anchor" href="#类型信息">¶</a>类型信息</h3>
+<p>对每个加载的类型（类class、接口interface、枚举enum、注解annotation），JVM必须在方法区中存储以下类型信息：</p>
 <ol>
 <li>这个类型的完整有效名称</li>
 <li>这个类型直接父类的完整有效名（对于interface或者是<code>java.lang.Object</code>都没有父类）</li>
 <li>这个类型的修饰符（public、abstrace、final的某个子集）</li>
 <li>这个类型直接接口的一个有序列表</li>
 </ol>
-<h3 id="域（Field）信息"><a href="#域（Field）信息" class="headerlink" title="域（Field）信息"></a>域（Field）信息</h3><ul>
+<h3 id="域（Field）信息"><a class="header-anchor" href="#域（Field）信息">¶</a>域（Field）信息</h3>
+<ul>
 <li>JVM必须在方法区中保存类型的所有域的相关信息以及域的声明顺序。</li>
 <li>域的相关信息包含：域名称、域类型、域修饰符（public、private、protected、static、final、volatile、transient的某个子集）</li>
 </ul>
-<h3 id="方法（Method）信息"><a href="#方法（Method）信息" class="headerlink" title="方法（Method）信息"></a>方法（Method）信息</h3><p>JVM必须保存所有方法的以下信息，同域信息一样包括声明顺序：</p>
+<h3 id="方法（Method）信息"><a class="header-anchor" href="#方法（Method）信息">¶</a>方法（Method）信息</h3>
+<p>JVM必须保存所有方法的以下信息，同域信息一样包括声明顺序：</p>
 <ul>
 <li>方法名称</li>
 <li>方法的返回类型（或void）</li>
 <li>方法参数的数量和类型（按顺序）</li>
 <li>方法的修饰符（public、private、protected、static、final、synchronized、native、abstract的一个子集）</li>
 <li>方法的字节码（bytecodes）、操作数栈和局部变量表的大小（abstract和native方法除外）</li>
-<li>异常表（abstract和native方法除外）<ul>
+<li>异常表（abstract和native方法除外）
+<ul>
 <li>每个异常处理的开始位置、结束位置、代码处理在程序计数器中的偏移地址、被捕获的异常类的引用</li>
 </ul>
 </li>
 </ul>
-<h3 id="运行时常量池VS常量池"><a href="#运行时常量池VS常量池" class="headerlink" title="运行时常量池VS常量池"></a>运行时常量池VS常量池</h3><p>方法区中的运行时常量池和字节码文件中的常量池是不同的。</p>
-<h4 id="字节码文件的常量池"><a href="#字节码文件的常量池" class="headerlink" title="字节码文件的常量池"></a>字节码文件的常量池</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234545.png" alt="image-20200916180016967"></p>
+<h3 id="运行时常量池VS常量池"><a class="header-anchor" href="#运行时常量池VS常量池">¶</a>运行时常量池VS常量池</h3>
+<p>方法区中的运行时常量池和字节码文件中的常量池是不同的。</p>
+<h4 id="字节码文件的常量池"><a class="header-anchor" href="#字节码文件的常量池">¶</a>字节码文件的常量池</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234545.png" alt="image-20200916180016967"></p>
 <p>一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述信息外，还包含一项信息那就是常量池表（Constant Pool Table），包含各种字面量(右值)和对类型、域和方法的<strong>符号</strong>(左值)引用。</p>
-<h5 id="字节码文件中为什么需要常量池"><a href="#字节码文件中为什么需要常量池" class="headerlink" title="字节码文件中为什么需要常量池"></a>字节码文件中为什么需要常量池</h5><ol>
+<h5 id="字节码文件中为什么需要常量池"><a class="header-anchor" href="#字节码文件中为什么需要常量池">¶</a>字节码文件中为什么需要常量池</h5>
+<ol>
 <li>配合构建字节码文件的自描述能力</li>
 <li>压缩字节码文件大小（符号引用不会替换成其指向的字节码内容、使用二进制位进行描述）</li>
 </ol>
-<h4 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h4><ul>
+<h4 id="运行时常量池"><a class="header-anchor" href="#运行时常量池">¶</a>运行时常量池</h4>
+<ul>
 <li>运行时常量池(Runtime Constant Pool)是方法区的一部分。</li>
 <li>常量池表（Constant Pool Table）是Class文件的一部分，用于存放编译期生成的各种字面量与符号引用，这部分内容将在类加载后存放到方法区的运行时常量池中。</li>
 <li>运行时常量池在加载类和接口到虚拟机后，就会创建。</li>
@@ -564,21 +578,25 @@
 <li>运行时常量池中包含多种不同的常量，包含编译期就已经明确的数值字面量，也包括到运行期解析后才能够获得的方法或者字段引用。此时不再是常量池中的符号引用了，已经替换为真实的直接引用。</li>
 <li>当创建类或接口的运行时常量池时，如果构造运行时常量池所需的内存空间超过了方法区所能提供的最大值，则JVM就会抛出OutOfMemoryError</li>
 </ul>
-<h5 id="运行时常量池中的”常量”"><a href="#运行时常量池中的”常量”" class="headerlink" title="运行时常量池中的”常量”"></a>运行时常量池中的”常量”</h5><p>运行时常量池之中主要存放的两大类常量：字面量和符号引用。</p>
+<h5 id="运行时常量池中的-常量"><a class="header-anchor" href="#运行时常量池中的-常量">¶</a>运行时常量池中的&quot;常量&quot;</h5>
+<p>运行时常量池之中主要存放的两大类常量：字面量和符号引用。</p>
 <p>字面量比较接近Java语言层次的常量概念，如文本字符串、被声明为final的常量值等；而符号引用则属于编译原理方面的概念，包含下面三类常量：</p>
 <ol>
 <li>类和接口的全限定名</li>
 <li>字段的名称和描述符</li>
 <li>方法的名称和描述符</li>
 </ol>
-<h5 id="补充：non-final的类变量和final修饰的类变量"><a href="#补充：non-final的类变量和final修饰的类变量" class="headerlink" title="补充：non-final的类变量和final修饰的类变量"></a>补充：non-final的类变量和final修饰的类变量</h5><ul>
+<h5 id="补充：non-final的类变量和final修饰的类变量"><a class="header-anchor" href="#补充：non-final的类变量和final修饰的类变量">¶</a>补充：non-final的类变量和final修饰的类变量</h5>
+<ul>
 <li>非final静态变量和类关联在一起，随着类的加载而加载，它们成为类数据在逻辑上的一部分。类变量被类的所有实例共享，即使没有类实例时你也可以访问它</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234554.png" alt="image-20200916174431865"></p>
 <ul>
 <li>被声明为final的类变量和非final类变量初始化时机不同。。</li>
 </ul>
-<h1 id="方法区的演进细节"><a href="#方法区的演进细节" class="headerlink" title="方法区的演进细节"></a>方法区的演进细节</h1><h2 id="占用内存位置调整"><a href="#占用内存位置调整" class="headerlink" title="占用内存位置调整"></a>占用内存位置调整</h2><p>在JDK7及之前，习惯上把方法区，称为永久代。JDK8开始，使用元空间取代了永久代。</p>
+<h1>方法区的演进细节</h1>
+<h2 id="占用内存位置调整"><a class="header-anchor" href="#占用内存位置调整">¶</a>占用内存位置调整</h2>
+<p>在JDK7及之前，习惯上把方法区，称为永久代。JDK8开始，使用元空间取代了永久代。</p>
 <p>本质上，方法区和永久代并不等价，仅是因为Hotspot JVM中垃圾收集器将方法区定义为永久代。《Java虚拟机规范》对如何实现方法区，不做统一要求。例如：BEA JRockit/IBM J9中不存在永久代的概念。</p>
 <p>现在看来，当年使用永久代，不是好的idea。导致Java程序更容易OOM（超过<code>-XX:MaxpermSize</code>上限）。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234603.png" alt="image-20200916170345428"></p>
@@ -587,10 +605,13 @@
 <p>元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代最大的区别在于：元空间不在虚拟机控制的内存中，而是使用本地内存。</p>
 <p>永久代、元空间二者并不只是名字变了，内存结构也调整了。</p>
 <p>根据《Java虚拟机规范》的规定，如果方法区无法满足新的内存分配需求时，将抛出OOM异常</p>
-<h2 id="存储内容变化"><a href="#存储内容变化" class="headerlink" title="存储内容变化"></a>存储内容变化</h2><ol>
-<li><p>首先明确，只有HotSpot才有永久代。BEA JRockit、IBM J9等不存在永久代的概念。</p>
+<h2 id="存储内容变化"><a class="header-anchor" href="#存储内容变化">¶</a>存储内容变化</h2>
+<ol>
+<li>
+<p>首先明确，只有HotSpot才有永久代。BEA JRockit、IBM J9等不存在永久代的概念。</p>
 </li>
-<li><p>Hotspot中方法区的变化：</p>
+<li>
+<p>Hotspot中方法区的变化：</p>
 <table>
 <thead>
 <tr>
@@ -598,32 +619,35 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>JDK1.6及之前</td>
 <td>有永久代（permanent generation），静态(类)变量放在永久代上</td>
 </tr>
 <tr>
 <td>JDK1.7</td>
-<td>有永久代，但已经逐步”去永久代”，字符串常量池、静态(类)变量移到在堆中，永久代其它信息不变</td>
+<td>有永久代，但已经逐步&quot;去永久代&quot;，字符串常量池、静态(类)变量移到在堆中，永久代其它信息不变</td>
 </tr>
 <tr>
 <td>JDK1.8及之后</td>
 <td>无永久代，类型信息、字段、方法、常量(JDK1.6运行时常量池中除字符串常量之外的其它常量)保存在本地内存的元空间，但字符串常量池、静态(类)变量仍在堆</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234615.png" alt="image-20200916183025199"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234622.png" alt="image-20200916183040354"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234627.png" alt="image-20200916183124256"></p>
-<h2 id="关于静态-类-变量需要注意的点"><a href="#关于静态-类-变量需要注意的点" class="headerlink" title="关于静态(类)变量需要注意的点"></a>关于静态(类)变量需要注意的点</h2><p>上面提到静态变量在JDK1.6及之前都是在永久代，在7及之后才移到堆(老年代)中。以下特别说明一个情况：</p>
+<h2 id="关于静态-类-变量需要注意的点"><a class="header-anchor" href="#关于静态-类-变量需要注意的点">¶</a>关于静态(类)变量需要注意的点</h2>
+<p>上面提到静态变量在JDK1.6及之前都是在永久代，在7及之后才移到堆(老年代)中。以下特别说明一个情况：</p>
 <p>加上<code>-XX:+PrintGCDetails</code>分别在JDK6、JDK7、JDK8运行下面这段代码，在程序退出之后会打印退出的时候各分代信息，发现无论是6、7还是8，始终是老年代的内存占用102400K的字节，说明这个字节数组无论是在6，7还是8都落在了堆的老年代中（应该是size太大，直接进入老年代）。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234634.png" alt="image-20200916205847835"></p>
 <p>JDK7和8都将静态变量移到了堆，这个可以理解，但是为什么在JDK6中静态变量也是这样呢？因为目前为止无论是任何版本，对象的创建都是保存在堆中（栈上分配也没有实现对象分配，而是标量替换后进行分配），我们讲的静态常量指的是它保存的一个引用，即该数组对象的地址在JDK6中保存在永久代的，而无论在任何版本，该数组对象本身的数据内容都是存放在堆中。而7及之后则是将该静态变量放到了<code>java.lang.Class</code>对象中进行保存，该对象也是在堆中。所以现在的结构就是：</p>
-<p>方法区类元信息——-引用——–&gt;<code>java.lang.class</code>——-包含——–&gt;静态变量——-引用——–&gt;数组对象</p>
+<p>方法区类元信息-------引用--------&gt;<code>java.lang.class</code>-------包含--------&gt;静态变量-------引用--------&gt;数组对象</p>
 <p>而6及之前的结构应该是：</p>
-<p>方法区类元信息(包含静态变量)——-引用——–&gt;<code>java.lang.class</code></p>
-<p>​                                    |——-引用——–&gt;数组对象</p>
+<p>方法区类元信息(包含静态变量)-------引用--------&gt;<code>java.lang.class</code></p>
+<p>​									|-------引用--------&gt;数组对象</p>
 <p>除了方法区元信息之后，其它数据都在堆区，其中方法区类元信息也是GC Root。</p>
 <p>下面例子再次进行说明：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234641.png" alt="image-20200916203914505"></p>
@@ -634,38 +658,51 @@
 <p>三个对象的数据都落在Eden区范围内（且是递增的），（所以结论：只要是对象实例必然会在Java堆中分配。）接着，找到了一个引用该<code>staticObj</code>对象的地方，是在一个<code>java.lang.Class</code>的实例里，并且<code>java.lang.Class</code>类型的对象实例，里面有一个名为<code>staticObj</code>的实例字段：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234701.png" alt="image-20200916204746680"></p>
 <p>从《Java虚拟机规范》所定义的概念模型来看，所有Class相关的信息都应该存放在方法区之中，但方法区该如何实现，《Java虚拟机规范》并未做出规定，这就成了一件允许不同虚拟机自己灵活把握的事情。<strong>JDK7及其以后版本的HotSpot虚拟机选择把静态变量与描述类型的Java语言Class对象</strong>放在一起，存储于Java堆中。</p>
-<h2 id="永久代为什么要被元空间替代"><a href="#永久代为什么要被元空间替代" class="headerlink" title="永久代为什么要被元空间替代"></a>永久代为什么要被元空间替代</h2><ul>
-<li><p>随着Java8的到来，HotSpot VM中再也见不到永久代了。但是这并不意味着类的元数据信息也消息了。这些数据被移到了一个与堆不相连的本地内存区域，这个区域叫做元空间（Metaspace）。</p>
+<h2 id="永久代为什么要被元空间替代"><a class="header-anchor" href="#永久代为什么要被元空间替代">¶</a>永久代为什么要被元空间替代</h2>
+<ul>
+<li>
+<p>随着Java8的到来，HotSpot VM中再也见不到永久代了。但是这并不意味着类的元数据信息也消息了。这些数据被移到了一个与堆不相连的本地内存区域，这个区域叫做元空间（Metaspace）。</p>
 </li>
-<li><p>由于类的元数据分配在本地内存中，元空间的最大可分配空间就是系统可用内存空间。</p>
+<li>
+<p>由于类的元数据分配在本地内存中，元空间的最大可分配空间就是系统可用内存空间。</p>
 </li>
-<li><p>这项改动是很有必要的，原因有：</p>
+<li>
+<p>这项改动是很有必要的，原因有：</p>
 <ol>
-<li><p>为永久代设置空间大小是很难确定的</p>
+<li>
+<p>为永久代设置空间大小是很难确定的</p>
 <p>在某些场景下，如果动态加载类过多，容易产生Perm区的OOM。比如某个实际Web工程中，因为功能点比较多，在运行过程中，要不断动态加载很多类，经常出现致命错误。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234709.png" alt="image-20200916183640560"></p>
 <p>而元空间和永久代之间最大区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制。</p>
 </li>
-<li><p>对永久代进行调优是很困难的</p>
+<li>
+<p>对永久代进行调优是很困难的</p>
 </li>
 </ol>
 </li>
 </ul>
-<h1 id="设置方法区大小与OOm"><a href="#设置方法区大小与OOm" class="headerlink" title="设置方法区大小与OOm"></a>设置方法区大小与OOm</h1><ul>
-<li><p>方法区的大小不必是固定的，JVM可以根据应用的需要动态调整。</p>
-</li>
-<li><p>JDK7及之前：</p>
+<h1>设置方法区大小与OOm</h1>
 <ul>
-<li><p>通过<code>-XX:PermSize=&lt;N&gt;</code>来设置永久代初始分配空间。默认值是20.75M。</p>
+<li>
+<p>方法区的大小不必是固定的，JVM可以根据应用的需要动态调整。</p>
 </li>
-<li><p><code>-XX:MaxPermSize</code>来设定永久代最大可分配空间。32位及其默认是64M，64位及其默认是82M。</p>
+<li>
+<p>JDK7及之前：</p>
+<ul>
+<li>
+<p>通过<code>-XX:PermSize=&lt;N&gt;</code>来设置永久代初始分配空间。默认值是20.75M。</p>
 </li>
-<li><p>当JVM加载的类信息容量超过了这个值，会报异常OutOfMemoryError：PermGem space</p>
+<li>
+<p><code>-XX:MaxPermSize</code>来设定永久代最大可分配空间。32位及其默认是64M，64位及其默认是82M。</p>
+</li>
+<li>
+<p>当JVM加载的类信息容量超过了这个值，会报异常OutOfMemoryError：PermGem space</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234714.png" alt="image-20200916171545341"></p>
 </li>
 </ul>
 </li>
-<li><p>JDK8及之后：</p>
+<li>
+<p>JDK8及之后：</p>
 <ul>
 <li>元数据区大小可以使用参数<code>-XX:MetaspaceSize</code>和<code>-XX:MaxMetaspaceSize</code>指定，替代上述原有的两个参数。</li>
 <li>默认指依赖于平台。Windows下，<code>-XX:MetaspaceSize</code>是21M，<code>-XX:MaxMetaspaceSize</code>的值是-1，即没有限制。</li>
@@ -675,24 +712,29 @@
 </ul>
 </li>
 </ul>
-<h2 id="OOM例子"><a href="#OOM例子" class="headerlink" title="OOM例子"></a>OOM例子</h2><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234721.png" alt="image-20200916172507704"></p>
+<h2 id="OOM例子"><a class="header-anchor" href="#OOM例子">¶</a>OOM例子</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234721.png" alt="image-20200916172507704"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221234727.png" alt="image-20200916172530703"></p>
-<h2 id="如何解决这些OOM"><a href="#如何解决这些OOM" class="headerlink" title="如何解决这些OOM"></a>如何解决这些OOM</h2><ol>
+<h2 id="如何解决这些OOM"><a class="header-anchor" href="#如何解决这些OOM">¶</a>如何解决这些OOM</h2>
+<ol>
 <li>要解决OOM异常，一般的手段是首先通过内存映象分析工具对dump出来的堆转存快照进行分析，终点是确认内存中的对象是否是必要的，也就是先分清楚是不是内存泄露（Memory Leak）导致的内存溢出（Memory Overflow）。</li>
 <li>如果是内存泄露，可进一步通过工具查看泄露对象到GC Roots的引用链。于是就能找到泄露对象是通过怎样的路径与GC Roots相关联并导致垃圾收集器无法自动回收它们的。掌握了泄露对象的类型信息，以及GC Roots引用链信息，就可以比较准确地定位出泄露代码的位置。</li>
 <li>如果不存在内存泄露，换句话说就是内存中的对象确实都还必须存活着，那就应当检查虚拟机的堆参数（<code>-Xmx</code>与<code>-Xms</code>），与机器物理内存对比看是否还可以调大，从代码上检查是否存在某些对象生命周期过长、持有状态时间过长的情况，尝试减少程序运行期的内存消耗。</li>
 </ol>
-<h1 id="方法区的垃圾回收"><a href="#方法区的垃圾回收" class="headerlink" title="方法区的垃圾回收"></a>方法区的垃圾回收</h1><p>《Java虚拟机规范》对方法区的约束非常宽松，提到过可以不要求虚拟机在方法区中实现垃圾收集。事实上也确实有未实现或未能完整实现方法区类型卸载的收集器存在（如JDK11时期的ZGC收集器就不支持类卸载）</p>
+<h1>方法区的垃圾回收</h1>
+<p>《Java虚拟机规范》对方法区的约束非常宽松，提到过可以不要求虚拟机在方法区中实现垃圾收集。事实上也确实有未实现或未能完整实现方法区类型卸载的收集器存在（如JDK11时期的ZGC收集器就不支持类卸载）</p>
 <p>一般来说这个区域的回收效果比较难令人满意，尤其是类型的卸载，条件相当苛刻。但是这部分区域的回收有时又确实是必要的。以前Sun公司的Bug列表中，曾出现过的若干个严重的Bug就是由于低版本的HotSpot虚拟机对此区域未完全回收而导致内存泄露。</p>
 <p>方法区的垃圾收集主要回收两部分内容：常量池中废弃的常量和不再使用的类型。HotSpot虚拟机对常量池的回收策略是很明确的，只要常量池中的常量没有被任何地方引用，就可以被回收。回收废弃常量与回收Java堆中的对象非常类似。</p>
-<p>判定一个常量是否”废弃”还是相对简单，而要判定一个类型是否属于”不再被使用的类”的条件就比较苛刻了。需要同时满足下面三个条件：</p>
+<p>判定一个常量是否&quot;废弃&quot;还是相对简单，而要判定一个类型是否属于&quot;不再被使用的类&quot;的条件就比较苛刻了。需要同时满足下面三个条件：</p>
 <ul>
 <li>该类所有的实例都已经被回收,也就是Java堆中不存在该类及其任何派生子类的实例。</li>
 <li>加载该类的类加载器已经被回收,这个条件除非是经过精心设计的可替换类加载器的场景,如OSGi、JSP的重加载等,否则通常是很难达成的。</li>
 <li>该类对应的<code>java.lang.Class</code>对象(在堆中)没有在任何地方被引用,无法在任何地方通过反射访问该类的方法</li>
 </ul>
-<p>Java虚拟机被允许对满足上述三个条件的无用类进行回收,这里说的仅仅是“被允许”,而并不是和对象一样,没有引用了就必然会回收。关于是否要对类型进行回收,HotSpot虚拟机提供了<code>- Xnoclassgc</code>参数进行控制,还可以使用<code>-verbose:class</code>以及-<code>XX:+TraceClassLoading</code>、<code>-XX: +TraceClassUnLoading</code>查看类加载和卸载信息,其中-verbose:class和<code>-XX:+TraceClassLoading</code>可以在Product版的虚拟机中使用,<code>-XX:+TraceClassUnLoading</code>参数需要FastDebug版的虚拟机支持。<br>在大量使用反射、动态代理、CGLib等字节码框架,动态生成JSP以及OSGi这类频繁自定义类加载器的场景中,通常都需要Java虚拟机具备类型卸载的能力,以保证不会对方法区造成过大的内存压力。</p>
-<h1 id="StringTable为什么要调整"><a href="#StringTable为什么要调整" class="headerlink" title="StringTable为什么要调整"></a>StringTable为什么要调整</h1><p>JDK7中将StringTable(字符串常量池)放到了堆空间中，因为永久代的回收效率很低，所以只有在Full GC的时候才会触发。而Full GC是老年代的空间不足、永久代不足时才会触发。这就导致StringTable回收频率不高。而我们开发中会有大量的字符串被创建，将其移到堆中划分老年代是为了提高回收频率。</p>
+<p>Java虚拟机被允许对满足上述三个条件的无用类进行回收,这里说的仅仅是“被允许”,而并不是和对象一样,没有引用了就必然会回收。关于是否要对类型进行回收,HotSpot虚拟机提供了<code>- Xnoclassgc</code>参数进行控制,还可以使用<code>-verbose:class</code>以及-<code>XX:+TraceClassLoading</code>、<code>-XX: +TraceClassUnLoading</code>查看类加载和卸载信息,其中-verbose:class和<code>-XX:+TraceClassLoading</code>可以在Product版的虚拟机中使用,<code>-XX:+TraceClassUnLoading</code>参数需要FastDebug版的虚拟机支持。<br>
+在大量使用反射、动态代理、CGLib等字节码框架,动态生成JSP以及OSGi这类频繁自定义类加载器的场景中,通常都需要Java虚拟机具备类型卸载的能力,以保证不会对方法区造成过大的内存压力。</p>
+<h1>StringTable为什么要调整</h1>
+<p>JDK7中将StringTable(字符串常量池)放到了堆空间中，因为永久代的回收效率很低，所以只有在Full GC的时候才会触发。而Full GC是老年代的空间不足、永久代不足时才会触发。这就导致StringTable回收频率不高。而我们开发中会有大量的字符串被创建，将其移到堆中划分老年代是为了提高回收频率。</p>
 
             </div>
             <hr />
@@ -1185,7 +1227,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="11_Class文件">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="11_Class文件">
                         
                         <span class="card-title">11_Class文件</span>
                     </div>
@@ -1234,7 +1276,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="01_运行时数据区">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="01_运行时数据区">
                         
                         <span class="card-title">01_运行时数据区</span>
                     </div>
@@ -1402,7 +1444,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

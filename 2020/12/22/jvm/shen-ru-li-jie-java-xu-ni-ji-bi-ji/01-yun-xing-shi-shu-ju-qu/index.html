@@ -8,7 +8,8 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="概述内存是非常重要的资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM内存布局规定了Java在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。不同的JVM对于内存的划分方式和管理机制存在着部分">
+    <meta name="description" content="概述
+内存是非常重要的资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM内存布局规定了Java在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。不同的JVM对于内存的划分方式和管理机制存在着部">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -329,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -507,25 +508,30 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>内存是非常重要的资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM内存布局规定了Java在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。不同的JVM对于内存的划分方式和管理机制存在着部分差异。</p>
+                <h1>概述</h1>
+<p>内存是非常重要的资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM内存布局规定了Java在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。不同的JVM对于内存的划分方式和管理机制存在着部分差异。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233351.png" alt="image-20200911073849034"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233357.png" alt="image-20200911074007528"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233403.png" alt="image-20200911074230149"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233411.png" alt="image-20200916211334192"></p>
-<h1 id="运行时数据区分类"><a href="#运行时数据区分类" class="headerlink" title="运行时数据区分类"></a>运行时数据区分类</h1><p>Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线性对应的数据区会随着线程开始和结束而创建和销毁。</p>
+<h1>运行时数据区分类</h1>
+<p>Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线性对应的数据区会随着线程开始和结束而创建和销毁。</p>
 <ul>
 <li>每个线程：独立包括程序计数器、栈、本地方法栈</li>
 <li>线程间共享：堆、堆外内存（永久代或元空间、代码缓存）</li>
 </ul>
-<h1 id="Runtime实例"><a href="#Runtime实例" class="headerlink" title="Runtime实例"></a>Runtime实例</h1><p>每个JVM只有一个<code>Runtime</code>实例。即内存结构中的运行时环境。可以通过<code>Runtime#getRuntime()</code>方法获取。</p>
+<h1>Runtime实例</h1>
+<p>每个JVM只有一个<code>Runtime</code>实例。即内存结构中的运行时环境。可以通过<code>Runtime#getRuntime()</code>方法获取。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233432.png" alt="image-20200911074617973"></p>
-<h1 id="堆、栈"><a href="#堆、栈" class="headerlink" title="堆、栈"></a>堆、栈</h1><p>下面是一些个人经过一些书籍和资料查询总结对于堆栈的理解。首先在数据结构上堆是一棵结点具有权重的树，栈是一个先进后出的线性表，而我们这里讨论的是计算机内存管理中的栈区和堆区，栈区和堆区在物理上没有实质的区别，主要是管理上的区别。计算机的硬件(CPU)提供了栈区的实现基础，包括直接提供了一些相关的寄存器和操作指令的支持，栈空间(每一个线程)的分配和销毁都由操作系统来完成；而堆是由库函数按照一定的规则进行动态分配的。对于用户程序来说，栈空间的使用效率会更高。</p>
+<h1>堆、栈</h1>
+<p>下面是一些个人经过一些书籍和资料查询总结对于堆栈的理解。首先在数据结构上堆是一棵结点具有权重的树，栈是一个先进后出的线性表，而我们这里讨论的是计算机内存管理中的栈区和堆区，栈区和堆区在物理上没有实质的区别，主要是管理上的区别。计算机的硬件(CPU)提供了栈区的实现基础，包括直接提供了一些相关的寄存器和操作指令的支持，栈空间(每一个线程)的分配和销毁都由操作系统来完成；而堆是由库函数按照一定的规则进行动态分配的。对于用户程序来说，栈空间的使用效率会更高。</p>
 <p>计算机硬件对栈的支持（相关寄存器和操作指令）源于计算机硬件要实现的业务中一些业务逻辑符合先进后出的线性结构。如函数调用：调用函数调用被调用函数的时候，需要保存调用方法的寄存器信息，这时候就会用到堆栈将这些信息进行压栈，被调用方法执行完成之后返回的时候进行弹栈还原函数的寄存器。(线程切换应该也可以用到)</p>
 <p>如果用户的程序业务逻辑有符合栈结构，可以考虑直接使用系统直接提供的栈空间。</p>
 <blockquote>
 <p>疑问：用户可以使用栈空间吗？如果可以，是否需要在方法返回前进行弹栈操作，还原状态为和调用本方法入口时的压栈状态一致？</p>
 </blockquote>
-<h2 id="一、转载：堆与栈"><a href="#一、转载：堆与栈" class="headerlink" title="一、转载：堆与栈"></a>一、转载：堆与栈</h2><p>“栈”一般是由硬件（CPU）实现的，CPU用栈来保存调用子程序（函数）时的返回地址，高级语言有时也用它作为局部变量的存储空间。</p>
+<h2 id="一、转载：堆与栈"><a class="header-anchor" href="#一、转载：堆与栈">¶</a>一、转载：堆与栈</h2>
+<p>“栈”一般是由硬件（CPU）实现的，CPU用栈来保存调用子程序（函数）时的返回地址，高级语言有时也用它作为局部变量的存储空间。</p>
 <p>“堆”是个实实在在的软件概念，使用与否完全由编程者“显示地（explicitly）”决定，如malloc。</p>
 <p>程序经过编译连接生成执行程序后，堆和栈的起始地址就已经确定了（具体说，是通过“连接程序”），在一个具有反向增长的栈的CPU上，数据空间可表示如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233444.png" alt="栈增长"></p>
@@ -538,7 +544,8 @@
 <p>堆和栈之间没有谁地址高之说，看操作系统实现</p>
 <p>数组取下标偏移总是往上涨的，和在堆还是栈没啥关系</p>
 </blockquote>
-<h3 id="C-内存区域"><a href="#C-内存区域" class="headerlink" title="C++内存区域"></a>C++内存区域</h3><p>C++作为一款C语言的升级版本，具有非常强大的功能。它不但能够支持各种程序设计风格，而且还具有C语言的所有功能。我们在这里为大家介绍的是其中一个比较重要的内容，C++内存区域的基本介绍。</p>
+<h3 id="C-内存区域"><a class="header-anchor" href="#C-内存区域">¶</a>C++内存区域</h3>
+<p>C<ins>作为一款C语言的升级版本，具有非常强大的功能。它不但能够支持各种程序设计风格，而且还具有C语言的所有功能。我们在这里为大家介绍的是其中一个比较重要的内容，C</ins>内存区域的基本介绍。</p>
 <p>C++内存区域分为5个区域。分别是堆，栈，自由存储区，全局/静态存储区和常量存储区。</p>
 <p>栈：</p>
 <blockquote>
@@ -560,7 +567,8 @@
 <blockquote>
 <p>这是一块比较特殊的存储区，里面存放的是常量，不允许修改。</p>
 </blockquote>
-<h3 id="C-内存区域中堆和栈的区别"><a href="#C-内存区域中堆和栈的区别" class="headerlink" title="C++内存区域中堆和栈的区别"></a>C++内存区域中堆和栈的区别</h3><p>管理方式不同：</p>
+<h3 id="C-内存区域中堆和栈的区别"><a class="header-anchor" href="#C-内存区域中堆和栈的区别">¶</a>C++内存区域中堆和栈的区别</h3>
+<p>管理方式不同：</p>
 <blockquote>
 <p>栈是由编译器自动管理，无需我们手工控制；对于堆来说，释放由程序员完成，容易产生内存泄漏。</p>
 </blockquote>
@@ -574,7 +582,8 @@
 </blockquote>
 <p>生长方向不同：</p>
 <blockquote>
-<p>对于堆来讲，生长方向是向上的，也就是向着内存地址增加的方向；对于栈来讲，它的生长方式是向下的，是向着内存地址减小的方向增长。<br>注意：进程地址空间的分布取决于操作系统，栈向什么方向增长取决于操作系统与CPU的组合。不要把别的操作系统的实现方式套用到Windows上。</p>
+<p>对于堆来讲，生长方向是向上的，也就是向着内存地址增加的方向；对于栈来讲，它的生长方式是向下的，是向着内存地址减小的方向增长。<br>
+注意：进程地址空间的分布取决于操作系统，栈向什么方向增长取决于操作系统与CPU的组合。不要把别的操作系统的实现方式套用到Windows上。</p>
 </blockquote>
 <p>x86硬件直接支持的栈确实是“向下增长”的</p>
 <p>分配方式不同：</p>
@@ -585,12 +594,14 @@
 <blockquote>
 <p>栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是c/c++库函数提供的，机制很复杂。库函数会按照一定的算法进行分配。显然，堆的效率比栈要低得多。</p>
 </blockquote>
-<h3 id="为什么要把堆和栈分开？"><a href="#为什么要把堆和栈分开？" class="headerlink" title="为什么要把堆和栈分开？"></a>为什么要把堆和栈分开？</h3><p>为什么要把堆和栈区分出来呢？栈中不是也可以存储数据吗？</p>
+<h3 id="为什么要把堆和栈分开？"><a class="header-anchor" href="#为什么要把堆和栈分开？">¶</a>为什么要把堆和栈分开？</h3>
+<p>为什么要把堆和栈区分出来呢？栈中不是也可以存储数据吗？</p>
 <p>从软件设计的角度看，栈代表了处理逻辑，而堆代表了数据。这样分开，使得处理逻辑更为清晰。分而治之的思想。这种隔离、模块化的思想在软件设计的方方面面都有体现。</p>
 <p>堆与栈的分离，使得堆中的内容可以被多个栈共享（也可以理解为多个线程访问同一个对象）。这种共享的收益是很多的。一方面这种共享提供了一种有效的数据交互方式(如：共享内存)，另一方面，堆中的共享常量和缓存可以被所有栈访问，节省了空间。</p>
 <p>栈因为运行时的需要，比如保存系统运行的上下文，需要进行地址段的划分。由于栈的反向增长，因此就会限制住栈存储内容的能力。而堆不同，堆中的对象是可以根据需要动态增长的，因此栈和堆的拆分，使得动态增长成为可能，相应栈中只需记录堆中的一个地址即可。</p>
 <p>面向对象就是堆和栈的完美结合。其实，面向对象方式的程序与以前结构化的程序在执行上没有任何区别。但是，面向对象的引入，使得对待问题的思考方式发生了改变，而更接近于自然方式的思考。当我们把对象拆开，你会发现，对象的属性其实就是数据，存放在堆中；而对象的行为（方法），就是运行逻辑，放在栈中。我们在编写对象的时候，其实即编写了数据结构，也编写的处理数据的逻辑。不得不承认，面向对象的设计，确实很美。</p>
-<h3 id="堆和栈它们在哪儿？"><a href="#堆和栈它们在哪儿？" class="headerlink" title="堆和栈它们在哪儿？"></a>堆和栈它们在哪儿？</h3><p>栈是为执行线程留出的内存空间。当函数被调用的时候，栈顶为局部变量和一些 bookkeeping 数据预留块。当函数执行完毕，块就没有用了，可能在下次的函数调用的时候再被使用。栈通常用后进先出（LIFO）的方式预留空间；因此最近的保留块（reserved block）通常最先被释放。这么做可以使跟踪堆栈变的简单；从栈中释放块（free block）只不过是指针的偏移而已。</p>
+<h3 id="堆和栈它们在哪儿？"><a class="header-anchor" href="#堆和栈它们在哪儿？">¶</a>堆和栈它们在哪儿？</h3>
+<p>栈是为执行线程留出的内存空间。当函数被调用的时候，栈顶为局部变量和一些 bookkeeping 数据预留块。当函数执行完毕，块就没有用了，可能在下次的函数调用的时候再被使用。栈通常用后进先出（LIFO）的方式预留空间；因此最近的保留块（reserved block）通常最先被释放。这么做可以使跟踪堆栈变的简单；从栈中释放块（free block）只不过是指针的偏移而已。</p>
 <p>堆（heap）是为动态分配预留的内存空间。和栈不一样，从堆上分配和重新分配块没有固定模式；你可以在任何时候分配和释放它。这样使得跟踪哪部分堆已经被分配和被释放变的异常复杂；有许多定制的堆分配策略用来为不同的使用模式下调整堆的性能。</p>
 <p>每一个线程都有一个栈，但是每一个应用程序通常都只有一个堆（尽管为不同类型分配内存使用多个堆的情况也是有的）。</p>
 <p>当线程创建的时候，操作系统（OS）为每一个系统级（system-level）的线程分配栈。通常情况下，操作系统通过调用语言的运行时（runtime）去为应用程序分配堆。</p>
@@ -613,7 +624,7 @@
 </blockquote>
 <p>栈：</p>
 <blockquote>
-<p>栈经常与 sp 寄存器（译者注：”stack pointer”，了解汇编的朋友应该都知道）一起工作，最初 sp 指向栈顶（栈的高地址）。</p>
+<p>栈经常与 sp 寄存器（译者注：“stack pointer”，了解汇编的朋友应该都知道）一起工作，最初 sp 指向栈顶（栈的高地址）。</p>
 <p>CPU 用 push 指令来将数据压栈，用 pop 指令来弹栈。当用 push 压栈时，sp 值减少（向低地址扩展）。当用 pop 弹栈时，sp 值增大。存储和获取数据都是 CPU 寄存器的值。</p>
 <p>当函数被调用时，CPU使用特定的指令把当前的 IP （译者注：“instruction pointer”，是一个寄存器，用来记录 CPU 指令的位置）压栈。即执行代码的地址。CPU 接下来将调用函数地址赋给 IP ，进行调用。当函数返回时，旧的 IP 被弹栈，CPU 继续去函数调用之前的代码。</p>
 <p>当进入函数时，sp 向下扩展，扩展到确保为函数的局部变量留足够大小的空间。如果函数中有一个 32-bit 的局部变量会在栈中留够四字节的空间。当函数返回时，sp 通过返回原来的位置来释放空间。</p>
@@ -621,10 +632,15 @@
 <p>函数嵌套调用和使用魔法一样，每一次新调用的函数都会分配函数参数，返回值地址、局部变量空间、嵌套调用的活动记录都要被压入栈中。函数返回时，按照正确方式的撤销。</p>
 <p>栈要受到内存块的限制，不断的函数嵌套/为局部变量分配太多的空间，可能会导致栈溢出。当栈中的内存区域都已经被使用完之后继续向下写（低地址），会触发一个 CPU 异常。这个异常接下会通过语言的运行时转成各种类型的栈溢出异常。（译者注：“不同语言的异常提示不同，因此通过语言运行时来转换”我想他表达的是这个含义）</p>
 </blockquote>
-<h3 id="转载链接"><a href="#转载链接" class="headerlink" title="转载链接"></a>转载链接</h3><blockquote>
+<h3 id="转载链接"><a class="header-anchor" href="#转载链接">¶</a>转载链接</h3>
+<blockquote>
 <p><a href="http://code4fs.xyz/article/41/" target="_blank" rel="noopener">http://code4fs.xyz/article/41/</a></p>
 </blockquote>
-<h2 id="二、转载：程序的内存分配之堆和栈的区别"><a href="#二、转载：程序的内存分配之堆和栈的区别" class="headerlink" title="二、转载：程序的内存分配之堆和栈的区别"></a>二、转载：<a href="https://developer.aliyun.com/article/342485" target="_blank" rel="noopener">程序的内存分配之堆和栈的区别</a></h2><h2 id="三、方法调用中栈的使用"><a href="#三、方法调用中栈的使用" class="headerlink" title="三、方法调用中栈的使用"></a>三、方法调用中栈的使用</h2><h3 id="1-gt-转载：x86-64下函数调用及栈帧原理"><a href="#1-gt-转载：x86-64下函数调用及栈帧原理" class="headerlink" title="1&gt; 转载：x86-64下函数调用及栈帧原理"></a>1&gt; 转载：x86-64下函数调用及栈帧原理</h3><h4 id="通用寄存器使用惯例"><a href="#通用寄存器使用惯例" class="headerlink" title="通用寄存器使用惯例"></a>通用寄存器使用惯例</h4><p>函数调用时，在硬件层面我们需要关注的通常是cpu 的通用寄存器。在所有 cpu 体系架构中，每个寄存器通常都是有建议的使用方法的，而编译器也通常依照CPU架构的建议来使用这些寄存器，因而我们可以认为这些建议是强制性的。</p>
+<h2 id="二、转载：程序的内存分配之堆和栈的区别"><a class="header-anchor" href="#二、转载：程序的内存分配之堆和栈的区别">¶</a>二、转载：<a href="https://developer.aliyun.com/article/342485" target="_blank" rel="noopener">程序的内存分配之堆和栈的区别</a></h2>
+<h2 id="三、方法调用中栈的使用"><a class="header-anchor" href="#三、方法调用中栈的使用">¶</a>三、方法调用中栈的使用</h2>
+<h3 id="1-转载：x86-64下函数调用及栈帧原理"><a class="header-anchor" href="#1-转载：x86-64下函数调用及栈帧原理">¶</a>1&gt; 转载：x86-64下函数调用及栈帧原理</h3>
+<h4 id="通用寄存器使用惯例"><a class="header-anchor" href="#通用寄存器使用惯例">¶</a>通用寄存器使用惯例</h4>
+<p>函数调用时，在硬件层面我们需要关注的通常是cpu 的通用寄存器。在所有 cpu 体系架构中，每个寄存器通常都是有建议的使用方法的，而编译器也通常依照CPU架构的建议来使用这些寄存器，因而我们可以认为这些建议是强制性的。</p>
 <p>对于 x86-64 架构，共有16个64位通用寄存器，各寄存器及用途如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233500.png" alt="x86-64寄存器"></p>
 <p>从上图中，我们可以得到如下结论：</p>
@@ -638,44 +654,50 @@
 </ul>
 <p>这里还要区分一下 “Caller Save” 和 ”Callee Save” 寄存器，即寄存器的值是由”调用者保存“ 还是由 ”被调用者保存“。当产生函数调用时，子函数内通常也会使用到通用寄存器，那么这些寄存器中之前保存的调用者(父函数）的值就会被覆盖。为了避免数据覆盖而导致从子函数返回时寄存器中的数据不可恢复，CPU 体系结构中就规定了通用寄存器的保存方式。</p>
 <p>如果一个寄存器被标识为”Caller Save”， 那么在进行子函数调用前，就需要由调用者提前保存好这些寄存器的值，保存方法通常是把寄存器的值压入堆栈中，调用者保存完成后，在被调用者（子函数）中就可以随意覆盖这些寄存器的值了。如果一个寄存被标识为“Callee Save”，那么在函数调用时，调用者就不必保存这些寄存器的值而直接进行子函数调用，进入子函数后，子函数在覆盖这些寄存器之前，需要先保存这些寄存器的值，即这些寄存器的值是由被调用者来保存和恢复的。</p>
-<h4 id="函数的调用"><a href="#函数的调用" class="headerlink" title="函数的调用"></a>函数的调用</h4><p>子函数调用时，调用者与被调用者的栈帧结构如下图所示：</p>
+<h4 id="函数的调用"><a class="header-anchor" href="#函数的调用">¶</a>函数的调用</h4>
+<p>子函数调用时，调用者与被调用者的栈帧结构如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233510.png" alt="函数调用栈帧情况"></p>
 <p>在子函数调用时，执行的操作有：父函数将调用参数从后向前压栈 -&gt; 将返回地址压栈保存 -&gt; 跳转到子函数起始地址执行 -&gt; 子函数将父函数栈帧起始地址（%rpb） 压栈 -&gt; 将 %rbp 的值设置为当前 %rsp 的值，即将 %rbp 指向子函数栈帧的起始地址。</p>
 <p>上述过程中，保存返回地址和跳转到子函数处执行由 call 一条指令完成，在call 指令执行完成时，已经进入了子程序中，因而将上一栈帧%rbp 压栈的操作，需要由子程序来完成。函数调用时在汇编层面的指令序列如下：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">...   # 参数压栈
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">...   # 参数压栈
 call FUNC  # 将返回地址压栈，并跳转到子函数 FUNC 处执行
 ...  # 函数调用的返回位置
 
 FUNC:  # 子函数入口
 pushq %rbp  # 保存旧的帧指针，相当于创建新的栈帧
 movq  %rsp, %rbp  # 让 %rbp 指向新栈帧的起始位置
-subq  $N, %rsp  # 在新栈帧中预留一些空位，供子程序使用，用 (%rsp+K) 或 (%rbp-K) 的形式引用空位<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+subq  $N, %rsp  # 在新栈帧中预留一些空位，供子程序使用，用 (%rsp+K) 或 (%rbp-K) 的形式引用空位
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>保存返回地址和保存上一栈帧的%rbp 都是为了函数返回时，恢复父函数的栈帧结构。在使用高级语言进行函数调用时，由编译器自动完成上述整个流程。对于”Caller Save” 和 “Callee Save” 寄存器的保存和恢复，也都是由编译器自动完成的。</p>
 <p>需要注意的是，父函数中进行参数压栈时，顺序是从后向前进行的。但是，这一行为并不是固定的，是依赖于编译器的具体实现的，在gcc 中，使用的是从后向前的压栈方式，这种方式便于支持类似于 printf(“%d, %d”, i, j) 这样的使用变长参数的函数调用。</p>
-<h4 id="函数的返回"><a href="#函数的返回" class="headerlink" title="函数的返回"></a>函数的返回</h4><p>函数返回时，我们只需要得到函数的返回值（保存在 %rax 中），之后就需要将栈的结构恢复到函数调用之差的状态，并跳转到父函数的返回地址处继续执行。由于函数调用时已经保存了返回地址和父函数栈帧的起始地址，要恢复到子函数调用之前的父栈帧，我们只需要执行以下两条指令：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">movq %rbp, %rsp    # 使 %rsp 和 %rbp 指向同一位置，即子栈帧的起始处
-popq %rbp # 将栈中保存的父栈帧的 %rbp 的值赋值给 %rbp，并且 %rsp 上移一个位置指向父栈帧的结尾处<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="函数的返回"><a class="header-anchor" href="#函数的返回">¶</a>函数的返回</h4>
+<p>函数返回时，我们只需要得到函数的返回值（保存在 %rax 中），之后就需要将栈的结构恢复到函数调用之差的状态，并跳转到父函数的返回地址处继续执行。由于函数调用时已经保存了返回地址和父函数栈帧的起始地址，要恢复到子函数调用之前的父栈帧，我们只需要执行以下两条指令：</p>
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">movq %rbp, %rsp    # 使 %rsp 和 %rbp 指向同一位置，即子栈帧的起始处
+popq %rbp # 将栈中保存的父栈帧的 %rbp 的值赋值给 %rbp，并且 %rsp 上移一个位置指向父栈帧的结尾处
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>为了便于栈帧恢复，x86-64 架构中提供了 leave 指令来实现上述两条命令的功能。执行 leave 后，前面图中函数调用的栈帧结构如下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233520.png" alt="函数调用返回后栈帧情况"></p>
 <p>可以看出，调用 leave 后，%rsp 指向的正好是返回地址，x86-64 提供的 ret 指令，其作用就是从当前 %rsp 指向的位置（即栈顶）弹出数据，并跳转到此数据代表的地址处，在leave 执行后，%rsp 指向的正好是返回地址，因而 ret 的作用就是把 %rsp 上移一个位置，并跳转到返回地址执行。可以看出，leave 指令用于恢复父函数的栈帧，ret 用于跳转到返回地址处，leave 和ret 配合共同完成了子函数的返回。当执行完成 ret 后，%rsp 指向的是父栈帧的结尾处，父栈帧尾部存储的调用参数由编译器自动释放。</p>
-<h4 id="函数调用示例"><a href="#函数调用示例" class="headerlink" title="函数调用示例"></a>函数调用示例</h4><p>为了更深入的了解函数调用原理，我们可以使用一个程序示例来观察函数的调用和返回。程序如下：</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">,</span> <span class="token keyword">int</span> d<span class="token punctuation">,</span> <span class="token keyword">int</span> e<span class="token punctuation">,</span> <span class="token keyword">int</span> f<span class="token punctuation">,</span> <span class="token keyword">int</span> g<span class="token punctuation">,</span> <span class="token keyword">int</span> h<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 8 个参数相加</span>
-  <span class="token keyword">int</span> sum <span class="token operator">=</span> a <span class="token operator">+</span> b <span class="token operator">+</span> c <span class="token operator">+</span> d <span class="token operator">+</span> e <span class="token operator">+</span> f <span class="token operator">+</span> g <span class="token operator">+</span> h<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> sum<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h4 id="函数调用示例"><a class="header-anchor" href="#函数调用示例">¶</a>函数调用示例</h4>
+<p>为了更深入的了解函数调用原理，我们可以使用一个程序示例来观察函数的调用和返回。程序如下：</p>
+<pre class="line-numbers language-language-c"><code class="language-language-c">int add(int a, int b, int c, int d, int e, int f, int g, int h) { // 8 个参数相加
+  int sum = a + b + c + d + e + f + g + h;
+  return sum;
+}
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-  <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
-  <span class="token keyword">int</span> k <span class="token operator">=</span> i <span class="token operator">+</span> j<span class="token punctuation">;</span>
-  <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">,</span> <span class="token number">44</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">66</span><span class="token punctuation">,</span> <span class="token number">77</span><span class="token punctuation">,</span> <span class="token number">88</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">int</span> m <span class="token operator">=</span> k<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 为了观察 %rax Caller Save 寄存器的恢复</span>
+int main(void) {
+  int i = 10;
+  int j = 20;
+  int k = i + j;
+  int sum = add(11, 22,33, 44, 55, 66, 77, 88);
+  int m = k; // 为了观察 %rax Caller Save 寄存器的恢复
 
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在main 函数中，首先进行了一个 k=i+j 的加法，这是为了观察 Caller Save 效果。因为加法会用到 %rax，而下面 add 函数的返回值也会使用 %rax。由于 %rax 是 Caller Save 寄存器，在调用 add 子函数之前，程序应该先保存 %rax 的值。</p>
 <p>add 函数使用了 8 个参数，这是为了观察当函数参数多于6个时程序的行为，前6个参数会保存到寄存器中，多于6个的参数会保存到堆栈中。但是，由于在子程序中可能会取参数的地址，而保存在寄存器中的前6个参数是没有内存地址的，因而我们可以猜测，保存在寄存器中的前6个参数，在子程序中也会被压入到堆栈中，这样才能取到这6个参数的内存地址。上面程序生成的和子函数调用相关的汇编程序如下：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">add:
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">add:
 .LFB2:
     pushq    %rbp
 .LCFI0:
@@ -727,19 +749,21 @@ main:
     movl    %eax, -4(%rbp)
     movl    $0, %eax
     leave
-    ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    ret
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在汇编程序中，如果使用的是64位通用寄存器的低32位，则寄存器以 ”e“ 开头，比如 %eax，%ebx 等，对于 %r8-%r15，其低32 位是在64位寄存后加 “d” 来表示，比如 %r8d, %r15d。如果操作数是32 位的，则指令以 ”l“ 结尾，例如 movl $11, %esi，指令和寄存器都是32位的格式。如果操作数是64 位的，则指令以 q 结尾，例如 “movq %rsp, %rbp”。由于示例程序中的操作数全部在32位的表示范围内，因而上面的加法和移动指令全部是用的32位指令和操作数，只有在创建栈帧时为了地址对齐才使用的是64位指令及操作数。</p>
 <p>首先看 main 函数的前三条汇编语句：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">.LFB3:
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">.LFB3:
     pushq    %rbp
 .LCFI2:
     movq    %rsp, %rbp
 .LCFI3:
-    subq    $48, %rsp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    subq    $48, %rsp
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这三条语句保存了父函数的栈帧（注意main函数也有父函数），之后创建了main 函数的栈帧并且在栈帧中分配了48Byte 的空位，这三条语句执行完成后，main 函数的栈帧如下图所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233545.png" alt="函数调用示例栈帧情况"></p>
 <p>之后，main 函数中就进行了 k=i+j 的加法和 add 参数的处理：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">    movl    $10, -20(%rbp)
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">    movl    $10, -20(%rbp)
     movl    $20, -16(%rbp)
     movl    -16(%rbp), %eax
     addl    -20(%rbp), %eax
@@ -752,12 +776,13 @@ main:
     movl    $33, %edx
     movl    $22, %esi
     movl    $11, %edi
-    call    add<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    call    add
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在进行 k=i+j 加法时，使用 main 栈空间的方式较为特别。并不是按照我们通常认为的每使用一个栈空间就会进行一次push 操作，而是使用之前预先分配的 48 个空位，并且用 -N(%rbp) 即从 %rbp 指向的位置向下计数的方式来使用空位的，本质上这和每次进行 push 操作是一样的，最后计算 i+j 得到的结果 k 保存在了 %eax 中。之后就需要准备调用 add 函数了。</p>
 <p>我们知道，add 函数的返回值会保存在 %eax 中，即 %eax 一定会被子函数 add 覆盖，而现在 %eax 中保存的是 k 的值。在 C 程序中可以看到，在调用完成 add 后，我们又使用了 k 的值，因而在调用 add 中覆盖%eax 之前，需要保存 %eax 值，在add 使用完%eax 后，需要恢复 %eax 值（即k 的值），由于 %eax 是 Caller Save的，应该由父函数main来保存 %eax 的值，因而上面汇编中有一句 “movl %eax, -12(%rbp)” 就是在调用 add 函数之前来保存 %eax 的值的。</p>
 <p>对于8个参数，可以看出，最后两个参数是从后向前压入了栈中，前6个参数全部保存到了对应的参数寄存器中，与本文开始描述的一致。</p>
 <p>进入 add 之后的操作如下：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">add:
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">add:
 .LFB2:
     pushq    %rbp # 保存父栈帧指针
 .LCFI0:
@@ -780,29 +805,35 @@ main:
     movl    %eax, -4(%rbp)
     movl    -4(%rbp), %eax
     leave
-    ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    ret
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>add 中最前面两条指令实现了新栈帧的创建。之后把在寄存器中的函数调用参数压入了栈中。在本文前面提到过，由于子程序中可能会用到参数的内存地址，这些参数放在寄存器中是无法取地址的，这里把参数压栈，正好印证了我们之前的猜想。</p>
 <p>在参数压栈时，我们看到并未使用 push 之类的指令，也没有调整 %esp 指针的值，而是使用了 -N(%rbp) 这样的指令来使用新的栈空间。这种使用”基地址+偏移量“ 来使用栈的方式和直接使用 %esp 指向栈顶的方式其实是一样的。</p>
 <p>这里有两个和编译器具体实现相关的问题：一是上面程序中，-8(%rbp) 和 -12(%rbp) 地址并未被使用到，这两个地址之前的地址 -4(%rbp) 和之后的 -16(%rsp) 都被使用到了，这可能是由于编译器具体的实现方式来决定的。另外一个就是如下两条指令：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">    movl    %eax, -4(%rbp)
-    movl    -4(%rbp), %eax<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">    movl    %eax, -4(%rbp)
+    movl    -4(%rbp), %eax
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>先是把 %eax 的值赋值给的 -4(%rbp)，之后又逆向赋值了一次，猜测可能是编译器为了通用性才如此操作的。以上两个问题需要后续进一步研究。</p>
 <p>当add函数返回后，返回结果会存储在%eax 中，%rbp 和 %rsp 会调整为指向 main 的栈帧，之后会执行main 函数中的如下指令：</p>
-<pre class="line-numbers language-assembly"><code class="language-assembly">movl    %eax, -8(%rbp)  # 保存 add 函数返回值到栈中，对应 C 语句 int sum = add(...)
+<pre class="line-numbers language-language-assembly"><code class="language-language-assembly">movl    %eax, -8(%rbp)  # 保存 add 函数返回值到栈中，对应 C 语句 int sum = add(...)
 movl   -12(%rbp), %eax  # 恢复 call save 寄存器 %eax 的值，与调用add前保存 %eax 相对应 
 movl    %eax, -4(%rbp) # 对应 C 语句 m = k，%eax 中的值就是 k。
 movl    $0, %eax  # main 函数返回值
 leave   # main 函数返回
-ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ret
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以看出，当 add 函数返回时，把返回值保存到了 %eax 中，使用完返回值后，会恢复 caller save 寄存器 %eax的值，这时main 栈帧与调用 add 之前完全一样。</p>
 <p>需要注意的是，在调用 add 之前，main 中执行了一条 subq 48, %rsp 这样的指令，原因就在于调用 add 之后，main 中并未调用其他函数，而是执行了两条赋值语句后就直接从main返回了。 main 结尾处的 leave、ret 两条指令会直接覆盖 %rsp 的值从而回到 main 的父栈帧中。如果先调整 main 栈帧的 %rsp 值，之后 leave 再覆盖 %rsp 的值，相当于调整是多余的。因而省略main 中 add返回之后的 %rsp 的调整，而使用 leave 直接覆盖%rsp更为合理。</p>
-<h4 id="转载链接-1"><a href="#转载链接-1" class="headerlink" title="转载链接"></a>转载链接</h4><blockquote>
+<h4 id="转载链接-v2"><a class="header-anchor" href="#转载链接-v2">¶</a>转载链接</h4>
+<blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/27339191" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27339191</a></p>
 <p><a href="https://blog.csdn.net/Hanoi_ahoj/article/details/105115117" target="_blank" rel="noopener">线程的栈是如何分配的</a></p>
 </blockquote>
-<h3 id="2-gt-英特尔8080芯片示例"><a href="#2-gt-英特尔8080芯片示例" class="headerlink" title="2&gt; 英特尔8080芯片示例"></a>2&gt; 英特尔8080芯片示例</h3><p>下面是英特尔8080处理器中一个子程序调用的示例。</p>
+<h3 id="2-英特尔8080芯片示例"><a class="header-anchor" href="#2-英特尔8080芯片示例">¶</a>2&gt; 英特尔8080芯片示例</h3>
+<p>下面是英特尔8080处理器中一个子程序调用的示例。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233556.png" alt="image-20200911095457835"></p>
-<h1 id="JVM主要内存占用以及溢出问题"><a href="#JVM主要内存占用以及溢出问题" class="headerlink" title="JVM主要内存占用以及溢出问题"></a>JVM主要内存占用以及溢出问题</h1><ul>
+<h1>JVM主要内存占用以及溢出问题</h1>
+<ul>
 <li>直接内存:可通过<code>-XX:MaxDirectMemorySize</code>调整大小,内存不足时抛出<code>OutOfMemoryError:null</code>或者<code>OutOfMemoryError:Direct buffer memory</code>。</li>
 <li>线程堆栈:可通过<code>-Xss</code>调整大小,内存不足时抛出StackOverflowError(如果线程请求的栈深度大于虚拟机所允许的深度)或者OutOfMemoryError(如果Java虚拟机栈容量可以动态扩展,当栈扩展时无法申请到足够的内存)。</li>
 <li>Socket缓存区:每个Socket连接都Receive和Send两个缓存区,分别占大约37KB和25KB内存,连接多的话这块内存占用也比较可观如果无法分配,可能会抛出<code>IOException:Too many open files</code>异常。</li>
@@ -1301,7 +1332,7 @@ ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="06_方法区">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="06_方法区">
                         
                         <span class="card-title">06_方法区</span>
                     </div>
@@ -1350,7 +1381,7 @@ ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="12_类加载子系统">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="12_类加载子系统">
                         
                         <span class="card-title">12_类加载子系统</span>
                     </div>
@@ -1518,7 +1549,7 @@ ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

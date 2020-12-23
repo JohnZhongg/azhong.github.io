@@ -8,8 +8,10 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="一、使用 Index Pattern 配置数据在 Kibana 中，对于索引数据的操作基本都围绕着 Index Pattern 展开，下面我们来做个演示。
-初始化数据我们先初始化三个索引数据，因为这三个 index 里面都含有一个类型为地理">
+    <meta name="description" content="一、使用 Index Pattern 配置数据
+在 Kibana 中，对于索引数据的操作基本都围绕着 Index Pattern 展开，下面我们来做个演示。
+¶初始化数据
+我们先初始化三个索引数据，因为这三个 index 里面都含有一个类型">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -330,7 +332,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -492,7 +494,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    24 分
+                    25 分
                 </div>
                 
                 
@@ -508,9 +510,11 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、使用-Index-Pattern-配置数据"><a href="#一、使用-Index-Pattern-配置数据" class="headerlink" title="一、使用 Index Pattern 配置数据"></a>一、使用 Index Pattern 配置数据</h1><p>在 Kibana 中，对于索引数据的操作基本都围绕着 Index Pattern 展开，下面我们来做个演示。</p>
-<h3 id="初始化数据"><a href="#初始化数据" class="headerlink" title="初始化数据"></a>初始化数据</h3><p>我们先初始化三个索引数据，因为这三个 index 里面都含有一个类型为地理位置类型的字段，所以需要手动设置，如果使用 dynamic mapping 会被识别为 text。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">PUT /logstash-2015.05.18
+                <h1>一、使用 Index Pattern 配置数据</h1>
+<p>在 Kibana 中，对于索引数据的操作基本都围绕着 Index Pattern 展开，下面我们来做个演示。</p>
+<h3 id="初始化数据"><a class="header-anchor" href="#初始化数据">¶</a>初始化数据</h3>
+<p>我们先初始化三个索引数据，因为这三个 index 里面都含有一个类型为地理位置类型的字段，所以需要手动设置，如果使用 dynamic mapping 会被识别为 text。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">PUT /logstash-2015.05.18
 {
   "mappings": {
     "properties": {
@@ -556,12 +560,16 @@ PUT /logstash-2015.05.20
       }
     }
   }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后我们分别从本地请求导入一些测试文档数据到 ES</p>
-<pre class="line-numbers language-shell"><code class="language-shell">curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/_bulk?pretty' --data-binary @logs.json
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/_bulk?pretty' --data-binary @logs.json
 
-curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account/_bulk?pretty' --data-binary @accounts.json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="创建-index-pattern"><a href="#创建-index-pattern" class="headerlink" title="创建 index pattern"></a>创建 index pattern</h3><h4 id="logs-数据的-index-pattern"><a href="#logs-数据的-index-pattern" class="headerlink" title="logs 数据的 index pattern"></a>logs 数据的 index pattern</h4><p>我们来到 Index Pattern 的界面，可以看到已经有一些 index pattern 已经创建好了。</p>
+curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account/_bulk?pretty' --data-binary @accounts.json
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建-index-pattern"><a class="header-anchor" href="#创建-index-pattern">¶</a>创建 index pattern</h3>
+<h4 id="logs-数据的-index-pattern"><a class="header-anchor" href="#logs-数据的-index-pattern">¶</a>logs 数据的 index pattern</h4>
+<p>我们来到 Index Pattern 的界面，可以看到已经有一些 index pattern 已经创建好了。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223709.png" alt="image-20200503224338616"></p>
 <p>然后我们为我们刚刚创建的三个索引创建一个 Index pattern，我们通过一个通配符命名的方式将我们刚刚创建的三个索引都匹配到我们准备创建的 Index Pattern 中，点击 next</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223737.png" alt="image-20200503224312640"></p>
@@ -570,14 +578,16 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223802.png" alt="image-20200503224509496"></p>
 <p>可以看到我们的 index pattern 就被创建出来了，下图是界面中一些按钮的介绍</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223826.png" alt="image-20200503225212773"></p>
-<p>其中我们还看到一个”格式”一列，它定义了Kibana 会以什么样的格式来显示这个字段，点击编辑按钮可以对格式进行编辑。</p>
+<p>其中我们还看到一个&quot;格式&quot;一列，它定义了Kibana 会以什么样的格式来显示这个字段，点击编辑按钮可以对格式进行编辑。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223843.png" alt="image-20200503224807630"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223920.png" alt="image-20200503224929701"></p>
-<h4 id="银行数据的-index-pattern"><a href="#银行数据的-index-pattern" class="headerlink" title="银行数据的 index pattern"></a>银行数据的 index pattern</h4><p>然后我们再对导入的另外一个银行文档数据创建 index pattern</p>
+<h4 id="银行数据的-index-pattern"><a class="header-anchor" href="#银行数据的-index-pattern">¶</a>银行数据的 index pattern</h4>
+<p>然后我们再对导入的另外一个银行文档数据创建 index pattern</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223935.png" alt="image-20200503225411235"></p>
 <p>因为银行数据中不包含任何时间戳类型字段，所以Kibana 没有显示需要我们选择一个作为时间排序过滤数据的字段</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224653.png" alt="image-20200503225515393"></p>
-<h1 id="二、使用-Kibana-Discover-探索数据"><a href="#二、使用-Kibana-Discover-探索数据" class="headerlink" title="二、使用 Kibana Discover 探索数据"></a>二、使用 Kibana Discover 探索数据</h1><p> 首先我们选择左边面板的 discovery 按钮进入 discovery 的模块。然后选择我们前面创建的”logstash-*”的 index pattern，默认显示的是最近15分钟的数据，而这些数据都是很久之前的了，所以没有数据显示。</p>
+<h1>二、使用 Kibana Discover 探索数据</h1>
+<p>首先我们选择左边面板的 discovery 按钮进入 discovery 的模块。然后选择我们前面创建的&quot;logstash-*&quot;的 index pattern，默认显示的是最近15分钟的数据，而这些数据都是很久之前的了，所以没有数据显示。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224038.png" alt="image-20200503225727849"></p>
 <p>选择10年以前的数据</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224129.png" alt="image-20200503230032573"></p>
@@ -593,25 +603,23 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p>其中以表格形式显示的时候，每个字段前面都会有4个功能按钮</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224910.png" alt="image-20200503231714915"></p>
 <ul>
-<li><p>第一个按钮：将当前字段匹配当前值作为筛选条件，过滤出满足的数据</p>
+<li>
+<p>第一个按钮：将当前字段匹配当前值作为筛选条件，过滤出满足的数据</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224923.png" alt="image-20200503232201675"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224936.png" alt="image-20200503232231898"></p>
 </li>
-</ul>
-<ul>
-<li><p>第二个按钮：将当前字段不匹配当前值作为筛选条件，过滤出满足的文档</p>
+<li>
+<p>第二个按钮：将当前字段不匹配当前值作为筛选条件，过滤出满足的文档</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221224951.png" alt="image-20200503232259824"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232218.png" alt="image-20200503232322812"></p>
 </li>
-</ul>
-<ul>
-<li><p>第三个按钮：将当前字段作为显示列字段</p>
+<li>
+<p>第三个按钮：将当前字段作为显示列字段</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225017.png" alt="image-20200503232350120"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232247.png" alt="image-20200503232441530"></p>
 </li>
-</ul>
-<ul>
-<li><p>第四个按钮：过滤出当前字段必须有值的文档</p>
+<li>
+<p>第四个按钮：过滤出当前字段必须有值的文档</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225029.png" alt="image-20200503232506283"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232310.png" alt="image-20200503232517911"></p>
 </li>
@@ -620,27 +628,28 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225051.png" alt="image-20200503232612349"></p>
 <p>我们再来看一下左边的菜单栏</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225106.png" alt="image-20200503232831397"></p>
-<p>当我们鼠标悬浮到某个可用字段上会出现一个”添加”的按钮，点击添加也会将这个字段添加到展示列表的字段</p>
+<p>当我们鼠标悬浮到某个可用字段上会出现一个&quot;添加&quot;的按钮，点击添加也会将这个字段添加到展示列表的字段</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225118.png" alt="image-20200503232932307"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225131.png" alt="image-20200503232947307"></p>
 <p>现在我们选择查看一个 memory 字段，发现显示的数值不是那么友好，这时候我们就可以使用前面介绍的 index pattern 中的字段的格式了</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225147.png" alt="image-20200503233120634"></p>
-<p> 来到字段编辑页面，进行编辑</p>
+<p>来到字段编辑页面，进行编辑</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225158.png" alt="image-20200503233327260"></p>
 <p>再回到 discovery 的界面，可以看到为我们显示了单位</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225210.png" alt="image-20200503233418357"></p>
 <p>另外我们还可以直接点击左边菜单栏的字段，就会显示这个字段的一些文档的聚合分析信息</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225226.png" alt="image-20200503233514032"></p>
-<h1 id="三、基本可视化组件"><a href="#三、基本可视化组件" class="headerlink" title="三、基本可视化组件"></a>三、基本可视化组件</h1><p>可视化其实就是对一下数据的聚合分析形成一个直观可视的图表。</p>
+<h1>三、基本可视化组件</h1>
+<p>可视化其实就是对一下数据的聚合分析形成一个直观可视的图表。</p>
 <p>我们先点击面板左边的可视化。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225242.png" alt="image-20200504071558951"></p>
 <p>可以看到 kibana 中已经生成了一些可视化的图表，包括它自带的三个样例测试数据集以及我们之前导进去的 metricbeat 的 dashboard。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225255.png" alt="image-20200504072103707"></p>
 <p>我们基于我们刚刚导入的两份数据来分别创建一些可视化图表，下面先来创建一个饼图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225318.png" alt="image-20200504072354301"></p>
-<p> 点击后会让我们选择 index pattern，我们搜索选择我们之前导入的”bank*”：</p>
+<p>点击后会让我们选择 index pattern，我们搜索选择我们之前导入的&quot;bank*&quot;：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225333.png" alt="image-20200504072458833"></p>
-<p>创建好后就进来了一个可视化界面，可以看到，左边比较显眼的有”指标”和”存储桶”两个模块，它们分别就是 Metric 和 Bucket，右边就是一个默认的饼图，没有分桶下的所有数据条数。</p>
+<p>创建好后就进来了一个可视化界面，可以看到，左边比较显眼的有&quot;指标&quot;和&quot;存储桶&quot;两个模块，它们分别就是 Metric 和 Bucket，右边就是一个默认的饼图，没有分桶下的所有数据条数。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225349.png" alt="image-20200504072749206"></p>
 <p>先选择metric，选择计数</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225401.png" alt="image-20200504073322011"></p>
@@ -665,20 +674,21 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225600.png" alt="image-20200504074206626"></p>
 <p>下面是左边 bucket 中第二种桶的具体逻辑，可以看到它们是按照我们的分桶逻辑对图表进行了分桶，上面是在一个图表种对数据进行分桶：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225613.png" alt="image-20200504074317733"></p>
-<p> 上面一栏搜索栏可以对我们需要聚合的数据范围进行筛选：</p>
+<p>上面一栏搜索栏可以对我们需要聚合的数据范围进行筛选：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225634.png" alt="image-20200504074939019"></p>
 <p>这里的选项可以对图表的一些属性进行设置：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225657.png" alt="image-20200504074417701"></p>
-<p> 另外我们知道这些数据都是通过请求一个 api 获取的，我们可以通过上面的检查按钮来查看我们的 request、response 等等的数据：</p>
+<p>另外我们知道这些数据都是通过请求一个 api 获取的，我们可以通过上面的检查按钮来查看我们的 request、response 等等的数据：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225710.png" alt="image-20200504074515780"></p>
 <p>最后我们配置了一个 count 的 metric 和一个基于性别的拆分图表的桶和一个子的基于银行余额的拆分数据的直方图的桶，点击保存：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225724.png" alt="image-20200504074826097">Markdown: Open Preview to the Side</p>
-<p> 输入名称</p>
+<p>输入名称</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225737.png" alt="image-20200504074909167"></p>
-<p>再次来到可视化的列表页，就能搜索到我们保存的”我的饼图”拉</p>
+<p>再次来到可视化的列表页，就能搜索到我们保存的&quot;我的饼图&quot;拉</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225752.png" alt="image-20200504075048142"></p>
 <p>其他的组件大同小异，有时间再看。</p>
-<h1 id="四、构建-Dashboard"><a href="#四、构建-Dashboard" class="headerlink" title="四、构建 Dashboard"></a>四、构建 Dashboard</h1><p>dashboard 中其实就是一组可视化组件的集合。我们可以用我们前面介绍的可视化构建出多个可视化图表并全部整合到一个 dashboard 中。</p>
+<h1>四、构建 Dashboard</h1>
+<p>dashboard 中其实就是一组可视化组件的集合。我们可以用我们前面介绍的可视化构建出多个可视化图表并全部整合到一个 dashboard 中。</p>
 <p>选择左边面板的仪表板，进到 dashboard 界面：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225804.png" alt="image-20200504075306606"></p>
 <p>添加我们刚刚创建的饼图，另外还可以通过中间的超链接点击到可视化组件界面进行可视化图表创建</p>
@@ -690,12 +700,15 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225856.png" alt="image-20200504075959750"></p>
 <p>点击保存，即可对我们的dashboard 进行保存。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225909.png" alt="image-20200504080043086"></p>
-<h3 id="官方自带的测试样例"><a href="#官方自带的测试样例" class="headerlink" title="官方自带的测试样例"></a>官方自带的测试样例</h3><p>另外我们还可以参考官方开箱即用的3个测试数据集：</p>
+<h3 id="官方自带的测试样例"><a class="header-anchor" href="#官方自带的测试样例">¶</a>官方自带的测试样例</h3>
+<p>另外我们还可以参考官方开箱即用的3个测试数据集：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225920.png" alt="image-20200504080210996"></p>
-<p> 其中一个 dashboard</p>
+<p>其中一个 dashboard</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225929.png" alt="image-20200504080232164"></p>
 <p>这些都是很专业的图表，我们可以进行参考，同时我们还能直接修改这些图表。</p>
-<h1 id="五、在-Kibana-中探索-X-Pack-套件"><a href="#五、在-Kibana-中探索-X-Pack-套件" class="headerlink" title="五、在 Kibana 中探索 X-Pack 套件"></a>五、在 Kibana 中探索 X-Pack 套件</h1><h3 id="lt-1-gt-用-Monitoring-和-Alerting-监控-Elasticsearch-集群"><a href="#lt-1-gt-用-Monitoring-和-Alerting-监控-Elasticsearch-集群" class="headerlink" title="&lt;1&gt;用 Monitoring 和 Alerting 监控 Elasticsearch 集群"></a>&lt;1&gt;用 Monitoring 和 Alerting 监控 Elasticsearch 集群</h3><p>X-pack 提供了免费的监控 Elasticsearch 集群和 Kibana 的功能。默认的定时检查时间间隔是10秒，可以通过<code>Xpack.monitoring.collection.interval</code>来配置。</p>
+<h1>五、在 Kibana 中探索 X-Pack 套件</h1>
+<h3 id="1-用-Monitoring-和-Alerting-监控-Elasticsearch-集群"><a class="header-anchor" href="#1-用-Monitoring-和-Alerting-监控-Elasticsearch-集群">¶</a>&lt;1&gt;用 Monitoring 和 Alerting 监控 Elasticsearch 集群</h3>
+<p>X-pack 提供了免费的监控 Elasticsearch 集群和 Kibana 的功能。默认的定时检查时间间隔是10秒，可以通过<code>Xpack.monitoring.collection.interval</code>来配置。</p>
 <p>下面是 Monitoring的一些配置</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225942.png" alt="image-20200504081205333"></p>
 <p>详细可以参考：<a href="https://www.elastic.co/guide/en/x-pack/current/monitoring-settings.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/x-pack/current/monitoring-settings.html</a></p>
@@ -707,37 +720,44 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p>另外，X-pack 中还有报警的功能，但是这个是需要 Gold 账户的。这个功能叫 Watcher for Alerting，一个 Watcher 由5个部分组成：</p>
 <ul>
 <li>Trigger：多久被触发一次（例如：5分钟触发一次）</li>
-<li>Input：查询条件（在所有日志索引中查看”ERROR”相关）</li>
+<li>Input：查询条件（在所有日志索引中查看&quot;ERROR&quot;相关）</li>
 <li>condition：查询是否满足条件（例如：大于1000条返回）</li>
 <li>Actions：执行相关操作（例如：发送邮件）</li>
 </ul>
-<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p>我们点击左边面板中的”堆栈检测”，可以看到默认情况下 X-Pack 的 monitoring 功能是关闭的，我们打开它：</p>
+<h4 id="Demo"><a class="header-anchor" href="#Demo">¶</a>Demo</h4>
+<p>我们点击左边面板中的&quot;堆栈检测&quot;，可以看到默认情况下 X-Pack 的 monitoring 功能是关闭的，我们打开它：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221225957.png" alt="image-20200504081548396"></p>
 <p>几秒的搜集数据之后，就进入了一个总览界面，分别有 ES 的总览级别的监测、节点级别的监测、索引级别的监测以及 Kibana 的总览级别的监测和实例级别的监测，我们分别进入查看一下：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230011.png" alt="image-20200504081800336"></p>
 <ol>
-<li><p>ES 的总览监测</p>
+<li>
+<p>ES 的总览监测</p>
 <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230036.png" alt="image-20200504081932283" style="zoom:50%;">
 </li>
-<li><p>ES 的节点监测</p>
+<li>
+<p>ES 的节点监测</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230100.png" alt="image-20200504082009995"></p>
 <p>点击节点名称进入详细监控界面，下面是详细界面的概览部分</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230111.png" alt="image-20200504082109646"></p>
 <p>下面是高级部分</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230124.png" alt="image-20200504082130869"></p>
 </li>
-<li><p>ES 索引级别监控</p>
+<li>
+<p>ES 索引级别监控</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230143.png" alt="image-20200504082212532"></p>
 <p>点击具体的索引名称进入详细监控界面，同样分了概览和高级</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230218.png" alt="image-20200504082249079"></p>
 </li>
-<li><p>这里还有一个 CCR(Cross Cluster Replitaion) 跨集群备份的监控</p>
+<li>
+<p>这里还有一个 CCR(Cross Cluster Replitaion) 跨集群备份的监控</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230256.png" alt="image-20200504082420038"></p>
 </li>
-<li><p>Kibana 概览级别监控</p>
+<li>
+<p>Kibana 概览级别监控</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230510.png" alt="image-20200504082455102"></p>
 </li>
-<li><p>Kibana 实例级别监控</p>
+<li>
+<p>Kibana 实例级别监控</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230525.png" alt="image-20200504082517433"></p>
 <p>同样点击实例名称进入详细界面</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230543.png" alt="image-20200504082711739"></p>
@@ -748,14 +768,15 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p>可以看到这里多了一个 watcher 的选项，我们点击：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230648.png" alt="image-20200504083012456"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230711.png" alt="image-20200504083054867"></p>
-<p>我们尝试创建一个”阈值告警”：</p>
-<p>当我们选择一个”bank<em>“索引进行监听的时候，发现提示索引没有关联的时间字段，因为我们这个索引里面确实没有时间戳类型字段，而我们在kibana创建index pattern 的时候也就没有指定时间字段，而这里的”阈值告警”是指定一个过去的时间区间内如果文档数量超过了多少的数值就会发出一个怎样的告警。所以对于”bank</em>“这个索引，”阈值告警”就做不了了。</p>
+<p>我们尝试创建一个&quot;阈值告警&quot;：</p>
+<p>当我们选择一个&quot;bank*&quot;索引进行监听的时候，发现提示索引没有关联的时间字段，因为我们这个索引里面确实没有时间戳类型字段，而我们在kibana创建index pattern 的时候也就没有指定时间字段，而这里的&quot;阈值告警&quot;是指定一个过去的时间区间内如果文档数量超过了多少的数值就会发出一个怎样的告警。所以对于&quot;bank*&quot;这个索引，&quot;阈值告警&quot;就做不了了。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230733.png" alt="image-20200504083318159"></p>
 <p>我们选择一个有时间戳的索引</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230759.png" alt="image-20200504084151178"></p>
-<p>另外我们还能创建一个高级的 alerting，通过一个 JSON 配置，还能点击”语法”来查看具体的参数等等。 </p>
+<p>另外我们还能创建一个高级的 alerting，通过一个 JSON 配置，还能点击&quot;语法&quot;来查看具体的参数等等。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230830.png" alt="image-20200504084241390"></p>
-<h3 id="lt-2-gt-用-APM-进行程序性能监控"><a href="#lt-2-gt-用-APM-进行程序性能监控" class="headerlink" title="&lt;2&gt;用 APM 进行程序性能监控"></a>&lt;2&gt;用 APM 进行程序性能监控</h3><p>APM 顾名思义就是 Application Performance Monitoring，是 Elastic 公司开发的一个用来监控应用程序的工具。它提供了以下的监控能力：</p>
+<h3 id="2-用-APM-进行程序性能监控"><a class="header-anchor" href="#2-用-APM-进行程序性能监控">¶</a>&lt;2&gt;用 APM 进行程序性能监控</h3>
+<p>APM 顾名思义就是 Application Performance Monitoring，是 Elastic 公司开发的一个用来监控应用程序的工具。它提供了以下的监控能力：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221230848.png" alt="image-20200504094017576"></p>
 <p>包括用户行为监控、程序级别的监控、服务器级别的监控以及日志监控。</p>
 <p>APM 核心功能：请求响应时间监控、未处理的错误及异常监控、可视化调用关系、帮助用户发现性能瓶颈、代码下钻等。</p>
@@ -767,43 +788,64 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231034.png" alt="image-20200504102942660"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231050.png" alt="image-20200504103001043"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231204.png" alt="image-20200504103208671"></p>
-<h4 id="APM-的使用"><a href="#APM-的使用" class="headerlink" title="APM 的使用"></a>APM 的使用</h4><p>现在我们来看下具体怎么构建一个 Java 程序的 APM 的环境。（详细步骤参考官网的最下面）</p>
-<h5 id="1、Elasticsearch-amp-Kibana"><a href="#1、Elasticsearch-amp-Kibana" class="headerlink" title="1、Elasticsearch &amp; Kibana"></a>1、Elasticsearch &amp; Kibana</h5><p>首先我们在构建 APM 之前保障 Elasticsearch 和 Kibana 服务都已经构建好了。官网中提供了 Hosted 和 Download 的两种不同方案：Hosted 其实指的是我们的 ELasticsearch 和 Kibana 是基于 ELastic cloud 方案构建的；Download 其实指的是我们自己下载了 Elasticsearch 和 Kibana 在自己的服务器中进行了构建。我们选择后者，因为我们已经安转部署好 ES 集群和 Kibana 实例了。</p>
-<h5 id="2、下载-APM-Server-并安装"><a href="#2、下载-APM-Server-并安装" class="headerlink" title="2、下载 APM Server 并安装"></a>2、下载 APM Server 并安装</h5><p>到 <a href="https://www.elastic.co/cn/downloads/apm" target="_blank" rel="noopener">链接</a> 中下载对应版本的 APM Server。然后上传到指定服务器，并解压下载下来的压缩包。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch]# cd apm-server-7.1.0-linux-x86_64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="APM-的使用"><a class="header-anchor" href="#APM-的使用">¶</a>APM 的使用</h4>
+<p>现在我们来看下具体怎么构建一个 Java 程序的 APM 的环境。（详细步骤参考官网的最下面）</p>
+<h5 id="1、Elasticsearch-Kibana"><a class="header-anchor" href="#1、Elasticsearch-Kibana">¶</a>1、Elasticsearch &amp; Kibana</h5>
+<p>首先我们在构建 APM 之前保障 Elasticsearch 和 Kibana 服务都已经构建好了。官网中提供了 Hosted 和 Download 的两种不同方案：Hosted 其实指的是我们的 ELasticsearch 和 Kibana 是基于 ELastic cloud 方案构建的；Download 其实指的是我们自己下载了 Elasticsearch 和 Kibana 在自己的服务器中进行了构建。我们选择后者，因为我们已经安转部署好 ES 集群和 Kibana 实例了。</p>
+<h5 id="2、下载-APM-Server-并安装"><a class="header-anchor" href="#2、下载-APM-Server-并安装">¶</a>2、下载 APM Server 并安装</h5>
+<p>到 <a href="https://www.elastic.co/cn/downloads/apm" target="_blank" rel="noopener">链接</a> 中下载对应版本的 APM Server。然后上传到指定服务器，并解压下载下来的压缩包。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z elasticsearch]# cd apm-server-7.1.0-linux-x86_64
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果你的ES 集群(localhost:9200)和 Kibana (localhost:5601)都是是运行在默认的 hosts 上的，那么就无需在<code>apm-server.yml</code>中进行相关配置了，直接启动 apm sever</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z apm-server-7.1.0-linux-x86_64]# ./apm-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>然后我们进入 Kibana，点击左边面板中的 APM，进入到 APM 的管理面板，可以看到面板中还没有任何数据，我们点击右上角的”设置说明”：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z apm-server-7.1.0-linux-x86_64]# ./apm-server
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后我们进入 Kibana，点击左边面板中的 APM，进入到 APM 的管理面板，可以看到面板中还没有任何数据，我们点击右上角的&quot;设置说明&quot;：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231230.png" alt="image-20200504111721539"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231249.png" alt="image-20200504112041032"></p>
-<p>进入到设置说明界面后，可以看到在这里也有关于 APM 服务构建的详细说明，包括我们要先下载 APM Server 并配置后启动，并通过点击”检查 APM Server 状态”来确认 APM Server 是否运行。我们点击检查，可以看到我们的 APM Server 是正常启动的了。</p>
+<p>进入到设置说明界面后，可以看到在这里也有关于 APM 服务构建的详细说明，包括我们要先下载 APM Server 并配置后启动，并通过点击&quot;检查 APM Server 状态&quot;来确认 APM Server 是否运行。我们点击检查，可以看到我们的 APM Server 是正常启动的了。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231302.png" alt="image-20200504112152920"></p>
-<h5 id="3、在应用程序中配置-APM-代理"><a href="#3、在应用程序中配置-APM-代理" class="headerlink" title="3、在应用程序中配置 APM 代理"></a>3、在应用程序中配置 APM 代理</h5><p>在上述的 APM Server 正确启动之后，我们下一步就是设置我们的应用程序中的 APM Agent 了，这个在 Kibana 的”设置说明”也是有介绍的：</p>
+<h5 id="3、在应用程序中配置-APM-代理"><a class="header-anchor" href="#3、在应用程序中配置-APM-代理">¶</a>3、在应用程序中配置 APM 代理</h5>
+<p>在上述的 APM Server 正确启动之后，我们下一步就是设置我们的应用程序中的 APM Agent 了，这个在 Kibana 的&quot;设置说明&quot;也是有介绍的：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231329.png" alt="image-20200504112311452"></p>
 <ol>
-<li><p>首先我们需要从 <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3Aelastic-apm-agent" target="_blank" rel="noopener">Maven Central</a> 中下载 APM 的 Java Agent 的 jar 包。</p>
+<li>
+<p>首先我们需要从 <a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3Aelastic-apm-agent" target="_blank" rel="noopener">Maven Central</a> 中下载 APM 的 Java Agent 的 jar 包。</p>
 </li>
-<li><p>启动自己的 Java 应用程序（现在一般都是 spring boot 应用），并添加以下 JVM 参数来分别指定我们下载的 APM Agent jar 包路径、apm的服务名称(应该是在 apm 显示界面中当前启动应用程序的显示名称)、apm服务的连接(就是我们启动的apm 服务)、apm 服务的 token、apm 服务需要监测的Java 程序的包路径：</p>
-<pre class="line-numbers language-shell"><code class="language-shell"> java -javaagent:/path/to/elastic-apm-agent-<version>.jar \
-  -Delastic.apm.service_name=my-application \
-  -Delastic.apm.server_url=http://localhost:8200 \
-  -Delastic.apm.secret_token= \
-  -Delastic.apm.application_packages=org.example \
-  -jar my-application.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其他的详细参数可以参考<a href="https://www.elastic.co/guide/en/apm/agent/java/current/index.html" target="_blank" rel="noopener">文档</a>。</p>
-</li>
-<li><p>在启动我们的 Java 程序之后，点击”检查代理状态”来查看我们的应用程序是否正常运行并且agent 也正常地工作了(有时候是需要应用程序产生了一次具体地调用才能被监测到代理状态正常)。<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231408.png" alt="image-20200504113947106"></p>
-</li>
-<li><p>在监测到代理对象正常工作之后，我们可以试用一些压测工具或者一些测试脚本使得应用程序在产生持续地调用，此时我们再回到 Kibana 的 APM 的界面<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231418.png" alt="image-20200504114248627">可以看到，在 Services 一栏下面已经有了一个”my_application”的 service，它就是我们刚刚启动的 Java 应用中通过<code>-Delastic.apm.service_name</code>指定的名称。<br> 我们对其进行点击，就可以进入到这个应用程序监测的详情页面了<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231431.png" alt="image-20200504114622149">我们可以看到在下面有两个<code>MainCotroller#getAllUsers</code>和<code>MainController#addNewUser</code>的方法。我们分别点入这两个方法，就可以看到对于这个方法调用的具体监测信息了：<br> 包括一些 transaction 的信息，还有一些请求响应的时间消耗<br> <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231443.png" alt="image-20200504115049889"></p>
-<p> 我们看到下面还提供了关于 Transaction 的详细信息，包括整个调用链各阶段的消耗时间以及数据库的一些调用的操作</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231457.png" alt="image-20200504115308785"><br> 还能查看操作数据库的时候的一些详细的 sql 以及其他信息</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231509.png" alt="image-20200504115502831"><br> 我们还能查看一些 HTTP 的详细信息（包含请求连接、请求头、请求体等）、还有 Service 的一些信息，Process 的信息等等。</p>
-</li>
-<li><p>另外我们还可以在 Kibana 的 APM 面板的最后一行”加载 Kibana 对象”来设置该 APM 相关的 Kibana  对象（可视化组件、dashboard 等）从而构建更好的监测结果展示。</p>
+<li>
+<p>启动自己的 Java 应用程序（现在一般都是 spring boot 应用），并添加以下 JVM 参数来分别指定我们下载的 APM Agent jar 包路径、apm的服务名称(应该是在 apm 显示界面中当前启动应用程序的显示名称)、apm服务的连接(就是我们启动的apm 服务)、apm 服务的 token、apm 服务需要监测的Java 程序的包路径：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">java -javaagent:/path/to/elastic-apm-agent-<version>.jar \
+ -Delastic.apm.service_name=my-application \
+ -Delastic.apm.server_url=http://localhost:8200 \
+ -Delastic.apm.secret_token= \
+ -Delastic.apm.application_packages=org.example \
+ -jar my-application.jar
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
-<h5 id="4、小结"><a href="#4、小结" class="headerlink" title="4、小结"></a>4、小结</h5><p>可以看到，APM 的功能还是很强大的，我们在实际应用中结合一些压测工具就可以很好地对我们的程序进行一个压力测试的操作。另外，对于 Java 应用程序来说，最近比较火的一个链路跟踪组件是 SkyWalking，以后有机会可以比较一下。</p>
-<h3 id="lt-3-gt-用机器学习实现时序数据的异常检测"><a href="#lt-3-gt-用机器学习实现时序数据的异常检测" class="headerlink" title="&lt;3&gt;用机器学习实现时序数据的异常检测"></a>&lt;3&gt;用机器学习实现时序数据的异常检测</h3><p>X-Pack 中的收费功能。它的应用场景就是去解决一些基于规则或者使用 Dashboard 难以实时发现的问题。</p>
+<p>其他的详细参数可以参考<a href="https://www.elastic.co/guide/en/apm/agent/java/current/index.html" target="_blank" rel="noopener">文档</a>。</p>
+<ol start="3">
+<li>
+<p>在启动我们的 Java 程序之后，点击&quot;检查代理状态&quot;来查看我们的应用程序是否正常运行并且agent 也正常地工作了(有时候是需要应用程序产生了一次具体地调用才能被监测到代理状态正常)。<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231408.png" alt="image-20200504113947106"></p>
+</li>
+<li>
+<p>在监测到代理对象正常工作之后，我们可以试用一些压测工具或者一些测试脚本使得应用程序在产生持续地调用，此时我们再回到 Kibana 的 APM 的界面<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231418.png" alt="image-20200504114248627">可以看到，在 Services 一栏下面已经有了一个&quot;my_application&quot;的 service，它就是我们刚刚启动的 Java 应用中通过<code>-Delastic.apm.service_name</code>指定的名称。<br>
+我们对其进行点击，就可以进入到这个应用程序监测的详情页面了<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231431.png" alt="image-20200504114622149">我们可以看到在下面有两个<code>MainCotroller#getAllUsers</code>和<code>MainController#addNewUser</code>的方法。我们分别点入这两个方法，就可以看到对于这个方法调用的具体监测信息了：<br>
+包括一些 transaction 的信息，还有一些请求响应的时间消耗<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231443.png" alt="image-20200504115049889"></p>
+<p>我们看到下面还提供了关于 Transaction 的详细信息，包括整个调用链各阶段的消耗时间以及数据库的一些调用的操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231457.png" alt="image-20200504115308785"><br>
+还能查看操作数据库的时候的一些详细的 sql 以及其他信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231509.png" alt="image-20200504115502831"><br>
+我们还能查看一些 HTTP 的详细信息（包含请求连接、请求头、请求体等）、还有 Service 的一些信息，Process 的信息等等。</p>
+</li>
+<li>
+<p>另外我们还可以在 Kibana 的 APM 面板的最后一行&quot;加载 Kibana 对象&quot;来设置该 APM 相关的 Kibana  对象（可视化组件、dashboard 等）从而构建更好的监测结果展示。</p>
+</li>
+</ol>
+<h5 id="4、小结"><a class="header-anchor" href="#4、小结">¶</a>4、小结</h5>
+<p>可以看到，APM 的功能还是很强大的，我们在实际应用中结合一些压测工具就可以很好地对我们的程序进行一个压力测试的操作。另外，对于 Java 应用程序来说，最近比较火的一个链路跟踪组件是 SkyWalking，以后有机会可以比较一下。</p>
+<h3 id="3-用机器学习实现时序数据的异常检测"><a class="header-anchor" href="#3-用机器学习实现时序数据的异常检测">¶</a>&lt;3&gt;用机器学习实现时序数据的异常检测</h3>
+<p>X-Pack 中的收费功能。它的应用场景就是去解决一些基于规则或者使用 Dashboard 难以实时发现的问题。</p>
 <ul>
 <li>在 IT 运维领域，如何知道系统正常运行、如何自动调节阈值触发合适的报警、当问题发生的时候如何进行归因分析。</li>
 <li>在信息安全领域，我们也想及时地知道哪些用户构成了威胁、系统是否感染了病毒。</li>
@@ -811,49 +853,113 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 </ul>
 <p>以上场景当中，机器学习都能帮助我们实现我们的工作，及时发现一些问题。</p>
 <p>我们先看两个基础概念：正常和异常。</p>
-<h4 id="正常"><a href="#正常" class="headerlink" title="正常"></a>正常</h4><p>正常主要分下面两种情况：</p>
+<h4 id="正常"><a class="header-anchor" href="#正常">¶</a>正常</h4>
+<p>正常主要分下面两种情况：</p>
 <ul>
 <li>随着时间的推移，某个个体一直表现出一致的行为</li>
 <li>某个个体和他的同类比较，一致表现出和其他个体一致的行为</li>
 </ul>
-<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4><p>异常主要分为下面两种情况：</p>
+<h4 id="异常"><a class="header-anchor" href="#异常">¶</a>异常</h4>
+<p>异常主要分为下面两种情况：</p>
 <ul>
 <li>和自己比：个体的行为发生了急剧变化</li>
 <li>和他人比：个体明显区别于其他的个体</li>
 </ul>
-<p>下面是两个异常的例子：<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231530.png" alt="异常1"><br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231541.png" alt="异常2"></p>
-<p>上面的两个异常的例子都是很好的识别的，但是有一些异常的例子却需要一定的指导才能发现：<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231555.png" alt="异常3"><br>参考上图，如果没有给出具体的指标我们是很难得出哪条狗是不正常的，如果我们说不吐舌头是正常，吐舌头是异常，那么就可以得出一个结果；如果我们说站着是正常的，坐着是异常的，那么也可以得出一个结果。</p>
-<h4 id="相关术语"><a href="#相关术语" class="headerlink" title="相关术语"></a>相关术语</h4><p><strong>机器学习</strong>是可以被运用到非常多的领域的，包括人脸识别等等，而Elastic 平台的机器学习功能主要针对时序数据的异常检测和预测。<br>Elastic 平台的机器学习是<strong>非监督机器学习</strong>，即不需要使用人工标签的数据来学习，仅仅依靠历史数据自动学习；同时它使用的还是<strong>贝叶斯统计</strong>方法，这是一种概率计算方法，使用先验结果来计算现值或者预测未来的数值。<br>在<strong>异常检测</strong>方面，异常代表的是不同的，但未必代表的是坏的（例如在双十一大促的时候订单量暴增，这在业务上是一件好事，但是此时系统和之前的状态是有着明显的不同的）；另外定义异常需要一些指导，从哪个方面去看(例如上面狗的例子)。</p>
-<h4 id="如何学习”正常”"><a href="#如何学习”正常”" class="headerlink" title="如何学习”正常”"></a>如何学习”正常”</h4><p>我们观察正常可以从两个方面进行，一个是将现在的自己和过去的自己进行比较，另一个是将自己和群体中的其他个体进行比较。<br>举个例子，观察不同的人每天走路的步数，由此预测明天他会走多少步，但是观察不同的人，我们需要定义一个观察的时间，是一天、一周、一个月、一年还是十年，这个根据具体的业务情况来定。当然观察的数据越多，预测理论上是越准的。<br>这时候我们使用这些观察来创建一个模型，它其实是一个概率分布的函数，通过这个模型找出一些低概率出现的事件，其实它就是一个异常。<br>而机器学习就是帮助我们自动挑选模型，使用成熟的机器学习技术，挑选适合数据的更好的、更正确的统计模型。更好的模型等于更好的异常检测等于更少的误报和漏报。</p>
-<h4 id="模型与学习周期"><a href="#模型与学习周期" class="headerlink" title="模型与学习周期"></a>模型与学习周期</h4><p>我们在选择学习周期的时候需要尽量选择合适的周期，不然如果时间太长，会涉及到一些不需要的影响因素加入进来，导致结果的不准确；如果学习时间太短，结果也是过于”随机”，不准确。</p>
-<h4 id="ES-机器学习Demo"><a href="#ES-机器学习Demo" class="headerlink" title="ES 机器学习Demo"></a>ES 机器学习Demo</h4><p>ES 提供了以下机器学习：<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231612.png" alt="ES 机器学习"></p>
-<h5 id="single-metric"><a href="#single-metric" class="headerlink" title="single metric"></a>single metric</h5><ol>
-<li><p>来到 Kibana，点击左边面板中的 Machine Learning，然后点击右边的”创建新作业”按钮<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231626.png" alt="single metric1"></p>
+<p>下面是两个异常的例子：<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231530.png" alt="异常1"><br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231541.png" alt="异常2"></p>
+<p>上面的两个异常的例子都是很好的识别的，但是有一些异常的例子却需要一定的指导才能发现：<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231555.png" alt="异常3"><br>
+参考上图，如果没有给出具体的指标我们是很难得出哪条狗是不正常的，如果我们说不吐舌头是正常，吐舌头是异常，那么就可以得出一个结果；如果我们说站着是正常的，坐着是异常的，那么也可以得出一个结果。</p>
+<h4 id="相关术语"><a class="header-anchor" href="#相关术语">¶</a>相关术语</h4>
+<p><strong>机器学习</strong>是可以被运用到非常多的领域的，包括人脸识别等等，而Elastic 平台的机器学习功能主要针对时序数据的异常检测和预测。<br>
+Elastic 平台的机器学习是<strong>非监督机器学习</strong>，即不需要使用人工标签的数据来学习，仅仅依靠历史数据自动学习；同时它使用的还是<strong>贝叶斯统计</strong>方法，这是一种概率计算方法，使用先验结果来计算现值或者预测未来的数值。<br>
+在<strong>异常检测</strong>方面，异常代表的是不同的，但未必代表的是坏的（例如在双十一大促的时候订单量暴增，这在业务上是一件好事，但是此时系统和之前的状态是有着明显的不同的）；另外定义异常需要一些指导，从哪个方面去看(例如上面狗的例子)。</p>
+<h4 id="如何学习-正常"><a class="header-anchor" href="#如何学习-正常">¶</a>如何学习&quot;正常&quot;</h4>
+<p>我们观察正常可以从两个方面进行，一个是将现在的自己和过去的自己进行比较，另一个是将自己和群体中的其他个体进行比较。<br>
+举个例子，观察不同的人每天走路的步数，由此预测明天他会走多少步，但是观察不同的人，我们需要定义一个观察的时间，是一天、一周、一个月、一年还是十年，这个根据具体的业务情况来定。当然观察的数据越多，预测理论上是越准的。<br>
+这时候我们使用这些观察来创建一个模型，它其实是一个概率分布的函数，通过这个模型找出一些低概率出现的事件，其实它就是一个异常。<br>
+而机器学习就是帮助我们自动挑选模型，使用成熟的机器学习技术，挑选适合数据的更好的、更正确的统计模型。更好的模型等于更好的异常检测等于更少的误报和漏报。</p>
+<h4 id="模型与学习周期"><a class="header-anchor" href="#模型与学习周期">¶</a>模型与学习周期</h4>
+<p>我们在选择学习周期的时候需要尽量选择合适的周期，不然如果时间太长，会涉及到一些不需要的影响因素加入进来，导致结果的不准确；如果学习时间太短，结果也是过于&quot;随机&quot;，不准确。</p>
+<h4 id="ES-机器学习Demo"><a class="header-anchor" href="#ES-机器学习Demo">¶</a>ES 机器学习Demo</h4>
+<p>ES 提供了以下机器学习：<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231612.png" alt="ES 机器学习"></p>
+<h5 id="single-metric"><a class="header-anchor" href="#single-metric">¶</a>single metric</h5>
+<ol>
+<li>
+<p>来到 Kibana，点击左边面板中的 Machine Learning，然后点击右边的&quot;创建新作业&quot;按钮<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231626.png" alt="single metric1"></p>
 </li>
-<li><p>选择我们要进行机器学习的 index pattern，我们选择”server-metrics”<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231638.png" alt="single metric2"><br>然后再选择 single metric<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231651.png" alt="single metric3"><br>进入到以下界面之后，我们进行如界面中的设置<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231703.png" alt="single metric4"><br>这几个字段的意思是，该机器学习算法会对索引”server-metrics”全量数据做以下操作：每隔15分钟之内的数据取出来然后对 total 字段进行求和，然后将所有的间隔内数据的该字段之和来求出一个我们前面提到的概率分布函数模型，得出概率低的值，那么这些概率低的值对应的区间以及区间的数据就会被认为是”异常”的。</p>
+<li>
+<p>选择我们要进行机器学习的 index pattern，我们选择&quot;server-metrics&quot;<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231638.png" alt="single metric2"><br>
+然后再选择 single metric<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231651.png" alt="single metric3"><br>
+进入到以下界面之后，我们进行如界面中的设置<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231703.png" alt="single metric4"><br>
+这几个字段的意思是，该机器学习算法会对索引&quot;server-metrics&quot;全量数据做以下操作：每隔15分钟之内的数据取出来然后对 total 字段进行求和，然后将所有的间隔内数据的该字段之和来求出一个我们前面提到的概率分布函数模型，得出概率低的值，那么这些概率低的值对应的区间以及区间的数据就会被认为是&quot;异常&quot;的。</p>
 </li>
-<li><p>然后我们输入作业的名称，并选择创建作业<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231718.png" alt="single metric5"><br>这时候我们就可以看到 Elasticsearch 就会在后台帮助我们在计算了<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231730.png" alt="single metric6"><br>很快我们就能得到一个结果，点击 view result<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231742.png" alt="single metric7"><br>这时候我们就能得到一个时序图，时序图分为了两部分，上面较宽的部分显示的是”放大图”，下面较窄的显示的是”缩略图”，我们可以通过扩大缩小”缩略图”中的一个窗口来确定”放大图”中的内容。<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231753.png" alt="single metric8"><br>我们也可以点击界面上的每一个点，它们都代表一个异常的点<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231805.png" alt="single metric9"><br>同时在下面的 Anomalies 的模块中也显示了所有异常的点，按照异常的”程度”进行优先排序。我们点开其中一个点的详细信息，可以看到这个区间数据的具体情况，包括它和”正常”的值(total 字段的求和)的差距<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231817.png" alt="single metric10"></p>
+<li>
+<p>然后我们输入作业的名称，并选择创建作业<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231718.png" alt="single metric5"><br>
+这时候我们就可以看到 Elasticsearch 就会在后台帮助我们在计算了<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231730.png" alt="single metric6"><br>
+很快我们就能得到一个结果，点击 view result<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231742.png" alt="single metric7"><br>
+这时候我们就能得到一个时序图，时序图分为了两部分，上面较宽的部分显示的是&quot;放大图&quot;，下面较窄的显示的是&quot;缩略图&quot;，我们可以通过扩大缩小&quot;缩略图&quot;中的一个窗口来确定&quot;放大图&quot;中的内容。<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231753.png" alt="single metric8"><br>
+我们也可以点击界面上的每一个点，它们都代表一个异常的点<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231805.png" alt="single metric9"><br>
+同时在下面的 Anomalies 的模块中也显示了所有异常的点，按照异常的&quot;程度&quot;进行优先排序。我们点开其中一个点的详细信息，可以看到这个区间数据的具体情况，包括它和&quot;正常&quot;的值(total 字段的求和)的差距<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231817.png" alt="single metric10"></p>
 </li>
-<li><p>另外在右上角还有一个 forecast 的按钮，我们可以点击它使得 ES 的 ML 对于现有模型对未来的数据进行预测，我们预测2天的数据：<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231827.png" alt="single metric11"><br>可以看到，ES 给我们算出了未来2天的曲线（另外我们还可以通过勾选上面的3个 checkbox 取消或者显示其对应的内容的显示）<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231838.png" alt="single metric12"></p>
+<li>
+<p>另外在右上角还有一个 forecast 的按钮，我们可以点击它使得 ES 的 ML 对于现有模型对未来的数据进行预测，我们预测2天的数据：<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231827.png" alt="single metric11"><br>
+可以看到，ES 给我们算出了未来2天的曲线（另外我们还可以通过勾选上面的3个 checkbox 取消或者显示其对应的内容的显示）<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231838.png" alt="single metric12"></p>
 </li>
-<li><p>点击”Job Management”回到 ML 的界面，我们通过以下动作进入到 job 的定制界面<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231850.png" alt="single metric13"><br>我们可以将这个 job 做一个链接，链接到 Dashboard 或者 Discover 的界面<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231901.png" alt="single metric14"><br>我们再回到 job management 的界面，然后点击 single metric viewer 再回到刚刚的”single metric”的计算结果界面：<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231911.png" alt="single metric15"><br>选择一个异常点，这时候我们发现多了一个我们前面定制的链接的名称”single-anomaly”，我们点击这个链接<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231936.png" alt="single metric16"><br>我们就可以直接跳转到 discovery 的界面了<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231947.png" alt="single metric17"><br>然后我们在这个界面查看该异常点的具体的一些数据，例如我们看到以下的一个数据的 total 是负数，我们认为负数数据应该被忽略，它也不属于异常数据，所以我们应该要过滤出大于0的数据进行检查<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232000.png" alt="single metric18"><br>我们在 discovery 的条件搜索里加上”total&gt;0”的条件，并点击 update 按钮，然后保存为一个名为”total gte 0”的 query，然后不再选择 “server-metrics” index pattern 而是基于这个 query 重新创建一个 ML Single Metric Job 进行一个学习，这样我们就可以基于一个新的准确的数据集进行异常检测。<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232012.png" alt="single metric19"><br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232027.png" alt="single metric20"><br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232039.png" alt="single metric21"></p>
+<li>
+<p>点击&quot;Job Management&quot;回到 ML 的界面，我们通过以下动作进入到 job 的定制界面<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231850.png" alt="single metric13"><br>
+我们可以将这个 job 做一个链接，链接到 Dashboard 或者 Discover 的界面<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231901.png" alt="single metric14"><br>
+我们再回到 job management 的界面，然后点击 single metric viewer 再回到刚刚的&quot;single metric&quot;的计算结果界面：<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231911.png" alt="single metric15"><br>
+选择一个异常点，这时候我们发现多了一个我们前面定制的链接的名称&quot;single-anomaly&quot;，我们点击这个链接<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231936.png" alt="single metric16"><br>
+我们就可以直接跳转到 discovery 的界面了<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221231947.png" alt="single metric17"><br>
+然后我们在这个界面查看该异常点的具体的一些数据，例如我们看到以下的一个数据的 total 是负数，我们认为负数数据应该被忽略，它也不属于异常数据，所以我们应该要过滤出大于0的数据进行检查<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232000.png" alt="single metric18"><br>
+我们在 discovery 的条件搜索里加上&quot;total&gt;0&quot;的条件，并点击 update 按钮，然后保存为一个名为&quot;total gte 0&quot;的 query，然后不再选择 “server-metrics” index pattern 而是基于这个 query 重新创建一个 ML Single Metric Job 进行一个学习，这样我们就可以基于一个新的准确的数据集进行异常检测。<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232012.png" alt="single metric19"><br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232027.png" alt="single metric20"><br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232039.png" alt="single metric21"></p>
 </li>
 </ol>
-<h5 id="multi-metric-amp-populate-metric"><a href="#multi-metric-amp-populate-metric" class="headerlink" title="multi metric &amp; populate metric"></a>multi metric &amp; populate metric</h5><p><a href="https://time.geekbang.org/course/detail/100030501-142415" target="_blank" rel="noopener">https://time.geekbang.org/course/detail/100030501-142415</a></p>
+<h5 id="multi-metric-populate-metric"><a class="header-anchor" href="#multi-metric-populate-metric">¶</a>multi metric &amp; populate metric</h5>
+<p><a href="https://time.geekbang.org/course/detail/100030501-142415" target="_blank" rel="noopener">https://time.geekbang.org/course/detail/100030501-142415</a></p>
 <ol>
 <li>讲了 multi metric 的案例，多个指标（字段）数据的机器学习来实现异常检测，就是比 single metric 支持更多字段的学习</li>
-<li>populate metric 和 single metric、multi metric 的区别在于后两者的区间数据是由一个时间区间来划分的，例如以15分钟为一个间隔的数据作为一个分析单元，而 populate metric 则是通过我们来指定一个具体的区间划分条件（其实就是数据分桶的条件），例如根据字段”username.keyword”的值进行分桶，同时 populate metric 也是可以进行多指标(字段)学习的。视频中就是举了一个通过用户名来对用户数据进行分桶并分析用户行为来进行用户的异常检测</li>
-<li>前面提到我们的学习区间”bucket span”要是适合的，不能太长也不能太短，ES 在定义学习期间（分桶逻辑）的输入框都提供了一个”estimate bucket span”的按钮，点击它可以获得一个 ES 推荐的学习区间值，当然我们也可以自己手动设置一个。</li>
+<li>populate metric 和 single metric、multi metric 的区别在于后两者的区间数据是由一个时间区间来划分的，例如以15分钟为一个间隔的数据作为一个分析单元，而 populate metric 则是通过我们来指定一个具体的区间划分条件（其实就是数据分桶的条件），例如根据字段&quot;username.keyword&quot;的值进行分桶，同时 populate metric 也是可以进行多指标(字段)学习的。视频中就是举了一个通过用户名来对用户数据进行分桶并分析用户行为来进行用户的异常检测</li>
+<li>前面提到我们的学习区间&quot;bucket span&quot;要是适合的，不能太长也不能太短，ES 在定义学习期间（分桶逻辑）的输入框都提供了一个&quot;estimate bucket span&quot;的按钮，点击它可以获得一个 ES 推荐的学习区间值，当然我们也可以自己手动设置一个。</li>
 <li>通过 Calendar 组件控制机器学习 job 的执行时间（避开业务高峰期进行机器学习）</li>
 <li>机器学习是在一些拥有机器学习角色的节点上进行的，如果我们的机器学习节点很多，可以设置一些 dedicated 的节点。</li>
 </ol>
-<h3 id="lt-4-gt-用Canvas-做数据演示"><a href="#lt-4-gt-用Canvas-做数据演示" class="headerlink" title="&lt;4&gt; 用Canvas 做数据演示"></a>&lt;4&gt; 用Canvas 做数据演示</h3><p><a href="https://time.geekbang.org/course/detail/100030501-142434" target="_blank" rel="noopener">https://time.geekbang.org/course/detail/100030501-142434</a></p>
-<p>Canvas 是 X-Pack 中的功能，但是它是可以免费使用的。它一般用于实时展示数据，并且达到完美像素级要求，用更加酷炫的方式，演绎你的数据。它和之前介绍的可视化组件和 dashboard 不一样，整个界面都是可以高度定制的（向一个画板一样，为每一个像素关联上一个具体的索引或者文档或者字段，随着数据的变化，画板上的像素也随着变化，实现一个动态的大屏）。<br>所以我们可以用 Canvas 来做那些放在公共场合展示的大图（例如向客户展示我们的公司数据、在大促的时候的秒杀的流量大图等等）。</p>
+<h3 id="4-用Canvas-做数据演示"><a class="header-anchor" href="#4-用Canvas-做数据演示">¶</a>&lt;4&gt; 用Canvas 做数据演示</h3>
+<p><a href="https://time.geekbang.org/course/detail/100030501-142434" target="_blank" rel="noopener">https://time.geekbang.org/course/detail/100030501-142434</a></p>
+<p>Canvas 是 X-Pack 中的功能，但是它是可以免费使用的。它一般用于实时展示数据，并且达到完美像素级要求，用更加酷炫的方式，演绎你的数据。它和之前介绍的可视化组件和 dashboard 不一样，整个界面都是可以高度定制的（向一个画板一样，为每一个像素关联上一个具体的索引或者文档或者字段，随着数据的变化，画板上的像素也随着变化，实现一个动态的大屏）。<br>
+所以我们可以用 Canvas 来做那些放在公共场合展示的大图（例如向客户展示我们的公司数据、在大促的时候的秒杀的流量大图等等）。</p>
 <p>下面是 Kibana 开箱即用的三个数据集中包含的三个 Canvas 对象：</p>
 <ol>
-<li>网站流量数据集<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232102.png" alt="canvas1"></li>
-<li>飞行航班的航班信息大屏（类似机场那种）<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232113.png" alt="canvas2"></li>
-<li>电商销量大屏<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232127.png" alt="canvas3"></li>
+<li>网站流量数据集<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232102.png" alt="canvas1"></li>
+<li>飞行航班的航班信息大屏（类似机场那种）<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232113.png" alt="canvas2"></li>
+<li>电商销量大屏<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232127.png" alt="canvas3"></li>
 </ol>
 <p>这些大屏都是在一个画布中编辑的，我们可以编辑任意一个像素点。</p>
 
@@ -1348,7 +1454,7 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="15_垃圾回收器">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="15_垃圾回收器">
                         
                         <span class="card-title">15_垃圾回收器</span>
                     </div>
@@ -1397,7 +1503,7 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="001_前言">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="001_前言">
                         
                         <span class="card-title">001_前言</span>
                     </div>
@@ -1565,7 +1671,7 @@ curl -H 'Content-Type: application/x-ndjson' -XPOST 'myecs.com:9200/bank/account
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

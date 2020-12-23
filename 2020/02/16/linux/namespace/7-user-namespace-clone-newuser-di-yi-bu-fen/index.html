@@ -330,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -516,7 +516,8 @@
 <blockquote>
 <p>本篇所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
 </blockquote>
-<h2 id="创建user-namespace"><a href="#创建user-namespace" class="headerlink" title="创建user namespace"></a>创建user namespace</h2><pre><code>#--------------------------第一个shell窗口----------------------
+<h2 id="创建user-namespace"><a class="header-anchor" href="#创建user-namespace">¶</a>创建user namespace</h2>
+<pre><code>#--------------------------第一个shell窗口----------------------
 #先记录下目前的id，gid和user namespace
 dev@ubuntu:~$ id
 uid=1000(dev) gid=1000(dev) groups=1000(dev),4(adm),24(cdrom),27(sudo)
@@ -528,7 +529,9 @@ dev@ubuntu:~$ unshare --user /bin/bash
 nobody@ubuntu:~$ readlink /proc/$$/ns/user
 user:[4026532464]
 nobody@ubuntu:~$ id
-uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</code></pre><p>很奇怪，为什么上面例子中显示的用户名是nobody，它的id和gid都是65534？</p>
+uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)
+</code></pre>
+<p>很奇怪，为什么上面例子中显示的用户名是nobody，它的id和gid都是65534？</p>
 <p>这是因为我们还没有映射父user namespace的user ID和group ID到子user namespace中来，这一步是必须的，因为这样系统才能控制一个user namespace里的用户在其他user namespace中的权限。（比如给其他user namespace中的进程发送信号，或者访问属于其他user namespace挂载的文件）</p>
 <p>如果没有映射的话，当在新的user namespace中用getuid()和getgid()获取user id和group id时，系统将返回文件/proc/sys/kernel/overflowuid中定义的user ID以及proc/sys/kernel/overflowgid中定义的group ID，它们的默认值都是65534。也就是说如果没有指定映射关系的话，会默认映射到ID65534。</p>
 <p>下面看看这个user能干些什么</p>
@@ -538,7 +541,7 @@ nobody@ubuntu:~$ ls -l /|grep root
 drwx------   3 nobody nogroup  4096 7月   8 18:39 root
 #但是当前的nobody账号访问不了，说明这两个nobody不是一个ID，他们之间没有映射关系
 nobody@ubuntu:~$ ls /root
-ls: cannot open directory &#39;/root&#39;: Permission denied
+ls: cannot open directory '/root': Permission denied
 
 #这里显示/home/dev目录属于nobody
 nobody@ubuntu:~$ ls -l /home/
@@ -546,11 +549,18 @@ drwxr-xr-x 11 nobody nogroup 4096 7月   8 18:40 dev
 #touch成功，说明虽然没有显式的映射ID，但还是能访问父user namespace里dev账号拥有的资源
 #说明他们背后还是有映射关系
 nobody@ubuntu:~$ touch /home/dev/temp01
-nobody@ubuntu:~$</code></pre><h2 id="映射user-ID和group-ID"><a href="#映射user-ID和group-ID" class="headerlink" title="映射user ID和group ID"></a>映射user ID和group ID</h2><p>通常情况下，创建新的user namespace后，第一件事就是映射user和group ID. 映射ID的方法是添加配置到/proc/PID/uid_map和/proc/PID/gid_map（这里的PID是新user namespace中的进程ID，刚开始时这两个文件都是空的）.</p>
+nobody@ubuntu:~$
+</code></pre>
+<h2 id="映射user-ID和group-ID"><a class="header-anchor" href="#映射user-ID和group-ID">¶</a>映射user ID和group ID</h2>
+<p>通常情况下，创建新的user namespace后，第一件事就是映射user和group ID. 映射ID的方法是添加配置到/proc/PID/uid_map和/proc/PID/gid_map（这里的PID是新user namespace中的进程ID，刚开始时这两个文件都是空的）.</p>
 <p>这两个文件里面的配置格式如下（可以有多条）：</p>
-<pre><code>ID-inside-ns ID-outside-ns length</code></pre><p>举个例子, 0 1000 256这条配置就表示父user namespace中的1000<del>1256映射到新user namespace中的0</del>256。</p>
+<pre><code>ID-inside-ns ID-outside-ns length
+</code></pre>
+<p>举个例子, 0 1000 256这条配置就表示父user namespace中的1000~1256映射到新user namespace中的0~256。</p>
 <blockquote>
-<p>系统默认的user namespace没有父user namespace，但为了保持一致，kernel提供了一个虚拟的uid和gid map文件，看起来是这样子的:<br>dev@ubuntu:~cat /proc/<em>c<strong>a</strong>t</em>/<em>p<strong>r</strong>o**c</em>/$/uid_map<br>0 0 4294967295</p>
+<p>系统默认的user namespace没有父user namespace，但为了保持一致，kernel提供了一个虚拟的uid和gid map文件，看起来是这样子的:<br>
+dev@ubuntu:~cat /proc/<em>c<strong>a</strong>t</em>/<em>p<strong>r</strong>o**c</em>/$/uid_map<br>
+0 0 4294967295</p>
 </blockquote>
 <p>那么谁可以向这个文件中写配置呢？</p>
 <p>/proc/PID/uid_map和/proc/PID/gid_map的拥有者是创建新user namespace的这个user，所以和这个user在一个user namespace的root账号可以写。但这个user自己有没有写map文件权限还要看它有没有CAP_SETUID和CAP_SETGID的capability。</p>
@@ -571,12 +581,12 @@ dev@ubuntu:~$ ls -l /proc/24126/uid_map /proc/24126/gid_map
 -rw-r--r-- 1 dev dev 0 7月  24 23:11 /proc/24126/uid_map
 
 #但还是没有权限写这个文件
-dev@ubuntu:~$ echo &#39;0 1000 100&#39; &gt; /proc/24126/uid_map
+dev@ubuntu:~$ echo '0 1000 100' &gt; /proc/24126/uid_map
 bash: echo: write error: Operation not permitted
-dev@ubuntu:~$ echo &#39;0 1000 100&#39; &gt; /proc/24126/gid_map
+dev@ubuntu:~$ echo '0 1000 100' &gt; /proc/24126/gid_map
 bash: echo: write error: Operation not permitted
 #当前用户运行的bash进程没有CAP_SETUID和CAP_SETGID的权限
-dev@ubuntu:~$ cat /proc/$$/status | egrep &#39;Cap(Inh|Prm|Eff)&#39;
+dev@ubuntu:~$ cat /proc/$$/status | egrep 'Cap(Inh|Prm|Eff)'
 CapInh: 0000000000000000
 CapPrm: 0000000000000000
 CapEff: 0000000000000000
@@ -585,20 +595,20 @@ CapEff: 0000000000000000
 dev@ubuntu:~$ sudo setcap cap_setgid,cap_setuid+ep /bin/bash
 #重新加载bash以后我们看到相应的capability已经有了
 dev@ubuntu:~$ exec bash
-dev@ubuntu:~$ cat /proc/$$/status | egrep &#39;Cap(Inh|Prm|Eff)&#39;
+dev@ubuntu:~$ cat /proc/$$/status | egrep 'Cap(Inh|Prm|Eff)'
 CapInh: 0000000000000000
 CapPrm: 00000000000000c0
 CapEff: 00000000000000c0
 
 
 #再试一次写map文件，成功了
-dev@ubuntu:~$ echo &#39;0 1000 100&#39; &gt; /proc/24126/uid_map
-dev@ubuntu:~$ echo &#39;0 1000 100&#39; &gt; /proc/24126/gid_map
+dev@ubuntu:~$ echo '0 1000 100' &gt; /proc/24126/uid_map
+dev@ubuntu:~$ echo '0 1000 100' &gt; /proc/24126/gid_map
 dev@ubuntu:~$
 #再写一次就失败了，因为这个文件只能写一次
-dev@ubuntu:~$ echo &#39;0 1000 100&#39; &gt; /proc/24126/uid_map
+dev@ubuntu:~$ echo '0 1000 100' &gt; /proc/24126/uid_map
 bash: echo: write error: Operation not permitted
-dev@ubuntu:~$ echo &#39;0 1000 100&#39; &gt; /proc/24126/gid_map
+dev@ubuntu:~$ echo '0 1000 100' &gt; /proc/24126/gid_map
 bash: echo: write error: Operation not permitted
 
 #后续测试不需要CAP_SETUID了，将/bin/bash的capability恢复到原来的设置
@@ -626,7 +636,7 @@ nobody@ubuntu:~$ exec bash
 root@ubuntu:~#
 
 #0000003fffffffff表示当前运行的bash拥有所有的capability
-root@ubuntu:~# cat /proc/$$/status | egrep &#39;Cap(Inh|Prm|Eff)&#39;
+root@ubuntu:~# cat /proc/$$/status | egrep 'Cap(Inh|Prm|Eff)'
 CapInh: 0000000000000000
 CapPrm: 0000003fffffffff
 CapEff: 0000003fffffffff
@@ -641,7 +651,7 @@ dr-x--x--x 2 root root 0 7月  24 23:10 ns
 ......
 #虽然不能看目录里有哪些文件，但是可以读里面文件的内容
 dev@ubuntu:~$ ls -l /proc/24126/ns
-ls: cannot open directory &#39;/proc/24126/ns&#39;: Permission denied
+ls: cannot open directory '/proc/24126/ns': Permission denied
 dev@ubuntu:~$ readlink /proc/24126/ns/user
 user:[4026532464]
 
@@ -649,7 +659,7 @@ user:[4026532464]
 #--------------------------第一个shell窗口----------------------
 #和第二个窗口一样的结果
 root@ubuntu:~# ls -l /proc/24126/ns
-ls: cannot open directory &#39;/proc/24126/ns&#39;: Permission denied
+ls: cannot open directory '/proc/24126/ns': Permission denied
 root@ubuntu:~# readlink /proc/24126/ns/user
 user:[4026532464]
 
@@ -657,7 +667,7 @@ user:[4026532464]
 root@ubuntu:~# ls -l /|grep root
 drwx------   3 nobody nogroup  4096 7月   8 18:39 root
 root@ubuntu:~# ls /root
-ls: cannot open directory &#39;/root&#39;: Permission denied
+ls: cannot open directory '/root': Permission denied
 
 #对于原来/home/dev下的内容，显示的owner已经映射过来了，由dev变成了新namespace中的root，
 #当前root用户可以访问他里面的内容
@@ -672,7 +682,9 @@ hostname: you must be root to change the host name
 #修改失败，说明这个新user namespace中的root账号在父user namespace里面不好使
 #这也正是user namespace所期望达到的效果，当访问其他user namespace里的资源时，
 #是以其他user namespace中的相应账号的权限来执行的，
-#比如这里root对应父user namespace的账号是dev，所以改不了系统的hostname</code></pre><p>那是不是把系统默认user namespace的root账号映射到新的user namespace中，新user namespace的root就可以修改默认user namespace中的hostname呢？</p>
+#比如这里root对应父user namespace的账号是dev，所以改不了系统的hostname
+</code></pre>
+<p>那是不是把系统默认user namespace的root账号映射到新的user namespace中，新user namespace的root就可以修改默认user namespace中的hostname呢？</p>
 <pre><code>#--------------------------第三个shell窗口----------------------
 #重新打开一个窗口
 #这里不再手动映射uid和gid，而是利用unshare命令的-r参数来帮我们完成映射，
@@ -698,12 +710,14 @@ root@ubuntu:~# touch /root/temp01
 root@ubuntu:~# ls -l /home
 drwxr-xr-x 11 nobody nogroup 4096 8月  14 23:13 dev
 root@ubuntu:~# touch /home/dev/temp01
-touch: cannot touch &#39;/home/dev/temp01&#39;: Permission denied
+touch: cannot touch '/home/dev/temp01': Permission denied
 
 #尝试修改hostname，还是失败
 root@ubuntu:~# hostname container001
-hostname: you must be root to change the host name</code></pre><p>上面的例子中虽然是将root账号映射到了新user namespace的root账号上，但修改hostname、访问/home/dev下的文件依然失败，那是因为不管怎么映射，当用子user namespace的账号访问父user namespace的资源的时候，它启动的进程的capability都为空，所以这里子user namespace的root账号到父namespace中就相当于一个普通的账号。</p>
-<p><strong>注意：</strong>对于map文件来说，在父user namespace和子user namespac中打开子user namespace中进程的这个文件看到的都是同样的内容，但如果是在其他的user namespace中打开这个map文件，‘ID-outside-ns’表示的就是映射到当前user namespace的ID.这里听起来有点绕，看下面的例子</p>
+hostname: you must be root to change the host name
+</code></pre>
+<p>上面的例子中虽然是将root账号映射到了新user namespace的root账号上，但修改hostname、访问/home/dev下的文件依然失败，那是因为不管怎么映射，当用子user namespace的账号访问父user namespace的资源的时候，它启动的进程的capability都为空，所以这里子user namespace的root账号到父namespace中就相当于一个普通的账号。</p>
+<p>**注意：**对于map文件来说，在父user namespace和子user namespac中打开子user namespace中进程的这个文件看到的都是同样的内容，但如果是在其他的user namespace中打开这个map文件，‘ID-outside-ns’表示的就是映射到当前user namespace的ID.这里听起来有点绕，看下面的例子</p>
 <pre><code>#--------------------------打开一个新窗口----------------------
 #创建一个新的user namespace，并取名container001
 dev@ubuntu:~$ unshare --user --uts -r /bin/bash
@@ -742,7 +756,10 @@ root@container001:~# cat /proc/28066/uid_map
 #默认情况下，nsenter会调用setgroups函数去掉root group的权限，
 #这里--preserve-credentials是为了让nsenter不调用setgroups函数，因为调用这个函数需要root权限
 
-#测试完成后可以关闭这两个窗口，后面不会再用到了</code></pre><h2 id="user-namespace的owner"><a href="#user-namespace的owner" class="headerlink" title="user namespace的owner"></a>user namespace的owner</h2><p>当一个用户创建一个新的user namespace的时候，这个用户就是这个新user namespace的owner，在父user namespace的这个用户就会拥有新user namespace及其所有子孙user namespace的所有capabilities.</p>
+#测试完成后可以关闭这两个窗口，后面不会再用到了
+</code></pre>
+<h2 id="user-namespace的owner"><a class="header-anchor" href="#user-namespace的owner">¶</a>user namespace的owner</h2>
+<p>当一个用户创建一个新的user namespace的时候，这个用户就是这个新user namespace的owner，在父user namespace的这个用户就会拥有新user namespace及其所有子孙user namespace的所有capabilities.</p>
 <pre><code>#--------------------------第四个shell窗口----------------------
 #新建用户test用于测试
 dev@ubuntu:~$ sudo useradd test
@@ -818,8 +835,12 @@ root@container003:~# echo $$
 #说明dev拥有孙子user namespace的capabilities
 dev@ubuntu:~$ nsenter --user -t 24533 --preserve-credentials --uts /bin/bash
 root@container003:~# readlink /proc/$$/ns/user
-user:[4026532471]</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本文先介绍了user namespace的一些概念，然后介绍如何配置mapping文件，最后介绍了user namespace的owner。从上面的介绍中可以看出，user namespace还是比较复杂的，要了解user namespace，需要对Linux下的权限有一个基本的了解。下一篇中将继续介绍user namespace和其他namespace的关系，以及一些其他的注意事项。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+user:[4026532471]
+</code></pre>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>本文先介绍了user namespace的一些概念，然后介绍如何配置mapping文件，最后介绍了user namespace的owner。从上面的介绍中可以看出，user namespace还是比较复杂的，要了解user namespace，需要对Linux下的权限有一个基本的了解。下一篇中将继续介绍user namespace和其他namespace的关系，以及一些其他的注意事项。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="http://man7.org/linux/man-pages/man7/user_namespaces.7.html" target="_blank" rel="noopener">user namespaces man page</a></li>
 <li><a href="https://lwn.net/Articles/532593/" target="_blank" rel="noopener">Namespaces in operation, part 5: User namespaces</a></li>
 <li><a href="https://lwn.net/Articles/540087/" target="_blank" rel="noopener">Namespaces in operation, part 6: more on user namespaces</a></li>
@@ -1312,13 +1333,13 @@ user:[4026532471]</code></pre><h2 id="结束语"><a href="#结束语" class="hea
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/">
+                <a href="/2020/02/16/linux/namespace/6-network-namespace-clone-newnet/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="5、pid namespace (CLONE_NEWPID)">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="6、network namespace (CLONE_NEWNET)">
                         
-                        <span class="card-title">5、pid namespace (CLONE_NEWPID)</span>
+                        <span class="card-title">6、network namespace (CLONE_NEWNET)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1361,13 +1382,13 @@ user:[4026532471]</code></pre><h2 id="结束语"><a href="#结束语" class="hea
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/network/linux-xu-ni-wang-luo-she-bei-zhi-bridge-qiao/">
+                <a href="/2020/02/16/linux/network/linux-wang-luo-shu-ju-bao-fa-song-guo-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux虚拟网络设备之bridge(桥)">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux网络-数据包发送过程">
                         
-                        <span class="card-title">Linux虚拟网络设备之bridge(桥)</span>
+                        <span class="card-title">Linux网络-数据包发送过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1533,7 +1554,7 @@ user:[4026532471]</code></pre><h2 id="结束语"><a href="#结束语" class="hea
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

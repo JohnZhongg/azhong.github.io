@@ -12,7 +12,8 @@
 
 下面的所有例子都在ubuntu-server-x86_64 16.04下执行通过
 
-基本用法mount命令的标准格式如下">
+¶基本用法
+mount命令的标准格式">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -333,7 +334,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -515,15 +516,20 @@
 <blockquote>
 <p>下面的所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
 </blockquote>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>mount命令的标准格式如下</p>
-<pre><code>mount -t type -o options device dir</code></pre><ul>
+<h2 id="基本用法"><a class="header-anchor" href="#基本用法">¶</a>基本用法</h2>
+<p>mount命令的标准格式如下</p>
+<pre><code>mount -t type -o options device dir
+</code></pre>
+<ul>
 <li>device: 要挂载的设备（必填）。有些文件系统不需要指定具体的设备，这里可以随便填一个字符串</li>
 <li>dir: 挂载到哪个目录（必填）</li>
 <li>type： 文件系统类型（可选）。大部分情况下都不用指定该参数，系统都会自动检测到设备上的文件系统类型</li>
-<li>options： 挂载参数（可选）。<br>options一般分为两类，一类是Linux VFS所提供的通用参数，就是每个文件系统都可以使用这类参数，详情请参考“<a href="http://man7.org/linux/man-pages/man8/mount.8.html" target="_blank" rel="noopener">FILESYSTEM-INDEPENDENT MOUNT OPTIONS</a>”。另一类是每个文件系统自己支持的特有参数，这个需要参考每个文件系统的文档，如btrfs支持的参数可以在<a href="https://btrfs.wiki.kernel.org/index.php/Mount_options" target="_blank" rel="noopener">这里</a>找到。</li>
+<li>options： 挂载参数（可选）。<br>
+options一般分为两类，一类是Linux VFS所提供的通用参数，就是每个文件系统都可以使用这类参数，详情请参考“<a href="http://man7.org/linux/man-pages/man8/mount.8.html" target="_blank" rel="noopener">FILESYSTEM-INDEPENDENT MOUNT OPTIONS</a>”。另一类是每个文件系统自己支持的特有参数，这个需要参考每个文件系统的文档，如btrfs支持的参数可以在<a href="https://btrfs.wiki.kernel.org/index.php/Mount_options" target="_blank" rel="noopener">这里</a>找到。</li>
 </ul>
 <p>网上关于如何利用mount命令挂载设备的例子很多，这里就不再啰嗦了。</p>
-<h2 id="挂载虚拟文件系统"><a href="#挂载虚拟文件系统" class="headerlink" title="挂载虚拟文件系统"></a>挂载虚拟文件系统</h2><p>proc、tmpfs、sysfs、devpts等都是Linux内核映射到用户空间的虚拟文件系统，他们不和具体的物理设备关联，但他们具有普通文件系统的特征，应用层程序可以像访问普通文件系统一样来访问他们。</p>
+<h2 id="挂载虚拟文件系统"><a class="header-anchor" href="#挂载虚拟文件系统">¶</a>挂载虚拟文件系统</h2>
+<p>proc、tmpfs、sysfs、devpts等都是Linux内核映射到用户空间的虚拟文件系统，他们不和具体的物理设备关联，但他们具有普通文件系统的特征，应用层程序可以像访问普通文件系统一样来访问他们。</p>
 <p>这里只是示例一下怎么挂载他们，不会对他们具体的功能做详细介绍。</p>
 <pre><code>#将内核的proc文件系统挂载到/mnt，
 #这样就可以在/mnt目录下看到系统当前运行的所有进程的信息，
@@ -536,8 +542,12 @@ dev@ubuntu:~$ sudo mount -t proc none /mnt
 #在内存中创建一个64M的tmpfs文件系统，并挂载到/mnt下，
 #这样所有写到/mnt目录下的文件都存储在内存中，速度非常快，
 #不过要注意，由于数据存储在内存中，所以断电后数据会丢失掉
-dev@ubuntu:~$ sudo mount -t tmpfs -o size=64m tmpfs /mnt</code></pre><h2 id="挂载-loop-device"><a href="#挂载-loop-device" class="headerlink" title="挂载 loop device"></a>挂载 <a href="https://en.wikipedia.org/wiki/Loop_device" target="_blank" rel="noopener">loop device</a></h2><p>在Linux中，硬盘、光盘、软盘等都是常见的块设备，他们在Linux下的目录一般是/dev/hda1, /dev/cdrom, /dev/sda1，/dev/fd0这样的。而loop device是虚拟的块设备，主要目的是让用户可以像访问上述块设备那样访问一个文件。 loop device设备的路径一般是/dev/loop0, dev/loop1, …等，具体的个数跟内核的配置有关，Ubuntu16.04下面默认是8个，如果8个都被占用了，那么就需要修改内核参数来增加loop device的个数。</p>
-<h3 id="ISO文件"><a href="#ISO文件" class="headerlink" title="ISO文件"></a>ISO文件</h3><p>需要用到loop device的最常见的场景是mount一个ISO文件，示例如下</p>
+dev@ubuntu:~$ sudo mount -t tmpfs -o size=64m tmpfs /mnt
+</code></pre>
+<h2 id="挂载-loop-device"><a class="header-anchor" href="#挂载-loop-device">¶</a>挂载 <a href="https://en.wikipedia.org/wiki/Loop_device" target="_blank" rel="noopener">loop device</a></h2>
+<p>在Linux中，硬盘、光盘、软盘等都是常见的块设备，他们在Linux下的目录一般是/dev/hda1, /dev/cdrom, /dev/sda1，/dev/fd0这样的。而loop device是虚拟的块设备，主要目的是让用户可以像访问上述块设备那样访问一个文件。 loop device设备的路径一般是/dev/loop0, dev/loop1, …等，具体的个数跟内核的配置有关，Ubuntu16.04下面默认是8个，如果8个都被占用了，那么就需要修改内核参数来增加loop device的个数。</p>
+<h3 id="ISO文件"><a class="header-anchor" href="#ISO文件">¶</a>ISO文件</h3>
+<p>需要用到loop device的最常见的场景是mount一个ISO文件，示例如下</p>
 <pre><code>#利用mkisofs构建一个用于测试的iso文件
 dev@ubuntu:~$ mkdir -p iso/subdir01
 dev@ubuntu:~$ mkisofs -o ./test.iso ./iso
@@ -552,7 +562,10 @@ subdir01
 
 #通过losetup命令可以看到占用了loop0设备
 dev@ubuntu:~$ losetup -a
-/dev/loop0: []: (/home/dev/test.iso)</code></pre><h3 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h3><p>loop device另一种常用的用法是虚拟一个硬盘，比如我想尝试下btrfs这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了，示例如下</p>
+/dev/loop0: []: (/home/dev/test.iso)
+</code></pre>
+<h3 id="虚拟硬盘"><a class="header-anchor" href="#虚拟硬盘">¶</a>虚拟硬盘</h3>
+<p>loop device另一种常用的用法是虚拟一个硬盘，比如我想尝试下btrfs这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了，示例如下</p>
 <pre><code>#因为btrfs对分区的大小有最小要求，所以利用dd命令创建一个128M的文件
 dev@ubuntu:~$ dd if=/dev/zero bs=1M count=128 of=./vdisk.img
 
@@ -576,7 +589,10 @@ aaaaaa
 #加上刚才上面mount的iso文件，我们已经用了两个loop device了
 dev@ubuntu:~$ losetup -a
 /dev/loop0: []: (/home/dev/test.iso)
-/dev/loop1: []: (/home/dev/vdisk.img)</code></pre><h2 id="挂载多个设备到一个文件夹"><a href="#挂载多个设备到一个文件夹" class="headerlink" title="挂载多个设备到一个文件夹"></a>挂载多个设备到一个文件夹</h2><p>细心的朋友可能已经发现了，在上面的例子中，将test.iso和vdisk.img都mount到了/mnt目录下，这个在Linux下是支持的，默认会用后面的mount覆盖掉前面的mount，只有当umount后面的device后，原来的device才看的到。 看下面的例子</p>
+/dev/loop1: []: (/home/dev/vdisk.img)
+</code></pre>
+<h2 id="挂载多个设备到一个文件夹"><a class="header-anchor" href="#挂载多个设备到一个文件夹">¶</a>挂载多个设备到一个文件夹</h2>
+<p>细心的朋友可能已经发现了，在上面的例子中，将test.iso和vdisk.img都mount到了/mnt目录下，这个在Linux下是支持的，默认会用后面的mount覆盖掉前面的mount，只有当umount后面的device后，原来的device才看的到。 看下面的例子</p>
 <pre><code>#先umount上面的iso和vdisk.img
 dev@ubuntu:~$ sudo umount ./test.iso
 dev@ubuntu:~$ sudo umount ./vdisk.img
@@ -614,8 +630,11 @@ subdir01
 dev@ubuntu:~$ sudo umount /mnt
 #最开始/mnt目录里面的文件可以看到了
 dev@ubuntu:~$ ls /mnt/
-test</code></pre><p>有了这个功能，平时挂载设备的时候就不用专门去创建空目录了，随便找个暂时不用的目录挂上去就可以了。</p>
-<h2 id="挂载一个设备到多个目录"><a href="#挂载一个设备到多个目录" class="headerlink" title="挂载一个设备到多个目录"></a>挂载一个设备到多个目录</h2><p>当然我们也可以把一个设备mount到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
+test
+</code></pre>
+<p>有了这个功能，平时挂载设备的时候就不用专门去创建空目录了，随便找个暂时不用的目录挂上去就可以了。</p>
+<h2 id="挂载一个设备到多个目录"><a class="header-anchor" href="#挂载一个设备到多个目录">¶</a>挂载一个设备到多个目录</h2>
+<p>当然我们也可以把一个设备mount到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
 <pre><code>#新建两目录用于挂载点
 dev@ubuntu:~$ sudo mkdir /mnt/disk1 /mnt/disk2
 #将vdisk.img依次挂载到disk1和disk2
@@ -640,8 +659,12 @@ dev@ubuntu:~$ tree /mnt
 │   └── bbbbbb
 └── disk2
     ├── aaaaaa
-    └── bbbbbb</code></pre><h2 id="bind-mount"><a href="#bind-mount" class="headerlink" title="bind mount"></a>bind mount</h2><p>bind mount功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转Linux的必备技能</p>
-<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>bind mount会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
+    └── bbbbbb
+</code></pre>
+<h2 id="bind-mount"><a class="header-anchor" href="#bind-mount">¶</a>bind mount</h2>
+<p>bind mount功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转Linux的必备技能</p>
+<h3 id="基本功能"><a class="header-anchor" href="#基本功能">¶</a>基本功能</h3>
+<p>bind mount会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
 <pre><code>#准备要用到的目录
 dev@ubuntu:~$ mkdir -p bind/bind1/sub1
 dev@ubuntu:~$ mkdir -p bind/bind2/sub2
@@ -659,7 +682,10 @@ bind
 ├── bind1
 │   └── sub1
 └── bind2
-    └── sub1</code></pre><h3 id="readonly-bind"><a href="#readonly-bind" class="headerlink" title="readonly bind"></a>readonly bind</h3><p>我们可以在bind的时候指定readonly，这样原来的目录还是能读写，但目的目录为只读</p>
+    └── sub1
+</code></pre>
+<h3 id="readonly-bind"><a class="header-anchor" href="#readonly-bind">¶</a>readonly bind</h3>
+<p>我们可以在bind的时候指定readonly，这样原来的目录还是能读写，但目的目录为只读</p>
 <pre><code>#通过readonly的方式bind mount
 dev@ubuntu:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind2
 dev@ubuntu:~$ tree bind
@@ -671,7 +697,7 @@ bind
 
 #bind2目录为只读，没法touch里面的文件
 dev@ubuntu:~$ touch ./bind/bind2/sub1/aaa
-touch: cannot touch &#39;./bind/bind2/sub1/aaa&#39;: Read-only file system
+touch: cannot touch './bind/bind2/sub1/aaa': Read-only file system
 
 #bind1还是能读写
 dev@ubuntu:~$ touch ./bind/bind1/sub1/aaa
@@ -684,19 +710,24 @@ bind
 │       └── aaa
 └── bind2
     └── sub1
-        └── aaa</code></pre><p>如果我们想让当前目录readonly，那么可以bind自己，并且指定readonly参数：</p>
+        └── aaa
+</code></pre>
+<p>如果我们想让当前目录readonly，那么可以bind自己，并且指定readonly参数：</p>
 <pre><code>#bind mount并且指定readonly
 dev@ubuntu:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind1
 
 #创建新文件失败
 dev@ubuntu:~$ touch ./bind/bind1/sub1/aaa
-touch: cannot touch &#39;./bind/bind1/sub1/aaa&#39;: Read-only file system
+touch: cannot touch './bind/bind1/sub1/aaa': Read-only file system
 
 #umount之后，文件夹恢复到原来的读写权限
 dev@ubuntu:~$ sudo umount ./bind/bind1/
 ##touch文件成功
 dev@ubuntu:~$ touch ./bind/bind1/sub1/aaa
-dev@ubuntu:~$</code></pre><h3 id="bind-mount单个文件"><a href="#bind-mount单个文件" class="headerlink" title="bind mount单个文件"></a>bind mount单个文件</h3><p>我们也可以bind mount单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
+dev@ubuntu:~$
+</code></pre>
+<h3 id="bind-mount单个文件"><a class="header-anchor" href="#bind-mount单个文件">¶</a>bind mount单个文件</h3>
+<p>我们也可以bind mount单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
 <pre><code>#创建两个用于测试的文件
 dev@ubuntu:~$ echo aaaaaa &gt; bind/aa
 dev@ubuntu:~$ echo bbbbbb &gt; bind/bb
@@ -718,7 +749,10 @@ aaaaaa
 #umount bb文件后，bb的内容出现了，不过aa的内容再也找不到了
 dev@ubuntu:~$ sudo umount bind/bb
 dev@ubuntu:~$ cat bind/bb
-bbbbbb</code></pre><h3 id="move一个挂载点到另一个地方"><a href="#move一个挂载点到另一个地方" class="headerlink" title="move一个挂载点到另一个地方"></a>move一个挂载点到另一个地方</h3><p>move操作可以将一个挂载点移动到别的地方，这里以bind mount为例来演示，当然其他类型的挂载点也可以通过move操作来移动。</p>
+bbbbbb
+</code></pre>
+<h3 id="move一个挂载点到另一个地方"><a class="header-anchor" href="#move一个挂载点到另一个地方">¶</a>move一个挂载点到另一个地方</h3>
+<p>move操作可以将一个挂载点移动到别的地方，这里以bind mount为例来演示，当然其他类型的挂载点也可以通过move操作来移动。</p>
 <pre><code>#umount上面操作所产生的挂载点
 dev@ubuntu:~$ sudo umount /home/dev/bind/bind1
 dev@ubuntu:~$ sudo umount /home/dev/bind/bind2
@@ -733,7 +767,7 @@ sub1
 sub1
 
 #move操作要求mount point的父mount point不能为shared。
-#在这里./bind/bind2/的父mount point为&#39;/&#39;，所以需要将&#39;/&#39;变成private后才能做move操作
+#在这里./bind/bind2/的父mount point为'/'，所以需要将'/'变成private后才能做move操作
 #关于shared、private的含义将会在下一篇介绍
 dev@ubuntu:~$ findmnt -o TARGET,PROPAGATION /
 TARGET PROPAGATION
@@ -749,8 +783,12 @@ dev@ubuntu:~$ ls /mnt/
 sub1
 #由于bind2上的挂载点已经被移动到了/mnt上，于是能看到bind2目录下原来的文件了
 dev@ubuntu:~$ ls ./bind/bind2/
-sub2</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>在这篇文章中演示了一些比较实用的mount操作，尤其是bind mount，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍mount相关的“Shared subtrees”</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+sub2
+</code></pre>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>在这篇文章中演示了一些比较实用的mount操作，尤其是bind mount，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍mount相关的“Shared subtrees”</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="http://man7.org/linux/man-pages/man8/mount.8.html" target="_blank" rel="noopener">mount a filesystem</a></li>
 </ul>
 
@@ -1245,7 +1283,7 @@ sub2</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" titl
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux TTYPTS概述">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux TTYPTS概述">
                         
                         <span class="card-title">Linux TTYPTS概述</span>
                     </div>
@@ -1290,13 +1328,13 @@ sub2</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" titl
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/linux-session-he-jin-cheng-zu-gai-shu/">
+                <a href="/2020/02/16/linux/ipv6-jian-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux session和进程组概述">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="IPV6简介">
                         
-                        <span class="card-title">Linux session和进程组概述</span>
+                        <span class="card-title">IPV6简介</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1462,7 +1500,7 @@ sub2</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" titl
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

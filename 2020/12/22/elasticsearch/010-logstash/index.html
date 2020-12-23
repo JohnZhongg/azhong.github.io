@@ -8,12 +8,15 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="Logstash 入门及架构介绍Logstash 是一款开源的 ETL 工具，支持200多个插件，下面是它可以抽取的一些数据源的例子以及一些支持写入数据的一些例子：
+    <meta name="description" content="Logstash 入门及架构介绍
+Logstash 是一款开源的 ETL 工具，支持200多个插件，下面是它可以抽取的一些数据源的例子以及一些支持写入数据的一些例子：
 
-Logstash Concepts
+¶Logstash Concepts
+
+
 Pipeline
 
-包含了 inpu">
+包含了 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -334,7 +337,7 @@ Pipeline
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -489,7 +492,7 @@ Pipeline
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    3.2k
                 </div>
                 
 
@@ -512,30 +515,36 @@ Pipeline
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Logstash-入门及架构介绍"><a href="#Logstash-入门及架构介绍" class="headerlink" title="Logstash 入门及架构介绍"></a>Logstash 入门及架构介绍</h1><p>Logstash 是一款开源的 ETL 工具，支持200多个插件，下面是它可以抽取的一些数据源的例子以及一些支持写入数据的一些例子：</p>
+                <h1>Logstash 入门及架构介绍</h1>
+<p>Logstash 是一款开源的 ETL 工具，支持200多个插件，下面是它可以抽取的一些数据源的例子以及一些支持写入数据的一些例子：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223407.png" alt="image-20200503141441300"></p>
-<h3 id="Logstash-Concepts"><a href="#Logstash-Concepts" class="headerlink" title="Logstash Concepts"></a>Logstash Concepts</h3><ol>
-<li><p>Pipeline</p>
+<h3 id="Logstash-Concepts"><a class="header-anchor" href="#Logstash-Concepts">¶</a>Logstash Concepts</h3>
+<ol>
+<li>
+<p>Pipeline</p>
 <ul>
 <li>包含了 input-filter-output 三个阶段的处理流程，其中 input是抽取数据、filter 是数据转换、output 是数据输出</li>
 <li>插件生命周期管理</li>
 <li>队列管理（Logstash 内部实现了一个消息队列）</li>
 </ul>
 </li>
-<li><p>Logstash Event：数据在内部流转的时候的具体表现形式。数据在 input 阶段被转换成 Event，在 output 的时候被转化成目标格式数据。一个 Event 其实是一个 Java Object，在配置文件中，对 Event 的属性进行增删改查。</p>
+<li>
+<p>Logstash Event：数据在内部流转的时候的具体表现形式。数据在 input 阶段被转换成 Event，在 output 的时候被转化成目标格式数据。一个 Event 其实是一个 Java Object，在配置文件中，对 Event 的属性进行增删改查。</p>
 </li>
-<li><p>Codec（code/decode）：上面提到的 Event 和原始数据格式、输出数据的格式之间的转换就是由 Codec 完成。在 Logstash 中它指的是两个动作的集合，分别是”将原始数据 decode 成 Event”以及”将 Event encode 成目标数据”。</p>
-<p>下面是 Logstash 的一个架构简介：</p>
+<li>
+<p>Codec（code/decode）：上面提到的 Event 和原始数据格式、输出数据的格式之间的转换就是由 Codec 完成。在 Logstash 中它指的是两个动作的集合，分别是&quot;将原始数据 decode 成 Event&quot;以及&quot;将 Event encode 成目标数据&quot;。</p>
 </li>
 </ol>
+<p>下面是 Logstash 的一个架构简介：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223413.png" alt="image-20200503142106246"></p>
 <p>Input 、Filter 和 Output 三个阶段都是由不同的插件堆砌而成的，例如上面：</p>
 <ul>
-<li>input 我们使用了一个”Stdin”从控制台获取数据以及使用JDBC 获取数据的插件（Logstash 支持多数据源输入）</li>
+<li>input 我们使用了一个&quot;Stdin&quot;从控制台获取数据以及使用JDBC 获取数据的插件（Logstash 支持多数据源输入）</li>
 <li>在 FIlter 阶段我们使用 Mutate、Date、User Agent 等转换插件对数据进行转换</li>
 <li>在 output 的阶段使用了 Elasticsearch 这个插件将数据输出到 ES</li>
 </ul>
-<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>Logstash 内部实现了一个消息队列，所有经过 Input 采集到的数据经过 Codec 转换成 Event 之后都会扔到 Queue 中，由 Batcher 自己去Queue 中获取 Event 进行消费，传递给 Filter，完了之后再给 Output。Logstash 的消息是支持持久化的，也就是可以配置数据落盘，这样即使是在运行过程中Logstash 被中止了，已经转换好并入队的 Event 也不会丢失。</p>
+<h3 id="Queue"><a class="header-anchor" href="#Queue">¶</a>Queue</h3>
+<p>Logstash 内部实现了一个消息队列，所有经过 Input 采集到的数据经过 Codec 转换成 Event 之后都会扔到 Queue 中，由 Batcher 自己去Queue 中获取 Event 进行消费，传递给 Filter，完了之后再给 Output。Logstash 的消息是支持持久化的，也就是可以配置数据落盘，这样即使是在运行过程中Logstash 被中止了，已经转换好并入队的 Event 也不会丢失。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223418.png" alt="image-20200503150602714"></p>
 <p>在 Logstash 中，queue 按照存储方式分为两种：</p>
 <ul>
@@ -543,17 +552,19 @@ Pipeline
 <li><a href="https://www.elastic.co/guide/en/logstash/7.1/persistent-queues.html" target="_blank" rel="noopener">Persistent Queue</a>： 在 pipeline配置文件中配置 <code>Queue.type:persisted</code>，Logstash 会对 queue 中的数据进行落盘，机器宕机数据也不会丢失，保证数据会被消费，一定程度上可以替代 Kafka 等消息队列缓冲区的作用。</li>
 </ul>
 <p>另外，queue 的默认大小为4GB，可以通过<code>queue.max_bytes:4GB</code>来实现自定义。</p>
-<h3 id="Multi-Pipeline"><a href="#Multi-Pipeline" class="headerlink" title="Multi-Pipeline"></a>Multi-Pipeline</h3><p>Logstash 除了可以在一个 Pipeline 中有多个 input 之外，其实还可以支持多个 pipeline，以下是多 pipeline 的一个配置示例（pipelines.yml）：</p>
+<h3 id="Multi-Pipeline"><a class="header-anchor" href="#Multi-Pipeline">¶</a>Multi-Pipeline</h3>
+<p>Logstash 除了可以在一个 Pipeline 中有多个 input 之外，其实还可以支持多个 pipeline，以下是多 pipeline 的一个配置示例（pipelines.yml）：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223424.png" alt="image-20200503151109871"></p>
 <ul>
-<li>pipeline.id：指定 pipeline 的唯一标识</li>
+<li><a href="http://pipeline.id" target="_blank" rel="noopener">pipeline.id</a>：指定 pipeline 的唯一标识</li>
 <li>path.config：指定了 pipeline 的逻辑配置文件配置（对应前面介绍到的 logstash-sample.conf）</li>
 <li>pipelnie.works：该配置项配置的是该pipeline的线程数，默认是 CPU 核心数。</li>
-<li>pipeline.batch.size：batcher 一次批量获取等待处理的event (可以认为是 es 中的文档数，也就是”一行数据”)，默认是126。需要结合 jvm.options 调节。</li>
+<li>pipeline.batch.size：batcher 一次批量获取等待处理的event (可以认为是 es 中的文档数，也就是&quot;一行数据&quot;)，默认是126。需要结合 jvm.options 调节。</li>
 <li>pipeline.batch.delay：batcher 等待时间。</li>
 <li>queue.type：设置queue 的类型是持久的还是基于内存的。</li>
 </ul>
-<h3 id="LogStash-配置文件"><a href="#LogStash-配置文件" class="headerlink" title="LogStash 配置文件"></a>LogStash 配置文件</h3><p>Logstash 配置文件在”${Logstash_Home}/config”下面，分别有</p>
+<h3 id="LogStash-配置文件"><a class="header-anchor" href="#LogStash-配置文件">¶</a>LogStash 配置文件</h3>
+<p>Logstash 配置文件在&quot;${Logstash_Home}/config&quot;下面，分别有</p>
 <ul>
 <li>jvm.options：JVM 配置</li>
 <li>log4j2.properties：日志文件配置</li>
@@ -562,10 +573,11 @@ Pipeline
 <li>pipelines.yml： logstash 支持多 pipeline，这是对于pipelines的一些配置</li>
 <li>startup.options：一些启动配置项</li>
 </ul>
-<h4 id="logstash-sample-conf"><a href="#logstash-sample-conf" class="headerlink" title="logstash-sample.conf"></a>logstash-sample.conf</h4><p>下面是一个 Logstash 的 pipeline 逻辑配置文件的示例，可以看到分别分成了 input、filter、output 三个部分。我们通过<code>${Logstash_Home}/bin/logstash -f demo.conf</code>命令即可根据一个 demo.conf 的配置文件来启动 logstash 执行ETL 工作。</p>
+<h4 id="logstash-sample-conf"><a class="header-anchor" href="#logstash-sample-conf">¶</a>logstash-sample.conf</h4>
+<p>下面是一个 Logstash 的 pipeline 逻辑配置文件的示例，可以看到分别分成了 input、filter、output 三个部分。我们通过<code>${Logstash_Home}/bin/logstash -f demo.conf</code>命令即可根据一个 demo.conf 的配置文件来启动 logstash 执行ETL 工作。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223430.png" alt="image-20200503142622855"></p>
 <p>下面是一个使用 file input 插件从一个 csv文件中读取数据并经过多个 filter 插件的转换最终使用 elasticsearch output 插件写入到 es 索引中的例子：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">input {
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">input {
   file {
     path => "/usr/local/software/elasticsearch/movielens/ml-latest-small/movies.csv"
     start_position => "beginning"
@@ -606,8 +618,10 @@ output {
      document_id => "%{id}"
    }
   stdout {}
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Input-Plugins"><a href="#Input-Plugins" class="headerlink" title="Input Plugins"></a>Input Plugins</h3><p>一个 Pipeline 可以有 input 插件，Logstash 提供了许多开箱即用的输入插件：</p>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Input-Plugins"><a class="header-anchor" href="#Input-Plugins">¶</a>Input Plugins</h3>
+<p>一个 Pipeline 可以有 input 插件，Logstash 提供了许多开箱即用的输入插件：</p>
 <ul>
 <li>一些没有规范格式的输入：Stdin、File</li>
 <li>一些现有中间件的输入：Beats、Log4J、Elasticsearch、JDBC、Kafka、Rabbitmq、Redis</li>
@@ -615,54 +629,68 @@ output {
 <li>一些云存储的输入：Google Cloud Storage、S3</li>
 <li>Github、Twitter</li>
 </ul>
-<h5 id="Input-Plugin：File"><a href="#Input-Plugin：File" class="headerlink" title="Input Plugin：File"></a>Input Plugin：File</h5><p>支持从文件中读取数据，如日志文件。从文件中读取数据有一些通用的需求，就是一个文件只会被读取一次（数据不被重复读取），如果读取的过程中发生了重启，需要从上一次读取的位置继续，logstash 都实现了这些需求（通过 sincedb 实现，把位置信息保存到 sincedb 中）。</p>
+<h5 id="Input-Plugin：File"><a class="header-anchor" href="#Input-Plugin：File">¶</a>Input Plugin：File</h5>
+<p>支持从文件中读取数据，如日志文件。从文件中读取数据有一些通用的需求，就是一个文件只会被读取一次（数据不被重复读取），如果读取的过程中发生了重启，需要从上一次读取的位置继续，logstash 都实现了这些需求（通过 sincedb 实现，把位置信息保存到 sincedb 中）。</p>
 <p>读取到文件新内容，发现新文件的时候都会自动处理。</p>
 <p>文档发生归档操作（文档位置发生变化，日志 rotation），不会影响当前的内容读取。</p>
-<h3 id="Output-Plugins"><a href="#Output-Plugins" class="headerlink" title="Output Plugins"></a><a href="https://www.elastic.co/guide/en/logstash/7.1/output-plugins.html" target="_blank" rel="noopener">Output Plugins</a></h3><p>output 是 pipeline 的最后阶段，负责将 Event 发送到特定的目的地。常见的 plugins：</p>
+<h3 id="Output-Plugins"><a class="header-anchor" href="#Output-Plugins">¶</a><a href="https://www.elastic.co/guide/en/logstash/7.1/output-plugins.html" target="_blank" rel="noopener">Output Plugins</a></h3>
+<p>output 是 pipeline 的最后阶段，负责将 Event 发送到特定的目的地。常见的 plugins：</p>
 <ul>
 <li>ELasticsearch</li>
 <li>Email、Pageduty</li>
 <li>Influxdb、Kafka、Mongodb、Opentsdb、Zabbix</li>
 <li>Http、TCP、Websocket</li>
 </ul>
-<h3 id="Codec-Plugins"><a href="#Codec-Plugins" class="headerlink" title="Codec Plugins"></a><a href="https://www.elastic.co/guide/en/logstash/7.1/codec-plugins.html" target="_blank" rel="noopener">Codec Plugins</a></h3><p>将原始数据 decode 成 event，将 event encode 成目标数据：</p>
+<h3 id="Codec-Plugins"><a class="header-anchor" href="#Codec-Plugins">¶</a><a href="https://www.elastic.co/guide/en/logstash/7.1/codec-plugins.html" target="_blank" rel="noopener">Codec Plugins</a></h3>
+<p>将原始数据 decode 成 event，将 event encode 成目标数据：</p>
 <ul>
 <li>Line、Multiline</li>
 <li>JSON、Avro、Cef（ArcSight Common Event Format）</li>
 <li>Dots、Rubydebug</li>
 </ul>
-<h5 id="Codec-Plugin：Single-Line、dots"><a href="#Codec-Plugin：Single-Line、dots" class="headerlink" title="Codec Plugin：Single Line、dots"></a>Codec Plugin：Single Line、dots</h5><p>通过在pipeline 逻辑配置文件中指定 input 里面的某个 input 插件的 codec 为 line（”<strong>codec=&gt;line</strong>“）来实现，这会使得 codec 将input 插件抓取过来的数据按照每一行（换行符）数据转换成一个 Event 对象：</p>
+<h5 id="Codec-Plugin：Single-Line、dots"><a class="header-anchor" href="#Codec-Plugin：Single-Line、dots">¶</a>Codec Plugin：Single Line、dots</h5>
+<p>通过在pipeline 逻辑配置文件中指定 input 里面的某个 input 插件的 codec 为 line（“<strong>codec=&gt;line</strong>”）来实现，这会使得 codec 将input 插件抓取过来的数据按照每一行（换行符）数据转换成一个 Event 对象：</p>
 <ol>
-<li><p>通过<code>-e</code>参数在命令行启动 logstash 的时候动态输入配置文件指定 input 为 stdin（codec 为 line），output 为 stdout</p>
+<li>通过<code>-e</code>参数在命令行启动 logstash 的时候动态输入配置文件指定 input 为 stdin（codec 为 line），output 为 stdout</li>
+</ol>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223439.png" alt="image-20200503152946281"></p>
-</li>
-<li><p>logstash在启动后就等待着我们的输入，这时候我们输入一个”hello world”，可以看到它立马就返回一个输出，然后再等待下一次输入</p>
+<ol start="2">
+<li>
+<p>logstash在启动后就等待着我们的输入，这时候我们输入一个&quot;hello world&quot;，可以看到它立马就返回一个输出，然后再等待下一次输入</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223444.png" alt="image-20200503153400540"></p>
 </li>
-<li><p>当我们将输出插件中的 codec 从 rubydebug 改成 dots，然后重启 logstash，可以看到我们输入 hello world 之后，dots codec 直接将所有的 events 都转换成了一个点传递给 stdout，控制台就输出了一个点给我们</p>
+<li>
+<p>当我们将输出插件中的 codec 从 rubydebug 改成 dots，然后重启 logstash，可以看到我们输入 hello world 之后，dots codec 直接将所有的 events 都转换成了一个点传递给 stdout，控制台就输出了一个点给我们</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223452.png" alt="image-20200503153713973"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223547.png" alt="image-20200503153733348"></p>
 </li>
 </ol>
-<h5 id="Codec-Plugin：json"><a href="#Codec-Plugin：json" class="headerlink" title="Codec Plugin：json"></a>Codec Plugin：json</h5><ol>
-<li><p>将前面例子中的 stdin 里面的 codec 改成 json，重启 logstash</p>
+<h5 id="Codec-Plugin：json"><a class="header-anchor" href="#Codec-Plugin：json">¶</a>Codec Plugin：json</h5>
+<ol>
+<li>
+<p>将前面例子中的 stdin 里面的 codec 改成 json，重启 logstash</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223501.png" alt="image-20200503153950382"></p>
 </li>
-<li><p>此时还是输入 hello world，此时报了一个 json 转换的异常</p>
+<li>
+<p>此时还是输入 hello world，此时报了一个 json 转换的异常</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223507.png" alt="image-20200503154115785"></p>
 </li>
-<li><p>输入{“hello”:”world”}，json 转换成功并输出</p>
+<li>
+<p>输入{“hello”:“world”}，json 转换成功并输出</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221223513.png" alt="image-20200503154219251"></p>
 </li>
 </ol>
-<h5 id="Codec-Plugin：Multiline"><a href="#Codec-Plugin：Multiline" class="headerlink" title="Codec Plugin：Multiline"></a>Codec Plugin：Multiline</h5><p>前面示例中 input 插件中的 codec 都是对输入数据按行转换 events 的，我们可以通过指定 input 插件的 codec 为 multiline，并为 multiline 指定一些参数即可实现多行识别：</p>
+<h5 id="Codec-Plugin：Multiline"><a class="header-anchor" href="#Codec-Plugin：Multiline">¶</a>Codec Plugin：Multiline</h5>
+<p>前面示例中 input 插件中的 codec 都是对输入数据按行转换 events 的，我们可以通过指定 input 插件的 codec 为 multiline，并为 multiline 指定一些参数即可实现多行识别：</p>
 <ul>
 <li>pattern：设置行匹配的正则表达式</li>
-<li>what：如果匹配成功，那么当前行是和前面的行一起作为一个 event （合并到前面的 event 中）还是和后面的行一起作为一个 event（另起一个 event）。<ul>
+<li>what：如果匹配成功，那么当前行是和前面的行一起作为一个 event （合并到前面的 event 中）还是和后面的行一起作为一个 event（另起一个 event）。
+<ul>
 <li>参数值：pervious/next</li>
 </ul>
 </li>
-<li>negate：是否对 pattern 结果取反<ul>
+<li>negate：是否对 pattern 结果取反
+<ul>
 <li>参数值：true/false</li>
 </ul>
 </li>
@@ -677,8 +705,9 @@ output {
 <li>其中 pattern 为 “^\s”</li>
 <li>what 为 “previous”</li>
 </ul>
-<p>即当一行数据是以空白字符开头的时候，它就和前面的行数据一起作为一个 event，看到我们前面的一个多行输入，第一行是以”E”开头的，后面三行都是空白字符开头，所以这四行数据都会被作为一个 Event 进行转换。</p>
-<h3 id="Filter-Plugins"><a href="#Filter-Plugins" class="headerlink" title="Filter Plugins"></a><a href="https://www.elastic.co/guide/en/logstash/7.1/filter-plugins.html" target="_blank" rel="noopener">Filter Plugins</a></h3><p> 处理 event，进行相关的数据转换动作</p>
+<p>即当一行数据是以空白字符开头的时候，它就和前面的行数据一起作为一个 event，看到我们前面的一个多行输入，第一行是以&quot;E&quot;开头的，后面三行都是空白字符开头，所以这四行数据都会被作为一个 Event 进行转换。</p>
+<h3 id="Filter-Plugins"><a class="header-anchor" href="#Filter-Plugins">¶</a><a href="https://www.elastic.co/guide/en/logstash/7.1/filter-plugins.html" target="_blank" rel="noopener">Filter Plugins</a></h3>
+<p>处理 event，进行相关的数据转换动作</p>
 <ul>
 <li>Mutate：操作 Event 的字段</li>
 <li>Metrics：Aggregate metrics</li>
@@ -687,7 +716,8 @@ output {
 <li>Dissect：分隔符解析</li>
 <li>Grok：正则匹配解析</li>
 </ul>
-<h5 id="Filter-Plugin：Mutate"><a href="#Filter-Plugin：Mutate" class="headerlink" title="Filter Plugin：Mutate"></a>Filter Plugin：Mutate</h5><ul>
+<h5 id="Filter-Plugin：Mutate"><a class="header-anchor" href="#Filter-Plugin：Mutate">¶</a>Filter Plugin：Mutate</h5>
+<ul>
 <li>Convert：类型转换</li>
 <li>Gsub：字符串替换</li>
 <li>Split、Join、Merge：字符串切割、数组合并字符串、数组合并数组</li>
@@ -695,33 +725,36 @@ output {
 <li>Update、Replace：字段内容更新替换</li>
 <li>Remove_field：字段删除</li>
 </ul>
-<h3 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h3><blockquote>
+<h3 id="相关阅读"><a class="header-anchor" href="#相关阅读">¶</a>相关阅读</h3>
+<blockquote>
 <p><a href="https://www.elastic.co/guide/en/logstash/7.1/output-plugins.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/7.1/output-plugins.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/logstash/7.1/codec-plugins.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/7.1/codec-plugins.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/logstash/7.1/filter-plugins.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/7.1/filter-plugins.html</a></p>
 <p><a href="https://www.elastic.co/guide/en/logstash/7.1/persistent-queues.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/logstash/7.1/persistent-queues.html</a></p>
 </blockquote>
-<h1 id="利用Logstash-JDBC-插件导入数据到-Elasticsearch"><a href="#利用Logstash-JDBC-插件导入数据到-Elasticsearch" class="headerlink" title="利用Logstash JDBC 插件导入数据到 Elasticsearch"></a>利用Logstash JDBC 插件导入数据到 Elasticsearch</h1><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>将数据库中的数据同步到ES，借助 ES 的全文搜索，提高搜索速度。</p>
+<h1>利用Logstash JDBC 插件导入数据到 Elasticsearch</h1>
+<h3 id="需求"><a class="header-anchor" href="#需求">¶</a>需求</h3>
+<p>将数据库中的数据同步到ES，借助 ES 的全文搜索，提高搜索速度。</p>
 <ul>
 <li>需要把新增用户信息同步到 Elasticsearch 中</li>
 <li>用户信息 update 后，需要能被更新到 Elasticsearch</li>
 <li>支持增量更新</li>
 <li>用户注销后，不能被 ES 搜索到</li>
 </ul>
-<h3 id="Logstash-JDBC-Input-Plugin-amp-设计实现思路"><a href="#Logstash-JDBC-Input-Plugin-amp-设计实现思路" class="headerlink" title="Logstash JDBC Input Plugin &amp; 设计实现思路"></a>Logstash JDBC Input Plugin &amp; 设计实现思路</h3><h4 id="1、对于新增和更新数据的同步"><a href="#1、对于新增和更新数据的同步" class="headerlink" title="1、对于新增和更新数据的同步"></a>1、对于新增和更新数据的同步</h4><p>本节中使用 logstash 的 jdbc 插件实现从 mysql 中抽取数据写入到 ES。这个 jdbc input 插件还支持 Scheduling，其语法来自 Rufus-scheduler，扩展了 Cron，支持时区。所以我们大概的实现思路就是：</p>
+<h3 id="Logstash-JDBC-Input-Plugin-设计实现思路"><a class="header-anchor" href="#Logstash-JDBC-Input-Plugin-设计实现思路">¶</a>Logstash JDBC Input Plugin &amp; 设计实现思路</h3>
+<h4 id="1、对于新增和更新数据的同步"><a class="header-anchor" href="#1、对于新增和更新数据的同步">¶</a>1、对于新增和更新数据的同步</h4>
+<p>本节中使用 logstash 的 jdbc 插件实现从 mysql 中抽取数据写入到 ES。这个 jdbc input 插件还支持 Scheduling，其语法来自 Rufus-scheduler，扩展了 Cron，支持时区。所以我们大概的实现思路就是：</p>
 <ol>
-<li><p>在每个需要同步数据到 ES 的表中增加了最后更新时间的字段</p>
-</li>
-<li><p>然后启用 jdbc input 插件中的定时任务，定时从数据库中查询最后更新时间大于上一次更新时间的数据（上一次更新时间要进行保存，初始值设置为0），然后将查出来的数据覆盖到 ES，并将其上一次更新时间字段更新为当前时间</p>
-<p>需要注意的是，我们需要自备 jdbc 的 jar 包，通过配置文件中的<code>input.jdbc.jdbc_driver_library</code>指定 jar 包路径。( 如果不想指定，就将这个 jar 包拷贝到 Logstash 的 classpath 路径，就是其 jar 包lib 目录，”${logstash_home}/logstash-core/lib/jars”)</p>
-</li>
+<li>在每个需要同步数据到 ES 的表中增加了最后更新时间的字段</li>
+<li>然后启用 jdbc input 插件中的定时任务，定时从数据库中查询最后更新时间大于上一次更新时间的数据（上一次更新时间要进行保存，初始值设置为0），然后将查出来的数据覆盖到 ES，并将其上一次更新时间字段更新为当前时间</li>
 </ol>
+<p>需要注意的是，我们需要自备 jdbc 的 jar 包，通过配置文件中的<code>input.jdbc.jdbc_driver_library</code>指定 jar 包路径。( 如果不想指定，就将这个 jar 包拷贝到 Logstash 的 classpath 路径，就是其 jar 包lib 目录，“${logstash_home}/logstash-core/lib/jars”)</p>
 <blockquote>
-<p> 上面提到的最后更新时间字段通过配置文件的<code>input.jdbc.use_column_value</code>、<code>input.jdbc.tracking_column</code>、<code>input.jdbc.tracking_column_type</code>、<code>record_last_run</code>、<code>last_run_metadata_path</code>实现，另外”查询最后更新时间大于上一次更新时间的逻辑”参考<code>input.jdbc.statemetn</code>中的 <code>where last_updated &gt; :sql_last_value</code>，<code>sql_last_value</code>貌似是一个关键字，待研究。</p>
+<p>上面提到的最后更新时间字段通过配置文件的<code>input.jdbc.use_column_value</code>、<code>input.jdbc.tracking_column</code>、<code>input.jdbc.tracking_column_type</code>、<code>record_last_run</code>、<code>last_run_metadata_path</code>实现，另外&quot;查询最后更新时间大于上一次更新时间的逻辑&quot;参考<code>input.jdbc.statemetn</code>中的 <code>where last_updated &gt; :sql_last_value</code>，<code>sql_last_value</code>貌似是一个关键字，待研究。</p>
 </blockquote>
-<pre class="line-numbers language-shell"><code class="language-shell">input {
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">input {
   jdbc {
-      jdbc_driver_library => "the_path_of_your_jdbc.jar"
+  	jdbc_driver_library => "the_path_of_your_jdbc.jar"
     jdbc_driver_class => "com.mysql.jdbc.Driver"
     jdbc_connection_string => "jdbc:mysql://localhost:3306/db_example"
     jdbc_user => root
@@ -753,10 +786,12 @@ output {
     codec => rubydebug
   }
 }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="2、对于删除数据的同步"><a href="#2、对于删除数据的同步" class="headerlink" title="2、对于删除数据的同步"></a>2、对于删除数据的同步</h4><p>以上都是对于新增和更新数据的同步方案，但是如果是删除数据的话，物理删除对上以上方案中的 logstash 来说是无感知的，因为它都是使用”select *”来获取数据的。所以对于删除数据的同步方案，我们考虑在 mysql 中设置一个”id_deleted”的字段来标识一条记录是否被删除（逻辑删除），在要删除一条数据的时候我们并不是真正地在 mysql 中对其 delete 掉，而是将这行记录地这个字段更新为 true（integer 的 1），然后更新最后更新时间字段为当前时间。</p>
-<p>然后我们需要解决的是 ES 中查询逻辑删除地数据的问题，因为即使是逻辑删除的数据在 ES 中也是可以直接查询出来的，如果用户想要根据索引来查询没有删除的数据，就要手动加上一个”is_deleted=false”的条件，很不友好，所以我们可以使用 ES 的 aliases 的功能，为这个索引建议一个 alias，然后在 alias 中定义一个 filter，过滤出那些”is_deleted=false”的数据，这样用户查询的时候直接根据这个 alias 来查询得到全部都是没有被删除的数据了。</p>
-<pre class="line-numbers language-shell"><code class="language-shell"># 创建 alias，只显示没有被标记 deleted的用户
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2、对于删除数据的同步"><a class="header-anchor" href="#2、对于删除数据的同步">¶</a>2、对于删除数据的同步</h4>
+<p>以上都是对于新增和更新数据的同步方案，但是如果是删除数据的话，物理删除对上以上方案中的 logstash 来说是无感知的，因为它都是使用&quot;select *&quot;来获取数据的。所以对于删除数据的同步方案，我们考虑在 mysql 中设置一个&quot;id_deleted&quot;的字段来标识一条记录是否被删除（逻辑删除），在要删除一条数据的时候我们并不是真正地在 mysql 中对其 delete 掉，而是将这行记录地这个字段更新为 true（integer 的 1），然后更新最后更新时间字段为当前时间。</p>
+<p>然后我们需要解决的是 ES 中查询逻辑删除地数据的问题，因为即使是逻辑删除的数据在 ES 中也是可以直接查询出来的，如果用户想要根据索引来查询没有删除的数据，就要手动加上一个&quot;is_deleted=false&quot;的条件，很不友好，所以我们可以使用 ES 的 aliases 的功能，为这个索引建议一个 alias，然后在 alias 中定义一个 filter，过滤出那些&quot;is_deleted=false&quot;的数据，这样用户查询的时候直接根据这个 alias 来查询得到全部都是没有被删除的数据了。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 创建 alias，只显示没有被标记 deleted的用户
 POST /_aliases
 {
   "actions": [
@@ -774,8 +809,10 @@ POST /_aliases
 POST view_users/_search
 {
 
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这种方案采用的是轮询”select *”的方式同步数据，其中还经过了 jdbc 协议的转换，性能可能是不太好的，现有的一些比较好的方案都是通过同步 binlog 的方式进行的。</p>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h3>
+<p>这种方案采用的是轮询&quot;select *&quot;的方式同步数据，其中还经过了 jdbc 协议的转换，性能可能是不太好的，现有的一些比较好的方案都是通过同步 binlog 的方式进行的。</p>
 
             </div>
             <hr />
@@ -1268,7 +1305,7 @@ POST view_users/_search
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="001_前言">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="001_前言">
                         
                         <span class="card-title">001_前言</span>
                     </div>
@@ -1317,7 +1354,7 @@ POST view_users/_search
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="004_Elasticsearch 入门">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="004_Elasticsearch 入门">
                         
                         <span class="card-title">004_Elasticsearch 入门</span>
                     </div>
@@ -1485,7 +1522,7 @@ POST view_users/_search
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

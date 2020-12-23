@@ -10,11 +10,13 @@
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[toc]
 JDK、JRE、JVM
+
 JVM整体结构
+
 
 整个结构分为上、中、下层。
 第一层类装载器子系统负责将class文件从文件系统加载到内存中成为一个JVM的class对象结构，分为加载、链接、初始化。
-方法区、堆所有线程共享；虚拟机栈(">
+方法区、堆所有线程共享；虚拟机">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -335,7 +337,7 @@ JVM整体结构
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -514,26 +516,32 @@ JVM整体结构
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h1 id="JDK、JRE、JVM"><a href="#JDK、JRE、JVM" class="headerlink" title="JDK、JRE、JVM"></a>JDK、JRE、JVM</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232754.png" alt="JDK_JRE_JVM"></p>
-<h1 id="JVM整体结构"><a href="#JVM整体结构" class="headerlink" title="JVM整体结构"></a>JVM整体结构</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232801.png" alt="image-20200910105340576"></p>
+<h1>JDK、JRE、JVM</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232754.png" alt="JDK_JRE_JVM"></p>
+<h1>JVM整体结构</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232801.png" alt="image-20200910105340576"></p>
 <ul>
 <li>整个结构分为上、中、下层。</li>
 <li>第一层类装载器子系统负责将class文件从文件系统加载到内存中成为一个JVM的class对象结构，分为加载、链接、初始化。</li>
 <li>方法区、堆所有线程共享；虚拟机栈(Java栈)、本地方法栈、程序计数器线程私有。</li>
 <li>生成Class文件的过程是前端编译，执行引擎中涉及的翻译字节码解释执行和JIT中的即使编译执行为后端编译</li>
 </ul>
-<h1 id="Java代码执行流程"><a href="#Java代码执行流程" class="headerlink" title="Java代码执行流程"></a>Java代码执行流程</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232808.png" alt="image-20200910111130207"></p>
-<h1 id="JVM的架构模型"><a href="#JVM的架构模型" class="headerlink" title="JVM的架构模型"></a>JVM的架构模型</h1><p>Java编译器输入的指令流基本上是一种基于栈的指令集架构，另外一种指令集架构则是基于寄存器的指令架构。</p>
+<h1>Java代码执行流程</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232808.png" alt="image-20200910111130207"></p>
+<h1>JVM的架构模型</h1>
+<p>Java编译器输入的指令流基本上是一种基于栈的指令集架构，另外一种指令集架构则是基于寄存器的指令架构。</p>
 <p>具体来说，这两种架构之间的区别：</p>
 <ul>
-<li>基于栈式架构的特点：<ul>
+<li>基于栈式架构的特点：
+<ul>
 <li>设计和实现更简单，适用于资源受限的系统</li>
 <li>避开了寄存器的分配难题：使用零地址指令方式分配</li>
 <li>指令流中的指令大部分是零地址指令，其执行过程依赖于操作栈。指令集更小，编译器容易实现。</li>
 <li>不需要硬件支持，可移植性好，更好实现跨平台</li>
 </ul>
 </li>
-<li>基于寄存器架构的特点<ul>
+<li>基于寄存器架构的特点
+<ul>
 <li>典型的应用是x86的二进制指令集：比如传统的PC以及Android的Davlik虚拟机。</li>
 <li>指令集架构则完全依赖硬件，可移植性差</li>
 <li>性能优秀和执行更高效</li>
@@ -550,54 +558,74 @@ JVM整体结构
 <ul>
 <li>栈式架构的指令集中指令为8位指令；寄存器架构的指令集中指令大多为16位指令。</li>
 </ul>
-<h3 id="Java字节码指令架构和x86指令架构区别示例"><a href="#Java字节码指令架构和x86指令架构区别示例" class="headerlink" title="Java字节码指令架构和x86指令架构区别示例"></a>Java字节码指令架构和x86指令架构区别示例</h3><h4 id="示例一"><a href="#示例一" class="headerlink" title="示例一"></a>示例一</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232814.png" alt="image-20200910112820981"></p>
-<h4 id="示例二"><a href="#示例二" class="headerlink" title="示例二"></a>示例二</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232825.png" alt="image-20200910113850389"></p>
+<h3 id="Java字节码指令架构和x86指令架构区别示例"><a class="header-anchor" href="#Java字节码指令架构和x86指令架构区别示例">¶</a>Java字节码指令架构和x86指令架构区别示例</h3>
+<h4 id="示例一"><a class="header-anchor" href="#示例一">¶</a>示例一</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232814.png" alt="image-20200910112820981"></p>
+<h4 id="示例二"><a class="header-anchor" href="#示例二">¶</a>示例二</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232825.png" alt="image-20200910113850389"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232830.png" alt="image-20200910113925569"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232837.png" alt="image-20200910113941979"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232842.png" alt="image-20200910113957240"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>由于跨平台性的设计，Java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。</p>
-<h1 id="JVM生命周期"><a href="#JVM生命周期" class="headerlink" title="JVM生命周期"></a>JVM生命周期</h1><h3 id="虚拟机的启动"><a href="#虚拟机的启动" class="headerlink" title="虚拟机的启动"></a>虚拟机的启动</h3><p>Java虚拟机的启动是通过引导类加载器(bootstrap class loader)创建一个初始类(initial class)来完成的，这个类是由虚拟机的具体实现指定的。</p>
-<h3 id="虚拟机的执行"><a href="#虚拟机的执行" class="headerlink" title="虚拟机的执行"></a>虚拟机的执行</h3><ul>
+<h3 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h3>
+<p>由于跨平台性的设计，Java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。</p>
+<h1>JVM生命周期</h1>
+<h3 id="虚拟机的启动"><a class="header-anchor" href="#虚拟机的启动">¶</a>虚拟机的启动</h3>
+<p>Java虚拟机的启动是通过引导类加载器(bootstrap class loader)创建一个初始类(initial class)来完成的，这个类是由虚拟机的具体实现指定的。</p>
+<h3 id="虚拟机的执行"><a class="header-anchor" href="#虚拟机的执行">¶</a>虚拟机的执行</h3>
+<ul>
 <li>一个运行中的Java虚拟机有着一个清晰的任务：执行Java程序。</li>
 <li>程序开始执行时他才运行，程序结束时他就停止。</li>
 <li>执行一个所谓的Java程序的时候，真真正正在执行的是一个叫做Java虚拟机的进程。</li>
 </ul>
-<h3 id="虚拟机的退出"><a href="#虚拟机的退出" class="headerlink" title="虚拟机的退出"></a>虚拟机的退出</h3><ul>
+<h3 id="虚拟机的退出"><a class="header-anchor" href="#虚拟机的退出">¶</a>虚拟机的退出</h3>
+<ul>
 <li>程序正常执行结束</li>
 <li>程序在执行过程中遇到了异常或错误而异常终止</li>
 <li>由于操作系统出现错误而导致Java虚拟机进程终止</li>
 <li>某线程调用Runtime类或System类的exit方法，或Runtime类的halt方法，并且Java安全管理器也允许这次exit或halt操作</li>
 <li>除此之外，JNI(Java Native Interface)规范描述了用JNI Invocation API来加载或卸载Java虚拟机时，Java虚拟机的退出情况。</li>
 </ul>
-<h1 id="JVM发展历程"><a href="#JVM发展历程" class="headerlink" title="JVM发展历程"></a>JVM发展历程</h1><h3 id="Sun-Classic-VM"><a href="#Sun-Classic-VM" class="headerlink" title="Sun Classic VM"></a>Sun Classic VM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232850.png" alt="image-20200910115805813"></p>
-<h3 id="Exact-VM"><a href="#Exact-VM" class="headerlink" title="Exact VM"></a>Exact VM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232930.png" alt="image-20201221232930708"></p>
-<h3 id="Hotspot-VM"><a href="#Hotspot-VM" class="headerlink" title="Hotspot VM"></a>Hotspot VM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232942.png" alt="image-20200910120152236"></p>
-<h3 id="JRockit"><a href="#JRockit" class="headerlink" title="JRockit"></a>JRockit</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233052.png" alt="image-20201221233027415"></p>
+<h1>JVM发展历程</h1>
+<h3 id="Sun-Classic-VM"><a class="header-anchor" href="#Sun-Classic-VM">¶</a>Sun Classic VM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232850.png" alt="image-20200910115805813"></p>
+<h3 id="Exact-VM"><a class="header-anchor" href="#Exact-VM">¶</a>Exact VM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232930.png" alt="image-20201221232930708"></p>
+<h3 id="Hotspot-VM"><a class="header-anchor" href="#Hotspot-VM">¶</a>Hotspot VM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221232942.png" alt="image-20200910120152236"></p>
+<h3 id="JRockit"><a class="header-anchor" href="#JRockit">¶</a>JRockit</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233052.png" alt="image-20201221233027415"></p>
 <p>被Oracle收购，合并到Hotspot中。</p>
-<h3 id="J9"><a href="#J9" class="headerlink" title="J9"></a>J9</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233123.png" alt="image-20201221233123222"></p>
-<h3 id="KVM、CDC-CLDC-Hotspot"><a href="#KVM、CDC-CLDC-Hotspot" class="headerlink" title="KVM、CDC/CLDC Hotspot"></a>KVM、CDC/CLDC Hotspot</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233146.png" alt="image-20201221233146559"></p>
-<h3 id="Azul-VM"><a href="#Azul-VM" class="headerlink" title="Azul VM"></a>Azul VM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233210.png" alt="image-20201221233209968"></p>
-<h3 id="Liquid-VM"><a href="#Liquid-VM" class="headerlink" title="Liquid VM"></a>Liquid VM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233233.png" alt="image-20201221233233601"></p>
-<h3 id="Apache-Harmony"><a href="#Apache-Harmony" class="headerlink" title="Apache Harmony"></a>Apache Harmony</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233244.png" alt="image-20200910150654952"></p>
-<h3 id="Microsoft-JVM"><a href="#Microsoft-JVM" class="headerlink" title="Microsoft JVM"></a>Microsoft JVM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233303.png" alt="image-20201221233303518"></p>
-<h3 id="TaobaoJVM"><a href="#TaobaoJVM" class="headerlink" title="TaobaoJVM"></a>TaobaoJVM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233321.png" alt="image-20201221233321106"></p>
-<h3 id="DalvikVM"><a href="#DalvikVM" class="headerlink" title="DalvikVM"></a>DalvikVM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233328.png" alt="image-20200910151317561"></p>
-<h3 id="其他JVM"><a href="#其他JVM" class="headerlink" title="其他JVM"></a>其他JVM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233336.png" alt="image-20200910151532648"></p>
-<h3 id="Graal-VM"><a href="#Graal-VM" class="headerlink" title="Graal VM"></a>Graal VM</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233342.png" alt="image-20200910151904547"></p>
-<h1 id="JVM规范主要内容"><a href="#JVM规范主要内容" class="headerlink" title="JVM规范主要内容"></a><a href="https://docs.oracle.com/javase/specs/index.html" target="_blank" rel="noopener">JVM规范</a>主要内容</h1><ol>
-<li><p>字节码指令集（相当于中央处理器CPU）</p>
-</li>
-<li><p>Class文件的格式</p>
-</li>
-<li><p>数据类型和值(范围、实现方式)</p>
-</li>
-<li><p>运行时数据区</p>
-</li>
-<li><p>栈帧</p>
-</li>
-<li><p>特殊方法的实现</p>
+<h3 id="J9"><a class="header-anchor" href="#J9">¶</a>J9</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233123.png" alt="image-20201221233123222"></p>
+<h3 id="KVM、CDC-CLDC-Hotspot"><a class="header-anchor" href="#KVM、CDC-CLDC-Hotspot">¶</a>KVM、CDC/CLDC Hotspot</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233146.png" alt="image-20201221233146559"></p>
+<h3 id="Azul-VM"><a class="header-anchor" href="#Azul-VM">¶</a>Azul VM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233210.png" alt="image-20201221233209968"></p>
+<h3 id="Liquid-VM"><a class="header-anchor" href="#Liquid-VM">¶</a>Liquid VM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233233.png" alt="image-20201221233233601"></p>
+<h3 id="Apache-Harmony"><a class="header-anchor" href="#Apache-Harmony">¶</a>Apache Harmony</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233244.png" alt="image-20200910150654952"></p>
+<h3 id="Microsoft-JVM"><a class="header-anchor" href="#Microsoft-JVM">¶</a>Microsoft JVM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233303.png" alt="image-20201221233303518"></p>
+<h3 id="TaobaoJVM"><a class="header-anchor" href="#TaobaoJVM">¶</a>TaobaoJVM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233321.png" alt="image-20201221233321106"></p>
+<h3 id="DalvikVM"><a class="header-anchor" href="#DalvikVM">¶</a>DalvikVM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233328.png" alt="image-20200910151317561"></p>
+<h3 id="其他JVM"><a class="header-anchor" href="#其他JVM">¶</a>其他JVM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233336.png" alt="image-20200910151532648"></p>
+<h3 id="Graal-VM"><a class="header-anchor" href="#Graal-VM">¶</a>Graal VM</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221233342.png" alt="image-20200910151904547"></p>
+<h1><a href="https://docs.oracle.com/javase/specs/index.html" target="_blank" rel="noopener">JVM规范</a>主要内容</h1>
 <ol>
-<li><p><code>&lt;init&gt;</code>：这个不是我们定义的构造方法，是虚拟机内置的一个创建实例的方法，如果我们有给一个类定义实例成员变量并且赋值，那么这些实例成员变量将会在这个方法里面进行真正的赋值。通过JVM的<code>invokespecial</code>指令来调用。</p>
+<li>字节码指令集（相当于中央处理器CPU）</li>
+<li>Class文件的格式</li>
+<li>数据类型和值(范围、实现方式)</li>
+<li>运行时数据区</li>
+<li>栈帧</li>
+<li>特殊方法的实现
+<ol>
+<li>
+<p><code>&lt;init&gt;</code>：这个不是我们定义的构造方法，是虚拟机内置的一个创建实例的方法，如果我们有给一个类定义实例成员变量并且赋值，那么这些实例成员变量将会在这个方法里面进行真正的赋值。通过JVM的<code>invokespecial</code>指令来调用。</p>
 <p>虚拟机会在我们写的构造方法中将对<code>&lt;init&gt;</code>方法的调用代码以及构造代码块中的代码合并到构造方法的最前面，<code>&lt;init&gt;</code>作为这个特殊方法的符号引用存在。所以new一个对象的过程为：</p>
 <ol>
 <li>为对象分配内存</li>
@@ -606,11 +634,12 @@ JVM整体结构
 <li>执行构造函数中代码</li>
 </ol>
 </li>
-<li><p><code>&lt;clinit&gt;</code>：类或者接口的初始化方法，不包含参数，返回void，不是我们写的静态代码块，虚拟机会根据我们是否定义了静态代码块或者对静态变量进行了赋值而构造一个该方法进行执行。</p>
+<li>
+<p><code>&lt;clinit&gt;</code>：类或者接口的初始化方法，不包含参数，返回void，不是我们写的静态代码块，虚拟机会根据我们是否定义了静态代码块或者对静态变量进行了赋值而构造一个该方法进行执行。</p>
 </li>
 </ol>
 </li>
-<li><p>需要支持一些类库</p>
+<li>需要支持一些类库
 <ol>
 <li>反射</li>
 <li>加载和创建类或接口，如ClassLoader</li>
@@ -620,10 +649,8 @@ JVM整体结构
 <li>弱引用</li>
 </ol>
 </li>
-<li><p>异常处理</p>
-</li>
-<li><p>虚拟机的启动、加载、链接和初始化，包括字节码的执行引擎</p>
-</li>
+<li>异常处理</li>
+<li>虚拟机的启动、加载、链接和初始化，包括字节码的执行引擎</li>
 </ol>
 
             </div>
@@ -1117,7 +1144,7 @@ JVM整体结构
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="测试文章">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="测试文章">
                         
                         <span class="card-title">测试文章</span>
                     </div>
@@ -1166,7 +1193,7 @@ JVM整体结构
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="05_堆">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="05_堆">
                         
                         <span class="card-title">05_堆</span>
                     </div>
@@ -1334,7 +1361,7 @@ JVM整体结构
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

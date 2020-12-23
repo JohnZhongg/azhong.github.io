@@ -9,9 +9,14 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="String的基本特性
-String:字符串,使用一对&amp;quot;&amp;quot;引起来表示。String sl1=”atguigu”;//字面量的定义方式String s2= new String(“hello”);
 
-String 被fin">
+
+String:字符串,使用一对&amp;quot;&amp;quot;引起来表示。
+String sl1=“atguigu”;//字面量的定义方式
+String s2= new String(“hello”);
+
+
+String">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -332,7 +337,7 @@ String 被fin">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -487,7 +492,7 @@ String 被fin">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.8k
+                    3.9k
                 </div>
                 
 
@@ -510,54 +515,70 @@ String 被fin">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="String的基本特性"><a href="#String的基本特性" class="headerlink" title="String的基本特性"></a>String的基本特性</h1><ul>
-<li><p>String:字符串,使用一对<code>&quot;&quot;</code>引起来表示。<br>String sl1=”atguigu”;//字面量的定义方式<br>String s2= new String(“hello”);</p>
+                <h1>String的基本特性</h1>
+<ul>
+<li>
+<p>String:字符串,使用一对<code>&quot;&quot;</code>引起来表示。<br>
+String sl1=“atguigu”;//字面量的定义方式<br>
+String s2= new String(“hello”);</p>
 </li>
-<li><p>String 被final声明,不可被继承</p>
+<li>
+<p>String 被final声明,不可被继承</p>
 </li>
-<li><p>String实现了 Serializable接口:表示字符串是支持序列化的</p>
+<li>
+<p>String实现了 Serializable接口:表示字符串是支持序列化的</p>
 </li>
-<li><p>实现了 Comparable接口:表示 String可以比较大小</p>
+<li>
+<p>实现了 Comparable接口:表示 String可以比较大小</p>
 </li>
-<li><p>String final在jdk8及以前内部定义了<code>char[] value</code>用于存储字符串数据。jdk9时改为<code>byte[]</code></p>
+<li>
+<p>String final在jdk8及以前内部定义了<code>char[] value</code>用于存储字符串数据。jdk9时改为<code>byte[]</code></p>
 <p>变更原因：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235142.png" alt="image-20200917150221054"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235153.png" alt="image-20200917150355524"></p>
 </li>
-<li><p>String:代表不可变的字符序列。简称:不可变性。</p>
+<li>
+<p>String:代表不可变的字符序列。简称:不可变性。</p>
 </li>
 </ul>
-<h2 id="字符串的不可变性"><a href="#字符串的不可变性" class="headerlink" title="字符串的不可变性"></a>字符串的不可变性</h2><ul>
-<li><p>通过字面量的方式(区别于new)给一个字符串赋值,此时的字符串值声明在字符串常量池中，之后再使用<code>intern()</code>方法或者字面量赋值相同的字符串，会直接返回当前字符串分配到的地址引用。</p>
-</li>
-<li><p>当对已经赋值字符串引用的字符串变量重新赋值时,会新开辟一块空间存储新的字符串,然后将新的引用赋值到该字符串变量</p>
-<pre class="line-numbers language-java"><code class="language-java">String s1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-String s2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token operator">==</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true。定义s1的时候"abc"字面量进入了常量池，定义s2的时候检查到常量池已存在该常量，直接获取其引用</span>
-s1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token operator">==</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false，"hello"字面量会在常量池另外开辟内存进行存储并重新赋值新引用到使s2，不会覆盖"abc"的空间</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//abc，没有被覆盖</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//hello，新内存地址引用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>当对现有的字符串进行连接操作时,也需要重新分配内存进行存储连接后的新值,不能对变量已指向的常量池内存空间进行覆盖。</p>
-<pre class="line-numbers language-java"><code class="language-java">String s1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-String s2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-s1 <span class="token operator">+=</span> <span class="token string">"def"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token operator">==</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false，还是会在常量池新开辟一块内存空间存储拼接后的"abcdef"</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//abc，没有被覆盖</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//abcdef，新内存地址引用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
+<h2 id="字符串的不可变性"><a class="header-anchor" href="#字符串的不可变性">¶</a>字符串的不可变性</h2>
 <ul>
-<li><p>当调用String的<code>replace()</code>方法修改指定字符或字符串时,也需要重新分配内存进行存储连接后的新值,不能对变量已指向的常量池内存空间进行覆盖。</p>
-<pre class="line-numbers language-java"><code class="language-java">String s1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-String s2 <span class="token operator">=</span> s1<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'m'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token operator">==</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false，还是会在常量池新开辟一块内存空间存储替换后得到的"mbc"</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//abc，没有被覆盖</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//mbc，新内存地址引用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>
+<p>通过字面量的方式(区别于new)给一个字符串赋值,此时的字符串值声明在字符串常量池中，之后再使用<code>intern()</code>方法或者字面量赋值相同的字符串，会直接返回当前字符串分配到的地址引用。</p>
+</li>
+<li>
+<p>当对已经赋值字符串引用的字符串变量重新赋值时,会新开辟一块空间存储新的字符串,然后将新的引用赋值到该字符串变量</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">String s1 = "abc";
+String s2 = "abc";
+System.out.println(s1==s2);//true。定义s1的时候"abc"字面量进入了常量池，定义s2的时候检查到常量池已存在该常量，直接获取其引用
+s1 = "hello";
+System.out.println(s1==s2);//false，"hello"字面量会在常量池另外开辟内存进行存储并重新赋值新引用到使s2，不会覆盖"abc"的空间
+System.out.println(s1);//abc，没有被覆盖
+System.out.println(s2);//hello，新内存地址引用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>当对现有的字符串进行连接操作时,也需要重新分配内存进行存储连接后的新值,不能对变量已指向的常量池内存空间进行覆盖。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">String s1 = "abc";
+String s2 = "abc";
+s1 += "def";
+System.out.println(s1==s2);//false，还是会在常量池新开辟一块内存空间存储拼接后的"abcdef"
+System.out.println(s1);//abc，没有被覆盖
+System.out.println(s2);//abcdef，新内存地址引用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>当调用String的<code>replace()</code>方法修改指定字符或字符串时,也需要重新分配内存进行存储连接后的新值,不能对变量已指向的常量池内存空间进行覆盖。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">String s1 = "abc";
+String s2 = s1.replace('a', 'm');
+System.out.println(s1==s2);//false，还是会在常量池新开辟一块内存空间存储替换后得到的"mbc"
+System.out.println(s1);//abc，没有被覆盖
+System.out.println(s2);//mbc，新内存地址引用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<h2 id="StringTable"><a href="#StringTable" class="headerlink" title="StringTable"></a>StringTable</h2><p>字符串常量池中是不会存储相同内容的字符串的。</p>
+<h2 id="StringTable"><a class="header-anchor" href="#StringTable">¶</a>StringTable</h2>
+<p>字符串常量池中是不会存储相同内容的字符串的。</p>
 <ul>
 <li>String的 String Pool是一个固定大小的HashTable,默认值大小长度是1009。如果放进 String Pool的string非常多,就可能造成较多的Hash冲突,从而导致链表会很长,而链表长了后直接会造成的影响就是当调用<code>String.intern()</code>时性能会大幅下降。</li>
 <li>使用<code>-XX: StringTableSize</code>可设置StringTable的长度</li>
@@ -565,131 +586,164 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <li>在jdk7中, StringTable的长度默认值是60013,1009是可设置的最小值。</li>
 </ul>
 <p>使用<code>-XX:+PrintStringTableStatistics</code>可以在退出的时候打印StringTable的信息</p>
-<h1 id="String的内存分配"><a href="#String的内存分配" class="headerlink" title="String的内存分配"></a>String的内存分配</h1><p>在Java语言中有8种基本数据类型和一种比较特殊的类型String。这些类型为了使它们在运行过程中速度更快、更节省内存,都提供了一种常量池的概念。常量池就类似一个Java系统级别提供的缓存。8种基本数据类型的常量池都是系统协调的, String类型的常量池比较特殊。它的主要使用方法有两种。</p>
+<h1>String的内存分配</h1>
+<p>在Java语言中有8种基本数据类型和一种比较特殊的类型String。这些类型为了使它们在运行过程中速度更快、更节省内存,都提供了一种常量池的概念。常量池就类似一个Java系统级别提供的缓存。8种基本数据类型的常量池都是系统协调的, String类型的常量池比较特殊。它的主要使用方法有两种。</p>
 <ul>
-<li>直接使用双引号声明出来的 String对象会直接存储在常量池中。<ul>
-<li>比如: String info=”atguigu.com”;</li>
+<li>直接使用双引号声明出来的 String对象会直接存储在常量池中。
+<ul>
+<li>比如: String info=“<a href="http://atguigu.com" target="_blank" rel="noopener">atguigu.com</a>”;</li>
 </ul>
 </li>
 <li>如果不是用双引号声明的String对象可以使用 String提供的 <code>intern()</code>方法。</li>
 </ul>
-<h3 id="字符串常量池位置变化"><a href="#字符串常量池位置变化" class="headerlink" title="字符串常量池位置变化"></a>字符串常量池位置变化</h3><ol>
+<h3 id="字符串常量池位置变化"><a class="header-anchor" href="#字符串常量池位置变化">¶</a>字符串常量池位置变化</h3>
+<ol>
 <li>Java6及以前字符串常量池存放在永久代。</li>
-<li>Java7中 oracle的工程师对字符串池的逻辑做了很大的改变,即将字符串常量池的位置调整到Java堆内。<ul>
+<li>Java7中 oracle的工程师对字符串池的逻辑做了很大的改变,即将字符串常量池的位置调整到Java堆内。
+<ul>
 <li>所有的字符串都保存在堆(Heap)中,和其他普通对象一样,这样可以让你在进行调优应用时仅需要调整堆大小就可以了。</li>
 <li>字符串常量池概念原本使用得比较多,但是这个改动使得我们有足够的理由让我们重新考虑在Java7中使用 <code>String.intern()</code>。</li>
 </ul>
 </li>
 <li>Java8元空间,字符串常量在堆。</li>
 </ol>
-<h4 id="为什么要变化？"><a href="#为什么要变化？" class="headerlink" title="为什么要变化？"></a>为什么要变化？</h4><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235202.png" alt="image-20200917154123382"></p>
-<h1 id="String例子说明"><a href="#String例子说明" class="headerlink" title="String例子说明"></a>String例子说明</h1><ol>
-<li><p>运行下面代码，通过IDEA下方的memory窗口可以查看当前JVM内存对象情况，其中String对象在运行到第一个”10”之后String对象变为2331个，在之后就一直不变了。</p>
+<h4 id="为什么要变化？"><a class="header-anchor" href="#为什么要变化？">¶</a>为什么要变化？</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235202.png" alt="image-20200917154123382"></p>
+<h1>String例子说明</h1>
+<ol>
+<li>
+<p>运行下面代码，通过IDEA下方的memory窗口可以查看当前JVM内存对象情况，其中String对象在运行到第一个&quot;10&quot;之后String对象变为2331个，在之后就一直不变了。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235210.png" alt="image-20200917154527425"></p>
 </li>
-<li><p>以下方法运行过程的引用分析</p>
+<li>
+<p>以下方法运行过程的引用分析</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235218.png" alt="image-20200917155005412"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235230.png" alt="image-20200917155021370"></p>
 <p>A string is created in line7. it goes in the String pool in the heap space and a reference is created in the foo() stack space for it.</p>
 </li>
 </ol>
-<h1 id="字符串拼接操作"><a href="#字符串拼接操作" class="headerlink" title="字符串拼接操作"></a>字符串拼接操作</h1><p>前面提到被作用右值引用的字符串字面量都会进入到字符串常量值中，下面介绍当出现字符串拼接（使用”+”或者通过StringBuilder等工具类进行拼接得到的结果）的时候拼接得到的结果会不会出现在常量池中：</p>
+<h1>字符串拼接操作</h1>
+<p>前面提到被作用右值引用的字符串字面量都会进入到字符串常量值中，下面介绍当出现字符串拼接（使用&quot;+&quot;或者通过StringBuilder等工具类进行拼接得到的结果）的时候拼接得到的结果会不会出现在常量池中：</p>
 <ol>
-<li><p>字符串拼接结果直接进入常量池的情况：</p>
+<li>
+<p>字符串拼接结果直接进入常量池的情况：</p>
 <ul>
-<li><p>常量与常量的拼接结果在常量池, 原理是编译期优化（即编译期会完成字符串常量池初始化，将所有在编译期识别的字符串值在字符串常量池进行创建），这里的常量就是指<strong>字符串字面量（右值）以及使用final修饰的字符串变量（左值）</strong>。</p>
-<pre class="line-numbers language-java"><code class="language-java">String s1 <span class="token operator">=</span> <span class="token string">"a"</span> <span class="token operator">+</span> <span class="token string">"b"</span> <span class="token operator">+</span> <span class="token string">"c"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//前端编译直接合成"abc"</span>
-String s2 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<li>
+<p>常量与常量的拼接结果在常量池, 原理是编译期优化（即编译期会完成字符串常量池初始化，将所有在编译期识别的字符串值在字符串常量池进行创建），这里的常量就是指<strong>字符串字面量（右值）以及使用final修饰的字符串变量（左值）</strong>。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">String s1 = "a" + "b" + "c"; //前端编译直接合成"abc"
+String s2 = "abc";
+System.out.println(s1 == s2); //true
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>常量池中不会存在相同内容的常量。</p>
+<li>
+<p>常量池中不会存在相同内容的常量。</p>
 </li>
 </ul>
 </li>
-<li><p>字符串拼接结果不进入常量池的情况：</p>
+<li>
+<p>字符串拼接结果不进入常量池的情况：</p>
 <ul>
-<li><p>只要参与拼接的字符串中有一个是变量（即非上面描述的常量范围，这样的符号/symbol在编译期无法确定其值）,  字符串拼接将在运行时进行，此时拼接结果将会产生一个<code>String</code>对象放在堆中（不进入常量池）。变量拼接的原理是 StringBuilder</p>
-<pre class="line-numbers language-java"><code class="language-java"> string s1 <span class="token operator">=</span><span class="token string">"javaEE"</span><span class="token punctuation">;</span>
- string s2 <span class="token operator">=</span><span class="token string">"hadoop"</span><span class="token punctuation">;</span>
- string s3 <span class="token operator">=</span><span class="token string">"javaEEhadoop"</span><span class="token punctuation">;</span>
- string s4 <span class="token operator">=</span><span class="token string">"javaEE"</span><span class="token operator">+</span> <span class="token string">"hadoop"</span><span class="token punctuation">;</span>
- string s5<span class="token operator">=</span>s1<span class="token operator">+</span><span class="token string">"hadoop"</span><span class="token punctuation">;</span>
- string s6<span class="token operator">=</span><span class="token string">"javaEE"</span><span class="token operator">+</span>s2<span class="token punctuation">;</span>
- string s7<span class="token operator">=</span>s1<span class="token operator">+</span>s2<span class="token punctuation">;</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s3 <span class="token operator">==</span>s4<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s3 <span class="token operator">==</span>s5<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s3 <span class="token operator">=</span> s6<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s3 <span class="token operator">=</span>s7<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s5 <span class="token operator">==</span>s6<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s5 <span class="token operator">==</span>s7<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printIn</span><span class="token punctuation">(</span>s6<span class="token operator">==</span>s7<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
- string s8<span class="token operator">=</span>s6<span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s3 <span class="token operator">==</span>s8<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>
+<p>只要参与拼接的字符串中有一个是变量（即非上面描述的常量范围，这样的符号/symbol在编译期无法确定其值）,  字符串拼接将在运行时进行，此时拼接结果将会产生一个<code>String</code>对象放在堆中（不进入常量池）。变量拼接的原理是 StringBuilder</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java"> string s1 ="javaEE";
+ string s2 ="hadoop";
+ string s3 ="javaEEhadoop";
+ string s4 ="javaEE"+ "hadoop";
+ string s5=s1+"hadoop";
+ string s6="javaEE"+s2;
+ string s7=s1+s2;
+ System.out.printIn(s3 ==s4);//true
+ System.out.printIn(s3 ==s5);//false
+ System.out.printIn(s3 = s6);//false
+ System.out.printIn(s3 =s7);//false
+ System.out.printIn(s5 ==s6);//false
+ System.out.printIn(s5 ==s7);//false
+ System.out.printIn(s6==s7);//false
+ string s8=s6.intern();
+ System.out.println(s3 ==s8);//true
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>如果拼接的结果调用<code>intern()</code>方法,则主动将常量池中还没有的字符串对象放入池中,并返回此对象地址；如果已经存在，则返回已存在字符串地址。</p>
+<li>
+<p>如果拼接的结果调用<code>intern()</code>方法,则主动将常量池中还没有的字符串对象放入池中,并返回此对象地址；如果已经存在，则返回已存在字符串地址。</p>
 </li>
 </ul>
 </li>
 </ol>
-<h2 id="字符串拼接”-”解析"><a href="#字符串拼接”-”解析" class="headerlink" title="字符串拼接”+”解析"></a>字符串拼接”+”解析</h2><p>可以看到下面的字节码解析中字符串的拼接通过<code>StringBuilder</code>来实现的，在没有<code>StringBuilder</code>(5.0)之前都是使用<code>StringBuffer</code>。</p>
+<h2 id="字符串拼接-解析"><a class="header-anchor" href="#字符串拼接-解析">¶</a>字符串拼接&quot;+&quot;解析</h2>
+<p>可以看到下面的字节码解析中字符串的拼接通过<code>StringBuilder</code>来实现的，在没有<code>StringBuilder</code>(5.0)之前都是使用<code>StringBuffer</code>。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235240.png" alt="image-20200917161645127"></p>
 <p><code>StringBuilder#toString()</code>方法的底层如下：</p>
-<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// Create a copy, don't share the array</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到是直接<code>new</code>了一个String对象，注意这种方式与<code>new String(&quot;我是字符串&quot;)</code>是有区别的，前者对字符串常量池没有任何影响；后者会将”我是字符串”字面量放入常量池，然后返回分配到的内存地址赋值到变量(左值)中。即前者会在堆产生一个<code>String</code>对象，后者会在字符串常量池建立一个字符串常量。</p>
-<h2 id="使用”-”和StringBuilder-append-拼接的效率"><a href="#使用”-”和StringBuilder-append-拼接的效率" class="headerlink" title="使用”+”和StringBuilder#append()拼接的效率"></a>使用”+”和<code>StringBuilder#append()</code>拼接的效率</h2><p>由上面可以得知每一个”+”都会编译为创建一个<code>StringBuilder</code>和<code>toString</code>new一个<code>String</code>对象，所以如果在一个循环次数很高的代码中使用”+”就会涉及常见对象的消耗以及内存占用(以及带来GC)的消耗。所以相较于我们手动使用<code>StringBuilder#append</code>来说，效率会差别非常大。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">    @Override
+    public String toString() {
+        // Create a copy, don't share the array
+        return new String(value, 0, count);
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到是直接<code>new</code>了一个String对象，注意这种方式与<code>new String(&quot;我是字符串&quot;)</code>是有区别的，前者对字符串常量池没有任何影响；后者会将&quot;我是字符串&quot;字面量放入常量池，然后返回分配到的内存地址赋值到变量(左值)中。即前者会在堆产生一个<code>String</code>对象，后者会在字符串常量池建立一个字符串常量。</p>
+<h2 id="使用-和StringBuilder-append-拼接的效率"><a class="header-anchor" href="#使用-和StringBuilder-append-拼接的效率">¶</a>使用&quot;+&quot;和<code>StringBuilder#append()</code>拼接的效率</h2>
+<p>由上面可以得知每一个&quot;+“都会编译为创建一个<code>StringBuilder</code>和<code>toString</code>new一个<code>String</code>对象，所以如果在一个循环次数很高的代码中使用”+&quot;就会涉及常见对象的消耗以及内存占用(以及带来GC)的消耗。所以相较于我们手动使用<code>StringBuilder#append</code>来说，效率会差别非常大。</p>
 <p>另外如果我们使用<code>StringBuilder</code>的时候，如果可以提前可以预知字符串长度则可以调用有参构造传入<code>capacity</code>创建指定长度的<code>Builder</code>，防止多次扩容。</p>
-<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p>final可以修饰一个左值为一个常量：</p>
-<pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        String s1 <span class="token operator">=</span> <span class="token string">"javaEEhadoop"</span><span class="token punctuation">;</span>
-        String s2 <span class="token operator">=</span> <span class="token string">"javaEE"</span><span class="token punctuation">;</span>
-        String s3 <span class="token operator">=</span> s2 <span class="token operator">+</span> <span class="token string">"hoodp"</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s3<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//false</span>
-        <span class="token keyword">final</span> String s4 <span class="token operator">=</span> <span class="token string">"javaEE"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//s4常量</span>
-        String s5 <span class="token operator">=</span> s4 <span class="token operator">+</span> <span class="token string">"hadoop"</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s5<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true</span>
-    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="intern-的使用"><a href="#intern-的使用" class="headerlink" title="intern()的使用"></a>intern()的使用</h1><p><code>intern()</code>方法主动将常量池中还没有的字符串对象放入池中,并返回此对象地址；如果已经存在，则返回已存在字符串地址。。</p>
+<h2 id="final"><a class="header-anchor" href="#final">¶</a>final</h2>
+<p>final可以修饰一个左值为一个常量：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">    public void test1() {
+        String s1 = "javaEEhadoop";
+        String s2 = "javaEE";
+        String s3 = s2 + "hoodp";
+        System.out.println(s1 == s3); //false
+        final String s4 = "javaEE"; //s4常量
+        String s5 = s4 + "hadoop";
+        System.out.println(s1 == s5);//true
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1>intern()的使用</h1>
+<p><code>intern()</code>方法主动将常量池中还没有的字符串对象放入池中,并返回此对象地址；如果已经存在，则返回已存在字符串地址。。</p>
 <p>如果不是用双引号声明的 string对象,可以使用 string提供的intern方法: intern方法会从字符串常量池中查询当前字符串是否存在,若不存在就会将当前字符串放入常量池中。</p>
 <ul>
 <li>比如: <code>String myInfo= new String(aStringVariable).intern()</code>;</li>
 </ul>
 <p>当且仅当两个字符串变量<code>equals</code>的时候它们调用<code>intern()</code>方法得到的结果是<code>=</code>的。因此,下列表达式的值必定是true:</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token operator">+</span><span class="token string">"b"</span><span class="token operator">+</span><span class="token string">"c"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"abc"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">("a"+"b"+"c").intern() == "abc"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>通俗点讲, Interned String就是确保字符串在内存里只有一份拷贝,这样可以节约内存空间,加快字符串操作任务的执行速度。注意,这个值会被存放在字符串内部池(String Intern Pool)。</p>
-<h2 id="JDK6和JDK7变化例子"><a href="#JDK6和JDK7变化例子" class="headerlink" title="JDK6和JDK7变化例子"></a>JDK6和JDK7变化例子</h2><h3 id="例1："><a href="#例1：" class="headerlink" title="例1："></a>例1：</h3><p>求以下输出：</p>
+<h2 id="JDK6和JDK7变化例子"><a class="header-anchor" href="#JDK6和JDK7变化例子">¶</a>JDK6和JDK7变化例子</h2>
+<h3 id="例1："><a class="header-anchor" href="#例1：">¶</a>例1：</h3>
+<p>求以下输出：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235247.png" alt="image-20200917164159401"></p>
-<h4 id="intern-方法变化说明"><a href="#intern-方法变化说明" class="headerlink" title="intern()方法变化说明"></a><code>intern()</code>方法变化说明</h4><ul>
-<li><p>JDK6及之前，<code>intern()</code>方法会在常量池中寻找该字符串常量是否存在，如果存在，则方法返回常量池中该地址；如果不存在，则在常量池中为该常量开辟空间存储后返回该新地址。</p>
+<h4 id="intern-方法变化说明"><a class="header-anchor" href="#intern-方法变化说明">¶</a><code>intern()</code>方法变化说明</h4>
 <ul>
-<li>第一个输出：false<ol>
-<li>第一行”1”是一个字面量，编译期初始化进入字符串常量池，然后<code>new String(&quot;1&quot;)</code>会在堆中创建一个String对象，本地变量<code>s</code>存储的是该String对象的引用，而该String对象中保存了”1”字符串常量的引用</li>
+<li>
+<p>JDK6及之前，<code>intern()</code>方法会在常量池中寻找该字符串常量是否存在，如果存在，则方法返回常量池中该地址；如果不存在，则在常量池中为该常量开辟空间存储后返回该新地址。</p>
+<ul>
+<li>第一个输出：false
+<ol>
+<li>第一行&quot;1&quot;是一个字面量，编译期初始化进入字符串常量池，然后<code>new String(&quot;1&quot;)</code>会在堆中创建一个String对象，本地变量<code>s</code>存储的是该String对象的引用，而该String对象中保存了&quot;1&quot;字符串常量的引用</li>
 <li><code>s.intern()</code>相当于没做任何事情，因为没有将返回结果进行赋值</li>
-<li><code>String s2 = &quot;1&quot;</code>将”1”在字符串常量池地址返回该s2.</li>
+<li><code>String s2 = &quot;1&quot;</code>将&quot;1&quot;在字符串常量池地址返回该s2.</li>
 <li>很自然s != s2.</li>
 </ol>
 </li>
-<li>第二个输出：false<ol>
-<li><code>String s3 = new String(&quot;1&quot;) + new String(&quot;1&quot;)</code>会在堆中创建两个String对象，分别保存了”1”的引用</li>
-<li>此时<code>intern()</code>方法就有作用了，它会将<code>s3</code>指向的新拼接好的第三个保存在堆中的String对象中保存的字符串保存到字符串常量池。因为代码中没有任何地方定义了字面量”11”或者由常量拼接成的”11”，所以在调用<code>intern()</code>方法之前，它都是以String对象的一个字节成员字段保存在堆中的。但是即使是这样，依然没有将返回值覆盖到<code>s3</code></li>
-<li>此时<code>String s4 = &quot;11&quot;</code>就会从常量池加载得到”11”，返回该引用到<code>s4</code></li>
+<li>第二个输出：false
+<ol>
+<li><code>String s3 = new String(&quot;1&quot;) + new String(&quot;1&quot;)</code>会在堆中创建两个String对象，分别保存了&quot;1&quot;的引用</li>
+<li>此时<code>intern()</code>方法就有作用了，它会将<code>s3</code>指向的新拼接好的第三个保存在堆中的String对象中保存的字符串保存到字符串常量池。因为代码中没有任何地方定义了字面量&quot;11&quot;或者由常量拼接成的&quot;11&quot;，所以在调用<code>intern()</code>方法之前，它都是以String对象的一个字节成员字段保存在堆中的。但是即使是这样，依然没有将返回值覆盖到<code>s3</code></li>
+<li>此时<code>String s4 = &quot;11&quot;</code>就会从常量池加载得到&quot;11&quot;，返回该引用到<code>s4</code></li>
 <li>所以很自然，<code>s3</code>是一个堆中地址，<code>s4</code>是常量池地址，s3 != s4</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p>JDK7及之后，<code>intern()</code>方法的语义发生了变化，它会在常量池中寻找该字符串常量是否存在，如果存在，则方法返回常量池中该地址；如果不存在，将不会在常量池中开辟新空间，而是直接将当前字符串地址插入到常量池表中。</p>
+<li>
+<p>JDK7及之后，<code>intern()</code>方法的语义发生了变化，它会在常量池中寻找该字符串常量是否存在，如果存在，则方法返回常量池中该地址；如果不存在，将不会在常量池中开辟新空间，而是直接将当前字符串地址插入到常量池表中。</p>
 <p>即JDK6其实发生了字符串复制，而JDK7没有，因为在JDK7及之后，字符串常量池被移到了堆中(老年代)，在JDK6之前是在永久代的，所以在JDK7可以这样做。所以以下输出也产生了变化</p>
 <ul>
-<li>第一个输出：false<ol>
-<li>这里其实没有变化，”1”已经存在常量池</li>
+<li>第一个输出：false
+<ol>
+<li>这里其实没有变化，&quot;1&quot;已经存在常量池</li>
 <li>结果一样</li>
 </ol>
 </li>
-<li>第二个输出：true<ol>
+<li>第二个输出：true
+<ol>
 <li>这里的变化就大了，在<code>s3.intern()</code>会将s3的引用直接更新到常量池表中</li>
 <li>此时<code>String s4 = &quot;11&quot;;</code>将会得到<code>s3</code>的引用，故s3==s4</li>
 </ol>
@@ -700,46 +754,57 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <blockquote>
 <p>另外学到的是，我们可以从字节码角度对一些代码进行分析，以下是JDK8的字节码分析：<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235254.png" alt="image-20200917165013913"><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235307.png" alt="image-20200917165217870"></p>
 </blockquote>
-<h3 id="例2："><a href="#例2：" class="headerlink" title="例2："></a>例2：</h3><pre class="line-numbers language-java"><code class="language-java"># JDK7及之后
-String s3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-String s4 <span class="token operator">=</span> <span class="token string">"11"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//常量"11"已经存在，所以"11" == s4 != s3</span>
-String s5 <span class="token operator">=</span> s3<span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//"11" == s5 </span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s3 <span class="token operator">==</span> s4<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s4 <span class="token operator">==</span> s5<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true</span>
+<h3 id="例2："><a class="header-anchor" href="#例2：">¶</a>例2：</h3>
+<pre class="line-numbers language-language-java"><code class="language-language-java"># JDK7及之后
+String s3 = new String("1") + new String("1");
+String s4 = "11"; //常量"11"已经存在，所以"11" == s4 != s3
+String s5 = s3.intern(); //"11" == s5 
+System.out.println(s3 == s4);//false
+System.out.println(s4 == s5);//true
 
 # JDK6及之前
-String s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"b"</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"b"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-String s2 <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//发生了字符串复制，s2 == "ab" != s</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s2 <span class="token operator">==</span> <span class="token string">"ab"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s <span class="token operator">==</span> <span class="token string">"ab"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span>
+String s = new String("b") + new String("b");
+String s2 = s.intern();//发生了字符串复制，s2 == "ab" != s
+System.out.println(s2 == "ab");//true
+System.out.println(s == "ab");//false
 
 # 无论是任何版本
-String ss <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"ab"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//"ab"编译期存在常量池，先从常量池加载该常量引用并利用它在池外创建一个String对象</span>
-ss<span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-String ss2 <span class="token operator">=</span> <span class="token string">"ab"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>ss <span class="token operator">==</span> ss2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="intern-的用处"><a href="#intern-的用处" class="headerlink" title="intern()的用处"></a>intern()的用处</h2><p>如果在需要动态生成大量字符串（非字面量）的情况下，推荐使用<code>intern()</code>方法可以大大降低堆的空间使用（复用常量池内存）。</p>
-<h1 id="StringTable的垃圾回收"><a href="#StringTable的垃圾回收" class="headerlink" title="StringTable的垃圾回收"></a>StringTable的垃圾回收</h1><p>和堆无区别，本身就在堆中，由垃圾收集器决定如何回收。</p>
-<h1 id="G1中的String去重操作"><a href="#G1中的String去重操作" class="headerlink" title="G1中的String去重操作"></a>G1中的String去重操作</h1><p>背景:对许多Java应用(有大的也有小的)做的测试得出以下结果:</p>
+String ss = new String("ab"); //"ab"编译期存在常量池，先从常量池加载该常量引用并利用它在池外创建一个String对象
+ss.intern();
+String ss2 = "ab";
+System.out.println(ss == ss2);//false
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="intern-的用处"><a class="header-anchor" href="#intern-的用处">¶</a>intern()的用处</h2>
+<p>如果在需要动态生成大量字符串（非字面量）的情况下，推荐使用<code>intern()</code>方法可以大大降低堆的空间使用（复用常量池内存）。</p>
+<h1>StringTable的垃圾回收</h1>
+<p>和堆无区别，本身就在堆中，由垃圾收集器决定如何回收。</p>
+<h1>G1中的String去重操作</h1>
+<p>背景:对许多Java应用(有大的也有小的)做的测试得出以下结果:</p>
 <ul>
 <li>堆存活数据集合里面string对象占了25%</li>
 <li>堆存活数据集合里面重复的string对象有13.5%</li>
 <li>String对象的平均长度是45</li>
 </ul>
-<p>许多大规模的Java应用的瓶颈在于内存,测试表明,在这些类型的应用里面,Java堆中存活的数据集合差不多25%是String对象。更进一步,<br>这里面差不多一半 String对象是重复的,重复的意思是说:<br><code>stringl.equals(string2)=true</code><br>堆上存在重复的 String对象必然是一种内存的浪费。这个项目将在G1垃圾收集器中实现自动持续对重复的 String对象进行去重,这样就能避免浪费内存。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
+<p>许多大规模的Java应用的瓶颈在于内存,测试表明,在这些类型的应用里面,Java堆中存活的数据集合差不多25%是String对象。更进一步,<br>
+这里面差不多一半 String对象是重复的,重复的意思是说:<br>
+<code>stringl.equals(string2)=true</code><br>
+堆上存在重复的 String对象必然是一种内存的浪费。这个项目将在G1垃圾收集器中实现自动持续对重复的 String对象进行去重,这样就能避免浪费内存。</p>
+<h2 id="实现"><a class="header-anchor" href="#实现">¶</a>实现</h2>
+<ol>
 <li>当垃圾收集器工作的时候,会访问堆上存活的对象。对每一个访问的对象都会检查是否是候选的要去重的 String对象。</li>
 <li>如果是,把这个对象的一个引用插入到队列中等待后续的处理。一个去重的线程在后台运行,处理这个队列。处理队列的一个元素意味着从队列删除这个元素,然后尝试去重它引用的String对象。</li>
 <li>使用一个hashtable来记录所有的被string对象使用的不重复的char数组。当去重的时候,会查这个hashtable,来看堆上是否已经存在一个一模一样的char数组。</li>
 <li>如果存在, String对象会被调整引用那个数组,释放对原来的数组的引用,最终会被垃圾收集器回收掉。</li>
 <li>如果查找失败,char数组会被 hasht插入到,这样以后的时候就可以共享这个数组了。</li>
 </ol>
-<h2 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h2><pre class="line-numbers language-shell"><code class="language-shell"># 开启G1 string去重,默认是不开启的,需要手动开启。
+<h2 id="配置使用"><a class="header-anchor" href="#配置使用">¶</a>配置使用</h2>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 开启G1 string去重,默认是不开启的,需要手动开启。
 -XX:+/-UseStringDeduplication
 # 打印详细的去重统计信息
 -XX:+/-PrintStringDeduplicationStatistics
 # 达到这个年龄的 string对象被认为是去重的候选对象
--XX:StringDeduplicationAgeThreshold=<N><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+-XX:StringDeduplicationAgeThreshold=<N>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr />
@@ -1232,7 +1297,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="JVM 调优工具及辅助工具">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="JVM 调优工具及辅助工具">
                         
                         <span class="card-title">JVM 调优工具及辅助工具</span>
                     </div>
@@ -1281,7 +1346,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="15_垃圾回收器">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="15_垃圾回收器">
                         
                         <span class="card-title">15_垃圾回收器</span>
                     </div>
@@ -1449,7 +1514,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

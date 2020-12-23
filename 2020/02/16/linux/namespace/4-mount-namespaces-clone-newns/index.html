@@ -330,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -515,7 +515,8 @@
 <blockquote>
 <p>本篇所有例子都在ubuntu-server-x86_64 16.04下执行通过</p>
 </blockquote>
-<h2 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h2><pre><code>#--------------------------第一个shell窗口----------------------
+<h2 id="演示"><a class="header-anchor" href="#演示">¶</a>演示</h2>
+<pre><code>#--------------------------第一个shell窗口----------------------
 #先准备两个iso文件，用于后面的mount测试
 dev@ubuntu:~$ mkdir iso
 dev@ubuntu:~$ cd iso/
@@ -579,9 +580,13 @@ dev@ubuntu:~$ mount |grep iso
 #iso1目录里面也有内容
 dev@ubuntu:~$ ls /mnt/iso1
 subdir01
-#说明两个namespace中的mount信息是隔离的</code></pre><h2 id="Shared-subtrees"><a href="#Shared-subtrees" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><p>在某些情况下，比如系统添加了一个新的硬盘，这个时候如果mount namespace是完全隔离的，想要在各个namespace里面用这个硬盘，就需要在每个namespace里面手动mount这个硬盘，这个是很麻烦的，这时<a href="https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt" target="_blank" rel="noopener">Shared subtrees</a>就可以帮助我们解决这个问题。</p>
+#说明两个namespace中的mount信息是隔离的
+</code></pre>
+<h2 id="Shared-subtrees"><a class="header-anchor" href="#Shared-subtrees">¶</a>Shared subtrees</h2>
+<p>在某些情况下，比如系统添加了一个新的硬盘，这个时候如果mount namespace是完全隔离的，想要在各个namespace里面用这个硬盘，就需要在每个namespace里面手动mount这个硬盘，这个是很麻烦的，这时<a href="https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt" target="_blank" rel="noopener">Shared subtrees</a>就可以帮助我们解决这个问题。</p>
 <p>关于Shared subtrees的详细介绍请参考<a href="https://segmentfault.com/a/1190000006899213" target="_blank" rel="noopener">Linux mount (第二部分)</a>，里面有他的详细介绍以及bind nount的例子。</p>
-<h3 id="演示-1"><a href="#演示-1" class="headerlink" title="演示"></a>演示</h3><p>对Shared subtrees而言，mount namespace和bind mount的情况差不多，这里就简单演示一下shared和private两种类型</p>
+<h3 id="演示-v2"><a class="header-anchor" href="#演示-v2">¶</a>演示</h3>
+<p>对Shared subtrees而言，mount namespace和bind mount的情况差不多，这里就简单演示一下shared和private两种类型</p>
 <pre><code>#--------------------------第一个shell窗口----------------------
 #准备4个虚拟的disk，并在上面创建ext2文件系统，用于后续的mount测试
 dev@ubuntu:~/iso$ cd &amp;&amp; mkdir disks &amp;&amp; cd disks
@@ -602,7 +607,7 @@ disk1  disk1.img  disk2  disk2.img  disk3.img  disk4.img
 #显式的分别以shared和private方式挂载disk1和disk2
 dev@ubuntu:~/disks$ sudo mount --make-shared ./disk1.img ./disk1
 dev@ubuntu:~/disks$ sudo mount --make-private ./disk2.img ./disk2
-dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*//&#39;
+dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk| sed 's/ - .*//'
 164 24 7:1 / /home/dev/disks/disk1 rw,relatime shared:105
 173 24 7:2 / /home/dev/disks/disk2 rw,relatime
 
@@ -633,7 +638,7 @@ mnt:[4026532463]
 #所以新namespace里面的/home/dev/disks/disk1也是shared，
 #且和老namespace里面的/home/dev/disks/disk1属于同一个peer group 105
 #因为在不同的namespace里面，所以这里挂载点的ID和原来namespace里的不一样了
-root@container001:~/disks# cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*//&#39;
+root@container001:~/disks# cat /proc/self/mountinfo |grep disk| sed 's/ - .*//'
 221 177 7:1 / /home/dev/disks/disk1 rw,relatime shared:105
 222 177 7:2 / /home/dev/disks/disk2 rw,relatime
 
@@ -641,7 +646,7 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*
 root@container001:~/disks# mkdir ./disk1/disk3 ./disk2/disk4
 root@container001:~/disks# mount ./disk3.img ./disk1/disk3/
 root@container001:~/disks# mount ./disk4.img ./disk2/disk4/
-root@container001:~/disks# cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*//&#39;
+root@container001:~/disks# cat /proc/self/mountinfo |grep disk| sed 's/ - .*//'
 221 177 7:1 / /home/dev/disks/disk1 rw,relatime shared:105
 222 177 7:2 / /home/dev/disks/disk2 rw,relatime
 223 221 7:3 / /home/dev/disks/disk1/disk3 rw,relatime shared:107
@@ -653,7 +658,7 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*
 #可以看出由于/home/dev/disks/disk1是shared，且两个namespace里的这个挂载点都属于peer group 105，
 #所以在新namespace里面挂载的disk3，在老的namespace里面也看的到
 #但是看不到disk4的挂载信息，那是因为/home/dev/disks/disk2是private的
-dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*//&#39;
+dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk| sed 's/ - .*//'
 164 24 7:1 / /home/dev/disks/disk1 rw,relatime shared:105
 173 24 7:2 / /home/dev/disks/disk2 rw,relatime
 224 164 7:3 / /home/dev/disks/disk1/disk3 rw,relatime shared:107
@@ -661,15 +666,18 @@ dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk| sed &#39;s/ - .*//&#39;
 #我们可以随时修改挂载点的propagation type
 #这里我们通过mount命令将disk3改成了private类型
 dev@ubuntu:~/disks$ sudo mount --make-private /home/dev/disks/disk1/disk3
-dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .*//&#39;
+dev@ubuntu:~/disks$ cat /proc/self/mountinfo |grep disk3| sed 's/ - .*//'
 224 164 7:3 / /home/dev/disks/disk1/disk3 rw,relatime
 
 #--------------------------第二个shell窗口----------------------
 #回到第二个shell窗口，disk3的propagation type还是shared，
 #表明在老的namespace里面对propagation type的修改不会影响新namespace里面的挂载点
-root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .*//&#39;
-223 221 7:3 / /home/dev/disks/disk1/disk3 rw,relatime shared:107</code></pre><p>关于mount命令和mount namespace的配合，里面有很多技巧，后面如果需要用到更复杂的用法，会再做详细的介绍。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed 's/ - .*//'
+223 221 7:3 / /home/dev/disks/disk1/disk3 rw,relatime shared:107
+</code></pre>
+<p>关于mount命令和mount namespace的配合，里面有很多技巧，后面如果需要用到更复杂的用法，会再做详细的介绍。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt" target="_blank" rel="noopener">kernel:Shared Subtrees</a></li>
 <li><a href="https://lwn.net/Articles/159077/" target="_blank" rel="noopener">lwn:Shared subtrees</a></li>
 <li><a href="https://lwn.net/Articles/690679/" target="_blank" rel="noopener">lwn:Mount namespaces, mount propagation, and unbindable mounts</a></li>
@@ -1163,13 +1171,13 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/1-namespace-gai-shu/">
+                <a href="/2020/02/16/linux/namespace/3-ipc-namespace-clone-newipc/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="1、namespace概述">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="3、IPC namespace (CLONE_NEWIPC)">
                         
-                        <span class="card-title">1、namespace概述</span>
+                        <span class="card-title">3、IPC namespace (CLONE_NEWIPC)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1212,13 +1220,13 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/namespace/8-user-namespace-clone-newuser-di-er-bu-fen/">
+                <a href="/2020/02/16/linux/namespace/5-pid-namespace-clone-newpid/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="8、user namespace (CLONE_NEWUSER) (第二部分)">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="5、pid namespace (CLONE_NEWPID)">
                         
-                        <span class="card-title">8、user namespace (CLONE_NEWUSER) (第二部分)</span>
+                        <span class="card-title">5、pid namespace (CLONE_NEWPID)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1384,7 +1392,7 @@ root@container001:~/disks# cat /proc/self/mountinfo |grep disk3| sed &#39;s/ - .
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

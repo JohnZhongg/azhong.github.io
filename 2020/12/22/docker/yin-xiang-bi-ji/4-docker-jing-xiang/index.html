@@ -9,7 +9,8 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[toc]
-简介Docker镜像是用来启动容器的构建基石。让我们通过进一步学习 Docker镜像来继续我们的Docker之旅。 Docker镜像是由文件系统叠加而成。最底端是一个引导文件系统,即 bootfs,这很像典型的 Linux/Un">
+简介
+Docker镜像是用来启动容器的构建基石。让我们通过进一步学习 Docker镜像来继续我们的Docker之旅。 Docker镜像是由文件系统叠加而成。最底端是一个引导文件系统,即 bootfs,这很像典型的 Linux/U">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -330,7 +331,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -492,7 +493,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    48 分
+                    49 分
                 </div>
                 
                 
@@ -509,26 +510,50 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Docker镜像是用来启动容器的构建基石。让我们通过进一步学习 Docker镜像来继续我们的Docker之旅。 Docker镜像是由文件系统叠加而成。最底端是一个引导文件系统,即 bootfs,这很像典型的 Linux/Unix的引导文件系统。 Docker用户几乎永远不会和引导文件系统有什么交互。实际上,当一个容器启动后,它将会被移到内存中,而引导文件系统则会被卸载(unmount),以留出更多的内存供initrd磁盘镜像使用。<br>到目前为止, Docker看起来还很像一个典型的Linux虚拟化栈。实际上, Docker镜像的第二层是root文件系统 rootfs,它位于引导文件系统之上。 rootfs可以是一种或多种操作系统(如Debian或者 Ubuntu文件系统)。<br>在传统的Linux引导过程中, root文件系统会最先以只读的方式加载,当引导结束并完成了完整性检査之后,它オ会被切换为读写模式。但是在 Docker里, root文件系统永远只能是只读状态, 并且 Docker利用联合加载(union mount)技术又会在root文件系统层上加载更多的只读文件系统。联合加载指的是一次同时加载多个文件系统,但是在外面看起来只能看到一个文件系统。联合加载会将各层文件系统叠加到一起,这样最终的文件系统会包含所有底层的文件和目录。<br><strong>Docker将这样的文件系统称为镜像（即镜像实际上就是一些硬盘资源的集合，并不包含其他资源如CPU、内存等，而容器则是镜像加上这些其他资源的集合）</strong>。一个镜像可以放到另一个镜像的顶部。位于下面的镜像称为父镜像( parent Image),可以依次类推,直到镜像栈的最底部,最底部的镜像称为基础镜像( base image)。<strong>最后,当从一个镜像启动容器时, Docker会在该镜像的最顶层加载一个读写文件系统。我们想在Docker中运行的程序就是在这个读写层中执行的。当Docker第一次启动一个容器时,初始的读写层是空的。当文件系统发生变化时,这些变化都会应用到这一层上.比如,如果想修改一个文件,这个文件首先会从该读写层下面的只读层复制到该读写层。该文件的只读版本依然存在,但是已经被读写层中的该文件副本所隐藏。（写时复制）</strong><br>通常这种机制被称为写时复制(copy on write),这也是使Docker如此强大的技术之一。<br>每个只读镜像层都是只读的,并且以后永远不会变化。当创建一个新容器时, Docker会构建出一个镜像栈,并在栈的最顶端添加一个读写层。这个读写层再加上其下面的镜像层以及些配置数据,就构成了一个容器。在上一章我们已经知道,容器是可以修改的,它们都有自己的状态,并且是可以启动和停止的。容器的这种特点加上镜像分层框架(image-layering framework),使我们可以快速构建镜像并运行包含我们自己的应用程序和服务的容器。<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205416.png" alt="b3ef0d1ab7e92e44e9e775682db50deb"></p>
-<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="docker-images"><a href="#docker-images" class="headerlink" title="docker images"></a>docker images</h2><p>我们先从如何列出Docker主机上可用的镜像来开始 Docker镜像之旅。可以使用<code>docker image</code>命令来实现</p>
+<h1>简介</h1>
+<p>Docker镜像是用来启动容器的构建基石。让我们通过进一步学习 Docker镜像来继续我们的Docker之旅。 Docker镜像是由文件系统叠加而成。最底端是一个引导文件系统,即 bootfs,这很像典型的 Linux/Unix的引导文件系统。 Docker用户几乎永远不会和引导文件系统有什么交互。实际上,当一个容器启动后,它将会被移到内存中,而引导文件系统则会被卸载(unmount),以留出更多的内存供initrd磁盘镜像使用。<br>
+到目前为止, Docker看起来还很像一个典型的Linux虚拟化栈。实际上, Docker镜像的第二层是root文件系统 rootfs,它位于引导文件系统之上。 rootfs可以是一种或多种操作系统(如Debian或者 Ubuntu文件系统)。<br>
+在传统的Linux引导过程中, root文件系统会最先以只读的方式加载,当引导结束并完成了完整性检査之后,它オ会被切换为读写模式。但是在 Docker里, root文件系统永远只能是只读状态, 并且 Docker利用联合加载(union mount)技术又会在root文件系统层上加载更多的只读文件系统。联合加载指的是一次同时加载多个文件系统,但是在外面看起来只能看到一个文件系统。联合加载会将各层文件系统叠加到一起,这样最终的文件系统会包含所有底层的文件和目录。<br>
+<strong>Docker将这样的文件系统称为镜像（即镜像实际上就是一些硬盘资源的集合，并不包含其他资源如CPU、内存等，而容器则是镜像加上这些其他资源的集合）</strong>。一个镜像可以放到另一个镜像的顶部。位于下面的镜像称为父镜像( parent Image),可以依次类推,直到镜像栈的最底部,最底部的镜像称为基础镜像( base image)。<strong>最后,当从一个镜像启动容器时, Docker会在该镜像的最顶层加载一个读写文件系统。我们想在Docker中运行的程序就是在这个读写层中执行的。当Docker第一次启动一个容器时,初始的读写层是空的。当文件系统发生变化时,这些变化都会应用到这一层上.比如,如果想修改一个文件,这个文件首先会从该读写层下面的只读层复制到该读写层。该文件的只读版本依然存在,但是已经被读写层中的该文件副本所隐藏。（写时复制）</strong><br>
+通常这种机制被称为写时复制(copy on write),这也是使Docker如此强大的技术之一。<br>
+每个只读镜像层都是只读的,并且以后永远不会变化。当创建一个新容器时, Docker会构建出一个镜像栈,并在栈的最顶端添加一个读写层。这个读写层再加上其下面的镜像层以及些配置数据,就构成了一个容器。在上一章我们已经知道,容器是可以修改的,它们都有自己的状态,并且是可以启动和停止的。容器的这种特点加上镜像分层框架(image-layering framework),使我们可以快速构建镜像并运行包含我们自己的应用程序和服务的容器。<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205416.png" alt="b3ef0d1ab7e92e44e9e775682db50deb"></p>
+<h1>命令</h1>
+<h2 id="docker-images"><a class="header-anchor" href="#docker-images">¶</a>docker images</h2>
+<p>我们先从如何列出Docker主机上可用的镜像来开始 Docker镜像之旅。可以使用<code>docker image</code>命令来实现</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-docker.io/ubuntu    latest              4e5021d210f6        12 days ago         64.2 MB</code></pre><p>可以看到，我们已经获得了一个镜像列表，其中只有一个镜像，该镜像来源于一个名为 ubuntu 的仓库。</p>
-<h3 id="q-参数"><a href="#q-参数" class="headerlink" title="-q 参数"></a>-q 参数</h3><p>只返回镜像的 id</p>
-<h2 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a>docker pull</h2><p><code>docker pull</code>命令默认会去 Docker Hub 拉取 Docker 官方仓库中的 tag 为<code>latest</code>的镜像</p>
+docker.io/ubuntu    latest              4e5021d210f6        12 days ago         64.2 MB
+</code></pre>
+<p>可以看到，我们已经获得了一个镜像列表，其中只有一个镜像，该镜像来源于一个名为 ubuntu 的仓库。</p>
+<h3 id="q-参数"><a class="header-anchor" href="#q-参数">¶</a>-q 参数</h3>
+<p>只返回镜像的 id</p>
+<h2 id="docker-pull"><a class="header-anchor" href="#docker-pull">¶</a>docker pull</h2>
+<p><code>docker pull</code>命令默认会去 Docker Hub 拉取 Docker 官方仓库中的 tag 为<code>latest</code>的镜像</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker pull ubuntu
 Using default tag: latest
 Trying to pull repository docker.io/library/ubuntu ...
 latest: Pulling from docker.io/library/ubuntu
 Digest: sha256:bec5a2727be7fff3d308193cfde3491f8fba1a2ba392b7546b43a051853a341d
-Status: Image is up to date for docker.io/ubuntu:latest</code></pre><p>上面显示已经该镜像已经存在，其中我们可以配置 Registry 为自己的私有 Registry 或者其他大厂商提供的 Registry 而替代 DockerHub 。<br>下面是<code>docker pull</code>的通用格式</p>
-<pre><code>docker pull 仓库名:标签名称</code></pre><p>可以看到我们上面的命令就是到 ubuntu 仓库拉取标签为 latest  的镜像，而 dockerhub 中 ubuntu 仓库会默认重定向到 Docker 官方仓库 docker.io/ubuntu。所以以下命令也是一样的:</p>
-<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker pull docker.io/ubuntu:latest</code></pre><h3 id="a-参数"><a href="#a-参数" class="headerlink" title="-a 参数"></a>-a 参数</h3><p>该参数会让 docker 去拉取所有指定仓库中所有标签的镜像</p>
+Status: Image is up to date for docker.io/ubuntu:latest
+</code></pre>
+<p>上面显示已经该镜像已经存在，其中我们可以配置 Registry 为自己的私有 Registry 或者其他大厂商提供的 Registry 而替代 DockerHub 。<br>
+下面是<code>docker pull</code>的通用格式</p>
+<pre><code>docker pull 仓库名:标签名称
+</code></pre>
+<p>可以看到我们上面的命令就是到 ubuntu 仓库拉取标签为 latest  的镜像，而 dockerhub 中 ubuntu 仓库会默认重定向到 Docker 官方仓库 <a href="http://docker.io/ubuntu%E3%80%82%E6%89%80%E4%BB%A5%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E4%B9%9F%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84:" target="_blank" rel="noopener">docker.io/ubuntu。所以以下命令也是一样的:</a></p>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker pull docker.io/ubuntu:latest
+</code></pre>
+<h3 id="a-参数"><a class="header-anchor" href="#a-参数">¶</a>-a 参数</h3>
+<p>该参数会让 docker 去拉取所有指定仓库中所有标签的镜像</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker pull -a ubuntu
 Trying to pull repository docker.io/library/ubuntu ...
 10.04: Pulling from docker.io/library/ubuntu
 a3ed95caeb02: Pull complete
-86b54f4b6a4e: Downloading [=&gt;                                                 ] 2.135 MB/63.53 MB</code></pre><h2 id="docker-search"><a href="#docker-search" class="headerlink" title="docker search"></a>docker search</h2><p>我们也可以通过<code>docker search</code>命令来查找所有Docker Hub上公共的可用镜像</p>
+86b54f4b6a4e: Downloading [=&gt;                                                 ] 2.135 MB/63.53 MB
+</code></pre>
+<h2 id="docker-search"><a class="header-anchor" href="#docker-search">¶</a>docker search</h2>
+<p>我们也可以通过<code>docker search</code>命令来查找所有Docker Hub上公共的可用镜像</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker search puppet
 INDEX       NAME                                                         DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
 docker.io   docker.io/puppet/puppetserver                                A Docker Image for running Puppet Server. ...   90
@@ -536,73 +561,116 @@ docker.io   docker.io/alekzonder/puppeteer                               GoogleC
 docker.io   docker.io/buildkite/puppeteer                                A Puppeteer Docker image based on Puppetee...   38                   [OK]
 docker.io   docker.io/puppet/puppetserver-standalone                     An image for running a Puppet Server stand...   34
 docker.io   docker.io/puppet/puppetdb                                    A Docker image for running PuppetDB             32
-... ...</code></pre><p>上面的命令在Docker Hub上査找了所有带有puppet的镜像。这条命令会完成镜像查找工作,并返回如下信息：</p>
+... ...
+</code></pre>
+<p>上面的命令在Docker Hub上査找了所有带有puppet的镜像。这条命令会完成镜像查找工作,并返回如下信息：</p>
 <ul>
 <li>索引？</li>
 <li>仓库名</li>
 <li>镜像描述</li>
-<li>用户评价（Stars）– 反应一个镜像的受欢迎程度</li>
-<li>是否官方（Official）– 由上游开发者管理的镜像（如 fedora 镜像由 fedora 团队管理）</li>
-<li>自动构建（Automated）– 表示这个镜像是由Docker Hub 的自动构建（Automated Build）流程创建的</li>
+<li>用户评价（Stars）-- 反应一个镜像的受欢迎程度</li>
+<li>是否官方（Official）-- 由上游开发者管理的镜像（如 fedora 镜像由 fedora 团队管理）</li>
+<li>自动构建（Automated）-- 表示这个镜像是由Docker Hub 的自动构建（Automated Build）流程创建的</li>
 </ul>
-<h2 id="docker-login"><a href="#docker-login" class="headerlink" title="docker login"></a>docker login</h2><p>该命令可以登录到 Docker Hub（Registry?）</p>
-<pre><code>Login with your Docker ID to push and pull images from Docker Hub. If you don&#39;t have a Docker ID, head over to https://hub.docker.com to create one.
+<h2 id="docker-login"><a class="header-anchor" href="#docker-login">¶</a>docker login</h2>
+<p>该命令可以登录到 Docker Hub（Registry?）</p>
+<pre><code>Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
 Username: 707845008
 Password:
-Login Succeeded</code></pre><p>注册账号：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a><br><strong>登录之后你的个人认证信息将会保存到<code>SHOME/.dockercfg</code>文件中。</strong></p>
-<h2 id="docker-commit-这里遇到-commit-之后容器中修改的内容并没有被保存的情况，待解决！！！"><a href="#docker-commit-这里遇到-commit-之后容器中修改的内容并没有被保存的情况，待解决！！！" class="headerlink" title="docker commit !! 这里遇到 commit 之后容器中修改的内容并没有被保存的情况，待解决！！！"></a>docker commit !! 这里遇到 commit 之后容器中修改的内容并没有被保存的情况，待解决！！！</h2><p>下面将是我们自己构建一个镜像并使用<code>docker commit</code>进行提交的过程：</p>
+Login Succeeded
+</code></pre>
+<p>注册账号：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a><br>
+<strong>登录之后你的个人认证信息将会保存到<code>SHOME/.dockercfg</code>文件中。</strong></p>
+<h2 id="docker-commit-这里遇到-commit-之后容器中修改的内容并没有被保存的情况，待解决！！！"><a class="header-anchor" href="#docker-commit-这里遇到-commit-之后容器中修改的内容并没有被保存的情况，待解决！！！">¶</a>docker commit !! 这里遇到 commit 之后容器中修改的内容并没有被保存的情况，待解决！！！</h2>
+<p>下面将是我们自己构建一个镜像并使用<code>docker commit</code>进行提交的过程：</p>
 <ol>
-<li>先基于一个基础镜像启动一个容器<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker run -it ubuntu /bin/bash
-root@47ef1e6c79ba:/#</code></pre></li>
-<li>安装一个 Apache 服务器<pre><code>root@47ef1e6c79ba:/# apt-get -yqq update
+<li>先基于一个基础镜像启动一个容器</li>
+</ol>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker run -it ubuntu /bin/bash
+root@47ef1e6c79ba:/#
+</code></pre>
+<ol start="2">
+<li>安装一个 Apache 服务器</li>
+</ol>
+<pre><code>root@47ef1e6c79ba:/# apt-get -yqq update
 root@47ef1e6c79ba:/# apt-get -y install apache2
-... ...</code></pre>此时我们启动了一个容器,并在里面安装了Apache。我们会将这个容器作为一个Web服务器来运行,所以我们想把它的当前状态保存下来。这样就不必每次换到其他宿主机环境都要创建一个新容器并再次在里面安装Apache了。为了完成此项工作,需要先使用exit命令从容器里退出,之后再运行<code>docker commit</code>命令</li>
-<li>从一个容器提交为一个镜像<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker commit 47ef1e6c79ba john/apache2
-sha256:8d22890c9e33648036260bc4135ad8e169c1851f850f08926a5d123216165177</code></pre>可以看到，上面的指令后面分别指定了”容器ID”和”仓库名称及镜像名”。<strong>需要注意的是，docker commit 提交的只是创建容器的镜像与容器的当前状态之间有差异的部分，这使得该更新非常轻量（所以也就是说，当这个镜像在被推送到 Registry 之后会将底层依赖的 ubuntu 镜像的层信息一起推送的，这样推送之后仓库里面就会有最基础的镜像以及之后的所有层信息，即版本信息。）</strong></li>
-<li>此时<code>docker images</code>命令便可以看到我们刚刚提交的镜像了，其标签默认为 latest。<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker images
+... ...
+</code></pre>
+<p>此时我们启动了一个容器,并在里面安装了Apache。我们会将这个容器作为一个Web服务器来运行,所以我们想把它的当前状态保存下来。这样就不必每次换到其他宿主机环境都要创建一个新容器并再次在里面安装Apache了。为了完成此项工作,需要先使用exit命令从容器里退出,之后再运行<code>docker commit</code>命令<br>
+3. 从一个容器提交为一个镜像</p>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker commit 47ef1e6c79ba john/apache2
+sha256:8d22890c9e33648036260bc4135ad8e169c1851f850f08926a5d123216165177
+</code></pre>
+<p>可以看到，上面的指令后面分别指定了&quot;容器ID&quot;和&quot;仓库名称及镜像名&quot;。<strong>需要注意的是，docker commit 提交的只是创建容器的镜像与容器的当前状态之间有差异的部分，这使得该更新非常轻量（所以也就是说，当这个镜像在被推送到 Registry 之后会将底层依赖的 ubuntu 镜像的层信息一起推送的，这样推送之后仓库里面就会有最基础的镜像以及之后的所有层信息，即版本信息。）</strong><br>
+4. 此时<code>docker images</code>命令便可以看到我们刚刚提交的镜像了，其标签默认为 latest。</p>
+<pre><code>[root@izwz920kp0myp15p982vp4z ~]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 john/apache2        latest              8d22890c9e33        6 minutes ago       189 MB
-docker.io/ubuntu    latest              4e5021d210f6        12 days ago         64.2 MB</code></pre><h3 id="m、–author-参数-以及-提交标签"><a href="#m、–author-参数-以及-提交标签" class="headerlink" title="-m、–author 参数 以及 提交标签"></a>-m、–author 参数 以及 提交标签</h3>这两个参数分别可以在提交镜像的时候提交更多的信息，并提交一个标签”test”<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker commit -m "测试 image" --author "honphan" 47ef1e6c79ba john/apache2:test
-sha256:679b814d9d1f47bdaffa850767c3b526248417c6cee81ca4f23b694affdd62c7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-查看结果：<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker images
+docker.io/ubuntu    latest              4e5021d210f6        12 days ago         64.2 MB
+</code></pre>
+<h3 id="m、–author-参数-以及-提交标签"><a class="header-anchor" href="#m、–author-参数-以及-提交标签">¶</a>-m、–author 参数 以及 提交标签</h3>
+<p>这两个参数分别可以在提交镜像的时候提交更多的信息，并提交一个标签&quot;test&quot;</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker commit -m "测试 image" --author "honphan" 47ef1e6c79ba john/apache2:test
+sha256:679b814d9d1f47bdaffa850767c3b526248417c6cee81ca4f23b694affdd62c7
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>查看结果：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
 john/apache2        test                679b814d9d1f        About a minute ago   189 MB
 john/apache2        latest              8d22890c9e33        14 minutes ago       189 MB
-docker.io/ubuntu    latest              4e5021d210f6        12 days ago          64.2 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-通过 <code>docker inspect</code> 查看详细信息可以看到我们上面标注的信息<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker inspect 679b814d9d1f
+docker.io/ubuntu    latest              4e5021d210f6        12 days ago          64.2 MB
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过 <code>docker inspect</code> 查看详细信息可以看到我们上面标注的信息</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker inspect 679b814d9d1f
 [
- {
-     "Id": "sha256:679b814d9d1f47bdaffa850767c3b526248417c6cee81ca4f23b694affdd62c7",
-     "RepoTags": [
-         "john/apache2:test"
-     ],
+    {
+        "Id": "sha256:679b814d9d1f47bdaffa850767c3b526248417c6cee81ca4f23b694affdd62c7",
+        "RepoTags": [
+            "john/apache2:test"
+        ],
 ... ...
-     "Comment": "测试 image",
-     "Created": "2020-04-02T08:36:15.229165996Z",
+        "Comment": "测试 image",
+        "Created": "2020-04-02T08:36:15.229165996Z",
 ... ...
-     "Author": "honphan",<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<h2 id="docker-build"><a href="#docker-build" class="headerlink" title="docker build"></a>docker build</h2><p>并不推荐使用<code>docker commit</code>的方法来构建镜像。相反,推荐使用被称为Dockerfi1e的定义文件和<code>docker bui1d</code>命令来构建镜像。Dockerfile使用基本的基于DSL语法的指令来构建一个Docker镜像,之后使用<code>docker bui1d</code>命令基于该Dockerfile中的指令构建一个新的镜像。</p>
-<h3 id="初次基于-Dockerfile-构建镜像"><a href="#初次基于-Dockerfile-构建镜像" class="headerlink" title="初次基于 Dockerfile 构建镜像"></a>初次基于 Dockerfile 构建镜像</h3><h4 id="1-创建构建上下文"><a href="#1-创建构建上下文" class="headerlink" title="1. 创建构建上下文"></a>1. 创建构建上下文</h4><pre><code>[root@izwz920kp0myp15p982vp4z docker]# mkdir test
+        "Author": "honphan",
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="docker-build"><a class="header-anchor" href="#docker-build">¶</a>docker build</h2>
+<p>并不推荐使用<code>docker commit</code>的方法来构建镜像。相反,推荐使用被称为Dockerfi1e的定义文件和<code>docker bui1d</code>命令来构建镜像。Dockerfile使用基本的基于DSL语法的指令来构建一个Docker镜像,之后使用<code>docker bui1d</code>命令基于该Dockerfile中的指令构建一个新的镜像。</p>
+<h3 id="初次基于-Dockerfile-构建镜像"><a class="header-anchor" href="#初次基于-Dockerfile-构建镜像">¶</a>初次基于 Dockerfile 构建镜像</h3>
+<h4 id="1-创建构建上下文"><a class="header-anchor" href="#1-创建构建上下文">¶</a>1. 创建构建上下文</h4>
+<pre><code>[root@izwz920kp0myp15p982vp4z docker]# mkdir test
 [root@izwz920kp0myp15p982vp4z docker]# cd test
-[root@izwz920kp0myp15p982vp4z test]# touch Dockerfile</code></pre><p>我们创建了一个名为test的目录用来保存Dockerfile,这个目录就是我们的构建环境(build environment), Docker则称此环境为上下文(context)或者构建上下文(build context)。 Docker会在构建镜像时将构建上下文和该上下文中的文件和目录上传到 Docker 守护进程。这样Docker守护进程就能直接访问你想在镜像中存储的任何代码、文件或者其他数据。</p>
-<h4 id="2-编辑-Dockerfile"><a href="#2-编辑-Dockerfile" class="headerlink" title="2. 编辑 Dockerfile"></a>2. 编辑 Dockerfile</h4><pre><code># Version: 0.0.1
+[root@izwz920kp0myp15p982vp4z test]# touch Dockerfile
+</code></pre>
+<p>我们创建了一个名为test的目录用来保存Dockerfile,这个目录就是我们的构建环境(build environment), Docker则称此环境为上下文(context)或者构建上下文(build context)。 Docker会在构建镜像时将构建上下文和该上下文中的文件和目录上传到 Docker 守护进程。这样Docker守护进程就能直接访问你想在镜像中存储的任何代码、文件或者其他数据。</p>
+<h4 id="2-编辑-Dockerfile"><a class="header-anchor" href="#2-编辑-Dockerfile">¶</a>2. 编辑 Dockerfile</h4>
+<pre><code># Version: 0.0.1
 FROM ubuntu:latest
 MAINTAINER JOHN &quot;707845008@qq.dom&quot;
 RUN apt-get update
 RUN apt-get install -y nginx
-RUN echo &#39;Hi, I am in your container&#39; &gt; /usr/share/nginx/html/index.html
-EXPOSE 80</code></pre><p>该Dockerfi1e由一系列指令和参数组成。每条指令, 如<code>FROM</code>,都必须为大写字母, 且后面要跟随一个参数: <code>FROM ubuntu:latest</code>。 Dockerfi1e中的指令会按顺序从上到下执行,所以应该根据需要合理安排指令的顺序每条指令都会创建一个新的镜像层并对镜像进行提交。Docker大体上按照如下流程执行 Dockerfile中的指令。</p>
+RUN echo 'Hi, I am in your container' &gt; /usr/share/nginx/html/index.html
+EXPOSE 80
+</code></pre>
+<p>该Dockerfi1e由一系列指令和参数组成。每条指令, 如<code>FROM</code>,都必须为大写字母, 且后面要跟随一个参数: <code>FROM ubuntu:latest</code>。 Dockerfi1e中的指令会按顺序从上到下执行,所以应该根据需要合理安排指令的顺序每条指令都会创建一个新的镜像层并对镜像进行提交。Docker大体上按照如下流程执行 Dockerfile中的指令。</p>
 <ul>
 <li>Docker从基础镜像运行一个容器</li>
 <li>执行一条指令, 对容器做出修改执行类似<code>docker commit</code>的操作,提交一个新的镜像层。</li>
 <li>Docker再基于刚提交的镜像运行一个新容器。</li>
 <li>执行Dockerfile中的下一条指令,直到所有指令都执行完毕。</li>
 </ul>
-<p>从上面也可以看出,如果你的 Dockerfi1e由于某些原因(如某条指令失败了)没有正常结束,那么你将得到了一个可以使用的镜像。这对调试非常有帮助:可以基于该镜像运行一个具备交互功能的容器,使用最后创建的镜像对为什么你的指令会失败进行调试。<br>每个Dockerfile的第一条指令都应该是<code>FROM</code>。<code>FROM</code>指令指定一个已经存在的镜像, 后续指令都将基于该镜像进行,这个镜像被称为基础镜像(base iamge)。<br>在前面的Dockerfile示例里,我们指定了ubuntu:latest作为新镜像的基础镜像。基于这个Dockerfile构建的新镜像将以ubuntu:latest操作系统为基础。在运行一个容器时,必须要指明是基于哪个基础镜像在进行构建。<br>接着指定了MAINTAINER指令,这条指令会告诉Docker该镜像的作者是谁,以及作者的电子邮件地址。这有助于标识镜像的所有者和联系方式在这些指令之后,我们指定了三条<code>RUN</code>指令。<code>RUN</code>指令会在当前镜像中运行指定的命令。在这个例子里,我们通过<code>RUN</code>指令更新了已经安装的APT仓库,安装了 nginx包,之后创建了/usr/share/nginx/html/index.htm1文件,该文件有一些简单的示例文本。<br>像前面说的那样,每条RUN指令都会创建一个新的镜像层,如果该指令执行成功,就会将此镜像层提交,之后继续执行 Dockerfile中的下一条指令默认情况下,RUN指令会在shel里使用命令包装器<code>/bin/sh -c</code>来执行。如果是在一个不支持 shell的平台上运行或者不希望在shel中运行(比如避免shell字符串篡改),也可以使用exec格式的<code>RUN</code>指令,如:</p>
-<pre><code>RUN [&quot;apt-get&quot;, &quot;install&quot;, &quot;-y&quot;, &quot;nginx&quot;]</code></pre><p>在这种方式中,我们使用一个数组来指定要运行的命令和传递给该命令的每个参数。<br>接着设置了<code>EXPOSE</code>指令,这条指令告诉Docker该容器内的应用程序<strong>将会</strong>使用容器的指定端口。这并不意味着基于该镜像启动容器之后就可以自动访问任意容器运行中服务的端口(这里是80)。出于安全的原因, Docker并不会自动打开容器中该端口,而是需要你在使用<code>docker run</code>运行容器时来指定需要打开哪些端口。一会儿我们将会看到如何从这一镜像创建一个新容器。<br>可以指定多个<code>EXPOSE</code>指令来向外部公开多个端口。</p>
-<h4 id="3-基于-Dockerfile-构建新镜像"><a href="#3-基于-Dockerfile-构建新镜像" class="headerlink" title="3. 基于 Dockerfile 构建新镜像"></a>3. 基于 Dockerfile 构建新镜像</h4><p>执行<code>docker bui1d</code>命令时, Dockerfile中的所有指令都会被执行并且提交,并且在该命令成功结束后返回一个新镜像。下面就来看看如何构建一个新镜像</p>
+<p>从上面也可以看出,如果你的 Dockerfi1e由于某些原因(如某条指令失败了)没有正常结束,那么你将得到了一个可以使用的镜像。这对调试非常有帮助:可以基于该镜像运行一个具备交互功能的容器,使用最后创建的镜像对为什么你的指令会失败进行调试。<br>
+每个Dockerfile的第一条指令都应该是<code>FROM</code>。<code>FROM</code>指令指定一个已经存在的镜像, 后续指令都将基于该镜像进行,这个镜像被称为基础镜像(base iamge)。<br>
+在前面的Dockerfile示例里,我们指定了ubuntu:latest作为新镜像的基础镜像。基于这个Dockerfile构建的新镜像将以ubuntu:latest操作系统为基础。在运行一个容器时,必须要指明是基于哪个基础镜像在进行构建。<br>
+接着指定了MAINTAINER指令,这条指令会告诉Docker该镜像的作者是谁,以及作者的电子邮件地址。这有助于标识镜像的所有者和联系方式在这些指令之后,我们指定了三条<code>RUN</code>指令。<code>RUN</code>指令会在当前镜像中运行指定的命令。在这个例子里,我们通过<code>RUN</code>指令更新了已经安装的APT仓库,安装了 nginx包,之后创建了/usr/share/nginx/html/index.htm1文件,该文件有一些简单的示例文本。<br>
+像前面说的那样,每条RUN指令都会创建一个新的镜像层,如果该指令执行成功,就会将此镜像层提交,之后继续执行 Dockerfile中的下一条指令默认情况下,RUN指令会在shel里使用命令包装器<code>/bin/sh -c</code>来执行。如果是在一个不支持 shell的平台上运行或者不希望在shel中运行(比如避免shell字符串篡改),也可以使用exec格式的<code>RUN</code>指令,如:</p>
+<pre><code>RUN [&quot;apt-get&quot;, &quot;install&quot;, &quot;-y&quot;, &quot;nginx&quot;]
+</code></pre>
+<p>在这种方式中,我们使用一个数组来指定要运行的命令和传递给该命令的每个参数。<br>
+接着设置了<code>EXPOSE</code>指令,这条指令告诉Docker该容器内的应用程序<strong>将会</strong>使用容器的指定端口。这并不意味着基于该镜像启动容器之后就可以自动访问任意容器运行中服务的端口(这里是80)。出于安全的原因, Docker并不会自动打开容器中该端口,而是需要你在使用<code>docker run</code>运行容器时来指定需要打开哪些端口。一会儿我们将会看到如何从这一镜像创建一个新容器。<br>
+可以指定多个<code>EXPOSE</code>指令来向外部公开多个端口。</p>
+<h4 id="3-基于-Dockerfile-构建新镜像"><a class="header-anchor" href="#3-基于-Dockerfile-构建新镜像">¶</a>3. 基于 Dockerfile 构建新镜像</h4>
+<p>执行<code>docker bui1d</code>命令时, Dockerfile中的所有指令都会被执行并且提交,并且在该命令成功结束后返回一个新镜像。下面就来看看如何构建一个新镜像</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker build -t=&quot;john/test_web&quot; .
 Sending build context to Docker daemon 2.048 kB
 Step 1/6 : FROM ubuntu:latest
@@ -621,7 +689,7 @@ Step 4/6 : RUN apt-get install -y nginx
 ... ...
  ---&gt; 9db0ad54ee3a
 Removing intermediate container f3894c140c14
-Step 5/6 : RUN echo &#39;Hi, I am in your container&#39; &gt; /usr/share/nginx/html/index.html
+Step 5/6 : RUN echo 'Hi, I am in your container' &gt; /usr/share/nginx/html/index.html
  ---&gt; Running in 23be203391ad
 
  ---&gt; 4c83525bb448
@@ -630,33 +698,59 @@ Step 6/6 : EXPOSE 80
  ---&gt; Running in 888c4178cd52
  ---&gt; 9f71e9719770
 Removing intermediate container 888c4178cd52
-Successfully built 9f71e9719770</code></pre><p>我们使用了<code>docker build</code>命令来构建新镜像。我们通过指定<code>-t</code>选项为新镜像设置了仓库和名称,在本例中仓库为john,镜像名为test_web。强烈建议各位为自己的镜像设置合适的名字以方便追踪和管理。<br>也可以在构建镜像的过程中为镜像设置一个标签,其使用方法为“镜像名:标签”。如果没有制定任何标签, Docker将会自动为镜像设置一个1atest标签。<br>上面命令中最后的<code>.</code>告诉Docker到本地目录中去找Dockerfi1e文件。也可以指定一个Git仓库的源地址来指定Dockerfi1e的位置:</p>
-<pre><code>[root@izwz920kp0myp15p982vp4z test]# docker build -t=&quot;john/test_web:tag_v1&quot; git@github.com:john/docker-test</code></pre><p>这里Docker假设在这个Git仓库的根目录下存在Dockerfile文件。<br>再回到<code>docker build</code>过程。可以看到构建上下文已经上传到了Docker守护进程:</p>
+Successfully built 9f71e9719770
+</code></pre>
+<p>我们使用了<code>docker build</code>命令来构建新镜像。我们通过指定<code>-t</code>选项为新镜像设置了仓库和名称,在本例中仓库为john,镜像名为test_web。强烈建议各位为自己的镜像设置合适的名字以方便追踪和管理。<br>
+也可以在构建镜像的过程中为镜像设置一个标签,其使用方法为“镜像名:标签&quot;。如果没有制定任何标签, Docker将会自动为镜像设置一个1atest标签。<br>
+上面命令中最后的<code>.</code>告诉Docker到本地目录中去找Dockerfi1e文件。也可以指定一个Git仓库的源地址来指定Dockerfi1e的位置:</p>
+<pre><code>[root@izwz920kp0myp15p982vp4z test]# docker build -t=&quot;john/test_web:tag_v1&quot; git@github.com:john/docker-test
+</code></pre>
+<p>这里Docker假设在这个Git仓库的根目录下存在Dockerfile文件。<br>
+再回到<code>docker build</code>过程。可以看到构建上下文已经上传到了Docker守护进程:</p>
 <pre><code>...
 Sending build context to Docker daemon 2.048 kB
-...</code></pre><blockquote>
+...
+</code></pre>
+<blockquote>
 <p>如果在构建上下文的根目录下存在以<code>.dockerignore</code>命名的文件的话,那么该文件内容会被按行进行分割,每一行都是一条文件过滤匹配模式。这非常像<code>.gitignore</code>文件, 该文件用来设置哪些文件不会被上传到构建上下文中去。该文件中模式的匹配规则采用了Go语言中的<code>filepath</code>。</p>
 </blockquote>
-<p>之后,可以看到Dockerfile中的每条指令会被顺序执行,每一步都返回了新镜像的ID。构建的每一步及其对应指令都会独立运行, 并且在输出最终镜像ID之前, Docker会提交每步的构建结果。<br>所有一旦上面的构建过程中途失败了，我们可以直接拿到最后得到的镜像 id 启动一个容器，然后拿出 Dockerfile 中对应这一步的指令进行执行，看是因为什么报错，并对症下药解决问题，退出容器后，修改 Dockerfile 为正确的内容，重新构建。</p>
-<h4 id="4-Dockerfile-和构建缓存"><a href="#4-Dockerfile-和构建缓存" class="headerlink" title="4. Dockerfile 和构建缓存"></a>4. Dockerfile 和构建缓存</h4><p>由于每一步的构建过程都会将结果提交为镜像,所以Docker的构建镜像过程就显得非常聪明。它会将之前的镜像层看做缓存。比如,我们在构建指令的第4步失败了,Docker会将之前构建时创建的镜像当做缓存并作为新的开始点。实际上,当再次进行构建时, Docker会直接从第4步开始。当之前的构建步骤没有变化时,这会节省大量的时间。如果真的在第1步到第3步之间做了什么修改, Docker则会从第一条发生了变化的指令开始<br>然而,有些时候需要确保构建过程不会使用缓存。比如,如果已经缓存了前面的第3步, 即<code>apt-get update</code>,那么 Docker将不会再次刷新APT包的缓存。这时你可能需要取得每个包的最新版本。要想略过缓存功能,可以使用<code>docker build</code>的<code>--no-cache</code>标志:</p>
-<pre><code>docker build -t=&quot;john/web-test:tag_2&quot; --no-cache .</code></pre><h4 id="5-基于构建缓存的-Dockerfile-模板"><a href="#5-基于构建缓存的-Dockerfile-模板" class="headerlink" title="5. 基于构建缓存的 Dockerfile 模板"></a>5. 基于构建缓存的 Dockerfile 模板</h4><p>构建缓存带来的一个好处就是,我们可以实现简单的Dockerfile模板(比如在Dockerfile文件顶部增加包仓库或者更新包,从而尽可能确保缓存命中)。比如对 Ubuntu:</p>
+<p>之后,可以看到Dockerfile中的每条指令会被顺序执行,每一步都返回了新镜像的ID。构建的每一步及其对应指令都会独立运行, 并且在输出最终镜像ID之前, Docker会提交每步的构建结果。<br>
+所有一旦上面的构建过程中途失败了，我们可以直接拿到最后得到的镜像 id 启动一个容器，然后拿出 Dockerfile 中对应这一步的指令进行执行，看是因为什么报错，并对症下药解决问题，退出容器后，修改 Dockerfile 为正确的内容，重新构建。</p>
+<h4 id="4-Dockerfile-和构建缓存"><a class="header-anchor" href="#4-Dockerfile-和构建缓存">¶</a>4. Dockerfile 和构建缓存</h4>
+<p>由于每一步的构建过程都会将结果提交为镜像,所以Docker的构建镜像过程就显得非常聪明。它会将之前的镜像层看做缓存。比如,我们在构建指令的第4步失败了,Docker会将之前构建时创建的镜像当做缓存并作为新的开始点。实际上,当再次进行构建时, Docker会直接从第4步开始。当之前的构建步骤没有变化时,这会节省大量的时间。如果真的在第1步到第3步之间做了什么修改, Docker则会从第一条发生了变化的指令开始<br>
+然而,有些时候需要确保构建过程不会使用缓存。比如,如果已经缓存了前面的第3步, 即<code>apt-get update</code>,那么 Docker将不会再次刷新APT包的缓存。这时你可能需要取得每个包的最新版本。要想略过缓存功能,可以使用<code>docker build</code>的<code>--no-cache</code>标志:</p>
+<pre><code>docker build -t=&quot;john/web-test:tag_2&quot; --no-cache .
+</code></pre>
+<h4 id="5-基于构建缓存的-Dockerfile-模板"><a class="header-anchor" href="#5-基于构建缓存的-Dockerfile-模板">¶</a>5. 基于构建缓存的 Dockerfile 模板</h4>
+<p>构建缓存带来的一个好处就是,我们可以实现简单的Dockerfile模板(比如在Dockerfile文件顶部增加包仓库或者更新包,从而尽可能确保缓存命中)。比如对 Ubuntu:</p>
 <pre><code>FROM ubuntu:14.04
 MAINTAINER john &quot;xxx@example.com&quot;
 ENV REFRESHED_AT 2020-04-02
-RUN apt-get -qq update</code></pre><p>上面的 Dockerfile 通过ENV指令来设置了一个名为REFRESHED_AT的环境变量, 这个环境变量用来表明该镜像模板最后的更新时间。最后,我使用了RUN指令来运行<code>apt-get -qg update</code>命令。该指令运行时将会刷新APT包的缓存,用来确保我们能将要安装的每个软件包都更新到最新版本<br>有了这个模板,如果想刷新一个构建,只需修改ENV指令中的日期。这使Docker在命中ENV指令时开始重置这个缓存,并运行后续指令而无须依赖该缓存。也就是说, <code>RUN apt-get update</code>这条指令将会被再次执行, 包缓存也将会被刷新为最新内容。可以扩展此模板,比如适配到不同的平台或者添加额外的需求。</p>
-<h4 id="6-查看新镜像"><a href="#6-查看新镜像" class="headerlink" title="6. 查看新镜像"></a>6. 查看新镜像</h4><pre><code>[root@izwz920kp0myp15p982vp4z test]# docker images
+RUN apt-get -qq update
+</code></pre>
+<p>上面的 Dockerfile 通过ENV指令来设置了一个名为REFRESHED_AT的环境变量, 这个环境变量用来表明该镜像模板最后的更新时间。最后,我使用了RUN指令来运行<code>apt-get -qg update</code>命令。该指令运行时将会刷新APT包的缓存,用来确保我们能将要安装的每个软件包都更新到最新版本<br>
+有了这个模板,如果想刷新一个构建,只需修改ENV指令中的日期。这使Docker在命中ENV指令时开始重置这个缓存,并运行后续指令而无须依赖该缓存。也就是说, <code>RUN apt-get update</code>这条指令将会被再次执行, 包缓存也将会被刷新为最新内容。可以扩展此模板,比如适配到不同的平台或者添加额外的需求。</p>
+<h4 id="6-查看新镜像"><a class="header-anchor" href="#6-查看新镜像">¶</a>6. 查看新镜像</h4>
+<pre><code>[root@izwz920kp0myp15p982vp4z test]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 john/web-test       tag_2               cff52e402b5c        14 minutes ago      153 MB
 john/test_web       latest              9f71e9719770        35 minutes ago      153 MB
 john/apache2        test                679b814d9d1f        About an hour ago   189 MB
 john/apache2        latest              8d22890c9e33        About an hour ago   189 MB
-docker.io/ubuntu    latest              4e5021d210f6        12 days ago         64.2 MB</code></pre><p>刚构建的新镜像已经存在，如果想深入探求镜像是如何构建出来的，可以使用<code>docker history</code>命令</p>
-<h4 id="7-从新镜像启动容器"><a href="#7-从新镜像启动容器" class="headerlink" title="7. 从新镜像启动容器"></a>7. 从新镜像启动容器</h4><p>我们使用<code>-p</code>选项开启了容器的端口80</p>
+docker.io/ubuntu    latest              4e5021d210f6        12 days ago         64.2 MB
+</code></pre>
+<p>刚构建的新镜像已经存在，如果想深入探求镜像是如何构建出来的，可以使用<code>docker history</code>命令</p>
+<h4 id="7-从新镜像启动容器"><a class="header-anchor" href="#7-从新镜像启动容器">¶</a>7. 从新镜像启动容器</h4>
+<p>我们使用<code>-p</code>选项开启了容器的端口80</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker run -d -p 80 --name web_test john/test_web nginx -g &quot;daemon off;&quot;
-6b564a193037976f219bd76a6ef94f27a7daa48103d1bd0d01846a3e8c37de2c</code></pre><p>查看容器的映射端口：</p>
+6b564a193037976f219bd76a6ef94f27a7daa48103d1bd0d01846a3e8c37de2c
+</code></pre>
+<p>查看容器的映射端口：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker port web_test 80
-0.0.0.0:32768</code></pre><p>访问容器中的 nginx</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z test]# curl localhost:32768
+0.0.0.0:32768
+</code></pre>
+<p>访问容器中的 nginx</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z test]# curl localhost:32768
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
@@ -682,47 +776,65 @@ Commercial support is available at
 
 <p><em>Thank you for using nginx.</em></p>
 </body>
-</html><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Dockerfile-指令"><a href="#Dockerfile-指令" class="headerlink" title="Dockerfile 指令"></a>Dockerfile 指令</h3><p>可以在<a href="http://docs.docker.com/reference/builder/" target="_blank" rel="noopener">http://docs.docker.com/reference/builder/</a>查看Dockerfile中可以使用的全部指令的清单。</p>
-<h4 id="1-CMD"><a href="#1-CMD" class="headerlink" title="1. CMD"></a>1. CMD</h4><p><code>CMD</code>指令用于<strong>指定基于本 Dockerfile 构建出来之后的镜像启动的容器启动时要运行的命令</strong>。这有点儿类似于<code>RUN</code>指令, 只是<code>RUN</code>指令是指定镜像被构建时要运行的命令, 而<code>CMD</code>是指定基于该镜像的容器被启动时要运行的命令。这和使用<code>docker run [参数] [容器唯一标识] [要执行的命令]</code>命令启动容器时指定要运行的命令非常类似，可以认为两者是等效的。但是后者是会覆盖前者的，如果我们在 Dockerfile 里指定了<code>CMD</code>指令,而同时在<code>docker run</code>命令行中也指定了要运行的命令,命令行中指定的命令会<strong>覆盖</strong>Dockerfile中的<code>CMD</code>指令。</p>
+</html>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Dockerfile-指令"><a class="header-anchor" href="#Dockerfile-指令">¶</a>Dockerfile 指令</h3>
+<p>可以在<a href="http://docs.docker.com/reference/builder/" target="_blank" rel="noopener">http://docs.docker.com/reference/builder/</a>查看Dockerfile中可以使用的全部指令的清单。</p>
+<h4 id="1-CMD"><a class="header-anchor" href="#1-CMD">¶</a>1. CMD</h4>
+<p><code>CMD</code>指令用于<strong>指定基于本 Dockerfile 构建出来之后的镜像启动的容器启动时要运行的命令</strong>。这有点儿类似于<code>RUN</code>指令, 只是<code>RUN</code>指令是指定镜像被构建时要运行的命令, 而<code>CMD</code>是指定基于该镜像的容器被启动时要运行的命令。这和使用<code>docker run [参数] [容器唯一标识] [要执行的命令]</code>命令启动容器时指定要运行的命令非常类似，可以认为两者是等效的。但是后者是会覆盖前者的，如果我们在 Dockerfile 里指定了<code>CMD</code>指令,而同时在<code>docker run</code>命令行中也指定了要运行的命令,命令行中指定的命令会<strong>覆盖</strong>Dockerfile中的<code>CMD</code>指令。</p>
 <p>另外，在Dockerfi1e中只能指定一条<code>CMD</code>指令。如果指定了多条<code>CMD</code>指令,也只有最后一条<code>CMD</code>指令会被使用。如果想在启动容器时运行多个进程或者多条命令,可以考虑使用类似Supervisor这样的服务管理工具。</p>
-<h5 id="CMD、ENTRYPOINT、RUN-的两种格式"><a href="#CMD、ENTRYPOINT、RUN-的两种格式" class="headerlink" title="CMD、ENTRYPOINT、RUN 的两种格式"></a>CMD、ENTRYPOINT、RUN 的两种格式</h5><h6 id="1-gt-shell-格式"><a href="#1-gt-shell-格式" class="headerlink" title="1&gt; shell 格式"></a>1&gt; shell 格式</h6><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos
+<h5 id="CMD、ENTRYPOINT、RUN-的两种格式"><a class="header-anchor" href="#CMD、ENTRYPOINT、RUN-的两种格式">¶</a>CMD、ENTRYPOINT、RUN 的两种格式</h5>
+<h6 id="1-shell-格式"><a class="header-anchor" href="#1-shell-格式">¶</a>1&gt; shell 格式</h6>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">FROM centos
 ENV name Docker
-CMD echo "hello $name"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+CMD echo "hello $name"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>Docker会在指定的命令前加上<code>/bin/sh -c</code>，进行程序执行，也就是说 <code>echo &quot;hello $name&quot;</code> 被拼接成 <code>/bin/sh -c echo &quot;hello $name&quot;</code> 进行程序调用，由 bash (shell工具) 来执行。此时 bash 会执行环境变量解析在调用 echo 程序进行输出。此时该 Dockerfile 构建的容器运行后会输出 <code>hello Docker</code>。</p>
-<h6 id="2-gt-exec-格式"><a href="#2-gt-exec-格式" class="headerlink" title="2&gt; exec 格式"></a>2&gt; exec 格式</h6><pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos
+<h6 id="2-exec-格式"><a class="header-anchor" href="#2-exec-格式">¶</a>2&gt; exec 格式</h6>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">FROM centos
 ENV name Docker
-CMD ["/bin/echo", "hello $name"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+CMD ["/bin/echo", "hello $name"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>第二种是一种类似数组的格式，它会直接执行 echo 程序，没有做环境变量解析，echo 程序直接输出 <code>hello $name</code>。此时我们需要对 Dockerfile 进行修改：</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">FROM centos
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">FROM centos
 ENV name Docker
-CMD ["/bin/sh", "-c", "echo hello $name"] # -c 参数的下一个参数是给bash解析的我们要执行的整条命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+CMD ["/bin/sh", "-c", "echo hello $name"] # -c 参数的下一个参数是给bash解析的我们要执行的整条命令
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>此时才会得到输出 <code>hello Docker</code>。</p>
-<h6 id="两种格式对比"><a href="#两种格式对比" class="headerlink" title="两种格式对比"></a>两种格式对比</h6><p>第一种格式在执行该命令的时候可能会导致意料之外的行为,所以Docker推荐一直使用以数组语法来设置要执行的命令。</p>
-<h4 id="2-ENTRYPOINT"><a href="#2-ENTRYPOINT" class="headerlink" title="2. ENTRYPOINT"></a>2. ENTRYPOINT</h4><p><code>ENTRYPOINT</code>指令与<code>CMD</code>指令非常类似,也很容易和<code>CMD</code>指令弄混。这两个指令到底有什么区别呢?为什么要同时保留这两条指令?正如我们已经了解到的那样,我们可以在<code>docker run</code>命令行中覆盖<code>CMD</code>指令。有时候, 我们希望容器会按照我们想象的那样去工作, 这时候CMD就不太合适了。而<code>ENTRYPOINT</code>指令提供的命令则不容易在启动容器时被覆盖。<br>实际上, <code>docker run</code>命令行中指定的任何参数都会被当做参数再次传递给 <code>ENTRYPOINT</code>指令中指定的命令。让我们来看一个<code>ENTRYPOINT</code>指令的例子：</p>
-<p><strong>1. 目前我们的需求是容器启动之后执行命令”/usr/sbin/nginx -g ‘daemon off;’”</strong></p>
+<h6 id="两种格式对比"><a class="header-anchor" href="#两种格式对比">¶</a>两种格式对比</h6>
+<p>第一种格式在执行该命令的时候可能会导致意料之外的行为,所以Docker推荐一直使用以数组语法来设置要执行的命令。</p>
+<h4 id="2-ENTRYPOINT"><a class="header-anchor" href="#2-ENTRYPOINT">¶</a>2. ENTRYPOINT</h4>
+<p><code>ENTRYPOINT</code>指令与<code>CMD</code>指令非常类似,也很容易和<code>CMD</code>指令弄混。这两个指令到底有什么区别呢?为什么要同时保留这两条指令?正如我们已经了解到的那样,我们可以在<code>docker run</code>命令行中覆盖<code>CMD</code>指令。有时候, 我们希望容器会按照我们想象的那样去工作, 这时候CMD就不太合适了。而<code>ENTRYPOINT</code>指令提供的命令则不容易在启动容器时被覆盖。<br>
+实际上, <code>docker run</code>命令行中指定的任何参数都会被当做参数再次传递给 <code>ENTRYPOINT</code>指令中指定的命令。让我们来看一个<code>ENTRYPOINT</code>指令的例子：</p>
+<p><strong>1. 目前我们的需求是容器启动之后执行命令&quot;/usr/sbin/nginx -g ‘daemon off;’&quot;</strong></p>
 <p>类似于<code>CMD</code>指令，我们也可以在该指令中通过数组的方式为命令指定相应的参数，以下命令即可满足我们目前的需求</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
-<p>这里我们也使用数组的方式传递命令而避免 docker 在命令前面加入”/bin/sh -c”导致可能产生各种问题</p>
+<p>这里我们也使用数组的方式传递命令而避免 docker 在命令前面加入&quot;/bin/sh -c&quot;导致可能产生各种问题</p>
 </blockquote>
 <p>此外我们还有另外一种方式：</p>
 <p>Dockerfile 配置：<code>ENTRYPOINT [&quot;/usr/sbin/nginx&quot;]</code>这里去掉了后面的参数，转而在启动容器的时候指定：<code>docker run -it john/test_web -g &quot;daemon off;&quot;</code>，此时后面的<code>-g</code>和<code>daemon off;</code>都会传递到<code>ENTRYPOINT</code>中进行拼接运行，可以得到同样的效果。此时容器中的 nginx 将会以前台的方式运行。</p>
 <p><strong>2. 此时我们的需求变了，要求<code>docker run</code>如果不传递任何的参数则以后台的方式运行，如果传递了<code>-g</code>和<code>daemon off;</code>则会前台运行。即构成这样的语义，该容器只要启动了，nginx 保证会运行，但是运行方式是可配置的，且默认运行方式是后台运行。</strong></p>
-<p>此时我们可以这样配置：<br>Dockerfile:</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ENTRYPOINT [/usr/bin/nginx]
+<p>此时我们可以这样配置：<br>
+Dockerfile:</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ENTRYPOINT [/usr/bin/nginx]
 # 默认后台运行
-CMD [-h]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+CMD [-h]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>此时启动容器的时候命令如果是<code>docker run -it john/test_web -g &quot;daemon off;&quot;</code>，<code>CMD</code>则会被覆盖失效，ngnix会前台运行；如果是<code>docker run -it john/test_web</code>，则<code>CMD</code>生效并传递到<code>ENTRYPOINT</code>中，此时 nginx 则会后台运行了。</p>
 <blockquote>
 <p>如果确实需要,你也可以在运行时通过<code>docker run</code>的<code>--entrypoint</code>标志覆盖<code>ENTRYPOINT</code>指令。</p>
 </blockquote>
-<h4 id="3-WORKDIR"><a href="#3-WORKDIR" class="headerlink" title="3. WORKDIR"></a>3. WORKDIR</h4><p><code>WORKDIR</code>指令用来在从镜像创建一个新容器时,在容器内部设置一个工作目录,<code>ENTRYPOINT</code>、<code>RUN</code>或<code>CMD</code>指定的程序会在这个目录下执行。我们可以使用该指令为Dockerfi1e中后续的一系列指令设置工作目录, 也可以为最终的容器设置工作目录。</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">WORKDIR /opt/webapp/db 
+<h4 id="3-WORKDIR"><a class="header-anchor" href="#3-WORKDIR">¶</a>3. WORKDIR</h4>
+<p><code>WORKDIR</code>指令用来在从镜像创建一个新容器时,在容器内部设置一个工作目录,<code>ENTRYPOINT</code>、<code>RUN</code>或<code>CMD</code>指定的程序会在这个目录下执行。我们可以使用该指令为Dockerfi1e中后续的一系列指令设置工作目录, 也可以为最终的容器设置工作目录。</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">WORKDIR /opt/webapp/db 
 RUN bundle install 
 WORKDIR /opt/webapp 
-ENTRYPOINT["rackup"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里,我们将工作目录切换为<code>/opt/webapp/db</code>后运行了<code>bundle insta1l</code>命令,之后又将工作目录设置为<code>/opt/webapp</code>,最后设置了<code>ENTRYPOINT</code>指令来启动<code>rackup</code>命令。<br>另外，我们可以在<code>docker run</code>命令指定<code>-w</code>参数覆盖 Dockerfile 中可能在最后设置了的<code>WORKDIR</code></p>
+ENTRYPOINT["rackup"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里,我们将工作目录切换为<code>/opt/webapp/db</code>后运行了<code>bundle insta1l</code>命令,之后又将工作目录设置为<code>/opt/webapp</code>,最后设置了<code>ENTRYPOINT</code>指令来启动<code>rackup</code>命令。<br>
+另外，我们可以在<code>docker run</code>命令指定<code>-w</code>参数覆盖 Dockerfile 中可能在最后设置了的<code>WORKDIR</code></p>
 <blockquote>
 <p>注意：</p>
 <ol>
@@ -731,11 +843,16 @@ ENTRYPOINT["rackup"]<span aria-hidden="true" class="line-numbers-rows"><span></s
 <li>尽量使用绝对目录，更清晰</li>
 </ol>
 </blockquote>
-<h4 id="4-ENV"><a href="#4-ENV" class="headerlink" title="4. ENV"></a>4. ENV</h4><p><code>ENV</code>指令用来在镜像构建过程中设置环境变量</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ENV RVM_PATH /home/rvm/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这个新的环境变量可以在后续的任何<code>RUN</code>指令中使用, 这就如同在命令前面指定了环境变量前缀一样：<br><code>RUN gem install unicorn</code> -&gt; <code>RVM_PATH=/home/rvm gem install unicorn</code><br>我们也能在其他指令中直接使用这些环境变量</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ENV TARAGET_DIR /opt/app
-WORKDIR $TARGET_DIR<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="4-ENV"><a class="header-anchor" href="#4-ENV">¶</a>4. ENV</h4>
+<p><code>ENV</code>指令用来在镜像构建过程中设置环境变量</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ENV RVM_PATH /home/rvm/
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个新的环境变量可以在后续的任何<code>RUN</code>指令中使用, 这就如同在命令前面指定了环境变量前缀一样：<br>
+<code>RUN gem install unicorn</code> -&gt; <code>RVM_PATH=/home/rvm gem install unicorn</code><br>
+我们也能在其他指令中直接使用这些环境变量</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ENV TARAGET_DIR /opt/app
+WORKDIR $TARGET_DIR
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>在这里我们设定了一个新的环境变量<code>TARGET_DIR</code>,并在 <code>WORKDIR</code>中使用了它的值。因此实际上<code>WORKDIR</code>指令的值会被设为<code>/opt/app</code></p>
 <blockquote>
 <p>如果需要, 可以通过在环境变量前加上一个反斜线来进行转义。</p>
@@ -743,23 +860,32 @@ WORKDIR $TARGET_DIR<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <p>这些环境变量也会被持久保存到从我们的镜像创建的任何容器中。如果我们在使用<code>ENV RVM PATH/home/rvm/</code>指令构建的容器中运行<code>env</code>命令，将会看到：</p>
 <pre><code>...
 RVM_PATH=/home/rvm/
-...</code></pre><p>也可以使用<code>docker run</code>命令行的<code>-e</code>标识来传递环境变量，这些变量将只会在运行时有效：</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">$ sudo docker run -ti -e "WEB_PORT=8080" ubuntu env 
+...
+</code></pre>
+<p>也可以使用<code>docker run</code>命令行的<code>-e</code>标识来传递环境变量，这些变量将只会在运行时有效：</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">$ sudo docker run -ti -e "WEB_PORT=8080" ubuntu env 
 HOME=/ 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin: /bin 
 HOSTNAME=792b171c5e9f 
 TERM=xterm 
-WEB_PORT=8080<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+WEB_PORT=8080
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们可以看到,在容器中<code>WEB_PORT</code>环境变量被设为了8080。</p>
-<h4 id="5-USER"><a href="#5-USER" class="headerlink" title="5. USER"></a>5. USER</h4><p><code>USER</code>指令用来指定该镜像启动的容器会以什么样的用户去运行</p>
-<pre><code>USER nginx</code></pre><p>基于该镜像启动的容器会以<code>nginx</code>用户的身份来运行。我们可以指定用户名或UID以及组或GID,甚至是两者的组合</p>
+<h4 id="5-USER"><a class="header-anchor" href="#5-USER">¶</a>5. USER</h4>
+<p><code>USER</code>指令用来指定该镜像启动的容器会以什么样的用户去运行</p>
+<pre><code>USER nginx
+</code></pre>
+<p>基于该镜像启动的容器会以<code>nginx</code>用户的身份来运行。我们可以指定用户名或UID以及组或GID,甚至是两者的组合</p>
 <pre><code>USER user 
 USER user:group 
 USER uid U
 USER uid:gid 
 USER user:gid 
-USER uid:group</code></pre><p>也可以在<code>docker run</code>命令中通过<code>-u</code>选项来覆盖该指令指定的值</p>
-<h4 id="6-VOLUME"><a href="#6-VOLUME" class="headerlink" title="6. VOLUME"></a>6. VOLUME</h4><p><code>VOLUME</code>指令用来向基于镜像创建的容器添加卷。<strong>一个卷是可以存在于一个或者多个容器内的特定的目录</strong>, 这个目录可以绕过联合文件系统,并提供如下共享数据或者对数据进行持久化的功能。</p>
+USER uid:group
+</code></pre>
+<p>也可以在<code>docker run</code>命令中通过<code>-u</code>选项来覆盖该指令指定的值</p>
+<h4 id="6-VOLUME"><a class="header-anchor" href="#6-VOLUME">¶</a>6. VOLUME</h4>
+<p><code>VOLUME</code>指令用来向基于镜像创建的容器添加卷。<strong>一个卷是可以存在于一个或者多个容器内的特定的目录</strong>, 这个目录可以绕过联合文件系统,并提供如下共享数据或者对数据进行持久化的功能。</p>
 <ul>
 <li>卷可以在容器间共享和重用。</li>
 <li>一个容器可以不是必须和其他容器共享卷 ？</li>
@@ -768,33 +894,58 @@ USER uid:group</code></pre><p>也可以在<code>docker run</code>命令中通过
 <li>卷会一直存在直到没有任何容器再使用它</li>
 </ul>
 <p>卷功能让我们可以将数据(如源代码)、数据库或者其他内容添加到镜像中而不是将这些内容提交到镜像中,并且允许我们在多个容器间共享这些内容。我们可以利用此功能来测试容器和内部的应用程序代码,管理日志,或者处理容器内部的数据库。</p>
-<pre><code>VOLUME [&quot;/opt/project&quot;]</code></pre><p>这条指令将会为基于此镜像创建的任何容器创建一个名为<code>/opt/project</code>的挂载点。<br>我们也可以通过指定数组的方式指定多个卷</p>
-<pre><code>VOLUME [&quot;/opt/project&quot;, &quot;/data&quot;]</code></pre><blockquote>
+<pre><code>VOLUME [&quot;/opt/project&quot;]
+</code></pre>
+<p>这条指令将会为基于此镜像创建的任何容器创建一个名为<code>/opt/project</code>的挂载点。<br>
+我们也可以通过指定数组的方式指定多个卷</p>
+<pre><code>VOLUME [&quot;/opt/project&quot;, &quot;/data&quot;]
+</code></pre>
+<blockquote>
 <p>可以在<a href="http://docs.docker.com/userguide/dockervolumes/" target="_blank" rel="noopener">http://docs.docker.com/userguide/dockervolumes/</a>读到更多关于卷的信息</p>
 </blockquote>
-<h4 id="7-ADD"><a href="#7-ADD" class="headerlink" title="7. ADD"></a>7. ADD</h4><p><code>ADD</code>指令用来将<strong>构建环境</strong>下的文件和目录复制到镜像中。比如,在安装一个应用程序时。ADD指令需要源文件位置和目的文件位置两个参数</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ADD software.lic /opt/application/software/lic<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里的<code>ADD</code>指令将会将构建目录下的<code>software.1ic</code>文件复制到镜像中的<code>/opt/ application/software.1ic</code>。指向源文件的位置参数可以是一个URL, 或者构建上下文或环境中文件名或者目录。不能对构建目录或者上下文之外的文件进行<code>ADD</code>操作。<br>在<code>ADD</code>文件时, Docker通过目的地址参数末尾的字符来判断文件源是目录还是文件。<br>如果目标地址以/结尾,那么 Docker就认为源位置指向的是一个目录。如果目的地址以/结尾, 那么Docker就认为源位置指向的是目录。如果目的地址不是以/结尾,那么 Docker就认为源位置指向的是文件。<br>文件源也可以使用URL的格式：</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ADD http://wordpress.org/latest.zip /root/wordpress.zip<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="7-ADD"><a class="header-anchor" href="#7-ADD">¶</a>7. ADD</h4>
+<p><code>ADD</code>指令用来将<strong>构建环境</strong>下的文件和目录复制到镜像中。比如,在安装一个应用程序时。ADD指令需要源文件位置和目的文件位置两个参数</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ADD software.lic /opt/application/software/lic
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里的<code>ADD</code>指令将会将构建目录下的<code>software.1ic</code>文件复制到镜像中的<code>/opt/ application/software.1ic</code>。指向源文件的位置参数可以是一个URL, 或者构建上下文或环境中文件名或者目录。不能对构建目录或者上下文之外的文件进行<code>ADD</code>操作。<br>
+在<code>ADD</code>文件时, Docker通过目的地址参数末尾的字符来判断文件源是目录还是文件。<br>
+如果目标地址以/结尾,那么 Docker就认为源位置指向的是一个目录。如果目的地址以/结尾, 那么Docker就认为源位置指向的是目录。如果目的地址不是以/结尾,那么 Docker就认为源位置指向的是文件。<br>
+文件源也可以使用URL的格式：</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ADD http://wordpress.org/latest.zip /root/wordpress.zip
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>最后值得一提的是, <code>ADD</code>在处理本地归档文件(tar archive)时还有一些小魔法。如果将一个归档文件(合法的归档文件包括gzip、bzip2、xz)指定为源文件, Docker会自动将归档文件解开(unpack)</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">ADD latest.tar.gz /var/www/wordpress/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这条命令会将归档文件<code>latest.tax.gz</code>解开到<code>/var/www/wordpress/</code>目录下Docker解开归档文件的行为和使用带<code>-x</code>选项的<code>tar</code>命令一样:该指令执行后的输出是原目录的目录已经存在的内容加上归档文件中的内容。如果目的位置的目录下已经存在了和归档文件同名的文件或者目录, 那么目的位置中的文件或者目录不会被覆盖。<br>最后,如果目的位置不存在的话, Docker将会为我们创建这个全路径, 包括路径中的任何目录。新创建的文件和目录的模式为0755,并且UID和GID都是0。</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">ADD latest.tar.gz /var/www/wordpress/
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这条命令会将归档文件<code>latest.tax.gz</code>解开到<code>/var/www/wordpress/</code>目录下Docker解开归档文件的行为和使用带<code>-x</code>选项的<code>tar</code>命令一样:该指令执行后的输出是原目录的目录已经存在的内容加上归档文件中的内容。如果目的位置的目录下已经存在了和归档文件同名的文件或者目录, 那么目的位置中的文件或者目录不会被覆盖。<br>
+最后,如果目的位置不存在的话, Docker将会为我们创建这个全路径, 包括路径中的任何目录。新创建的文件和目录的模式为0755,并且UID和GID都是0。</p>
 <blockquote>
 <p><code>ADD</code>指令会使得构建缓存变得无效,这一点也非常重要。如果通过<code>ADD</code>指令向镜像添加一个文件或者目录, 那么这将使Dockerfile中的后续指令都不能继续使用之前的构建缓存。</p>
 </blockquote>
-<h4 id="8-COPY"><a href="#8-COPY" class="headerlink" title="8. COPY"></a>8. COPY</h4><p><code>COPY</code>指令非常类似于<code>ADD</code>,它们根本的不同是<code>COPY</code>只关心在构建上下文中复制本地文件, 而不会去做文件提取(extraction)和解压(decompression)的工作。</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">COPY conf.d/ /etc/apache2/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这条指令将会把本地<code>conf.d</code>目录中的文件复制到<code>/etc/apache2/</code>目录中。<br>文件源路径必须是一个与当前构建环境相对的文件或者目录, 本地文件都放到和Dockerfi1e同一个目录下。不能复制该目录之外的任何文件,因为构建环境将会上传到Docker守护进程,而复制是在Docker守护进程中进行的。任何位于构建环境之外的东西都是不可用的。<code>COPY</code>指令的目的位置则必须是容器内部的一个绝对路径。<br>任何由该指令创建的文件或者目录的UID和GID都会设置为0。<br>如果源路径是一个目录,那么这个目录将整个被复制到容器中,包括文件系统元数据如果源文件为任何类型的文件,则该文件会随同元数据一起被复制。在这个例子里,源路径以/结尾,所以 Docker会认为它是目录,并将它复制到目的目录中。<br>如果目的位置不存在, Docker将会自动创建所有需要的目录结构, 就像<code>mkdir -p</code>命令那样。</p>
-<h4 id="9-ONBUILD"><a href="#9-ONBUILD" class="headerlink" title="9. ONBUILD"></a>9. ONBUILD</h4><p><code>ONBUILD</code>指令能为镜像添加触发器(trigger)。当一个镜像被用做其他镜像的基础镜像（也称为父镜像）时(比如你的镜像需要从<strong>某未准备好的位置</strong>添加源代码,或者你需要执行<strong>特定于构建镜像的环境</strong>的构建脚本), 该镜像中的触发器将会在以其为基础镜像的 Dockerfile 被 build 的时候执行。<br>父镜像触发器会在子镜像构建过程中插入新指令, 我们可以认为这些指令是紧跟在子镜像<code>FROM</code>之后指定的。触发器可以是任何构建指令</p>
+<h4 id="8-COPY"><a class="header-anchor" href="#8-COPY">¶</a>8. COPY</h4>
+<p><code>COPY</code>指令非常类似于<code>ADD</code>,它们根本的不同是<code>COPY</code>只关心在构建上下文中复制本地文件, 而不会去做文件提取(extraction)和解压(decompression)的工作。</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">COPY conf.d/ /etc/apache2/
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这条指令将会把本地<code>conf.d</code>目录中的文件复制到<code>/etc/apache2/</code>目录中。<br>
+文件源路径必须是一个与当前构建环境相对的文件或者目录, 本地文件都放到和Dockerfi1e同一个目录下。不能复制该目录之外的任何文件,因为构建环境将会上传到Docker守护进程,而复制是在Docker守护进程中进行的。任何位于构建环境之外的东西都是不可用的。<code>COPY</code>指令的目的位置则必须是容器内部的一个绝对路径。<br>
+任何由该指令创建的文件或者目录的UID和GID都会设置为0。<br>
+如果源路径是一个目录,那么这个目录将整个被复制到容器中,包括文件系统元数据如果源文件为任何类型的文件,则该文件会随同元数据一起被复制。在这个例子里,源路径以/结尾,所以 Docker会认为它是目录,并将它复制到目的目录中。<br>
+如果目的位置不存在, Docker将会自动创建所有需要的目录结构, 就像<code>mkdir -p</code>命令那样。</p>
+<h4 id="9-ONBUILD"><a class="header-anchor" href="#9-ONBUILD">¶</a>9. ONBUILD</h4>
+<p><code>ONBUILD</code>指令能为镜像添加触发器(trigger)。当一个镜像被用做其他镜像的基础镜像（也称为父镜像）时(比如你的镜像需要从<strong>某未准备好的位置</strong>添加源代码,或者你需要执行<strong>特定于构建镜像的环境</strong>的构建脚本), 该镜像中的触发器将会在以其为基础镜像的 Dockerfile 被 build 的时候执行。<br>
+父镜像触发器会在子镜像构建过程中插入新指令, 我们可以认为这些指令是紧跟在子镜像<code>FROM</code>之后指定的。触发器可以是任何构建指令</p>
 <pre><code>ONBUILD ADD . /app/src 
-ONBUILD RUN cd /app/src &amp; make</code></pre><p>上面的代码将会在创建的（父）镜像中加入<code>ONBUILD</code>触发器, <code>ONBUILD</code>指令可以在镜像上运行<code>docker inspect</code>命令来査看</p>
+ONBUILD RUN cd /app/src &amp; make
+</code></pre>
+<p>上面的代码将会在创建的（父）镜像中加入<code>ONBUILD</code>触发器, <code>ONBUILD</code>指令可以在镜像上运行<code>docker inspect</code>命令来査看</p>
 <pre><code>$ sudo docker inspect 508efa4e4bf8
 ...
 &quot;OnBuild&quot;: {
     &quot;ADD . /app/src&quot;,
     &quot;RUN cd /app/src/ &amp;&amp; make&quot;
 }
-...</code></pre><p>比如,我们为Apache2镜像构建一个全新的 Dockerfi1e,该镜像名为web_test:</p>
+...
+</code></pre>
+<p>比如,我们为Apache2镜像构建一个全新的 Dockerfi1e,该镜像名为web_test:</p>
 <pre><code>FROM ubuntu:14.04 
 MAINTAINER John &quot;xxx@example.com&quot; 
 RUN apt-get update 
@@ -805,17 +956,24 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ONBUILD ADD . /var/www/ 
 EXPOSE 80 
 ENTRYPOINT [&quot;/usr/sbin/apache2&quot;] 
-CMD [&quot;-D&quot;, &quot;FOREGROUND&quot;]</code></pre><p>现在我们就来构建该镜像</p>
+CMD [&quot;-D&quot;, &quot;FOREGROUND&quot;]
+</code></pre>
+<p>现在我们就来构建该镜像</p>
 <pre><code>$ sudo docker build -t=&quot;web_test&quot;
 ...
 Step 7: ONBUILD ADD . /var/www/ 
 --&gt; Running in 0e117f6ea4ba 
 --&gt; a79983575b86 
-Successfully built a79983575b86</code></pre><p>在新构建的镜像中包含一条<code>ONBUILD</code>指令,该指令会使用<code>ADD</code>指令将构建环境所在的目录下的内容全部添加到镜像中的<code>/var/www/</code>目录下。我们可以轻而易举地将这个Dockerfi1e作为一个通用的Web应用程序的模板,可以基于这个模板来构建Web应用程序。<br>我们可以通过构建一个名为<code>webapp</code>的镜像来看看如何使用镜像模板功能。它的Dockerfile如下：</p>
+Successfully built a79983575b86
+</code></pre>
+<p>在新构建的镜像中包含一条<code>ONBUILD</code>指令,该指令会使用<code>ADD</code>指令将构建环境所在的目录下的内容全部添加到镜像中的<code>/var/www/</code>目录下。我们可以轻而易举地将这个Dockerfi1e作为一个通用的Web应用程序的模板,可以基于这个模板来构建Web应用程序。<br>
+我们可以通过构建一个名为<code>webapp</code>的镜像来看看如何使用镜像模板功能。它的Dockerfile如下：</p>
 <pre><code>FROM web_test
 MAINTAINER john &quot;xxx@example.com&quot;
 ENV APPLICATION_NAME webapp
-ENV ENVIRONMENT development</code></pre><p><code>docker biuld</code>：</p>
+ENV ENVIRONMENT development
+</code></pre>
+<p><code>docker biuld</code>：</p>
 <pre><code>$ sudo docker build -t=&quot;webapp&quot; 
 Step 0: FROM web_test 
 # Executing 1 build triggers 
@@ -824,38 +982,56 @@ Step onbuild-0: ADD . /var/www/
 --&gt; 1a018213a59d 
 Step1: MAINTAINER john &quot;xxx@example.com&quot;  
 ... ...
-Successfully built 04829a360d86</code></pre><p>可以清楚地看到,在<code>FROM</code>指令之后, Docker插入了一条<code>ADD</code>指令,这条<code>ADD</code>指令是在<code>ONBUILD</code>触发器中指定的。执行完该<code>ADD</code>指令后, Docker才会继续执行构建文件的后续指令。这种机制使我每次都会将本地源代码添加到镜像,就像上面我们做到的那样, 也支持我为不同的应用程序进行一些特定的配置或者设置构建信息。这时,可以<code>web_test</code>当做一个镜像模板。<br><code>ONBUILD</code>触发器会按照在父镜像中指定的顺序执行,并且只能被继承一次(也就是说只能在子镜像中执行,而不会在孙子镜像中执行)。如果我们再基于<code>webapp</code>构建一个镜像,则新镜像是<code>web_test</code>的孙子镜像,因此在该镜像的构建过程中, <code>ONBUILD</code>触发器是不会被执行的。</p>
+Successfully built 04829a360d86
+</code></pre>
+<p>可以清楚地看到,在<code>FROM</code>指令之后, Docker插入了一条<code>ADD</code>指令,这条<code>ADD</code>指令是在<code>ONBUILD</code>触发器中指定的。执行完该<code>ADD</code>指令后, Docker才会继续执行构建文件的后续指令。这种机制使我每次都会将本地源代码添加到镜像,就像上面我们做到的那样, 也支持我为不同的应用程序进行一些特定的配置或者设置构建信息。这时,可以<code>web_test</code>当做一个镜像模板。<br>
+<code>ONBUILD</code>触发器会按照在父镜像中指定的顺序执行,并且只能被继承一次(也就是说只能在子镜像中执行,而不会在孙子镜像中执行)。如果我们再基于<code>webapp</code>构建一个镜像,则新镜像是<code>web_test</code>的孙子镜像,因此在该镜像的构建过程中, <code>ONBUILD</code>触发器是不会被执行的。</p>
 <blockquote>
 <p>这里有好几条指令是不能用在<code>ONBUTLD</code>指令中的,包括<code>FROM</code>、 <code>MAINTAINER</code>和 <code>ONBULLD</code> 本身。之所以这么规定是为了防止在Dockerfile构建过程中产生递归调用的问题。</p>
 </blockquote>
-<h4 id="10-FROM"><a href="#10-FROM" class="headerlink" title="10. FROM"></a>10. FROM</h4><pre class="line-numbers language-shell"><code class="language-shell">FROM scratch # 从头制作 base image，使用当前 host os 作为 docker 的 os filesystem 层<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-mysql"><code class="language-mysql">FROM centos # 使用 base image<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="11-LABEL"><a href="#11-LABEL" class="headerlink" title="11. LABEL"></a>11. LABEL</h4><pre class="line-numbers language-shell"><code class="language-shell"># 定义元信息
+<h4 id="10-FROM"><a class="header-anchor" href="#10-FROM">¶</a>10. FROM</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">FROM scratch # 从头制作 base image，使用当前 host os 作为 docker 的 os filesystem 层
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-mysql"><code class="language-language-mysql">FROM centos # 使用 base image
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="11-LABEL"><a class="header-anchor" href="#11-LABEL">¶</a>11. LABEL</h4>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell"># 定义元信息
 
 #作者
 LABEL maintainer="john@gmail.com"
 #版本
 LABEL version="1.0"
 #描述
-LABEL description="This is description"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="12-RUN"><a href="#12-RUN" class="headerlink" title="12. RUN"></a>12. RUN</h4><p>每一条 RUN 命令都会生成新的一层 image。所以为了避免无用分层，合并多条命令成一行；为了美观，复杂的 RUN 用反斜线换行：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">RUN yum update && yum install -y vim \ # \ 换行。这里一共包含两个yum命令，使用 && 合并到了一个 RUN
-        python-dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="13-EXPOSE"><a href="#13-EXPOSE" class="headerlink" title="13. EXPOSE"></a>13. EXPOSE</h4><p>指定基于当前镜像运行的容器会暴露的端口。实际上在容器运行的时候这个端口并没有开放，需要使用 <code>-p</code> 参数来进行实际的端口开放和映射，即使在 Dockerfile 中完全没有定义 EXPOSE 也不影响 <code>-p</code> 的端口开放，也就是说 EXPOSE 仅是一个声明、规范的作用。另外，<code>-P</code> 会开放 EXPOSE 指定的所有端口，此时 EXPOSE 才显得有实际意义，另外 EXPOSE 也包含了协议约定，默认不写协议就是 TCP，如果要暴露 TCP 和 UDP ，则需要同时定义：</p>
-<pre class="line-numbers language-dockerfile"><code class="language-dockerfile">EXPOSE 80/tcp
-EXPOSE 80/udp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="t-参数"><a href="#t-参数" class="headerlink" title="-t 参数"></a>-t 参数</h3><p>该参数可以指定要构建的新镜像的仓库名和名称</p>
-<h2 id="docker-push"><a href="#docker-push" class="headerlink" title="docker push"></a>docker push</h2><p>镜像构建完毕之后，我们也可以将它上传到 Docker Hub （Registry?）上面去进行共享</p>
+LABEL description="This is description"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="12-RUN"><a class="header-anchor" href="#12-RUN">¶</a>12. RUN</h4>
+<p>每一条 RUN 命令都会生成新的一层 image。所以为了避免无用分层，合并多条命令成一行；为了美观，复杂的 RUN 用反斜线换行：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">RUN yum update && yum install -y vim \ # \ 换行。这里一共包含两个yum命令，使用 && 合并到了一个 RUN
+		python-dev
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="13-EXPOSE"><a class="header-anchor" href="#13-EXPOSE">¶</a>13. EXPOSE</h4>
+<p>指定基于当前镜像运行的容器会暴露的端口。实际上在容器运行的时候这个端口并没有开放，需要使用 <code>-p</code> 参数来进行实际的端口开放和映射，即使在 Dockerfile 中完全没有定义 EXPOSE 也不影响 <code>-p</code> 的端口开放，也就是说 EXPOSE 仅是一个声明、规范的作用。另外，<code>-P</code> 会开放 EXPOSE 指定的所有端口，此时 EXPOSE 才显得有实际意义，另外 EXPOSE 也包含了协议约定，默认不写协议就是 TCP，如果要暴露 TCP 和 UDP ，则需要同时定义：</p>
+<pre class="line-numbers language-language-dockerfile"><code class="language-language-dockerfile">EXPOSE 80/tcp
+EXPOSE 80/udp
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="t-参数"><a class="header-anchor" href="#t-参数">¶</a>-t 参数</h3>
+<p>该参数可以指定要构建的新镜像的仓库名和名称</p>
+<h2 id="docker-push"><a class="header-anchor" href="#docker-push">¶</a>docker push</h2>
+<p>镜像构建完毕之后，我们也可以将它上传到 Docker Hub （Registry?）上面去进行共享</p>
 <blockquote>
 <p>Docker Hub也提供了对私有仓库的支持,这是一个需要付费的功能,你可以将镜像存储到私有仓库中,这样只有你或者任何与你共享这个私有仓库的人才能访问该镜像。这样你就可以将机密信息或者代码放到私有镜像中,不必担心被公开访问了。</p>
 </blockquote>
 <p>我们可以通过<code>docker push</code>命令将镜像推送到 Docker Hub。</p>
 <ol>
-<li><p>首先我们尝试推送一个无用户前缀的镜像</p>
+<li>首先我们尝试推送一个无用户前缀的镜像</li>
+</ol>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker push test_web
-Error response from daemon: You cannot push a &quot;root&quot; repository. Please rename your repository to docker.io/&lt;user&gt;/&lt;repo&gt; (ex: docker.io/707845008/test_web)</code></pre><p>上面的指令中我们推送了一个<code>test_web</code>的镜像，这个镜像没有用户前缀，dockerhub 会认为它被推送到了主仓库，但是这是不被允许的。</p>
-</li>
-<li><p>下面我们推送一个到其他用户前缀的镜像</p>
+Error response from daemon: You cannot push a &quot;root&quot; repository. Please rename your repository to docker.io/&lt;user&gt;/&lt;repo&gt; (ex: docker.io/707845008/test_web)
+</code></pre>
+<p>上面的指令中我们推送了一个<code>test_web</code>的镜像，这个镜像没有用户前缀，dockerhub 会认为它被推送到了主仓库，但是这是不被允许的。</p>
+<ol start="2">
+<li>下面我们推送一个到其他用户前缀的镜像</li>
+</ol>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker push a/test_web
 The push refers to a repository [docker.io/a/test_web]
 d1333a47bb14: Preparing
@@ -865,9 +1041,12 @@ ed7f9a0373a2: Preparing
 6597da2e2e52: Preparing
 977183d4e999: Waiting
 c8be1b8f4d60: Waiting
-denied: requested access to the resource is denied</code></pre><p>上面的指令中我们推送了一个<code>a/test_web</code>的镜像，这个镜像的用户前缀是”a”，docker hub 会根据我们通过<code>docker login</code>登录的用户信息进行权限校验，发现我们还是没有权限。</p>
-</li>
-<li><p>接着我们推送一个自己的用户前缀的镜像</p>
+denied: requested access to the resource is denied
+</code></pre>
+<p>上面的指令中我们推送了一个<code>a/test_web</code>的镜像，这个镜像的用户前缀是&quot;a&quot;，docker hub 会根据我们通过<code>docker login</code>登录的用户信息进行权限校验，发现我们还是没有权限。</p>
+<ol start="3">
+<li>接着我们推送一个自己的用户前缀的镜像</li>
+</ol>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker push 707845008/test_web
 The push refers to a repository [docker.io/707845008/test_web]
 d1333a47bb14: Pushed
@@ -877,9 +1056,9 @@ ed7f9a0373a2: Pushed
 6597da2e2e52: Pushed
 977183d4e999: Pushed
 c8be1b8f4d60: Pushed
-... ...</code></pre><p>上面的指令中我们推送了一个”707845008/test_web”的镜像，这个镜像的用户前缀是”707845008”，docker hub 会根据我们通过<code>docker login</code>登录的用户信息进行权限校验，发现我们的登录信息是正确的，然后到我们的用户仓库群下寻找名为”707845008/test_web”的仓库，如果不存在则创建这个仓库。然后校验现在推送的这个镜像的层是否有已经存在于远程仓库中了，如果有则不推送这些层了（镜像这个实体应该就是由层的引用堆叠而成），如果没有则进行推送。（这里没有测试如果存在重复的标签，会怎样，感觉应该就是覆盖，将之前的那个标签指向镜像实体中的层的引用进行覆盖更新即可）。然后将这些镜像保存到仓库中，并打上标签。</p>
-</li>
-</ol>
+... ...
+</code></pre>
+<p>上面的指令中我们推送了一个&quot;707845008/test_web&quot;的镜像，这个镜像的用户前缀是&quot;707845008&quot;，docker hub 会根据我们通过<code>docker login</code>登录的用户信息进行权限校验，发现我们的登录信息是正确的，然后到我们的用户仓库群下寻找名为&quot;707845008/test_web&quot;的仓库，如果不存在则创建这个仓库。然后校验现在推送的这个镜像的层是否有已经存在于远程仓库中了，如果有则不推送这些层了（镜像这个实体应该就是由层的引用堆叠而成），如果没有则进行推送。（这里没有测试如果存在重复的标签，会怎样，感觉应该就是覆盖，将之前的那个标签指向镜像实体中的层的引用进行覆盖更新即可）。然后将这些镜像保存到仓库中，并打上标签。</p>
 <p>下面这段指令我基于一样的基础镜像不同的 Dockerfile 又构建了一个仓库名一样但是标签不一样的镜像，在推送的时候发现底层的基础层已经存在于远程仓库了，这是上面猜想的来源</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test1]# docker push 707845008/test_web:other
 The push refers to a repository [docker.io/707845008/test_web]
@@ -889,46 +1068,69 @@ faedecbf345a: Pushed
 6597da2e2e52: Layer already exists
 977183d4e999: Layer already exists
 c8be1b8f4d60: Layer already exists
-other: digest: sha256:a766d2330ba6ee88da5f70aa5be9f215c9c0a5e7118780a926a58d1f3f6e0c35 size: 1576</code></pre><p>推送之后的 dockerhub 仓库<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205432.png" alt="1a9c5a86957db5a474446c4086e1874a"></p>
-<h2 id="docker-rmi"><a href="#docker-rmi" class="headerlink" title="docker rmi"></a>docker rmi</h2><p>如果不再需要一个镜像了,也可以将它删除。可以使用<code>docker rmi</code>命令来删除一个镜像</p>
+other: digest: sha256:a766d2330ba6ee88da5f70aa5be9f215c9c0a5e7118780a926a58d1f3f6e0c35 size: 1576
+</code></pre>
+<p>推送之后的 dockerhub 仓库<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205432.png" alt="1a9c5a86957db5a474446c4086e1874a"></p>
+<h2 id="docker-rmi"><a class="header-anchor" href="#docker-rmi">¶</a>docker rmi</h2>
+<p>如果不再需要一个镜像了,也可以将它删除。可以使用<code>docker rmi</code>命令来删除一个镜像</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test1]# docker rmi john/web-test:tag_2
-Untagged: john/web-test:tag_2</code></pre><p>另外还可以指定多个镜像进行删除</p>
+Untagged: john/web-test:tag_2
+</code></pre>
+<p>另外还可以指定多个镜像进行删除</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test1]# docker rmi 707845008/test_web:other 707845008/test-wen:other
 Untagged: 707845008/test_web:other
 Untagged: 707845008/test_web@sha256:a766d2330ba6ee88da5f70aa5be9f215c9c0a5e7118780a926a58d1f3f6e0c35
 Untagged: 707845008/test-wen:other
 Deleted: sha256:6f48bf776f6b3ef52d7ac06a4f3fa65807e3e9efa7fa11d02516e24ef1d1d83f
-Deleted: sha256:907964e8f9cde4b56ebf76e811eda45371e7a8a94a73b47dcfe3e93e13503475</code></pre><p>或者,类似于<code>docker rm</code>命令那样来使用<code>docker rmi</code>命令:</p>
-<pre><code>$ sudo docker rmi `docker images -a -q`</code></pre><p>注意，如果不指定 tag，docker 会默认是 latest 进行删除。通过以上的观察可以发现，docker 在删除镜像的时候如果发现当前镜像中的所有层都在被另外还存在的镜像引用是不会删除这些层的，只是把当前镜像这个”壳子”干掉，然后在镜像索引表中干掉这个镜像的索引（标签、id 等）；如果存在没有被其他镜像引用的层则会将这些层也删掉。</p>
+Deleted: sha256:907964e8f9cde4b56ebf76e811eda45371e7a8a94a73b47dcfe3e93e13503475
+</code></pre>
+<p>或者,类似于<code>docker rm</code>命令那样来使用<code>docker rmi</code>命令:</p>
+<pre><code>$ sudo docker rmi `docker images -a -q`
+</code></pre>
+<p>注意，如果不指定 tag，docker 会默认是 latest 进行删除。通过以上的观察可以发现，docker 在删除镜像的时候如果发现当前镜像中的所有层都在被另外还存在的镜像引用是不会删除这些层的，只是把当前镜像这个&quot;壳子&quot;干掉，然后在镜像索引表中干掉这个镜像的索引（标签、id 等）；如果存在没有被其他镜像引用的层则会将这些层也删掉。</p>
 <p>另外，如果一个镜像拥有一个的容器，也是不能被删除的，除非用<code>-f</code>强制删除</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test1]# docker rmi docker.io/ubuntu:latest
-Error response from daemon: conflict: unable to remove repository reference &quot;docker.io/ubuntu:latest&quot; (must force) - container 47ef1e6c79ba is using its referenced image 4e5021d210f6</code></pre><h3 id="f-参数"><a href="#f-参数" class="headerlink" title="-f 参数"></a>-f 参数</h3><p>强制删除</p>
-<h2 id="docker-history"><a href="#docker-history" class="headerlink" title="docker history"></a>docker history</h2><p>显示镜像的构建记录</p>
+Error response from daemon: conflict: unable to remove repository reference &quot;docker.io/ubuntu:latest&quot; (must force) - container 47ef1e6c79ba is using its referenced image 4e5021d210f6
+</code></pre>
+<h3 id="f-参数"><a class="header-anchor" href="#f-参数">¶</a>-f 参数</h3>
+<p>强制删除</p>
+<h2 id="docker-history"><a class="header-anchor" href="#docker-history">¶</a>docker history</h2>
+<p>显示镜像的构建记录</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker history cff52e402b5c
 IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
 cff52e402b5c        15 minutes ago      /bin/sh -c #(nop)  EXPOSE 80/tcp                0 B
-def92ee88354        15 minutes ago      /bin/sh -c echo &#39;Hi, I am in your containe...   27 B
+def92ee88354        15 minutes ago      /bin/sh -c echo 'Hi, I am in your containe...   27 B
 d025c0d41d86        15 minutes ago      /bin/sh -c apt-get install -y nginx             60.2 MB
 7b961b19d1c3        15 minutes ago      /bin/sh -c apt-get update                       28.2 MB
 2114db666fdb        15 minutes ago      /bin/sh -c #(nop)  MAINTAINER JOHN &quot;707845...   0 B
 4e5021d210f6        12 days ago         /bin/sh -c #(nop)  CMD [&quot;/bin/bash&quot;]            0 B
-&lt;missing&gt;           12 days ago         /bin/sh -c mkdir -p /run/systemd &amp;&amp; echo &#39;...   7 B
-&lt;missing&gt;           12 days ago         /bin/sh -c set -xe   &amp;&amp; echo &#39;#!/bin/sh&#39; &gt;...   745 B
+&lt;missing&gt;           12 days ago         /bin/sh -c mkdir -p /run/systemd &amp;&amp; echo '...   7 B
+&lt;missing&gt;           12 days ago         /bin/sh -c set -xe   &amp;&amp; echo '#!/bin/sh' &gt;...   745 B
 &lt;missing&gt;           12 days ago         /bin/sh -c [ -z &quot;$(apt-get indextargets)&quot; ]     987 kB
-&lt;missing&gt;           12 days ago         /bin/sh -c #(nop) ADD file:594fa35cf803361...   63.2 MB</code></pre><p>从上面的结果可以看到新构建的镜像的每一层,以及创建这些层的Dockerfi1e指令。</p>
-<h2 id="docker-tag"><a href="#docker-tag" class="headerlink" title="docker tag"></a>docker tag</h2><p>给镜像打上新标签：</p>
+&lt;missing&gt;           12 days ago         /bin/sh -c #(nop) ADD file:594fa35cf803361...   63.2 MB
+</code></pre>
+<p>从上面的结果可以看到新构建的镜像的每一层,以及创建这些层的Dockerfi1e指令。</p>
+<h2 id="docker-tag"><a class="header-anchor" href="#docker-tag">¶</a>docker tag</h2>
+<p>给镜像打上新标签：</p>
 <pre><code>[root@izwz920kp0myp15p982vp4z test]# docker tag baa36456c7e6 127.0.0.1:5000/john/test_web:new_tag
 [root@izwz920kp0myp15p982vp4z test]# docker images
 REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
 127.0.0.1:5000/john/test_web   latest              baa36456c7e6        8 minutes ago       153 MB
 127.0.0.1:5000/john/test_web   new_tag             baa36456c7e6        8 minutes ago       153 MB
-john/test_web                  latest              baa36456c7e6        8 minutes ago       153 M</code></pre><h1 id="镜像知识"><a href="#镜像知识" class="headerlink" title="镜像知识"></a>镜像知识</h1><h2 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h2><p>镜像从仓库下载下来。镜像保存在仓库中,而仓库存在于Registry中。默认的Registry是由Docker公司运营的公共Registry服务,即Docker Hub。<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205439.png" alt="5c9234bc71abcbfcac12a146bc16b07d"></p>
+john/test_web                  latest              baa36456c7e6        8 minutes ago       153 M
+</code></pre>
+<h1>镜像知识</h1>
+<h2 id="Registry"><a class="header-anchor" href="#Registry">¶</a>Registry</h2>
+<p>镜像从仓库下载下来。镜像保存在仓库中,而仓库存在于Registry中。默认的Registry是由Docker公司运营的公共Registry服务,即Docker Hub。<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205439.png" alt="5c9234bc71abcbfcac12a146bc16b07d"></p>
 <blockquote>
 <p>Docker Registry的代码是开源的,你也可以运行自己的私有 Registry。</p>
 </blockquote>
 <p>在Docker Hub(或者你自己运营的Registry)中, 镜像是保存在仓库中的。<strong>仓库包括镜像、层以及关于镜像的元数据( metadata)。</strong> 每个镜像仓库都可以存放很多镜像(比如, ubuntu仓库包含了 Ubuntu12.04、12.10、13.04、13.10和14.04的镜像)。</p>
-<p><strong>可以将镜像仓库想象为类似Git仓库的东西，一个镜像可以类比一个应用程序项目的代码，一份”应用程序代码”的不同分支类似一个镜像的不同标签（分支和标签一样决定应用程序和镜像所发布的不同版本），而在 git 的一个分支中又会有不同提交的概念，而在 docker 中会存在镜像的层的概念，镜像由层堆叠而成，和 git 管理的”代码”由一次次提交堆叠而成一样的。同一个镜像仓库中的各个镜像所包含的层可能是一样的，可能一个是另一个的真子集，可能存在部分交集，还可能完全不一样。</strong> 另外在实践中发现层貌似也是一个真实存在的对象，基于相同基础镜像，不同 Dockerfile 构建出来的镜像拥有底层一样的层（唯一标识都是一样的），而在<code>docker push</code>命令被执行的时候，会读取出来镜像中对的层是否已经存在于远程仓库了，如果存在则不会再 push 了，这说明了docker镜像这个对象应该就是一个”空壳”，它准确来说应该是由”层的引用”构成的，它存储的内容应该就是这些”层的引用”，在它被作为容器跑起来的时候才会去加载这些层。</p>
-<p>Docker Hub中有两种类型的仓库:用户仓库(user repository)和顶层仓库(top-level repository)。用户仓库的镜像都是由Docker用户创建的,而顶层仓库则是由Docker内部的人来管理的。<br>用户仓库的命名由<strong>用户名和镜像名</strong>两部分组成,如jamtur01/puppet</p>
+<p><strong>可以将镜像仓库想象为类似Git仓库的东西，一个镜像可以类比一个应用程序项目的代码，一份&quot;应用程序代码&quot;的不同分支类似一个镜像的不同标签（分支和标签一样决定应用程序和镜像所发布的不同版本），而在 git 的一个分支中又会有不同提交的概念，而在 docker 中会存在镜像的层的概念，镜像由层堆叠而成，和 git 管理的&quot;代码&quot;由一次次提交堆叠而成一样的。同一个镜像仓库中的各个镜像所包含的层可能是一样的，可能一个是另一个的真子集，可能存在部分交集，还可能完全不一样。</strong> 另外在实践中发现层貌似也是一个真实存在的对象，基于相同基础镜像，不同 Dockerfile 构建出来的镜像拥有底层一样的层（唯一标识都是一样的），而在<code>docker push</code>命令被执行的时候，会读取出来镜像中对的层是否已经存在于远程仓库了，如果存在则不会再 push 了，这说明了docker镜像这个对象应该就是一个&quot;空壳&quot;，它准确来说应该是由&quot;层的引用&quot;构成的，它存储的内容应该就是这些&quot;层的引用&quot;，在它被作为容器跑起来的时候才会去加载这些层。</p>
+<p>Docker Hub中有两种类型的仓库:用户仓库(user repository)和顶层仓库(top-level repository)。用户仓库的镜像都是由Docker用户创建的,而顶层仓库则是由Docker内部的人来管理的。<br>
+用户仓库的命名由<strong>用户名和镜像名</strong>两部分组成,如jamtur01/puppet</p>
 <ul>
 <li>用户名: 如jamtur01。</li>
 <li>仓库名: puppet。</li>
@@ -937,12 +1139,14 @@ john/test_web                  latest              baa36456c7e6        8 minutes
 <blockquote>
 <p>用户贡献的镜像都是由Docker社区用户提供的,这些镜像并没有经过 Docker公司的确认和验证,在使用这些镜像时需要自己承担相应的风险。</p>
 </blockquote>
-<h3 id="Registry自动构建"><a href="#Registry自动构建" class="headerlink" title="Registry自动构建"></a>Registry自动构建</h3><p>除了从命令行构建和推送镜像, Docker Hub还允许我们定义自动构建( Automated Builds)。为了使用自动构建,我们只需要将Github或 Bitbucket中含有Dockerfile文件的仓库连接到Docker Hub即可。向这个代码仓库推送代码时,将会触发一次镜像构建活动并创建一个新镜像。在之前该工作机制也被称为可信构建(Trusted Build)。</p>
+<h3 id="Registry自动构建"><a class="header-anchor" href="#Registry自动构建">¶</a>Registry自动构建</h3>
+<p>除了从命令行构建和推送镜像, Docker Hub还允许我们定义自动构建( Automated Builds)。为了使用自动构建,我们只需要将Github或 Bitbucket中含有Dockerfile文件的仓库连接到Docker Hub即可。向这个代码仓库推送代码时,将会触发一次镜像构建活动并创建一个新镜像。在之前该工作机制也被称为可信构建(Trusted Build)。</p>
 <blockquote>
 <p>自动构建同样支持私有 Github和 Bitbucket仓库。</p>
 </blockquote>
 <p>详情参考：<a href="https://docs.docker.com/docker-hub/builds/" target="_blank" rel="noopener">https://docs.docker.com/docker-hub/builds/</a></p>
-<h3 id="运行自己的-Docker-Registry"><a href="#运行自己的-Docker-Registry" class="headerlink" title="运行自己的 Docker Registry"></a>运行自己的 Docker Registry</h3><p>显然,拥有Docker镜像的一个公共的Registry非常有用。但是,有时候我们可能希望构建和存储包含不想被公开的信息或数据的镜像。这时候我们有以下两种选择。</p>
+<h3 id="运行自己的-Docker-Registry"><a class="header-anchor" href="#运行自己的-Docker-Registry">¶</a>运行自己的 Docker Registry</h3>
+<p>显然,拥有Docker镜像的一个公共的Registry非常有用。但是,有时候我们可能希望构建和存储包含不想被公开的信息或数据的镜像。这时候我们有以下两种选择。</p>
 <ul>
 <li>利用 Docker Hub上的私有仓库。</li>
 <li>在防火墙后面运行你自己的 Registry。</li>
@@ -951,8 +1155,9 @@ john/test_web                  latest              baa36456c7e6        8 minutes
 <blockquote>
 <p>目前Registry还不支持用户界面,只能以API服务器的方式来运行?</p>
 </blockquote>
-<h4 id="从容器运行-Registry"><a href="#从容器运行-Registry" class="headerlink" title="从容器运行 Registry"></a>从容器运行 Registry</h4><p>以下命令将会启动一个运行 Registry 应用的容器,并绑定到本地宿主机的5000端口。</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker run -p 5000:5000 registry
+<h4 id="从容器运行-Registry"><a class="header-anchor" href="#从容器运行-Registry">¶</a>从容器运行 Registry</h4>
+<p>以下命令将会启动一个运行 Registry 应用的容器,并绑定到本地宿主机的5000端口。</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z ~]# docker run -p 5000:5000 registry
 Unable to find image 'registry:latest' locally
 Trying to pull repository docker.io/library/registry ...
 latest: Pulling from docker.io/library/registry
@@ -962,20 +1167,25 @@ ba51a3b098e6: Pull complete
 6f5f453e5f2d: Pull complete
 42bc10b72f42: Pull complete
 Digest: sha256:7d081088e4bfd632a88e3f3bcd9e007ef44a796fddfe3261407a3f9f04abe1e7
-Status: Downloaded newer image for docker.io/registry:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="测试新-Registry"><a href="#测试新-Registry" class="headerlink" title="测试新 Registry"></a>测试新 Registry</h4><p>我们找到想要推送到自己的 Registry 的 image</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z test]# docker images
+Status: Downloaded newer image for docker.io/registry:latest
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="测试新-Registry"><a class="header-anchor" href="#测试新-Registry">¶</a>测试新 Registry</h4>
+<p>我们找到想要推送到自己的 Registry 的 image</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z test]# docker images
 REPOSITORY           TAG                 IMAGE ID            CREATED              SIZE
-john/test_web        latest              baa36456c7e6        About a minute ago   153 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+john/test_web        latest              baa36456c7e6        About a minute ago   153 MB
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>使用新的 Registry 给该镜像打上标签，在镜像名前加上主机名和端口前缀：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z test]# docker tag baa36456c7e6 127.0.0.1:5000/john/test_web<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z test]# docker tag baa36456c7e6 127.0.0.1:5000/john/test_web
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以看到，原有的镜像被复制出来并打上了一个新的标签</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z test]# docker images
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z test]# docker images
 REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
 127.0.0.1:5000/john/test_web   latest              baa36456c7e6        3 minutes ago       153 MB
-john/test_web                  latest              baa36456c7e6        3 minutes ago       153 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+john/test_web                  latest              baa36456c7e6        3 minutes ago       153 MB
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时对该标签进行推送</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z test]# docker push 127.0.0.1:5000/john/test_web
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z test]# docker push 127.0.0.1:5000/john/test_web
 
 The push refers to a repository [127.0.0.1:5000/john/test_web]
 f03217d243c7: Pushed
@@ -985,17 +1195,26 @@ f03217d243c7: Pushed
 6597da2e2e52: Pushed
 977183d4e999: Pushed
 c8be1b8f4d60: Pushed
-latest: digest: sha256:6bcf5d0f00b0fc9f6f05b0535cf3e98417f6c74293184c0fc4769bccd1f0c293 size: 1783<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+latest: digest: sha256:6bcf5d0f00b0fc9f6f05b0535cf3e98417f6c74293184c0fc4769bccd1f0c293 size: 1783
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>推送成功！此时我们再基于该镜像启动一个容器：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">[root@izwz920kp0myp15p982vp4z test]#
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">[root@izwz920kp0myp15p982vp4z test]#
 [root@izwz920kp0myp15p982vp4z test]# docker run -it 127.0.0.1:5000/john/test_web
-root@3ee47d104d22:/#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+root@3ee47d104d22:/#
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>成功！</p>
 <blockquote>
 <p>这是在防火墙后面部署自己的Docker Registry的最简单的方式。我们并没有解释如何配置或者管理 Registry。如果想深入了解如何配置认证和管理后端镜像存储方式,以及如何管理 Registry等详细信息,可以在 Docker Registry文档查看完整的配置和部署说明。</p>
 </blockquote>
-<h3 id="其他可选-Registry-服务"><a href="#其他可选-Registry-服务" class="headerlink" title="其他可选 Registry 服务"></a>其他可选 Registry 服务</h3><p>也有很多其他公司和服务提供定制的 Docker Registry服务。</p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>为了区分同一个仓库中的镜像的不同版本, Docker提供了一种称为标签(tag)的功能。每个镜像在列出来时都带有一个标签,如12.10、12.04、 quantal等。<strong>每个标签对</strong>组成特定镜像的一些镜像层进行标记(比如,标签12.04就是对所有Ubuntu12.04镜像的层的标记)。这种机制使得在同一个仓库中可以存储多个版本的镜像。<br>我们可以通过在仓库名后面加上一个冒号和标签名来指定该仓库中的某一镜像版本。<br>我们还能看到很多镜像版本具有相同的镜像ID，它们被打了很多个标签。<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205450.png" alt="75660e8811892b65ae73de8269cf65ff"><br><strong>比如,74fe38a11401的镜像被打上了12.04和 precise两个标签,分别代表该 Ubuntu发布版的版本号和代号(code name)。但是它们都是同一个镜像。</strong><br>在构建容器时指定仓库的标签也是一个很好的习惯。这样便可以准确地指定容器来源于哪里。不同标签的镜像会有不同,比如 Ubutnu12.04和14.04就不一样,指定镜像的标签会让我们确切知道自己使用的是 ubuntu:12.04,这样我们就能准确知道我们在千什么。</p>
+<h3 id="其他可选-Registry-服务"><a class="header-anchor" href="#其他可选-Registry-服务">¶</a>其他可选 Registry 服务</h3>
+<p>也有很多其他公司和服务提供定制的 Docker Registry服务。</p>
+<h2 id="标签"><a class="header-anchor" href="#标签">¶</a>标签</h2>
+<p>为了区分同一个仓库中的镜像的不同版本, Docker提供了一种称为标签(tag)的功能。每个镜像在列出来时都带有一个标签,如12.10、12.04、 quantal等。<strong>每个标签对</strong>组成特定镜像的一些镜像层进行标记(比如,标签12.04就是对所有Ubuntu12.04镜像的层的标记)。这种机制使得在同一个仓库中可以存储多个版本的镜像。<br>
+我们可以通过在仓库名后面加上一个冒号和标签名来指定该仓库中的某一镜像版本。<br>
+我们还能看到很多镜像版本具有相同的镜像ID，它们被打了很多个标签。<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205450.png" alt="75660e8811892b65ae73de8269cf65ff"><br>
+<strong>比如,74fe38a11401的镜像被打上了12.04和 precise两个标签,分别代表该 Ubuntu发布版的版本号和代号(code name)。但是它们都是同一个镜像。</strong><br>
+在构建容器时指定仓库的标签也是一个很好的习惯。这样便可以准确地指定容器来源于哪里。不同标签的镜像会有不同,比如 Ubutnu12.04和14.04就不一样,指定镜像的标签会让我们确切知道自己使用的是 ubuntu:12.04,这样我们就能准确知道我们在千什么。</p>
 
             </div>
             <hr>
@@ -1484,7 +1703,7 @@ root@3ee47d104d22:/#<span aria-hidden="true" class="line-numbers-rows"><span></s
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="1、docker简介">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="1、docker简介">
                         
                         <span class="card-title">1、docker简介</span>
                     </div>
@@ -1533,7 +1752,7 @@ root@3ee47d104d22:/#<span aria-hidden="true" class="line-numbers-rows"><span></s
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="2、安装Docker">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="2、安装Docker">
                         
                         <span class="card-title">2、安装Docker</span>
                     </div>
@@ -1701,7 +1920,7 @@ root@3ee47d104d22:/#<span aria-hidden="true" class="line-numbers-rows"><span></s
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

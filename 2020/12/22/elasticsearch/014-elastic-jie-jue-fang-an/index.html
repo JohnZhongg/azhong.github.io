@@ -9,11 +9,15 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="Elastic 各类工具
+
+
 ELasticsearch 作为搜索引擎提高搜索速度
+
 
 Kibana 作为一个 common 的 UI 管理界面，包含了很多模块的管理
 
-Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
+
+Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -334,7 +338,7 @@ Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -489,7 +493,7 @@ Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    721
+                    725
                 </div>
                 
 
@@ -512,31 +516,44 @@ Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Elastic-各类工具"><a href="#Elastic-各类工具" class="headerlink" title="Elastic 各类工具"></a>Elastic 各类工具</h1><ol>
-<li><p>ELasticsearch 作为搜索引擎提高搜索速度</p>
+                <h1>Elastic 各类工具</h1>
+<ol>
+<li>
+<p>ELasticsearch 作为搜索引擎提高搜索速度</p>
 </li>
-<li><p>Kibana 作为一个 common 的 UI 管理界面，包含了很多模块的管理</p>
+<li>
+<p>Kibana 作为一个 common 的 UI 管理界面，包含了很多模块的管理</p>
 </li>
-<li><p>Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出到其他目的地），相对于 Elastic 的其他数据抓取工具，它更专业，更全面，它提供了大量的插件可以进行更灵活的 ETL 工作。</p>
+<li>
+<p>Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出到其他目的地），相对于 Elastic 的其他数据抓取工具，它更专业，更全面，它提供了大量的插件可以进行更灵活的 ETL 工作。</p>
 </li>
-<li><p>Ingest Node 是 Elasticsearch 中的一种节点类型，或者一个节点可以扮演的角色，对通过 ES 的 REST api 的方式进入 ES 的数据进行预处理后再输入到 ES，相对 Logstash 来说能做的事情不多，但是也更方便</p>
+<li>
+<p>Ingest Node 是 Elasticsearch 中的一种节点类型，或者一个节点可以扮演的角色，对通过 ES 的 REST api 的方式进入 ES 的数据进行预处理后再输入到 ES，相对 Logstash 来说能做的事情不多，但是也更方便</p>
 </li>
-<li><p>beats 是一类专门抓取<strong>特定数据</strong>的轻量ETL 工具的集合，例如 metric beat 用来抓取服务器硬件、操作系统、应用程序（规范、知名的）的指标数据；packetbeat 用来抓取网络流量数据；filebeat 用来抓取文件中的数据（通常可以用来抓取日志数据）等等。</p>
+<li>
+<p>beats 是一类专门抓取<strong>特定数据</strong>的轻量ETL 工具的集合，例如 metric beat 用来抓取服务器硬件、操作系统、应用程序（规范、知名的）的指标数据；packetbeat 用来抓取网络流量数据；filebeat 用来抓取文件中的数据（通常可以用来抓取日志数据）等等。</p>
 <p>它的轻量是相对于 Logstash 来说的，对于用户来说，beats 都是开箱即用的，只需要 enable 指定 beat 中的一些特定模块即可，但是 logstash 需要进行一些脚本配置的工作。但是相对于 logstash 来说，它只能完成对于特定数据的抓取工作。</p>
 </li>
-<li><p>APM 是 Elastic 公司开发的一款用来监控用户自己的程序的软件，实现原理是通过讲一个 APM agent 内嵌到用户的程序中，定时向 APM server 发送监控数据，然后APM server 将数据写入到 ES，最后在 Kibana 进行相关可视化操作。</p>
+<li>
+<p>APM 是 Elastic 公司开发的一款用来监控用户自己的程序的软件，实现原理是通过讲一个 APM agent 内嵌到用户的程序中，定时向 APM server 发送监控数据，然后APM server 将数据写入到 ES，最后在 Kibana 进行相关可视化操作。</p>
 </li>
-<li><p>Monitering 是 X-pack 中的一个免费模块，可以进行对 Elasticsearch 和 Kibana 的专业监控，它在 KIbana 中拥有一个独立的面板”堆栈检测”。</p>
+<li>
+<p>Monitering 是 X-pack 中的一个免费模块，可以进行对 Elasticsearch 和 Kibana 的专业监控，它在 KIbana 中拥有一个独立的面板&quot;堆栈检测&quot;。</p>
 </li>
-<li><p>Alerting 也是 X-pack 中的一个收费模块，可以针对一定条件进行告警。</p>
+<li>
+<p>Alerting 也是 X-pack 中的一个收费模块，可以针对一定条件进行告警。</p>
 </li>
-<li><p>Machine Learning 也是 X-Pack 中的一个收费模块，可以对数据进行异常检测、预测。</p>
+<li>
+<p>Machine Learning 也是 X-Pack 中的一个收费模块，可以对数据进行异常检测、预测。</p>
 </li>
-<li><p>Canvas 也是 X-Pack 中的一个免费模块，它在 Kibana 中也拥有一个独立的面板，可以用于创建”数据大屏”（例如机场大屏、秒杀流量大屏、用户数据大屏等等）</p>
+<li>
+<p>Canvas 也是 X-Pack 中的一个免费模块，它在 Kibana 中也拥有一个独立的面板，可以用于创建&quot;数据大屏&quot;（例如机场大屏、秒杀流量大屏、用户数据大屏等等）</p>
 </li>
 </ol>
-<h1 id="场景问题分类"><a href="#场景问题分类" class="headerlink" title="场景问题分类"></a>场景问题分类</h1><ol>
-<li><p>针对异常检测的方案</p>
+<h1>场景问题分类</h1>
+<ol>
+<li>
+<p>针对异常检测的方案</p>
 <p>对于 Elasticsearch、Kibana 本身的异常检测，我们通过 X-pack 的 monitering 即可解决。</p>
 <p>对于一些通用软件的异常检测我们可以通过 metricbeat 实现。</p>
 <p>对于应用程序的调用链路和性能检测通过 APM 实现（skywalking 待看）。</p>
@@ -1035,7 +1052,7 @@ Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="015_Java_ES">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="015_Java_ES">
                         
                         <span class="card-title">015_Java_ES</span>
                     </div>
@@ -1084,7 +1101,7 @@ Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="009_管理Elasticsearch集群">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="009_管理Elasticsearch集群">
                         
                         <span class="card-title">009_管理Elasticsearch集群</span>
                     </div>
@@ -1252,7 +1269,7 @@ Logstash 作为一个 ETL 工具进行数据抽取到 ES 中（也可以输出">
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

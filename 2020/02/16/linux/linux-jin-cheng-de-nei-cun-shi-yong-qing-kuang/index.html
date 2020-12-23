@@ -329,7 +329,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -508,12 +508,16 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>在linux下，使用top，ps等命令查看进程的内存使用情况时，经常看到VIRT，RES，SHR等，他们都代表什么意思呢？不同的大小对进程有什么影响呢？这篇文章将来聊一聊这个问题。阅读本篇前建议先阅读<a href="https://segmentfault.com/a/1190000008125006" target="_blank" rel="noopener">Linux内存管理</a>，了解一些Linux下内存的基本概念，如什么是anonymous和file backed映射等。</p>
-<h2 id="查看进程所使用的内存"><a href="#查看进程所使用的内存" class="headerlink" title="查看进程所使用的内存"></a>查看进程所使用的内存</h2><p>在进程的眼里，所有的内存都是虚拟内存，但是这些虚拟内存所对应的物理内存是多少呢？正如我们在<a href="https://segmentfault.com/a/1190000008125006" target="_blank" rel="noopener">Linux内存管理</a>中所介绍的那样，并不是每块虚拟内存都有对应的物理内存，可能对应的数据在磁盘上的一个文件中，或者交换空间上的一块区域里。一个进程真正的物理内存使用情况只有内核知道，我们只能通过内核开放的一些接口来获取这些统计数据。</p>
-<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p>先看看top的输出（top用到的数据来自于/proc/[pid]/statm），这里只是摘录了几条数据：</p>
+<h2 id="查看进程所使用的内存"><a class="header-anchor" href="#查看进程所使用的内存">¶</a>查看进程所使用的内存</h2>
+<p>在进程的眼里，所有的内存都是虚拟内存，但是这些虚拟内存所对应的物理内存是多少呢？正如我们在<a href="https://segmentfault.com/a/1190000008125006" target="_blank" rel="noopener">Linux内存管理</a>中所介绍的那样，并不是每块虚拟内存都有对应的物理内存，可能对应的数据在磁盘上的一个文件中，或者交换空间上的一块区域里。一个进程真正的物理内存使用情况只有内核知道，我们只能通过内核开放的一些接口来获取这些统计数据。</p>
+<h2 id="top"><a class="header-anchor" href="#top">¶</a>top</h2>
+<p>先看看top的输出（top用到的数据来自于/proc/[pid]/statm），这里只是摘录了几条数据：</p>
 <pre><code>  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
  2530 root      20   0       0      0      0 S  0.3  0.0   0:02.69 kworker/0:0
  2714 dev       20   0   41824   3700   3084 R  0.3  0.7   0:00.02 top
- 3008 dev       20   0   22464   5124   3356 S  0.0  1.0   0:00.02 bash</code></pre><p>VIRT：进程所使用的虚拟内存大小</p>
+ 3008 dev       20   0   22464   5124   3356 S  0.0  1.0   0:00.02 bash
+</code></pre>
+<p>VIRT：进程所使用的虚拟内存大小</p>
 <p>RES：系统为虚拟内存分配的物理内存大小，包括file backed和anonymous内存，其中anonymous包含了进程自己分配和使用的内存，以及和别的进程通过mmap共享的内存；而file backed的内存就是指加载可执行文件和动态库所占的内存，以及通过private方式调用mmap映射文件所使用的内存（当在内存中修改了这部分数据且没有写回文件，那么这部分内存就变成了anonymous），这部分内存也可能跟别的进程共享。</p>
 <p>SHR：RES的一部分，表示和别的进程共享的内存，包括通过mmap共享的内存和file backed的内存。当通过prive方式调用mmap映射一个文件时，如果没有修改文件的内容，那么那部分内容就是SHR的，一旦修改了文件内容且没有写回文件，那么这部分内存就是anonymous且非SHR的。</p>
 <p>%MEM：等于RES/total*100%，这里total指总的物理内存大小。</p>
@@ -524,7 +528,8 @@
 <blockquote>
 <p>注意：top命令输出中的RES和pmap输出中的RSS是一个东西。</p>
 </blockquote>
-<h2 id="pmap"><a href="#pmap" class="headerlink" title="pmap"></a>pmap</h2><p>上面top命令只是给出了一个进程大概占用了多少的内存，而pmap能更详细的给出内存都是被谁占用了。pmap命令输出的内容来自于/proc/[pid]/maps和/proc/[pid]/smaps这两个文件，第一个文件包含了每段的一个大概描述，而后一个文件包含了更详细的信息。</p>
+<h2 id="pmap"><a class="header-anchor" href="#pmap">¶</a>pmap</h2>
+<p>上面top命令只是给出了一个进程大概占用了多少的内存，而pmap能更详细的给出内存都是被谁占用了。pmap命令输出的内容来自于/proc/[pid]/maps和/proc/[pid]/smaps这两个文件，第一个文件包含了每段的一个大概描述，而后一个文件包含了更详细的信息。</p>
 <p>这里用pmap看看当前bash的内存使用情况，：</p>
 <pre><code>#这里$$代表当前bash的进程ID，下面只显示了部分输出结果
 dev@dev:~$ pmap  $$
@@ -553,7 +558,9 @@ dev@dev:~$ pmap  $$
 00007ffde90e4000      8K r----   [ anon ]
 00007ffde90e6000      8K r-x--   [ anon ]
 ffffffffff600000      4K r-x--   [ anon ]
- total            22464K</code></pre><p>这里第一列是内存的起始地址，第二列是mapping的地址大小，第三列是这段内存的访问权限，最后一列是mapping到的文件。这里的地址都是虚拟地址，大小也是虚拟地址大小。</p>
+ total            22464K
+</code></pre>
+<p>这里第一列是内存的起始地址，第二列是mapping的地址大小，第三列是这段内存的访问权限，最后一列是mapping到的文件。这里的地址都是虚拟地址，大小也是虚拟地址大小。</p>
 <p>这里的输出有很多的[ anon ]行，表示在磁盘上没有对应的文件，这些一般都是可执行文件或者动态库里的bss段。当然有对应文件的mapping也有可能是anonymous，比如文件的数据段。关于程序的数据段和bss段的介绍请参考<a href="http://man7.org/linux/man-pages/man5/elf.5.html" target="_blank" rel="noopener">elf的相关资料</a>。</p>
 <p>上面可以看到bash、libc-2.23.so等文件出现了多行，但每行的权限不一样，这是因为每个动态库或者可执行文件里面都分很多段，有只能读和执行的代码段，有能读写的数据段，还有比如这一行“00007f1fa153b000 16K rw— [ anon ]”，就是它上面一行libc-2.23.so的bss段。</p>
 <p>[ stack ]表示进程用到的栈空间，而heap在这里看不到，因为pmap默认情况下不单独标记heap出来，由于heap是anonymous，所以从这里的大小可以推测出来，heap就是“0000000000be4000 1544K rw— [ anon ]”。</p>
@@ -586,13 +593,16 @@ ffffffffff600000      4K r-x--   [ anon ]
     7ffde90e6000 r-xp 00000000  00:00      0     8    4    0          4         0              0               0    0       0      0 [vdso]
 ffffffffff600000 r-xp 00000000  00:00      0     4    0    0          0         0              0               0    0       0      0 [vsyscall]
                                              ===== ==== ==== ========== ========= ============== =============== ==== ======= ======
-                                             22468 5084 2578       5084      1764              0               0    0       0      0 KB</code></pre><ul>
+                                             22468 5084 2578       5084      1764              0               0    0       0      0 KB
+</code></pre>
+<ul>
 <li>权限字段多了一个s和p的标记，s表示是和别人共享的内存空间，读写会影响到其他进程，而p表示这是自己私有的内存空间，读写这部分内存不会对其他进程造成影响。</li>
 <li>输出标示出了[heap]段，并且也说明了后面几个[anon]代表的什么意思（vvar，vdso，vsyscall都是映射到内核的特殊段），mapping字段为空的都是上一行mapping文件里面的bss段（可是gconv-modules.cache后面有两行anonymous mapping，可能跟共享内存有关系，没有深究）。</li>
 <li>Anonymous列标示出了哪些是并且有多少是Anonymous方式映射的物理内存，其大小小于等于RSS</li>
 <li>RSS列表示实际占用的物理内存大小</li>
 </ul>
-<h2 id="top命令输出的SHR内存"><a href="#top命令输出的SHR内存" class="headerlink" title="top命令输出的SHR内存"></a>top命令输出的SHR内存</h2><p>最后来看看top命令输出的SHR到底由pmap的哪些输出构成</p>
+<h2 id="top命令输出的SHR内存"><a class="header-anchor" href="#top命令输出的SHR内存">¶</a>top命令输出的SHR内存</h2>
+<p>最后来看看top命令输出的SHR到底由pmap的哪些输出构成</p>
 <pre><code>dev@dev:~$ pmap -d $$
 3108:   bash
 Address           Kbytes Mode  Offset           Device    Mapping
@@ -615,12 +625,16 @@ mapped: 22464K    writeable/private: 1848K    shared: 28K
 
 dev@dev:~$ top -p $$
   PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
- 3108 dev       20   0   22464   5028   3264 S  0.0  1.0   0:00.02 bash</code></pre><p>从上面的输出可看出SHR ≈ RES - writeable/private，其中writeable/private主要包含stack和heap以及可执行文件和动态库的data和bss段，而stack+heap=1544+132=1675，这已经占了绝大部分，从而data和bss段之类的基本上可以忽略了，所以一般情况下，SHR ≈ RES - [heap] - [stack]，由于stack一般都比较小，上面的等式可以进一步约等于：SHR ≈ RES - [heap]。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>top命令能看到一个进程占用的虚拟内存空间、物理内存空间以及和别的进程共享的物理内存空间，这里共享的空间包括通过mmap共享的内存以及共享的可执行文件以及动态库。而mmap命令能看到更详细的信息，比如可执行文件和它所链接的动态库大小，以及物理内存都是被哪些段给占用了。</p>
+ 3108 dev       20   0   22464   5028   3264 S  0.0  1.0   0:00.02 bash
+</code></pre>
+<p>从上面的输出可看出SHR ≈ RES - writeable/private，其中writeable/private主要包含stack和heap以及可执行文件和动态库的data和bss段，而stack+heap=1544+132=1675，这已经占了绝大部分，从而data和bss段之类的基本上可以忽略了，所以一般情况下，SHR ≈ RES - [heap] - [stack]，由于stack一般都比较小，上面的等式可以进一步约等于：SHR ≈ RES - [heap]。</p>
+<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<p>top命令能看到一个进程占用的虚拟内存空间、物理内存空间以及和别的进程共享的物理内存空间，这里共享的空间包括通过mmap共享的内存以及共享的可执行文件以及动态库。而mmap命令能看到更详细的信息，比如可执行文件和它所链接的动态库大小，以及物理内存都是被哪些段给占用了。</p>
 <p>进程占用的虚拟地址空间大小跟程序的规模有关，除了stack和heap段，其他段的大小基本上都是固定的，并且在程序链接的时候就已经确定了，所以基本上只要关注stack和heap段就可以了，由于stack相对heap来说很小，所以只要没什么stack异常，只需要关注heap。</p>
 <p>在实际的工作过程中，其实我们更关心的是RSS用了多少，都被谁用了，简单点说，如果我们没有同时启动多个进程（同一个程序），RSS就是一个很好的实际物理内存使用参考值，但如果是像apache那样同时跑很多个进程，那么RSS减去SHR所占用的空间就是一个很好的实际物理内存占用参考值，当然这都是大概估算值。</p>
 <p>要想精确评估一个进程到底占了多少内存，还是很难的，需要对进程的每个段有深入的理解，尤其是SHR部分都有哪些进程在一起共享，不过现在服务器上的内存都是以G为单位的，所以一般情况下大概的估算一下加上合理的测试就能满足我们的需求了。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://techtalk.intersec.com/2013/07/memory-part-2-understanding-process-memory/" target="_blank" rel="noopener">Understanding Process memory</a></li>
 <li><a href="http://virtualthreads.blogspot.jp/2006/02/understanding-memory-usage-on-linux.html" target="_blank" rel="noopener">Understanding memory usage on Linux</a></li>
 </ul>
@@ -1112,13 +1126,13 @@ dev@dev:~$ top -p $$
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/16/linux/linux-mount-di-er-bu-fen-shared-subtrees/">
+                <a href="/2020/02/16/linux/linux-wen-jian-xi-tong-zhi-aufs/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux mount （第二部分 - Shared subtrees）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux文件系统之aufs">
                         
-                        <span class="card-title">Linux mount （第二部分 - Shared subtrees）</span>
+                        <span class="card-title">Linux文件系统之aufs</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1161,13 +1175,13 @@ dev@dev:~$ top -p $$
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/linux/ipv6-jian-jie/">
+                <a href="/2020/02/16/linux/jian-shu-linux-de-qi-dong-guo-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="IPV6简介">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="简述Linux的启动过程">
                         
-                        <span class="card-title">IPV6简介</span>
+                        <span class="card-title">简述Linux的启动过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1333,7 +1347,7 @@ dev@dev:~$ top -p $$
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

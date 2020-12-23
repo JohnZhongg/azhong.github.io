@@ -8,7 +8,8 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="JVM类加载的特性那些在编译时需要进行连接的语言不同,在Java语言里面,类型的加载、连接和初始化过程都是在程序运行期间完成的,这种策略让Java语言进行提前编译会面临额外的困难,也会让类加载时稍微增加一些性能开销, 但是却为Java应用提">
+    <meta name="description" content="JVM类加载的特性
+那些在编译时需要进行连接的语言不同,在Java语言里面,类型的加载、连接和初始化过程都是在程序运行期间完成的,这种策略让Java语言进行提前编译会面临额外的困难,也会让类加载时稍微增加一些性能开销, 但是却为Java应用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -329,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -507,21 +508,30 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="JVM类加载的特性"><a href="#JVM类加载的特性" class="headerlink" title="JVM类加载的特性"></a>JVM类加载的特性</h1><p>那些在编译时需要进行连接的语言不同,在Java语言里面,类型的加载、连接和初始化过程都是在程序运行期间完成的,这种策略让Java语言进行提前编译会面临额外的困难,也会让类加载时稍微增加一些性能开销, 但是却为Java应用提供了极高的扩展性和灵活性,Java天生可以动态扩展的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。</p>
+                <h1>JVM类加载的特性</h1>
+<p>那些在编译时需要进行连接的语言不同,在Java语言里面,类型的加载、连接和初始化过程都是在程序运行期间完成的,这种策略让Java语言进行提前编译会面临额外的困难,也会让类加载时稍微增加一些性能开销, 但是却为Java应用提供了极高的扩展性和灵活性,Java天生可以动态扩展的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。</p>
 <p>例如,编写一个面向接口的应用程序,可以等到运行时再指定其实际的实现类,用户可以通过Java预置的或自定义类加载器,让某个本地的应用程序在运行时从网络或其他地方上加载一个二进制流作为其程序代码的一部分。这种动态组装应用的方式目前已广泛应用于Java程序之中,从最基础的Applet、JSP到相对复杂的OSGi技术,都依赖着Java语言运行期类加载才得以诞生。</p>
-<h1 id="类加载子系统图示"><a href="#类加载子系统图示" class="headerlink" title="类加载子系统图示"></a>类加载子系统图示</h1><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235411.png" alt="image-20200910152333208"></p>
+<h1>类加载子系统图示</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235411.png" alt="image-20200910152333208"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235420.png" alt="image-20200910152446215"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235426.png" alt="image-20200910152532755"></p>
-<h1 id="类加载器与类的加载过程"><a href="#类加载器与类的加载过程" class="headerlink" title="类加载器与类的加载过程"></a>类加载器与类的加载过程</h1><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235432.png" alt="image-20200910153524052"></p>
-<h3 id="类加载器ClassLoader角色"><a href="#类加载器ClassLoader角色" class="headerlink" title="类加载器ClassLoader角色"></a>类加载器ClassLoader角色</h3><p>可以认为不同的类加载器的作用拥有<strong>从不同数据源</strong>找到class文件并从该数据源获取class文件为数据流的作用。</p>
+<h1>类加载器与类的加载过程</h1>
+<h3 id="作用"><a class="header-anchor" href="#作用">¶</a>作用</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235432.png" alt="image-20200910153524052"></p>
+<h3 id="类加载器ClassLoader角色"><a class="header-anchor" href="#类加载器ClassLoader角色">¶</a>类加载器ClassLoader角色</h3>
+<p>可以认为不同的类加载器的作用拥有<strong>从不同数据源</strong>找到class文件并从该数据源获取class文件为数据流的作用。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235438.png" alt="image-20200910153734911"></p>
-<h3 id="类型的生命周期"><a href="#类型的生命周期" class="headerlink" title="类型的生命周期"></a>类型的生命周期</h3><p>一个类型从被加载到虚拟机内存中开始,到卸载出内存为止,它的整个生命周期将会经历加载(Loading)、验证(Verification)、准备(Preparation)、解析(Resolution)、初始化(Initialization)、使用(Using)和卸载(Unloading)七个阶段,其中验证、准备、解析三个部分统称为连接(Linking)。</p>
+<h3 id="类型的生命周期"><a class="header-anchor" href="#类型的生命周期">¶</a>类型的生命周期</h3>
+<p>一个类型从被加载到虚拟机内存中开始,到卸载出内存为止,它的整个生命周期将会经历加载(Loading)、验证(Verification)、准备(Preparation)、解析(Resolution)、初始化(Initialization)、使用(Using)和卸载(Unloading)七个阶段,其中验证、准备、解析三个部分统称为连接(Linking)。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235444.png" alt="image-20200921164724467"></p>
 <p><strong>加载、验证、准备、初始化和卸载</strong>这五个阶段的顺序是确定的,类型的加载过程必须按照这种顺序按部就班地开始,而<strong>解析阶段则不一定</strong>:它在某些情况下可以在初始化阶段之后再开始, 这是为了支持Java语言的<strong>运行时绑定特性</strong>(也称为<strong>动态绑定或晚期绑定</strong>)。请注意,这里的按部就班地“开始”,而不是按部就班地“进行”或按部就班地“完成”,强调这点是因为这些阶段通常都是互相交叉地混合进行的,会在一个阶段执行的过程中调用、激活另一个阶段。</p>
-<h3 id="类加载时机"><a href="#类加载时机" class="headerlink" title="类加载时机"></a>类加载时机</h3><p>关于在什么情况下需要开始类加载过程的第一个阶段“加载”,《Java虚拟机规范》中并没有进行强制约束,这点可以交给虚拟机的具体实现来自由把握。</p>
-<h4 id="JVM规范严格定义的类初始化时机：主动引用"><a href="#JVM规范严格定义的类初始化时机：主动引用" class="headerlink" title="JVM规范严格定义的类初始化时机：主动引用"></a>JVM规范严格定义的<strong>类初始化时机</strong>：主动引用</h4><p>但是对于<strong>初始化阶段</strong>,《Java虚拟机规范》则是严格规定了有且只有六种情况必须立即对类进行“初始化”(<strong>而加载、验证、准备自然需要在此之前开始</strong>): </p>
+<h3 id="类加载时机"><a class="header-anchor" href="#类加载时机">¶</a>类加载时机</h3>
+<p>关于在什么情况下需要开始类加载过程的第一个阶段“加载”,《Java虚拟机规范》中并没有进行强制约束,这点可以交给虚拟机的具体实现来自由把握。</p>
+<h4 id="JVM规范严格定义的类初始化时机：主动引用"><a class="header-anchor" href="#JVM规范严格定义的类初始化时机：主动引用">¶</a>JVM规范严格定义的<strong>类初始化时机</strong>：主动引用</h4>
+<p>但是对于<strong>初始化阶段</strong>,《Java虚拟机规范》则是严格规定了有且只有六种情况必须立即对类进行“初始化”(<strong>而加载、验证、准备自然需要在此之前开始</strong>):</p>
 <ol>
-<li>遇到new、getstatic、putstatic或invokestatic这四条字节码指令时,如果类型没有进行过初始化,则需要先触发其初始化阶段。能够生成这四条指令的典型Java代码场景有: <ul>
+<li>遇到new、getstatic、putstatic或invokestatic这四条字节码指令时,如果类型没有进行过初始化,则需要先触发其初始化阶段。能够生成这四条指令的典型Java代码场景有:
+<ul>
 <li>使用new关键字实例化对象的时候。</li>
 <li>读取或设置一个类型的静态字段(<strong>被final修饰、已在编译期把结果放入常量池的静态字段除外</strong>) 的时候。</li>
 <li>调用一个类型的静态方法的时候。</li>
@@ -537,89 +547,100 @@
 <blockquote>
 <p>在类加载器中有一个<code>loadClass()</code>方法进行类加载，这是一个重载方法，其中一个重载参数是boolean类型，表示是否需要对类进行链接，注意，这是也仅仅是链接，所以<code>loadClass()</code>中是不会对类进行初始化的，之后真正发生主动引用的地方才会发生初始化（包括类成员初始化、静态方法调用等）。</p>
 </blockquote>
-<h4 id="被动引用"><a href="#被动引用" class="headerlink" title="被动引用"></a>被动引用</h4><p>除此以上之外,所有引用类型的方式都不会触发初始化,称为<strong>被动引用</strong>。</p>
+<h4 id="被动引用"><a class="header-anchor" href="#被动引用">¶</a>被动引用</h4>
+<p>除此以上之外,所有引用类型的方式都不会触发初始化,称为<strong>被动引用</strong>。</p>
 <ol>
-<li><p>通过子类调用父类的静态字段,不会导致子类初始化</p>
+<li>
+<p>通过子类调用父类的静态字段,不会导致子类初始化</p>
 <p>JVM没有规定是否需要对子类进行<strong>加载</strong>，通过<code>-XX: +TraceClassLoading</code>参数观察到此操作是会导致<strong>HotSpot</strong>对子类进行加载的。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-language-java"><code class="language-language-java">/**
  * 被动使用类字段演示一:  通过子类访问父类的静态字段,不会导致子类初始化
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SuperClass</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SuperClass init!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+ */
+public class SuperClass {
+    static {
+        System.out.println("SuperClass init!");
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">class</span> <span class="token class-name">SubClass</span> <span class="token keyword">extends</span> <span class="token class-name">SuperClass</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SubClass init!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">/**
+    public static int value = 123;
+}
+class SubClass extends SuperClass {
+    static {
+        System.out.println("SubClass init!");
+    }
+}
+/**
  * 非主动使用类字段演示：SubClass的静态方法没有调用
- **/</span>
-<span class="token keyword">class</span> <span class="token class-name">NotInitialization</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>SubClass<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ **/
+class NotInitialization {
+    public static void main(String[] args) {
+        System.out.println(SubClass.value);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>通过数组定义来引用类,不会触发此类的初始化</p>
+<li>
+<p>通过数组定义来引用类,不会触发此类的初始化</p>
 <p>这段代码里面触发了另一个名为<code>[john.classloader.SuperClass</code>的类的初始化阶段,对于用户代码来说,这并不是一个合法的类型名称,它是一个由虚拟机自动生成的、直接继承于java.lang.Object的子类,创建动作由字节码指令newarray触发。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-language-java"><code class="language-language-java">/**
  * 被动使用类字段演示一:  通过子类访问父类的静态字段,不会导致子类初始化
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SuperClass</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SuperClass init!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+ */
+public class SuperClass {
+    static {
+        System.out.println("SuperClass init!");
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">class</span> <span class="token class-name">SubClass</span> <span class="token keyword">extends</span> <span class="token class-name">SuperClass</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SubClass init!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">/**
+    public static int value = 123;
+}
+class SubClass extends SuperClass {
+    static {
+        System.out.println("SubClass init!");
+    }
+}
+/**
  * 非主动使用类字段演示：SuperClass的静态方法没有调用
- **/</span>
-<span class="token keyword">class</span> <span class="token class-name">NotInitialization</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        SuperClass<span class="token punctuation">[</span><span class="token punctuation">]</span> sca <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SuperClass</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ **/
+class NotInitialization {
+    public static void main(String[] args) {
+        SuperClass[] sca = new SuperClass[10];
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p><strong>常量在编译阶段会存入调用类的常量池中</strong>,本质上没有直接引用到定义常量的类,因此不会触发定义常量的类的初始化</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<li>
+<p><strong>常量在编译阶段会存入调用类的常量池中</strong>,本质上没有直接引用到定义常量的类,因此不会触发定义常量的类的初始化</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">/**
  * 被动使用类字段演示一:  通过子类访问父类的静态字段,不会导致子类初始化
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SuperClass</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SuperClass init!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+ */
+public class SuperClass {
+    static {
+        System.out.println("SuperClass init!");
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">class</span> <span class="token class-name">SubClass</span> <span class="token keyword">extends</span> <span class="token class-name">SuperClass</span> <span class="token punctuation">{</span>
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SubClass init!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">/**
+    public final static int value = 123;
+}
+class SubClass extends SuperClass {
+    static {
+        System.out.println("SubClass init!");
+    }
+}
+/**
  * 非主动使用类字段演示：SuperClass的静态方法没有调用
- **/</span>
-<span class="token keyword">class</span> <span class="token class-name">NotInitialization</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>SubClass<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ **/
+class NotInitialization {
+    public static void main(String[] args) {
+        System.out.println(SubClass.value);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
-<h3 id="接口的加载过程"><a href="#接口的加载过程" class="headerlink" title="接口的加载过程"></a>接口的加载过程</h3><p>接口的加载过程与类加载过程稍有不同,针对接口需要做一些特殊说明:接口也有初始化过程, 这点与类是一致的,接口中不能定义静态代码块，但是虚拟机仍然会为其生成<code>&lt;clinit&gt;</code>类构造器，用于初始化接口中所定义的成员变量。接口与类真正有所区别的是前面讲述的六种“有且仅有”需要触发初始化场景中的第三种: 当一个类在初始化时,要求其父类全部都已经初始化过了,但是<strong>一个接口在初始化时,并不要求其父接口全部都完成了初始化,只有在真正使用到父接口的时候</strong>(如引用接口中定义的常量)才会初始化。</p>
-<h3 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h3><h4 id="1、加载"><a href="#1、加载" class="headerlink" title="1、加载"></a>1、加载</h4><ol>
-<li>通过一个类的全限定名来获取定义此类的二进制字节流。<ul>
+<h3 id="接口的加载过程"><a class="header-anchor" href="#接口的加载过程">¶</a>接口的加载过程</h3>
+<p>接口的加载过程与类加载过程稍有不同,针对接口需要做一些特殊说明:接口也有初始化过程, 这点与类是一致的,接口中不能定义静态代码块，但是虚拟机仍然会为其生成<code>&lt;clinit&gt;</code>类构造器，用于初始化接口中所定义的成员变量。接口与类真正有所区别的是前面讲述的六种“有且仅有”需要触发初始化场景中的第三种: 当一个类在初始化时,要求其父类全部都已经初始化过了,但是<strong>一个接口在初始化时,并不要求其父接口全部都完成了初始化,只有在真正使用到父接口的时候</strong>(如引用接口中定义的常量)才会初始化。</p>
+<h3 id="类的加载过程"><a class="header-anchor" href="#类的加载过程">¶</a>类的加载过程</h3>
+<h4 id="1、加载"><a class="header-anchor" href="#1、加载">¶</a>1、加载</h4>
+<ol>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流。
+<ul>
 <li>开发人员通过定义自己的类加载器去控制字节流的获取方式(重写一个类加载器的<code>findClass()</code>或<code>loadClass()</code>方法),实现根据自己的想法来赋予应用程序获取运行代码的动态性。</li>
 </ul>
 </li>
@@ -636,17 +657,22 @@
 <li>从专有数据库中提取.class文件，比较少见</li>
 <li>从加密文件中获取，典型的防Class文件被反编译的保护措施</li>
 </ul>
-<h5 id="数组的加载"><a href="#数组的加载" class="headerlink" title="数组的加载"></a>数组的加载</h5><p>对于数组类而言,情况就有所不同,数组类本身不通过类加载器创建,它是由Java虚拟机直接在内存中动态构造出来的。但数组类与类加载器仍然有很密切的关系,因为数组类的元素类型(Element Type,指的是数组去掉所有维度的类型)最终还是要靠类加载器来完成加载,一个数组类(下面简称为C)创建过程遵循以下规则: </p>
+<h5 id="数组的加载"><a class="header-anchor" href="#数组的加载">¶</a>数组的加载</h5>
+<p>对于数组类而言,情况就有所不同,数组类本身不通过类加载器创建,它是由Java虚拟机直接在内存中动态构造出来的。但数组类与类加载器仍然有很密切的关系,因为数组类的元素类型(Element Type,指的是数组去掉所有维度的类型)最终还是要靠类加载器来完成加载,一个数组类(下面简称为C)创建过程遵循以下规则:</p>
 <ul>
 <li>如果数组的组件类型(Component Type,指的是数组去掉一个维度的类型,注意和前面的元素类型区分开来)是引用类型,那就递归采用本节中定义的加载过程去加载这个组件类型,数组C将被<strong>标识在加载该组件类型的类加载器的类名称空间上</strong>(一个类型必须与类加载器一起确定唯一性)。</li>
 <li>如果数组的组件类型不是引用类型(例如<code>int[]</code>数组的组件类型为<code>int</code>),Java虚拟机将会把数组C 标记为与引导类加载器关联。</li>
 <li>数组类的可访问性与它的组件类型的可访问性一致,如果组件类型不是引用类型,它的数组类的可访问性将默认为<code>public</code>,可被所有的类和接口访问到。</li>
 <li>加载阶段结束后,Java虚拟机外部的二进制字节流就按照虚拟机所设定的格式存储在方法区之中了,方法区中的数据存储格式完全由虚拟机实现自行定义,《Java虚拟机规范》未规定此区域的具体数据结构。类型数据妥善安置在方法区之后,会在Java堆内存中实例化一个<code>java.lang.Class</code>类的对象, 这个对象将作为程序访问方法区中的类型数据的外部接口。</li>
 </ul>
-<h5 id="加载与链接的顺序"><a href="#加载与链接的顺序" class="headerlink" title="加载与链接的顺序"></a>加载与链接的顺序</h5><p>加载阶段与连接阶段的部分动作(如一部分字节码文件格式验证动作)是交叉进行的,加载阶段尚未完成,连接阶段可能已经开始,但这些夹在加载阶段之中进行的动作,仍然属于连接阶段的一部分,这两个阶段的开始时间仍然保持着固定的先后顺序。</p>
-<h4 id="2、链接"><a href="#2、链接" class="headerlink" title="2、链接"></a>2、链接</h4><h5 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h5><p>验证是连接阶段的第一步,这一阶段的目的是确保Class文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求,保证这些信息被当作代码运行后不会危害虚拟机自身的安全。</p>
+<h5 id="加载与链接的顺序"><a class="header-anchor" href="#加载与链接的顺序">¶</a>加载与链接的顺序</h5>
+<p>加载阶段与连接阶段的部分动作(如一部分字节码文件格式验证动作)是交叉进行的,加载阶段尚未完成,连接阶段可能已经开始,但这些夹在加载阶段之中进行的动作,仍然属于连接阶段的一部分,这两个阶段的开始时间仍然保持着固定的先后顺序。</p>
+<h4 id="2、链接"><a class="header-anchor" href="#2、链接">¶</a>2、链接</h4>
+<h5 id="验证"><a class="header-anchor" href="#验证">¶</a>验证</h5>
+<p>验证是连接阶段的第一步,这一阶段的目的是确保Class文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求,保证这些信息被当作代码运行后不会危害虚拟机自身的安全。</p>
 <p>验证阶段大致上会完成下面四个阶段的检验动作:文件格式验证、元数据验证、字节码验证和符号引用验证。</p>
-<h6 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a>文件格式验证</h6><p>第一阶段要验证字节流是否符合Class文件格式的规范,并且能被当前版本的虚拟机处理。这一阶段可能包括下面这些验证点:</p>
+<h6 id="文件格式验证"><a class="header-anchor" href="#文件格式验证">¶</a>文件格式验证</h6>
+<p>第一阶段要验证字节流是否符合Class文件格式的规范,并且能被当前版本的虚拟机处理。这一阶段可能包括下面这些验证点:</p>
 <ul>
 <li>是否以魔数0xCAFEBABE开头。</li>
 <li>主、次版本号是否在当前Java虚拟机接受范围之内。</li>
@@ -657,7 +683,8 @@
 <li>… …</li>
 </ul>
 <p>该验证阶段的主要目的是保证输入的字节流能正确地解析并存储于方法区之内,格式上符合描述一个Java类型信息的要求。<strong>这阶段的验证主要是对class二进制流的格式进行验证</strong>,只有通过了这个阶段的验证之后,这段字节流才被允许进入Java虚拟机内存的方法区中进行存储,所以<strong>后面的三个验证阶段全部是基于方法区的存储结构上进行的,不会再直接读取、操作字节流了。</strong></p>
-<h6 id="元数据验证"><a href="#元数据验证" class="headerlink" title="元数据验证"></a>元数据验证</h6><p>第二阶段是对字节码描述的信息进行语义分析,以保证其描述的信息符合《Java语言规范》的要求,这个阶段可能包括的验证点如下:</p>
+<h6 id="元数据验证"><a class="header-anchor" href="#元数据验证">¶</a>元数据验证</h6>
+<p>第二阶段是对字节码描述的信息进行语义分析,以保证其描述的信息符合《Java语言规范》的要求,这个阶段可能包括的验证点如下:</p>
 <ul>
 <li>这个类是否有父类(除了java.lang.Object之外,所有的类都应当有父类)。</li>
 <li>这个类的父类是否继承了不允许被继承的类(被final修饰的类)。</li>
@@ -666,7 +693,8 @@
 <li>… …</li>
 </ul>
 <p>第二阶段的<strong>主要目的是对类的元数据信息进行语义校验,保证不存在与《Java语言规范》定义相悖的元数据信息。</strong></p>
-<h6 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a>字节码验证</h6><p>第三阶段是整个验证过程中最复杂的一个阶段,<strong>主要目的是通过数据流分析和控制流分析,确定程序语义是合法的、符合逻辑的</strong>。在第二阶段对元数据信息中的数据类型校验完毕以后,这阶段就要对类的方法体(Class文件中的Code属性)进行校验分析,保证被校验类的方法在运行时不会做出危害虚拟机安全的行为,例如: </p>
+<h6 id="字节码验证"><a class="header-anchor" href="#字节码验证">¶</a>字节码验证</h6>
+<p>第三阶段是整个验证过程中最复杂的一个阶段,<strong>主要目的是通过数据流分析和控制流分析,确定程序语义是合法的、符合逻辑的</strong>。在第二阶段对元数据信息中的数据类型校验完毕以后,这阶段就要对类的方法体(Class文件中的Code属性)进行校验分析,保证被校验类的方法在运行时不会做出危害虚拟机安全的行为,例如:</p>
 <ul>
 <li>保证任意时刻操作数栈的数据类型与指令代码序列都能配合工作,例如不会出现类似于“在操作栈放置了一个int类型的数据,使用时却按long类型来加载入本地变量表中”这样的情况。</li>
 <li>保证任何跳转指令都不会跳转到方法体以外的字节码指令上。</li>
@@ -674,7 +702,8 @@
 <li>……</li>
 </ul>
 <p>由于数据流分析和控制流分析的高度复杂性,Java虚拟机的设计团队为了避免过多的执行时间消耗在字节码验证阶段中,在JDK 6之后的Javac编译器和Java虚拟机里进行了一项联合优化,把尽可能多的校验辅助措施挪到Javac编译器里进行。具体做法是给方法体Code属性的属性表中新增加了一项名为“StackMapTable”的新属性,这项属性描述了方法体所有的基本块(Basic Block,指按照控制流拆分的代码块)开始时本地变量表和操作栈应有的状态,在字节码验证期间,Java虚拟机就不需要根据程序推导这些状态的合法性,只需要检查StackMapTable属性中的记录是否合法即可。这样就将字节码验证的类型推导转变为类型检查,从而节省了大量校验时间。理论上StackMapTable属性也存在错误或被篡改的可能,所以是否有可能在恶意篡改了Code属性的同时,也生成相应的StackMapTable属性来骗过虚拟机的类型校验,则是虚拟机设计者们需要仔细思考的问题。</p>
-<h6 id="符号引用验证"><a href="#符号引用验证" class="headerlink" title="符号引用验证"></a>符号引用验证</h6><p>最后一个阶段的校验行为<strong>发生在虚拟机将符号引用转化为直接引用的时候,这个转化动作将在连接的第三阶段——解析阶段中发生</strong>。符号引用验证可以看作是对类自身以外(常量池中的各种符号引用)的各类信息进行匹配性校验,通俗来说就是,该类是否缺少或者被禁止访问它依赖的某些外部类、方法、字段等资源。本阶段通常需要校验下列内容:</p>
+<h6 id="符号引用验证"><a class="header-anchor" href="#符号引用验证">¶</a>符号引用验证</h6>
+<p>最后一个阶段的校验行为<strong>发生在虚拟机将符号引用转化为直接引用的时候,这个转化动作将在连接的第三阶段——解析阶段中发生</strong>。符号引用验证可以看作是对类自身以外(常量池中的各种符号引用)的各类信息进行匹配性校验,通俗来说就是,该类是否缺少或者被禁止访问它依赖的某些外部类、方法、字段等资源。本阶段通常需要校验下列内容:</p>
 <ul>
 <li>符号引用中通过字符串描述的全限定名是否能找到对应的类。</li>
 <li>在指定类中是否存在符合方法的字段描述符及简单名称所描述的方法和字段。</li>
@@ -683,7 +712,9 @@
 </ul>
 <p>符号引用验证的主要目的是确保解析行为能正常执行,如果无法通过符号引用验证,Java虚拟机将会抛出一个<code>java.lang.IncompatibleClassChangeError</code>的子类异常,典型的如: <code>java.lang.IllegalAccessError</code>、<code>java.lang.NoSuchFieldError</code>、<code>java.lang.NoSuchMethodError</code>等。</p>
 <p>验证阶段对于虚拟机的类加载机制来说,是一个非常重要的、但却不是必须要执行的阶段,因为验证阶段只有通过或者不通过的差别,只要通过了验证,其后就对程序运行期没有任何影响了。如果程序运行的全部代码(包括自己编写的、第三方包中的、从外部加载的、动态生成的等所有代码)都已经被反复使用和验证过,在生产环境的实施阶段就可以考虑使用<code>-Xverify:none</code>参数来关闭大部分的类验证措施,以缩短虚拟机类加载的时间。</p>
-<h5 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h5><h6 id="调用类构造器-lt-clinit-gt-方法对类变量赋”零值”"><a href="#调用类构造器-lt-clinit-gt-方法对类变量赋”零值”" class="headerlink" title="调用类构造器&lt;clinit&gt;()方法对类变量赋”零值”"></a>调用类构造器<code>&lt;clinit&gt;()</code>方法对类变量赋”零值”</h6><p>准备阶段是正式为类中定义的变量(即静态变量,被static修饰的变量)分配内存并设置类变量初始值的阶段,从概念上讲,这些变量所使用的内存都在方法区中(逻辑概念，JDK7及之前在堆、JDK8及之后在直接内存)进行分配。</p>
+<h5 id="准备"><a class="header-anchor" href="#准备">¶</a>准备</h5>
+<h6 id="调用类构造器-clinit-方法对类变量赋-零值"><a class="header-anchor" href="#调用类构造器-clinit-方法对类变量赋-零值">¶</a>调用类构造器<code>&lt;clinit&gt;()</code>方法对类变量赋&quot;零值&quot;</h6>
+<p>准备阶段是正式为类中定义的变量(即静态变量,被static修饰的变量)分配内存并设置类变量初始值的阶段,从概念上讲,这些变量所使用的内存都在方法区中(逻辑概念，JDK7及之前在堆、JDK8及之后在直接内存)进行分配。</p>
 <table>
 <thead>
 <tr>
@@ -691,7 +722,8 @@
 <th>零值</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>int</td>
 <td>0</td>
 </tr>
@@ -727,10 +759,14 @@
 <td>reference</td>
 <td>null</td>
 </tr>
-</tbody></table>
-<h6 id="根据ConstantValue对常量初始化"><a href="#根据ConstantValue对常量初始化" class="headerlink" title="根据ConstantValue对常量初始化"></a>根据ConstantValue对常量初始化</h6><p>Javac编译时会为所有被<code>final</code>、<code>static</code>修饰的字段生成ConstantValue属性, 准备阶段如果类字段的字段属性表中存在ConstantValue属性, 那就会将字段值初始化为ConstantValue属性所指定的初始值.例如：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">public static final int value = 123; //value会被在当前阶段初始化为123<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h5><p>解析阶段是Java虚拟机将常量池内的符号引用替换为直接引用的过程。解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄和调用点限定符这7 类符号引用进行,分别对应于常量池中：</p>
+</tbody>
+</table>
+<h6 id="根据ConstantValue对常量初始化"><a class="header-anchor" href="#根据ConstantValue对常量初始化">¶</a>根据ConstantValue对常量初始化</h6>
+<p>Javac编译时会为所有被<code>final</code>、<code>static</code>修饰的字段生成ConstantValue属性, 准备阶段如果类字段的字段属性表中存在ConstantValue属性, 那就会将字段值初始化为ConstantValue属性所指定的初始值.例如：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">public static final int value = 123; //value会被在当前阶段初始化为123
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="解析"><a class="header-anchor" href="#解析">¶</a>解析</h5>
+<p>解析阶段是Java虚拟机将常量池内的符号引用替换为直接引用的过程。解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄和调用点限定符这7 类符号引用进行,分别对应于常量池中：</p>
 <ul>
 <li>CONSTANT_Class_info</li>
 <li>CONSTANT_Fieldref_info</li>
@@ -739,27 +775,31 @@
 <li>CONSTANT_MethodType_info</li>
 <li>CONSTANT_MethodHandle_info</li>
 <li>CONSTANT_Dynamic_info</li>
-<li>CONSTANT_InvokeDynamic_info </li>
+<li>CONSTANT_InvokeDynamic_info</li>
 </ul>
 <p>8种常量类型。</p>
 <ul>
 <li>符号引用(Symbolic References):符号引用以一组符号来描述所引用的目标,符号可以是任何形式的字面量,只要使用时能无歧义地定位到目标即可。符号引用与虚拟机实现的内存布局无关,引用的目标并不一定是已经加载到虚拟机内存当中的内容。各种虚拟机实现的内存布局可以各不相同, 但是它们能接受的符号引用必须都是一致的,因为符号引用的字面量形式明确定义在《Java虚拟机规范》的Class文件格式中。</li>
 <li>直接引用(Direct References):直接引用是可以直接指向目标的指针、相对偏移量或者是一个能间接定位到目标的句柄。直接引用是和虚拟机实现的内存布局直接相关的,同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同。如果有了直接引用,那引用的目标必定已经在虚拟机的内存中存在。</li>
 </ul>
-<h6 id="触发解析的时机"><a href="#触发解析的时机" class="headerlink" title="触发解析的时机"></a>触发解析的时机</h6><p>《Java虚拟机规范》之中并未规定解析阶段发生的具体时间,只要求了在执行ane-warray、checkcast、getfield、getstatic、instanceof、invokedynamic、invokeinterface、invoke-special、invokestatic、invokevirtual、ldc、ldc_w、ldc2_w、multianewarray、new、putfield和putstatic这17个用于操作符号引用的字节码指令之前,先对它们所使用的符号引用进行解析。所以虚拟机实现可以根据需要来自行判断,到底是在类被加载器加载时就对常量池中的符号引用进行解析,还是等到一个符号引用将要被使用前才去解析它。</p>
+<h6 id="触发解析的时机"><a class="header-anchor" href="#触发解析的时机">¶</a>触发解析的时机</h6>
+<p>《Java虚拟机规范》之中并未规定解析阶段发生的具体时间,只要求了在执行ane-warray、checkcast、getfield、getstatic、instanceof、invokedynamic、invokeinterface、invoke-special、invokestatic、invokevirtual、ldc、ldc_w、ldc2_w、multianewarray、new、putfield和putstatic这17个用于操作符号引用的字节码指令之前,先对它们所使用的符号引用进行解析。所以虚拟机实现可以根据需要来自行判断,到底是在类被加载器加载时就对常量池中的符号引用进行解析,还是等到一个符号引用将要被使用前才去解析它。</p>
 <blockquote>
 <p>对于invokedynamic指令，它本来就是用于动态语言支持,它对应的引用称为“动态调用点限定符(Dynamically-Computed Call Site Specifier)”,这里“动态”的含义是指必须等到程序实际运行到这条指令时,解析动作才能进行。相对地,其余可触发解析的指令都是“静态”的,可以在刚刚完成加载阶段,还没有开始执行代码时就提前进行解析。</p>
 </blockquote>
-<h6 id="1-gt-类或接口的解析"><a href="#1-gt-类或接口的解析" class="headerlink" title="1&gt;类或接口的解析"></a>1&gt;类或接口的解析</h6><p>假设当前代码所处的类为D,如果要把一个从未解析过的符号引用N解析为一个类或接口C的直接引用,那虚拟机完成整个解析的过程需要包括以下3个步骤: </p>
+<h6 id="1-类或接口的解析"><a class="header-anchor" href="#1-类或接口的解析">¶</a>1&gt;类或接口的解析</h6>
+<p>假设当前代码所处的类为D,如果要把一个从未解析过的符号引用N解析为一个类或接口C的直接引用,那虚拟机完成整个解析的过程需要包括以下3个步骤:</p>
 <ol>
 <li>如果C不是一个数组类型,那虚拟机将会把代表N的全限定名传递给D的类加载器去加载这个类C。在加载过程中,由于元数据验证、字节码验证的需要,又可能触发其他相关类的加载动作,例如加载这个类的父类或实现的接口。一旦这个加载过程出现了任何异常,解析过程就将宣告失败。</li>
 <li>如果C是一个数组类型,并且数组的元素类型为对象,也就是N的描述符会是类似<code>[Ljava/lang/Integer</code>的形式,那将会按照第一点的规则加载数组元素类型。如果N的描述符如前面所假设的形式,需要加载的元素类型就是<code>java.lang.Integer</code>,接着由虚拟机生成一个代表该数组维度和元素的数组对象。</li>
 <li>如果上面两步没有出现任何异常,那么C在虚拟机中实际上已经成为一个有效的类或接口了, 但在解析完成前还要进行符号引用验证,确认D是否具备对C的访问权限(public、protected、private… …)。如果发现不具备访问权限, 将抛出<code>java.lang.IllegalAccessError</code>异常。</li>
 </ol>
-<h6 id="2-gt-字段解析"><a href="#2-gt-字段解析" class="headerlink" title="2&gt;字段解析"></a>2&gt;字段解析</h6><p>要解析一个未被解析过的字段符号引用，首先将会对对应的CONSTANT_Fieldref_info内class_index项中索引的CONSTANT_Class_info符号引用进行解析,也就是字段所属的类或接口的符号引用</p>
+<h6 id="2-字段解析"><a class="header-anchor" href="#2-字段解析">¶</a>2&gt;字段解析</h6>
+<p>要解析一个未被解析过的字段符号引用，首先将会对对应的CONSTANT_Fieldref_info内class_index项中索引的CONSTANT_Class_info符号引用进行解析,也就是字段所属的类或接口的符号引用</p>
 <ul>
 <li>如果在解析这个类或接口符号引用的过程中出现了任何异常,都会导致字段符号引用解析的失败。</li>
-<li>如果解析成功完成,那把这个字段所属的类或接口用C表示,《Java虚拟机规范》要求按照如下步骤对C进行后续字段的搜索: <ol>
+<li>如果解析成功完成,那把这个字段所属的类或接口用C表示,《Java虚拟机规范》要求按照如下步骤对C进行后续字段的搜索:
+<ol>
 <li>如果C本身就包含了简单名称和字段描述符都与目标相匹配的字段,则返回这个字段的直接引用,查找结束。</li>
 <li>否则,如果在C中实现了接口,将会按照继承关系从下往上递归搜索各个接口和它的父接口, 如果接口中包含了简单名称和字段描述符都与目标相匹配的字段,则返回这个字段的直接引用,查找结束。</li>
 <li>否则,如果C不是<code>java.lang.Object</code>的话,将会按照继承关系从下往上递归搜索其父类,如果在父类中包含了简单名称和字段描述符都与目标相匹配的字段,则返回这个字段的直接引用,查找结束。</li>
@@ -769,28 +809,30 @@
 </li>
 </ul>
 <p>以上解析规则能够确保Java虚拟机获得字段唯一的解析结果,但在实际情况中,Javac编译器往往会采取比上述规范更加严格一些的约束,譬如有一个同名字段同时出现在某个类的接口和父类当中, 或者同时在自己或父类的多个接口中出现,按照解析规则仍是可以确定唯一的访问字段,但Javac编译器就<strong>可能</strong>直接拒绝其编译为Class文件。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">;</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FieldResolution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">interface</span> <span class="token class-name">Interface0</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> A <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">interface</span> <span class="token class-name">Interface1</span> <span class="token keyword">extends</span> <span class="token class-name">Interface0</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> A <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">interface</span> <span class="token class-name">Interface2</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> A <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Parent</span> <span class="token keyword">implements</span> <span class="token class-name">Interface1</span> <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> A <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Sub</span> <span class="token keyword">extends</span> <span class="token class-name">Parent</span> <span class="token keyword">implements</span> <span class="token class-name">Interface2</span> <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> A <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//如果注释这行代码，接口与父类同时存在字段A,那Oracle公司实现的Javac编译器将提示“The field Sub.A is ambiguous”,并且会拒绝编译这段代码。</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Sub<span class="token punctuation">.</span>A<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h6 id="3-gt-方法解析"><a href="#3-gt-方法解析" class="headerlink" title="3&gt;方法解析"></a>3&gt;方法解析</h6><p>方法解析的第一个步骤与字段解析一样,也是需要先解析出对应的CONSTANT_Methodref_info的class_index项中索引的方法所属的类或接口的符号引用。如果解析成功,那么我们依然用C表示这个类,接下来虚拟机将会按照如下步骤进行后续的方法搜索:</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">package john.classloader;
+public class FieldResolution {
+    interface Interface0 {
+        int A = 0;
+    }
+    interface Interface1 extends Interface0 {
+        int A = 1;
+    }
+    interface Interface2 {
+        int A = 2;
+    }
+    static class Parent implements Interface1 {
+        public static int A = 3;
+    }
+    static class Sub extends Parent implements Interface2 {
+        public static int A = 4;	//如果注释这行代码，接口与父类同时存在字段A,那Oracle公司实现的Javac编译器将提示“The field Sub.A is ambiguous”,并且会拒绝编译这段代码。
+    }
+    public static void main(String[] args) {
+        System.out.println(Sub.A);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h6 id="3-方法解析"><a class="header-anchor" href="#3-方法解析">¶</a>3&gt;方法解析</h6>
+<p>方法解析的第一个步骤与字段解析一样,也是需要先解析出对应的CONSTANT_Methodref_info的class_index项中索引的方法所属的类或接口的符号引用。如果解析成功,那么我们依然用C表示这个类,接下来虚拟机将会按照如下步骤进行后续的方法搜索:</p>
 <ol>
 <li>由于Class文件格式中类的方法和接口的方法符号引用的常量类型定义是分开的,如果在类的方法表中发现class_index中索引的C是个接口的话,那就直接抛出<code>java.lang.IncompatibleClassChangeError</code> 异常。</li>
 <li>如果通过了第一步,在类C中查找是否有简单名称和描述符都与目标相匹配的方法,如果有则返回这个方法的直接引用,查找结束。</li>
@@ -799,7 +841,8 @@
 <li>否则,宣告方法查找失败,抛出<code>java.lang.NoSuchMethodError</code>。</li>
 <li>最后,如果查找过程成功返回了直接引用,将会对这个方法进行权限验证,如果发现不具备对此方法的访问权限,将抛出<code>java.lang.IllegalAccessError</code>异常。</li>
 </ol>
-<h6 id="4-gt-接口方法解析"><a href="#4-gt-接口方法解析" class="headerlink" title="4&gt;接口方法解析"></a>4&gt;接口方法解析</h6><p>接口方法也是需要先解析出对应的CONSTANT_InterfaceMethodref_info的class_index项中索引的方法所属的类或接口的符号引用,如果解析成功,依然用C表示这个接口,接下来虚拟机将会按照如下步骤进行后续的接口方法搜索:</p>
+<h6 id="4-接口方法解析"><a class="header-anchor" href="#4-接口方法解析">¶</a>4&gt;接口方法解析</h6>
+<p>接口方法也是需要先解析出对应的CONSTANT_InterfaceMethodref_info的class_index项中索引的方法所属的类或接口的符号引用,如果解析成功,依然用C表示这个接口,接下来虚拟机将会按照如下步骤进行后续的接口方法搜索:</p>
 <ol>
 <li>与类的方法解析相反,如果在接口方法表中发现class_index中的索引C是个类而不是接口,那么就直接抛出<code>java.lang.IncompatibleClassChangeError</code>异常。</li>
 <li>否则,在接口C中查找是否有简单名称和描述符都与目标相匹配的方法,如果有则返回这个方法的直接引用,查找结束。</li>
@@ -807,48 +850,56 @@
 <li>对于规则3,由于Java的接口允许多重继承,如果C的不同父接口中存有多个简单名称和描述符都与目标相匹配的方法,那将会从这多个方法中返回其中一个并结束查找,《Java虚拟机规范》中并没有进一步规则约束应该返回哪一个接口方法。但与之前字段查找类似地,不同发行商实现的Javac编译器有可能会按照更严格的约束拒绝编译这种代码来避免不确定性。</li>
 <li>否则,宣告方法查找失败,抛出<code>java.lang.NoSuchMethodError</code>异常。</li>
 </ol>
-<h4 id="3、初始化"><a href="#3、初始化" class="headerlink" title="3、初始化"></a>3、初始化</h4><p>类的初始化阶段是类加载过程的最后一个步骤。初始化阶段就是执行类构造器<code>&lt;clinit&gt;()</code>方法的过程。<code>&lt;clinit&gt;()</code>并不是程序员在Java代码中直接编写的方法,它是Javac编译器的自动生成物，<code>&lt;clinit&gt;()</code>方法是由编译器自动收集类中的所有类变量的赋值动作和静态语句块(static{}块)中的语句合并产生的：</p>
+<h4 id="3、初始化"><a class="header-anchor" href="#3、初始化">¶</a>3、初始化</h4>
+<p>类的初始化阶段是类加载过程的最后一个步骤。初始化阶段就是执行类构造器<code>&lt;clinit&gt;()</code>方法的过程。<code>&lt;clinit&gt;()</code>并不是程序员在Java代码中直接编写的方法,它是Javac编译器的自动生成物，<code>&lt;clinit&gt;()</code>方法是由编译器自动收集类中的所有类变量的赋值动作和静态语句块(static{}块)中的语句合并产生的：</p>
 <ul>
 <li>编译器收集的顺序是<strong>由语句在源文件中出现的顺序决定的(包括类字段赋值及静态代码块的顺序)</strong></li>
 <li>静态语句块中只能访问到定义在静态语句块之前的变量,定义在它之后的变量,在前面的静态语句块可以赋值,但是不能访问。</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//  给变量复制可以正常编译通过</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 这句编译器会提示“非法向前引用”。</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//看了往上的一些答案，说是为了解决循环引用，例如下面的例子。所以只允许将出现在后面的静态变量作为左值不能作为右值，但是感觉有点怪怪的，变量不是都在链接的准备阶段赋零值了吗。</span>
-    <span class="token keyword">static</span> <span class="token keyword">int</span> a <span class="token operator">=</span> b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//这种写法也会提示“非法向前引用”</span>
-    <span class="token keyword">static</span> <span class="token keyword">int</span> b <span class="token operator">=</span> a<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">    static {
+        i = 0;  //  给变量复制可以正常编译通过
+        System.out.print(i);  // 这句编译器会提示“非法向前引用”。
+    }
+    static int i = 1;
+		//看了往上的一些答案，说是为了解决循环引用，例如下面的例子。所以只允许将出现在后面的静态变量作为左值不能作为右值，但是感觉有点怪怪的，变量不是都在链接的准备阶段赋零值了吗。
+    static int a = b; //这种写法也会提示“非法向前引用”
+    static int b = a;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><code>&lt;clinit&gt;()</code>方法与类的构造函数(即在虚拟机视角中的实例构造器<code>&lt;init&gt;()</code>方法)不同,它不需要显式地调用父类构造器,Java虚拟机会保证在子类的<code>&lt;clinit&gt;()</code>方法执行前(加载子类之前保证父类已经加载),父类的<code>&lt;clinit&gt;()</code>方法已经执行完毕。因此在Java虚拟机中第一个被执行的<code>&lt;clinit&gt;()</code>方法的类型肯定是<code>java.lang.Object</code>。</li>
 <li><code>&lt;clinit&gt;()</code>方法对于类或接口来说并不是必需的,<strong>如果一个类中没有静态语句块,也没有对变量的赋值操作,那么编译器可以不为这个类生成<code>&lt;clinit&gt;()</code>方法</strong>。</li>
 <li>接口中不能使用静态语句块,但仍然有变量初始化的赋值操作,因此接口与类一样都会生成<code>&lt;clinit&gt;()</code>方法。但接口与类不同的是,执行接口的<code>&lt;clinit&gt;()</code>方法不需要先执行父接口的<code>&lt;clinit&gt;()</code>方法, 因为只有当父接口中定义的变量被使用时,父接口才会被初始化。<strong>此外,接口的实现类在初始化时也一样不会执行接口的<code>&lt;clinit&gt;()</code>方法。</strong></li>
 <li>Java虚拟机必须保证一个类的<code>&lt;clinit&gt;()</code>方法在多线程环境中被正确地加锁同步,如果多个线程同时去初始化一个类,那么只会有其中一个线程去执行这个类的<code>&lt;clinit&gt;()</code>方法,其他线程都需要阻塞等待,直到活动线程执行完毕<code>&lt;clinit&gt;()</code>方法。如果在一个类的<code>&lt;clinit&gt;()</code>方法中有耗时很长的操作,那就可能造成多个进程阻塞[2],在实际应用中这种阻塞往往是很隐蔽的。</li>
 </ul>
-<h1 id="类加载器分类"><a href="#类加载器分类" class="headerlink" title="类加载器分类"></a>类加载器分类</h1><p>JVM支持两种类型的类加载器，分别为引导类加载器(Bootstrap ClassLoader)和自定义类加载器(User-Defined ClassLoader)。从概念上讲，自定义类加载器一般指的是程序中由开发人员自定义的一类类加载器，但是Java虚拟机规范却没有这么定义，而是将所有<strong>派生于抽象类ClassLoader的类加载器</strong>都划分为自定义类加载器。</p>
+<h1>类加载器分类</h1>
+<p>JVM支持两种类型的类加载器，分别为引导类加载器(Bootstrap ClassLoader)和自定义类加载器(User-Defined ClassLoader)。从概念上讲，自定义类加载器一般指的是程序中由开发人员自定义的一类类加载器，但是Java虚拟机规范却没有这么定义，而是将所有<strong>派生于抽象类ClassLoader的类加载器</strong>都划分为自定义类加载器。</p>
 <p>无论类加载器的类型如何划分，在程序中我们最常见的类加载器始终只有3个，如下所示：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235457.png" alt="image-20200910170353512"></p>
 <p>类加载器之间的父子关系一般不是以继承(Inheritance)的关系来实现的,而是通常使用组合(Composition)关系来复用父加载器的代码。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235504.png" alt="image-20200910170517036"></p>
-<h3 id="类加载器包含关系-双亲委派关系"><a href="#类加载器包含关系-双亲委派关系" class="headerlink" title="类加载器包含关系(双亲委派关系)"></a>类加载器包含关系(双亲委派关系)</h3><p>包含关系指的是包含加载器加载的类包含但不限于被包含加载器加载的类(包含加载器是被包含加载器的parent，被包含加载器在加载类的时候尝试交由包含加载器加载，当包含加载器无法加载的时候，再由被包含加载器加载)。</p>
-<h3 id="类加载代码演示"><a href="#类加载代码演示" class="headerlink" title="类加载代码演示"></a>类加载代码演示</h3><pre class="line-numbers language-java"><code class="language-java">        ClassLoader systemClassLoader <span class="token operator">=</span> ClassLoader<span class="token punctuation">.</span><span class="token function">getSystemClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>systemClassLoader<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//sun.misc.Launcher$AppClassLoader@18b4aac2</span>
+<h3 id="类加载器包含关系-双亲委派关系"><a class="header-anchor" href="#类加载器包含关系-双亲委派关系">¶</a>类加载器包含关系(双亲委派关系)</h3>
+<p>包含关系指的是包含加载器加载的类包含但不限于被包含加载器加载的类(包含加载器是被包含加载器的parent，被包含加载器在加载类的时候尝试交由包含加载器加载，当包含加载器无法加载的时候，再由被包含加载器加载)。</p>
+<h3 id="类加载代码演示"><a class="header-anchor" href="#类加载代码演示">¶</a>类加载代码演示</h3>
+<pre class="line-numbers language-language-java"><code class="language-language-java">        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        System.out.println(systemClassLoader); //sun.misc.Launcher$AppClassLoader@18b4aac2
 
-        ClassLoader parent <span class="token operator">=</span> systemClassLoader<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>parent<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//sun.misc.Launcher$ExtClassLoader@4dc63996</span>
+        ClassLoader parent = systemClassLoader.getParent();
+        System.out.println(parent); //sun.misc.Launcher$ExtClassLoader@4dc63996
 
-        ClassLoader boostrap <span class="token operator">=</span> parent<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>boostrap<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//null</span>
+        ClassLoader boostrap = parent.getParent();
+        System.out.println(boostrap); //null
 
-        ClassLoader classLoader <span class="token operator">=</span> ClassLoaderTest1<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>classLoader<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//sun.misc.Launcher$AppClassLoader@18b4aac2</span>
+        ClassLoader classLoader = ClassLoaderTest1.class.getClassLoader();
+        System.out.println(classLoader); //sun.misc.Launcher$AppClassLoader@18b4aac2
 
-        ClassLoader strClassLoader <span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>strClassLoader<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//null</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>用户代码默认是”System ClassLoader”来加载，而”System ClassLoader”默认就是”AppClassLoader”应用程序类加载器，而应用程序类加载器的父亲就是拓展类加载器，拓展类加载器的父亲是引导类加载器，使用<code>getParent</code>方法得到的是null，因为该加载器使用的是C/C++实现。</p>
-<h3 id="虚拟机自带的加载器"><a href="#虚拟机自带的加载器" class="headerlink" title="虚拟机自带的加载器"></a>虚拟机自带的加载器</h3><ul>
-<li>启动类加载器(引导类加载器，Boostrap ClassLoader)<ul>
+        ClassLoader strClassLoader = String.class.getClassLoader();
+        System.out.println(strClassLoader); //null
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>用户代码默认是&quot;System ClassLoader&quot;来加载，而&quot;System ClassLoader&quot;默认就是&quot;AppClassLoader&quot;应用程序类加载器，而应用程序类加载器的父亲就是拓展类加载器，拓展类加载器的父亲是引导类加载器，使用<code>getParent</code>方法得到的是null，因为该加载器使用的是C/C++实现。</p>
+<h3 id="虚拟机自带的加载器"><a class="header-anchor" href="#虚拟机自带的加载器">¶</a>虚拟机自带的加载器</h3>
+<ul>
+<li>启动类加载器(引导类加载器，Boostrap ClassLoader)
+<ul>
 <li>这个类加载使用C/C++语言实现的，嵌套在JVM内部</li>
 <li>它用来加载<code>JAVA_HOME/jre/lib/rt.jar</code>、resources.jar或sun.boot.class.path路径、<code>-Xbootclasspath</code>参数所指定的路径下的，而且是Java虚拟机能够识别的(按照文件名识别,如rt.jar、tools.jar,名字不符合的类库即使放在lib目录中也不会被加载)Java的核心类库</li>
 <li>并不继承<code>java.lang.ClassLoader</code>，没有父加载器</li>
@@ -856,14 +907,16 @@
 <li>出于安全考虑，Boostrap启动类加载器只加载包名为java、javax、sun等开头的类</li>
 </ul>
 </li>
-<li>扩展类加载器(Extension ClassLoader)<ul>
+<li>扩展类加载器(Extension ClassLoader)
+<ul>
 <li>Java语言编写，由<code>sun.misc.Launcher$ExtClassLoader</code>实现。</li>
 <li>派生于<code>ClassLoader</code>类</li>
 <li>父类加载器为启动类加载器</li>
 <li>从<code>java.ext.dirs</code>系统属性所指定的目录中加载类库，或从JDK的安装目录的<code>&lt;JAVA_HOME&gt;\lib\ext</code>子目录（扩展目录）下加载类库。如果用于创建的JAR放在此目录下，也会自动由扩展类加载器加载。</li>
 </ul>
 </li>
-<li>应用程序类加载器(系统类加载器，AppClassLoader)<ul>
+<li>应用程序类加载器(系统类加载器，AppClassLoader)
+<ul>
 <li>java语言编写，由<code>sun.misc.Launcher$AppClassLoader</code>实现。</li>
 <li>派生于<code>ClassLoader</code>类</li>
 <li>父类加载器为扩展类加载器</li>
@@ -873,9 +926,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="用户自定义类加载器"><a href="#用户自定义类加载器" class="headerlink" title="用户自定义类加载器"></a>用户自定义类加载器</h2><ul>
+<h2 id="用户自定义类加载器"><a class="header-anchor" href="#用户自定义类加载器">¶</a>用户自定义类加载器</h2>
+<ul>
 <li>在Java的日常应用程序开发中，类的加载几乎是由上述3种类加载器相互配合执行的，在必要时，我们还可以自定义类加载器，来定制类的加载方式。</li>
-<li>为什么要自定义类加载器？<ul>
+<li>为什么要自定义类加载器？
+<ul>
 <li>隔离加载类。在动态环境中，例如依赖了多个中间件的应用程序，可能会遇到不同依赖下的类名冲突，为了避免默认类加载器的不确定性，此时中间件一般会自定义类加载器实现自己的类的加载逻辑在反射的时候使用该类加载器加载自己的类(在JVM中类加载器+类本身唯一确定一个类，即类全限定名重复，但是类加载器不同，是可以同时存在的)。</li>
 <li>修改类加载的方式。例如懒加载或者缓存等。</li>
 <li>扩展加载源。实现可以从网络、数据库等不同的数据源中动态获取class文件流。</li>
@@ -883,12 +938,14 @@
 </ul>
 </li>
 </ul>
-<h4 id="用户自定义类加载器实现步骤："><a href="#用户自定义类加载器实现步骤：" class="headerlink" title="用户自定义类加载器实现步骤："></a>用户自定义类加载器实现步骤：</h4><ol>
+<h4 id="用户自定义类加载器实现步骤："><a class="header-anchor" href="#用户自定义类加载器实现步骤：">¶</a>用户自定义类加载器实现步骤：</h4>
+<ol>
 <li>开发人员可以通过继承抽象类<code>java.lang.ClassLoader</code>类的方式，实现自己的类加载器，以满足一些特殊的需求</li>
 <li>在JDK1.2之前，在自定义类加载器时，总会去继承<code>ClassLoader</code>类并重写<code>loadClass()</code>方法，从而实现自定义的加载类，但是在JDK1.2之后已不再建议用户去覆盖<code>loadClass()</code>方法，而是建议把自定义的类加载逻辑写在<code>findClass()</code>方法中</li>
 <li>在编写自定义类加载器时，如果没有太过于复杂的需求，可以直接继承<code>URLClassLoader</code>类，这样就可以避免自己去编写<code>findClass()</code>方法及其获取字节码流的方式，使自定义类加载器编写更加简洁。</li>
 </ol>
-<h2 id="ClassLoader类的常用方法"><a href="#ClassLoader类的常用方法" class="headerlink" title="ClassLoader类的常用方法"></a>ClassLoader类的常用方法</h2><p>ClassLoader类是一个抽象类，除了引导类加载都需要继承自ClassLoader。</p>
+<h2 id="ClassLoader类的常用方法"><a class="header-anchor" href="#ClassLoader类的常用方法">¶</a>ClassLoader类的常用方法</h2>
+<p>ClassLoader类是一个抽象类，除了引导类加载都需要继承自ClassLoader。</p>
 <table>
 <thead>
 <tr>
@@ -896,7 +953,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>getParent()</code></td>
 <td>返回该类加载器的超类加载器</td>
 </tr>
@@ -920,17 +978,21 @@
 <td><code>resolveClass(Class&lt;?&gt; c)</code></td>
 <td>连接指定的一个Java类</td>
 </tr>
-</tbody></table>
-<h2 id="获取ClassLoader的几种方式"><a href="#获取ClassLoader的几种方式" class="headerlink" title="获取ClassLoader的几种方式"></a>获取ClassLoader的几种方式</h2><p>一般是根据指定方式来获取对应的类加载器来加载自己本身无法加载的类，例如在破坏双亲委派模型的情况下，父类通过约定的方式获取对应的类加载器加载其无法加载的类：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//方式一：获取当前类的ClassLoader</span>
-clazz<span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//方式二：获取当前线程上下文的ClassLoader</span>
-Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getContextClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//方式三：获取系统的ClassLoader</span>
-ClassLoader<span class="token punctuation">.</span><span class="token function">getSystemClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//方式四：获取调用者的ClassLoader</span>
-DriverManager<span class="token punctuation">.</span><span class="token function">getCallerClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h2><p>Java虚拟机对class文件采用的是按需加载的方式，也就是說当需要使用该类时才会将它的class文件加载到内存生成class对象。而且加载某个类的class文件时，Java虚拟机采用的是双亲委派模式，即把请求交由父类处理，它是一种任务委派模式。</p>
+</tbody>
+</table>
+<h2 id="获取ClassLoader的几种方式"><a class="header-anchor" href="#获取ClassLoader的几种方式">¶</a>获取ClassLoader的几种方式</h2>
+<p>一般是根据指定方式来获取对应的类加载器来加载自己本身无法加载的类，例如在破坏双亲委派模型的情况下，父类通过约定的方式获取对应的类加载器加载其无法加载的类：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">//方式一：获取当前类的ClassLoader
+clazz.getClassLoader()
+//方式二：获取当前线程上下文的ClassLoader
+Thread.currentThread().getContextClassLoader()
+//方式三：获取系统的ClassLoader
+ClassLoader.getSystemClassLoader()
+//方式四：获取调用者的ClassLoader
+DriverManager.getCallerClassLoader()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="双亲委派机制"><a class="header-anchor" href="#双亲委派机制">¶</a>双亲委派机制</h2>
+<p>Java虚拟机对class文件采用的是按需加载的方式，也就是說当需要使用该类时才会将它的class文件加载到内存生成class对象。而且加载某个类的class文件时，Java虚拟机采用的是双亲委派模式，即把请求交由父类处理，它是一种任务委派模式。</p>
 <p>工作原理：</p>
 <ol>
 <li>如果一个类加载器收到了JVM对它发起的类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行</li>
@@ -940,17 +1002,22 @@ DriverManager<span class="token punctuation">.</span><span class="token function
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235513.png" alt="image-20200910182810609"></p>
 <p>作用：</p>
 <ol>
-<li><p>避免核心库中的类被用户自定义的完全一样的全限定名的类覆盖(即使用户定义了<code>java.lang.CustomerClass</code>这样的自定义类，但是包名是核心库下的包，最终委派到引导类加载器的时候会抛出异常，这也称为”<strong>沙箱安全机制</strong>“)</p>
+<li>
+<p>避免核心库中的类被用户自定义的完全一样的全限定名的类覆盖(即使用户定义了<code>java.lang.CustomerClass</code>这样的自定义类，但是包名是核心库下的包，最终委派到引导类加载器的时候会抛出异常，这也称为&quot;<strong>沙箱安全机制</strong>&quot;)</p>
 <p>即使自定义了自己的类加载器,强行用defineClass()方法去加载一个自定义的以“java.lang”开头的类也不会成功。如果读者尝试这样做的话,将会收到一个由Java虚拟机内部抛出的“java.lang.SecurityException: Prohibited package name:java.lang”异常。</p>
 </li>
-<li><p>避免类的重复加载</p>
+<li>
+<p>避免类的重复加载</p>
 </li>
-<li><p>在遇到类名完全一样的情况下，如果加载器不同也不会有问题，由加载器-全限定类名唯一确定一个类</p>
+<li>
+<p>在遇到类名完全一样的情况下，如果加载器不同也不会有问题，由加载器-全限定类名唯一确定一个类</p>
 </li>
 </ol>
-<h3 id="破坏双亲委派机制-反向委派"><a href="#破坏双亲委派机制-反向委派" class="headerlink" title="破坏双亲委派机制(反向委派)"></a>破坏双亲委派机制(反向委派)</h3><p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235519.png" alt="image-20200910201806151"></p>
+<h3 id="破坏双亲委派机制-反向委派"><a class="header-anchor" href="#破坏双亲委派机制-反向委派">¶</a>破坏双亲委派机制(反向委派)</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235519.png" alt="image-20200910201806151"></p>
 <p>类似JDBC，接口类是由引导类加载器加载的，但是后续的<code>Class.forName(&quot;具体的服务实现类全限定名&quot;)</code>中指定的具体服务实现类引导类加载器却无法加载，此时需要委派到子类加载器进行加载。</p>
-<h2 id="JDK9后的类加载器"><a href="#JDK9后的类加载器" class="headerlink" title="JDK9后的类加载器"></a>JDK9后的类加载器</h2><p>在JDK 9中引入的Java模块化系统(Java Platform Module System,JPMS)是对Java技术的一次重要升级,为了能够实现模块化的关键目标——可配置的封装隔离机制,Java虚拟机对类加载架构也做出了相应的变动调整,才使模块化系统得以顺利地运作。JDK 9的模块不仅仅像之前的JAR包那样只是简单地充当代码的容器,除了代码外,Java的模块定义还包含以下内容: </p>
+<h2 id="JDK9后的类加载器"><a class="header-anchor" href="#JDK9后的类加载器">¶</a>JDK9后的类加载器</h2>
+<p>在JDK 9中引入的Java模块化系统(Java Platform Module System,JPMS)是对Java技术的一次重要升级,为了能够实现模块化的关键目标——可配置的封装隔离机制,Java虚拟机对类加载架构也做出了相应的变动调整,才使模块化系统得以顺利地运作。JDK 9的模块不仅仅像之前的JAR包那样只是简单地充当代码的容器,除了代码外,Java的模块定义还包含以下内容:</p>
 <ul>
 <li>依赖其他模块的列表。</li>
 <li>导出的包列表,即其他模块可以使用的列表。</li>
@@ -960,7 +1027,8 @@ DriverManager<span class="token punctuation">.</span><span class="token function
 </ul>
 <p>配置的封装隔离机制首先要解决JDK 9之前基于类路径(ClassPath)来查找依赖的可靠性问题。此前,如果类路径中缺失了运行时依赖的类型,那就只能等程序运行到发生该类型的加载、链接时才会报出运行的异常。而在JDK 9以后,如果启用了模块化进行封装,模块就可以声明对其他模块的显式依赖,这样Java虚拟机就能够在启动时验证应用程序开发阶段设定好的依赖关系在运行期是否完备,如有缺失那就直接启动失败,从而避免了<strong>很大一部分</strong>由于类型依赖而引发的运行时异常。</p>
 <p>可配置的封装隔离机制还解决了原来类路径上跨JAR文件的public类型的可访问性问题。JDK 9中的public类型不再意味着程序的所有地方的代码都可以随意访问到它们,模块提供了更精细的可访问性控制,必须明确声明其中哪一些public的类型可以被其他哪一些模块访问,这种访问控制也主要是在类加载过程中完成的（链接-验证的符号引用验证部分）。</p>
-<h3 id="加入模块化系统之后向前兼容JAR包访"><a href="#加入模块化系统之后向前兼容JAR包访" class="headerlink" title="加入模块化系统之后向前兼容JAR包访"></a>加入模块化系统之后向前兼容JAR包访</h3><p>为了使可配置的封装隔离机制能够兼容传统的类路径查找机制,JDK 9提出了与“类路径”(ClassPath)相对应的“模块路径”(ModulePath)的概念。简单来说,就是某个类库到底是模块还是传统的JAR包,只取决于它存放在哪种路径上。只要是放在类路径上的JAR文件,无论其中是否包含模块化信息(是否包含了module-info.class文件),它都会被当作传统的JAR包来对待;相应地,只要放在模块路径上的JAR文件,即使没有使用JMOD后缀,甚至说其中并不包含module-info.class文件,它也仍然会被当作一个模块来对待。</p>
+<h3 id="加入模块化系统之后向前兼容JAR包访"><a class="header-anchor" href="#加入模块化系统之后向前兼容JAR包访">¶</a>加入模块化系统之后向前兼容JAR包访</h3>
+<p>为了使可配置的封装隔离机制能够兼容传统的类路径查找机制,JDK 9提出了与“类路径”(ClassPath)相对应的“模块路径”(ModulePath)的概念。简单来说,就是某个类库到底是模块还是传统的JAR包,只取决于它存放在哪种路径上。只要是放在类路径上的JAR文件,无论其中是否包含模块化信息(是否包含了module-info.class文件),它都会被当作传统的JAR包来对待;相应地,只要放在模块路径上的JAR文件,即使没有使用JMOD后缀,甚至说其中并不包含module-info.class文件,它也仍然会被当作一个模块来对待。</p>
 <p>模块化系统将按照以下规则来保证使用传统类路径依赖的Java程序可以不经修改地直接运行在JDK 9及以后的Java版本上,即使这些版本的JDK已经使用模块来封装了Java SE的标准类库,模块化系统的这套规则也仍然保证了传统程序可以访问到所有标准类库模块中导出的包。</p>
 <ul>
 <li>JAR文件在类路径的访问规则:所有类路径下的JAR文件及其他资源文件,都被视为自动打包在一个匿名模块(Unnamed Module)里,这个匿名模块几乎是没有任何隔离的,它可以看到和使用类路径上所有的包、JDK系统模块中所有的导出包,以及模块路径上所有模块中导出的包。</li>
@@ -968,114 +1036,135 @@ DriverManager<span class="token punctuation">.</span><span class="token function
 <li>JAR文件在模块路径的访问规则:如果把一个传统的、不包含模块定义的JAR文件放置到模块路径中,它就会变成一个自动模块(Automatic Module)。尽管不包含module-info.class,但自动模块将默认依赖于整个模块路径中的所有模块,因此可以访问到所有模块导出的包,自动模块也默认导出自己所有的包。</li>
 </ul>
 <p>以上3条规则保证了即使Java应用依然使用传统的类路径,升级到JDK 9对应用来说几乎(类加载器上的变动还是可能会导致少许可见的影响,将在下节介绍)不会有任何感觉,项目也不需要专门为了升级JDK版本而去把传统JAR包升级成模块。</p>
-<h3 id="模块化下的类加载器"><a href="#模块化下的类加载器" class="headerlink" title="模块化下的类加载器"></a>模块化下的类加载器</h3><ul>
-<li><p>首先,是扩展类加载器(Extension Class Loader)被平台类加载器(Platform Class Loader)取代。这其实是一个很顺理成章的变动,既然整个JDK都基于模块化进行构建(原来的<code>rt.jar</code>和<code>tools.jar</code>被拆分成数十个JMOD文件),其中的Java类库就已天然地满足了可扩展的需求,那自然无须再保留<jav a_home>\lib\ext目录</jav></p>
+<h3 id="模块化下的类加载器"><a class="header-anchor" href="#模块化下的类加载器">¶</a>模块化下的类加载器</h3>
+<ul>
+<li>
+<p>首先,是扩展类加载器(Extension Class Loader)被平台类加载器(Platform Class Loader)取代。这其实是一个很顺理成章的变动,既然整个JDK都基于模块化进行构建(原来的<code>rt.jar</code>和<code>tools.jar</code>被拆分成数十个JMOD文件),其中的Java类库就已天然地满足了可扩展的需求,那自然无须再保留<jav a_home>\lib\ext目录</jav></p>
 </li>
-<li><p>其次,平台类加载器和应用程序类加载器都不再派生自<code>java.net.URLClassLoader</code>,如果有程序直接依赖了这种继承关系,或者依赖了<code>URLClassLoader</code>类的特定方法,那代码很可能会在JDK 9及更高版本的JDK中崩溃。现在启动类加载器、平台类加载器、应用程序类加载器全都继承于<code>jdk.internal.loader.BuiltinClassLoader</code></p>
+<li>
+<p>其次,平台类加载器和应用程序类加载器都不再派生自<code>java.net.URLClassLoader</code>,如果有程序直接依赖了这种继承关系,或者依赖了<code>URLClassLoader</code>类的特定方法,那代码很可能会在JDK 9及更高版本的JDK中崩溃。现在启动类加载器、平台类加载器、应用程序类加载器全都继承于<code>jdk.internal.loader.BuiltinClassLoader</code></p>
 </li>
-<li><p>启动类加载器现在是在Java虚拟机内部和Java类库共同协作实现的类加载器,尽管有了<code>BootClassLoader</code>这样的Java类,但为了与之前的代码保持兼容,所有在获取启动类加载器的场景(譬如<code>Object.class.getClassLoader()</code>)中仍然会返回null来代替,而不会得到<code>BootClassLoader</code>的实例。</p>
+<li>
+<p>启动类加载器现在是在Java虚拟机内部和Java类库共同协作实现的类加载器,尽管有了<code>BootClassLoader</code>这样的Java类,但为了与之前的代码保持兼容,所有在获取启动类加载器的场景(譬如<code>Object.class.getClassLoader()</code>)中仍然会返回null来代替,而不会得到<code>BootClassLoader</code>的实例。</p>
 </li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235527.png" alt="image-20200921211450487"></p>
 <p>JDK 9中虽然仍然维持着三层类加载器和双亲委派的架构,但类加载的委派关系也发生了变动。当平台及应用程序类加载器收到类加载请求,在委派给父加载器加载前,要先判断该类是否能够归属到某一个系统模块中,如果可以找到这样的归属关系,就要优先委派给负责那个模块的加载器完成加载,也许这可以算是对双亲委派的又一次破坏。</p>
 <p>在Java模块化系统明确规定了三个类加载器负责各自加载的模块,即前面所说的归属关系,如下所示：</p>
-<h4 id="启动类加载器负责加载的模块"><a href="#启动类加载器负责加载的模块" class="headerlink" title="启动类加载器负责加载的模块"></a>启动类加载器负责加载的模块</h4><pre class="line-numbers language-java"><code class="language-java">java<span class="token punctuation">.</span>base
-java<span class="token punctuation">.</span>security<span class="token punctuation">.</span>sasl 
-java<span class="token punctuation">.</span>datatransfer
-java<span class="token punctuation">.</span>xml 
-java<span class="token punctuation">.</span>desktop
-jdk<span class="token punctuation">.</span>httpserver 
-java<span class="token punctuation">.</span>instrument                      
-jdk<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>ci
-java<span class="token punctuation">.</span>logging
-jdk<span class="token punctuation">.</span>management 
-java<span class="token punctuation">.</span>management                  
-jdk<span class="token punctuation">.</span>management<span class="token punctuation">.</span>agent 
-java<span class="token punctuation">.</span>management<span class="token punctuation">.</span>rmi              
-jdk<span class="token punctuation">.</span>naming<span class="token punctuation">.</span>rmi 
-java<span class="token punctuation">.</span>naming
-jdk<span class="token punctuation">.</span>net
-java<span class="token punctuation">.</span>prefs
-jdk<span class="token punctuation">.</span>sctp
-java<span class="token punctuation">.</span>rmi
-jdk<span class="token punctuation">.</span>unsupported<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="平台类加载器负责加载的模块"><a href="#平台类加载器负责加载的模块" class="headerlink" title="平台类加载器负责加载的模块"></a>平台类加载器负责加载的模块</h4><pre class="line-numbers language-java"><code class="language-java">java<span class="token punctuation">.</span>activation<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>accessibility 
-java<span class="token punctuation">.</span>compiler<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>charsets 
-java<span class="token punctuation">.</span>corba<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>cryptoki 
-java<span class="token punctuation">.</span>scripting
-jdk<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>ec
-java<span class="token punctuation">.</span>se
-jdk<span class="token punctuation">.</span>dynalink
-java<span class="token punctuation">.</span>se<span class="token punctuation">.</span>ee
-jdk<span class="token punctuation">.</span>incubator<span class="token punctuation">.</span>httpclient 
-java<span class="token punctuation">.</span>security<span class="token punctuation">.</span>jgss
-jdk<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>compiler<span class="token operator">*</span>
-java<span class="token punctuation">.</span>smartcardio                
-jdk<span class="token punctuation">.</span>jsobject
-java<span class="token punctuation">.</span>sql
-jdk<span class="token punctuation">.</span>localedata 
-java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>rowset
-jdk<span class="token punctuation">.</span>naming<span class="token punctuation">.</span>dns 
-java<span class="token punctuation">.</span>transaction<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>scripting<span class="token punctuation">.</span>nashorn 
-java<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>bind<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>security<span class="token punctuation">.</span>auth
-java<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>crypto
-jdk<span class="token punctuation">.</span>security<span class="token punctuation">.</span>jgss 
-java<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>ws<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>dom 
-java<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>ws<span class="token punctuation">.</span>annotation<span class="token operator">*</span>
-jdk<span class="token punctuation">.</span>zipfs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="应用程序类加载器负责加载的模块"><a href="#应用程序类加载器负责加载的模块" class="headerlink" title="应用程序类加载器负责加载的模块"></a>应用程序类加载器负责加载的模块</h4><pre class="line-numbers language-java"><code class="language-java">jdk<span class="token punctuation">.</span>aot
-jdk<span class="token punctuation">.</span>jdeps 
-jdk<span class="token punctuation">.</span>attach                      
-jdk<span class="token punctuation">.</span>jdi 
-jdk<span class="token punctuation">.</span>compiler           
-jdk<span class="token punctuation">.</span>jdwp<span class="token punctuation">.</span>agent 
-jdk<span class="token punctuation">.</span>editpad   
-jdk<span class="token punctuation">.</span>jlink 
-jdk<span class="token punctuation">.</span>hotspot<span class="token punctuation">.</span>agent  
-jdk<span class="token punctuation">.</span>jshell
-jdk<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>ed     
-jdk<span class="token punctuation">.</span>jstatd 
-jdk<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>jvmstat       
-jdk<span class="token punctuation">.</span>pack 
-jdk<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>le  
-jdk<span class="token punctuation">.</span>policytool 
-jdk<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>opt  
-jdk<span class="token punctuation">.</span>rmic 
-jdk<span class="token punctuation">.</span>jartool  
-jdk<span class="token punctuation">.</span>scripting<span class="token punctuation">.</span>nashorn<span class="token punctuation">.</span>shell
-jdk<span class="token punctuation">.</span>javadoc         
-jdk<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>bind<span class="token operator">*</span> 
-jdk<span class="token punctuation">.</span>jcmd        
-jdk<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>ws<span class="token operator">*</span> 
-jdk<span class="token punctuation">.</span>jconsole<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
-<li><p>在JVM中表示通过以下方式唯一确定一个Class对象：</p>
+<h4 id="启动类加载器负责加载的模块"><a class="header-anchor" href="#启动类加载器负责加载的模块">¶</a>启动类加载器负责加载的模块</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">java.base
+java.security.sasl 
+java.datatransfer
+java.xml 
+java.desktop
+jdk.httpserver 
+java.instrument                  	
+jdk.internal.vm.ci
+java.logging
+jdk.management 
+java.management                  
+jdk.management.agent 
+java.management.rmi              
+jdk.naming.rmi 
+java.naming
+jdk.net
+java.prefs
+jdk.sctp
+java.rmi
+jdk.unsupported
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="平台类加载器负责加载的模块"><a class="header-anchor" href="#平台类加载器负责加载的模块">¶</a>平台类加载器负责加载的模块</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">java.activation*
+jdk.accessibility 
+java.compiler*
+jdk.charsets 
+java.corba*
+jdk.crypto.cryptoki 
+java.scripting
+jdk.crypto.ec
+java.se
+jdk.dynalink
+java.se.ee
+jdk.incubator.httpclient 
+java.security.jgss
+jdk.internal.vm.compiler*
+java.smartcardio                
+jdk.jsobject
+java.sql
+jdk.localedata 
+java.sql.rowset
+jdk.naming.dns 
+java.transaction*
+jdk.scripting.nashorn 
+java.xml.bind*
+jdk.security.auth
+java.xml.crypto
+jdk.security.jgss 
+java.xml.ws*
+jdk.xml.dom 
+java.xml.ws.annotation*
+jdk.zipfs
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="应用程序类加载器负责加载的模块"><a class="header-anchor" href="#应用程序类加载器负责加载的模块">¶</a>应用程序类加载器负责加载的模块</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">jdk.aot
+jdk.jdeps 
+jdk.attach                      
+jdk.jdi 
+jdk.compiler           
+jdk.jdwp.agent 
+jdk.editpad   
+jdk.jlink 
+jdk.hotspot.agent  
+jdk.jshell
+jdk.internal.ed     
+jdk.jstatd 
+jdk.internal.jvmstat       
+jdk.pack 
+jdk.internal.le  
+jdk.policytool 
+jdk.internal.opt  
+jdk.rmic 
+jdk.jartool  
+jdk.scripting.nashorn.shell
+jdk.javadoc         
+jdk.xml.bind* 
+jdk.jcmd        
+jdk.xml.ws* 
+jdk.jconsole
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1>其他</h1>
+<ul>
+<li>
+<p>在JVM中表示通过以下方式唯一确定一个Class对象：</p>
 <ol>
-<li><p>类的完整类名必须一致，包括包名。</p>
+<li>
+<p>类的完整类名必须一致，包括包名。</p>
 </li>
-<li><p>加载这个类的ClassLoader（指ClassLoader实例对象）必须是同一个</p>
+<li>
+<p>加载这个类的ClassLoader（指ClassLoader实例对象）必须是同一个</p>
 <p>换句话说，在JVM中，即使这两个类对象(class对象)来源同一个Class文件，被同一个虚拟机所加载，但只要加载它们的ClassLoader实例对象不同，那么这两个类对象也是不相等的。这里所指的“相等”,包括代表类的Class对象的equals()方法、isAssignableFrom()方法、isInstance() 方法的返回结果,也包括了使用instanceof关键字做对象所属关系判定等各种情况。</p>
 </li>
 </ol>
 </li>
-<li><p>JVM必须知道一个类型是由启动加载器加载的还是由用户类加载器加载的。如果一个类型是由用户类加载器加载的，那么JVM会将这个类加载器的一个引用作为类型信息的一部分保存在方法区中(<code>clzz.getClassLoader()</code>)。当解析一个类型到另一个类型的引用的时候，JVM需要保证这两个类型的类加载器是相同的。</p>
+<li>
+<p>JVM必须知道一个类型是由启动加载器加载的还是由用户类加载器加载的。如果一个类型是由用户类加载器加载的，那么JVM会将这个类加载器的一个引用作为类型信息的一部分保存在方法区中(<code>clzz.getClassLoader()</code>)。当解析一个类型到另一个类型的引用的时候，JVM需要保证这两个类型的类加载器是相同的。</p>
 </li>
 </ul>
-<h1 id="类加载器案例"><a href="#类加载器案例" class="headerlink" title="类加载器案例"></a>类加载器案例</h1><h2 id="TOMCAT"><a href="#TOMCAT" class="headerlink" title="TOMCAT"></a>TOMCAT</h2><p>主流的Java Web服务器,如Tomcat、Jetty、WebLogic、WebSphere或其他笔者没有列举的服务器, 都实现了自己定义的类加载器,而且一般还都不止一个。因为一个功能健全的Web服务器,都要解决如下的这些问题: </p>
+<h1>类加载器案例</h1>
+<h2 id="TOMCAT"><a class="header-anchor" href="#TOMCAT">¶</a>TOMCAT</h2>
+<p>主流的Java Web服务器,如Tomcat、Jetty、WebLogic、WebSphere或其他笔者没有列举的服务器, 都实现了自己定义的类加载器,而且一般还都不止一个。因为一个功能健全的Web服务器,都要解决如下的这些问题:</p>
 <ul>
-<li><p>部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离。这是最基本的需求,两个不同的应用程序可能会依赖同一个第三方类库的不同版本,不能要求每个类库在一个服务器中只能有一份,服务器应当能够保证两个独立应用程序的类库可以互相独立使用。</p>
+<li>
+<p>部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离。这是最基本的需求,两个不同的应用程序可能会依赖同一个第三方类库的不同版本,不能要求每个类库在一个服务器中只能有一份,服务器应当能够保证两个独立应用程序的类库可以互相独立使用。</p>
 </li>
-<li><p>部署在同一个服务器上的两个Web应用程序所使用的Java类库可以互相共享。这个需求与前面一点正好相反,但是也很常见,例如用户可能有10个使用Spring组织的应用程序部署在同一台服务器上,如果把10份Spring分别存放在各个应用程序的隔离目录中,将会是很大的资源浪费——这主要倒不是浪费磁盘空间的问题,而是指类库在使用时都要被加载到服务器内存,如果类库不能共享,虚拟机的方法区就会很容易出现过度膨胀的风险。</p>
+<li>
+<p>部署在同一个服务器上的两个Web应用程序所使用的Java类库可以互相共享。这个需求与前面一点正好相反,但是也很常见,例如用户可能有10个使用Spring组织的应用程序部署在同一台服务器上,如果把10份Spring分别存放在各个应用程序的隔离目录中,将会是很大的资源浪费——这主要倒不是浪费磁盘空间的问题,而是指类库在使用时都要被加载到服务器内存,如果类库不能共享,虚拟机的方法区就会很容易出现过度膨胀的风险。</p>
 </li>
-<li><p>服务器需要尽可能地保证自身的安全不受部署的Web应用程序影响。目前,有许多主流的Java Web服务器自身也是使用Java语言来实现的。因此服务器本身也有类库依赖的问题,一般来说,基于安全考虑,服务器所使用的类库应该与应用程序的类库互相独立。</p>
+<li>
+<p>服务器需要尽可能地保证自身的安全不受部署的Web应用程序影响。目前,有许多主流的Java Web服务器自身也是使用Java语言来实现的。因此服务器本身也有类库依赖的问题,一般来说,基于安全考虑,服务器所使用的类库应该与应用程序的类库互相独立。</p>
 </li>
-<li><p>支持JSP应用的Web服务器,十有八九都需要支持HotSwap功能。我们知道JSP文件最终要被编译成Java的Class文件才能被虚拟机执行,但JSP文件由于其纯文本存储的特性,被运行时修改的概率远大于第三方类库或程序自己的Class文件。而且ASP、PHP和JSP这些网页应用也把修改后无须重启作为一个很大的“优势”来看待,因此“主流”的Web服务器都会支持JSP生成类的热替换,当然也有“非主流”的,如运行在生产模式(Production Mode)下的WebLogic服务器默认就不会处理JSP文件的变化。</p>
+<li>
+<p>支持JSP应用的Web服务器,十有八九都需要支持HotSwap功能。我们知道JSP文件最终要被编译成Java的Class文件才能被虚拟机执行,但JSP文件由于其纯文本存储的特性,被运行时修改的概率远大于第三方类库或程序自己的Class文件。而且ASP、PHP和JSP这些网页应用也把修改后无须重启作为一个很大的“优势”来看待,因此“主流”的Web服务器都会支持JSP生成类的热替换,当然也有“非主流”的,如运行在生产模式(Production Mode)下的WebLogic服务器默认就不会处理JSP文件的变化。</p>
 </li>
 </ul>
 <p>由于存在上述问题,在部署Web应用时,单独的一个ClassPath就不能满足需求了,所以各种Web服务器都不约而同地提供了好几个有着不同含义的ClassPath路径供用户存放第三方类库,这些路径一般会以“lib”或“classes”命名。被放置到不同路径中的类库,具备不同的访问范围和服务对象,通常每一个目录都会有一个相应的自定义类加载器去加载放置在里面的Java类库。</p>
@@ -1093,215 +1182,225 @@ jdk<span class="token punctuation">.</span>jconsole<span aria-hidden="true" clas
 <li>Common类加载器：加载<code>/common/*</code>中的Java类库</li>
 <li>Catalina类加载器(也称为Server类加载器)：加载<code>/server/*</code>中的Java类库</li>
 <li>Shared类加载器：加载<code>/shared/*</code>中的Java类库</li>
-<li>Webapp类加载器：加载<code>/WebApp/WEB-INF/*</code>中的Java类库<ul>
+<li>Webapp类加载器：加载<code>/WebApp/WEB-INF/*</code>中的Java类库
+<ul>
 <li>存在多个实例：每一个Web应用程序对应一个WebApp类加载器</li>
 </ul>
 </li>
-<li>JSP类加载器：加载JSP文件<ul>
+<li>JSP类加载器：加载JSP文件
+<ul>
 <li>存在多个实例：每一个JSP文件对应一个JasperLoader类加载器</li>
 </ul>
 </li>
 </ul>
 <p>Common类加载器能加载的类都可以被Catalina类加载器和Shared 类加载器使用,而Catalina类加载器和Shared类加载器自己能加载的类则与对方相互隔离。WebApp类加载器可以使用Shared类加载器加载到的类,但各个WebApp类加载器实例之间相互隔离。而JasperLoader的加载范围仅仅是这个JSP文件所编译出来的那一个Class文件,它存在的目的就是为了被丢弃:当服务器检测到JSP文件被修改时,会替换掉目前的JasperLoader的实例,并通过再建立一个新的JSP类加载器来实现JSP文件的HotSwap功能。</p>
 <p>本例中的类加载结构在Tomcat 6以前是它默认的类加载器结构,在Tomcat 6及之后的版本简化了默认的目录结构,只有指定了<code>tomcat/conf/catalina.properties</code>配置文件的<code>server.loader</code>和<code>share.loader</code>项后才会真正建立Catalina类加载器和Shared类加载器的实例,否则会用到这两个类加载器的地方都会用Common类加载器的实例代替,而默认的配置文件中并没有设置这两个loader项,所以Tomcat 6之后也顺理成章地把<code>/common</code>、<code>/server</code>和<code>/shared</code>这3个目录默认合并到一起变成1个<code>/lib</code>目录,这个目录里的类库相当于以前<code>/common</code>目录中类库的作用,是Tomcat的开发团队为了简化大多数的部署场景所做的一项易用性改进。如果默认设置不能满足需要,用户可以通过修改配置文件指定<code>server.loader</code>和<code>share.loader</code> 的方式重新启用原来完整的加载器架构。</p>
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>被Common类加载器或Shared类加载器加载的Spring如何访问并不在其加载范围内的用户程序呢？其实就是类似破坏双亲委派模型，通过调用子类加载器(委派)将对应的<code>Class</code>对象加载出来。</p>
+<h3 id="思考"><a class="header-anchor" href="#思考">¶</a>思考</h3>
+<p>被Common类加载器或Shared类加载器加载的Spring如何访问并不在其加载范围内的用户程序呢？其实就是类似破坏双亲委派模型，通过调用子类加载器(委派)将对应的<code>Class</code>对象加载出来。</p>
 <p>例子：以下代码中通过将<code>john.classloader.TestClassLoader.java</code>编译后得到的<code>TestClassLoader.class</code>文件在标准库目录和指定目录之间移动将得到不同的效果。当移动到指定目录之后，<code>TestCall</code>由应用程序类加载器加载，它通过指定的类加载器<code>Loader</code>在指定目录对类进行加载之后即可进行访问：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">;</span>
+<pre class="line-numbers language-language-java"><code class="language-language-java">package john.classloader;
 
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationTargetException<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>MalformedURLException<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URL<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URLClassLoader<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URLStreamHandlerFactory<span class="token punctuation">;</span>
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.URLStreamHandlerFactory;
 
-<span class="token comment" spellcheck="true">/**
+/**
  * @author: honphan.john
  * @date: 2020/9/10 17:14
  * @description:
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassLoaderTest2</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> MalformedURLException<span class="token punctuation">,</span> ClassNotFoundException<span class="token punctuation">,</span> NoSuchMethodException<span class="token punctuation">,</span> IllegalAccessException<span class="token punctuation">,</span> InvocationTargetException<span class="token punctuation">,</span> InstantiationException <span class="token punctuation">{</span>
-        TestCall testCall <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestCall</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        testCall<span class="token punctuation">.</span><span class="token function">testWithClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        testCall<span class="token punctuation">.</span><span class="token function">testWithSymbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Loader</span> <span class="token keyword">extends</span> <span class="token class-name">URLClassLoader</span> <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token function">Loader</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> MalformedURLException <span class="token punctuation">{</span>
-              <span class="token comment" spellcheck="true">//自定义类路径，非标准路径</span>
-            <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">(</span> <span class="token string">"file:///Users/zhonghongpeng/IdeaProjects/tech-learning/jvm/src/main/java/"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">public</span> <span class="token function">Loader</span><span class="token punctuation">(</span>URL<span class="token punctuation">[</span><span class="token punctuation">]</span> urls<span class="token punctuation">,</span> ClassLoader parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">super</span><span class="token punctuation">(</span>urls<span class="token punctuation">,</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">public</span> <span class="token function">Loader</span><span class="token punctuation">(</span>URL<span class="token punctuation">[</span><span class="token punctuation">]</span> urls<span class="token punctuation">,</span> ClassLoader parent<span class="token punctuation">,</span> URLStreamHandlerFactory factory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">super</span><span class="token punctuation">(</span>urls<span class="token punctuation">,</span> parent<span class="token punctuation">,</span> factory<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestCall</span> <span class="token punctuation">{</span>
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testWithClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                <span class="token keyword">final</span> String methodName <span class="token operator">=</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-                Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Loader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span><span class="token string">"john.classloader.TestClassLoader"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                aClass<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>aClass<span class="token punctuation">.</span><span class="token function">getConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> ignored<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-            <span class="token comment" spellcheck="true">//当 TestClassLoader.class移动到了指定目录。输出："hello! 我的类加载器是john.classloader.ClassLoaderTest2$Loader@d716361"</span>
-            <span class="token comment" spellcheck="true">//当 TestClassLoader.class移动到了指定目录 存在标准目录。输出："hello! 我的类加载器是sun.misc.Launcher$AppClassLoader@18b4aac2"</span>
-        <span class="token punctuation">}</span>
-        TestClassLoader test<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//如果在标准类路径中不存在 TestClassLoader.class，这里会在编译期报错，无法通过编译，该符号引用无效。此时只能通过指定类加载器进行加载</span>
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testWithSymbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            test<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">;</span>
+ */
+public class ClassLoaderTest2 {
+    public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        TestCall testCall = new TestCall();
+        testCall.testWithClassLoader();
+        testCall.testWithSymbol();
+    }
+    static class Loader extends URLClassLoader {
+        public Loader() throws MalformedURLException {
+          	//自定义类路径，非标准路径
+            super(new URL[]{new URL( "file:///Users/zhonghongpeng/IdeaProjects/tech-learning/jvm/src/main/java/")});
+        }
+        public Loader(URL[] urls, ClassLoader parent) {
+            super(urls, parent);
+        }
+        public Loader(URL[] urls, ClassLoader parent, URLStreamHandlerFactory factory) {
+            super(urls, parent, factory);
+        }
+    }
+    static class TestCall {
+        public void testWithClassLoader() {
+            try {
+                final String methodName = "test";
+                Class<?> aClass = new Loader().loadClass("john.classloader.TestClassLoader");
+                aClass.getMethod(methodName).invoke(aClass.getConstructors()[0].newInstance());
+            } catch (Exception ignored) {}
+            //当 TestClassLoader.class移动到了指定目录。输出："hello! 我的类加载器是john.classloader.ClassLoaderTest2$Loader@d716361"
+            //当 TestClassLoader.class移动到了指定目录 存在标准目录。输出："hello! 我的类加载器是sun.misc.Launcher$AppClassLoader@18b4aac2"
+        }
+        TestClassLoader test; //如果在标准类路径中不存在 TestClassLoader.class，这里会在编译期报错，无法通过编译，该符号引用无效。此时只能通过指定类加载器进行加载
+        public void testWithSymbol() {
+            test.test();
+        }
+    }
+}
 
-<span class="token comment" spellcheck="true">/**
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">package john.classloader;
+
+/**
  * @author: honphan.john
  * @date: 2020/9/22 14:59
  * @description:
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestClassLoader</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hello! 我的类加载器是"</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="OSGI"><a href="#OSGI" class="headerlink" title="OSGI"></a>OSGI</h2><p>OSGi[1](Open Service Gateway Initiative)是OSGi联盟(OSGi Alliance)制订的一个基于Java语言的动态模块化规范(在JDK 9引入的JPMS是静态的模块系统)。</p>
+ */
+public class TestClassLoader {
+    public void test() {
+        System.out.println("hello! 我的类加载器是" + this.getClass().getClassLoader());
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="OSGI"><a class="header-anchor" href="#OSGI">¶</a>OSGI</h2>
+<p>OSGi[1](Open Service Gateway Initiative)是OSGi联盟(OSGi Alliance)制订的一个基于Java语言的动态模块化规范(在JDK 9引入的JPMS是静态的模块系统)。</p>
 <p>OSGi中的每个模块(称为Bundle)与普通的Java类库区别并不太大,两者一般都以JAR格式进行封装,并且内部存储的都是Java的Package和Class。但是一个Bundle可以声明它所依赖的Package(通过Import-Package描述),也可以声明它允许导出发布的Package(通过Export-Package描述)。在OSGi 里面,Bundle之间的依赖关系从传统的上层模块依赖底层模块转变为平级模块之间的依赖,而且类库的可见性能得到非常精确的控制,一个模块里只有被Export过的Package才可能被外界访问,其他的Package和Class将会被隐藏起来。</p>
 <p>OSGi现在着重向动态模块化系统的方向发展。在今天,通常引入OSGi的主要理由是基于OSGi架构的程序很可能(只是很可能,并不是一定会,需要考虑热插拔后的内存管理、上下文状态维护问题等复杂因素)会实现模块级的热插拔功能,当程序升级更新或调试除错时,可以只停用、重新安装然后启用程序的其中一部分,这对大型软件、企业级程序开发来说是一个非常有诱惑力的特性,譬如Eclipse中安装、卸载、更新插件而不需要重启动,就使用到了这种特性。</p>
 <p>OSGi之所以能有上述诱人的特点,必须要归功于它灵活的类加载器架构。OSGi的Bundle类加载器之间只有规则,没有固定的委派关系。例如,某个Bundle声明了一个它依赖的Package,如果有其他Bundle声明了发布这个Package后,那么所有对这个Package的类加载动作都会委派给发布它的Bundle类加载器去完成。不涉及某个具体的Package时,各个Bundle加载器都是平级的关系,只有具体使用到某个Package和Class的时候,才会根据Package导入导出定义来构造Bundle间的委派和依赖。</p>
 <p>另外,一个Bundle类加载器为其他Bundle提供服务时,会根据Export-Package列表严格控制访问范围。如果一个类存在于Bundle的类库中但是没有被Export,那么这个Bundle的类加载器能找到这个类, 但不会提供给其他Bundle使用,而且OSGi框架也不会把其他Bundle的类加载请求分配给这个Bundle来处理。</p>
 <p>我们可以举一个更具体些的简单例子来解释上面的规则,假设存在Bundle A、Bundle B、Bundle C3个模块,并且这3个Bundle定义的依赖关系如下所示。</p>
 <ul>
-<li>Bundle A:声明发布了packageA,依赖了<code>java.*</code>的包; </li>
-<li>Bundle B:声明依赖了packageA和packageC,同时也依赖了<code>java.*</code>的包; </li>
+<li>Bundle A:声明发布了packageA,依赖了<code>java.*</code>的包;</li>
+<li>Bundle B:声明依赖了packageA和packageC,同时也依赖了<code>java.*</code>的包;</li>
 <li>Bundle C:声明发布了packageC,依赖了packageA。</li>
 </ul>
 <p>那么,这3个Bundle之间的类加载器及父类加载器之间的关系如</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235544.png" alt="image-20200922155054517"></p>
 <p>在OSGi中,加载器之间的关系不再是双亲委派模型的树形结构,而是已经进一步发展成一种更为复杂的、运行时才能确定的网状结构。这种网状的类加载器架构在带来更优秀的灵活性的同时,也可能会产生许多新的隐患。例如死锁。</p>
-<h2 id="字节码生成技术与动态代理的实现"><a href="#字节码生成技术与动态代理的实现" class="headerlink" title="字节码生成技术与动态代理的实现"></a>字节码生成技术与动态代理的实现</h2><p>动态代理中所说的“动态”,是相对<strong>使用Java代码实际编写了代理类</strong>的“静态”代理而言的,它的优势不在于省去了编写代理类那一点编码工作量,而是实现了可以在原始类和接口还未知的时候,就确定代理类的代理行为,当代理类与原始类脱离直接联系后,就可以很灵活地重用于不同的应用场景之中。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">;</span>
+<h2 id="字节码生成技术与动态代理的实现"><a class="header-anchor" href="#字节码生成技术与动态代理的实现">¶</a>字节码生成技术与动态代理的实现</h2>
+<p>动态代理中所说的“动态”,是相对<strong>使用Java代码实际编写了代理类</strong>的“静态”代理而言的,它的优势不在于省去了编写代理类那一点编码工作量,而是实现了可以在原始类和接口还未知的时候,就确定代理类的代理行为,当代理类与原始类脱离直接联系后,就可以很灵活地重用于不同的应用场景之中。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">package john.classloader;
 
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationHandler<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Method<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Proxy<span class="token punctuation">;</span>
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
-<span class="token comment" spellcheck="true">/**
+/**
  * @author: honphan.john
  * @date: 2020/9/22 15:57
  * @description:
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DynamicProxyTest</span> <span class="token punctuation">{</span>
-    <span class="token keyword">interface</span> <span class="token class-name">IHello</span> <span class="token punctuation">{</span>
-        <span class="token keyword">void</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Hello</span> <span class="token keyword">implements</span> <span class="token class-name">IHello</span> <span class="token punctuation">{</span>
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">DynamicProxy</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
-        Object originalObj<span class="token punctuation">;</span>
-        Object <span class="token function">bind</span><span class="token punctuation">(</span>Object originalObj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>originalObj <span class="token operator">=</span> originalObj<span class="token punctuation">;</span>
-            <span class="token keyword">return</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span>originalObj<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> originalObj<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"welcome"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>originalObj<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        IHello hello <span class="token operator">=</span> <span class="token punctuation">(</span>IHello<span class="token punctuation">)</span> <span class="token keyword">new</span> <span class="token class-name">DynamicProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        hello<span class="token punctuation">.</span><span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//输出</span>
-<span class="token comment" spellcheck="true">//welcome</span>
-<span class="token comment" spellcheck="true">//hello world</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ */
+public class DynamicProxyTest {
+    interface IHello {
+        void sayHello();
+    }
+    static class Hello implements IHello {
+        @Override
+        public void sayHello() {
+            System.out.println("hello world");
+        }
+    }
+    static class DynamicProxy implements InvocationHandler {
+        Object originalObj;
+        Object bind(Object originalObj) {
+            this.originalObj = originalObj;
+            return Proxy.newProxyInstance(originalObj.getClass().getClassLoader(), originalObj.getClass().getInterfaces(), this);
+        }
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            System.out.println("welcome");
+            return method.invoke(originalObj, args);
+        }
+    }
+    public static void main(String[] args) {
+        IHello hello = (IHello) new DynamicProxy().bind(new Hello());
+        hello.sayHello();
+    }
+}
+//输出
+//welcome
+//hello world
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Proxy::newProxyInstance()方法返回一个实现了<code>IHello</code>的接口,并且代理了<code>new Hello()</code>实例行为的对象。跟踪这个方法的源码,可以看到程序进行过验证、优化、缓存、同步、生成字节码、显式类加载等操作,前面的步骤并不是我们关注的重点,这里只分析它最后调用<code>sun.misc.ProxyGenerator::generateProxyClass()</code>方法来完成生成字节码的动作,这个方法会在运行时产生一个描述代理类的字节码byte[]数组。如果想看一看这个在运行时产生的代理类中写了些什么,可以在main()方法中加入下面这句:</p>
-<pre class="line-numbers language-java"><code class="language-java">System<span class="token punctuation">.</span><span class="token function">getProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"sun.misc.ProxyGenerator.saveGeneratedFiles"</span><span class="token punctuation">,</span> <span class="token string">"true"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>磁盘中将会产生一个名为“$Proxy0.class”的代理类Class文件,反编译后可以看见：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//</span>
-<span class="token comment" spellcheck="true">// Source code recreated from a .class file by IntelliJ IDEA</span>
-<span class="token comment" spellcheck="true">// (powered by FernFlower decompiler)</span>
-<span class="token comment" spellcheck="true">//</span>
+<pre class="line-numbers language-language-java"><code class="language-language-java">//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
-<span class="token keyword">package</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">;</span>
+package john.classloader;
 
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationHandler<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Method<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Proxy<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>UndeclaredThrowableException<span class="token punctuation">;</span>
-<span class="token keyword">import</span> john<span class="token punctuation">.</span>classloader<span class="token punctuation">.</span>DynamicProxyTest<span class="token punctuation">.</span>IHello<span class="token punctuation">;</span>
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.lang.reflect.UndeclaredThrowableException;
+import john.classloader.DynamicProxyTest.IHello;
 
-<span class="token keyword">final</span> <span class="token keyword">class</span> $Proxy0 <span class="token keyword">extends</span> <span class="token class-name">Proxy</span> <span class="token keyword">implements</span> <span class="token class-name">IHello</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> Method m1<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> Method m3<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> Method m2<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> Method m0<span class="token punctuation">;</span>
+final class $Proxy0 extends Proxy implements IHello {
+    private static Method m1;
+    private static Method m3;
+    private static Method m2;
+    private static Method m0;
 
-    <span class="token keyword">public</span> $<span class="token function">Proxy0</span><span class="token punctuation">(</span>InvocationHandler var1<span class="token punctuation">)</span> <span class="token keyword">throws</span>  <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span>var1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public $Proxy0(InvocationHandler var1) throws  {
+        super(var1);
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">)</span> <span class="token keyword">throws</span>  <span class="token punctuation">{</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span><span class="token keyword">super</span><span class="token punctuation">.</span>h<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> m1<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>var1<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">RuntimeException</span> <span class="token operator">|</span> Error var3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> var3<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> var4<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UndeclaredThrowableException</span><span class="token punctuation">(</span>var4<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public final boolean equals(Object var1) throws  {
+        try {
+            return (Boolean)super.h.invoke(this, m1, new Object[]{var1});
+        } catch (RuntimeException | Error var3) {
+            throw var3;
+        } catch (Throwable var4) {
+            throw new UndeclaredThrowableException(var4);
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span>  <span class="token punctuation">{</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">super</span><span class="token punctuation">.</span>h<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> m3<span class="token punctuation">,</span> <span class="token punctuation">(</span>Object<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">RuntimeException</span> <span class="token operator">|</span> Error var2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> var2<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> var3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UndeclaredThrowableException</span><span class="token punctuation">(</span>var3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public final void sayHello() throws  {
+        try {
+            super.h.invoke(this, m3, (Object[])null);
+        } catch (RuntimeException | Error var2) {
+            throw var2;
+        } catch (Throwable var3) {
+            throw new UndeclaredThrowableException(var3);
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">final</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span>  <span class="token punctuation">{</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span>String<span class="token punctuation">)</span><span class="token keyword">super</span><span class="token punctuation">.</span>h<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> m2<span class="token punctuation">,</span> <span class="token punctuation">(</span>Object<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">RuntimeException</span> <span class="token operator">|</span> Error var2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> var2<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> var3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UndeclaredThrowableException</span><span class="token punctuation">(</span>var3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public final String toString() throws  {
+        try {
+            return (String)super.h.invoke(this, m2, (Object[])null);
+        } catch (RuntimeException | Error var2) {
+            throw var2;
+        } catch (Throwable var3) {
+            throw new UndeclaredThrowableException(var3);
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span>  <span class="token punctuation">{</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span>Integer<span class="token punctuation">)</span><span class="token keyword">super</span><span class="token punctuation">.</span>h<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> m0<span class="token punctuation">,</span> <span class="token punctuation">(</span>Object<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">RuntimeException</span> <span class="token operator">|</span> Error var2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> var2<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> var3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UndeclaredThrowableException</span><span class="token punctuation">(</span>var3<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public final int hashCode() throws  {
+        try {
+            return (Integer)super.h.invoke(this, m0, (Object[])null);
+        } catch (RuntimeException | Error var2) {
+            throw var2;
+        } catch (Throwable var3) {
+            throw new UndeclaredThrowableException(var3);
+        }
+    }
 
-    <span class="token keyword">static</span> <span class="token punctuation">{</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            m1 <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Object"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"equals"</span><span class="token punctuation">,</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Object"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            m3 <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"john.classloader.DynamicProxyTest$IHello"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"sayHello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            m2 <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Object"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"toString"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            m0 <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Object"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"hashCode"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchMethodException</span> var2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchMethodError</span><span class="token punctuation">(</span>var2<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassNotFoundException</span> var3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoClassDefFoundError</span><span class="token punctuation">(</span>var3<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    static {
+        try {
+            m1 = Class.forName("java.lang.Object").getMethod("equals", Class.forName("java.lang.Object"));
+            m3 = Class.forName("john.classloader.DynamicProxyTest$IHello").getMethod("sayHello");
+            m2 = Class.forName("java.lang.Object").getMethod("toString");
+            m0 = Class.forName("java.lang.Object").getMethod("hashCode");
+        } catch (NoSuchMethodException var2) {
+            throw new NoSuchMethodError(var2.getMessage());
+        } catch (ClassNotFoundException var3) {
+            throw new NoClassDefFoundError(var3.getMessage());
+        }
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个代理类的实现代码也很简单,它为传入接口中的每一个方法,以及从java.lang.Object中继承来的equals()、hashCode()、toString()方法都生成了对应的实现,并且统一调用了InvocationHandler对象的invoke()方法(代码中的“this.h”就是父类Proxy中保存的InvocationHandler实例变量)来实现这些方法的内容,各个方法的区别不过是传入的参数和Method对象有所不同而已,所以无论调用动态代理的哪一个方法,实际上都是在执行InvocationHandler::invoke()中的代理逻辑。</p>
 
             </div>
@@ -1795,7 +1894,7 @@ jdk<span class="token punctuation">.</span>jconsole<span aria-hidden="true" clas
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="01_运行时数据区">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="01_运行时数据区">
                         
                         <span class="card-title">01_运行时数据区</span>
                     </div>
@@ -1844,7 +1943,7 @@ jdk<span class="token punctuation">.</span>jconsole<span aria-hidden="true" clas
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="07_直接内存">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="07_直接内存">
                         
                         <span class="card-title">07_直接内存</span>
                     </div>
@@ -2012,7 +2111,7 @@ jdk<span class="token punctuation">.</span>jconsole<span aria-hidden="true" clas
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

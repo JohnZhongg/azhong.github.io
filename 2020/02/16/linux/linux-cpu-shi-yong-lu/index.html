@@ -331,7 +331,7 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,8 +511,11 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
             <div id="articleContent">
                 <p>在Linux下面，可以通过top命令看到CPU的负载情况，其输出大概如下（只摘录CPU部分）：</p>
 <pre><code>top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
-%Cpu(s):  2.5 us,  1.8 sy,  3.1 ni, 90.5 id,  1.7 wa,  0.0 hi,  0.4 si,  0.0 st</code></pre><p>这里的load average以及缩写的us、sy、ni、id、wa、hi、si、st都是些什么意思呢？这些值在一个什么样的区间比较合理呢？如果值超过了合理区间，应该怎么处理呢？这篇将来聊聊这些问题。</p>
-<h2 id="load-average"><a href="#load-average" class="headerlink" title="load average"></a>load average</h2><p>load average代表CPU的平均负载值，上面示例中的<code>load average: 0.00, 0.03, 0.00</code>分别表示当前CPU在1分钟、5分钟和15分钟内的平均负载。这些负载值是怎么来的呢？</p>
+%Cpu(s):  2.5 us,  1.8 sy,  3.1 ni, 90.5 id,  1.7 wa,  0.0 hi,  0.4 si,  0.0 st
+</code></pre>
+<p>这里的load average以及缩写的us、sy、ni、id、wa、hi、si、st都是些什么意思呢？这些值在一个什么样的区间比较合理呢？如果值超过了合理区间，应该怎么处理呢？这篇将来聊聊这些问题。</p>
+<h2 id="load-average"><a class="header-anchor" href="#load-average">¶</a>load average</h2>
+<p>load average代表CPU的平均负载值，上面示例中的<code>load average: 0.00, 0.03, 0.00</code>分别表示当前CPU在1分钟、5分钟和15分钟内的平均负载。这些负载值是怎么来的呢？</p>
 <p>这些数据来自于文件/proc/loadavg，内核会负责统计出这些数据。</p>
 <p>top和uptime命令显示的内容就来自于这个文件，那么这里所谓的平均负载是个什么概念？ 根据proc的<a href="http://man7.org/linux/man-pages/man5/proc.5.html" target="_blank" rel="noopener">帮助文件</a>可知，这里的值就是单位时间内处于运行状态以及等待disk I/O状态的平均job数量。这里的运行状态和job都是内核的概念，这里简单澄清一下：</p>
 <ul>
@@ -528,7 +531,8 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
 </ul>
 <p>从上面可以看出，一旦大于1，就说明job得不到及时调度，系统性能将受影响。对于多核来说，由于一次可以调度多个job，所以大于1不一定有问题，以4核CPU为例，该值大于4才说明CPU忙不过来。</p>
 <p>那这个平均负载保持在多少比较合适呢？其实没有一个标准值，但一般的做法是预留一定的空间来应对系统负载的波动，建议控制在“0.7<em>核数”以内，比如4核，那么0.7</em>4=2.8比较合适，一旦超过这个值，需要分析原因并着手解决。</p>
-<h2 id="Cpu-s"><a href="#Cpu-s" class="headerlink" title="%Cpu(s)"></a>%Cpu(s)</h2><p>load average通过统计等待运行的平均job数量来推断CPU的繁忙程度，而%Cpu(s)则直接统计CPU处于不同状态的时间，比上面的load average更直观，所以在实际上也被使用的更多。</p>
+<h2 id="Cpu-s"><a class="header-anchor" href="#Cpu-s">¶</a>%Cpu(s)</h2>
+<p>load average通过统计等待运行的平均job数量来推断CPU的繁忙程度，而%Cpu(s)则直接统计CPU处于不同状态的时间，比上面的load average更直观，所以在实际上也被使用的更多。</p>
 <p>总体来说，CPU会处于下面三种状态中的一种：</p>
 <ul>
 <li>Idle： 处于空闲状态，没有任务需要调度</li>
@@ -546,7 +550,8 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
 <li><strong>0.0 st</strong>　： %st和虚拟机有关，当系统运行在虚拟机中时，当前虚拟机就会和宿主机以及其它的虚拟机共享CPU，%st就表示当前虚拟机在等待CPU为它服务的时间。该值越大，表示物理CPU被宿主机和其它虚拟机占用的时间越长，导致当前虚拟机得不到充足的CPU资源。如果%st长时间大于0，说明CPU资源得不到满足，这时可以考虑将虚拟机移到其它机器上，或者减少当前机器运行的虚拟机数量。</li>
 </ul>
 <p>上面这些统计项的总和等于100%，除了%idle之外，其它的任何一项数值过高都代表系统有问题，需要具体问题具体分析。</p>
-<h2 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h2><ul>
+<h2 id="问题处理"><a class="header-anchor" href="#问题处理">¶</a>问题处理</h2>
+<ul>
 <li><strong>%us过高</strong> ： 表示有用户态进程占用了过多的CPU，通过top命令可以很清楚的看到是哪个进程，如果这不是预期的行为，可以通过kill命令杀死相应的进程或者重启它</li>
 <li><strong>%sy过高</strong> ： 如果只是偶尔过高的话，不用担心，但如果是持续走高的话，就需要重视，有可能是某些进程的系统调用太频繁，比如进程不停的往控制台输出日志，但如果用户态的进程都没有问题，那可能是内核里面的代码出现了问题，尤其是代码写的不好的驱动模块</li>
 <li><strong>%ni过高</strong> ： 说明有人用nice程序运行了比较耗CPU的进程。如果niceness值大于0的话，就没什么好担心的，因为它的优先级比默认优先级要低，不会影响CPU性能，但最好还是确认一下该进程不会抢占系统的其它资源，如内存、磁盘I/O等，避免对系统整体性能造成影响。如果niceness值小于0的话，表示该进程优先级高且占用CPU资源多，需要确保该进程占用的CPU资源是符合预期的，如果不是，可以用top命令把它找出来并kill掉或者重启。</li>
@@ -554,8 +559,10 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
 <li><strong>%hi或者%si过高</strong> ： %hi过高一般是硬件出问题了，%si过高一般是内核里面的代码出问题了</li>
 <li><strong>%st 过高</strong> ： 正如上面介绍介绍的那样，%st过高表示当前虚拟机得不到足够的CPU资源。这时可以考虑将当前虚拟机搬迁到其它的主机上，或者想办法降低当前主机的负载，比如关掉一些其它的虚拟机。</li>
 </ul>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>load average和%Cpu(s)以不同的方式给出了当前主机的CPU负载情况，通过%Cpu(s)我们可以看到系统当前的实时负载，现在很多监控系统每隔一段时间都会采集一次%Cpu(s)，然后存储起来以图形的方式展示出来，这样就能很直观的看到CPU负载的变化，当然如果没有这样的监控系统的话，通过load average也能大概的知道最近一段时间内的平均负载（最长15分钟）。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>load average和%Cpu(s)以不同的方式给出了当前主机的CPU负载情况，通过%Cpu(s)我们可以看到系统当前的实时负载，现在很多监控系统每隔一段时间都会采集一次%Cpu(s)，然后存储起来以图形的方式展示出来，这样就能很直观的看到CPU负载的变化，当然如果没有这样的监控系统的话，通过load average也能大概的知道最近一段时间内的平均负载（最长15分钟）。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="http://www.howtogeek.com/194642/understanding-the-load-average-on-linux-and-other-unix-like-systems/" target="_blank" rel="noopener">Understanding the Load Average on Linux and Other Unix-like Systems</a></li>
 <li><a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages" target="_blank" rel="noopener">Understanding Linux CPU Load</a></li>
 <li><a href="http://blog.scoutapp.com/articles/2015/02/24/understanding-linuxs-cpu-stats" target="_blank" rel="noopener">Understanding Linux CPU stats</a></li>
@@ -1052,7 +1059,7 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Btrfs文件系统之subvolume与snapshot">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Btrfs文件系统之subvolume与snapshot">
                         
                         <span class="card-title">Btrfs文件系统之subvolume与snapshot</span>
                     </div>
@@ -1101,7 +1108,7 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux OOM Killer">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux OOM Killer">
                         
                         <span class="card-title">Linux OOM Killer</span>
                     </div>
@@ -1269,7 +1276,7 @@ top - 01:24:41 up 6 min,  2 users,  load average: 0.00, 0.03, 0.00
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

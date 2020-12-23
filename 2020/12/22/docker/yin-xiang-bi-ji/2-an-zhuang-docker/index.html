@@ -9,7 +9,8 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[TOC]
-总览Docker的安装既快又简单。目前, Docker已经支持非常多的 Linux平台,包括 Ubuntu 和RHEL( Red Hat Enterprise Linux, Red Hat企业版 Linux)。除此之外, Doc">
+总览
+Docker的安装既快又简单。目前, Docker已经支持非常多的 Linux平台,包括 Ubuntu 和RHEL( Red Hat Enterprise Linux, Red Hat企业版 Linux)。除此之外, Do">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -330,7 +331,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -509,99 +510,188 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[TOC]</p>
-<h1 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h1><p>Docker的安装既快又简单。目前, Docker已经支持非常多的 <strong>Linux平台</strong>,包括 Ubuntu 和RHEL( Red Hat Enterprise Linux, Red Hat企业版 Linux)。除此之外, Docker还支持 Debian、Centos、 Fedora、 Oracle Linux等衍生系统和相关的发行版。<strong>如果使用虚拟环境</strong>,甚至也可以在OSX和 Microsoft Windows中运行 Docker。下面的安装介绍主要包括：</p>
+<h1>总览</h1>
+<p>Docker的安装既快又简单。目前, Docker已经支持非常多的 <strong>Linux平台</strong>,包括 Ubuntu 和RHEL( Red Hat Enterprise Linux, Red Hat企业版 Linux)。除此之外, Docker还支持 Debian、Centos、 Fedora、 Oracle Linux等衍生系统和相关的发行版。<strong>如果使用虚拟环境</strong>,甚至也可以在OSX和 Microsoft Windows中运行 Docker。下面的安装介绍主要包括：</p>
 <ul>
-<li>在运行 Ubuntu系统的宿主机中安装 Docker </li>
-<li>在运行RHEL或其衍生的 Linux发行版的宿主机中安装 Docker </li>
+<li>在运行 Ubuntu系统的宿主机中安装 Docker</li>
+<li>在运行RHEL或其衍生的 Linux发行版的宿主机中安装 Docker</li>
 <li>在OSX系统中用<strong>Boot2Docker</strong>工具安装 Docker:</li>
 <li>在 Microsoft Windows系统中使用<strong>Boot2Docker</strong>工具安装 Docker</li>
 </ul>
 <blockquote>
 <p><a href="http://boot2docker.io" target="_blank" rel="noopener">Boot2Docker</a>是一个极小的虚拟机,同时提供了一个包装脚本( wrapper scnpt)对该虚拟机进行管理。该虚拟机运行一个守护进程,并在OSX或 Microsoft Windows中提供一个本地的 Docker守护进程。 Docker的客户端工具 docker可以作为这些平台的原生程序安装,并连接到在Boo2 Docker虚拟机中运行的 Docker守护进程。</p>
 </blockquote>
-<h1 id="安装-docker-的先决条件"><a href="#安装-docker-的先决条件" class="headerlink" title="安装 docker 的先决条件"></a>安装 docker 的先决条件</h1><p>和安装其他软件一样,安装 Docker也需要一些基本的前提条件。 Docker要求的条件具体如下。</p>
+<h1>安装 docker 的先决条件</h1>
+<p>和安装其他软件一样,安装 Docker也需要一些基本的前提条件。 Docker要求的条件具体如下。</p>
 <ul>
-<li><p>运行64位CPU构架的计算机(目前只能是x8664和amd64),请注意, Docker日前不支持32位CPU。</p>
+<li>
+<p>运行64位CPU构架的计算机(目前只能是x8664和amd64),请注意, Docker日前不支持32位CPU。</p>
 </li>
-<li><p>运行 Linux3.8或更高版本内核。一些老版本的2.6.x或其后的内核也能够运行 Docker, 但运行结果会有很大的不同。而且,如果你需要就老版本内核寻求帮助时,通常大家会建议你升级到更高版本的内核。</p>
+<li>
+<p>运行 Linux3.8或更高版本内核。一些老版本的2.6.x或其后的内核也能够运行 Docker, 但运行结果会有很大的不同。而且,如果你需要就老版本内核寻求帮助时,通常大家会建议你升级到更高版本的内核。</p>
 </li>
-<li><p>内核必须支持一种适合的存储驱动( storage driver), 例如：</p>
+<li>
+<p>内核必须支持一种适合的存储驱动( storage driver), 例如：</p>
 <ul>
-<li><p>DeviceManager </p>
-</li>
-<li><p>AUFS </p>
-</li>
-<li><p>vfs</p>
-</li>
-<li><p>btrfs</p>
+<li>DeviceManager</li>
+<li>AUFS</li>
+<li>vfs</li>
+<li>btrfs</li>
+</ul>
 <p>默认存储驱动通常是 Device Mapper。</p>
 </li>
-</ul>
+<li>
+<p>内核必须支持并开启 cgroup和命名空间(namespace)功能。</p>
 </li>
-<li><p>内核必须支持并开启 cgroup和命名空间(namespace)功能。</p>
-</li>
 </ul>
-<h1 id="在-Ubuntu-中安装-Docker"><a href="#在-Ubuntu-中安装-Docker" class="headerlink" title="在 Ubuntu 中安装 Docker"></a>在 Ubuntu 中安装 Docker</h1><h2 id="1-检查前提条件"><a href="#1-检查前提条件" class="headerlink" title="1.检查前提条件"></a>1.检查前提条件</h2><h3 id="1-1-内核"><a href="#1-1-内核" class="headerlink" title="1.1 内核"></a>1.1 内核</h3><p>首先,确认已经安装了能满足要求的 Linux内核。可以通过 uname命令来检查内核版本信息</p>
+<h1>在 Ubuntu 中安装 Docker</h1>
+<h2 id="1-检查前提条件"><a class="header-anchor" href="#1-检查前提条件">¶</a>1.检查前提条件</h2>
+<h3 id="1-1-内核"><a class="header-anchor" href="#1-1-内核">¶</a>1.1 内核</h3>
+<p>首先,确认已经安装了能满足要求的 Linux内核。可以通过 uname命令来检查内核版本信息</p>
 <pre><code>$ uname -a
-Linux darknight.example.com 3.8.0-23-generic #34-precisel-ubuntu SMP Wed May 29 21:12:31 UTC 2013 x86_64 X86_64 x86_64 GNU/ Linux</code></pre><p>可以看到,这里安装的是3.8.0x86_64版本的内核。这是 Ubuntu12.04.3及更高版本(包括 Ubuntu13.04 Raring)默认的内核但是,如果我们使用 Ubuntu12.04 Precise较早的发行版,可能是3.2内核。我们也可以轻松地把 Ubuntu2.04升级到最新的内核。例如,本书写作时,3.8版本的内核已经可以用apt-get来安装了:</p>
+Linux darknight.example.com 3.8.0-23-generic #34-precisel-ubuntu SMP Wed May 29 21:12:31 UTC 2013 x86_64 X86_64 x86_64 GNU/ Linux
+</code></pre>
+<p>可以看到,这里安装的是3.8.0x86_64版本的内核。这是 Ubuntu12.04.3及更高版本(包括 Ubuntu13.04 Raring)默认的内核但是,如果我们使用 Ubuntu12.04 Precise较早的发行版,可能是3.2内核。我们也可以轻松地把 Ubuntu2.04升级到最新的内核。例如,本书写作时,3.8版本的内核已经可以用apt-get来安装了:</p>
 <pre><code>$ sudo apt-get update
 $ sudo apt-get install linux-headers-3.8.0-27-generic
-linux-image-3.8.0-27-generic linux-headers-3.8.0-27</code></pre><p>然后，我们就可以更新 Grub 启动加载器来加载新内核：</p>
-<pre><code>sudo update-grub</code></pre><p>完成安装后，需要重启宿主机来启动新的3.8内核：</p>
-<pre><code>sudo reboot</code></pre><p>重启之后，我们可以再次使用<code>uanme -a</code>来确定已经运行了正确版本的内核。</p>
-<h3 id="1-2-检查Device-Mapper"><a href="#1-2-检查Device-Mapper" class="headerlink" title="1.2 检查Device Mapper"></a>1.2 检查Device Mapper</h3><p>这里我们将使用 Device Mapper作为存储驱动。自2.6.9版本的 Linux内核开始已经集成了 Device Mapper,并且提供了一个将块设备映射到高级虚拟设备的方法。 Device Mapper支持“自动精简配置”(thin-provisioning)的概念,可以在一种文件系统中存储多台虚拟设备( Docker镜像中的层)。因此,用 Device Mapper作为 Docker 的存储驱动是再合适不过了。<br>任何 Ubuntu12.04或更高版本的宿主机应该都已经安装了 Device Mapper,可以通过以下代码来确认是否已经安装：</p>
+linux-image-3.8.0-27-generic linux-headers-3.8.0-27
+</code></pre>
+<p>然后，我们就可以更新 Grub 启动加载器来加载新内核：</p>
+<pre><code>sudo update-grub
+</code></pre>
+<p>完成安装后，需要重启宿主机来启动新的3.8内核：</p>
+<pre><code>sudo reboot
+</code></pre>
+<p>重启之后，我们可以再次使用<code>uanme -a</code>来确定已经运行了正确版本的内核。</p>
+<h3 id="1-2-检查Device-Mapper"><a class="header-anchor" href="#1-2-检查Device-Mapper">¶</a>1.2 检查Device Mapper</h3>
+<p>这里我们将使用 Device Mapper作为存储驱动。自2.6.9版本的 Linux内核开始已经集成了 Device Mapper,并且提供了一个将块设备映射到高级虚拟设备的方法。 Device Mapper支持“自动精简配置”(thin-provisioning)的概念,可以在一种文件系统中存储多台虚拟设备( Docker镜像中的层)。因此,用 Device Mapper作为 Docker 的存储驱动是再合适不过了。<br>
+任何 Ubuntu12.04或更高版本的宿主机应该都已经安装了 Device Mapper,可以通过以下代码来确认是否已经安装：</p>
 <pre><code>$ ls -l /sys/class/misc/device-mapper
-lrwxrwxrwx 1 root root 0 Oct 5 18:50 /sys/class/misc/device-mapper -&gt; ../../devices/virtual/misc/device-mapper</code></pre><p>也可以在/proc/devices文件中检査是否有 device-mapper条目</p>
-<pre><code>$ sudo grep device-mapper /proc/devices</code></pre><p>如果没有出现 device-mapper 的相关信息，我们也可以尝试加载 dm_mode 模块：</p>
-<pre><code>$ sudo modprobe dm_mod</code></pre><p>cgroup和命名空间自2.6版本开始己经集成在Linux内核中了。2.6.38以后的内核对cgroup和命名空间都提供了良好的支持,基本上也没有什么bug。</p>
-<h2 id="2-安装-Docker"><a href="#2-安装-Docker" class="headerlink" title="2.安装 Docker"></a>2.安装 Docker</h2><p>现在“万事俱备,只欠东风”。我们将使用 Docker团队提供的DEB软件包来安装 Docker 首先,要添加 Docker的APT仓库。</p>
-<pre><code>$ sudo sh -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;</code></pre><p>其间,可能会提示我们确认添加仓库并自动将仓库的GPG添加到宿主机中。<br>安装之前，我们首先需要确认已经安装了 curl 命令</p>
+lrwxrwxrwx 1 root root 0 Oct 5 18:50 /sys/class/misc/device-mapper -&gt; ../../devices/virtual/misc/device-mapper
+</code></pre>
+<p>也可以在/proc/devices文件中检査是否有 device-mapper条目</p>
+<pre><code>$ sudo grep device-mapper /proc/devices
+</code></pre>
+<p>如果没有出现 device-mapper 的相关信息，我们也可以尝试加载 dm_mode 模块：</p>
+<pre><code>$ sudo modprobe dm_mod
+</code></pre>
+<p>cgroup和命名空间自2.6版本开始己经集成在Linux内核中了。2.6.38以后的内核对cgroup和命名空间都提供了良好的支持,基本上也没有什么bug。</p>
+<h2 id="2-安装-Docker"><a class="header-anchor" href="#2-安装-Docker">¶</a>2.安装 Docker</h2>
+<p>现在“万事俱备,只欠东风”。我们将使用 Docker团队提供的DEB软件包来安装 Docker 首先,要添加 Docker的APT仓库。</p>
+<pre><code>$ sudo sh -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;
+</code></pre>
+<p>其间,可能会提示我们确认添加仓库并自动将仓库的GPG添加到宿主机中。<br>
+安装之前，我们首先需要确认已经安装了 curl 命令</p>
 <pre><code>whereis curl
-curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz</code></pre><p>如果没有找到 curl 命令，我们需要先安装它</p>
-<pre><code>$ sudo apt-get -y install curl</code></pre><p>接下来，要添加 Docker 仓库的 GPG 密钥</p>
-<pre><code>$ curl -s https://get.docker.io/gpg | sudo apt-key add -</code></pre><p>之后，我们需要更新 APT 源</p>
-<pre><code>$ sudo apt-get update</code></pre><p>现在，我们就可以安装 Docker 软件包了</p>
-<pre><code>$ sudo apt-get install lxc-docker</code></pre><p>执行该命令后，系统会安装 Docker 软件包以及一些必需的软件包。<br>安装完毕，可以使用 docker info 命令来确认 Docker 是否已经正常安装并运行了。</p>
-<h2 id="3-Docker-与-UFW"><a href="#3-Docker-与-UFW" class="headerlink" title="3.Docker 与 UFW"></a>3.Docker 与 UFW</h2><p>在 Ubuntu 中，如果使用 UFW，即 Uncomplicated Firewall，那么还需要对其做一点儿改动才能让 Docker工作。 Docker使用一个网桥来管理容器中的网络。默认情况下,UFW会丢弃所有转发的数据包(也称分组)。因此,需要在UFW中启用数据包的转发,这样オ能让Docker正常运行。我们只需要对/etc/ default/ufw文件做一些改动即可。我们需要将这个文件中以下代码</p>
-<pre><code>DEFAULT_FORWARD_POLICY=&quot;DROP&quot;</code></pre><p>替换为</p>
-<pre><code>DEFAULT_FORWARD_POLICY=&quot;ACCEPT&quot;</code></pre><p>保存修改内容并重新加载 UFW 即可：</p>
-<pre><code>$ sudo ufw reload</code></pre><h1 id="在-Red-Hat-和-Red-Hat-系发行版中安装-Docker"><a href="#在-Red-Hat-和-Red-Hat-系发行版中安装-Docker" class="headerlink" title="在 Red Hat 和 Red Hat 系发行版中安装 Docker"></a>在 Red Hat 和 Red Hat 系发行版中安装 Docker</h1><p>在 Red Hat 企业版 Linux（或者 CentOs 或Fedora）中，只有少数几个版本可以安装 Docker，包括：</p>
+curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz
+</code></pre>
+<p>如果没有找到 curl 命令，我们需要先安装它</p>
+<pre><code>$ sudo apt-get -y install curl
+</code></pre>
+<p>接下来，要添加 Docker 仓库的 GPG 密钥</p>
+<pre><code>$ curl -s https://get.docker.io/gpg | sudo apt-key add -
+</code></pre>
+<p>之后，我们需要更新 APT 源</p>
+<pre><code>$ sudo apt-get update
+</code></pre>
+<p>现在，我们就可以安装 Docker 软件包了</p>
+<pre><code>$ sudo apt-get install lxc-docker
+</code></pre>
+<p>执行该命令后，系统会安装 Docker 软件包以及一些必需的软件包。<br>
+安装完毕，可以使用 docker info 命令来确认 Docker 是否已经正常安装并运行了。</p>
+<h2 id="3-Docker-与-UFW"><a class="header-anchor" href="#3-Docker-与-UFW">¶</a>3.Docker 与 UFW</h2>
+<p>在 Ubuntu 中，如果使用 UFW，即 Uncomplicated Firewall，那么还需要对其做一点儿改动才能让 Docker工作。 Docker使用一个网桥来管理容器中的网络。默认情况下,UFW会丢弃所有转发的数据包(也称分组)。因此,需要在UFW中启用数据包的转发,这样オ能让Docker正常运行。我们只需要对/etc/ default/ufw文件做一些改动即可。我们需要将这个文件中以下代码</p>
+<pre><code>DEFAULT_FORWARD_POLICY=&quot;DROP&quot;
+</code></pre>
+<p>替换为</p>
+<pre><code>DEFAULT_FORWARD_POLICY=&quot;ACCEPT&quot;
+</code></pre>
+<p>保存修改内容并重新加载 UFW 即可：</p>
+<pre><code>$ sudo ufw reload
+</code></pre>
+<h1>在 Red Hat 和 Red Hat 系发行版中安装 Docker</h1>
+<p>在 Red Hat 企业版 Linux（或者 CentOs 或Fedora）中，只有少数几个版本可以安装 Docker，包括：</p>
 <ul>
 <li>RHEL（和 CentOS）6或以上的版本（64位）</li>
 <li>Fedora Core19或者以上的版本（64位）</li>
-<li>Oracle Linux 6 和 Oracle Linux 7，带有 Unbreakable 企业内核发行版3（3.8.13）或者更高版本（64位）<blockquote>
+<li>Oracle Linux 6 和 Oracle Linux 7，带有 Unbreakable 企业内核发行版3（3.8.13）或者更高版本（64位）</li>
+</ul>
+<blockquote>
 <p>在 Red Hat企业版 Linux7及更高版本中, Docker已经成为系统自带的软件包了,并且, 只有 Red Hat企业版 Linux7是 Red Hat官方支持 Docker的发行版本。</p>
 </blockquote>
-</li>
-</ul>
-<h2 id="1-检查前提条件-1"><a href="#1-检查前提条件-1" class="headerlink" title="1.检查前提条件"></a>1.检查前提条件</h2><h3 id="1-1-内核-1"><a href="#1-1-内核-1" class="headerlink" title="1.1 内核"></a>1.1 内核</h3><p>使用<code>uname</code>命令来确认是否安装了3.8后者更高的内核版本</p>
-<h3 id="1-2-检查-Device-Mapper"><a href="#1-2-检查-Device-Mapper" class="headerlink" title="1.2 检查 Device Mapper"></a>1.2 检查 Device Mapper</h3><p>我们这里使用 Device Mapper 作为 Docker 的存储驱动，在 RedHat 企业版 Linux、CentOS6或Fedora Core 19及更高版本宿主机中，应该也都安装了 DeviceMapper，不过还是需要确认以下：</p>
+<h2 id="1-检查前提条件-v2"><a class="header-anchor" href="#1-检查前提条件-v2">¶</a>1.检查前提条件</h2>
+<h3 id="1-1-内核-v2"><a class="header-anchor" href="#1-1-内核-v2">¶</a>1.1 内核</h3>
+<p>使用<code>uname</code>命令来确认是否安装了3.8后者更高的内核版本</p>
+<h3 id="1-2-检查-Device-Mapper"><a class="header-anchor" href="#1-2-检查-Device-Mapper">¶</a>1.2 检查 Device Mapper</h3>
+<p>我们这里使用 Device Mapper 作为 Docker 的存储驱动，在 RedHat 企业版 Linux、CentOS6或Fedora Core 19及更高版本宿主机中，应该也都安装了 DeviceMapper，不过还是需要确认以下：</p>
 <pre><code>$ ls 0l /sys/class/misc/device-mapper
-lrwxrwxrwx 1 root root 0 Oct 5 18:50 /sys/class/misc/device-mapper -&gt; ../../devices/virtual/misc/device-mapper</code></pre><p>同样，也可以在/proc/devices文件中检查是否有 device-mapper 条目：</p>
-<pre><code>$ sudo grep device-mapper /proc/devices</code></pre><p>如果没有检测到 Device Mapper，我们可以试着安装 Device-mapper 软件包：</p>
-<pre><code>$ sudo yum install -y device-mapper</code></pre><p>安装完成后，还需要加载 dm_mod内核模块：</p>
-<pre><code>$ sudo modprobe dm_mod</code></pre><p>模块加载完毕，我们就应该可以找到/sys/class/misc/device-mapper 条目了。</p>
-<h2 id="2-安装-Docker-1"><a href="#2-安装-Docker-1" class="headerlink" title="2.安装 Docker"></a>2.安装 Docker</h2><p>在不同版本的 RedHat 中，安装过程略有不同。在 RHEL6或者 CentOS6中，需要先添加 EPEL 软件包的仓库。而 Fedora中则不需要启用EPEL仓库。在不同的平台和版本中,软件包命名也有细微的差别。</p>
-<h3 id="2-1-在RHEL6和-CentOS6中安装-Docker"><a href="#2-1-在RHEL6和-CentOS6中安装-Docker" class="headerlink" title="2.1 在RHEL6和 CentOS6中安装 Docker"></a>2.1 在RHEL6和 CentOS6中安装 Docker</h3><p>对于 RedHat 企业版 Linux6和 CentOS6，可以使用以下指令的 RPM软件包来安装 EPEL：</p>
-<pre><code>sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm</code></pre><p>安装完 EPEL 后，就可以安装 Docker 了</p>
-<pre><code>sudo yum -y install docker-io</code></pre><h3 id="2-2-在-RHEL7-中安装Docker"><a href="#2-2-在-RHEL7-中安装Docker" class="headerlink" title="2.2 在 RHEL7 中安装Docker"></a>2.2 在 RHEL7 中安装Docker</h3><p>略</p>
-<h3 id="2-3-在-Fedora-中安装Docker"><a href="#2-3-在-Fedora-中安装Docker" class="headerlink" title="2.3 在 Fedora 中安装Docker"></a>2.3 在 Fedora 中安装Docker</h3><p>在不同版本的 Fedora 中，软件包的名称有所不同。在 Fedora 19中，要安装 docker-io 这个软件包：</p>
-<pre><code>$ sudo yum -y install docker-ioo</code></pre><p>在 Fedora20或更高的版本中，软件包的名称已经改为 docker：</p>
-<pre><code>$ sudo yum -y install docker</code></pre><h2 id="3-在-Red-Hat-系发行版中启动-Docker-守护进程"><a href="#3-在-Red-Hat-系发行版中启动-Docker-守护进程" class="headerlink" title="3.在 Red Hat 系发行版中启动 Docker 守护进程"></a>3.在 Red Hat 系发行版中启动 Docker 守护进程</h2><p>软件包安装完成后就可以启动 Docker 守护进程了。在 RHEL6或CentOS6中：</p>
-<pre><code>$ sudo service docker start</code></pre><p>想要在系统开机时自动启动 Docker服务</p>
-<pre><code>$ sudo service docker enable</code></pre><p>在RHEL7或Fedora中启动 Docker 服务</p>
-<pre><code>$ sudo systemctl start docker</code></pre><p>想要在系统开机自动启动 Docker 服务：</p>
-<pre><code>$ sudo systemctl enable docker</code></pre><p> 完成上述工作之后，就可以用 docker info命令来确认 Docker 是否已经正确安装并运行了：</p>
+lrwxrwxrwx 1 root root 0 Oct 5 18:50 /sys/class/misc/device-mapper -&gt; ../../devices/virtual/misc/device-mapper
+</code></pre>
+<p>同样，也可以在/proc/devices文件中检查是否有 device-mapper 条目：</p>
+<pre><code>$ sudo grep device-mapper /proc/devices
+</code></pre>
+<p>如果没有检测到 Device Mapper，我们可以试着安装 Device-mapper 软件包：</p>
+<pre><code>$ sudo yum install -y device-mapper
+</code></pre>
+<p>安装完成后，还需要加载 dm_mod内核模块：</p>
+<pre><code>$ sudo modprobe dm_mod
+</code></pre>
+<p>模块加载完毕，我们就应该可以找到/sys/class/misc/device-mapper 条目了。</p>
+<h2 id="2-安装-Docker-v2"><a class="header-anchor" href="#2-安装-Docker-v2">¶</a>2.安装 Docker</h2>
+<p>在不同版本的 RedHat 中，安装过程略有不同。在 RHEL6或者 CentOS6中，需要先添加 EPEL 软件包的仓库。而 Fedora中则不需要启用EPEL仓库。在不同的平台和版本中,软件包命名也有细微的差别。</p>
+<h3 id="2-1-在RHEL6和-CentOS6中安装-Docker"><a class="header-anchor" href="#2-1-在RHEL6和-CentOS6中安装-Docker">¶</a>2.1 在RHEL6和 CentOS6中安装 Docker</h3>
+<p>对于 RedHat 企业版 Linux6和 CentOS6，可以使用以下指令的 RPM软件包来安装 EPEL：</p>
+<pre><code>sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+</code></pre>
+<p>安装完 EPEL 后，就可以安装 Docker 了</p>
+<pre><code>sudo yum -y install docker-io
+</code></pre>
+<h3 id="2-2-在-RHEL7-中安装Docker"><a class="header-anchor" href="#2-2-在-RHEL7-中安装Docker">¶</a>2.2 在 RHEL7 中安装Docker</h3>
+<p>略</p>
+<h3 id="2-3-在-Fedora-中安装Docker"><a class="header-anchor" href="#2-3-在-Fedora-中安装Docker">¶</a>2.3 在 Fedora 中安装Docker</h3>
+<p>在不同版本的 Fedora 中，软件包的名称有所不同。在 Fedora 19中，要安装 docker-io 这个软件包：</p>
+<pre><code>$ sudo yum -y install docker-ioo
+</code></pre>
+<p>在 Fedora20或更高的版本中，软件包的名称已经改为 docker：</p>
+<pre><code>$ sudo yum -y install docker
+</code></pre>
+<h2 id="3-在-Red-Hat-系发行版中启动-Docker-守护进程"><a class="header-anchor" href="#3-在-Red-Hat-系发行版中启动-Docker-守护进程">¶</a>3.在 Red Hat 系发行版中启动 Docker 守护进程</h2>
+<p>软件包安装完成后就可以启动 Docker 守护进程了。在 RHEL6或CentOS6中：</p>
+<pre><code>$ sudo service docker start
+</code></pre>
+<p>想要在系统开机时自动启动 Docker服务</p>
+<pre><code>$ sudo service docker enable
+</code></pre>
+<p>在RHEL7或Fedora中启动 Docker 服务</p>
+<pre><code>$ sudo systemctl start docker
+</code></pre>
+<p>想要在系统开机自动启动 Docker 服务：</p>
+<pre><code>$ sudo systemctl enable docker
+</code></pre>
+<p>完成上述工作之后，就可以用 docker info命令来确认 Docker 是否已经正确安装并运行了：</p>
 <pre><code>$ sudo docker info
 Containers: 0
 Image: 0
-...</code></pre><h1 id="在-OS-X-中安装-Boot2Docker"><a href="#在-OS-X-中安装-Boot2Docker" class="headerlink" title="在 OS X 中安装 Boot2Docker"></a>在 OS X 中安装 Boot2Docker</h1><p>如果使用的是OSX系统,则可以使用 Boot2Docker工具快速上手 Docker, Boot2Docker 是一个极小的虚拟机,Boot2Docker在OSX宿主机上安装了一个原生的命令行工具,并提供了一个 Docker环境。<br>要在 OS X中安装Boot2，也依赖于两个必要的条件：</p>
+...
+</code></pre>
+<h1>在 OS X 中安装 Boot2Docker</h1>
+<p>如果使用的是OSX系统,则可以使用 Boot2Docker工具快速上手 Docker, Boot2Docker 是一个极小的虚拟机,Boot2Docker在OSX宿主机上安装了一个原生的命令行工具,并提供了一个 Docker环境。<br>
+要在 OS X中安装Boot2，也依赖于两个必要的条件：</p>
 <ul>
 <li>VirtualBox</li>
-<li>Docker 客户端<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h2>下载最新的 Boot2Docker：<pre><code>$ wget https://github.com/boot2docker/osx-installer/release/download/v1.3.0/Boot2Docker-1.3.0.pkg</code></pre><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205224.png" alt="aeadebfeeb9f48a7c7d496d936ae0b41"><br>如上图进行安装</li>
+<li>Docker 客户端</li>
 </ul>
-<h2 id="2-启动"><a href="#2-启动" class="headerlink" title="2 启动"></a>2 启动</h2><p>安装完之后单击Boot2Docker 图标来初始化并启动 Boot2Docker 虚拟机：<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205242.png" alt="29842b7f4a5d0806d4fdf498050b4f06"></p>
-<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3 测试"></a>3 测试</h2><p>使用本机的Docker 客户端连接到 Boot2Docker 虚拟机中运行的 Docker 守护进程：</p>
+<h2 id="1-安装"><a class="header-anchor" href="#1-安装">¶</a>1 安装</h2>
+<p>下载最新的 Boot2Docker：</p>
+<pre><code>$ wget https://github.com/boot2docker/osx-installer/release/download/v1.3.0/Boot2Docker-1.3.0.pkg
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205224.png" alt="aeadebfeeb9f48a7c7d496d936ae0b41"><br>
+如上图进行安装</p>
+<h2 id="2-启动"><a class="header-anchor" href="#2-启动">¶</a>2 启动</h2>
+<p>安装完之后单击Boot2Docker 图标来初始化并启动 Boot2Docker 虚拟机：<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205242.png" alt="29842b7f4a5d0806d4fdf498050b4f06"></p>
+<h2 id="3-测试"><a class="header-anchor" href="#3-测试">¶</a>3 测试</h2>
+<p>使用本机的Docker 客户端连接到 Boot2Docker 虚拟机中运行的 Docker 守护进程：</p>
 <pre><code>$ Docker info
 Containers: 0
 Image: 0
@@ -609,40 +699,92 @@ Driver: aufs
 Root Dir: /mnt/sda1/var/lib/docker/aufs
 Dirs: 0
 ...
-Kernel Version:3.13.3-tinycore64</code></pre><h2 id="4-注意"><a href="#4-注意" class="headerlink" title="4 注意"></a>4 注意</h2><blockquote>
-<p>当需要通过网络接口或网络端口连接到某个容器,通常这个地址是 Docker 服务器的 localhost或IP地址。因为Boo2Docker是一个本地的虚拟机,拥有自己的网络接口和IP地址,因此,我们需要连接的是Boo2 Docker的地址,而不是1oca1host或宿主机的IP地址。要想得到Boot2Docker的IP地址,可以查看 DOCKER_HOST环境变量的值。当启动或安装Boot2Docker的时候, 也会弹出信息提示这个变量。<br>此外，你也可以运行 boot2docker ip 命令来查看 Boot2Docker 的 IP 地址：<code>boot2docker ip</code>，获得了 Boot2Docker 的 IP 地址后，就可以连接 localhost 上的容器了。例如，使用 curl 命令时，只需将 localhost 替换成相应的 IP 地址即可。</p>
+Kernel Version:3.13.3-tinycore64
+</code></pre>
+<h2 id="4-注意"><a class="header-anchor" href="#4-注意">¶</a>4 注意</h2>
+<blockquote>
+<p>当需要通过网络接口或网络端口连接到某个容器,通常这个地址是 Docker 服务器的 localhost或IP地址。因为Boo2Docker是一个本地的虚拟机,拥有自己的网络接口和IP地址,因此,我们需要连接的是Boo2 Docker的地址,而不是1oca1host或宿主机的IP地址。要想得到Boot2Docker的IP地址,可以查看 DOCKER_HOST环境变量的值。当启动或安装Boot2Docker的时候, 也会弹出信息提示这个变量。<br>
+此外，你也可以运行 boot2docker ip 命令来查看 Boot2Docker 的 IP 地址：<code>boot2docker ip</code>，获得了 Boot2Docker 的 IP 地址后，就可以连接 localhost 上的容器了。例如，使用 curl 命令时，只需将 localhost 替换成相应的 IP 地址即可。</p>
 </blockquote>
-<h1 id="在-Windows-中安装-Boot2Docker"><a href="#在-Windows-中安装-Boot2Docker" class="headerlink" title="在 Windows 中安装 Boot2Docker"></a>在 Windows 中安装 Boot2Docker</h1><p>如果使用的是 Microsoft Windows系统,也可以使用Boot2Docker工具快速上手 Docker。Boot2Docker是一个极小的虚拟机,Boot2Docker在 Windows宿主机上安装了一个原生的命令行工具,并提供了一个 Docker环境。<br>要在 WIndows 中安装 Boot2Docker，也依赖于两个必要的条件：</p>
+<h1>在 Windows 中安装 Boot2Docker</h1>
+<p>如果使用的是 Microsoft Windows系统,也可以使用Boot2Docker工具快速上手 Docker。Boot2Docker是一个极小的虚拟机,Boot2Docker在 Windows宿主机上安装了一个原生的命令行工具,并提供了一个 Docker环境。<br>
+要在 WIndows 中安装 Boot2Docker，也依赖于两个必要的条件：</p>
 <ul>
 <li>VirtualBox</li>
-<li>Docker 客户端<h2 id="1-在-Windows-中安装-Boot2Docker"><a href="#1-在-Windows-中安装-Boot2Docker" class="headerlink" title="1 在 Windows 中安装 Boot2Docker"></a>1 在 Windows 中安装 Boot2Docker</h2>和 osx 一样在 github 上下载相应的安装程序并安装<pre><code>$ wget https://github.com/boot2docker/windows-installer/releases/download/v1.3.0/docker-install.exe</code></pre><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205250.png" alt="7666e83c71afd9d0faa6f178105c3321"></li>
+<li>Docker 客户端</li>
 </ul>
-<h2 id="2-启动-1"><a href="#2-启动-1" class="headerlink" title="2 启动"></a>2 启动</h2><p>点击图标启动<br><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205256.png" alt="b4cb01ecefe9a6376b4b6aa0f0727388"></p>
-<h2 id="3-测试-1"><a href="#3-测试-1" class="headerlink" title="3 测试"></a>3 测试</h2><p>同 osx，略</p>
-<h1 id="脚本安装"><a href="#脚本安装" class="headerlink" title="脚本安装"></a>脚本安装</h1><p>我们还有另外一种方法，就是使用远程安装脚本在相应的宿主机上安装 Docker。我们可以从 get.docker.io 网站获取这个安装脚本。</p>
+<h2 id="1-在-Windows-中安装-Boot2Docker"><a class="header-anchor" href="#1-在-Windows-中安装-Boot2Docker">¶</a>1 在 Windows 中安装 Boot2Docker</h2>
+<p>和 osx 一样在 github 上下载相应的安装程序并安装</p>
+<pre><code>$ wget https://github.com/boot2docker/windows-installer/releases/download/v1.3.0/docker-install.exe
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205250.png" alt="7666e83c71afd9d0faa6f178105c3321"></p>
+<h2 id="2-启动-v2"><a class="header-anchor" href="#2-启动-v2">¶</a>2 启动</h2>
+<p>点击图标启动<br>
+<img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221205256.png" alt="b4cb01ecefe9a6376b4b6aa0f0727388"></p>
+<h2 id="3-测试-v2"><a class="header-anchor" href="#3-测试-v2">¶</a>3 测试</h2>
+<p>同 osx，略</p>
+<h1>脚本安装</h1>
+<p>我们还有另外一种方法，就是使用远程安装脚本在相应的宿主机上安装 Docker。我们可以从 <a href="http://get.docker.io" target="_blank" rel="noopener">get.docker.io</a> 网站获取这个安装脚本。</p>
 <ol>
-<li>确认 curl 命令<pre><code>$ whereis curl
-curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz</code></pre></li>
-<li>如有需要，安装 curl</li>
+<li>确认 curl 命令</li>
 </ol>
-<p><strong>Ubuntu</strong></p>
-<pre><code>$ sudo apt-get -y install curl</code></pre><p><strong>Fedora</strong></p>
-<pre><code>$ sudo yum -y install curl</code></pre><ol start="3">
-<li>下载安装脚本并安装 Docker<pre><code>$ curl https://get.docker.io/ | sudo sh</code></pre>这个脚本会自动安装 Docker 所需的依赖，并且检查当前系统的内核版本是否满足要求，以及是否支持所需的存储驱动，最后会安装 Docker 并启动 Docker 守护进程。</li>
+<pre><code>$ whereis curl
+curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz
+</code></pre>
+<ol start="2">
+<li>如有需要，安装 curl<br>
+<strong>Ubuntu</strong></li>
 </ol>
-<h1 id="二进制安装"><a href="#二进制安装" class="headerlink" title="二进制安装"></a>二进制安装</h1><p>如果不想用基于软件包的安装方法，我们也可以下载最新的 Docker 可执行程序：</p>
-<pre><code>$ wget http://get.docker.io/builds/Linux/x86_64/docker-latest.git</code></pre><h1 id="Docker-守护进程"><a href="#Docker-守护进程" class="headerlink" title="Docker 守护进程"></a>Docker 守护进程</h1><p>安装完 Docker后,我们需要确认 Docker的守护进程是否运行。 Docker以root权限运行它的守护进程,来处理普通用户无法完成的操作(如挂载文件系统)。 docker程序是Docker守护进程的客户端程序,同样也需要以root身份运行。<br>当 Docker软件包安装完毕后,默认会立即启动 Docker守护进程。守护进程监听/var/run/docker.sock这个Unix套接字文件,来获取来自客户端的 Docker请求。如果系统中存在名为 docker的用户组的话, Docker则会将该套接字文件的所有者设置为该用户组。<strong>这样, docker用户组的所有用户都可以直接运行 Docker,而无需再使用sudo 命令了。</strong></p>
-<h2 id="配置-Docker-守护进程"><a href="#配置-Docker-守护进程" class="headerlink" title="配置 Docker 守护进程"></a>配置 Docker 守护进程</h2><p>以下命令都可以启动 Docker 守护进程</p>
-<pre><code>$ systemctl start docker</code></pre><pre><code>$ dockerd</code></pre><p>但是都是默认绑定到/var/run/docker.sock套接字，即网络接口是默认固定的。通过以下命令可以指定守护进程监听的网络接口</p>
-<pre><code>$ sudo dockerd -H tcp://0.0.0.0:2375</code></pre><p>此时运行客户端就不能是<code>docker info</code>了，需要指定守护程序监听的网络接口：</p>
-<pre><code>$ sudo docker -H tcp://0.0.0.0:2375 info</code></pre><p>或者通过指定环境变量<code>DOCKER_HOST</code> 来实现</p>
-<pre><code>$ export DOCKER_HOST=&#39;tcp://0.0.0.0:2375&#39;</code></pre><p>另外，我们还可以指定一个 Unix 套接字路径：</p>
-<pre><code>$ sudo dockerd -H /var/run/docker.sock</code></pre><p>还可以绑定就那个多个网络接口</p>
-<pre><code>$ sudo dockerd -H tcp://0.0.0.0:2375 -H /var/run/docker.sock</code></pre><p>在启动守护进程时,我们还可以通过在命令前指定 <code>DEBUG=1</code> 参数来输出更详细的信息。目前, Docker的日志输出还比较少。在使用了 Upstart的 Ubuntu系统下, Docker守护进程生成的日志输出都保存在<code>/var/1og/upstart/docker.1og</code>文件中</p>
-<pre><code>$ DEBUG=1 dockerd</code></pre><p>要想让这些改动永久生效,需要编辑启动配置项。在Ubuntu中,我们需要编辑<code>/etc/default/docker</code>文件,并修改<code>DOCKER_OPTS</code>变量。<br>在 Fedora和 Red Hat发布版本中,则需要编辑<code>/usr/1ib/systemd/system/docker.service</code>文件,并修改其中的 <code>Execstart</code>配置项。</p>
-<h2 id="检查守护进程是否运行"><a href="#检查守护进程是否运行" class="headerlink" title="检查守护进程是否运行"></a>检查守护进程是否运行</h2><p>略</p>
-<h1 id="升级-Docker"><a href="#升级-Docker" class="headerlink" title="升级 Docker"></a>升级 Docker</h1><p>略</p>
-<h1 id="Docker图形用户界面"><a href="#Docker图形用户界面" class="headerlink" title="Docker图形用户界面"></a>Docker图形用户界面</h1><p>Docker安装之后,也可以用图形用户界面来进行管理。目前,有一些正在开发中的 Docker 用户界面和Web控制台,它们都处于不同的开发阶段,具体如下。</p>
+<pre><code>$ sudo apt-get -y install curl
+</code></pre>
+<p><strong>Fedora</strong></p>
+<pre><code>$ sudo yum -y install curl
+</code></pre>
+<ol start="3">
+<li>下载安装脚本并安装 Docker</li>
+</ol>
+<pre><code>$ curl https://get.docker.io/ | sudo sh
+</code></pre>
+<p>这个脚本会自动安装 Docker 所需的依赖，并且检查当前系统的内核版本是否满足要求，以及是否支持所需的存储驱动，最后会安装 Docker 并启动 Docker 守护进程。</p>
+<h1>二进制安装</h1>
+<p>如果不想用基于软件包的安装方法，我们也可以下载最新的 Docker 可执行程序：</p>
+<pre><code>$ wget http://get.docker.io/builds/Linux/x86_64/docker-latest.git
+</code></pre>
+<h1>Docker 守护进程</h1>
+<p>安装完 Docker后,我们需要确认 Docker的守护进程是否运行。 Docker以root权限运行它的守护进程,来处理普通用户无法完成的操作(如挂载文件系统)。 docker程序是Docker守护进程的客户端程序,同样也需要以root身份运行。<br>
+当 Docker软件包安装完毕后,默认会立即启动 Docker守护进程。守护进程监听/var/run/docker.sock这个Unix套接字文件,来获取来自客户端的 Docker请求。如果系统中存在名为 docker的用户组的话, Docker则会将该套接字文件的所有者设置为该用户组。<strong>这样, docker用户组的所有用户都可以直接运行 Docker,而无需再使用sudo 命令了。</strong></p>
+<h2 id="配置-Docker-守护进程"><a class="header-anchor" href="#配置-Docker-守护进程">¶</a>配置 Docker 守护进程</h2>
+<p>以下命令都可以启动 Docker 守护进程</p>
+<pre><code>$ systemctl start docker
+</code></pre>
+<pre><code>$ dockerd
+</code></pre>
+<p>但是都是默认绑定到/var/run/docker.sock套接字，即网络接口是默认固定的。通过以下命令可以指定守护进程监听的网络接口</p>
+<pre><code>$ sudo dockerd -H tcp://0.0.0.0:2375
+</code></pre>
+<p>此时运行客户端就不能是<code>docker info</code>了，需要指定守护程序监听的网络接口：</p>
+<pre><code>$ sudo docker -H tcp://0.0.0.0:2375 info
+</code></pre>
+<p>或者通过指定环境变量<code>DOCKER_HOST</code> 来实现</p>
+<pre><code>$ export DOCKER_HOST='tcp://0.0.0.0:2375'
+</code></pre>
+<p>另外，我们还可以指定一个 Unix 套接字路径：</p>
+<pre><code>$ sudo dockerd -H /var/run/docker.sock
+</code></pre>
+<p>还可以绑定就那个多个网络接口</p>
+<pre><code>$ sudo dockerd -H tcp://0.0.0.0:2375 -H /var/run/docker.sock
+</code></pre>
+<p>在启动守护进程时,我们还可以通过在命令前指定 <code>DEBUG=1</code> 参数来输出更详细的信息。目前, Docker的日志输出还比较少。在使用了 Upstart的 Ubuntu系统下, Docker守护进程生成的日志输出都保存在<code>/var/1og/upstart/docker.1og</code>文件中</p>
+<pre><code>$ DEBUG=1 dockerd
+</code></pre>
+<p>要想让这些改动永久生效,需要编辑启动配置项。在Ubuntu中,我们需要编辑<code>/etc/default/docker</code>文件,并修改<code>DOCKER_OPTS</code>变量。<br>
+在 Fedora和 Red Hat发布版本中,则需要编辑<code>/usr/1ib/systemd/system/docker.service</code>文件,并修改其中的 <code>Execstart</code>配置项。</p>
+<h2 id="检查守护进程是否运行"><a class="header-anchor" href="#检查守护进程是否运行">¶</a>检查守护进程是否运行</h2>
+<p>略</p>
+<h1>升级 Docker</h1>
+<p>略</p>
+<h1>Docker图形用户界面</h1>
+<p>Docker安装之后,也可以用图形用户界面来进行管理。目前,有一些正在开发中的 Docker 用户界面和Web控制台,它们都处于不同的开发阶段,具体如下。</p>
 <ul>
 <li>Shipyard: Shipyard提供了通过管理界面来管理各种Docker资源(包括容器、镜像、宿主机等)的功能。Shipyard是开源的,源代码可以在<a href="https://github.com/ehazlett/shipyard" target="_blank" rel="noopener">https://github.com/ehazlett/shipyard</a> 获得。</li>
 <li>DockerUI: DockerUI是一个可以与 Docker Remote API交互的Web界面。 DockerUI 是基于 Angularjs框架,采用 Javascript 编写的。</li>
@@ -1140,7 +1282,7 @@ curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz</code></pre>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="4、Docker镜像">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="4、Docker镜像">
                         
                         <span class="card-title">4、Docker镜像</span>
                     </div>
@@ -1189,7 +1331,7 @@ curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz</code></pre>
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="k8s入门概述">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="k8s入门概述">
                         
                         <span class="card-title">k8s入门概述</span>
                     </div>
@@ -1357,7 +1499,7 @@ curl: /usr/bin/curl /usr/bin/X11/curl /usr/share/man/man1/curl.1.gz</code></pre>
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

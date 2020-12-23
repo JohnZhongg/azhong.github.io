@@ -9,9 +9,11 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="
+
 config.yaml 文件中的max_aggregation配置项不太理解
 
-config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次运行的时间开始查询，也就是说即使EA或者ES不可用的时候，日志监控">
+
+config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次运行的时间开始查询，也就是说即使EA或者ES不可用的时候，日志">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -332,7 +334,7 @@ config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -511,25 +513,35 @@ config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <ol>
-<li><p>config.yaml 文件中的<code>max_aggregation</code>配置项不太理解</p>
+<li>
+<p>config.yaml 文件中的<code>max_aggregation</code>配置项不太理解</p>
 </li>
-<li><p>config.yaml 文件中的<code>old_query_limit</code>配置项提到EA会在启动后从上次运行的时间开始查询，也就是说即使EA或者ES不可用的时候，日志监控也不会断层？待确认</p>
+<li>
+<p>config.yaml 文件中的<code>old_query_limit</code>配置项提到EA会在启动后从上次运行的时间开始查询，也就是说即使EA或者ES不可用的时候，日志监控也不会断层？待确认</p>
 </li>
-<li><p>EA 在运行过期中貌似会监控规则文件夹下的磁盘状态，一旦文件发生变化会自动发生热重载。参考 config.yaml 中的<code>disable_rules_on_error</code></p>
+<li>
+<p>EA 在运行过期中貌似会监控规则文件夹下的磁盘状态，一旦文件发生变化会自动发生热重载。参考 config.yaml 中的<code>disable_rules_on_error</code></p>
 </li>
-<li><p>config.yaml 中的 <code>skip_invalid</code> 选项的跳过无效文件指的是配置文件？</p>
+<li>
+<p>config.yaml 中的 <code>skip_invalid</code> 选项的跳过无效文件指的是配置文件？</p>
 </li>
-<li><p>config.yaml 中的 <code>--end &lt;timestamp&gt;</code> 选项在官网有两个描述</p>
+<li>
+<p>config.yaml 中的 <code>--end &lt;timestamp&gt;</code> 选项在官网有两个描述</p>
 </li>
-<li><p>buffer_time 选项要好好看看到底是什么意思，除了简单的查询窗口之外，还有没有其它用意以及功能：ElastAlert will buffer results from the most recent period of time, in case some log sources are not in real time</p>
+<li>
+<p>buffer_time 选项要好好看看到底是什么意思，除了简单的查询窗口之外，还有没有其它用意以及功能：ElastAlert will buffer results from the most recent period of time, in case some log sources are not in real time</p>
 </li>
-<li><p>run_every 是执行时间间隔窗口，单run_every 小于buffer_time 的时候的处理逻辑是怎样的。初步看来 EA 会过滤那些在叠加的查询窗口内重复查询出来的内容，看看它是怎样实现的</p>
+<li>
+<p>run_every 是执行时间间隔窗口，单run_every 小于buffer_time 的时候的处理逻辑是怎样的。初步看来 EA 会过滤那些在叠加的查询窗口内重复查询出来的内容，看看它是怎样实现的</p>
 </li>
-<li><p>大时间区间(timeframe)会有多个查询(run_every/buffer_time)发生</p>
+<li>
+<p>大时间区间(timeframe)会有多个查询(run_every/buffer_time)发生</p>
 </li>
-<li><p>导入模块的规则和告警名称为 <code>module.file.RuleName</code>和 <code>module.file.AlertName</code>，有点奇怪</p>
+<li>
+<p>导入模块的规则和告警名称为 <code>module.file.RuleName</code>和 <code>module.file.AlertName</code>，有点奇怪</p>
 </li>
-<li><p>了解规则配置中的<code>use_strftime_index</code>格式化字符串索引名称的原理、<code>search_extra_index</code>参数不理解、aggregation和aggregate_by_match_time不理解、exponential_realert在文档中给出的例子算法貌似有点问题、query_delay 要看一下算法、<code>top_count_keys</code>不理解</p>
+<li>
+<p>了解规则配置中的<code>use_strftime_index</code>格式化字符串索引名称的原理、<code>search_extra_index</code>参数不理解、aggregation和aggregate_by_match_time不理解、exponential_realert在文档中给出的例子算法貌似有点问题、query_delay 要看一下算法、<code>top_count_keys</code>不理解</p>
 </li>
 <li></li>
 </ol>
@@ -1025,7 +1037,7 @@ config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="01_首次运行elastalert">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="01_首次运行elastalert">
                         
                         <span class="card-title">01_首次运行elastalert</span>
                     </div>
@@ -1082,7 +1094,7 @@ config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile 和 synchronized">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="volatile 和 synchronized">
                         
                         <span class="card-title">volatile 和 synchronized</span>
                     </div>
@@ -1250,7 +1262,7 @@ config.yaml 文件中的old_query_limit配置项提到EA会在启动后从上次
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

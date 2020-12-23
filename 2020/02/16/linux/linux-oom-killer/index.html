@@ -330,7 +330,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -510,9 +510,16 @@
             <div id="articleContent">
                 <p>作为Linux下的程序员，有时不得不面对一个问题，那就是系统内存被用光了，这时当进程再向内核申请内存时，内核会怎么办呢？程序里面调用的malloc函数会返回null吗？</p>
 <p>为了处理内存不足时的问题，Linux内核发明了一种机制，叫OOM(Out Of Memory) killer，通过配置它可以控制内存不足时内核的行为。</p>
-<h2 id="OOM-killer"><a href="#OOM-killer" class="headerlink" title="OOM killer"></a>OOM killer</h2><p>当物理内存和交换空间都被用完时，如果还有进程来申请内存，内核将触发OOM killer，其行为如下：</p>
-<p>1.检查文件/proc/sys/vm/panic_on_oom，如果里面的值为2，那么系统一定会触发panic<br>2.如果/proc/sys/vm/panic_on_oom的值为1，那么系统有可能触发panic（见后面的介绍）<br>3.如果/proc/sys/vm/panic_on_oom的值为0，或者上一步没有触发panic，那么内核继续检查文件/proc/sys/vm/oom_kill_allocating_task<br>3.如果/proc/sys/vm/oom_kill_allocating_task为1，那么内核将kill掉当前申请内存的进程<br>4.如果/proc/sys/vm/oom_kill_allocating_task为0，内核将检查每个进程的分数，分数最高的进程将被kill掉（见后面介绍）</p>
-<p>进程被kill掉之后，如果/proc/sys/vm/oom_dump_tasks为1，且系统的rlimit中设置了core文件大小，将会由/proc/sys/kernel/core_pattern里面指定的程序生成core dump文件，这个文件里将包含<br>pid, uid, tgid, vm size, rss, nr_ptes, nr_pmds, swapents, oom_score_adj<br>score, name等内容，拿到这个core文件之后，可以做一些分析，看为什么这个进程被选中kill掉。</p>
+<h2 id="OOM-killer"><a class="header-anchor" href="#OOM-killer">¶</a>OOM killer</h2>
+<p>当物理内存和交换空间都被用完时，如果还有进程来申请内存，内核将触发OOM killer，其行为如下：</p>
+<p>1.检查文件/proc/sys/vm/panic_on_oom，如果里面的值为2，那么系统一定会触发panic<br>
+2.如果/proc/sys/vm/panic_on_oom的值为1，那么系统有可能触发panic（见后面的介绍）<br>
+3.如果/proc/sys/vm/panic_on_oom的值为0，或者上一步没有触发panic，那么内核继续检查文件/proc/sys/vm/oom_kill_allocating_task<br>
+3.如果/proc/sys/vm/oom_kill_allocating_task为1，那么内核将kill掉当前申请内存的进程<br>
+4.如果/proc/sys/vm/oom_kill_allocating_task为0，内核将检查每个进程的分数，分数最高的进程将被kill掉（见后面介绍）</p>
+<p>进程被kill掉之后，如果/proc/sys/vm/oom_dump_tasks为1，且系统的rlimit中设置了core文件大小，将会由/proc/sys/kernel/core_pattern里面指定的程序生成core dump文件，这个文件里将包含<br>
+pid, uid, tgid, vm size, rss, nr_ptes, nr_pmds, swapents, oom_score_adj<br>
+score, name等内容，拿到这个core文件之后，可以做一些分析，看为什么这个进程被选中kill掉。</p>
 <p>这里可以看看ubuntu默认的配置：</p>
 <pre><code>#OOM后不panic
 dev@ubuntu:~$ cat /proc/sys/vm/panic_on_oom
@@ -532,11 +539,18 @@ CORE max core file size 0 unlimited blocks
 
 #core dump文件的生成交给了apport，相关的设置可以参考apport的资料
 dev@ubuntu:~$ cat /proc/sys/kernel/core_pattern
-|/usr/share/apport/apport %p %s %c %P</code></pre><p>参考：<a href="https://wiki.ubuntu.com/Apport" target="_blank" rel="noopener">apport</a></p>
-<h3 id="panic-on-oom"><a href="#panic-on-oom" class="headerlink" title="panic_on_oom"></a>panic_on_oom</h3><p>正如上面所介绍的那样，该文件的值可以取0/1/2，0是不触发panlic，2是一定触发panlic，如果为1的话就要看<a href="https://www.kernel.org/doc/Documentation/vm/numa_memory_policy.txt" target="_blank" rel="noopener">mempolicy</a>和<a href="https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt" target="_blank" rel="noopener">cpusets</a>，这篇不介绍这方面的内容。</p>
-<p>panic后内核的默认行<br>为是死在那里，目的是给开发人员一个连上去debug的机会。但对于大多数应用层开发人员来说没啥用，倒是希望它赶紧重启。为了让内核panic后重启，可以修改文件/proc/sys/kernel/panic，里面表示的是panic多少秒后系统将重启，这个文件的默认值是0，表示永远不重启。</p>
+|/usr/share/apport/apport %p %s %c %P
+</code></pre>
+<p>参考：<a href="https://wiki.ubuntu.com/Apport" target="_blank" rel="noopener">apport</a></p>
+<h3 id="panic-on-oom"><a class="header-anchor" href="#panic-on-oom">¶</a>panic_on_oom</h3>
+<p>正如上面所介绍的那样，该文件的值可以取0/1/2，0是不触发panlic，2是一定触发panlic，如果为1的话就要看<a href="https://www.kernel.org/doc/Documentation/vm/numa_memory_policy.txt" target="_blank" rel="noopener">mempolicy</a>和<a href="https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt" target="_blank" rel="noopener">cpusets</a>，这篇不介绍这方面的内容。</p>
+<p>panic后内核的默认行<br>
+为是死在那里，目的是给开发人员一个连上去debug的机会。但对于大多数应用层开发人员来说没啥用，倒是希望它赶紧重启。为了让内核panic后重启，可以修改文件/proc/sys/kernel/panic，里面表示的是panic多少秒后系统将重启，这个文件的默认值是0，表示永远不重启。</p>
 <pre><code>#设置panic后3秒重启系统
-dev@ubuntu:~$ sudo sh -c &quot;echo 3 &gt; /proc/sys/kernel/panic&quot;</code></pre><h3 id="调整分数"><a href="#调整分数" class="headerlink" title="调整分数"></a>调整分数</h3><p>当oom_kill_allocating_task的值为0时（系统默认配置），系统会kill掉系统中分数最高的那个进程，这里的分数是怎么来的呢？该值由内核维护，并存储在每个进程的/proc/<pid>/oom_score文件中。</pid></p>
+dev@ubuntu:~$ sudo sh -c &quot;echo 3 &gt; /proc/sys/kernel/panic&quot;
+</code></pre>
+<h3 id="调整分数"><a class="header-anchor" href="#调整分数">¶</a>调整分数</h3>
+<p>当oom_kill_allocating_task的值为0时（系统默认配置），系统会kill掉系统中分数最高的那个进程，这里的分数是怎么来的呢？该值由内核维护，并存储在每个进程的/proc/<pid>/oom_score文件中。</pid></p>
 <p>每个进程的分数受多方面的影响，比如进程运行的时间，时间越长表明这个程序越重要，所以分数越低；进程从启动后分配的内存越多，表示越占内存，分数会越高；这里只是列举了一两个影响分数的因素，实际情况要复杂的多，需要看内核代码，这里有篇文章可以参考：<a href="https://lwn.net/Articles/317814/" target="_blank" rel="noopener">Taming the OOM killer</a></p>
 <p>由于分数计算复杂，比较难控制，于是内核提供了另一个文件用来调控分数，那就是文件/proc/<pid>/oom_adj，这个文件的默认值是0，但它可以配置为-17到15中间的任何一个值，内核在计算了进程的分数后，会和这个文件的值进行一个计算，得到的结果会作为进程的最终分数写入/proc/<pid>/oom_score。计算方式大概如下：</pid></pid></p>
 <ul>
@@ -545,24 +559,39 @@ dev@ubuntu:~$ sudo sh -c &quot;echo 3 &gt; /proc/sys/kernel/panic&quot;</code></
 </ul>
 <p>由于进程的分数在内核中是一个16位的整数，所以-17就意味着最终进程的分数永远是0，也即永远不会被kill掉。</p>
 <p>当然这种控制方式也不是非常精确，但至少比没有强多了。</p>
-<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>上面的这些文件都可以通过下面三种方式来修改，这里以panic_on_oom为例做个示范：</p>
+<h3 id="修改配置"><a class="header-anchor" href="#修改配置">¶</a>修改配置</h3>
+<p>上面的这些文件都可以通过下面三种方式来修改，这里以panic_on_oom为例做个示范：</p>
 <ul>
-<li><p>直接写文件（重启后失效）</p>
-<pre><code>dev@ubuntu:~$ sudo sh -c &quot;echo 2&gt; /proc/sys/vm/panic_on_oom&quot;</code></pre></li>
-<li><p>通过控制命令（重启后失效）</p>
-<pre><code>dev@dev:~$ sudo sysctl vm.panic_on_oom=2</code></pre></li>
-<li><p>修改配置文件（重启后继续生效）</p>
+<li>
+<p>直接写文件（重启后失效）</p>
+<pre><code>dev@ubuntu:~$ sudo sh -c &quot;echo 2&gt; /proc/sys/vm/panic_on_oom&quot;
+</code></pre>
+</li>
+<li>
+<p>通过控制命令（重启后失效）</p>
+<pre><code>dev@dev:~$ sudo sysctl vm.panic_on_oom=2
+</code></pre>
+</li>
+<li>
+<p>修改配置文件（重启后继续生效）</p>
 <pre><code>#通过编辑器将vm.panic_on_oom=2添加到文件sysctl.conf中（如果已经存在，修改该配置项即可）
 dev@dev:~$ sudo vim /etc/sysctl.conf
 
 #重新加载sysctl.conf，使修改立即生效
-dev@dev:~$ sudo sysctl -p</code></pre></li>
+dev@dev:~$ sudo sysctl -p
+</code></pre>
+</li>
 </ul>
-<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p>一旦OOM killer被触发，内核将会生成相应的日志，一般可以在/var/log/messages里面看到，如果配置了syslog，日志可能在/var/log/syslog里面，这里是ubuntu里的日志样例</p>
+<h3 id="日志"><a class="header-anchor" href="#日志">¶</a>日志</h3>
+<p>一旦OOM killer被触发，内核将会生成相应的日志，一般可以在/var/log/messages里面看到，如果配置了syslog，日志可能在/var/log/syslog里面，这里是ubuntu里的日志样例</p>
 <pre><code>dev@dev:~$ grep oom /var/log/syslog
 Jan 23 21:30:29 dev kernel: [  490.006836] eat_memory invoked oom-killer: gfp_mask=0x24280ca, order=0, oom_score_adj=0
-Jan 23 21:30:29 dev kernel: [  490.006871]  [&lt;ffffffff81191442&gt;] oom_kill_process+0x202/0x3c0</code></pre><h2 id="cgroup的OOM-killer"><a href="#cgroup的OOM-killer" class="headerlink" title="cgroup的OOM killer"></a>cgroup的OOM killer</h2><p>除了系统的OOM killer之外，如果配置了memory cgroup，那么进程还将受到自己所属memory cgroup的限制，如果超过了cgroup的限制，将会触发cgroup的OOM killer，cgroup的OOM killer和系统的OOM killer行为略有不同，详情请参考<a href="https://segmentfault.com/a/1190000008125359" target="_blank" rel="noopener">Linux Cgroup系列（04）：限制cgroup的内存使用</a>。</p>
-<h2 id="malloc"><a href="#malloc" class="headerlink" title="malloc"></a>malloc</h2><p>malloc是libc的函数，C/C++程序员对这个函数应该都很熟悉，它里面实际上调用的是内核的<a href="http://man7.org/linux/man-pages/man2/brk.2.html" target="_blank" rel="noopener">sbrk</a>和<a href="http://man7.org/linux/man-pages/man2/mmap.2.html" target="_blank" rel="noopener">mmap</a>，为了避免频繁的调用内核函数和优化性能，它里面在内核函数的基础上实现了一套自己的内存管理功能。</p>
+Jan 23 21:30:29 dev kernel: [  490.006871]  [&lt;ffffffff81191442&gt;] oom_kill_process+0x202/0x3c0
+</code></pre>
+<h2 id="cgroup的OOM-killer"><a class="header-anchor" href="#cgroup的OOM-killer">¶</a>cgroup的OOM killer</h2>
+<p>除了系统的OOM killer之外，如果配置了memory cgroup，那么进程还将受到自己所属memory cgroup的限制，如果超过了cgroup的限制，将会触发cgroup的OOM killer，cgroup的OOM killer和系统的OOM killer行为略有不同，详情请参考<a href="https://segmentfault.com/a/1190000008125359" target="_blank" rel="noopener">Linux Cgroup系列（04）：限制cgroup的内存使用</a>。</p>
+<h2 id="malloc"><a class="header-anchor" href="#malloc">¶</a>malloc</h2>
+<p>malloc是libc的函数，C/C++程序员对这个函数应该都很熟悉，它里面实际上调用的是内核的<a href="http://man7.org/linux/man-pages/man2/brk.2.html" target="_blank" rel="noopener">sbrk</a>和<a href="http://man7.org/linux/man-pages/man2/mmap.2.html" target="_blank" rel="noopener">mmap</a>，为了避免频繁的调用内核函数和优化性能，它里面在内核函数的基础上实现了一套自己的内存管理功能。</p>
 <p>既然内存不够时有OOM killer帮我们kill进程，那么这时调用的malloc还会返回NULL给应用进程吗？答案是不会，因为这时只有两种情况：</p>
 <ol>
 <li>当前申请内存的进程被kill掉：都被kill掉了，返回什么都没有意义了</li>
@@ -574,12 +603,17 @@ Jan 23 21:30:29 dev kernel: [  490.006871]  [&lt;ffffffff81191442&gt;] oom_kill_
 <li>使用的数据空间超过了RLIMIT_DATA的限制，这里的数据空间包括程序的数据段，BSS段以及heap</li>
 </ul>
 <p>关于虚拟地址空间和heap之类的介绍请参考<a href="https://segmentfault.com/a/1190000008125059" target="_blank" rel="noopener">Linux进程的内存使用情况</a>，这两个参数的默认值为unlimited，所以只要不修改它们的默认配置，限制就不会被触发。有一种极端情况需要注意，那就是代码写的有问题，超过了系统的虚拟地址空间范围，比如32位系统的虚拟地址空间范围只有4G，这种情况下不确定系统会以一种什么样的方式返回错误。</p>
-<h2 id="rlimit"><a href="#rlimit" class="headerlink" title="rlimit"></a>rlimit</h2><p>上面提到的RLIMIT_AS和RLIMIT_DATA都可以通过函数<a href="http://man7.org/linux/man-pages/man2/getrlimit.2.html" target="_blank" rel="noopener">getrlimit和setrlimit</a>来设置和读取，同时linux还提供了一个<a href="http://man7.org/linux/man-pages/man1/prlimit.1.html" target="_blank" rel="noopener">prlimit</a>程序来设置和读取rlimit的配置。</p>
-<p>prlimit是用来替代<br><a href="http://man7.org/linux/man-pages/man3/ulimit.3.html" target="_blank" rel="noopener">ulimit</a>的一个程序，除了能设置上面的那两个参数之外，还有其它的一些参数，比如core文件的大小。关于prlimit的用法请参考它的<a href="http://man7.org/linux/man-pages/man1/prlimit.1.html" target="_blank" rel="noopener">帮助文件</a>。</p>
+<h2 id="rlimit"><a class="header-anchor" href="#rlimit">¶</a>rlimit</h2>
+<p>上面提到的RLIMIT_AS和RLIMIT_DATA都可以通过函数<a href="http://man7.org/linux/man-pages/man2/getrlimit.2.html" target="_blank" rel="noopener">getrlimit和setrlimit</a>来设置和读取，同时linux还提供了一个<a href="http://man7.org/linux/man-pages/man1/prlimit.1.html" target="_blank" rel="noopener">prlimit</a>程序来设置和读取rlimit的配置。</p>
+<p>prlimit是用来替代<br>
+<a href="http://man7.org/linux/man-pages/man3/ulimit.3.html" target="_blank" rel="noopener">ulimit</a>的一个程序，除了能设置上面的那两个参数之外，还有其它的一些参数，比如core文件的大小。关于prlimit的用法请参考它的<a href="http://man7.org/linux/man-pages/man1/prlimit.1.html" target="_blank" rel="noopener">帮助文件</a>。</p>
 <pre><code>#默认情况下，RLIMIT_AS和RLIMIT_DATA的值都是unlimited
 dev@dev:~$ prlimit |egrep &quot;DATA|AS&quot;
 AS         address space limit                unlimited unlimited bytes
-DATA       max data size                      unlimited unlimited bytes</code></pre><h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><p>C语言的程序会受到libc的影响，可能在触发OOM killer之前就触发了segmentfault错误，如果要用C语言程序来测试触发OOM killer，一定要注意malloc的行为受MMAP_THRESHOLD影响，一次申请分配太多内存的话，malloc会调用mmap映射内存，从而不一定触发OOM killer，具体细节目前还不太清楚。这里是一个触发oom killer的例子，供参考：</p>
+DATA       max data size                      unlimited unlimited bytes
+</code></pre>
+<h2 id="测试代码"><a class="header-anchor" href="#测试代码">¶</a>测试代码</h2>
+<p>C语言的程序会受到libc的影响，可能在触发OOM killer之前就触发了segmentfault错误，如果要用C语言程序来测试触发OOM killer，一定要注意malloc的行为受MMAP_THRESHOLD影响，一次申请分配太多内存的话，malloc会调用mmap映射内存，从而不一定触发OOM killer，具体细节目前还不太清楚。这里是一个触发oom killer的例子，供参考：</p>
 <pre><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
@@ -607,8 +641,12 @@ int main(int argc, char *argv[])
     }
 
     return 0;
-}</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>对一个进程来说，内存的使用受多种因素的限制，可能在系统内存不足之前就达到了rlimit和memory cgroup的限制，同时它还可能受不同编程语言所使用的相关内存管理库的影响，就算系统处于内存不足状态，申请新内存也不一定会触发OOM killer，需要具体问题具体分析。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+}
+</code></pre>
+<h2 id="结束语"><a class="header-anchor" href="#结束语">¶</a>结束语</h2>
+<p>对一个进程来说，内存的使用受多种因素的限制，可能在系统内存不足之前就达到了rlimit和memory cgroup的限制，同时它还可能受不同编程语言所使用的相关内存管理库的影响，就算系统处于内存不足状态，申请新内存也不一定会触发OOM killer，需要具体问题具体分析。</p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<ul>
 <li><a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt" target="_blank" rel="noopener">sysctl/vm.txt</a></li>
 <li><a href="http://www.oracle.com/technetwork/articles/servers-storage-dev/oom-killer-1911807.html" target="_blank" rel="noopener">How to Configure the Linux Out-of-Memory Killer</a></li>
 <li><a href="http://www.linuxdevcenter.com/pub/a/linux/2006/11/30/linux-out-of-memory.html?page=2" target="_blank" rel="noopener">When Linux Runs Out of Memory</a></li>
@@ -1105,7 +1143,7 @@ int main(int argc, char *argv[])
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="LInux CPU 使用率">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="LInux CPU 使用率">
                         
                         <span class="card-title">LInux CPU 使用率</span>
                     </div>
@@ -1154,7 +1192,7 @@ int main(int argc, char *argv[])
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Linux TTYPTS概述">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Linux TTYPTS概述">
                         
                         <span class="card-title">Linux TTYPTS概述</span>
                     </div>
@@ -1322,7 +1360,7 @@ int main(int argc, char *argv[])
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>

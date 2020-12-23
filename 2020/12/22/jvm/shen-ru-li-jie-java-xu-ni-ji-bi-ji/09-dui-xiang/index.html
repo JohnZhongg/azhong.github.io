@@ -9,10 +9,8 @@
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
     <meta name="description" content="[TOC]
-一、对象的实例化思维导图字节码举例Object obj = new Object();
-以上代码对应下列字节码，可以看到我们定义的构造方法是在字节码invokespecial字节码进行执行(初始化)的。
-
-二、对象的内存布局思维">
+一、对象的实例化
+¶[思维导图](file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloudcomtoketawareiosithoughts/Documents/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -333,7 +331,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -488,7 +486,7 @@
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    86
+                    173
                 </div>
                 
 
@@ -512,10 +510,18 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[TOC]</p>
-<h1 id="一、对象的实例化"><a href="#一、对象的实例化" class="headerlink" title="一、对象的实例化"></a>一、对象的实例化</h1><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a><a href="file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloud~com~toketaware~ios~ithoughts/Documents/jvm/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96.itmz" target="_blank" rel="noopener">思维导图</a></h2><h2 id="字节码举例"><a href="#字节码举例" class="headerlink" title="字节码举例"></a>字节码举例</h2><pre class="line-numbers language-java"><code class="language-java">Object obj <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1>一、对象的实例化</h1>
+<h2 id="思维导图-file-Users-zhonghongpeng-Library-Mobile-20Documents-iCloudcomtoketawareiosithoughts-Documents-jvm-E5-AF-B9-E8-B1-A1-E7-9A-84-E5-AE-9E-E4-BE-8B-E5-8C-96-itmz"><a class="header-anchor" href="#思维导图-file-Users-zhonghongpeng-Library-Mobile-20Documents-iCloudcomtoketawareiosithoughts-Documents-jvm-E5-AF-B9-E8-B1-A1-E7-9A-84-E5-AE-9E-E4-BE-8B-E5-8C-96-itmz">¶</a>[思维导图](file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloud<sub>com</sub>toketaware<sub>ios</sub>ithoughts/Documents/jvm/%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96.itmz)</h2>
+<h2 id="字节码举例"><a class="header-anchor" href="#字节码举例">¶</a>字节码举例</h2>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Object obj = new Object();
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>以上代码对应下列字节码，可以看到我们定义的构造方法是在字节码<code>invokespecial</code>字节码进行执行(初始化)的。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/JohnZhongg/blog_images/image/20201221235134.png" alt="image-20200917081025938"></p>
-<h1 id="二、对象的内存布局"><a href="#二、对象的内存布局" class="headerlink" title="二、对象的内存布局"></a>二、对象的内存布局</h1><h2 id="思维导图-1"><a href="#思维导图-1" class="headerlink" title="思维导图"></a><a href="file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloud~com~toketaware~ios~ithoughts/Documents/jvm/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.itmz" target="_blank" rel="noopener">思维导图</a></h2><h1 id="三、对象的访问定位"><a href="#三、对象的访问定位" class="headerlink" title="三、对象的访问定位"></a>三、对象的访问定位</h1><h2 id="思维导图-2"><a href="#思维导图-2" class="headerlink" title="思维导图"></a><a href="file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloud~com~toketaware~ios~ithoughts/Documents/jvm/%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D.itmz" target="_blank" rel="noopener">思维导图</a></h2>
+<h1>二、对象的内存布局</h1>
+<h2 id="思维导图-file-Users-zhonghongpeng-Library-Mobile-20Documents-iCloudcomtoketawareiosithoughts-Documents-jvm-E5-AF-B9-E8-B1-A1-E5-86-85-E5-AD-98-E5-B8-83-E5-B1-80-itmz"><a class="header-anchor" href="#思维导图-file-Users-zhonghongpeng-Library-Mobile-20Documents-iCloudcomtoketawareiosithoughts-Documents-jvm-E5-AF-B9-E8-B1-A1-E5-86-85-E5-AD-98-E5-B8-83-E5-B1-80-itmz">¶</a>[思维导图](file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloud<sub>com</sub>toketaware<sub>ios</sub>ithoughts/Documents/jvm/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.itmz)</h2>
+<h1>三、对象的访问定位</h1>
+<h2 id="思维导图-file-Users-zhonghongpeng-Library-Mobile-20Documents-iCloudcomtoketawareiosithoughts-Documents-jvm-E5-AF-B9-E8-B1-A1-E7-9A-84-E8-AE-BF-E9-97-AE-E5-AE-9A-E4-BD-8D-itmz"><a class="header-anchor" href="#思维导图-file-Users-zhonghongpeng-Library-Mobile-20Documents-iCloudcomtoketawareiosithoughts-Documents-jvm-E5-AF-B9-E8-B1-A1-E7-9A-84-E8-AE-BF-E9-97-AE-E5-AE-9A-E4-BD-8D-itmz">¶</a>[思维导图](file:///Users/zhonghongpeng/Library/Mobile%20Documents/iCloud<sub>com</sub>toketaware<sub>ios</sub>ithoughts/Documents/jvm/%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D.itmz)</h2>
+
             </div>
             <hr />
 
@@ -1007,7 +1013,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="13_GC概述及算法思想">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="13_GC概述及算法思想">
                         
                         <span class="card-title">13_GC概述及算法思想</span>
                     </div>
@@ -1056,7 +1062,7 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="02_程序计数寄存器">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="02_程序计数寄存器">
                         
                         <span class="card-title">02_程序计数寄存器</span>
                     </div>
@@ -1224,7 +1230,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">634.8k</span>
+            <span class="white-color">620.9k</span>
             
 
             <br>
