@@ -1,0 +1,1510 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="基于 Redis 的分布式锁：RedLock, 技术博客 钟鸿鹏 honphan 阿钟">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
+    <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
+    <meta name="description" content="对于存在多个进程必须互斥的访问共享资源的环境中，分布式锁是一个很有用的基础工具。
+许多库和博客描述了怎么使用 redis 实现一个 DLM（分布式锁管理器），但是每一个库都有不同的实现方式，并且大多数都是可靠性较低的简单实现。
+这里将尝试提">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>基于 Redis 的分布式锁：RedLock | 阿钟的博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">阿钟的博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">阿钟的博客</div>
+        <div class="logo-desc">
+            
+            keep going...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/JohnZhongg" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/JohnZhongg" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        基于 Redis 的分布式锁：RedLock
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/tags/分布式锁/" target="_blank">
+                            <span class="chip bg-color">分布式锁</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                        <a href="/categories/redis/" class="post-category" target="_blank">
+                            redis
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-31
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    阿钟
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    15 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>对于存在多个进程必须互斥的访问共享资源的环境中，分布式锁是一个很有用的基础工具。</p>
+<p>许多库和博客描述了怎么使用 redis 实现一个 DLM（分布式锁管理器），但是每一个库都有不同的实现方式，并且大多数都是可靠性较低的简单实现。</p>
+<p>这里将尝试提供一个更加规范的基于 redis 实现的分布式锁的算法，称为 Redlock。该算法实现了一个比使用单实例构建分布式锁的更加安全的 DLM。</p>
+<h1>实现</h1>
+<p>以下是一些该算法的实现：</p>
+<ul>
+<li><a href="https://github.com/antirez/redlock-rb" target="_blank" rel="noopener">Redlock-rb</a> (Ruby implementation). There is also a <a href="https://github.com/leandromoreira/redlock-rb" target="_blank" rel="noopener">fork of Redlock-rb</a> that adds a gem for easy distribution and perhaps more.</li>
+<li><a href="https://github.com/SPSCommerce/redlock-py" target="_blank" rel="noopener">Redlock-py</a> (Python implementation).</li>
+<li><a href="https://github.com/brainix/pottery#redlock" target="_blank" rel="noopener">Pottery</a> (Python implementation).</li>
+<li><a href="https://github.com/joanvila/aioredlock" target="_blank" rel="noopener">Aioredlock</a> (Asyncio Python implementation).</li>
+<li><a href="https://github.com/ronnylt/redlock-php" target="_blank" rel="noopener">Redlock-php</a> (PHP implementation).</li>
+<li><a href="https://github.com/malkusch/lock#phpredismutex" target="_blank" rel="noopener">PHPRedisMutex</a> (further PHP implementation)</li>
+<li><a href="https://github.com/cheprasov/php-redis-lock" target="_blank" rel="noopener">cheprasov/php-redis-lock</a> (PHP library for locks)</li>
+<li><a href="https://github.com/rtckit/reactphp-redlock" target="_blank" rel="noopener">rtckit/react-redlock</a> (Async PHP implementation)</li>
+<li><a href="https://github.com/go-redsync/redsync" target="_blank" rel="noopener">Redsync</a> (Go implementation).</li>
+<li><a href="https://github.com/mrniko/redisson" target="_blank" rel="noopener">Redisson</a> (Java implementation).</li>
+<li><a href="https://github.com/sbertrang/redis-distlock" target="_blank" rel="noopener">Redis::DistLock</a> (Perl implementation).</li>
+<li><a href="https://github.com/jacket-code/redlock-cpp" target="_blank" rel="noopener">Redlock-cpp</a> (C++ implementation).</li>
+<li><a href="https://github.com/kidfashion/redlock-cs" target="_blank" rel="noopener">Redlock-cs</a> (C#/.NET implementation).</li>
+<li><a href="https://github.com/samcook/RedLock.net" target="_blank" rel="noopener">RedLock.net</a> (C#/.NET implementation). Includes async and lock extension support.</li>
+<li><a href="https://github.com/psibernetic/scarletlock" target="_blank" rel="noopener">ScarletLock</a> (C# .NET implementation with configurable datastore)</li>
+<li><a href="https://github.com/LiZhenNet/Redlock4Net" target="_blank" rel="noopener">Redlock4Net</a> (C# .NET implementation)</li>
+<li><a href="https://github.com/mike-marcacci/node-redlock" target="_blank" rel="noopener">node-redlock</a> (NodeJS implementation). Includes support for lock extension.</li>
+</ul>
+<h1>安全性和可用性保证</h1>
+<p>以下是将要描述的分布式锁的最小保证，拥有三个属性：</p>
+<ol>
+<li>安全性（Safety property）：锁的互斥。在任意时刻，只会有一个客户端持有锁。</li>
+<li>可用性 A（Liveness property A）: 死锁自动释放。当出现类似某个客户端在申请了一个锁之后崩溃了或者和 DLM 出现了网络分区，这个锁最终是可以被其它客户端申请得到，而不是永远不可用.</li>
+<li>可用性 B（Liveness property B）: 容灾. 只要<strong>大多数</strong>的 Redis 节点都是正常的，客户端就可以获取和释放锁.</li>
+</ol>
+<h1>基于故障转移的实现方案的问题</h1>
+<p>为了明白这个 redlock 优化了什么问题，让我们来分析一下现有的大多数基于 redis 实现的分布式锁库。</p>
+<p>使用 redis 来锁住某个资源的最简单方式就是创建一个有 ttl 的 key，使用 redis 的过期键特性，这个锁最终都可以释放。当客户端需要释放这个资源的时候，删除该 key 即可。</p>
+<p>表面上看是可行的，但是这里有一个问题：该 key 存储在 redis 的一个单点实例中，如果这个实例挂了就会出问题。很容易想到的是增加一个从节点，当主节点挂掉之后就使用这个从节点即可。很不幸这是不可行的，如果这样做我们将不能实现属性1–锁的互斥，因为 redis 主从复制是异步的。</p>
+<p>下面是一个基于该模型的并发竞争的例子：</p>
+<ol>
+<li>客户端 A 在 master 中获得了锁</li>
+<li>master 在将 key 传递到 slave 之前挂掉了</li>
+<li>slave 被提升为主节点</li>
+<li>客户端 B 申请到了客户端 A 已经持有的用来锁住某资源的锁。安全性被破坏。</li>
+</ol>
+<p>在某些情况下这种方式是可行的，例如业务允许在故障期间存在多个客户端同时持有相同的锁。如果是这种情况，可以使用基于主从复制实现的方案，否则建议使用 redlock。</p>
+<h1>单实例分布式锁的正确实现方式</h1>
+<p>在尝试解决上述提到的单点分布式锁方案的一些问题之前，先来看看如何正确地使用单点 redis 来正确地实现分布式锁，因为单点分布式锁对于不时的并发竞争还是可以接受的，而使用一个 redis key 作为一个锁是一个基础，redlock 分布式算法也会使用到这个基础。</p>
+<p>我们将使用以下方式来获取锁：</p>
+<pre class="line-numbers language-language-shell"><code class="language-language-shell">    SET resource_name my_random_value NX PX 30000
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个命令只有在该 key 不存在的时候才会设置该 key（<code>NX</code> 选项），同时会将该 key 的过期时间设置为 30000 毫秒（<code>PX</code> 选项）。这个 key 的值被设置为 “myrandomvalue”。这个值必须在所有客户端以及所有取锁请求中是唯一的。这个随机值是安全解锁的基础，它会被这样一个脚本用来和 redis 交互：当且仅当这个 key 存在并且其值和当前请求的随机值完全一致，则删除该 key。以下是 lua 脚本的实现：</p>
+<pre class="line-numbers language-language-lua"><code class="language-language-lua">if redis.call("get",KEYS[1]) == ARGV[1] then
+    return redis.call("del",KEYS[1])
+else
+    return 0
+end
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这对于避免释放掉其它客户端持有的锁来说是很重要的。举个例子：</p>
+<ul>
+<li>一个客户端 A 获取了锁，然后被一些操作阻塞直至时间大于锁的有效时间（key 过期时间），然后锁因为过期被移除了</li>
+<li>此时另外一个客户端 B 获得了锁</li>
+<li>此时客户端 A 操作完成会进行锁释放</li>
+</ul>
+<p>如果客户端 A 直接使用 <code>DEL</code> 删除该锁将会移除掉 B 的锁。使用上述 lua 脚本将会使得每个锁都被使用一个随机值签名了，所以删除锁的客户端只能是获取该锁的那一个。</p>
+<p>可以使用 <code>/dev/urandom</code> 获取 20 字节的伪随机数，也可以根据自己的情况使用其它更简易的方式获取一个对于自己来说足够唯一的值。例如一个安全的选择是基于 <code>/dev/urandom</code> 使用 <code>RC4</code> 再进行加密。一个更简单的解决方案是使用 unix 微秒时间戳拼接客户端 ID，可能没有完全安全，但是对于大多数情况可以满足。</p>
+<p>key 的 ttl 被称为 “锁的有效时间”。它是锁的自动释放时间，也是取到锁的客户端必须要完成自己的业务操作的时间，否则其它客户端就会取到锁，从而违背了锁互斥的安全保证。</p>
+<p>以上的分布式的获取和释放方式对于一个非分布式的、单点的、永远可用的系统（redis）来说来说安全的。下面将对一些概念进行扩展进而讨论如何实现高可用的分布式锁。</p>
+<h1>Redlock 算法</h1>
+<p>在分布式版本的算法中假设有 N 个 redis master。这些节点是互相独立的，所以我们不使用从节点或者其它潜在的协调系统。在上面已经讨论了如何在一个实例下安全地取锁和释放锁。在以下例子中将有 5 个 master 节点，这是一个合理的数值，这 5 个 redis master 运行在不同的物理机或者虚拟机上，保证它们任何一个节点（环境）的不可用会影响到其它节点。</p>
+<p>客户端通过以下步骤获取锁：</p>
+<ol>
+<li>获取当前的毫秒时间戳。</li>
+<li>使用相同的 key 和唯一值 value 对 N 个实例<strong>按顺序</strong>取锁。在此期间，客户端应该使用一个较小于锁自动释放时间的一个时间作为获取锁的动作的超时时。例如如果自动释放锁的时间是 10 秒，则取锁超时时间可以在 5 到 50 毫秒之间。这是为了防止客户端长时间阻塞在一个可能已经挂掉的 redis 节点上：如果一个实例已经不可达，则已经尽快地尝试下一个节点。</li>
+<li>客户端从当前时间戳减去步骤 1 的时间戳，计算出取锁花费的总时间。当且仅当客户端在大多数实例（至少 3 个）中获取到了锁，并且总消耗时间少于锁的有效时间，则认为该客户端取到了锁。</li>
+<li>如果一个锁被申请到了，它的有效时间就是初始有效时间减去取锁总消耗时间，就像步骤 3 的计算一样。</li>
+<li>如果客户端因为某些原因没有获取到锁（无法锁住 N/2+1 个实例或者算得有效时间是负数），它需要对所有实例进行解锁（尽管是它认为它没有锁住的实例）。</li>
+</ol>
+<h2 id="该算法是否异步的"><a class="header-anchor" href="#该算法是否异步的">¶</a>该算法是否异步的</h2>
+<p>这个算法的前提是假设各进程之间没有时钟同步（互不影响，非同步），每个进程的时间都以近似相同的速率流逝，允许存在相较于自动释放锁时间要小的偏差。这个假设接近于真实的计算机：所有计算机拥有本地时钟，我们通常依赖于不同的计算机之间拥有一个较小的时钟偏移。</p>
+<p>考虑到这一点，已经更严谨地定义 redlock 的互斥性：只要客户端在锁的有效时间（步骤3计算出来的）减去一些时间（为了补偿不同进程间的时钟偏移的几毫秒）之内完成它的业务就可以保证互斥性。</p>
+<h2 id="失败重试"><a class="header-anchor" href="#失败重试">¶</a>失败重试</h2>
+<p>当一个客户端无法申请到锁的时候，它应该在一个<strong>随机的</strong>延迟之后进行重试，这是为了将多个客户端在同一时间对一个资源获取锁的动作错开（这是因为如果不错开可能会导致脑裂/因为当某个客户端在当前 redis master 无法获取锁的时候它会尽快从下一个实例获取，如果一直有多个客户端同时在获取同一个 redlock，将可能导致一直没有客户端获取到 N/2+1 个锁）。另外，<strong>只要一个客户端在大多数 Redis 实例中获取到锁的时间越短，发生脑裂的窗口也就越小</strong>（这也是失败重试所需要的），所以理想情况下客户端应该使用多路复用器（如 linux epoll）在同一时间向 N 个 Redis 实例发送 <code>SET</code> 命令。</p>
+<p>客户端需要在不能完全取锁时主动尽快地那些已经锁住的实例，基于此在重新获取该锁的时候就无需等待 key 过期才能获取。（但是如果出现了网络分区然后该客户端无法再与相应的 Redis 实例通信，就需要等待 key 过期）</p>
+<h2 id="释放锁"><a class="header-anchor" href="#释放锁">¶</a>释放锁</h2>
+<p>释放锁很简单，需要在所有的实例上释放锁，无论客户端是否认为它可以成功锁住某个实例。</p>
+<h2 id="安全性讨论"><a class="header-anchor" href="#安全性讨论">¶</a>安全性讨论</h2>
+<p>假设一个客户端锁住了大多数 redis 实例。所有实例都拥有一个具有相同 ttl 的 key。但是，这个key 是在不同时间被设置的，所以这些 key 会在不同时间过期。假设第一个 key 在时间 T1 （在设置第一个 redis 之前记录的时间戳）被设置，最后一个 key 在时间 T2 （取锁成功最后一个 redis 返回的时间）被设置，所以第一个 key 的最小有效时间 <code>MIN_VALIDITY = TTL - (T2 - T1) - CLOCK_DRIFFT</code> 。所有的其它 keys 都会在之后过期，所以可以确认的是，所有 keys 至少在这一时间到达之前都是被该客户端设置了的。</p>
+<p>在大多数（N/2+1） keys 被设置期间，其它客户端就不能设置 <code>N/2+1</code> 个 keys。所以如果一个锁被申请了，就不可能被重复申请（破坏三要素的互斥性）。</p>
+<p>下面要确认的是同时尝试获取锁的多个客户端不会同时成功。</p>
+<p>如果一个客户端使用了接近于或者大于锁的最大有效时间（我们设置给 key 的 TTL），它将会认为这个锁是无效的然后释放锁，所以我们仅需考虑客户端取锁（N/2+1）时间小于该最大有效时间的情况。 In this case for the argument already expressed above, for <code>MIN_VALIDITY</code> no client should be able to re-acquire the lock. So multiple clients will be able to lock N/2+1 instances at the same time (with “time” being the end of Step 2) only when the time to lock the majority was greater than the TTL time, making the lock invalid.</p>
+<h2 id="可用性讨论"><a class="header-anchor" href="#可用性讨论">¶</a>可用性讨论</h2>
+<p>系统可用性基于三个主要的特性：</p>
+<ol>
+<li>锁的自动释放（基于 keys 的过期）：所有 keys 最终都可以被重新锁住。</li>
+<li>客户端会在没有完全获取到锁或者获取到锁但是完成了业务的时候主动释放锁，而无需完全等待锁过期之后才能重新获取该锁。</li>
+<li>当一个客户端重试取锁的时候，将会等待一个类似大于取锁所需时间的时间，降低锁竞争期间脑裂的可能性。</li>
+</ol>
+<p>另外上面提到如果一个客户端获取锁之后出现了网络分区，其它客户端就需要等待这个 key 的 TTL 之后才能申请到锁。</p>
+<h2 id="性能、崩溃恢复和-fsync"><a class="header-anchor" href="#性能、崩溃恢复和-fsync">¶</a>性能、崩溃恢复和 fsync</h2>
+<p>许多用户使用 Redis 作为一个高性能锁服务器，包括获取/释放锁需要的延迟、获取/释放锁的操作（可能需要一秒）数量。为了满足这一需求，肯定要使用多路复用器（或者&quot;低配版&quot;多路复用器，设置为实例创建的 socket 为非阻塞模式，然后一次性向所有 socket 发送所有命令，稍后再一起读取所有命令/假设客户端和每个实例之间的 RTT 近似的）来和 N 个 Redis 实例进行通信以减少延迟。</p>
+<p>但是这里有另外一个需要考虑的点，如果我们想实现一个支持崩溃后恢复的系统，需要做持久化。假设 Redis 配置不做持久化。一个客户端在 5 个实例中的 3 个获取到了锁，然后其中一个锁住的实例发生了重启，此时对于这个锁又有了 3 个实例可以给其它客户端锁住了，破坏了锁互斥的安全性。</p>
+<p>如果我们启用 AOF 持久化，将会稍微有所改进。例如在我们需要升级 Redis 的时候对其发送 <code>SHUTDOWN</code> 来重启它。因为 Redis 的过期是严格实现的，所以即使是 Redis 没有启动的时候过期时间也是在虚拟的流逝的（其实就是所有设置过期的方式都转换为给 key 设置一个死亡时间，每次读取 key 的时候都会比较该时间），此时是可以满足需求的。但是仅当 redis 的停止是&quot;干净&quot;的才会满足（redis 启动 AOF 之后会在 shutdown 的时候自动备份），如果是发生停电的情况下就不能满足了，默认情况下，redis 被配置为每秒 fsync 到磁盘，此时发生重启丢失 key 是有可能的。在理论上，如果我们需要在各种原因导致的 crash 下保证锁的安全性，需要启用 <code>fsync=always</code> 。这将会使得性能降低为和 CP 系统（安全的分布式锁的经典实现）一样。</p>
+<p>不过这里还有另外一种方案。只要一个 crash 后重启的实例不再参与任何<strong>当前活跃的锁</strong>的获取就可以保持该算法的安全性，所以当一个实例发生重启后，当前所有活跃的锁都只能通过锁定除了重新加入集群的该实例之外的其它实例来获得。</p>
+<p>为了实现上面提到的方案，我们仅需要使得一个 crash 的实例至少在大于所有锁的 key 中最大 TTL 的时间内不可达，这段时间需要用来等待所有在该实例 crash 的时候已经存在的锁的相关 keys 变成无效的并自动释放。</p>
+<p>使用 <em>delayed restarts</em> 基本上就可以实现，无需配置 Redis 的任何持久化方案，但是需要注意的是这可能会付出一些可用性的代价。例如如果大多数的实例 crash 了，整个系统都会在 TTL 之内全局不可用（在这段时间内没有资源可以申请锁）</p>
+<h2 id="使算法更可靠：延长锁时间"><a class="header-anchor" href="#使算法更可靠：延长锁时间">¶</a>使算法更可靠：延长锁时间</h2>
+<p>如果客户端需要执行的工作由一些小的步骤组成，则默认情况下可以使用更小的时间作为锁的有效时间，然后扩展该算法以实现延长锁的有效时间的机制。当客户端在计算过程中发现锁的有效时间接近于一个很低的值的时候，可以通过发送一个 lua 脚本到所有的实例上延长 keys 的 TTL 来延长锁的时间，前提是锁依然存在并且它的值依然是该客户端之前申请该锁时设置的值。</p>
+<p>客户端只有在它可以在大多数实例中都延长了锁的时间、并且在有效时间内的情况下才可以认为该锁被它继续占有（基本上这个算法和正常申请锁的算法很类似）。</p>
+<p>However this does not technically change the algorithm, so the maximum number of lock reacquisition attempts should be limited, otherwise one of the liveness properties is violated.</p>
+
+            </div>
+            <hr />
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">写作不易，客官能否打赏一杯奶茶？</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《基于 Redis 的分布式锁：RedLock》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2020/12/31/redis/redis-guan-fang-wen-dang/redlock/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                阿钟
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '466e387c08bce10f3f28',
+        clientSecret: '5b2bf16f8a42bd72eef32e50187c7f2ccb105a1d',
+        repo: 'azhong.github.io',
+        owner: 'JohnZhongg',
+        admin: "JohnZhongg",
+        id: '2020/12/31/redis/redis-guan-fang-wen-dang/redlock/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+    <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script> -->
+
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '',
+        appKey: '',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'false' === 'true',
+        avatar: 'wavatar',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '如果你没有GitHub账号，还可以在这里评论啦！'
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/12/31/redis/redis-guan-fang-wen-dang/redlock/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="基于 Redis 的分布式锁：RedLock">
+                        
+                        <span class="card-title">基于 Redis 的分布式锁：RedLock</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            基于 Redis 的分布式锁：RedLock
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/redis/" class="post-category" target="_blank">
+                                    redis
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/分布式锁/" target="_blank">
+                        <span class="chip bg-color">分布式锁</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/24/jvm/za-xiang/java-agent/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java agent">
+                        
+                        <span class="card-title">Java agent</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Java agent
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JVM学习/" class="post-category" target="_blank">
+                                    JVM学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JVM学习/" target="_blank">
+                        <span class="chip bg-color">JVM学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 2020- Azhong. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">631.8k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/JohnZhongg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:707845008@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://zhihu.com/people/change-94-17" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-inverse">知</i>
+    </a>
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=707845008&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的知乎" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+<!-- 
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+ --></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020, 12, 20, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', '');
+</script>
+
+
+
+    
+    <script src="/libs/others/clicklove.js"></script>
+    
+
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>
