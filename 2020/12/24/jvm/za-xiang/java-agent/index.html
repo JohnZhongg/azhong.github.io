@@ -485,14 +485,14 @@ JVM Tool Interface（JVM TI）是一个作为工具作用的原生(native)接口
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.4k
+                    6.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    22 分
+                    25 分
                 </div>
                 
                 
@@ -677,11 +677,57 @@ void	addTransformer(ClassFileTransformer transformer) // same as addTransformer(
 <p>This method does not cause any initialization except that which would occur under the customary JVM semantics. In other words, redefining a class does not cause its initializers to be run. The values of static variables will remain as they were prior to the call.</p>
 <p>Instances of the retransformed class are not affected.</p>
 <p>重转换可能还会修改方法体、常量池和属性表，但是一定不能添加、移除、重命名字段或者方法、修改方法签名或者修改继承关系。这些限制可能会在未来的 Java 版本中被移除。class 字节码在重转换完成之后才会进行检查、校验、安装/应用，如果最终转换后得到的字节码是错误的，这个方法将会抛出一个异常。</p>
+<p>如果这个方法抛出了异常，将不会有 classes 被重转换。</p>
 <h4 id="5-是否支持重定义-classes"><a class="header-anchor" href="#5-是否支持重定义-classes">¶</a>5&gt;是否支持重定义 classes</h4>
 <pre class="line-numbers language-language-java"><code class="language-language-java">boolean isRedefineClassesSupported()
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>返回当前 JVM 是否支持重定义 classes。当且仅当在 agent JAR 的 manifest 中存在 <code>Can-Redefine-Classes</code> 属性为 true 且 JVM 拥有重定义 classes 的能力的时候返回 true。</p>
 <h4 id="6-重定义-classes"><a class="header-anchor" href="#6-重定义-classes">¶</a>6&gt;重定义 classes</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">redefineClasses
+void redefineClasses(ClassDefinition... definitions)
+              throws ClassNotFoundException,
+                     UnmodifiableClassException
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重定义给定的 class （定义）。</p>
+<p>这个方法在无需使用现有 classes 的引用的情况下替换它们的定义，类似在调试代码的时候进行热重载那样重新编译某些类。当某些类需要被转换的时候，<code>retransformClasses</code> 就会被调用。</p>
+<p>This method operates on a set in order to allow interdependent changes to more than one class at the same time (a redefinition of class A can require a redefinition of class B).</p>
+<p><strong>如果被重定义的方法已经存在一些栈帧，这些栈帧的字节码将会保持和原方法一致不变，而重定义后的方法将会在后续的新的调用中被使用。</strong></p>
+<p>This method does not cause any initialization except that which would occur under the customary JVM semantics. In other words, redefining a class does not cause its initializers to be run. The values of static variables will remain as they were prior to the call.</p>
+<p>Instances of the redefined class are not affected.</p>
+<p>重转换可能还会修改方法体、常量池和属性表，但是一定不能添加、移除、重命名字段或者方法、修改方法签名或者修改继承关系。这些限制可能会在未来的 Java 版本中被移除。class 字节码在重转换完成之后才会进行检查、校验、安装/应用，如果最终得到的字节码是错误的，这个方法将会抛出一个异常。</p>
+<p>如果这个方法抛出了异常，将不会有 classes 被重定义。</p>
+<h4 id="7-判断一个-class-是否可以被修改"><a class="header-anchor" href="#7-判断一个-class-是否可以被修改">¶</a>7&gt;判断一个 class 是否可以被修改</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">boolean isModifiableClass(Class<?> theClass)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>判断一个 class 是否可以通过重转换和重定义来修改，可以则返回 true，否则返回 false。</p>
+<p>class 的重转换必须 <code>isRetransformClassesSupported()</code> 为 true；重定义必须要 <code>isRedefineClassesSupported()</code> 为 true。但是这两个方法的返回值不会对当前方法产生影响，这个方法是具体的类维度的定义。</p>
+<p>原生类（如 <code>java.lang.Integer.TYPE</code>）以及数组类永远不能被修改</p>
+<h4 id="8-获取当前-JVM-已经加载的所有-classes"><a class="header-anchor" href="#8-获取当前-JVM-已经加载的所有-classes">¶</a>8&gt;获取当前 JVM 已经加载的所有 classes</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Class[] getAllLoadedClasses()
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="9-获取某个类加载器已经初始化的类"><a class="header-anchor" href="#9-获取某个类加载器已经初始化的类">¶</a>9&gt;获取某个类加载器已经初始化的类</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Class[] getInitiatedClasses(ClassLoader loader)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>获取传入类加载器已经加载的所有类，如果传入为 null，将视为传入了 boostrap 类加载。</p>
+<h4 id="10-获取对象的大小"><a class="header-anchor" href="#10-获取对象的大小">¶</a>10&gt;获取对象的大小</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">long getObjectSize(Object objectToSize)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>返回传入对象的大小，这个大小取决于具体虚拟机的实现，且是一个近似值。这个值仅适合在同一个 JVM 内进行比较，另外这个估算值也是可能会变化的。</p>
+<h4 id="11-添加额外的-jar"><a class="header-anchor" href="#11-添加额外的-jar">¶</a>11&gt;添加额外的 jar</h4>
+<pre class="line-numbers language-language-java"><code class="language-language-java">void appendToBootstrapClassLoaderSearch(JarFile jarfile)
+void appendToSystemClassLoaderSearch(JarFile jarfile)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol>
+<li>
+<p>方法一是添加包含 instrumentation classes 的 jar，当 boostrap 类加载器无法加载某个类的时候，就会在该 jar 中搜索该类进行加载，这个方法可以被调用多次添加多个 jar，避免 jar 中包含除了 instrumentation 之外的 class，导致潜在的类同名加载冲突。一个合适的避免冲突的方法就是给 instrumentation 的类放在一个唯一的包名下。</p>
+</li>
+<li>
+<p>方法二是添加包含 instrumentation classes 的 jar，当 system 类加载器无法加载某个类的时候，就会在该 jar 中搜索该类进行加载，这个方法可以被调用多次添加多个 jar，避免 jar 中包含除了 instrumentation 之外的 class，导致潜在的类同名加载冲突。</p>
+<p>当 system 类加载器实现一个名为 <code>appendToClassPathForInstrumentatiion</code> 的、且只有一个 <code>java.lang.String</code> 参数的方法时，才支持这种添加 jar 的方式。JVM 通过 <code>jarfile.getName()</code> 返回的结果传入到该方法的参数中实现添加 jar。</p>
+</li>
+</ol>
+<h4 id="12-isNativeMethodPrefixSupported"><a class="header-anchor" href="#12-isNativeMethodPrefixSupported">¶</a>12&gt;isNativeMethodPrefixSupported</h4>
+<h4 id="13-setNativeMethodPrefix"><a class="header-anchor" href="#13-setNativeMethodPrefix">¶</a>13&gt;setNativeMethodPrefix</h4>
 <h2 id="两种加载-Agent-的方式"><a class="header-anchor" href="#两种加载-Agent-的方式">¶</a>两种加载 Agent 的方式</h2>
 <p>我们需要编写一个 agent 类，这个类中包含一些会被 JVM 通过某种方式运行的钩子方法，然后在钩子方法中可以获取到 JVM 传入的 <code>Instrumentation</code> 实例添加我们的自定义类转换器。</p>
 <h3 id="静态加载"><a class="header-anchor" href="#静态加载">¶</a>静态加载</h3>
@@ -1588,7 +1634,7 @@ Caused by: java.lang.ClassNotFoundException: javassist.NotFoundException
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">631.8k</span>
+            <span class="white-color">632.8k</span>
             
 
             <br>
