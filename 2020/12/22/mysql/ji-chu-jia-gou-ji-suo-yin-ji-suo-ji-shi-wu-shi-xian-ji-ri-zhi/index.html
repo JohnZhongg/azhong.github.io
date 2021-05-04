@@ -335,7 +335,7 @@ mysql&gt; select * from T where ID=10；
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -5309,7 +5309,7 @@ select distinct a from t;
 <pre class="line-numbers language-language-mysql"><code class="language-language-mysql">select a,count(*) from t group by a order by null;
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这条语句的逻辑是：按照字段 a 分组，计算每组的 a 出现的次数。在这个结果里，由于做的是聚合计算，相同的 a 只出现一次。</p>
-<p>如果没有了 count(*) 以后，也就是不再需要执行“计算总数”的逻辑时，第一条语句的逻辑就变成是：按照字段 a 做分组，相同的 a 的值只返回一行。而这就是 <code>distinct</code> 的语义，所以不需要执行聚合函数时，<code>distinct</code> 和 <code>group b</code>y 这两条语句的语义和执行流程是相同的，因此执行性能也相同。这两条语句的执行流程是下面这样的。</p>
+<p>如果没有了 count(*) 以后，也就是不再需要执行“计算总数”的逻辑时，第一条语句的逻辑就变成是：按照字段 a 做分组，相同的 a 的值只返回一行。而这就是 <code>distinct</code> 的语义，所以不需要执行聚合函数时，<code>distinct</code> 和 <code>group by</code> 这两条语句的语义和执行流程是相同的，因此执行性能也相同。这两条语句的执行流程是下面这样的。</p>
 <ol>
 <li>创建一个临时表，临时表有一个字段 a，并且在这个字段 a 上创建一个唯一索引；</li>
 <li>遍历表 t，依次取数据插入临时表中：
@@ -5320,6 +5320,14 @@ select distinct a from t;
 </li>
 <li>遍历完成后，将临时表作为结果集返回给客户端。</li>
 </ol>
+<blockquote>
+<p>其实，a 上有索引两者的执行性能也是一样的，只要 <code>group by</code> 没有聚合操作，和 <code>distinct</code> 的性能都是一样，因为有了聚合操作不就是多了一步操作了吗(废话)。</p>
+<ul>
+<li>如果有索引，两者都无需建立临时表，直接根据索引遍历</li>
+<li>如果没有索引，两者都需要建立临时表并建立主键 id 进行去重。</li>
+</ul>
+<p>另外，如果 a 上没有索引，<code>group by</code> 语句后面必须带 <code>order by null</code> 两者性能才一样；否则 <code>distinct</code> 比 <code>group by</code> 要好，因为两者都因为没有索引都需要建立临时表进行去重，而 <code>group by </code> 去完重之后还要做一次排序。</p>
+</blockquote>
 <h1>二十四、Memory 引擎</h1>
 <h2 id="内存表的数据组织结构"><a class="header-anchor" href="#内存表的数据组织结构">¶</a>内存表的数据组织结构</h2>
 <p>假设有以下的两张表 t1 和 t2，其中表 t1 使用 Memory 引擎， 表 t2 使用 InnoDB 引擎。</p>
@@ -6654,7 +6662,7 @@ insert into t values(null);
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="《redis设计与实践》读书笔记">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="《redis设计与实践》读书笔记">
                         
                         <span class="card-title">《redis设计与实践》读书笔记</span>
                     </div>
@@ -6703,7 +6711,7 @@ insert into t values(null);
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="linux的fork()和exec()">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="linux的fork()和exec()">
                         
                         <span class="card-title">linux的fork()和exec()</span>
                     </div>
@@ -6871,7 +6879,7 @@ insert into t values(null);
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">632.8k</span>
+            <span class="white-color">636.3k</span>
             
 
             <br>
