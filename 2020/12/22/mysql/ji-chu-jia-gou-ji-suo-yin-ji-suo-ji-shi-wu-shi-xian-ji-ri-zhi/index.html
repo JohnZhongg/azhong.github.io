@@ -5323,8 +5323,21 @@ select distinct a from t;
 <blockquote>
 <p>其实，a 上有索引两者的执行性能也是一样的，只要 <code>group by</code> 没有聚合操作，和 <code>distinct</code> 的性能都是一样，因为有了聚合操作不就是多了一步操作了吗(废话)。</p>
 <ul>
-<li>如果有索引，两者都无需建立临时表，直接根据索引遍历</li>
-<li>如果没有索引，两者都需要建立临时表并建立主键 id 进行去重。</li>
+<li>
+<p>如果有索引，两者都无需建立临时表，直接根据索引遍历</p>
+<pre><code>loop row in index_rows
+	if $prev == $cur then
+		continue
+	else
+		results.add($cur)
+		$prev = $cur
+	end if
+end loop
+</code></pre>
+</li>
+<li>
+<p>如果没有索引，两者都需要建立临时表并建立主键 id 进行去重。</p>
+</li>
 </ul>
 <p>另外，如果 a 上没有索引，<code>group by</code> 语句后面必须带 <code>order by null</code> 两者性能才一样；否则 <code>distinct</code> 比 <code>group by</code> 要好，因为两者都因为没有索引都需要建立临时表进行去重，而 <code>group by </code> 去完重之后还要做一次排序。</p>
 </blockquote>
