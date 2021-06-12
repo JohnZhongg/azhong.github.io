@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://honphanjohn.top/"/>
-  <updated>2021-01-04T08:54:42.595Z</updated>
+  <updated>2021-06-12T07:56:46.622Z</updated>
   <id>https://honphanjohn.top/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>00_基础工具</title>
+    <link href="https://honphanjohn.top/2021/04/23/guava/00-basic-utilities/"/>
+    <id>https://honphanjohn.top/2021/04/23/guava/00-basic-utilities/</id>
+    <published>2021-04-23T14:09:23.000Z</published>
+    <updated>2021-06-12T07:56:46.622Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="guava" scheme="https://honphanjohn.top/categories/guava/"/>
+    
+    
+      <category term="guava" scheme="https://honphanjohn.top/tags/guava/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IoC、DIP</title>
+    <link href="https://honphanjohn.top/2021/04/23/she-ji-mo-shi/ioc-dip/"/>
+    <id>https://honphanjohn.top/2021/04/23/she-ji-mo-shi/ioc-dip/</id>
+    <published>2021-04-23T14:09:23.000Z</published>
+    <updated>2021-06-12T07:55:34.548Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1&gt;IoC 理解&lt;/h1&gt;
+&lt;p&gt;IoC 全称 inversion of
+        
+      
+    
+    </summary>
+    
+      <category term="设计模式" scheme="https://honphanjohn.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="设计模式" scheme="https://honphanjohn.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>Java agent</title>
@@ -524,52 +569,6 @@
 &lt;h2 id=&quot;硬件的效率与一致性&quot;&gt;&lt;a class=&quot;header-anchor&quot;
         
       
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>03_虚拟机栈(方法栈)</title>
-    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/03-xu-ni-ji-zhan-fang-fa-zhan/"/>
-    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/03-xu-ni-ji-zhan-fang-fa-zhan/</id>
-    <published>2020-12-21T16:41:54.030Z</published>
-    <updated>2020-12-21T16:41:54.031Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1&gt;虚拟机栈概述&lt;/h1&gt;
-&lt;p&gt;由于跨平台性的设计，Java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。&lt;/p&gt;
-&lt;p&gt;栈是运行时的单位(线程绑定、方法相
-        
-      
-    
-    </summary>
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/categories/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="JVM学习" scheme="https://honphanjohn.top/tags/JVM%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java-JVM-操作系统线程模型</title>
-    <link href="https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/"/>
-    <id>https://honphanjohn.top/2020/12/22/jvm/shen-ru-li-jie-java-xu-ni-ji-bi-ji/xian-cheng-mo-xing/</id>
-    <published>2020-12-21T16:41:54.013Z</published>
-    <updated>2020-12-21T16:41:54.014Z</updated>
-    
-    <summary type="html">
     
     </summary>
     
